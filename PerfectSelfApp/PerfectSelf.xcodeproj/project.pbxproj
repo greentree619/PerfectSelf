@@ -46,6 +46,10 @@
 		BA4714CB29A79856007AABC2 /* SanFranciscoDisplay-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = BA4714B929A79856007AABC2 /* SanFranciscoDisplay-Regular.otf */; };
 		BA4714CD29A7986D007AABC2 /* images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BA4714CC29A7986C007AABC2 /* images.xcassets */; };
 		BA4714CF29A7987E007AABC2 /* result_ios.xib in Resources */ = {isa = PBXBuildFile; fileRef = BA4714CE29A7987E007AABC2 /* result_ios.xib */; };
+		BA4714E029A7B5AB007AABC2 /* DesignButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4714DC29A7B5AA007AABC2 /* DesignButton.swift */; };
+		BA4714E129A7B5AB007AABC2 /* DesignFigure.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4714DD29A7B5AA007AABC2 /* DesignFigure.swift */; };
+		BA4714E229A7B5AB007AABC2 /* DesignImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4714DE29A7B5AA007AABC2 /* DesignImageView.swift */; };
+		BA4714E329A7B5AB007AABC2 /* DesignLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4714DF29A7B5AA007AABC2 /* DesignLabel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -88,6 +92,10 @@
 		BA4714B929A79856007AABC2 /* SanFranciscoDisplay-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SanFranciscoDisplay-Regular.otf"; sourceTree = "<group>"; };
 		BA4714CC29A7986C007AABC2 /* images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = images.xcassets; sourceTree = "<group>"; };
 		BA4714CE29A7987E007AABC2 /* result_ios.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = result_ios.xib; sourceTree = "<group>"; };
+		BA4714DC29A7B5AA007AABC2 /* DesignButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DesignButton.swift; sourceTree = "<group>"; };
+		BA4714DD29A7B5AA007AABC2 /* DesignFigure.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DesignFigure.swift; sourceTree = "<group>"; };
+		BA4714DE29A7B5AA007AABC2 /* DesignImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DesignImageView.swift; sourceTree = "<group>"; };
+		BA4714DF29A7B5AA007AABC2 /* DesignLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DesignLabel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -161,6 +169,7 @@
 		79262EDA20B0D6F500D576C1 = {
 			isa = PBXGroup;
 			children = (
+				BA4714DB29A7B5AA007AABC2 /* Designable */,
 				BA4714CE29A7987E007AABC2 /* result_ios.xib */,
 				BA4714CC29A7986C007AABC2 /* images.xcassets */,
 				BA4714A329A79856007AABC2 /* Fonts */,
@@ -266,6 +275,17 @@
 				BA4714B929A79856007AABC2 /* SanFranciscoDisplay-Regular.otf */,
 			);
 			path = SanFrancisco;
+			sourceTree = "<group>";
+		};
+		BA4714DB29A7B5AA007AABC2 /* Designable */ = {
+			isa = PBXGroup;
+			children = (
+				BA4714DC29A7B5AA007AABC2 /* DesignButton.swift */,
+				BA4714DD29A7B5AA007AABC2 /* DesignFigure.swift */,
+				BA4714DE29A7B5AA007AABC2 /* DesignImageView.swift */,
+				BA4714DF29A7B5AA007AABC2 /* DesignLabel.swift */,
+			);
+			path = Designable;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -377,9 +397,13 @@
 				79177CA620B1F76E00BCD399 /* RTCStates.swift in Sources */,
 				79177C9920B0DF2700BCD399 /* SignalingClient.swift in Sources */,
 				795A4A2A221E0FB100F8BB03 /* Message.swift in Sources */,
+				BA4714E229A7B5AB007AABC2 /* DesignImageView.swift in Sources */,
 				795A4A28221E0A1B00F8BB03 /* IceCandidate.swift in Sources */,
+				BA4714E129A7B5AB007AABC2 /* DesignFigure.swift in Sources */,
+				BA4714E329A7B5AB007AABC2 /* DesignLabel.swift in Sources */,
 				2F7EBC3622DCC6430015B46E /* WebSocketProvider.swift in Sources */,
 				79177C9720B0DE7A00BCD399 /* WebRTCClient.swift in Sources */,
+				BA4714E029A7B5AB007AABC2 /* DesignButton.swift in Sources */,
 				2F7EBC3822DCCB4E0015B46E /* StarscreamProvider.swift in Sources */,
 				2F7EBC3A22DCCE240015B46E /* NativeWebSocket.swift in Sources */,
 			);
