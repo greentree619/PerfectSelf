@@ -46,6 +46,8 @@
 		BA4714CB29A79856007AABC2 /* SanFranciscoDisplay-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = BA4714B929A79856007AABC2 /* SanFranciscoDisplay-Regular.otf */; };
 		BA4714CD29A7986D007AABC2 /* images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BA4714CC29A7986C007AABC2 /* images.xcassets */; };
 		BA4714CF29A7987E007AABC2 /* result_ios.xib in Resources */ = {isa = PBXBuildFile; fileRef = BA4714CE29A7987E007AABC2 /* result_ios.xib */; };
+		BA4714D829A7A6D8007AABC2 /* MeetingListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BA4714D729A7A6D8007AABC2 /* MeetingListViewController.xib */; };
+		BA4714DA29A7A72E007AABC2 /* MeetingListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4714D929A7A72E007AABC2 /* MeetingListViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -88,6 +90,8 @@
 		BA4714B929A79856007AABC2 /* SanFranciscoDisplay-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SanFranciscoDisplay-Regular.otf"; sourceTree = "<group>"; };
 		BA4714CC29A7986C007AABC2 /* images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = images.xcassets; sourceTree = "<group>"; };
 		BA4714CE29A7987E007AABC2 /* result_ios.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = result_ios.xib; sourceTree = "<group>"; };
+		BA4714D729A7A6D8007AABC2 /* MeetingListViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MeetingListViewController.xib; sourceTree = "<group>"; };
+		BA4714D929A7A72E007AABC2 /* MeetingListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeetingListViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -194,6 +198,7 @@
 		798FBA442200F510009F525E /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				BA4714D029A7A4F5007AABC2 /* MeetingListScreen */,
 				7921989F220107C90051F03F /* MainScreen */,
 				792198A0220107E30051F03F /* VideoScreen */,
 			);
@@ -266,6 +271,15 @@
 				BA4714B929A79856007AABC2 /* SanFranciscoDisplay-Regular.otf */,
 			);
 			path = SanFrancisco;
+			sourceTree = "<group>";
+		};
+		BA4714D029A7A4F5007AABC2 /* MeetingListScreen */ = {
+			isa = PBXGroup;
+			children = (
+				BA4714D929A7A72E007AABC2 /* MeetingListViewController.swift */,
+				BA4714D729A7A6D8007AABC2 /* MeetingListViewController.xib */,
+			);
+			path = MeetingListScreen;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -350,6 +364,7 @@
 				798FBA472200F681009F525E /* MainViewController.xib in Resources */,
 				BA4714C929A79856007AABC2 /* SanFranciscoText-Bold.otf in Resources */,
 				79177CAA20B2283F00BCD399 /* VideoViewController.xib in Resources */,
+				BA4714D829A7A6D8007AABC2 /* MeetingListViewController.xib in Resources */,
 				BA4714C529A79856007AABC2 /* SFProText-Semibold.otf in Resources */,
 				BA4714BB29A79856007AABC2 /* ABeeZee-Regular.ttf in Resources */,
 				BA4714BF29A79856007AABC2 /* ProximaNova-Semibold.otf in Resources */,
@@ -377,6 +392,7 @@
 				79177CA620B1F76E00BCD399 /* RTCStates.swift in Sources */,
 				79177C9920B0DF2700BCD399 /* SignalingClient.swift in Sources */,
 				795A4A2A221E0FB100F8BB03 /* Message.swift in Sources */,
+				BA4714DA29A7A72E007AABC2 /* MeetingListViewController.swift in Sources */,
 				795A4A28221E0A1B00F8BB03 /* IceCandidate.swift in Sources */,
 				2F7EBC3622DCC6430015B46E /* WebSocketProvider.swift in Sources */,
 				79177C9720B0DE7A00BCD399 /* WebRTCClient.swift in Sources */,
