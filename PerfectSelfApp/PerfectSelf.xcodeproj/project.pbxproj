@@ -44,8 +44,17 @@
 		BA4714C929A79856007AABC2 /* SanFranciscoText-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = BA4714B729A79856007AABC2 /* SanFranciscoText-Bold.otf */; };
 		BA4714CA29A79856007AABC2 /* SFProDisplay-Heavy.otf in Resources */ = {isa = PBXBuildFile; fileRef = BA4714B829A79856007AABC2 /* SFProDisplay-Heavy.otf */; };
 		BA4714CB29A79856007AABC2 /* SanFranciscoDisplay-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = BA4714B929A79856007AABC2 /* SanFranciscoDisplay-Regular.otf */; };
-		BA4714CD29A7986D007AABC2 /* images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BA4714CC29A7986C007AABC2 /* images.xcassets */; };
-		BA4714CF29A7987E007AABC2 /* result_ios.xib in Resources */ = {isa = PBXBuildFile; fileRef = BA4714CE29A7987E007AABC2 /* result_ios.xib */; };
+		BAC11B5A29A848B800580143 /* MeetingListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAC11B5829A848B800580143 /* MeetingListViewController.swift */; };
+		BAC11B5B29A848B800580143 /* MeetingListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BAC11B5929A848B800580143 /* MeetingListViewController.xib */; };
+		BAC11B6129A848C400580143 /* DesignButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAC11B5D29A848C400580143 /* DesignButton.swift */; };
+		BAC11B6229A848C400580143 /* DesignFigure.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAC11B5E29A848C400580143 /* DesignFigure.swift */; };
+		BAC11B6329A848C400580143 /* DesignImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAC11B5F29A848C400580143 /* DesignImageView.swift */; };
+		BAC11B6429A848C400580143 /* DesignLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAC11B6029A848C400580143 /* DesignLabel.swift */; };
+		BAC11B6829A856A100580143 /* ConferenceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAC11B6629A856A100580143 /* ConferenceViewController.swift */; };
+		BAC11B6929A856A100580143 /* ConferenceViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BAC11B6729A856A100580143 /* ConferenceViewController.xib */; };
+		BAC11B6D29A8595800580143 /* DesignEllipse.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAC11B6A29A8595800580143 /* DesignEllipse.swift */; };
+		BAC11B6E29A8595800580143 /* DesignExtentions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAC11B6B29A8595800580143 /* DesignExtentions.swift */; };
+		BAC11B6F29A8595800580143 /* DesignView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAC11B6C29A8595800580143 /* DesignView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -86,8 +95,17 @@
 		BA4714B729A79856007AABC2 /* SanFranciscoText-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SanFranciscoText-Bold.otf"; sourceTree = "<group>"; };
 		BA4714B829A79856007AABC2 /* SFProDisplay-Heavy.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFProDisplay-Heavy.otf"; sourceTree = "<group>"; };
 		BA4714B929A79856007AABC2 /* SanFranciscoDisplay-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SanFranciscoDisplay-Regular.otf"; sourceTree = "<group>"; };
-		BA4714CC29A7986C007AABC2 /* images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = images.xcassets; sourceTree = "<group>"; };
-		BA4714CE29A7987E007AABC2 /* result_ios.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = result_ios.xib; sourceTree = "<group>"; };
+		BAC11B5829A848B800580143 /* MeetingListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeetingListViewController.swift; sourceTree = "<group>"; };
+		BAC11B5929A848B800580143 /* MeetingListViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MeetingListViewController.xib; sourceTree = "<group>"; };
+		BAC11B5D29A848C400580143 /* DesignButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DesignButton.swift; sourceTree = "<group>"; };
+		BAC11B5E29A848C400580143 /* DesignFigure.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DesignFigure.swift; sourceTree = "<group>"; };
+		BAC11B5F29A848C400580143 /* DesignImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DesignImageView.swift; sourceTree = "<group>"; };
+		BAC11B6029A848C400580143 /* DesignLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DesignLabel.swift; sourceTree = "<group>"; };
+		BAC11B6629A856A100580143 /* ConferenceViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConferenceViewController.swift; sourceTree = "<group>"; };
+		BAC11B6729A856A100580143 /* ConferenceViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ConferenceViewController.xib; sourceTree = "<group>"; };
+		BAC11B6A29A8595800580143 /* DesignEllipse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DesignEllipse.swift; sourceTree = "<group>"; };
+		BAC11B6B29A8595800580143 /* DesignExtentions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DesignExtentions.swift; sourceTree = "<group>"; };
+		BAC11B6C29A8595800580143 /* DesignView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DesignView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -161,8 +179,7 @@
 		79262EDA20B0D6F500D576C1 = {
 			isa = PBXGroup;
 			children = (
-				BA4714CE29A7987E007AABC2 /* result_ios.xib */,
-				BA4714CC29A7986C007AABC2 /* images.xcassets */,
+				BAC11B5C29A848C400580143 /* Designable */,
 				BA4714A329A79856007AABC2 /* Fonts */,
 				798FBA422200F3B1009F525E /* Sources */,
 				79177C9B20B0E84600BCD399 /* Resources */,
@@ -194,6 +211,8 @@
 		798FBA442200F510009F525E /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				BAC11B6529A8562100580143 /* ConferenceScreen */,
+				BAC11B5729A848B800580143 /* MeetingListScreen */,
 				7921989F220107C90051F03F /* MainScreen */,
 				792198A0220107E30051F03F /* VideoScreen */,
 			);
@@ -268,6 +287,38 @@
 			path = SanFrancisco;
 			sourceTree = "<group>";
 		};
+		BAC11B5729A848B800580143 /* MeetingListScreen */ = {
+			isa = PBXGroup;
+			children = (
+				BAC11B5829A848B800580143 /* MeetingListViewController.swift */,
+				BAC11B5929A848B800580143 /* MeetingListViewController.xib */,
+			);
+			path = MeetingListScreen;
+			sourceTree = "<group>";
+		};
+		BAC11B5C29A848C400580143 /* Designable */ = {
+			isa = PBXGroup;
+			children = (
+				BAC11B6A29A8595800580143 /* DesignEllipse.swift */,
+				BAC11B6B29A8595800580143 /* DesignExtentions.swift */,
+				BAC11B6C29A8595800580143 /* DesignView.swift */,
+				BAC11B5D29A848C400580143 /* DesignButton.swift */,
+				BAC11B5E29A848C400580143 /* DesignFigure.swift */,
+				BAC11B5F29A848C400580143 /* DesignImageView.swift */,
+				BAC11B6029A848C400580143 /* DesignLabel.swift */,
+			);
+			path = Designable;
+			sourceTree = "<group>";
+		};
+		BAC11B6529A8562100580143 /* ConferenceScreen */ = {
+			isa = PBXGroup;
+			children = (
+				BAC11B6629A856A100580143 /* ConferenceViewController.swift */,
+				BAC11B6729A856A100580143 /* ConferenceViewController.xib */,
+			);
+			path = ConferenceScreen;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -335,8 +386,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BA4714CF29A7987E007AABC2 /* result_ios.xib in Resources */,
-				BA4714CD29A7986D007AABC2 /* images.xcassets in Resources */,
 				BA4714CA29A79856007AABC2 /* SFProDisplay-Heavy.otf in Resources */,
 				79262EEE20B0D6F800D576C1 /* Assets.xcassets in Resources */,
 				BA4714BC29A79856007AABC2 /* GTWalsheimPro-Medium.ttf in Resources */,
@@ -350,12 +399,14 @@
 				798FBA472200F681009F525E /* MainViewController.xib in Resources */,
 				BA4714C929A79856007AABC2 /* SanFranciscoText-Bold.otf in Resources */,
 				79177CAA20B2283F00BCD399 /* VideoViewController.xib in Resources */,
+				BAC11B5B29A848B800580143 /* MeetingListViewController.xib in Resources */,
 				BA4714C529A79856007AABC2 /* SFProText-Semibold.otf in Resources */,
 				BA4714BB29A79856007AABC2 /* ABeeZee-Regular.ttf in Resources */,
 				BA4714BF29A79856007AABC2 /* ProximaNova-Semibold.otf in Resources */,
 				BA4714C029A79856007AABC2 /* ProximaNova-Bold.otf in Resources */,
 				BA4714BA29A79856007AABC2 /* ABeeZee-Italic.ttf in Resources */,
 				BA4714C129A79856007AABC2 /* ProximaNova-Extrabold.otf in Resources */,
+				BAC11B6929A856A100580143 /* ConferenceViewController.xib in Resources */,
 				BA4714C229A79856007AABC2 /* ProximaNova-Regular.otf in Resources */,
 				BA4714C629A79856007AABC2 /* SF-Pro-Display-Regular.otf in Resources */,
 				798FBA492200F9A9009F525E /* LaunchScreen.storyboard in Resources */,
@@ -369,18 +420,27 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BAC11B6829A856A100580143 /* ConferenceViewController.swift in Sources */,
 				79262EE920B0D6F600D576C1 /* MainViewController.swift in Sources */,
 				792198A222011A450051F03F /* Config.swift in Sources */,
 				79177CA820B2276400BCD399 /* VideoViewController.swift in Sources */,
 				79262EE720B0D6F600D576C1 /* AppDelegate.swift in Sources */,
 				795A4A26221E081A00F8BB03 /* SessionDescription.swift in Sources */,
 				79177CA620B1F76E00BCD399 /* RTCStates.swift in Sources */,
+				BAC11B6429A848C400580143 /* DesignLabel.swift in Sources */,
 				79177C9920B0DF2700BCD399 /* SignalingClient.swift in Sources */,
 				795A4A2A221E0FB100F8BB03 /* Message.swift in Sources */,
+				BAC11B6D29A8595800580143 /* DesignEllipse.swift in Sources */,
+				BAC11B6329A848C400580143 /* DesignImageView.swift in Sources */,
+				BAC11B5A29A848B800580143 /* MeetingListViewController.swift in Sources */,
+				BAC11B6229A848C400580143 /* DesignFigure.swift in Sources */,
+				BAC11B6129A848C400580143 /* DesignButton.swift in Sources */,
 				795A4A28221E0A1B00F8BB03 /* IceCandidate.swift in Sources */,
 				2F7EBC3622DCC6430015B46E /* WebSocketProvider.swift in Sources */,
 				79177C9720B0DE7A00BCD399 /* WebRTCClient.swift in Sources */,
+				BAC11B6F29A8595800580143 /* DesignView.swift in Sources */,
 				2F7EBC3822DCCB4E0015B46E /* StarscreamProvider.swift in Sources */,
+				BAC11B6E29A8595800580143 /* DesignExtentions.swift in Sources */,
 				2F7EBC3A22DCCE240015B46E /* NativeWebSocket.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
