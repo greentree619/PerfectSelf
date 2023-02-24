@@ -59,6 +59,6 @@ class ConferenceViewController: UIViewController {
     }
     
     @IBAction func backDidTap2(_ sender: Any) {
-        self.dismiss(animated: true)
+        self.dismiss(animated: false)
     }
 }

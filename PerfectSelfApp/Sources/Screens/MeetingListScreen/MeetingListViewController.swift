@@ -107,8 +107,6 @@ class MeetingListViewController: UIViewController {
                 self.hasLocalSdp = true
                 self.signalClient.send(sdp: sdp)
             }
-            
-            self.present(conferenceViewController, animated: true, completion: nil)
         }
         else if( !self.hasLocalSdp && self.hasRemoteSdp )
         {
@@ -116,9 +114,10 @@ class MeetingListViewController: UIViewController {
                 self.hasLocalSdp = true
                 self.signalClient.send(sdp: localSdp)
             }
-            
-            self.present(conferenceViewController, animated: true, completion: nil)
         }
+        
+        conferenceViewController.modalPresentationStyle = .fullScreen
+        self.present(conferenceViewController, animated: false, completion: nil)
     }
     
 }
