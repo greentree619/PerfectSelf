@@ -55,6 +55,8 @@
 		BAC11B6D29A8595800580143 /* DesignEllipse.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAC11B6A29A8595800580143 /* DesignEllipse.swift */; };
 		BAC11B6E29A8595800580143 /* DesignExtentions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAC11B6B29A8595800580143 /* DesignExtentions.swift */; };
 		BAC11B6F29A8595800580143 /* DesignView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAC11B6C29A8595800580143 /* DesignView.swift */; };
+		BAC11B7229A8612800580143 /* EditReadViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BAC11B7129A8612800580143 /* EditReadViewController.xib */; };
+		BAC11B7429A861C600580143 /* EditReadViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAC11B7329A861C600580143 /* EditReadViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -106,6 +108,8 @@
 		BAC11B6A29A8595800580143 /* DesignEllipse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DesignEllipse.swift; sourceTree = "<group>"; };
 		BAC11B6B29A8595800580143 /* DesignExtentions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DesignExtentions.swift; sourceTree = "<group>"; };
 		BAC11B6C29A8595800580143 /* DesignView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DesignView.swift; sourceTree = "<group>"; };
+		BAC11B7129A8612800580143 /* EditReadViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EditReadViewController.xib; sourceTree = "<group>"; };
+		BAC11B7329A861C600580143 /* EditReadViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditReadViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -211,6 +215,7 @@
 		798FBA442200F510009F525E /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				BAC11B7029A860C000580143 /* EditReadScreen */,
 				BAC11B6529A8562100580143 /* ConferenceScreen */,
 				BAC11B5729A848B800580143 /* MeetingListScreen */,
 				7921989F220107C90051F03F /* MainScreen */,
@@ -319,6 +324,15 @@
 			path = ConferenceScreen;
 			sourceTree = "<group>";
 		};
+		BAC11B7029A860C000580143 /* EditReadScreen */ = {
+			isa = PBXGroup;
+			children = (
+				BAC11B7329A861C600580143 /* EditReadViewController.swift */,
+				BAC11B7129A8612800580143 /* EditReadViewController.xib */,
+			);
+			path = EditReadScreen;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -406,6 +420,7 @@
 				BA4714C029A79856007AABC2 /* ProximaNova-Bold.otf in Resources */,
 				BA4714BA29A79856007AABC2 /* ABeeZee-Italic.ttf in Resources */,
 				BA4714C129A79856007AABC2 /* ProximaNova-Extrabold.otf in Resources */,
+				BAC11B7229A8612800580143 /* EditReadViewController.xib in Resources */,
 				BAC11B6929A856A100580143 /* ConferenceViewController.xib in Resources */,
 				BA4714C229A79856007AABC2 /* ProximaNova-Regular.otf in Resources */,
 				BA4714C629A79856007AABC2 /* SF-Pro-Display-Regular.otf in Resources */,
@@ -426,6 +441,7 @@
 				79177CA820B2276400BCD399 /* VideoViewController.swift in Sources */,
 				79262EE720B0D6F600D576C1 /* AppDelegate.swift in Sources */,
 				795A4A26221E081A00F8BB03 /* SessionDescription.swift in Sources */,
+				BAC11B7429A861C600580143 /* EditReadViewController.swift in Sources */,
 				79177CA620B1F76E00BCD399 /* RTCStates.swift in Sources */,
 				BAC11B6429A848C400580143 /* DesignLabel.swift in Sources */,
 				79177C9920B0DF2700BCD399 /* SignalingClient.swift in Sources */,

@@ -9,7 +9,12 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ConferenceViewController" customModule="PerfectSelf" customModuleProvider="target">
+            <connections>
+                <outlet property="localVideoView" destination="vhp-pO-HMn" id="CLi-Au-TZy"/>
+                <outlet property="view" destination="iN0-l3-epB" id="0TK-ra-Asl"/>
+            </connections>
+        </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" id="iN0-l3-epB">
             <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
@@ -38,22 +43,15 @@
                             <rect key="frame" x="21" y="32" width="24" height="24"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
-                                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="csN-pr-fMD" userLabel="Group 21">
-                                    <rect key="frame" x="0.0" y="0.0" width="24" height="24"/>
+                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RRe-n2-hc9" userLabel="Back">
+                                    <rect key="frame" x="-19" y="-6" width="62" height="35"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    <subviews>
-                                        <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ty6-9W-rCq" userLabel="Iconly:Light-Outline:Arrow---Left-Square">
-                                            <rect key="frame" x="0.0" y="0.0" width="24" height="24"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <subviews>
-                                                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hSg-S8-i4I" userLabel="Arrow---Left-Square">
-                                                    <rect key="frame" x="0.0" y="0.0" width="24" height="24"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                </view>
-                                            </subviews>
-                                        </view>
-                                    </subviews>
-                                </view>
+                                    <state key="normal" title="Button"/>
+                                    <buttonConfiguration key="configuration" style="plain" title="Back"/>
+                                    <connections>
+                                        <action selector="backDidTap2:" destination="-1" eventType="touchUpInside" id="6Bm-Gi-K07"/>
+                                    </connections>
+                                </button>
                             </subviews>
                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         </view>
@@ -62,7 +60,7 @@
                             <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                             <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         </label>
-                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vhp-pO-HMn" userLabel="Rectangle 311" customClass="DesignFigure" customModule="PerfectSelf" customModuleProvider="target">
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vhp-pO-HMn" userLabel="localVideoView" customClass="DesignFigure" customModule="PerfectSelf" customModuleProvider="target">
                             <rect key="frame" x="21" y="121" width="149" height="189"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="189" id="fU9-du-r0W"/>
