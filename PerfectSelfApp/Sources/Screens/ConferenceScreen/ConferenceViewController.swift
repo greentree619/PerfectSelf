@@ -17,16 +17,26 @@ enum PipelineMode
     case PipelineModeAssetWriter
 }// internal state machine
 
-class ConferenceViewController: UIViewController, IDCaptureSessionCoordinatorDelegate {
+class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDelegate {
     @IBOutlet weak var localVideoView: UIView!
     private let webRTCClient: WebRTCClient
     private var isRecording: Bool = false
-    private var captureSessionCoordinator: IDCaptureSessionCoordinator?
+    private var _filename = ""
+    private var _time: Double = 0
+    private var _captureSession: AVCaptureSession?
+    private var _videoOutput: AVCaptureVideoDataOutput?
+    private var _assetWriter: AVAssetWriter?
+    private var _assetWriterInput: AVAssetWriterInput?
+    private var _adpater: AVAssetWriterInputPixelBufferAdaptor?
+    
+    private enum _CaptureState {
+        case idle, start, capturing, end
+    }
+    private var _captureState = _CaptureState.idle
     
     init(webRTCClient: WebRTCClient) {
         self.webRTCClient = webRTCClient
         super.init(nibName: String(describing: ConferenceViewController.self), bundle: Bundle.main)
-        self.setupWithPipelineMode(mode: .PipelineModeAssetWriter)
     }
     
     @available(*, unavailable)
@@ -42,17 +52,27 @@ class ConferenceViewController: UIViewController, IDCaptureSessionCoordinatorDel
         localRenderer.videoContentMode = .scaleAspectFill
         remoteRenderer.videoContentMode = .scaleAspectFill
         
+        let output = AVCaptureVideoDataOutput()
+        guard let capturer = self.webRTCClient.videoCapturer as? RTCCameraVideoCapturer else {
+            return
+        }
+        capturer.captureSession.canAddOutput(output)
+        output.setSampleBufferDelegate(self, queue: DispatchQueue(label: "com.yusuke024.video"))
+        capturer.captureSession.beginConfiguration()
+        capturer.captureSession.addOutput(output)
+        capturer.captureSession.commitConfiguration()
+        _videoOutput = output
+        _captureSession = capturer.captureSession
         
         self.webRTCClient.startCaptureLocalVideo(renderer: localRenderer)
         self.webRTCClient.renderRemoteVideo(to: remoteRenderer)
+        _captureState = .start
         
         if let localVideoView = self.localVideoView {
             self.embedView(localRenderer, into: localVideoView)
         }
         self.embedView(remoteRenderer, into: self.view)
         self.view.sendSubviewToBack(remoteRenderer)
-        
-        self.startRecording()
     }
     
     private func embedView(_ view: UIView, into containerView: UIView) {
@@ -86,78 +106,57 @@ class ConferenceViewController: UIViewController, IDCaptureSessionCoordinatorDel
         }
     }
     
-    private func setupWithPipelineMode( mode: PipelineMode )
-    {
-        self.checkPermissions()
-        
-        switch mode{
-        case .PipelineModeMovieFileOutput:
-            self.captureSessionCoordinator = IDCaptureSessionMovieFileOutputCoordinator()
-        case .PipelineModeAssetWriter:
-            self.captureSessionCoordinator = IDCaptureSessionAssetWriterCoordinator()
-            //[self showCameraPreview];
-            //                [((IDCaptureSessionAssetWriterCoordinator *)_captureSessionCoordinator) setCameraFilterPreview:transformResultView];
-            //                [((IDCaptureSessionAssetWriterCoordinator *)_captureSessionCoordinator) setFilterHandler:^CIImage *(CIImage * inputImage) {
-            //                    return [self cameraFilterProcess:inputImage];
-            //                }];
-        }
-//        [_captureSessionCoordinator setDelegate:self callbackQueue:dispatch_get_main_queue()];
-//        [self configureInterface];
-        self.captureSessionCoordinator?.setDelegate(self, callbackQueue: DispatchQueue.main)
-        self.captureSessionCoordinator?.startRunning()
-    }
-    
-    private func startRecording()
-    {
-        if( isRecording == true ) {return}
-        
-        //[UIApplication sharedApplication].idleTimerDisabled = YES;
-        //self.exportButton.enabled = NO; // re-enabled once recording has finished starting
-
-        self.captureSessionCoordinator?.startRecording();
-        isRecording = true;
-    }
-
-    func stopRecording()
-    {
-        //SVProgressHUD.show()
-        //TODO: tear down pipeline
-        if(self.isRecording){
-            //[self->recordTimer invalidate];
-            //self.dismissing = YES;
-            self.captureSessionCoordinator?.stopRecording();
-        } else {
-//            [self stopPipelineAndDismiss];
-            //SVProgressHUD.dismiss()
-        }
-    }
-    
     @IBAction func backDidTap2(_ sender: Any) {
-        self.stopRecording()
-        self.dismiss(animated: false)
+        _captureState = .end
     }
     
-    //Delegate
-    func coordinatorDidBeginRecording(_ coordinator: IDCaptureSessionCoordinator!) {
-        
-    }
-    
-    func coordinator(_ coordinator: IDCaptureSessionCoordinator!, didFinishRecordingToOutputFileURL outputFileURL: URL!, error: Error!) {
-        self.isRecording = false
-        
-//        [UIApplication sharedApplication].idleTimerDisabled = NO;
-//
-//        //Omited self.exportButton.title = @"Record";
-//        self.recording = NO;
-//
-//        //Do something useful with the video file available at the outputFileURL
-//        IDFileManager *fm = [IDFileManager new];
-//        fm.delegate = self;
-//        [fm copyFileToCameraRoll:outputFileURL];
-//
-//        //Dismiss camera (when user taps cancel while camera is recording)
-//        if(self.dismissing){
-//            [self stopPipelineAndDismiss];
-//        }
+    func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
+        let timestamp = CMSampleBufferGetPresentationTimeStamp(sampleBuffer).seconds
+        switch _captureState {
+        case .start:
+            // Set up recorder
+            _filename = UUID().uuidString
+            let videoPath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!.appendingPathComponent("\(_filename).mov")
+            let writer = try! AVAssetWriter(outputURL: videoPath, fileType: .mov)
+            let settings = _videoOutput!.recommendedVideoSettingsForAssetWriter(writingTo: .mov)
+            let input = AVAssetWriterInput(mediaType: .video, outputSettings: settings) // [AVVideoCodecKey: AVVideoCodecType.h264, AVVideoWidthKey: 1920, AVVideoHeightKey: 1080])
+            input.mediaTimeScale = CMTimeScale(bitPattern: 600)
+            input.expectsMediaDataInRealTime = true
+            input.transform = CGAffineTransform(rotationAngle: .pi/2)
+            let adapter = AVAssetWriterInputPixelBufferAdaptor(assetWriterInput: input, sourcePixelBufferAttributes: nil)
+            if writer.canAdd(input) {
+                writer.add(input)
+            }
+            writer.startWriting()
+            writer.startSession(atSourceTime: .zero)
+            _assetWriter = writer
+            _assetWriterInput = input
+            _adpater = adapter
+            _captureState = .capturing
+            _time = timestamp
+            break
+        case .capturing:
+            if _assetWriterInput?.isReadyForMoreMediaData == true {
+                let time = CMTime(seconds: timestamp - _time, preferredTimescale: CMTimeScale(600))
+                _adpater?.append(CMSampleBufferGetImageBuffer(sampleBuffer)!, withPresentationTime: time)
+            }
+            break
+        case .end:
+            guard _assetWriterInput?.isReadyForMoreMediaData == true, _assetWriter!.status != .failed else { break }
+            let url = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!.appendingPathComponent("\(_filename).mov")
+            _assetWriterInput?.markAsFinished()
+            _assetWriter?.finishWriting { [weak self] in
+                self?._captureState = .idle
+                self?._assetWriter = nil
+                self?._assetWriterInput = nil
+                DispatchQueue.main.async {
+                    let activity = UIActivityViewController(activityItems: [url], applicationActivities: nil)
+                    self?.present(activity, animated: true, completion: nil)
+                }
+            }
+            break
+        default:
+            break
+        }
     }
 }
