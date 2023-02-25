@@ -101,6 +101,7 @@ class MeetingListViewController: UIViewController {
     }
     
     @IBAction func joinDidTap(_ sender: Any) {
+        self.webRTCClient.speakerOn()
         if( !self.hasLocalSdp && !self.hasRemoteSdp )
         {
             self.webRTCClient.offer { (sdp) in

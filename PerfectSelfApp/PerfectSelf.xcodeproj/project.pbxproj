@@ -57,6 +57,12 @@
 		BAC11B6F29A8595800580143 /* DesignView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAC11B6C29A8595800580143 /* DesignView.swift */; };
 		BAC11B7229A8612800580143 /* EditReadViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BAC11B7129A8612800580143 /* EditReadViewController.xib */; };
 		BAC11B7429A861C600580143 /* EditReadViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAC11B7329A861C600580143 /* EditReadViewController.swift */; };
+		BAC11B8229A8B37100580143 /* IDCaptureSessionAssetWriterCoordinator.m in Sources */ = {isa = PBXBuildFile; fileRef = BAC11B7629A8B37100580143 /* IDCaptureSessionAssetWriterCoordinator.m */; };
+		BAC11B8329A8B37100580143 /* IDCaptureSessionCoordinator.m in Sources */ = {isa = PBXBuildFile; fileRef = BAC11B7729A8B37100580143 /* IDCaptureSessionCoordinator.m */; };
+		BAC11B8429A8B37100580143 /* IDFileManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BAC11B7829A8B37100580143 /* IDFileManager.m */; };
+		BAC11B8529A8B37100580143 /* IDCaptureSessionMovieFileOutputCoordinator.m in Sources */ = {isa = PBXBuildFile; fileRef = BAC11B7929A8B37100580143 /* IDCaptureSessionMovieFileOutputCoordinator.m */; };
+		BAC11B8629A8B37100580143 /* IDAssetWriterCoordinator.m in Sources */ = {isa = PBXBuildFile; fileRef = BAC11B7B29A8B37100580143 /* IDAssetWriterCoordinator.m */; };
+		BAC11B8729A8B37100580143 /* IDPermissionsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BAC11B7E29A8B37100580143 /* IDPermissionsManager.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -110,6 +116,19 @@
 		BAC11B6C29A8595800580143 /* DesignView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DesignView.swift; sourceTree = "<group>"; };
 		BAC11B7129A8612800580143 /* EditReadViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EditReadViewController.xib; sourceTree = "<group>"; };
 		BAC11B7329A861C600580143 /* EditReadViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditReadViewController.swift; sourceTree = "<group>"; };
+		BAC11B7629A8B37100580143 /* IDCaptureSessionAssetWriterCoordinator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IDCaptureSessionAssetWriterCoordinator.m; sourceTree = "<group>"; };
+		BAC11B7729A8B37100580143 /* IDCaptureSessionCoordinator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IDCaptureSessionCoordinator.m; sourceTree = "<group>"; };
+		BAC11B7829A8B37100580143 /* IDFileManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IDFileManager.m; sourceTree = "<group>"; };
+		BAC11B7929A8B37100580143 /* IDCaptureSessionMovieFileOutputCoordinator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IDCaptureSessionMovieFileOutputCoordinator.m; sourceTree = "<group>"; };
+		BAC11B7A29A8B37100580143 /* IDPermissionsManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IDPermissionsManager.h; sourceTree = "<group>"; };
+		BAC11B7B29A8B37100580143 /* IDAssetWriterCoordinator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IDAssetWriterCoordinator.m; sourceTree = "<group>"; };
+		BAC11B7C29A8B37100580143 /* IDCaptureSessionAssetWriterCoordinator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IDCaptureSessionAssetWriterCoordinator.h; sourceTree = "<group>"; };
+		BAC11B7D29A8B37100580143 /* IDCaptureSessionCoordinator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IDCaptureSessionCoordinator.h; sourceTree = "<group>"; };
+		BAC11B7E29A8B37100580143 /* IDPermissionsManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IDPermissionsManager.m; sourceTree = "<group>"; };
+		BAC11B7F29A8B37100580143 /* IDFileManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IDFileManager.h; sourceTree = "<group>"; };
+		BAC11B8029A8B37100580143 /* IDCaptureSessionMovieFileOutputCoordinator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IDCaptureSessionMovieFileOutputCoordinator.h; sourceTree = "<group>"; };
+		BAC11B8129A8B37100580143 /* IDAssetWriterCoordinator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IDAssetWriterCoordinator.h; sourceTree = "<group>"; };
+		BAC11B8829A8B43500580143 /* PerfectSelf-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PerfectSelf-Bridging-Header.h"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -203,11 +222,13 @@
 		798FBA422200F3B1009F525E /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				BAC11B7529A8B37100580143 /* Camera */,
 				798FBA452200F519009F525E /* Services */,
 				798FBA442200F510009F525E /* Screens */,
 				79177CA420B1C39700BCD399 /* Extensions */,
 				79262EE620B0D6F600D576C1 /* AppDelegate.swift */,
 				792198A122011A450051F03F /* Config.swift */,
+				BAC11B8829A8B43500580143 /* PerfectSelf-Bridging-Header.h */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -333,6 +354,25 @@
 			path = EditReadScreen;
 			sourceTree = "<group>";
 		};
+		BAC11B7529A8B37100580143 /* Camera */ = {
+			isa = PBXGroup;
+			children = (
+				BAC11B7629A8B37100580143 /* IDCaptureSessionAssetWriterCoordinator.m */,
+				BAC11B7729A8B37100580143 /* IDCaptureSessionCoordinator.m */,
+				BAC11B7829A8B37100580143 /* IDFileManager.m */,
+				BAC11B7929A8B37100580143 /* IDCaptureSessionMovieFileOutputCoordinator.m */,
+				BAC11B7A29A8B37100580143 /* IDPermissionsManager.h */,
+				BAC11B7B29A8B37100580143 /* IDAssetWriterCoordinator.m */,
+				BAC11B7C29A8B37100580143 /* IDCaptureSessionAssetWriterCoordinator.h */,
+				BAC11B7D29A8B37100580143 /* IDCaptureSessionCoordinator.h */,
+				BAC11B7E29A8B37100580143 /* IDPermissionsManager.m */,
+				BAC11B7F29A8B37100580143 /* IDFileManager.h */,
+				BAC11B8029A8B37100580143 /* IDCaptureSessionMovieFileOutputCoordinator.h */,
+				BAC11B8129A8B37100580143 /* IDAssetWriterCoordinator.h */,
+			);
+			path = Camera;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -435,10 +475,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BAC11B8429A8B37100580143 /* IDFileManager.m in Sources */,
+				BAC11B8729A8B37100580143 /* IDPermissionsManager.m in Sources */,
 				BAC11B6829A856A100580143 /* ConferenceViewController.swift in Sources */,
+				BAC11B8329A8B37100580143 /* IDCaptureSessionCoordinator.m in Sources */,
 				79262EE920B0D6F600D576C1 /* MainViewController.swift in Sources */,
 				792198A222011A450051F03F /* Config.swift in Sources */,
 				79177CA820B2276400BCD399 /* VideoViewController.swift in Sources */,
+				BAC11B8529A8B37100580143 /* IDCaptureSessionMovieFileOutputCoordinator.m in Sources */,
 				79262EE720B0D6F600D576C1 /* AppDelegate.swift in Sources */,
 				795A4A26221E081A00F8BB03 /* SessionDescription.swift in Sources */,
 				BAC11B7429A861C600580143 /* EditReadViewController.swift in Sources */,
@@ -452,8 +496,10 @@
 				BAC11B6229A848C400580143 /* DesignFigure.swift in Sources */,
 				BAC11B6129A848C400580143 /* DesignButton.swift in Sources */,
 				795A4A28221E0A1B00F8BB03 /* IceCandidate.swift in Sources */,
+				BAC11B8229A8B37100580143 /* IDCaptureSessionAssetWriterCoordinator.m in Sources */,
 				2F7EBC3622DCC6430015B46E /* WebSocketProvider.swift in Sources */,
 				79177C9720B0DE7A00BCD399 /* WebRTCClient.swift in Sources */,
+				BAC11B8629A8B37100580143 /* IDAssetWriterCoordinator.m in Sources */,
 				BAC11B6F29A8595800580143 /* DesignView.swift in Sources */,
 				2F7EBC3822DCCB4E0015B46E /* StarscreamProvider.swift in Sources */,
 				BAC11B6E29A8595800580143 /* DesignExtentions.swift in Sources */,
@@ -603,7 +649,7 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.kayan.perfectself;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "Sources/PerfectSelf-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_TREAT_WARNINGS_AS_ERRORS = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -629,7 +675,7 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.kayan.perfectself;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "Sources/PerfectSelf-Bridging-Header.h";
 				SWIFT_TREAT_WARNINGS_AS_ERRORS = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
