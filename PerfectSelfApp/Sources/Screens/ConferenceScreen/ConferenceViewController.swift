@@ -52,6 +52,7 @@ class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSample
         localRenderer.videoContentMode = .scaleAspectFill
         remoteRenderer.videoContentMode = .scaleAspectFill
         
+        //{{ Init to record video.
         let output = AVCaptureVideoDataOutput()
         guard let capturer = self.webRTCClient.videoCapturer as? RTCCameraVideoCapturer else {
             return
@@ -63,6 +64,7 @@ class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSample
         capturer.captureSession.commitConfiguration()
         _videoOutput = output
         _captureSession = capturer.captureSession
+        //}} Init to record video.
         
         self.webRTCClient.startCaptureLocalVideo(renderer: localRenderer)
         self.webRTCClient.renderRemoteVideo(to: remoteRenderer)
