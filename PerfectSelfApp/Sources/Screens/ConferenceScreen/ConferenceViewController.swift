@@ -116,9 +116,9 @@ class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSample
         case .start:
             // Set up recorder
             _filename = UUID().uuidString
-            let videoPath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!.appendingPathComponent("\(_filename).mov")
-            let writer = try! AVAssetWriter(outputURL: videoPath, fileType: .mov)
-            let settings = _videoOutput!.recommendedVideoSettingsForAssetWriter(writingTo: .mov)
+            let videoPath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!.appendingPathComponent("\(_filename).mp4")
+            let writer = try! AVAssetWriter(outputURL: videoPath, fileType: .mp4)
+            let settings = _videoOutput!.recommendedVideoSettingsForAssetWriter(writingTo: .mp4)
             let input = AVAssetWriterInput(mediaType: .video, outputSettings: settings) // [AVVideoCodecKey: AVVideoCodecType.h264, AVVideoWidthKey: 1920, AVVideoHeightKey: 1080])
             input.mediaTimeScale = CMTimeScale(bitPattern: 600)
             input.expectsMediaDataInRealTime = true
@@ -143,7 +143,7 @@ class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSample
             break
         case .end:
             guard _assetWriterInput?.isReadyForMoreMediaData == true, _assetWriter!.status != .failed else { break }
-            let url = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!.appendingPathComponent("\(_filename).mov")
+            let url = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!.appendingPathComponent("\(_filename).mp4")
             _assetWriterInput?.markAsFinished()
             _assetWriter?.finishWriting { [weak self] in
                 self?._captureState = .idle
