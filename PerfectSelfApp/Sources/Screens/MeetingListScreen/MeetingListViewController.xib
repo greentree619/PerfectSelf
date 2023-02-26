@@ -9,23 +9,24 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MeetingListViewController" customModule="PerfectSelf" customModuleProvider="target"/>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MeetingListViewController" customModule="PerfectSelf" customModuleProvider="target">
+            <connections>
+                <outlet property="view" destination="s7P-hG-YBp" id="MfB-H7-pLg"/>
+            </connections>
+        </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" id="s7P-hG-YBp">
             <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="meeting_top" translatesAutoresizingMaskIntoConstraints="NO" id="YLV-dk-wiY">
-                    <rect key="frame" x="0.0" y="-11" width="393" height="201.33333333333334"/>
-                    <constraints>
-                        <constraint firstAttribute="width" secondItem="YLV-dk-wiY" secondAttribute="height" multiplier="125:64" id="Wy7-Tq-UYN"/>
-                    </constraints>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" image="meeting_top" translatesAutoresizingMaskIntoConstraints="NO" id="YLV-dk-wiY">
+                    <rect key="frame" x="0.0" y="0.0" width="393" height="220"/>
                 </imageView>
                 <view alpha="0.69999998807907104" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="p6x-xq-NnH" userLabel="Top Bar">
-                    <rect key="frame" x="0.0" y="59" width="393" height="87"/>
+                    <rect key="frame" x="0.0" y="0.0" width="393" height="87"/>
                     <subviews>
                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Meeting" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XMk-FU-gN4">
-                            <rect key="frame" x="162.33333333333334" y="32.333333333333329" width="68.666666666666657" height="22.333333333333329"/>
+                            <rect key="frame" x="162.33333333333334" y="32.333333333333336" width="68.666666666666657" height="22.333333333333336"/>
                             <edgeInsets key="layoutMargins" top="8" left="8" bottom="8" right="8"/>
                             <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="19"/>
                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -46,14 +47,13 @@
                     <constraints>
                         <constraint firstItem="Jq7-Ju-RaH" firstAttribute="leading" secondItem="p6x-xq-NnH" secondAttribute="leading" constant="20" id="Bqb-QI-pbP"/>
                         <constraint firstAttribute="height" constant="87" id="HRl-jq-YBH"/>
-                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="87" id="KnY-Le-Qbe"/>
                         <constraint firstItem="XMk-FU-gN4" firstAttribute="centerY" secondItem="p6x-xq-NnH" secondAttribute="centerY" id="P4n-tM-eTd"/>
                         <constraint firstItem="Jq7-Ju-RaH" firstAttribute="centerY" secondItem="p6x-xq-NnH" secondAttribute="centerY" id="gN3-pp-7Yh"/>
                         <constraint firstItem="XMk-FU-gN4" firstAttribute="centerX" secondItem="p6x-xq-NnH" secondAttribute="centerX" id="tgF-n0-w7b"/>
                     </constraints>
                 </view>
                 <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="R5S-bS-1cT">
-                    <rect key="frame" x="20" y="186" width="353" height="44"/>
+                    <rect key="frame" x="20" y="127" width="353" height="44"/>
                     <constraints>
                         <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="44" id="HLx-x5-4x2"/>
                         <constraint firstAttribute="height" constant="44" id="tqI-s5-kLx"/>
@@ -62,12 +62,12 @@
                     <textInputTraits key="textInputTraits"/>
                 </textField>
                 <label autoresizesSubviews="NO" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Upcoming Meetings " lineBreakMode="tailTruncation" numberOfLines="100" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HNP-8p-g9y" userLabel="Upcoming Meetings">
-                    <rect key="frame" x="20" y="250" width="353" height="24"/>
+                    <rect key="frame" x="20" y="191" width="353" height="24"/>
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                     <color key="textColor" red="0.14901961389999999" green="0.19607843459999999" blue="0.21960784489999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                 </label>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uM9-qJ-wcD">
-                    <rect key="frame" x="25" y="301" width="343" height="140"/>
+                    <rect key="frame" x="25" y="242" width="343" height="140"/>
                     <subviews>
                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="xwV-mp-3Q9">
                             <rect key="frame" x="0.0" y="0.0" width="343" height="140"/>
@@ -80,31 +80,58 @@
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TVs-kt-HGb">
                                                     <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
+                                                    <subviews>
+                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="kMK-b6-9b8">
+                                                            <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
+                                                        </imageView>
+                                                    </subviews>
                                                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                     <constraints>
+                                                        <constraint firstItem="kMK-b6-9b8" firstAttribute="leading" secondItem="TVs-kt-HGb" secondAttribute="leading" id="8nu-Ct-ijC"/>
+                                                        <constraint firstItem="kMK-b6-9b8" firstAttribute="top" secondItem="TVs-kt-HGb" secondAttribute="top" id="VfJ-A7-7ps"/>
                                                         <constraint firstAttribute="width" constant="100" id="fNB-F6-R4V"/>
+                                                        <constraint firstAttribute="trailing" secondItem="kMK-b6-9b8" secondAttribute="trailing" id="nsZ-da-PDb"/>
+                                                        <constraint firstAttribute="bottom" secondItem="kMK-b6-9b8" secondAttribute="bottom" id="qUk-om-Ce8"/>
                                                     </constraints>
                                                 </view>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SxG-C1-NFR">
                                                     <rect key="frame" x="100" y="0.0" width="243" height="100"/>
                                                     <subviews>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Meeting name" lineBreakMode="tailTruncation" numberOfLines="100" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6fI-Q3-2ik" userLabel="Meeting name">
-                                                            <rect key="frame" x="0.0" y="0.0" width="243" height="18"/>
-                                                            <directionalEdgeInsets key="directionalLayoutMargins" top="8" leading="8" bottom="8" trailing="8"/>
-                                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                                            <color key="textColor" red="0.14901961389999999" green="0.19607843459999999" blue="0.21960784489999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                        </label>
-                                                        <label opaque="NO" userInteractionEnabled="NO" alpha="0.5" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Title for the meeting and the descriptions." lineBreakMode="tailTruncation" numberOfLines="100" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="n9a-LM-thW" userLabel="Title for the meeting and the descriptions.">
+                                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="TFx-RL-a3j">
                                                             <rect key="frame" x="0.0" y="0.0" width="243" height="100"/>
-                                                            <edgeInsets key="layoutMargins" top="8" left="8" bottom="8" right="8"/>
-                                                            <fontDescription key="fontDescription" type="system" weight="medium" pointSize="13"/>
-                                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                        </label>
+                                                            <subviews>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Meeting name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6fI-Q3-2ik" userLabel="Meeting name">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="243" height="50"/>
+                                                                    <constraints>
+                                                                        <constraint firstAttribute="height" constant="30" id="Pei-JW-ygl"/>
+                                                                    </constraints>
+                                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                                                    <color key="textColor" red="0.14901961389999999" green="0.19607843459999999" blue="0.21960784489999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                </label>
+                                                                <label opaque="NO" userInteractionEnabled="NO" alpha="0.5" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title for the meeting and the descriptions." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="100" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="n9a-LM-thW" userLabel="Title for the meeting and the descriptions.">
+                                                                    <rect key="frame" x="0.0" y="50" width="243" height="50"/>
+                                                                    <edgeInsets key="layoutMargins" top="8" left="8" bottom="8" right="8"/>
+                                                                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="13"/>
+                                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                </label>
+                                                            </subviews>
+                                                            <constraints>
+                                                                <constraint firstAttribute="bottom" secondItem="n9a-LM-thW" secondAttribute="bottom" id="AxY-lZ-9iL"/>
+                                                                <constraint firstItem="n9a-LM-thW" firstAttribute="height" secondItem="6fI-Q3-2ik" secondAttribute="height" id="C7g-ja-Hsz"/>
+                                                                <constraint firstAttribute="trailing" secondItem="6fI-Q3-2ik" secondAttribute="trailing" id="CH5-a2-SDj"/>
+                                                                <constraint firstItem="6fI-Q3-2ik" firstAttribute="top" secondItem="TFx-RL-a3j" secondAttribute="top" id="JTu-Ly-h4r"/>
+                                                                <constraint firstItem="6fI-Q3-2ik" firstAttribute="leading" secondItem="TFx-RL-a3j" secondAttribute="leading" id="Wis-pf-pcH"/>
+                                                                <constraint firstAttribute="trailing" secondItem="n9a-LM-thW" secondAttribute="trailing" id="xd6-4Q-vLg"/>
+                                                                <constraint firstItem="n9a-LM-thW" firstAttribute="leading" secondItem="TFx-RL-a3j" secondAttribute="leading" id="yVy-sc-iI0"/>
+                                                            </constraints>
+                                                        </stackView>
                                                     </subviews>
                                                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                     <constraints>
-                                                        <constraint firstItem="6fI-Q3-2ik" firstAttribute="top" secondItem="SxG-C1-NFR" secondAttribute="top" id="8av-VP-akS"/>
-                                                        <constraint firstItem="6fI-Q3-2ik" firstAttribute="leading" secondItem="n9a-LM-thW" secondAttribute="trailing" id="mIw-T4-l9Y"/>
+                                                        <constraint firstAttribute="bottom" secondItem="TFx-RL-a3j" secondAttribute="bottom" id="0Nv-Dg-Hlm"/>
+                                                        <constraint firstItem="TFx-RL-a3j" firstAttribute="top" secondItem="SxG-C1-NFR" secondAttribute="top" id="Hr4-T9-kaB"/>
+                                                        <constraint firstAttribute="trailing" secondItem="TFx-RL-a3j" secondAttribute="trailing" id="IPZ-la-5XF"/>
+                                                        <constraint firstItem="TFx-RL-a3j" firstAttribute="leading" secondItem="SxG-C1-NFR" secondAttribute="leading" id="L6Z-js-aG3"/>
                                                     </constraints>
                                                 </view>
                                             </subviews>
@@ -127,17 +154,29 @@
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UNE-Td-aFR">
                                     <rect key="frame" x="0.0" y="100" width="343" height="40"/>
                                     <subviews>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="fill" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vq4-uR-dhT">
+                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="join_button (1)" translatesAutoresizingMaskIntoConstraints="NO" id="eIf-R4-t7H">
                                             <rect key="frame" x="0.0" y="0.0" width="343" height="40"/>
-                                            <state key="normal" title="Button"/>
-                                            <buttonConfiguration key="configuration" style="plain" image="join_button"/>
+                                        </imageView>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vq4-uR-dhT" userLabel="joinButton">
+                                            <rect key="frame" x="0.0" y="0.0" width="343" height="40"/>
+                                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                            <state key="normal" title="Join Conference">
+                                                <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </state>
+                                            <connections>
+                                                <action selector="joinDidTap:" destination="-1" eventType="touchUpInside" id="jE1-KX-dV3"/>
+                                            </connections>
                                         </button>
                                     </subviews>
                                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                     <constraints>
                                         <constraint firstItem="vq4-uR-dhT" firstAttribute="leading" secondItem="UNE-Td-aFR" secondAttribute="leading" id="CvV-ns-TEf"/>
                                         <constraint firstAttribute="trailing" secondItem="vq4-uR-dhT" secondAttribute="trailing" id="Jb6-Cj-QjF"/>
+                                        <constraint firstAttribute="bottom" secondItem="eIf-R4-t7H" secondAttribute="bottom" id="LYK-Ue-YSS"/>
                                         <constraint firstAttribute="bottom" secondItem="vq4-uR-dhT" secondAttribute="bottom" id="QBV-Rc-v5l"/>
+                                        <constraint firstAttribute="trailing" secondItem="eIf-R4-t7H" secondAttribute="trailing" id="Tb0-uW-mGU"/>
+                                        <constraint firstItem="eIf-R4-t7H" firstAttribute="leading" secondItem="UNE-Td-aFR" secondAttribute="leading" id="W6o-fx-wAx"/>
+                                        <constraint firstItem="eIf-R4-t7H" firstAttribute="top" secondItem="UNE-Td-aFR" secondAttribute="top" id="gBz-s5-gdb"/>
                                         <constraint firstItem="vq4-uR-dhT" firstAttribute="top" secondItem="UNE-Td-aFR" secondAttribute="top" id="rwY-Er-6v5"/>
                                     </constraints>
                                 </view>
@@ -160,31 +199,33 @@
                 </view>
             </subviews>
             <viewLayoutGuide key="safeArea" id="F2B-QP-rI8"/>
-            <color key="backgroundColor" red="0.8980392157" green="0.8980392157" blue="0.8980392157" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
                 <constraint firstItem="p6x-xq-NnH" firstAttribute="leading" secondItem="F2B-QP-rI8" secondAttribute="leading" id="6kk-uK-tOd"/>
                 <constraint firstItem="HNP-8p-g9y" firstAttribute="top" secondItem="R5S-bS-1cT" secondAttribute="bottom" constant="20" id="IBp-El-AtT"/>
                 <constraint firstItem="R5S-bS-1cT" firstAttribute="leading" secondItem="F2B-QP-rI8" secondAttribute="leading" constant="20" id="NcB-ZR-M5f"/>
                 <constraint firstItem="HNP-8p-g9y" firstAttribute="leading" secondItem="F2B-QP-rI8" secondAttribute="leading" constant="20" id="OeC-MC-OpS"/>
-                <constraint firstItem="p6x-xq-NnH" firstAttribute="top" secondItem="F2B-QP-rI8" secondAttribute="top" id="Pg3-Ym-0l2"/>
+                <constraint firstItem="p6x-xq-NnH" firstAttribute="top" secondItem="s7P-hG-YBp" secondAttribute="top" id="Pg3-Ym-0l2"/>
                 <constraint firstItem="F2B-QP-rI8" firstAttribute="trailing" secondItem="HNP-8p-g9y" secondAttribute="trailing" constant="20" id="QyS-BR-kcG"/>
-                <constraint firstItem="YLV-dk-wiY" firstAttribute="top" secondItem="F2B-QP-rI8" secondAttribute="top" constant="-70" id="R1R-8y-F4A"/>
+                <constraint firstAttribute="top" secondItem="YLV-dk-wiY" secondAttribute="bottom" constant="-220" id="WLt-It-KUM"/>
                 <constraint firstItem="F2B-QP-rI8" firstAttribute="trailing" secondItem="p6x-xq-NnH" secondAttribute="trailing" id="c5s-Fd-TF8"/>
                 <constraint firstItem="R5S-bS-1cT" firstAttribute="top" secondItem="p6x-xq-NnH" secondAttribute="bottom" constant="40" id="eQf-JR-7Ie"/>
                 <constraint firstItem="F2B-QP-rI8" firstAttribute="trailing" secondItem="R5S-bS-1cT" secondAttribute="trailing" constant="20" id="leB-LL-AWI"/>
                 <constraint firstItem="uM9-qJ-wcD" firstAttribute="leading" secondItem="F2B-QP-rI8" secondAttribute="leading" constant="25" id="mBm-vH-X8t"/>
                 <constraint firstItem="F2B-QP-rI8" firstAttribute="trailing" secondItem="YLV-dk-wiY" secondAttribute="trailing" id="ndK-MB-OCd"/>
+                <constraint firstItem="YLV-dk-wiY" firstAttribute="top" secondItem="s7P-hG-YBp" secondAttribute="top" id="nvC-Vw-Uxz"/>
                 <constraint firstItem="HNP-8p-g9y" firstAttribute="top" secondItem="R5S-bS-1cT" secondAttribute="bottom" constant="20" id="rcp-yn-9bn"/>
                 <constraint firstItem="YLV-dk-wiY" firstAttribute="leading" secondItem="F2B-QP-rI8" secondAttribute="leading" id="sCG-Kq-Cvl"/>
                 <constraint firstItem="uM9-qJ-wcD" firstAttribute="top" secondItem="HNP-8p-g9y" secondAttribute="bottom" constant="27" id="skg-D0-dll"/>
                 <constraint firstItem="F2B-QP-rI8" firstAttribute="trailing" secondItem="uM9-qJ-wcD" secondAttribute="trailing" constant="25" id="yij-EB-dk8"/>
             </constraints>
+            <edgeInsets key="layoutMargins" top="8" left="8" bottom="8" right="8"/>
             <point key="canvasLocation" x="-1" y="-12"/>
         </view>
     </objects>
     <resources>
         <image name="back-button" width="24" height="24"/>
-        <image name="join_button" width="334" height="38"/>
+        <image name="join_button (1)" width="334" height="38"/>
         <image name="meeting_top" width="375" height="192"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

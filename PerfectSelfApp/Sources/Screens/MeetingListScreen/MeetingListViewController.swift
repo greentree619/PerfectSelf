@@ -12,8 +12,6 @@ import WebRTC
 
 class MeetingListViewController: UIViewController {
     
-    @IBOutlet weak var joinButton: UIButton!
-    
     private let signalClient: SignalingClient
     private let webRTCClient: WebRTCClient
     private lazy var conferenceViewController = ConferenceViewController(webRTCClient: self.webRTCClient)
@@ -24,12 +22,12 @@ class MeetingListViewController: UIViewController {
                 if self.signalingConnected {
                     //                    self.signalingStatusLabel?.text = "Connected"
                     //                    self.signalingStatusLabel?.textColor = UIColor.green
-                    self.joinButton?.backgroundColor = UIColor.green
+//                    self.joinButton?.backgroundColor = UIColor.green
                 }
                 else {
                     //                    self.signalingStatusLabel?.text = "Not connected"
                     //                    self.signalingStatusLabel?.textColor = UIColor.red
-                    self.joinButton?.backgroundColor = UIColor.red
+//                    self.joinButton?.backgroundColor = UIColor.red
                 }
             }
         }
@@ -100,7 +98,7 @@ class MeetingListViewController: UIViewController {
         self.signalClient.connect()
     }
     
-    @IBAction func joinDidTap(_ sender: Any) {
+    @IBAction func joinDidTap(_ sender: UIButton) {
         self.webRTCClient.speakerOn()
         if( !self.hasLocalSdp && !self.hasRemoteSdp )
         {
@@ -119,8 +117,7 @@ class MeetingListViewController: UIViewController {
         
         conferenceViewController.modalPresentationStyle = .fullScreen
         self.present(conferenceViewController, animated: false, completion: nil)
-    }
-    
+    }    
 }
     
 extension MeetingListViewController: SignalClientDelegate {

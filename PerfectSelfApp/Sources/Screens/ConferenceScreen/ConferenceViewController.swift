@@ -18,7 +18,10 @@ enum PipelineMode
 }// internal state machine
 
 class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDelegate {
+    
     @IBOutlet weak var localVideoView: UIView!
+    
+    @IBOutlet weak var remoteCameraView: UIView!
     private let webRTCClient: WebRTCClient
     private var isRecording: Bool = false
     private var _filename = ""
@@ -48,7 +51,7 @@ class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSample
         super.viewDidLoad()
         
         let localRenderer = RTCMTLVideoView(frame: self.localVideoView?.frame ?? CGRect.zero)
-        let remoteRenderer = RTCMTLVideoView(frame: self.view.frame)
+        let remoteRenderer = RTCMTLVideoView(frame: self.remoteCameraView.frame)
         localRenderer.videoContentMode = .scaleAspectFill
         remoteRenderer.videoContentMode = .scaleAspectFill
         
@@ -76,8 +79,8 @@ class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSample
         if let localVideoView = self.localVideoView {
             self.embedView(localRenderer, into: localVideoView)
         }
-        self.embedView(remoteRenderer, into: self.view)
-        self.view.sendSubviewToBack(remoteRenderer)
+        self.embedView(remoteRenderer, into: self.remoteCameraView)
+        self.remoteCameraView.sendSubviewToBack(remoteRenderer)
     }
     
     private func embedView(_ view: UIView, into containerView: UIView) {
@@ -111,7 +114,8 @@ class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSample
         }
     }
     
-    @IBAction func backDidTap2(_ sender: Any) {
+    @IBAction func backDidTap(_ sender: UIButton) {
+        self.dismiss(animated: false)
         _captureState = .end
     }
     
