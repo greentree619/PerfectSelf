@@ -60,7 +60,10 @@ class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSample
         capturer.captureSession.canAddOutput(output)
         output.setSampleBufferDelegate(self, queue: DispatchQueue(label: "com.yusuke024.video"))
         capturer.captureSession.beginConfiguration()
-        capturer.captureSession.addOutput(output)
+        if(capturer.captureSession.canAddOutput(output))
+        {
+            capturer.captureSession.addOutput(output)
+        }
         capturer.captureSession.commitConfiguration()
         _videoOutput = output
         _captureSession = capturer.captureSession
