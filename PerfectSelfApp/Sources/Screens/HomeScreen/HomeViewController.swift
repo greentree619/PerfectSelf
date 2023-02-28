@@ -9,6 +9,9 @@ import UIKit
 import WebRTC
 
 class HomeViewController: UIViewController {
+    private let config = Config.default
+    private lazy var libraryViewController = LibraryViewController()
+    private var meetingListViewController: MeetingListViewController?
     
     init() {
         super.init(nibName: String(describing: HomeViewController.self), bundle: Bundle.main)
@@ -22,15 +25,46 @@ class HomeViewController: UIViewController {
     override func viewDidLoad() {
     }
     
-    @IBAction func homeDidTap(_ sender: UIButton) {
+    private func buildSignalingClient() -> SignalingClient {
+        
+        // iOS 13 has native websocket support. For iOS 12 or lower we will use 3rd party library.
+        let webSocketProvider: WebSocketProvider
+        
+        if #available(iOS 13.0, *) {
+            webSocketProvider = NativeWebSocket(url: self.config.signalingServerUrl)
+        } else {
+            webSocketProvider = StarscreamWebSocket(url: self.config.signalingServerUrl)
+        }
+        
+        return SignalingClient(webSocket: webSocketProvider)
     }
     
-    @IBAction func libraryDidTap(_ sender: UIButton) {
+    @IBAction func homeDidTap(_ sender: UIButton)
+    {
     }
     
-    @IBAction func scheduleDidTap(_ sender: Any) {
+    @IBAction func libraryDidTap(_ sender: UIButton)
+    {
+        libraryViewController.modalPresentationStyle = .fullScreen
+        self.present(libraryViewController, animated: false, completion: nil)
+    }
+    
+    @IBAction func scheduleDidTap(_ sender: Any){
+        let webRTCClient = WebRTCClient(iceServers: self.config.webRTCIceServers)
+        let signalClient = self.buildSignalingClient()
+        //{{
+//        let mainViewController = MainViewController(signalClient: signalClient, webRTCClient: webRTCClient)
+        //==
+        self.meetingListViewController = MeetingListViewController(signalClient: signalClient, webRTCClient: webRTCClient)
+        //}}
+                
+        self.meetingListViewController?.modalPresentationStyle = .fullScreen
+        self.present(meetingListViewController!, animated: false, completion: nil)
     }
     
     @IBAction func userDidTap(_ sender: UIButton) {
+        let overlayViewController = OverlayViewController()
+        overlayViewController.modalPresentationStyle = .fullScreen
+        self.present(overlayViewController, animated: false, completion: nil)
     }
 }

@@ -1,16 +1,16 @@
 //
-//  LibraryViewController.swift
+//  OverlayViewContoller.swift
 //  PerfectSelf
 //
-//  Created by Kayan Mishra on 2/26/23.
+//  Created by Kayan Mishra on 2/27/23.
 //  Copyright © 2023 Stas Seldin. All rights reserved.
 //
 import UIKit
 import WebRTC
 
-class LibraryViewController: UIViewController {
+class OverlayViewController: UIViewController {
     init() {
-        super.init(nibName: String(describing: LibraryViewController.self), bundle: Bundle.main)
+        super.init(nibName: String(describing: OverlayViewController.self), bundle: Bundle.main)
     }
     
     @available(*, unavailable)
@@ -21,8 +21,7 @@ class LibraryViewController: UIViewController {
     override func viewDidLoad() {
     }
     
-    @IBAction func backDidTap(_ sender: UIButton)
-    {
+    @IBAction func backDidTap(_ sender: UIButton) {
         self.dismiss(animated: false)
     }
 }

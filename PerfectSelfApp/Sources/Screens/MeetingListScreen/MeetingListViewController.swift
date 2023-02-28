@@ -117,7 +117,13 @@ class MeetingListViewController: UIViewController {
         
         conferenceViewController.modalPresentationStyle = .fullScreen
         self.present(conferenceViewController, animated: false, completion: nil)
-    }    
+    }
+    
+    @IBAction func backDidTap(_ sender: UIButton)
+    {
+        self.dismiss(animated: false)
+    }
+    
 }
     
 extension MeetingListViewController: SignalClientDelegate {
