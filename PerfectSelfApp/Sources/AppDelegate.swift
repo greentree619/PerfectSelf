@@ -25,13 +25,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     private func buildMainViewController() -> UIViewController {
         
-        let webRTCClient = WebRTCClient(iceServers: self.config.webRTCIceServers)
-        let signalClient = self.buildSignalingClient()
-        //{{
-//        let mainViewController = MainViewController(signalClient: signalClient, webRTCClient: webRTCClient)
-        //==
-        let mainViewController = MeetingListViewController(signalClient: signalClient, webRTCClient: webRTCClient)
-        //}}
+//        let webRTCClient = WebRTCClient(iceServers: self.config.webRTCIceServers)
+//        let signalClient = self.buildSignalingClient()
+//        //{{
+////        let mainViewController = MainViewController(signalClient: signalClient, webRTCClient: webRTCClient)
+//        //==
+//        let mainViewController = MeetingListViewController(signalClient: signalClient, webRTCClient: webRTCClient)
+//        //}}
+        
+        let mainViewController = HomeViewController()
         let navViewController = UINavigationController(rootViewController: mainViewController)
         navViewController.navigationBar.prefersLargeTitles = true
         return navViewController
