@@ -10,6 +10,7 @@ import WebRTC
 
 class HomeViewController: UIViewController {
     private let config = Config.default
+    var videoPicker: VideoPicker?
     private lazy var libraryViewController = LibraryViewController()
     private var meetingListViewController: MeetingListViewController?
     
@@ -23,6 +24,7 @@ class HomeViewController: UIViewController {
     }
     
     override func viewDidLoad() {
+        videoPicker = VideoPicker(presentationController: self, delegate: self)
     }
     
     private func buildSignalingClient() -> SignalingClient {
@@ -63,8 +65,17 @@ class HomeViewController: UIViewController {
     }
     
     @IBAction func userDidTap(_ sender: UIButton) {
-        let overlayViewController = OverlayViewController()
-        overlayViewController.modalPresentationStyle = .fullScreen
-        self.present(overlayViewController, animated: false, completion: nil)
+//        let overlayViewController = VideoRecordViewController()
+//        overlayViewController.modalPresentationStyle = .fullScreen
+//        self.present(overlayViewController, animated: false, completion: nil)
+        videoPicker?.present()
+    }
+}
+
+extension HomeViewController: VideoPickerDelegate {
+    func didSelect(url: URL?) {
+        let vc = VideoRecordViewController()
+        vc.uploadVideourl = url
+        self.show(vc, sender: nil)
     }
 }

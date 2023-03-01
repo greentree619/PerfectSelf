@@ -1,15 +1,15 @@
 //
-//  OverlayViewContoller.swift
-//  PerfectSelf
+//  VideoRecordViewController.swift
+//  VIdeoAudioOverLay
 //
-//  Created by Kayan Mishra on 2/27/23.
-//  Copyright © 2023 Stas Seldin. All rights reserved.
+//  Created by Jatin Kathrotiya on 06/09/22.
 //
+
 import UIKit
-import WebRTC
+import AVFoundation
 import Photos
 
-class OverlayViewController: UIViewController {
+class VideoRecordViewController: UIViewController {
     @IBOutlet var cameraView: CameraPreviewView!
     @IBOutlet var playerView: PlayerView!
     var uploadVideourl: URL?
@@ -44,7 +44,7 @@ class OverlayViewController: UIViewController {
         }
         cameraView.captureSession.startRunning()
     }
-
+    
     @IBAction func startRecordClicked(_ sender: UIButton) {
         if !cameraView.isVideoRecording {
             cameraView.startVideoRecording()
@@ -55,6 +55,7 @@ class OverlayViewController: UIViewController {
         playerView.play()
     }
 
+    
     @IBAction func stopRecord(_ sender: UIButton) {
         if cameraView.isVideoRecording {
             cameraView.stopVideoRecording()
@@ -194,7 +195,10 @@ class OverlayViewController: UIViewController {
         session.status == AVAssetExportSession.Status.completed,
         let outputURL = session.outputURL
         else { return }
-        let vc = VideoCompositionViewController()
+
+        guard let vc: VideoCompositionViewController = UIStoryboard.mainStoryboard?.instantiateVC() else {
+            return
+        }
         vc.videoUrl = outputURL
         self.navigationController?.show(vc, sender: nil)
     }
@@ -209,7 +213,7 @@ class OverlayViewController: UIViewController {
     }
 }
 
-extension OverlayViewController: CameraPreviewDelegate {
+extension VideoRecordViewController: CameraPreviewDelegate {
 
     func captureSessionDidStartRunning() {
        //
@@ -232,14 +236,14 @@ extension OverlayViewController: CameraPreviewDelegate {
 
 }
 
-extension OverlayViewController: AvailableAudioInputsViewControllerDelegate {
+extension VideoRecordViewController: AvailableAudioInputsViewControllerDelegate {
     func didFinishedAudioInput() {
         self.containerView.isHidden = true
     }
 }
 
 
-extension OverlayViewController: PlayerViewDelegate {
+extension VideoRecordViewController: PlayerViewDelegate {
     func playerVideo(player: PlayerView, currentTime: Double) {
         slider.value = Float(currentTime)
     }
@@ -257,7 +261,8 @@ extension OverlayViewController: PlayerViewDelegate {
     }
     
     func playerVideoDidEnd(player: PlayerView) {
-        //
+        // 
     }
 }
+
 
