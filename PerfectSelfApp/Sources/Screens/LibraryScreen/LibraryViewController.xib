@@ -11,6 +11,8 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="LibraryViewController" customModule="PerfectSelf" customModuleProvider="target">
             <connections>
+                <outlet property="libraryCollection" destination="QRt-2X-6q8" id="YBY-iM-agJ"/>
+                <outlet property="libraryCollectionFlow" destination="hb2-F4-nqP" id="Www-a9-bbe"/>
                 <outlet property="view" destination="NfI-02-Y4c" id="5Za-gn-uux"/>
             </connections>
         </placeholder>
@@ -154,6 +156,16 @@
                         <constraint firstItem="9I3-GM-uF7" firstAttribute="leading" secondItem="bJg-ky-pJn" secondAttribute="leading" constant="10" id="tZZ-XH-pks"/>
                     </constraints>
                 </view>
+                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="QRt-2X-6q8">
+                    <rect key="frame" x="0.0" y="246" width="393" height="572"/>
+                    <color key="backgroundColor" systemColor="systemOrangeColor"/>
+                    <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="hb2-F4-nqP">
+                        <size key="itemSize" width="128" height="128"/>
+                        <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                        <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                        <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                    </collectionViewFlowLayout>
+                </collectionView>
             </subviews>
             <viewLayoutGuide key="safeArea" id="8Tx-cf-fFN"/>
             <color key="backgroundColor" red="0.8980392157" green="0.8980392157" blue="0.8980392157" alpha="1" colorSpace="calibratedRGB"/>
@@ -162,13 +174,17 @@
                 <constraint firstItem="bJg-ky-pJn" firstAttribute="leading" secondItem="8Tx-cf-fFN" secondAttribute="leading" constant="20" id="9WH-0u-Idg"/>
                 <constraint firstItem="9j5-is-hAM" firstAttribute="leading" secondItem="8Tx-cf-fFN" secondAttribute="leading" constant="20" id="QOV-yZ-VPr"/>
                 <constraint firstItem="BbK-C2-d9V" firstAttribute="leading" secondItem="8Tx-cf-fFN" secondAttribute="leading" id="ReL-EK-67M"/>
+                <constraint firstItem="8Tx-cf-fFN" firstAttribute="bottom" secondItem="QRt-2X-6q8" secondAttribute="bottom" id="Sjb-Bs-OsD"/>
                 <constraint firstItem="bJg-ky-pJn" firstAttribute="top" secondItem="9j5-is-hAM" secondAttribute="bottom" constant="6" id="VfS-Ci-fzy"/>
                 <constraint firstItem="A3J-KA-QG6" firstAttribute="top" secondItem="8Tx-cf-fFN" secondAttribute="top" constant="-60" id="WVU-kD-M10"/>
+                <constraint firstItem="QRt-2X-6q8" firstAttribute="leading" secondItem="8Tx-cf-fFN" secondAttribute="leading" id="arg-9C-Q2H"/>
                 <constraint firstItem="BbK-C2-d9V" firstAttribute="top" secondItem="8Tx-cf-fFN" secondAttribute="top" id="fIv-lC-yll"/>
+                <constraint firstItem="8Tx-cf-fFN" firstAttribute="trailing" secondItem="QRt-2X-6q8" secondAttribute="trailing" id="gkw-8x-p1l"/>
                 <constraint firstItem="8Tx-cf-fFN" firstAttribute="trailing" secondItem="bJg-ky-pJn" secondAttribute="trailing" constant="20" id="kpy-g4-q1d"/>
                 <constraint firstItem="bJg-ky-pJn" firstAttribute="top" secondItem="8Tx-cf-fFN" secondAttribute="top" constant="123" id="niq-M2-Cho"/>
                 <constraint firstItem="A3J-KA-QG6" firstAttribute="trailing" secondItem="8Tx-cf-fFN" secondAttribute="trailing" id="vdY-8W-CcC"/>
                 <constraint firstItem="BbK-C2-d9V" firstAttribute="trailing" secondItem="8Tx-cf-fFN" secondAttribute="trailing" id="yRZ-V0-2W8"/>
+                <constraint firstItem="QRt-2X-6q8" firstAttribute="top" secondItem="bJg-ky-pJn" secondAttribute="bottom" constant="20" id="zBy-NV-qU5"/>
             </constraints>
             <point key="canvasLocation" x="-1" y="-12"/>
         </view>
@@ -183,6 +199,9 @@
         <image name="search" width="20" height="20"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemOrangeColor">
+            <color red="1" green="0.58431372549019611" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
