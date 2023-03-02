@@ -21,10 +21,10 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1fP-yq-XT0">
                         <rect key="frame" x="5" y="5" width="164" height="147"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="scribble" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="Bjf-Uv-dta">
-                                <rect key="frame" x="0.0" y="0.3333333333333286" width="164" height="145.66666666666669"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="video.badge.plus.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="Bjf-Uv-dta">
+                                <rect key="frame" x="-1.6666666666666714" y="2.6666666666666714" width="165.66666666666669" height="144.66666666666669"/>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hQn-Q4-2Rw">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hQn-Q4-2Rw">
                                 <rect key="frame" x="99" y="53" width="42" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -39,6 +39,11 @@
                             <constraint firstItem="Bjf-Uv-dta" firstAttribute="leading" secondItem="1fP-yq-XT0" secondAttribute="leading" id="d79-w3-sVH"/>
                             <constraint firstItem="Bjf-Uv-dta" firstAttribute="top" secondItem="1fP-yq-XT0" secondAttribute="top" id="hKs-6a-OoP"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="subviews">
+                                <exclude reference="hQn-Q4-2Rw"/>
+                            </mask>
+                        </variation>
                     </view>
                 </subviews>
             </view>
@@ -52,12 +57,13 @@
             <size key="customSize" width="174" height="157"/>
             <connections>
                 <outlet property="label" destination="hQn-Q4-2Rw" id="IBz-vq-iie"/>
+                <outlet property="thumbnail" destination="Bjf-Uv-dta" id="rpE-R6-wdD"/>
             </connections>
             <point key="canvasLocation" x="224.42748091603053" y="25"/>
         </collectionViewCell>
     </objects>
     <resources>
-        <image name="scribble" catalog="system" width="128" height="117"/>
+        <image name="video.badge.plus.fill" catalog="system" width="128" height="88"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
