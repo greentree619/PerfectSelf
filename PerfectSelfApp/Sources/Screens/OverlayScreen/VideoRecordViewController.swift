@@ -35,6 +35,9 @@ class VideoRecordViewController: UIViewController {
         btnRecord.isEnabled = true
         btnTimer.isEnabled = true
         self.lblTimer.isHidden = true
+        
+        let awsUpload = AWSUpload()
+        awsUpload.upload(filePath: url)
     }
 
     override func viewDidAppear(_ animated: Bool) {
