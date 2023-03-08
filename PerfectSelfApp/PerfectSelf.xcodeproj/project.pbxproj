@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		11BE6AC424EB0A17D662A6FE /* Pods_PerfectSelf.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F05824DD001DE2D746EF6D8 /* Pods_PerfectSelf.framework */; };
 		2F0D643D26FC644100CB9A47 /* WebRTC in Frameworks */ = {isa = PBXBuildFile; productRef = 2F0D643C26FC644100CB9A47 /* WebRTC */; };
 		2F2E228828E81A080026A8B5 /* Starscream in Frameworks */ = {isa = PBXBuildFile; productRef = 2F2E228728E81A080026A8B5 /* Starscream */; };
 		2F7EBC3622DCC6430015B46E /* WebSocketProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F7EBC3522DCC6430015B46E /* WebSocketProvider.swift */; };
@@ -26,6 +27,7 @@
 		795A4A2A221E0FB100F8BB03 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 795A4A29221E0FB100F8BB03 /* Message.swift */; };
 		798FBA472200F681009F525E /* MainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 798FBA462200F681009F525E /* MainViewController.xib */; };
 		798FBA492200F9A9009F525E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 798FBA482200F9A9009F525E /* LaunchScreen.storyboard */; };
+		BA24197329AF0D200011FDDD /* VideoRecordViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BA24197229AF0D200011FDDD /* VideoRecordViewController.xib */; };
 		BA4714BA29A79856007AABC2 /* ABeeZee-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BA4714A529A79856007AABC2 /* ABeeZee-Italic.ttf */; };
 		BA4714BB29A79856007AABC2 /* ABeeZee-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BA4714A629A79856007AABC2 /* ABeeZee-Regular.ttf */; };
 		BA4714BC29A79856007AABC2 /* GTWalsheimPro-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BA4714A829A79856007AABC2 /* GTWalsheimPro-Medium.ttf */; };
@@ -44,18 +46,25 @@
 		BA4714C929A79856007AABC2 /* SanFranciscoText-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = BA4714B729A79856007AABC2 /* SanFranciscoText-Bold.otf */; };
 		BA4714CA29A79856007AABC2 /* SFProDisplay-Heavy.otf in Resources */ = {isa = PBXBuildFile; fileRef = BA4714B829A79856007AABC2 /* SFProDisplay-Heavy.otf */; };
 		BA4714CB29A79856007AABC2 /* SanFranciscoDisplay-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = BA4714B929A79856007AABC2 /* SanFranciscoDisplay-Regular.otf */; };
+		BA7034DB29AEEF0E00BFB431 /* AvailableAudioInputsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA7034DA29AEEF0D00BFB431 /* AvailableAudioInputsViewController.swift */; };
+		BA7034DD29AEEF4500BFB431 /* VideoCompositionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA7034DC29AEEF4500BFB431 /* VideoCompositionViewController.swift */; };
+		BA7034EB29AEF15900BFB431 /* VideoRecordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA7034E929AEF15900BFB431 /* VideoRecordViewController.swift */; };
+		BA7034EC29AEF15900BFB431 /* VideoPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA7034EA29AEF15900BFB431 /* VideoPicker.swift */; };
+		BA7034EF29AEF2A000BFB431 /* UIStoryBoard+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA7034ED29AEF2A000BFB431 /* UIStoryBoard+Extensions.swift */; };
+		BA8D3D0929AB0AB10084D127 /* EditReadViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BA8D3D0829AB0AB10084D127 /* EditReadViewController.xib */; };
+		BAA91BAA29AF2CBF003E1CA2 /* PrimaryButtons.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAA91BA929AF2CBF003E1CA2 /* PrimaryButtons.swift */; };
+		BAA91BAC29AF2D93003E1CA2 /* UIView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAA91BAB29AF2D93003E1CA2 /* UIView+Extensions.swift */; };
+		BAA91BB229AF306E003E1CA2 /* VideoCompositionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BAA91BB129AF306E003E1CA2 /* VideoCompositionViewController.xib */; };
+		BAA91BB429AF33DB003E1CA2 /* AvaliableAudioInputsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BAA91BB329AF33DB003E1CA2 /* AvaliableAudioInputsViewController.xib */; };
+		BAB32E3F29B0494D0000F082 /* LibraryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB32E3D29B0494D0000F082 /* LibraryCell.swift */; };
+		BAB32E4029B0494D0000F082 /* LibraryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BAB32E3E29B0494D0000F082 /* LibraryCell.xib */; };
+		BAB32E4329B064640000F082 /* Global.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB32E4229B064640000F082 /* Global.swift */; };
+		BAB32E4529B07D9F0000F082 /* UIImageView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB32E4429B07D9F0000F082 /* UIImageView+Extensions.swift */; };
+		BAB7379C29B40B7500F3D663 /* AWSMultipartUpload.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB7379B29B40B7500F3D663 /* AWSMultipartUpload.swift */; };
 		BAC11B5A29A848B800580143 /* MeetingListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAC11B5829A848B800580143 /* MeetingListViewController.swift */; };
 		BAC11B5B29A848B800580143 /* MeetingListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BAC11B5929A848B800580143 /* MeetingListViewController.xib */; };
-		BAC11B6129A848C400580143 /* DesignButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAC11B5D29A848C400580143 /* DesignButton.swift */; };
-		BAC11B6229A848C400580143 /* DesignFigure.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAC11B5E29A848C400580143 /* DesignFigure.swift */; };
-		BAC11B6329A848C400580143 /* DesignImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAC11B5F29A848C400580143 /* DesignImageView.swift */; };
-		BAC11B6429A848C400580143 /* DesignLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAC11B6029A848C400580143 /* DesignLabel.swift */; };
 		BAC11B6829A856A100580143 /* ConferenceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAC11B6629A856A100580143 /* ConferenceViewController.swift */; };
 		BAC11B6929A856A100580143 /* ConferenceViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BAC11B6729A856A100580143 /* ConferenceViewController.xib */; };
-		BAC11B6D29A8595800580143 /* DesignEllipse.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAC11B6A29A8595800580143 /* DesignEllipse.swift */; };
-		BAC11B6E29A8595800580143 /* DesignExtentions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAC11B6B29A8595800580143 /* DesignExtentions.swift */; };
-		BAC11B6F29A8595800580143 /* DesignView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAC11B6C29A8595800580143 /* DesignView.swift */; };
-		BAC11B7229A8612800580143 /* EditReadViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BAC11B7129A8612800580143 /* EditReadViewController.xib */; };
 		BAC11B7429A861C600580143 /* EditReadViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAC11B7329A861C600580143 /* EditReadViewController.swift */; };
 		BAC11B8229A8B37100580143 /* IDCaptureSessionAssetWriterCoordinator.m in Sources */ = {isa = PBXBuildFile; fileRef = BAC11B7629A8B37100580143 /* IDCaptureSessionAssetWriterCoordinator.m */; };
 		BAC11B8329A8B37100580143 /* IDCaptureSessionCoordinator.m in Sources */ = {isa = PBXBuildFile; fileRef = BAC11B7729A8B37100580143 /* IDCaptureSessionCoordinator.m */; };
@@ -63,6 +72,15 @@
 		BAC11B8529A8B37100580143 /* IDCaptureSessionMovieFileOutputCoordinator.m in Sources */ = {isa = PBXBuildFile; fileRef = BAC11B7929A8B37100580143 /* IDCaptureSessionMovieFileOutputCoordinator.m */; };
 		BAC11B8629A8B37100580143 /* IDAssetWriterCoordinator.m in Sources */ = {isa = PBXBuildFile; fileRef = BAC11B7B29A8B37100580143 /* IDAssetWriterCoordinator.m */; };
 		BAC11B8729A8B37100580143 /* IDPermissionsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BAC11B7E29A8B37100580143 /* IDPermissionsManager.m */; };
+		BAD5C7D829AB9EAE00A2F109 /* LibraryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAD5C7D729AB9EAE00A2F109 /* LibraryViewController.swift */; };
+		BAD5C7DA29AB9EE300A2F109 /* ProjectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAD5C7D929AB9EE300A2F109 /* ProjectViewController.swift */; };
+		BAD5C7DC29AB9FF100A2F109 /* ProjectViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BAD5C7DB29AB9FF100A2F109 /* ProjectViewController.xib */; };
+		BAD5C7DE29ABA00B00A2F109 /* LibraryViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BAD5C7DD29ABA00B00A2F109 /* LibraryViewController.xib */; };
+		BAD5C81929AD8C9B00A2F109 /* HomeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BAD5C81829AD8C9B00A2F109 /* HomeViewController.xib */; };
+		BAD5C81B29AD8CB800A2F109 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAD5C81A29AD8CB800A2F109 /* HomeViewController.swift */; };
+		BAD5C84E29AEDF0E00A2F109 /* PlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAD5C84C29AEDF0E00A2F109 /* PlayerView.swift */; };
+		BAD5C84F29AEDF0E00A2F109 /* CameraPreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAD5C84D29AEDF0E00A2F109 /* CameraPreviewView.swift */; };
+		BAD5C85129AEE09F00A2F109 /* VideoHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAD5C85029AEE09F00A2F109 /* VideoHelper.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -85,6 +103,12 @@
 		795A4A29221E0FB100F8BB03 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		798FBA462200F681009F525E /* MainViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainViewController.xib; sourceTree = "<group>"; };
 		798FBA482200F9A9009F525E /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
+		869D21314A3A21C4B3BFA98D /* Pods-PerfectSelf.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PerfectSelf.release.xcconfig"; path = "Target Support Files/Pods-PerfectSelf/Pods-PerfectSelf.release.xcconfig"; sourceTree = "<group>"; };
+		9B2028BF3D141AFCF2791F2E /* Pods-PerfectSelf.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PerfectSelf.debug.xcconfig"; path = "Target Support Files/Pods-PerfectSelf/Pods-PerfectSelf.debug.xcconfig"; sourceTree = "<group>"; };
+		9F05824DD001DE2D746EF6D8 /* Pods_PerfectSelf.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PerfectSelf.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		BA24197229AF0D200011FDDD /* VideoRecordViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = VideoRecordViewController.xib; sourceTree = "<group>"; };
+		BA25D82929B18CB70017B6A3 /* AWSS3.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = AWSS3.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		BA25D82D29B18CBD0017B6A3 /* AWSCore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = AWSCore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BA4714A529A79856007AABC2 /* ABeeZee-Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ABeeZee-Italic.ttf"; sourceTree = "<group>"; };
 		BA4714A629A79856007AABC2 /* ABeeZee-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ABeeZee-Regular.ttf"; sourceTree = "<group>"; };
 		BA4714A829A79856007AABC2 /* GTWalsheimPro-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "GTWalsheimPro-Medium.ttf"; sourceTree = "<group>"; };
@@ -103,18 +127,25 @@
 		BA4714B729A79856007AABC2 /* SanFranciscoText-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SanFranciscoText-Bold.otf"; sourceTree = "<group>"; };
 		BA4714B829A79856007AABC2 /* SFProDisplay-Heavy.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFProDisplay-Heavy.otf"; sourceTree = "<group>"; };
 		BA4714B929A79856007AABC2 /* SanFranciscoDisplay-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SanFranciscoDisplay-Regular.otf"; sourceTree = "<group>"; };
+		BA7034DA29AEEF0D00BFB431 /* AvailableAudioInputsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AvailableAudioInputsViewController.swift; sourceTree = "<group>"; };
+		BA7034DC29AEEF4500BFB431 /* VideoCompositionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoCompositionViewController.swift; sourceTree = "<group>"; };
+		BA7034E929AEF15900BFB431 /* VideoRecordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoRecordViewController.swift; sourceTree = "<group>"; };
+		BA7034EA29AEF15900BFB431 /* VideoPicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoPicker.swift; sourceTree = "<group>"; };
+		BA7034ED29AEF2A000BFB431 /* UIStoryBoard+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIStoryBoard+Extensions.swift"; sourceTree = "<group>"; };
+		BA8D3D0829AB0AB10084D127 /* EditReadViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EditReadViewController.xib; sourceTree = "<group>"; };
+		BAA91BA929AF2CBF003E1CA2 /* PrimaryButtons.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrimaryButtons.swift; sourceTree = "<group>"; };
+		BAA91BAB29AF2D93003E1CA2 /* UIView+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Extensions.swift"; sourceTree = "<group>"; };
+		BAA91BB129AF306E003E1CA2 /* VideoCompositionViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = VideoCompositionViewController.xib; sourceTree = "<group>"; };
+		BAA91BB329AF33DB003E1CA2 /* AvaliableAudioInputsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AvaliableAudioInputsViewController.xib; sourceTree = "<group>"; };
+		BAB32E3D29B0494D0000F082 /* LibraryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryCell.swift; sourceTree = "<group>"; };
+		BAB32E3E29B0494D0000F082 /* LibraryCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LibraryCell.xib; sourceTree = "<group>"; };
+		BAB32E4229B064640000F082 /* Global.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Global.swift; sourceTree = "<group>"; };
+		BAB32E4429B07D9F0000F082 /* UIImageView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+Extensions.swift"; sourceTree = "<group>"; };
+		BAB7379B29B40B7500F3D663 /* AWSMultipartUpload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AWSMultipartUpload.swift; sourceTree = "<group>"; };
 		BAC11B5829A848B800580143 /* MeetingListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeetingListViewController.swift; sourceTree = "<group>"; };
 		BAC11B5929A848B800580143 /* MeetingListViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MeetingListViewController.xib; sourceTree = "<group>"; };
-		BAC11B5D29A848C400580143 /* DesignButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DesignButton.swift; sourceTree = "<group>"; };
-		BAC11B5E29A848C400580143 /* DesignFigure.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DesignFigure.swift; sourceTree = "<group>"; };
-		BAC11B5F29A848C400580143 /* DesignImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DesignImageView.swift; sourceTree = "<group>"; };
-		BAC11B6029A848C400580143 /* DesignLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DesignLabel.swift; sourceTree = "<group>"; };
 		BAC11B6629A856A100580143 /* ConferenceViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConferenceViewController.swift; sourceTree = "<group>"; };
 		BAC11B6729A856A100580143 /* ConferenceViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ConferenceViewController.xib; sourceTree = "<group>"; };
-		BAC11B6A29A8595800580143 /* DesignEllipse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DesignEllipse.swift; sourceTree = "<group>"; };
-		BAC11B6B29A8595800580143 /* DesignExtentions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DesignExtentions.swift; sourceTree = "<group>"; };
-		BAC11B6C29A8595800580143 /* DesignView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DesignView.swift; sourceTree = "<group>"; };
-		BAC11B7129A8612800580143 /* EditReadViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EditReadViewController.xib; sourceTree = "<group>"; };
 		BAC11B7329A861C600580143 /* EditReadViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditReadViewController.swift; sourceTree = "<group>"; };
 		BAC11B7629A8B37100580143 /* IDCaptureSessionAssetWriterCoordinator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IDCaptureSessionAssetWriterCoordinator.m; sourceTree = "<group>"; };
 		BAC11B7729A8B37100580143 /* IDCaptureSessionCoordinator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IDCaptureSessionCoordinator.m; sourceTree = "<group>"; };
@@ -129,6 +160,15 @@
 		BAC11B8029A8B37100580143 /* IDCaptureSessionMovieFileOutputCoordinator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IDCaptureSessionMovieFileOutputCoordinator.h; sourceTree = "<group>"; };
 		BAC11B8129A8B37100580143 /* IDAssetWriterCoordinator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IDAssetWriterCoordinator.h; sourceTree = "<group>"; };
 		BAC11B8829A8B43500580143 /* PerfectSelf-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PerfectSelf-Bridging-Header.h"; sourceTree = "<group>"; };
+		BAD5C7D729AB9EAE00A2F109 /* LibraryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryViewController.swift; sourceTree = "<group>"; };
+		BAD5C7D929AB9EE300A2F109 /* ProjectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectViewController.swift; sourceTree = "<group>"; };
+		BAD5C7DB29AB9FF100A2F109 /* ProjectViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProjectViewController.xib; sourceTree = "<group>"; };
+		BAD5C7DD29ABA00B00A2F109 /* LibraryViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LibraryViewController.xib; sourceTree = "<group>"; };
+		BAD5C81829AD8C9B00A2F109 /* HomeViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeViewController.xib; sourceTree = "<group>"; };
+		BAD5C81A29AD8CB800A2F109 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		BAD5C84C29AEDF0E00A2F109 /* PlayerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerView.swift; sourceTree = "<group>"; };
+		BAD5C84D29AEDF0E00A2F109 /* CameraPreviewView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraPreviewView.swift; sourceTree = "<group>"; };
+		BAD5C85029AEE09F00A2F109 /* VideoHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoHelper.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -138,6 +178,7 @@
 			files = (
 				2F0D643D26FC644100CB9A47 /* WebRTC in Frameworks */,
 				2F2E228828E81A080026A8B5 /* Starscream in Frameworks */,
+				11BE6AC424EB0A17D662A6FE /* Pods_PerfectSelf.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -174,9 +215,16 @@
 		79177CA420B1C39700BCD399 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				BAA91BAB29AF2D93003E1CA2 /* UIView+Extensions.swift */,
+				BAA91BA929AF2CBF003E1CA2 /* PrimaryButtons.swift */,
+				BA7034ED29AEF2A000BFB431 /* UIStoryBoard+Extensions.swift */,
+				BAD5C85029AEE09F00A2F109 /* VideoHelper.swift */,
+				BAD5C84D29AEDF0E00A2F109 /* CameraPreviewView.swift */,
+				BAD5C84C29AEDF0E00A2F109 /* PlayerView.swift */,
 				79177CA520B1F76E00BCD399 /* RTCStates.swift */,
 				795A4A25221E081A00F8BB03 /* SessionDescription.swift */,
 				795A4A27221E0A1B00F8BB03 /* IceCandidate.swift */,
+				BAB32E4429B07D9F0000F082 /* UIImageView+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -202,12 +250,13 @@
 		79262EDA20B0D6F500D576C1 = {
 			isa = PBXGroup;
 			children = (
-				BAC11B5C29A848C400580143 /* Designable */,
 				BA4714A329A79856007AABC2 /* Fonts */,
 				798FBA422200F3B1009F525E /* Sources */,
 				79177C9B20B0E84600BCD399 /* Resources */,
 				79177C9A20B0E82B00BCD399 /* SupportingFiles */,
 				79262EE420B0D6F600D576C1 /* Products */,
+				CB328AB89BE3B8B1333B6017 /* Pods */,
+				7EE1C8C95201FA74C6986175 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -222,6 +271,7 @@
 		798FBA422200F3B1009F525E /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				BAB32E4129B064280000F082 /* Common */,
 				BAC11B7529A8B37100580143 /* Camera */,
 				798FBA452200F519009F525E /* Services */,
 				798FBA442200F510009F525E /* Screens */,
@@ -236,6 +286,10 @@
 		798FBA442200F510009F525E /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				BAD5C81C29ADB16600A2F109 /* OverlayScreen */,
+				BAD5C81729AD8C6A00A2F109 /* HomeScreen */,
+				BA55298629AB98C800030991 /* ProjectScreen */,
+				BA8D3D0A29AB98840084D127 /* LibraryScreen */,
 				BAC11B7029A860C000580143 /* EditReadScreen */,
 				BAC11B6529A8562100580143 /* ConferenceScreen */,
 				BAC11B5729A848B800580143 /* MeetingListScreen */,
@@ -254,6 +308,16 @@
 				795A4A29221E0FB100F8BB03 /* Message.swift */,
 			);
 			path = Services;
+			sourceTree = "<group>";
+		};
+		7EE1C8C95201FA74C6986175 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				BA25D82D29B18CBD0017B6A3 /* AWSCore.framework */,
+				BA25D82929B18CB70017B6A3 /* AWSS3.framework */,
+				9F05824DD001DE2D746EF6D8 /* Pods_PerfectSelf.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		BA4714A329A79856007AABC2 /* Fonts */ = {
@@ -313,6 +377,35 @@
 			path = SanFrancisco;
 			sourceTree = "<group>";
 		};
+		BA55298629AB98C800030991 /* ProjectScreen */ = {
+			isa = PBXGroup;
+			children = (
+				BAD5C7DB29AB9FF100A2F109 /* ProjectViewController.xib */,
+				BAD5C7D929AB9EE300A2F109 /* ProjectViewController.swift */,
+			);
+			path = ProjectScreen;
+			sourceTree = "<group>";
+		};
+		BA8D3D0A29AB98840084D127 /* LibraryScreen */ = {
+			isa = PBXGroup;
+			children = (
+				BAD5C7D729AB9EAE00A2F109 /* LibraryViewController.swift */,
+				BAD5C7DD29ABA00B00A2F109 /* LibraryViewController.xib */,
+				BAB32E3D29B0494D0000F082 /* LibraryCell.swift */,
+				BAB32E3E29B0494D0000F082 /* LibraryCell.xib */,
+			);
+			path = LibraryScreen;
+			sourceTree = "<group>";
+		};
+		BAB32E4129B064280000F082 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				BAB32E4229B064640000F082 /* Global.swift */,
+				BAB7379B29B40B7500F3D663 /* AWSMultipartUpload.swift */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
 		BAC11B5729A848B800580143 /* MeetingListScreen */ = {
 			isa = PBXGroup;
 			children = (
@@ -320,20 +413,6 @@
 				BAC11B5929A848B800580143 /* MeetingListViewController.xib */,
 			);
 			path = MeetingListScreen;
-			sourceTree = "<group>";
-		};
-		BAC11B5C29A848C400580143 /* Designable */ = {
-			isa = PBXGroup;
-			children = (
-				BAC11B6A29A8595800580143 /* DesignEllipse.swift */,
-				BAC11B6B29A8595800580143 /* DesignExtentions.swift */,
-				BAC11B6C29A8595800580143 /* DesignView.swift */,
-				BAC11B5D29A848C400580143 /* DesignButton.swift */,
-				BAC11B5E29A848C400580143 /* DesignFigure.swift */,
-				BAC11B5F29A848C400580143 /* DesignImageView.swift */,
-				BAC11B6029A848C400580143 /* DesignLabel.swift */,
-			);
-			path = Designable;
 			sourceTree = "<group>";
 		};
 		BAC11B6529A8562100580143 /* ConferenceScreen */ = {
@@ -349,7 +428,7 @@
 			isa = PBXGroup;
 			children = (
 				BAC11B7329A861C600580143 /* EditReadViewController.swift */,
-				BAC11B7129A8612800580143 /* EditReadViewController.xib */,
+				BA8D3D0829AB0AB10084D127 /* EditReadViewController.xib */,
 			);
 			path = EditReadScreen;
 			sourceTree = "<group>";
@@ -373,6 +452,38 @@
 			path = Camera;
 			sourceTree = "<group>";
 		};
+		BAD5C81729AD8C6A00A2F109 /* HomeScreen */ = {
+			isa = PBXGroup;
+			children = (
+				BAD5C81A29AD8CB800A2F109 /* HomeViewController.swift */,
+				BAD5C81829AD8C9B00A2F109 /* HomeViewController.xib */,
+			);
+			path = HomeScreen;
+			sourceTree = "<group>";
+		};
+		BAD5C81C29ADB16600A2F109 /* OverlayScreen */ = {
+			isa = PBXGroup;
+			children = (
+				BA7034EA29AEF15900BFB431 /* VideoPicker.swift */,
+				BA7034E929AEF15900BFB431 /* VideoRecordViewController.swift */,
+				BA7034DC29AEEF4500BFB431 /* VideoCompositionViewController.swift */,
+				BA7034DA29AEEF0D00BFB431 /* AvailableAudioInputsViewController.swift */,
+				BA24197229AF0D200011FDDD /* VideoRecordViewController.xib */,
+				BAA91BB129AF306E003E1CA2 /* VideoCompositionViewController.xib */,
+				BAA91BB329AF33DB003E1CA2 /* AvaliableAudioInputsViewController.xib */,
+			);
+			path = OverlayScreen;
+			sourceTree = "<group>";
+		};
+		CB328AB89BE3B8B1333B6017 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				9B2028BF3D141AFCF2791F2E /* Pods-PerfectSelf.debug.xcconfig */,
+				869D21314A3A21C4B3BFA98D /* Pods-PerfectSelf.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -380,9 +491,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 79262EF520B0D6F800D576C1 /* Build configuration list for PBXNativeTarget "PerfectSelf" */;
 			buildPhases = (
+				856FCE3825BA42BAEADCBF5D /* [CP] Check Pods Manifest.lock */,
 				79262EDF20B0D6F600D576C1 /* Sources */,
 				79262EE020B0D6F600D576C1 /* Frameworks */,
 				79262EE120B0D6F600D576C1 /* Resources */,
+				B9BA7F71CF61E6EE0CD8271D /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -445,22 +558,29 @@
 				BA4714BC29A79856007AABC2 /* GTWalsheimPro-Medium.ttf in Resources */,
 				BA4714C729A79856007AABC2 /* SF-Pro-Display-Bold.otf in Resources */,
 				BA4714C829A79856007AABC2 /* SF-Pro-Display-Heavy.otf in Resources */,
+				BA24197329AF0D200011FDDD /* VideoRecordViewController.xib in Resources */,
+				BAD5C7DC29AB9FF100A2F109 /* ProjectViewController.xib in Resources */,
 				BA4714CB29A79856007AABC2 /* SanFranciscoDisplay-Regular.otf in Resources */,
 				BA4714BD29A79856007AABC2 /* GTWalsheimPro-Regular.ttf in Resources */,
+				BA8D3D0929AB0AB10084D127 /* EditReadViewController.xib in Resources */,
 				BA4714BE29A79856007AABC2 /* GTWalsheimPro-Bold.ttf in Resources */,
+				BAA91BB429AF33DB003E1CA2 /* AvaliableAudioInputsViewController.xib in Resources */,
+				BAA91BB229AF306E003E1CA2 /* VideoCompositionViewController.xib in Resources */,
 				BA4714C329A79856007AABC2 /* SFProText-Regular.otf in Resources */,
 				BA4714C429A79856007AABC2 /* SanFranciscoText-Regular.otf in Resources */,
 				798FBA472200F681009F525E /* MainViewController.xib in Resources */,
 				BA4714C929A79856007AABC2 /* SanFranciscoText-Bold.otf in Resources */,
+				BAD5C7DE29ABA00B00A2F109 /* LibraryViewController.xib in Resources */,
 				79177CAA20B2283F00BCD399 /* VideoViewController.xib in Resources */,
 				BAC11B5B29A848B800580143 /* MeetingListViewController.xib in Resources */,
 				BA4714C529A79856007AABC2 /* SFProText-Semibold.otf in Resources */,
+				BAB32E4029B0494D0000F082 /* LibraryCell.xib in Resources */,
 				BA4714BB29A79856007AABC2 /* ABeeZee-Regular.ttf in Resources */,
+				BAD5C81929AD8C9B00A2F109 /* HomeViewController.xib in Resources */,
 				BA4714BF29A79856007AABC2 /* ProximaNova-Semibold.otf in Resources */,
 				BA4714C029A79856007AABC2 /* ProximaNova-Bold.otf in Resources */,
 				BA4714BA29A79856007AABC2 /* ABeeZee-Italic.ttf in Resources */,
 				BA4714C129A79856007AABC2 /* ProximaNova-Extrabold.otf in Resources */,
-				BAC11B7229A8612800580143 /* EditReadViewController.xib in Resources */,
 				BAC11B6929A856A100580143 /* ConferenceViewController.xib in Resources */,
 				BA4714C229A79856007AABC2 /* ProximaNova-Regular.otf in Resources */,
 				BA4714C629A79856007AABC2 /* SF-Pro-Display-Regular.otf in Resources */,
@@ -469,6 +589,48 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		856FCE3825BA42BAEADCBF5D /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-PerfectSelf-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		B9BA7F71CF61E6EE0CD8271D /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-PerfectSelf/Pods-PerfectSelf-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-PerfectSelf/Pods-PerfectSelf-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-PerfectSelf/Pods-PerfectSelf-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		79262EDF20B0D6F600D576C1 /* Sources */ = {
@@ -479,31 +641,41 @@
 				BAC11B8729A8B37100580143 /* IDPermissionsManager.m in Sources */,
 				BAC11B6829A856A100580143 /* ConferenceViewController.swift in Sources */,
 				BAC11B8329A8B37100580143 /* IDCaptureSessionCoordinator.m in Sources */,
+				BAB32E4329B064640000F082 /* Global.swift in Sources */,
 				79262EE920B0D6F600D576C1 /* MainViewController.swift in Sources */,
 				792198A222011A450051F03F /* Config.swift in Sources */,
 				79177CA820B2276400BCD399 /* VideoViewController.swift in Sources */,
 				BAC11B8529A8B37100580143 /* IDCaptureSessionMovieFileOutputCoordinator.m in Sources */,
 				79262EE720B0D6F600D576C1 /* AppDelegate.swift in Sources */,
+				BAB32E3F29B0494D0000F082 /* LibraryCell.swift in Sources */,
 				795A4A26221E081A00F8BB03 /* SessionDescription.swift in Sources */,
+				BA7034EF29AEF2A000BFB431 /* UIStoryBoard+Extensions.swift in Sources */,
 				BAC11B7429A861C600580143 /* EditReadViewController.swift in Sources */,
 				79177CA620B1F76E00BCD399 /* RTCStates.swift in Sources */,
-				BAC11B6429A848C400580143 /* DesignLabel.swift in Sources */,
 				79177C9920B0DF2700BCD399 /* SignalingClient.swift in Sources */,
 				795A4A2A221E0FB100F8BB03 /* Message.swift in Sources */,
-				BAC11B6D29A8595800580143 /* DesignEllipse.swift in Sources */,
-				BAC11B6329A848C400580143 /* DesignImageView.swift in Sources */,
+				BAD5C84F29AEDF0E00A2F109 /* CameraPreviewView.swift in Sources */,
+				BAD5C7D829AB9EAE00A2F109 /* LibraryViewController.swift in Sources */,
 				BAC11B5A29A848B800580143 /* MeetingListViewController.swift in Sources */,
-				BAC11B6229A848C400580143 /* DesignFigure.swift in Sources */,
-				BAC11B6129A848C400580143 /* DesignButton.swift in Sources */,
+				BAB7379C29B40B7500F3D663 /* AWSMultipartUpload.swift in Sources */,
+				BAA91BAC29AF2D93003E1CA2 /* UIView+Extensions.swift in Sources */,
+				BAD5C84E29AEDF0E00A2F109 /* PlayerView.swift in Sources */,
+				BAA91BAA29AF2CBF003E1CA2 /* PrimaryButtons.swift in Sources */,
 				795A4A28221E0A1B00F8BB03 /* IceCandidate.swift in Sources */,
+				BAB32E4529B07D9F0000F082 /* UIImageView+Extensions.swift in Sources */,
 				BAC11B8229A8B37100580143 /* IDCaptureSessionAssetWriterCoordinator.m in Sources */,
 				2F7EBC3622DCC6430015B46E /* WebSocketProvider.swift in Sources */,
+				BAD5C85129AEE09F00A2F109 /* VideoHelper.swift in Sources */,
 				79177C9720B0DE7A00BCD399 /* WebRTCClient.swift in Sources */,
+				BA7034DD29AEEF4500BFB431 /* VideoCompositionViewController.swift in Sources */,
 				BAC11B8629A8B37100580143 /* IDAssetWriterCoordinator.m in Sources */,
-				BAC11B6F29A8595800580143 /* DesignView.swift in Sources */,
+				BA7034EB29AEF15900BFB431 /* VideoRecordViewController.swift in Sources */,
+				BA7034EC29AEF15900BFB431 /* VideoPicker.swift in Sources */,
+				BAD5C81B29AD8CB800A2F109 /* HomeViewController.swift in Sources */,
 				2F7EBC3822DCCB4E0015B46E /* StarscreamProvider.swift in Sources */,
-				BAC11B6E29A8595800580143 /* DesignExtentions.swift in Sources */,
+				BA7034DB29AEEF0E00BFB431 /* AvailableAudioInputsViewController.swift in Sources */,
 				2F7EBC3A22DCCE240015B46E /* NativeWebSocket.swift in Sources */,
+				BAD5C7DA29AB9EE300A2F109 /* ProjectViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -632,15 +804,18 @@
 		};
 		79262EF620B0D6F800D576C1 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9B2028BF3D141AFCF2791F2E /* Pods-PerfectSelf.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = 9WURFUCGR3;
 				INFOPLIST_FILE = "$(SRCROOT)/SupportingFiles/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = PerfectSelf;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.social-networking";
+				INFOPLIST_KEY_UIMainStoryboardFile = "";
+				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -658,15 +833,18 @@
 		};
 		79262EF720B0D6F800D576C1 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 869D21314A3A21C4B3BFA98D /* Pods-PerfectSelf.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = 9WURFUCGR3;
 				INFOPLIST_FILE = "$(SRCROOT)/SupportingFiles/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = PerfectSelf;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.social-networking";
+				INFOPLIST_KEY_UIMainStoryboardFile = "";
+				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

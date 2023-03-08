@@ -1,19 +1,17 @@
 //
-//  AWSUpload.swift
+//  AWSMultipartUpload.swift
 //  PerfectSelf
 //
-//  Created by Kayan Mishra on 3/2/23.
+//  Created by Kayan Mishra on 3/4/23.
 //  Copyright © 2023 Stas Seldin. All rights reserved.
 //
 
+import UIKit
 import Foundation
 import AWSCore
 import AWSS3
 
-class AWSUpload: URLSessionDelegate, NSObject
-{
-    
-    var description: String
+class AWSMultipartUpload: NSObject, URLSessionTaskDelegate, URLSessionDataDelegate, URLSessionStreamDelegate, URLSessionWebSocketDelegate {
     var multipartUploadId: String = ""
     var completedPartsInfo: AWSS3CompletedMultipartUpload?
     var chunckSize: Int32 = 5 * 1024 * 1024//5M
@@ -23,7 +21,7 @@ class AWSUpload: URLSessionDelegate, NSObject
     var session: URLSession?
     var chunkUrls: [URL] = [URL]()
     
-    init()
+    override init()
     {
         //Create a credentialsProvider to instruct AWS how to sign those URL
         let credentialsProvider = AWSStaticCredentialsProvider(accessKey: "AKIAUG22JIQEI4J44HP7", secretKey: "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")
@@ -35,6 +33,8 @@ class AWSUpload: URLSessionDelegate, NSObject
         //this way any time the AWS frameworks needs to get credential
         //information, it will get those from the credential provider we just created
         AWSServiceManager.default().defaultServiceConfiguration = configuration
+        
+        super.init()
         
         self.session = URLSession(configuration: URLSessionConfiguration.default, delegate: self, delegateQueue: OperationQueue.main)
     }
@@ -209,8 +209,9 @@ class AWSUpload: URLSessionDelegate, NSObject
         let urlRequest = NSMutableURLRequest(url: presignedURL)
         urlRequest.cachePolicy = .reloadIgnoringLocalCacheData
         urlRequest.httpMethod = "PUT"
-        urlRequest.setValue(self.contentType, forHTTPHeaderField: "Content-Type")
-        urlRequest.setValue((try? Data(contentsOf: chunkURL))!.base64EncodedString(), forHTTPHeaderField: "Content-MD5")
+        //urlRequest.setValue(self.contentType, forHTTPHeaderField: "Content-Type")
+        //let content = (try? Data(contentsOf: chunkURL))!.base64EncodedString()
+        //urlRequest.setValue(content, forHTTPHeaderField: "Content-MD5")
         
         //create the upload task with the request
         let uploadTask =  self.session!.uploadTask(with: urlRequest as URLRequest, fromFile: chunkURL)
@@ -222,10 +223,19 @@ class AWSUpload: URLSessionDelegate, NSObject
         uploadTask.resume()
     }
     
+    func urlSession(_ session: URLSession, task: URLSessionTask, didCompleteWithError error: Error?)
+    {
+        if( error != nil )
+        {
+            print(error.debugDescription)
+        }
+    }
+    
     func urlSession(_ session: URLSession, task: URLSessionTask, didSendBodyData bytesSent: Int64, totalBytesSent: Int64, totalBytesExpectedToSend: Int64)
     {
-        self.handleSuccessfulPartUploadInSession(session, task: task)
-        //let uploadProgress = Float(totalBytesSent) / Float(totalBytesExpectedToSend)
+        //self.handleSuccessfulPartUploadInSession(session, task: task)
+        let uploadProgress = Float(totalBytesSent) / Float(totalBytesExpectedToSend)
+        print(uploadProgress)
     }
     
     func handleSuccessfulPartUploadInSession (_ session: Foundation.URLSession, task: URLSessionTask)
