@@ -11,6 +11,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ReaderHomeViewController" customModule="PerfectSelf" customModuleProvider="target">
             <connections>
+                <outlet property="switch_mode" destination="gHp-f7-WuJ" id="Sgz-Xe-vfC"/>
                 <outlet property="view" destination="qLi-rg-96i" id="LRk-vI-taQ"/>
             </connections>
         </placeholder>
@@ -22,32 +23,41 @@
                 <stackView opaque="NO" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="jNe-t7-djH">
                     <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                     <subviews>
-                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="V0M-kY-ORQ">
-                            <rect key="frame" x="0.0" y="0.0" width="393" height="329"/>
+                        <stackView opaque="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="V0M-kY-ORQ">
+                            <rect key="frame" x="0.0" y="0.0" width="393" height="310"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PERFECT" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3bK-mh-FPg">
-                                    <rect key="frame" x="74.333333333333329" y="129" width="244.66666666666669" height="71.666666666666686"/>
+                                    <rect key="frame" x="74.333333333333329" y="100" width="244.66666666666669" height="70"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="70" id="NoT-14-Dg0" customClass="AdaptiveLayoutConstraint" customModule="PerfectSelf" customModuleProvider="target"/>
+                                    </constraints>
                                     <fontDescription key="fontDescription" type="system" pointSize="60"/>
                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="S   E   L   F" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KPJ-MX-Mho">
-                                    <rect key="frame" x="127.33333333333333" y="200.66666666666666" width="138.66666666666669" height="39.666666666666657"/>
+                                    <rect key="frame" x="127.33333333333333" y="170" width="138.66666666666669" height="40"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="40" id="eNT-6A-1Ta" customClass="AdaptiveLayoutConstraint" customModule="PerfectSelf" customModuleProvider="target"/>
+                                    </constraints>
                                     <fontDescription key="fontDescription" type="system" pointSize="33"/>
                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ksa-5V-0yK">
-                                    <rect key="frame" x="171.66666666666666" y="240.33333333333334" width="50" height="30.000000000000028"/>
+                                    <rect key="frame" x="171.66666666666666" y="210" width="50" height="30"/>
                                     <constraints>
-                                        <constraint firstAttribute="height" constant="30" id="sxZ-ki-XeG"/>
+                                        <constraint firstAttribute="height" constant="30" id="sxZ-ki-XeG" customClass="AdaptiveLayoutConstraint" customModule="PerfectSelf" customModuleProvider="target"/>
                                     </constraints>
                                     <fontDescription key="fontDescription" type="system" pointSize="33"/>
                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Connect with actor" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="e9d-5u-un2">
-                                    <rect key="frame" x="99.000000000000014" y="270.33333333333331" width="195.33333333333337" height="28.666666666666686"/>
+                                    <rect key="frame" x="99.000000000000014" y="240" width="195.33333333333337" height="40"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="40" id="1sP-ga-OFT" customClass="AdaptiveLayoutConstraint" customModule="PerfectSelf" customModuleProvider="target"/>
+                                    </constraints>
                                     <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <nil key="highlightedColor"/>
@@ -55,54 +65,53 @@
                             </subviews>
                             <color key="backgroundColor" red="0.45882352939999999" green="0.52941176469999995" blue="0.85098039219999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <constraints>
-                                <constraint firstAttribute="height" constant="329" id="JSS-uL-sZ9"/>
+                                <constraint firstAttribute="height" constant="310" id="yJ5-wa-IBU" customClass="AdaptiveLayoutConstraint" customModule="PerfectSelf" customModuleProvider="target"/>
                             </constraints>
-                            <edgeInsets key="layoutMargins" top="70" left="8" bottom="30" right="8"/>
+                            <edgeInsets key="layoutMargins" top="100" left="8" bottom="30" right="8"/>
                         </stackView>
                         <stackView opaque="NO" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="ECC-Pm-7EC">
-                            <rect key="frame" x="0.0" y="329" width="393" height="88"/>
+                            <rect key="frame" x="0.0" y="310" width="393" height="88"/>
                             <subviews>
                                 <stackView opaque="NO" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" distribution="fillProportionally" translatesAutoresizingMaskIntoConstraints="NO" id="JM9-fT-ti2">
                                     <rect key="frame" x="16" y="30" width="361" height="50"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Upcoming meeting" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yBz-Eb-y52">
-                                            <rect key="frame" x="20.000000000000014" y="0.0" width="238.33333333333337" height="42"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="268" height="50"/>
                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="View All" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XUc-6Q-H8H">
-                                            <rect key="frame" x="258.33333333333331" y="0.0" width="82.666666666666686" height="42"/>
+                                            <rect key="frame" x="268" y="0.0" width="93" height="50"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                             <color key="textColor" red="0.1960784314" green="0.67843137249999996" blue="0.90196078430000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstAttribute="height" constant="50" id="KIx-Ll-lJZ"/>
+                                        <constraint firstAttribute="height" constant="50" id="KIx-Ll-lJZ" customClass="AdaptiveLayoutConstraint" customModule="PerfectSelf" customModuleProvider="target"/>
                                     </constraints>
-                                    <edgeInsets key="layoutMargins" top="-50" left="20" bottom="8" right="20"/>
                                 </stackView>
                             </subviews>
                             <edgeInsets key="layoutMargins" top="30" left="8" bottom="8" right="8"/>
                         </stackView>
                         <stackView opaque="NO" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="nB4-qY-kLa">
-                            <rect key="frame" x="0.0" y="417" width="393" height="32"/>
+                            <rect key="frame" x="0.0" y="398" width="393" height="32"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Today" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wr4-6f-xy3">
-                                    <rect key="frame" x="30" y="0.0" width="347" height="24"/>
+                                    <rect key="frame" x="20" y="0.0" width="353" height="24"/>
                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                             </subviews>
-                            <edgeInsets key="layoutMargins" top="0.0" left="30" bottom="8" right="8"/>
+                            <edgeInsets key="layoutMargins" top="0.0" left="20" bottom="8" right="20"/>
                         </stackView>
                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Yx0-Ow-i5D">
-                            <rect key="frame" x="0.0" y="449" width="393" height="403"/>
+                            <rect key="frame" x="0.0" y="430" width="393" height="422"/>
                             <subviews>
                                 <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="X9f-Mh-sWA">
-                                    <rect key="frame" x="0.0" y="0.0" width="393" height="403"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="393" height="422"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pDs-gY-rtL">
                                             <rect key="frame" x="20" y="0.0" width="353" height="1000"/>
@@ -473,8 +482,8 @@
                         </stackView>
                     </subviews>
                 </stackView>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NRD-QX-pdw">
-                    <rect key="frame" x="20" y="304" width="353" height="50"/>
+                <view contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NRD-QX-pdw">
+                    <rect key="frame" x="20" y="290" width="353" height="50"/>
                     <subviews>
                         <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="pNE-eq-2Lj">
                             <rect key="frame" x="0.0" y="0.0" width="353" height="50"/>
@@ -485,8 +494,10 @@
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
-                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gHp-f7-WuJ">
+                                <switch opaque="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" preferredStyle="sliding" translatesAutoresizingMaskIntoConstraints="NO" id="gHp-f7-WuJ">
                                     <rect key="frame" x="296" y="9.6666666666666856" width="51" height="31"/>
+                                    <color key="onTintColor" systemColor="systemMintColor"/>
+                                    <color key="thumbTintColor" red="0.45882352941176469" green="0.52941176470588236" blue="0.85098039215686272" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </switch>
                             </subviews>
                             <edgeInsets key="layoutMargins" top="8" left="8" bottom="8" right="8"/>
@@ -497,7 +508,7 @@
                         <constraint firstAttribute="trailing" secondItem="pNE-eq-2Lj" secondAttribute="trailing" id="8lB-ju-FcD"/>
                         <constraint firstAttribute="bottom" secondItem="pNE-eq-2Lj" secondAttribute="bottom" id="chH-bp-fXa"/>
                         <constraint firstItem="pNE-eq-2Lj" firstAttribute="top" secondItem="NRD-QX-pdw" secondAttribute="top" id="kmE-VN-jcd"/>
-                        <constraint firstAttribute="height" constant="50" id="rxl-RW-sVv"/>
+                        <constraint firstAttribute="height" constant="50" id="rxl-RW-sVv" customClass="AdaptiveLayoutConstraint" customModule="PerfectSelf" customModuleProvider="target"/>
                         <constraint firstItem="pNE-eq-2Lj" firstAttribute="leading" secondItem="NRD-QX-pdw" secondAttribute="leading" id="uG6-Ke-qRd"/>
                     </constraints>
                     <userDefinedRuntimeAttributes>
@@ -514,6 +525,9 @@
                         <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                             <integer key="value" value="3"/>
                         </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                            <real key="value" value="10"/>
+                        </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                 </view>
             </subviews>
@@ -526,7 +540,7 @@
                 <constraint firstItem="fXh-se-BE3" firstAttribute="trailing" secondItem="NRD-QX-pdw" secondAttribute="trailing" constant="20" id="vu8-Om-iQG"/>
                 <constraint firstAttribute="trailing" secondItem="jNe-t7-djH" secondAttribute="trailing" id="wuw-uc-tvz"/>
                 <constraint firstItem="jNe-t7-djH" firstAttribute="leading" secondItem="qLi-rg-96i" secondAttribute="leading" id="xsC-Ti-s9p"/>
-                <constraint firstItem="NRD-QX-pdw" firstAttribute="top" secondItem="fXh-se-BE3" secondAttribute="top" constant="245" id="yuQ-Ho-bsx"/>
+                <constraint firstItem="NRD-QX-pdw" firstAttribute="top" secondItem="qLi-rg-96i" secondAttribute="top" constant="290" id="yuQ-Ho-bsx" customClass="AdaptiveLayoutConstraint" customModule="PerfectSelf" customModuleProvider="target"/>
             </constraints>
             <point key="canvasLocation" x="138" y="-627"/>
         </view>
@@ -535,6 +549,9 @@
         <image name="login" width="375" height="422"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemMintColor">
+            <color red="0.0" green="0.7803921568627451" blue="0.74509803921568629" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

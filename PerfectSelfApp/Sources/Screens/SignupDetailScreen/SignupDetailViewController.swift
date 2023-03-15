@@ -10,13 +10,30 @@ import UIKit
 
 class SignupDetailViewController: UIViewController {
 
+    
+    @IBOutlet weak var btn_actor: UIButton!
+    @IBOutlet weak var btn_reader: UIButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
     }
 
-
+    @IBAction func SelectActorThpe(_ sender: UIButton) {
+        sender.borderWidth = 3;
+        btn_reader.borderWidth = 0;
+    }
+    
+    @IBAction func SelectReaderType(_ sender: UIButton) {
+        sender.borderWidth = 3;
+        btn_actor.borderWidth = 0;
+    }
+    
+    @IBAction func FinishSignUp(_ sender: UIButton) {
+        let controller = ActorTabBarController();
+        self.navigationController?.pushViewController(controller, animated: true);
+    }
     /*
     // MARK: - Navigation
 

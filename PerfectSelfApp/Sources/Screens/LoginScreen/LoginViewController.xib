@@ -24,7 +24,7 @@
                         <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="buK-hB-JDR">
                             <rect key="frame" x="0.0" y="0.0" width="428" height="422"/>
                             <subviews>
-                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="login" translatesAutoresizingMaskIntoConstraints="NO" id="VSY-N8-O8y">
+                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="login" translatesAutoresizingMaskIntoConstraints="NO" id="VSY-N8-O8y">
                                     <rect key="frame" x="0.0" y="0.0" width="428" height="422"/>
                                 </imageView>
                             </subviews>
@@ -59,14 +59,20 @@
                         <stackView opaque="NO" contentMode="center" distribution="fillProportionally" alignment="center" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="OSq-FJ-RWB">
                             <rect key="frame" x="0.0" y="679" width="428" height="213"/>
                             <subviews>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="top" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VM4-l0-c7t">
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="top" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VM4-l0-c7t" customClass="TextFieldsFont">
                                     <rect key="frame" x="30" y="89.333333333333371" width="169" height="34.333333333333343"/>
                                     <state key="normal" title="Button"/>
                                     <buttonConfiguration key="configuration" style="filled" title="Login" titleAlignment="center"/>
+                                    <connections>
+                                        <action selector="login:" destination="-1" eventType="touchUpInside" id="MB3-4F-RY0"/>
+                                    </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="top" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OMI-2J-pDN">
                                     <rect key="frame" x="229" y="89.333333333333371" width="169" height="34.333333333333343"/>
                                     <buttonConfiguration key="configuration" style="gray" title="SignUp" titleAlignment="center"/>
+                                    <connections>
+                                        <action selector="signup:" destination="-1" eventType="touchUpInside" id="5I7-YD-gKe"/>
+                                    </connections>
                                 </button>
                             </subviews>
                             <constraints>
@@ -80,10 +86,10 @@
             <viewLayoutGuide key="safeArea" id="ZTF-yW-UO8"/>
             <color key="backgroundColor" red="0.8980392157" green="0.8980392157" blue="0.8980392157" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
-                <constraint firstItem="HcP-w4-NiR" firstAttribute="top" secondItem="thj-qu-bdS" secondAttribute="top" id="3iG-St-Woi"/>
-                <constraint firstItem="ZTF-yW-UO8" firstAttribute="bottom" secondItem="HcP-w4-NiR" secondAttribute="bottom" id="M0i-Fk-VzR"/>
-                <constraint firstItem="HcP-w4-NiR" firstAttribute="leading" secondItem="ZTF-yW-UO8" secondAttribute="leading" id="TSH-2G-GBT"/>
-                <constraint firstItem="ZTF-yW-UO8" firstAttribute="trailing" secondItem="HcP-w4-NiR" secondAttribute="trailing" id="abl-US-UWI"/>
+                <constraint firstItem="ZTF-yW-UO8" firstAttribute="bottom" secondItem="HcP-w4-NiR" secondAttribute="bottom" id="3n9-1j-b8I"/>
+                <constraint firstItem="ZTF-yW-UO8" firstAttribute="trailing" secondItem="HcP-w4-NiR" secondAttribute="trailing" id="B1f-OJ-Svx"/>
+                <constraint firstItem="HcP-w4-NiR" firstAttribute="top" secondItem="thj-qu-bdS" secondAttribute="top" id="SLh-Zm-FWf"/>
+                <constraint firstItem="HcP-w4-NiR" firstAttribute="leading" secondItem="ZTF-yW-UO8" secondAttribute="leading" id="jXj-DN-Hhq"/>
             </constraints>
             <point key="canvasLocation" x="-888" y="-1272"/>
         </view>

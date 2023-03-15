@@ -36,6 +36,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let mainViewController = LoginViewController()
         let navViewController = UINavigationController(rootViewController: mainViewController)
         navViewController.navigationBar.prefersLargeTitles = true
+        navViewController.isNavigationBarHidden = true
         return navViewController
     }
 }

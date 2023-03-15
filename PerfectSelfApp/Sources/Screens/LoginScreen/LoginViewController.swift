@@ -10,6 +10,17 @@ import UIKit
 
 class LoginViewController: UIViewController {
 
+    @IBAction func login(_ sender: UIButton) {
+        let controller = LoginDetailViewController()
+
+        self.navigationController?.pushViewController(controller, animated: true)
+    }
+    
+    @IBAction func signup(_ sender: UIButton) {
+        let controller = SignupViewController()
+
+        self.navigationController?.pushViewController(controller, animated: true)
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
 

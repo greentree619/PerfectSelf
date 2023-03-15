@@ -10,10 +10,15 @@ import UIKit
 
 class ReaderHomeViewController: UIViewController {
 
+    @IBOutlet weak var switch_mode: UISwitch!
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        switch_mode.transform = CGAffineTransform(scaleX: 0.8, y: 0.75);
+        if let thumb = switch_mode.subviews[0].subviews[1].subviews[2] as? UIImageView {
+            thumb.transform = CGAffineTransform(scaleX:1.25, y: 1.333)
+           }
     }
 
 
