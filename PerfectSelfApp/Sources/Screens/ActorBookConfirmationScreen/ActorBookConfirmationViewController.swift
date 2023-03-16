@@ -34,6 +34,8 @@ class ActorBookConfirmationViewController: UIViewController {
     }
     
     @IBAction func GotoMeetingCenter(_ sender: UIButton) {
+        let controller = ActorMessageCenterViewController();
+        self.navigationController?.pushViewController(controller, animated: true);
     }
     @IBAction func GoBack(_ sender: UIButton) {
         _ = navigationController?.popViewController(animated: true)

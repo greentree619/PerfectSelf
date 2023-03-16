@@ -251,7 +251,7 @@
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rFf-lq-h4n">
                                     <rect key="frame" x="0.0" y="105" width="353" height="51"/>
                                     <state key="normal" title="Button"/>
-                                    <buttonConfiguration key="configuration" style="filled" title="Message Alan in My Meeting Center" cornerStyle="dynamic">
+                                    <buttonConfiguration key="configuration" style="filled" title="Message Alan" cornerStyle="dynamic">
                                         <backgroundConfiguration key="background" cornerRadius="12"/>
                                         <fontDescription key="titleFontDescription" type="system" pointSize="16"/>
                                     </buttonConfiguration>
