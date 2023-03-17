@@ -2,7 +2,7 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:/Users/kayan/Documents/Workstation/PerfectSelf/PerfectSelfApp/PerfectSelf.xcodeproj">
+      location = "group:PerfectSelf.xcodeproj">
    </FileRef>
    <FileRef
       location = "group:../signaling/Swift/SignalingServer.xcodeproj">
