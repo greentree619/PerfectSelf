@@ -5,6 +5,9 @@
       location = "group:PerfectSelf.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:PerfectSelf.xcodeproj">
+      location = "group:../signaling/Swift/SignalingServer.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:Pods/Pods.xcodeproj">
    </FileRef>
 </Workspace>
