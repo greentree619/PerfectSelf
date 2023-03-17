@@ -33,9 +33,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //        let mainViewController = MeetingListViewController(signalClient: signalClient, webRTCClient: webRTCClient)
 //        //}}
         
-        let mainViewController = HomeViewController()
+        let mainViewController = LoginViewController()
         let navViewController = UINavigationController(rootViewController: mainViewController)
         navViewController.navigationBar.prefersLargeTitles = true
+        navViewController.isNavigationBarHidden = true
         return navViewController
     }
 }

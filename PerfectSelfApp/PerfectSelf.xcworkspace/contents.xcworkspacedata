@@ -2,12 +2,9 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:/Users/kayan/Documents/Workstation/PerfectSelf/PerfectSelfApp/PerfectSelf.xcodeproj">
-   </FileRef>
-   <FileRef
-      location = "group:../signaling/Swift/SignalingServer.xcodeproj">
-   </FileRef>
-   <FileRef
       location = "group:Pods/Pods.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:PerfectSelf.xcodeproj">
    </FileRef>
 </Workspace>
