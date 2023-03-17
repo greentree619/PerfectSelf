@@ -14,9 +14,16 @@ class ReaderProfileEditPersonalInfoViewController: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        self.navigationItem.setHidesBackButton(true, animated: false);
     }
 
 
+    @IBAction func SaveChange(_ sender: UIButton) {
+        self.navigationController?.popViewController(animated: true);
+    }
+    @IBAction func GoBack(_ sender: UIButton) {
+        self.navigationController?.popViewController(animated: true);
+    }
     /*
     // MARK: - Navigation
 

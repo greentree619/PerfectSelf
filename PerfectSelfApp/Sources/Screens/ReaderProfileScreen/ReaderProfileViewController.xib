@@ -14,7 +14,6 @@
             <connections>
                 <outlet property="btn_edit_about" destination="cTs-mF-iVA" id="sdA-6m-PoJ"/>
                 <outlet property="btn_edit_availability" destination="4i3-Z6-Drn" id="0ix-c8-K9q"/>
-                <outlet property="btn_edit_profile" destination="Dcn-Ca-Ps7" id="eES-kX-rJu"/>
                 <outlet property="btn_edit_rate" destination="Xng-WN-QwJ" id="fqa-Uy-U7t"/>
                 <outlet property="btn_edit_skills" destination="KqW-Zz-hWk" id="6KE-gc-dBu"/>
                 <outlet property="btn_edit_userinfo" destination="Pjf-5h-0Pa" id="qWz-Ok-pFm"/>
@@ -31,19 +30,19 @@
                 <stackView opaque="NO" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" axis="vertical" spacing="50" translatesAutoresizingMaskIntoConstraints="NO" id="IDR-ra-fM9">
                     <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                     <subviews>
-                        <stackView opaque="NO" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" axis="vertical" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="h2l-WS-4pV">
+                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="h2l-WS-4pV">
                             <rect key="frame" x="0.0" y="0.0" width="393" height="250"/>
                             <subviews>
                                 <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="iej-D3-VZl">
-                                    <rect key="frame" x="20" y="59" width="353" height="40"/>
+                                    <rect key="frame" x="20" y="59" width="353" height="50"/>
                                     <subviews>
                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="XD2-PP-ZEf">
-                                            <rect key="frame" x="0.0" y="6" width="176.66666666666666" height="28"/>
+                                            <rect key="frame" x="0.0" y="8" width="176.66666666666666" height="34"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" horizontalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iJl-Ex-VHt">
-                                                    <rect key="frame" x="0.0" y="0.0" width="35" height="28"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="35" height="34"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="28" id="k3u-dQ-7DK" customClass="AdaptiveLayoutConstraint" customModule="PerfectSelf" customModuleProvider="target"/>
+                                                        <constraint firstAttribute="height" constant="34" id="k3u-dQ-7DK" customClass="AdaptiveLayoutConstraint" customModule="PerfectSelf" customModuleProvider="target"/>
                                                         <constraint firstAttribute="width" constant="35" id="xxO-X6-qy9" customClass="AdaptiveLayoutConstraint" customModule="PerfectSelf" customModuleProvider="target"/>
                                                     </constraints>
                                                     <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -67,22 +66,20 @@
                                             </subviews>
                                         </stackView>
                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="bottom" translatesAutoresizingMaskIntoConstraints="NO" id="3Oj-uf-WUy">
-                                            <rect key="frame" x="176.66666666666663" y="6" width="176.33333333333337" height="28"/>
+                                            <rect key="frame" x="176.66666666666663" y="11" width="176.33333333333337" height="28"/>
                                             <subviews>
                                                 <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Tfh-Ne-YXj">
-                                                    <rect key="frame" x="53.666666666666693" y="0.0" width="122.66666666666669" height="28"/>
+                                                    <rect key="frame" x="66.666666666666657" y="0.0" width="109.66666666666666" height="28"/>
                                                     <subviews>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dcn-Ca-Ps7">
-                                                            <rect key="frame" x="0.0" y="0.0" width="81.666666666666671" height="28"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="68.666666666666671" height="28"/>
                                                             <state key="normal" title="Button"/>
                                                             <buttonConfiguration key="configuration" style="filled" cornerStyle="dynamic">
                                                                 <backgroundConfiguration key="background" cornerRadius="5"/>
                                                                 <attributedString key="attributedTitle">
                                                                     <fragment content="Edit Profile">
                                                                         <attributes>
-                                                                            <font key="NSFont" metaFont="cellTitle"/>
-                                                                            <font key="NSOriginalFont" size="12" name="Helvetica"/>
-                                                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                                            <font key="NSFont" size="10" name="ArialMT"/>
                                                                         </attributes>
                                                                     </fragment>
                                                                 </attributedString>
@@ -95,7 +92,7 @@
                                                             </connections>
                                                         </button>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4eb-4O-PlI">
-                                                            <rect key="frame" x="91.666666666666657" y="0.0" width="31" height="28"/>
+                                                            <rect key="frame" x="78.666666666666686" y="0.0" width="31" height="28"/>
                                                             <color key="backgroundColor" red="0.89803921568627454" green="0.89803921568627454" blue="0.89803921568627454" alpha="0.29999999999999999" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="28" id="S2F-CH-7zu" customClass="AdaptiveLayoutConstraint" customModule="PerfectSelf" customModuleProvider="target"/>
@@ -136,11 +133,11 @@
                                     </subviews>
                                     <color key="backgroundColor" red="0.45882352939999999" green="0.52941176469999995" blue="0.85098039219999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <constraints>
-                                        <constraint firstAttribute="height" constant="40" id="iAg-Oh-l0a" customClass="AdaptiveLayoutConstraint" customModule="PerfectSelf" customModuleProvider="target"/>
+                                        <constraint firstAttribute="height" constant="50" id="iAg-Oh-l0a" customClass="AdaptiveLayoutConstraint" customModule="PerfectSelf" customModuleProvider="target"/>
                                     </constraints>
                                 </stackView>
                                 <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4Ny-2E-cqp">
-                                    <rect key="frame" x="20" y="99" width="353" height="143"/>
+                                    <rect key="frame" x="20" y="109" width="353" height="133"/>
                                     <edgeInsets key="layoutMargins" top="8" left="8" bottom="8" right="8"/>
                                 </stackView>
                             </subviews>
@@ -196,6 +193,9 @@
                                                                             <real key="value" value="1"/>
                                                                         </userDefinedRuntimeAttribute>
                                                                     </userDefinedRuntimeAttributes>
+                                                                    <connections>
+                                                                        <action selector="EditUserInfo:" destination="-1" eventType="touchUpInside" id="Z0M-Kr-NU7"/>
+                                                                    </connections>
                                                                 </button>
                                                             </subviews>
                                                         </stackView>
@@ -233,6 +233,9 @@
                                                                     <real key="value" value="1"/>
                                                                 </userDefinedRuntimeAttribute>
                                                             </userDefinedRuntimeAttributes>
+                                                            <connections>
+                                                                <action selector="EditRate:" destination="-1" eventType="touchUpInside" id="r0t-2Z-yXk"/>
+                                                            </connections>
                                                         </button>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$35/hr" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nap-vi-9sp">
                                                             <rect key="frame" x="28" y="0.0" width="66.333333333333329" height="18"/>
@@ -374,6 +377,9 @@
                                                                             <real key="value" value="1"/>
                                                                         </userDefinedRuntimeAttribute>
                                                                     </userDefinedRuntimeAttributes>
+                                                                    <connections>
+                                                                        <action selector="EditAbout:" destination="-1" eventType="touchUpInside" id="kmL-gb-Xjj"/>
+                                                                    </connections>
                                                                 </button>
                                                             </subviews>
                                                         </stackView>
@@ -445,6 +451,9 @@
                                                             <real key="value" value="1"/>
                                                         </userDefinedRuntimeAttribute>
                                                     </userDefinedRuntimeAttributes>
+                                                    <connections>
+                                                        <action selector="EditSkills:" destination="-1" eventType="touchUpInside" id="H7D-0x-Xp1"/>
+                                                    </connections>
                                                 </button>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="4dZ-wI-Nps">
                                                     <rect key="frame" x="311" y="7" width="42" height="12"/>
@@ -594,6 +603,9 @@
                                                             <real key="value" value="1"/>
                                                         </userDefinedRuntimeAttribute>
                                                     </userDefinedRuntimeAttributes>
+                                                    <connections>
+                                                        <action selector="EditAvailability:" destination="-1" eventType="touchUpInside" id="zU2-GB-Krr"/>
+                                                    </connections>
                                                 </button>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="oPG-Rx-4LC">
                                                     <rect key="frame" x="311" y="9" width="42" height="12"/>

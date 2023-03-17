@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import BDatePicker
 
 class ReaderProfileEditAvailabilityViewController: UIViewController {
 
@@ -14,9 +15,37 @@ class ReaderProfileEditAvailabilityViewController: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        self.navigationItem.setHidesBackButton(true, animated: false)
     }
 
+    @IBAction func ShowCalendar(_ sender: Any) {
+        let _ = BDatePicker.show(on: self, handledBy: HandleDateDidChange)
 
+        func HandleDateDidChange(to newDate: Date?)
+         {
+             guard let date = newDate else
+             {
+//               dateLabel.text = "nil"
+                 print("nil");
+                 return
+             }
+             print(date.description);
+            //dateLabel.text = date.description
+         }
+    }
+    
+    @IBAction func SelectFromTime(_ sender: UIButton) {
+    }
+    
+    @IBAction func SelectToTime(_ sender: UIButton) {
+    }
+    @IBAction func SaveChanges(_ sender: UIButton) {
+        self.navigationController?.popViewController(animated: true)
+    }
+    @IBAction func GoBack(_ sender: UIButton) {
+        self.navigationController?.popViewController(animated: true)
+    }
+    
     /*
     // MARK: - Navigation
 

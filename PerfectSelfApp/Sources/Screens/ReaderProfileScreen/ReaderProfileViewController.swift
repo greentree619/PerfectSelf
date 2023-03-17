@@ -18,8 +18,6 @@ class ReaderProfileViewController: UIViewController {
     @IBOutlet weak var btn_edit_skills: UIButton!
     @IBOutlet weak var btn_edit_availability: UIButton!
     
-    @IBOutlet weak var btn_edit_profile: UIButton!
-    
     @IBOutlet weak var view_viewall_availability: UIStackView!
     @IBOutlet weak var view_viewall_skills: UIStackView!
     
@@ -34,10 +32,40 @@ class ReaderProfileViewController: UIViewController {
         btn_edit_availability.isHidden = true;
     }
 
+    @IBAction func EditUserInfo(_ sender: UIButton) {
+        let controller = ReaderProfileEditPersonalInfoViewController()
+        
+        self.navigationController?.pushViewController(controller, animated: true)
+    }
+    @IBAction func EditRate(_ sender: UIButton) {
+        let controller = ReaderProfileEditPersonalInfoViewController()
+        
+        self.navigationController?.pushViewController(controller, animated: true)
+    }
+    @IBAction func EditAbout(_ sender: UIButton) {
+        let controller = ReaderProfileEditAboutViewController()
+        
+        self.navigationController?.pushViewController(controller, animated: true)
+    }
+    @IBAction func EditSkills(_ sender: UIButton) {
+        let controller = ReaderProfileEditSkillViewController()
+        
+        self.navigationController?.pushViewController(controller, animated: true)
+    }
+    @IBAction func EditAvailability(_ sender: UIButton) {
+        let controller = ReaderProfileEditAvailabilityViewController()
+        
+        self.navigationController?.pushViewController(controller, animated: true)
+    }
     @IBAction func EditProfile(_ sender: UIButton) {
 
         if isChangingMode {
-            btn_edit_profile.setTitle("Edit Profile", for: .normal)
+            sender.isEnabled = false
+//            sender.setTitle("Edit Profile", for: UIButton.State.normal)
+          
+            let myNormalAttributedTitle = NSAttributedString(string: "Edit Profile", attributes: [NSAttributedString.Key.font : UIFont(name: "Arial", size: 10.0)!])
+            sender.setAttributedTitle(myNormalAttributedTitle, for: .normal)
+            sender.isEnabled = true;
             isChangingMode = false;
             view_viewall_skills.isHidden = false;
             view_viewall_availability.isHidden = false;
@@ -48,7 +76,11 @@ class ReaderProfileViewController: UIViewController {
             btn_edit_availability.isHidden = true;
         }
         else {
-            btn_edit_profile.setTitle("Save Changes", for: .normal)
+            sender.isEnabled = false;
+//            sender.setTitle("Save Changes", for: UIButton.State.normal)
+            let myNormalAttributedTitle = NSAttributedString(string: "Save Changes", attributes: [NSAttributedString.Key.font : UIFont(name: "Arial", size: 10.0)!])
+            sender.setAttributedTitle(myNormalAttributedTitle, for: .normal)
+            sender.isEnabled = true;
             isChangingMode = true;
             view_viewall_skills.isHidden = true;
             view_viewall_availability.isHidden = true;
