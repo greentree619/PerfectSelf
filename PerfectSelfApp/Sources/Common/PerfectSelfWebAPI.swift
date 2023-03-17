@@ -35,28 +35,6 @@ class PerfectSelfWebAPI
     
     func login() -> Void
     {
-//        let json: [String: Any] = ["userName": "tester",
-//                                   "email": "tester@gmail.com",
-//                                   "password": "123456"]
-//        let jsonData = try? JSONSerialization.data(withJSONObject: json)
-//
-//        let url = URL(string: "\(PERFECTSELF_WEBAPI_ROOT)Users/Login")!
-//        var request = URLRequest(url: url)
-//        request.httpMethod = "POST"
-//        request.setValue("\(String(describing: jsonData?.count))", forHTTPHeaderField: "Content-Length")
-//        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-//        request.httpBody = jsonData
-//        let task = URLSession.shared.dataTask(with: request) { data, response, error in
-//            guard let data = data, error == nil else {
-//                print(error?.localizedDescription ?? "No data")
-//                return
-//            }
-//            let responseJSON = try? JSONSerialization.jsonObject(with: data, options: [])
-//            if let responseJSON = responseJSON as? [String: Any] {
-//                print(responseJSON)
-//            }
-//        }
-//        task.resume()
         let json: [String: Any] = ["userName": "tester",
                                    "email": "tester@gmail.com",
                                    "password": "123456"]
@@ -67,7 +45,13 @@ class PerfectSelfWebAPI
             }
             let responseJSON = try? JSONSerialization.jsonObject(with: data, options: [])
             if let responseJSON = responseJSON as? [String: Any] {
-                print(responseJSON)
+                //print(responseJSON["result"])
+                let result = responseJSON["result"] as! CFBoolean
+                if result as! Bool {
+                    let user = responseJSON["user"] as? [String: Any]
+                    let token = user!["token"] as? String
+                    print(token!)
+                }
             }
         }
     }
