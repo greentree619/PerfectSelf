@@ -1,0 +1,8 @@
+${PODS_ROOT}/Target Support Files/Pods-PerfectSelf/Pods-PerfectSelf-frameworks.sh
+${BUILT_PRODUCTS_DIR}/AWSCore/AWSCore.framework
+${BUILT_PRODUCTS_DIR}/AWSS3/AWSS3.framework
+${BUILT_PRODUCTS_DIR}/BDatePicker/BDatePicker.framework
+${BUILT_PRODUCTS_DIR}/DynamicBlurView/DynamicBlurView.framework
+${BUILT_PRODUCTS_DIR}/FSCalendar/FSCalendar.framework
+${BUILT_PRODUCTS_DIR}/JJFloatingActionButton/JJFloatingActionButton.framework
+${BUILT_PRODUCTS_DIR}/PopupDialog/PopupDialog.framework

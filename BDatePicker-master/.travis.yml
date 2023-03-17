@@ -1,0 +1,10 @@
+osx_image: xcode8
+language: objective-c
+cache: cocoapods
+podfile: Example/Podfile
+before_install:
+  - gem install cocoapods # Since Travis is not always on latest version
+  - pod install --project-directory=Example
+script:
+  - pod lib lint
+  - xcodebuild test-without-building  workspace Example/BDatePicker.xcworkspace  scheme BDatePicker-Example destination 'platform=iOS Simulator,name=iPhone 6,OS=10.0' | xcpretty && x=${PIPESTATUS[0]}

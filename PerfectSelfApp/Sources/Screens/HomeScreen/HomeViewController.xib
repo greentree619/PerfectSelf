@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="HomeViewController" customModule="PerfectSelf">
+            <connections>
+                <outlet property="view" destination="iN0-l3-epB" id="kgF-Li-7VU"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XT9-jY-6Sp" userLabel="top">
+                    <rect key="frame" x="0.0" y="0.0" width="393" height="300"/>
+                    <subviews>
+                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" fixedFrame="YES" image="home_top" translatesAutoresizingMaskIntoConstraints="NO" id="8mI-hm-Inp">
+                            <rect key="frame" x="0.0" y="0.0" width="393" height="300"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" systemColor="systemOrangeColor"/>
+                        </imageView>
+                    </subviews>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="300" id="hkP-gF-Ron"/>
+                    </constraints>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2Zt-za-z3i" userLabel="title">
+                    <rect key="frame" x="0.0" y="300" width="393" height="55"/>
+                    <color key="backgroundColor" red="0.98039215686274506" green="0.98039215686274506" blue="0.98039215686274506" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="55" id="1tO-7F-L9S"/>
+                    </constraints>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Qlc-ye-GXj" userLabel="search">
+                    <rect key="frame" x="20" y="278" width="353" height="44"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="44" id="Prc-oh-QLU"/>
+                    </constraints>
+                </view>
+                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="N5R-Yb-xhx">
+                    <rect key="frame" x="0.0" y="355" width="393" height="373"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="qJb-jv-aNQ">
+                        <size key="itemSize" width="128" height="128"/>
+                        <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                        <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                        <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                    </collectionViewFlowLayout>
+                </collectionView>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8eW-NY-QKh" userLabel="bottom">
+                    <rect key="frame" x="0.0" y="728" width="393" height="90"/>
+                    <subviews>
+                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" image="home_bottom" translatesAutoresizingMaskIntoConstraints="NO" id="clk-mA-26n">
+                            <rect key="frame" x="0.0" y="0.0" width="393" height="90"/>
+                        </imageView>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KR6-7K-xRM" userLabel="user">
+                            <rect key="frame" x="354.33333333333331" y="34" width="18.666666666666686" height="22"/>
+                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                            <state key="normal" image="person" catalog="system"/>
+                            <connections>
+                                <action selector="userDidTap:" destination="-1" eventType="touchUpInside" id="DwK-kY-k6Z"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="w2r-NJ-TAM" userLabel="schedule">
+                            <rect key="frame" x="283.66666666666669" y="34" width="20.666666666666686" height="22"/>
+                            <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                            <state key="normal" image="calendar" catalog="system"/>
+                            <connections>
+                                <action selector="scheduleDidTap:" destination="-1" eventType="touchUpInside" id="n2z-D3-Bv8"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zFb-GQ-PX3" userLabel="library">
+                            <rect key="frame" x="94" y="34" width="22.666666666666671" height="22"/>
+                            <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                            <state key="normal" image="book" catalog="system"/>
+                            <connections>
+                                <action selector="libraryDidTap:" destination="-1" eventType="touchUpInside" id="Wbm-04-ypc"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gBb-Fk-fiM" userLabel="home">
+                            <rect key="frame" x="20" y="24" width="24" height="42"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="35"/>
+                            <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                            <state key="normal" image="homekit" catalog="system"/>
+                            <connections>
+                                <action selector="homeDidTap:" destination="-1" eventType="touchUpInside" id="TxZ-j5-AQT"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    <constraints>
+                        <constraint firstItem="KR6-7K-xRM" firstAttribute="centerY" secondItem="8eW-NY-QKh" secondAttribute="centerY" id="2B9-I9-kP3"/>
+                        <constraint firstAttribute="bottom" secondItem="clk-mA-26n" secondAttribute="bottom" id="CLp-BR-ALy"/>
+                        <constraint firstItem="clk-mA-26n" firstAttribute="leading" secondItem="8eW-NY-QKh" secondAttribute="leading" id="QtE-rr-OsI"/>
+                        <constraint firstItem="w2r-NJ-TAM" firstAttribute="centerY" secondItem="8eW-NY-QKh" secondAttribute="centerY" id="SDS-SG-nPp"/>
+                        <constraint firstAttribute="trailing" secondItem="KR6-7K-xRM" secondAttribute="trailing" constant="20" id="Sbz-bS-68t"/>
+                        <constraint firstItem="KR6-7K-xRM" firstAttribute="leading" secondItem="w2r-NJ-TAM" secondAttribute="trailing" constant="50" id="Tda-Wn-DZ2"/>
+                        <constraint firstItem="clk-mA-26n" firstAttribute="top" secondItem="8eW-NY-QKh" secondAttribute="top" id="YGr-YW-mLT"/>
+                        <constraint firstItem="zFb-GQ-PX3" firstAttribute="leading" secondItem="gBb-Fk-fiM" secondAttribute="trailing" constant="50" id="ZZg-t7-B81"/>
+                        <constraint firstItem="gBb-Fk-fiM" firstAttribute="centerY" secondItem="8eW-NY-QKh" secondAttribute="centerY" id="gj4-HR-QYI"/>
+                        <constraint firstItem="zFb-GQ-PX3" firstAttribute="centerY" secondItem="8eW-NY-QKh" secondAttribute="centerY" id="ma2-Sa-QLU"/>
+                        <constraint firstAttribute="height" constant="90" id="s0n-mU-LkT"/>
+                        <constraint firstItem="gBb-Fk-fiM" firstAttribute="leading" secondItem="8eW-NY-QKh" secondAttribute="leading" constant="20" id="vh8-UC-i9p"/>
+                        <constraint firstAttribute="trailing" secondItem="clk-mA-26n" secondAttribute="trailing" id="yUU-FD-ahV"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="8eW-NY-QKh" secondAttribute="trailing" id="4zj-Vt-2d6"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="XT9-jY-6Sp" secondAttribute="trailing" id="FYs-6D-OBw"/>
+                <constraint firstItem="XT9-jY-6Sp" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="NGl-KM-Fjl"/>
+                <constraint firstItem="Qlc-ye-GXj" firstAttribute="top" secondItem="XT9-jY-6Sp" secondAttribute="bottom" constant="-22" id="TQT-hL-1fs"/>
+                <constraint firstItem="N5R-Yb-xhx" firstAttribute="top" secondItem="2Zt-za-z3i" secondAttribute="bottom" id="U5t-YC-0Kq"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="2Zt-za-z3i" secondAttribute="trailing" id="X4i-II-uWb"/>
+                <constraint firstItem="8eW-NY-QKh" firstAttribute="top" secondItem="N5R-Yb-xhx" secondAttribute="bottom" id="XXP-Yo-qGh"/>
+                <constraint firstItem="XT9-jY-6Sp" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="hCx-DH-0LU"/>
+                <constraint firstItem="Qlc-ye-GXj" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="20" id="k1s-1U-LG9"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="8eW-NY-QKh" secondAttribute="bottom" id="n2d-gK-5ez"/>
+                <constraint firstItem="2Zt-za-z3i" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="nSe-hE-ehD"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="N5R-Yb-xhx" secondAttribute="trailing" id="q6U-VX-ZbV"/>
+                <constraint firstItem="8eW-NY-QKh" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="suE-9y-R1M"/>
+                <constraint firstItem="N5R-Yb-xhx" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="t2i-kF-9ty"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="Qlc-ye-GXj" secondAttribute="trailing" constant="20" id="tX7-F6-TKv"/>
+                <constraint firstItem="2Zt-za-z3i" firstAttribute="top" secondItem="XT9-jY-6Sp" secondAttribute="bottom" id="vxL-vy-gnj"/>
+            </constraints>
+            <edgeInsets key="layoutMargins" top="8" left="8" bottom="8" right="8"/>
+            <point key="canvasLocation" x="-25" y="-12"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="book" catalog="system" width="128" height="99"/>
+        <image name="calendar" catalog="system" width="128" height="107"/>
+        <image name="home_bottom" width="375" height="89"/>
+        <image name="home_top" width="375" height="300"/>
+        <image name="homekit" catalog="system" width="128" height="104"/>
+        <image name="person" catalog="system" width="128" height="121"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemOrangeColor">
+            <color red="1" green="0.58431372549019611" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+    </resources>
+</document>
