@@ -36,6 +36,11 @@ class ActorMessageCenterViewController: UIViewController {
             line.frame = CGRect(x: 20, y: 120*i+109, width:Int(scrollView.frame.width-40), height:1)
             line.contentMode = .scaleToFill
             
+            // add tap recognizer to image view
+            iv.isUserInteractionEnabled = true
+            let gesture = UITapGestureRecognizer(target: self, action: #selector(tapCallback(sender:)))
+            iv.addGestureRecognizer(gesture)
+            
             containerView.addSubview(iv)
             containerView.addSubview(line)
         }
@@ -45,7 +50,12 @@ class ActorMessageCenterViewController: UIViewController {
         scrollView.addSubview(containerView)
         scrollView.contentSize = containerView.frame.size
     }
+    @objc func tapCallback(sender: UITapGestureRecognizer) {
+        print("tapped");
+        let controller = ActorChatViewController();
+        self.navigationController?.pushViewController(controller, animated: true);
 
+    }
 
     /*
     // MARK: - Navigation
