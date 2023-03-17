@@ -11,8 +11,8 @@ import UIKit
 class LoginViewController: UIViewController {
 
     @IBAction func login(_ sender: UIButton) {
+        webAPI.login()
         let controller = LoginDetailViewController()
-
         self.navigationController?.pushViewController(controller, animated: true)
     }
     

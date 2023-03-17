@@ -33,7 +33,7 @@ class LibraryViewController: UIViewController, UICollectionViewDataSource, UICol
         libraryCollection.dataSource = self
         libraryCollection.delegate = self
         
-        getLibraryURLs(urls: &libraryUrls)
+        webAPI.getLibraryURLs(urls: &libraryUrls)
     }
     
     @IBAction func backDidTap(_ sender: UIButton)
