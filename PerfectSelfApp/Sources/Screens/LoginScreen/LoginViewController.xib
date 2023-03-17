@@ -59,7 +59,7 @@
                         <stackView opaque="NO" contentMode="center" distribution="fillProportionally" alignment="center" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="OSq-FJ-RWB">
                             <rect key="frame" x="0.0" y="679" width="428" height="213"/>
                             <subviews>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="top" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VM4-l0-c7t" customClass="TextFieldsFont">
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="top" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VM4-l0-c7t">
                                     <rect key="frame" x="30" y="89.333333333333371" width="169" height="34.333333333333343"/>
                                     <state key="normal" title="Button"/>
                                     <buttonConfiguration key="configuration" style="filled" title="Login" titleAlignment="center"/>

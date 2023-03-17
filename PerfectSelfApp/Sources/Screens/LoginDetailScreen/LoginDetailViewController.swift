@@ -33,6 +33,62 @@ class LoginDetailViewController: UIViewController {
         
         isShowPassword = false;
     }
+    
+    @IBAction func DoLogin(_ sender: UIButton) {
+        sender.isEnabled = false
+        let backgroundView = UIView()
+        backgroundView.backgroundColor = UIColor.black.withAlphaComponent(0.5)
+        backgroundView.frame = view.bounds
+        backgroundView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        view.addSubview(backgroundView)
+
+        let activityIndicatorView = UIActivityIndicatorView(style: .large)
+        activityIndicatorView.center = self.view.center
+        self.view.addSubview(activityIndicatorView)
+        activityIndicatorView.startAnimating()
+        
+        webAPI.login(email: text_email.text!, password: text_password.text!){ data, response, error in
+            
+            DispatchQueue.main.async {
+                activityIndicatorView.stopAnimating()
+                activityIndicatorView.removeFromSuperview()
+                backgroundView.removeFromSuperview()
+                sender.isEnabled = true
+                
+                if self.btn_actor.isSelected {
+                    let controller = ActorTabBarController();
+
+                    self.navigationController?.pushViewController(controller, animated: true)
+                }
+                else {
+                    let controller = ReaderTabBarController();
+
+                    self.navigationController?.pushViewController(controller, animated: true)
+                }
+            }
+            
+            guard let data = data, error == nil else {
+                print(error?.localizedDescription ?? "No data")
+                return
+            }
+            let responseJSON = try? JSONSerialization.jsonObject(with: data, options: [])
+            if let responseJSON = responseJSON as? [String: Any] {
+                //print(responseJSON["result"])
+                let result = responseJSON["result"] as! CFBoolean
+                if result as! Bool {
+                    let user = responseJSON["user"] as? [String: Any]
+                    let token = user!["token"] as? String
+                   print(token!+"test")
+
+
+                }
+            }
+    }
+
+
+
+    }
+
     @IBAction func ActorSelected(_ sender: UIButton) {
         sender.isSelected=true;
         sender.borderWidth = 3;
@@ -72,20 +128,7 @@ class LoginDetailViewController: UIViewController {
         }
     }
     
-    
-    @IBAction func DoLogin(_ sender: UIButton) {
-        if btn_actor.isSelected {
-            let controller = ActorTabBarController();
-
-            self.navigationController?.pushViewController(controller, animated: true)
-        }
-        else {
-            let controller = ReaderTabBarController();
-
-            self.navigationController?.pushViewController(controller, animated: true)
-        }
-
-    }
+   
     /*
     // MARK: - Navigation
 

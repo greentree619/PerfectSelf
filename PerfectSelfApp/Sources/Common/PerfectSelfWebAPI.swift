@@ -11,9 +11,10 @@ import Foundation
 class PerfectSelfWebAPI
 {
     let PERFECTSELF_WEBAPI_ROOT:String = "http://18.119.1.15:5001/api/"
-    
+
     init()
     {
+        
     }
     
     deinit
@@ -33,17 +34,30 @@ class PerfectSelfWebAPI
         task.resume()
     }
     
+    func login(email: String, password: String, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> Void
+    {
+        let json: [String: Any] = ["userName": "tester",
+                                   "email": email,
+                                   "password": password]
+        
+        //print(email, password);
+        return executeAPI(with: "POST", apiPath: "Users/Login", json: json, completionHandler:completionHandler)
+    }
+    
     func login() -> Void
     {
         let json: [String: Any] = ["userName": "tester",
                                    "email": "tester@gmail.com",
                                    "password": "123456"]
-        executeAPI(with: "POST", apiPath: "Users/Login", json: json){ data, response, error in
+        
+        return executeAPI(with: "POST", apiPath: "Users/Login", json: json){ data, response, error in
             guard let data = data, error == nil else {
                 print(error?.localizedDescription ?? "No data")
                 return
             }
             let responseJSON = try? JSONSerialization.jsonObject(with: data, options: [])
+//            print("ok")
+//            print(data)
             if let responseJSON = responseJSON as? [String: Any] {
                 //print(responseJSON["result"])
                 let result = responseJSON["result"] as! CFBoolean
@@ -51,6 +65,7 @@ class PerfectSelfWebAPI
                     let user = responseJSON["user"] as? [String: Any]
                     let token = user!["token"] as? String
                     print(token!)
+//                    return token!
                 }
             }
         }
