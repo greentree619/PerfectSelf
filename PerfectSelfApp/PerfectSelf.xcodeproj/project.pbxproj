@@ -18,6 +18,12 @@
 		47007BE129C26F7A00F83CFD /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47007BE029C26F7A00F83CFD /* Item.swift */; };
 		47007BE929C2B0C000F83CFD /* ActorSetPaymentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47007BE729C2B0BF00F83CFD /* ActorSetPaymentViewController.swift */; };
 		47007BEA29C2B0C000F83CFD /* ActorSetPaymentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 47007BE829C2B0C000F83CFD /* ActorSetPaymentViewController.xib */; };
+		47BC09BA29C5B42700B8F2C5 /* ActorBuildProfile1ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47BC09B829C5B42700B8F2C5 /* ActorBuildProfile1ViewController.swift */; };
+		47BC09BB29C5B42700B8F2C5 /* ActorBuildProfile1ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 47BC09B929C5B42700B8F2C5 /* ActorBuildProfile1ViewController.xib */; };
+		47BC09BE29C5B44700B8F2C5 /* ActorBuildProfile2ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47BC09BC29C5B44700B8F2C5 /* ActorBuildProfile2ViewController.swift */; };
+		47BC09BF29C5B44700B8F2C5 /* ActorBuildProfile2ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 47BC09BD29C5B44700B8F2C5 /* ActorBuildProfile2ViewController.xib */; };
+		47BC09C229C5B46800B8F2C5 /* ActorBuildProfile3ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47BC09C029C5B46800B8F2C5 /* ActorBuildProfile3ViewController.swift */; };
+		47BC09C329C5B46800B8F2C5 /* ActorBuildProfile3ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 47BC09C129C5B46800B8F2C5 /* ActorBuildProfile3ViewController.xib */; };
 		47DC851429C3815500D86E5A /* ActorMessageCenterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47DC851229C3815500D86E5A /* ActorMessageCenterViewController.swift */; };
 		47DC851529C3815500D86E5A /* ActorMessageCenterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 47DC851329C3815500D86E5A /* ActorMessageCenterViewController.xib */; };
 		47E0B9F629C141C400C82255 /* ReaderTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47E0B9F529C141C400C82255 /* ReaderTabBarController.swift */; };
@@ -149,6 +155,12 @@
 		47007BE029C26F7A00F83CFD /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
 		47007BE729C2B0BF00F83CFD /* ActorSetPaymentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActorSetPaymentViewController.swift; sourceTree = "<group>"; };
 		47007BE829C2B0C000F83CFD /* ActorSetPaymentViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ActorSetPaymentViewController.xib; sourceTree = "<group>"; };
+		47BC09B829C5B42700B8F2C5 /* ActorBuildProfile1ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActorBuildProfile1ViewController.swift; sourceTree = "<group>"; };
+		47BC09B929C5B42700B8F2C5 /* ActorBuildProfile1ViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ActorBuildProfile1ViewController.xib; sourceTree = "<group>"; };
+		47BC09BC29C5B44700B8F2C5 /* ActorBuildProfile2ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActorBuildProfile2ViewController.swift; sourceTree = "<group>"; };
+		47BC09BD29C5B44700B8F2C5 /* ActorBuildProfile2ViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ActorBuildProfile2ViewController.xib; sourceTree = "<group>"; };
+		47BC09C029C5B46800B8F2C5 /* ActorBuildProfile3ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActorBuildProfile3ViewController.swift; sourceTree = "<group>"; };
+		47BC09C129C5B46800B8F2C5 /* ActorBuildProfile3ViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ActorBuildProfile3ViewController.xib; sourceTree = "<group>"; };
 		47DC851229C3815500D86E5A /* ActorMessageCenterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActorMessageCenterViewController.swift; sourceTree = "<group>"; };
 		47DC851329C3815500D86E5A /* ActorMessageCenterViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ActorMessageCenterViewController.xib; sourceTree = "<group>"; };
 		47E0B9F529C141C400C82255 /* ReaderTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReaderTabBarController.swift; sourceTree = "<group>"; };
@@ -333,6 +345,19 @@
 				47007BE829C2B0C000F83CFD /* ActorSetPaymentViewController.xib */,
 			);
 			path = ActorSetPaymentScreen;
+			sourceTree = "<group>";
+		};
+		47BC09B729C5B3E300B8F2C5 /* ActorBuildProfileScreen */ = {
+			isa = PBXGroup;
+			children = (
+				47BC09B829C5B42700B8F2C5 /* ActorBuildProfile1ViewController.swift */,
+				47BC09B929C5B42700B8F2C5 /* ActorBuildProfile1ViewController.xib */,
+				47BC09BC29C5B44700B8F2C5 /* ActorBuildProfile2ViewController.swift */,
+				47BC09BD29C5B44700B8F2C5 /* ActorBuildProfile2ViewController.xib */,
+				47BC09C029C5B46800B8F2C5 /* ActorBuildProfile3ViewController.swift */,
+				47BC09C129C5B46800B8F2C5 /* ActorBuildProfile3ViewController.xib */,
+			);
+			path = ActorBuildProfileScreen;
 			sourceTree = "<group>";
 		};
 		47DC851129C3813000D86E5A /* ActorMessageCenterScreen */ = {
@@ -546,6 +571,7 @@
 		BAD0B49A29BA17120061FEF5 /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				47BC09B729C5B3E300B8F2C5 /* ActorBuildProfileScreen */,
 				47DC851129C3813000D86E5A /* ActorMessageCenterScreen */,
 				47007BE229C2AF2B00F83CFD /* ActorSetPaymentScreen */,
 				47007BD429C1E23E00F83CFD /* Modal */,
@@ -934,12 +960,14 @@
 			files = (
 				47DC851529C3815500D86E5A /* ActorMessageCenterViewController.xib in Resources */,
 				BAD0B50429BA17130061FEF5 /* VideoViewController.xib in Resources */,
+				47BC09BB29C5B42700B8F2C5 /* ActorBuildProfile1ViewController.xib in Resources */,
 				BAD0B53329BA17130061FEF5 /* ReaderProfileEditAboutViewController.xib in Resources */,
 				BA4714CA29A79856007AABC2 /* SFProDisplay-Heavy.otf in Resources */,
 				BAD0B53529BA17130061FEF5 /* SignupDetailViewController.xib in Resources */,
 				79262EEE20B0D6F800D576C1 /* Assets.xcassets in Resources */,
 				BAD0B53929BA17130061FEF5 /* LibraryCell.xib in Resources */,
 				BAD0B52229BA17130061FEF5 /* HomeViewController.xib in Resources */,
+				47BC09C329C5B46800B8F2C5 /* ActorBuildProfile3ViewController.xib in Resources */,
 				BA4714BC29A79856007AABC2 /* GTWalsheimPro-Medium.ttf in Resources */,
 				BAD0B52829BA17130061FEF5 /* ActorHomeViewController.xib in Resources */,
 				BA4714C729A79856007AABC2 /* SF-Pro-Display-Bold.otf in Resources */,
@@ -977,6 +1005,7 @@
 				BA4714BA29A79856007AABC2 /* ABeeZee-Italic.ttf in Resources */,
 				BA4714C129A79856007AABC2 /* ProximaNova-Extrabold.otf in Resources */,
 				BA4714C229A79856007AABC2 /* ProximaNova-Regular.otf in Resources */,
+				47BC09BF29C5B44700B8F2C5 /* ActorBuildProfile2ViewController.xib in Resources */,
 				BAD0B50829BA17130061FEF5 /* ConferenceViewController.xib in Resources */,
 				BAD0B50629BA17130061FEF5 /* MainViewController.xib in Resources */,
 				BAD0B54529BA17130061FEF5 /* ActorBookingViewController.xib in Resources */,
@@ -1063,6 +1092,7 @@
 				795A4A26221E081A00F8BB03 /* SessionDescription.swift in Sources */,
 				BA7034EF29AEF2A000BFB431 /* UIStoryBoard+Extensions.swift in Sources */,
 				BAD0B50E29BA17130061FEF5 /* ReaderProfileAvailabilityConfirmViewController.swift in Sources */,
+				47BC09BA29C5B42700B8F2C5 /* ActorBuildProfile1ViewController.swift in Sources */,
 				BAD0B50729BA17130061FEF5 /* MainViewController.swift in Sources */,
 				BAD0B52729BA17130061FEF5 /* ActorBookAppointmentViewController.swift in Sources */,
 				BAD0B50229BA17130061FEF5 /* LoginDetailViewController.swift in Sources */,
@@ -1097,12 +1127,14 @@
 				BAB32E4529B07D9F0000F082 /* UIImageView+Extensions.swift in Sources */,
 				BAD0B50D29BA17130061FEF5 /* ProjectViewController.swift in Sources */,
 				BAC11B8229A8B37100580143 /* IDCaptureSessionAssetWriterCoordinator.m in Sources */,
+				47BC09BE29C5B44700B8F2C5 /* ActorBuildProfile2ViewController.swift in Sources */,
 				BAD0B50929BA17130061FEF5 /* ConferenceViewController.swift in Sources */,
 				2F7EBC3622DCC6430015B46E /* WebSocketProvider.swift in Sources */,
 				BAD0B54129BA17130061FEF5 /* LoginViewController.swift in Sources */,
 				BAD5C85129AEE09F00A2F109 /* VideoHelper.swift in Sources */,
 				79177C9720B0DE7A00BCD399 /* WebRTCClient.swift in Sources */,
 				BAD0B52029BA17130061FEF5 /* ReaderProfileEditAvailabilityViewController.swift in Sources */,
+				47BC09C229C5B46800B8F2C5 /* ActorBuildProfile3ViewController.swift in Sources */,
 				BAD0B53229BA17130061FEF5 /* ReaderProfileEditAboutViewController.swift in Sources */,
 				BABBD2E529BF9E2E000A7120 /* ActorTabBarController.swift in Sources */,
 				BAD0B51D29BA17130061FEF5 /* VideoCompositionViewController.swift in Sources */,

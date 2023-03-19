@@ -5,6 +5,7 @@ PODS:
   - BDatePicker (0.1.3):
     - FSCalendar
     - PopupDialog (~> 0.5)
+  - DropDown (2.3.13)
   - DynamicBlurView (3.0.1)
   - FSCalendar (2.8.4)
   - JJFloatingActionButton (2.5.0)
@@ -14,6 +15,7 @@ PODS:
 DEPENDENCIES:
   - AWSS3
   - BDatePicker (from `../BDatePicker-master/`)
+  - DropDown
   - FSCalendar
   - JJFloatingActionButton
 
@@ -21,6 +23,7 @@ SPEC REPOS:
   trunk:
     - AWSCore
     - AWSS3
+    - DropDown
     - DynamicBlurView
     - FSCalendar
     - JJFloatingActionButton
@@ -34,11 +37,12 @@ SPEC CHECKSUMS:
   AWSCore: e15f56f30a4acf6277e4c3b4b48ee95e60564307
   AWSS3: 300f3dc595b67d9e1404e24476043a514c8be1a2
   BDatePicker: 1bfad7dceeea5481626bbcdfba67489d6309932c
+  DropDown: 8a2116376c1981888557f72ec2ffc9a5e0e456ec
   DynamicBlurView: b1df5415f9bd31897549e5d7077e5ec120a4d636
   FSCalendar: 2d1d0d9398f12d439f55c1fe0f01525b151b8260
   JJFloatingActionButton: fdc3aefb0f28f04d0f988fa25d5fac97028a9ea7
   PopupDialog: f4bb461bf70ff422be0b56656566424ee9273080
 
-PODFILE CHECKSUM: 741cf4a5c0d7bb2ddc6483eb6e3f0cc9f3fa4858
+PODFILE CHECKSUM: 737afb3ac4ebe4be6e5fac4158817da2e0df203f
 
 COCOAPODS: 1.12.0

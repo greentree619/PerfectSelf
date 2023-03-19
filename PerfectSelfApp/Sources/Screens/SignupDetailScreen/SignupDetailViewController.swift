@@ -31,8 +31,12 @@ class SignupDetailViewController: UIViewController {
     }
     
     @IBAction func FinishSignUp(_ sender: UIButton) {
-        let controller = ActorTabBarController();
+//        let controller = ActorTabBarController();
+        let controller = ActorBuildProfile1ViewController()
         self.navigationController?.pushViewController(controller, animated: true);
+    }
+    @IBAction func GoBack(_ sender: UIButton) {
+        self.navigationController?.popViewController(animated: true)
     }
     /*
     // MARK: - Navigation
