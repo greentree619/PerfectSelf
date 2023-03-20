@@ -24,13 +24,13 @@
                     <rect key="frame" x="0.0" y="0.0" width="393" height="818"/>
                     <subviews>
                         <stackView opaque="NO" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="yPe-BQ-ZEE">
-                            <rect key="frame" x="0.0" y="59" width="393" height="100"/>
+                            <rect key="frame" x="0.0" y="59" width="393" height="80"/>
                             <subviews>
                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="OxY-ZR-abE">
-                                    <rect key="frame" x="20.000000000000007" y="20" width="117.66666666666669" height="70"/>
+                                    <rect key="frame" x="20.000000000000007" y="0.0" width="117.66666666666669" height="70"/>
                                 </stackView>
                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="VXW-1f-uve">
-                                    <rect key="frame" x="137.66666666666666" y="20" width="117.66666666666666" height="70"/>
+                                    <rect key="frame" x="137.66666666666666" y="0.0" width="117.66666666666666" height="70"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Library" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xLv-19-IJY">
                                             <rect key="frame" x="26.666666666666686" y="0.0" width="64.666666666666671" height="70"/>
@@ -41,7 +41,7 @@
                                     </subviews>
                                 </stackView>
                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="bottom" translatesAutoresizingMaskIntoConstraints="NO" id="CcG-xd-rjP">
-                                    <rect key="frame" x="255.33333333333334" y="20" width="117.66666666666666" height="70"/>
+                                    <rect key="frame" x="255.33333333333334" y="0.0" width="117.66666666666666" height="70"/>
                                     <subviews>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ECc-DI-YOg">
                                             <rect key="frame" x="101.66666666666666" y="0.0" width="16" height="70"/>
@@ -54,12 +54,12 @@
                             </subviews>
                             <color key="backgroundColor" red="0.45882352939999999" green="0.52941176469999995" blue="0.85098039219999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <constraints>
-                                <constraint firstAttribute="height" constant="100" id="bRw-Sc-bBr" customClass="AdaptiveLayoutConstraint" customModule="PerfectSelf" customModuleProvider="target"/>
+                                <constraint firstAttribute="height" constant="80" id="bRw-Sc-bBr" customClass="AdaptiveLayoutConstraint" customModule="PerfectSelf" customModuleProvider="target"/>
                             </constraints>
-                            <edgeInsets key="layoutMargins" top="20" left="20" bottom="10" right="20"/>
+                            <edgeInsets key="layoutMargins" top="0.0" left="20" bottom="10" right="20"/>
                         </stackView>
                         <stackView opaque="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="8hF-75-zm7">
-                            <rect key="frame" x="0.0" y="159" width="393" height="659"/>
+                            <rect key="frame" x="0.0" y="139" width="393" height="679"/>
                             <subviews>
                                 <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FJ8-eH-xRY">
                                     <rect key="frame" x="20" y="20" width="353" height="40"/>
@@ -75,7 +75,7 @@
                                             </subviews>
                                             <edgeInsets key="layoutMargins" top="8" left="8" bottom="8" right="8"/>
                                         </stackView>
-                                        <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="SearchLibrary           " textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="1Cm-Jq-L8E">
+                                        <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Search Library           " textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="1Cm-Jq-L8E">
                                             <rect key="frame" x="36.333333333333343" y="0.0" width="316.66666666666663" height="40"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -103,7 +103,7 @@
                                     </userDefinedRuntimeAttributes>
                                 </stackView>
                                 <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LRc-5P-6C5">
-                                    <rect key="frame" x="20" y="80" width="353" height="569"/>
+                                    <rect key="frame" x="20" y="80" width="353" height="589"/>
                                     <viewLayoutGuide key="contentLayoutGuide" id="9Ch-35-2Ax"/>
                                     <viewLayoutGuide key="frameLayoutGuide" id="Udk-Ip-McO"/>
                                 </scrollView>
