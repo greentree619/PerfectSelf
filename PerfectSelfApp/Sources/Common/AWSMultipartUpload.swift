@@ -35,9 +35,67 @@ class AWSMultipartUpload: NSObject, URLSessionTaskDelegate, URLSessionDataDelega
         //information, it will get those from the credential provider we just created
         AWSServiceManager.default().defaultServiceConfiguration = configuration
         
-        super.init()
+        let tuConf = AWSS3TransferUtilityConfiguration()
+        tuConf.isAccelerateModeEnabled = true
+        tuConf.retryLimit = 5
+        tuConf.multiPartConcurrencyLimit = 3
+        tuConf.timeoutIntervalForResource = 15*60 //15 minutes
+
+        //Register a transfer utility object asynchronously
+        AWSS3TransferUtility.register(
+            with: configuration!,
+            transferUtilityConfiguration: tuConf,
+            forKey: "transfer-utility-with-advanced-options"
+        ) { (error) in
+            if error != nil {
+                 //Handle registration error.
+             }
+        }
+
+//        //Look up the transfer utility object from the registry to use for your transfers.
+//        let _:(AWSS3TransferUtility?) = AWSS3TransferUtility.s3TransferUtility(forKey: "transfer-utility-with-advanced-options")
         
-        self.session = URLSession(configuration: URLSessionConfiguration.default, delegate: self, delegateQueue: OperationQueue.main)
+        super.init()
+    }
+    
+    func multipartUpload(filePath: URL) -> Void
+    {
+        let expression = AWSS3TransferUtilityMultiPartUploadExpression()
+              expression.progressBlock = {(task, progress) in
+                  DispatchQueue.main.async(execute: {
+                      // Do something e.g. Update a progress bar.
+                      
+                  })
+                  print(progress.fractionCompleted)   //2
+                  if progress.isFinished{           //3
+                    print("Upload Finished...")
+                    //do any task here.
+                  }
+           }
+
+           var completionHandler: AWSS3TransferUtilityMultiPartUploadCompletionHandlerBlock
+           completionHandler = { (task, error) -> Void in
+              DispatchQueue.main.async(execute: {
+                 // Do something e.g. Alert a user for transfer completion.
+                 // On failed uploads, `error` contains the error object.
+              })
+           }
+
+           let transferUtility = AWSS3TransferUtility.default()
+
+        transferUtility.uploadUsingMultiPart(fileURL: filePath, bucket: self.bucketName, key: String(filePath.lastPathComponent), contentType: self.contentType,
+                expression: expression,
+                completionHandler: completionHandler).continueWith {
+               (task) -> AnyObject? in
+                       if let error = task.error {
+                          print("Error: \(error.localizedDescription)")
+                       }
+
+                       if let _ = task.result {
+                          // Do something with uploadTask.
+                       }
+                       return nil;
+               }
     }
     
     func upload(filePath: URL) -> Void
