@@ -17,7 +17,7 @@ class AWSMultipartUpload: NSObject, URLSessionTaskDelegate, URLSessionDataDelega
     var chunckSize: Int32 = 5 * 1024 * 1024//5M
     var bucketName: String = "video-client-upload-123456798"
     var fileName: String = ""
-    var contentType: String =  "video/x-m4v"
+    var contentType: String =  "video/MP4"
     var session: URLSession?
     var chunkUrls: [URL] = [URL]()
     
@@ -41,22 +41,22 @@ class AWSMultipartUpload: NSObject, URLSessionTaskDelegate, URLSessionDataDelega
     
     func upload(filePath: URL) -> Void
     {
+        generateFileDataInChunks( filePath: filePath )
         //create a request to start a multipart upload
         let multipart = AWSS3CreateMultipartUploadRequest()
-        
+
         //the key in AWS S3 parlance is the name of the file, it needs to be unique
-        multipart!.key = "myGreatFile"
-        
+        multipart!.key = self.fileName//"myGreatFile.mp4"
+
         //tell which bucket you want to upload to
         multipart!.bucket = self.bucketName
-        
+
         //and the content type of the file you are uploading (in my case MP4 video)
         multipart!.contentType = "video/MP4"
-        
+
         //access the default AWS S3 object, which is configured appropriately
         let awsService = AWSS3.default()
-        generateFileDataInChunks( filePath: filePath )
-        
+
         //actually create the multipart upload using the multipart request we created earlier
         awsService.createMultipartUpload(multipart!).continueWith (block: { (task:AWSTask!) -> AnyObject? in
             if( task.error != nil )
@@ -69,18 +69,19 @@ class AWSMultipartUpload: NSObject, URLSessionTaskDelegate, URLSessionDataDelega
                 } catch{}
                 return task
             }
-            
+
             //get the ID that AWS uses to uniquely identify this upload as you'll need it later
             let output:AWSS3CreateMultipartUploadOutput = task.result!
             self.multipartUploadId = output.uploadId! as String
-            
+
             //as individual part complete you'll want to keep track of those
             //as AWS S3 requires the list of all parts to be able to reassemble the file
             self.completedPartsInfo = AWSS3CompletedMultipartUpload()
-            
+            self.completedPartsInfo!.parts = [AWSS3CompletedPart]()
+
             //now that we have an upload ID we can actually start uploading the parts
             self.uploadAllParts(filePath: filePath)
-            
+
             return task
         })
     }
@@ -140,10 +141,11 @@ class AWSMultipartUpload: NSObject, URLSessionTaskDelegate, URLSessionDataDelega
         //generate the file for the current chunck
         //NSURLSession can only work from files when working in the background
         //so we need to create a file containing just the part required
-        let URL = self.chunkUrls[awsPartNumber-1]
+        let chunkUrl = self.chunkUrls[awsPartNumber-1]
 
         //AWS wants to get an MD5 hash of the file to make sure everything got transfered ok
-        let MD5 = (try? Data(contentsOf: URL))?.base64EncodedString()
+        //let MD5 = (try? Data(contentsOf: URL))?.md5//.base64EncodedString()
+        let MD5 = NSString.aws_base64md5(from: (try? Data(contentsOf: chunkUrl)))
         getPreSignedURLRequest.contentMD5 = MD5
 
         //create a presigned URL request for this specific chunk
@@ -154,7 +156,7 @@ class AWSMultipartUpload: NSObject, URLSessionTaskDelegate, URLSessionDataDelega
             if let presignedURL = task.result
             {
                 //we now have the URL we can use to upload this chunk...
-                self.startUploadForPresignedURL (presignedURL as URL, chunkURL: URL, awsPartNumber: awsPartNumber)
+                self.startUploadForPresignedURL (presignedURL as URL, chunkURL: chunkUrl, awsPartNumber: awsPartNumber)
             }
             return task
         })
@@ -209,12 +211,49 @@ class AWSMultipartUpload: NSObject, URLSessionTaskDelegate, URLSessionDataDelega
         let urlRequest = NSMutableURLRequest(url: presignedURL)
         urlRequest.cachePolicy = .reloadIgnoringLocalCacheData
         urlRequest.httpMethod = "PUT"
-        //urlRequest.setValue(self.contentType, forHTTPHeaderField: "Content-Type")
-        //let content = (try? Data(contentsOf: chunkURL))!.base64EncodedString()
-        //urlRequest.setValue(content, forHTTPHeaderField: "Content-MD5")
+        urlRequest.setValue(self.contentType, forHTTPHeaderField: "Content-Type")
+        let content = NSString.aws_base64md5(from: (try? Data(contentsOf: chunkURL)))//(try? Data(contentsOf: chunkURL))!.md5
+        urlRequest.setValue(content, forHTTPHeaderField: "Content-MD5")
         
         //create the upload task with the request
-        let uploadTask =  self.session!.uploadTask(with: urlRequest as URLRequest, fromFile: chunkURL)
+        let uploadTask =  self.session!.uploadTask(with: urlRequest as URLRequest, fromFile: chunkURL){
+            (data: Data?, res: URLResponse?, error: Error?) in
+            defer {
+                DispatchQueue.main.async {
+                    //UIApplication.shared.isNetworkActivityIndicatorVisible = false
+                }
+            }
+            if error != nil {
+                print(awsPartNumber)
+                print(error!.localizedDescription)
+                return
+            }
+            if data != nil && !data!.isEmpty {
+                let strData = String(data:data!, encoding:String.Encoding.utf8)
+                print(strData!)
+            }
+            let code = (res as! HTTPURLResponse).statusCode
+            print(code)
+            let headers = (res as! HTTPURLResponse).allHeaderFields
+            var etag = headers["Etag"] as? String
+            etag = etag!.replacingOccurrences(of: "\"", with: "")
+ //           print(etag as Any)
+            //{{
+            let completedPart = AWSS3CompletedPart()//for each part we need to save the etag and the part number
+            completedPart?.partNumber = ((awsPartNumber) as NSNumber)//remember how we saved the part number in the task description, time to get it back
+            completedPart?.eTag = etag//save the etag as AWS needs that information
+            self.completedPartsInfo!.parts!.append(completedPart!)//add the part to the list of completed parts
+
+            //check if there are any other parts uploading
+            self.session!.getAllTasks(completionHandler: { (tasks:[URLSessionTask]) -> Void in
+                if tasks.count == 0
+                {
+                    //all parts were uploaded, let AWS know
+                    self.completeUpload()
+                }
+            })
+            //}}
+        }
         
         //set the part number as the description so we can keep track of the various tasks
         uploadTask.taskDescription = String(awsPartNumber)
@@ -233,41 +272,43 @@ class AWSMultipartUpload: NSObject, URLSessionTaskDelegate, URLSessionDataDelega
     
     func urlSession(_ session: URLSession, task: URLSessionTask, didSendBodyData bytesSent: Int64, totalBytesSent: Int64, totalBytesExpectedToSend: Int64)
     {
-        //self.handleSuccessfulPartUploadInSession(session, task: task)
         let uploadProgress = Float(totalBytesSent) / Float(totalBytesExpectedToSend)
-        print(uploadProgress)
+        //print(uploadProgress)
+        if uploadProgress >= 1.0 {
+            print(uploadProgress)
+        }
     }
     
     func handleSuccessfulPartUploadInSession (_ session: Foundation.URLSession, task: URLSessionTask)
     {
-        //for each part we need to save the etag and the part number
-        let completedPart = AWSS3CompletedPart()
-        
-        //remember how we saved the part number in the task description, time to get it back
-        completedPart?.partNumber = NSNumber(value: UInt(task.taskDescription!)!)
-        
-        //save the etag as AWS needs that information
-        let headers = (task.response as! HTTPURLResponse).allHeaderFields
-        completedPart?.eTag = headers["ETag"] as? String
-        
-        //add the part to the list of completed parts
-        self.completedPartsInfo!.parts?.append(completedPart!)
+//        //for each part we need to save the etag and the part number
+//        let completedPart = AWSS3CompletedPart()
+//
+//        //remember how we saved the part number in the task description, time to get it back
+//        completedPart?.partNumber = NSNumber(value: UInt(task.taskDescription!)!)
+//
+//        //save the etag as AWS needs that information
+//        let headers = (task.response as! HTTPURLResponse).allHeaderFields
+//        completedPart?.eTag = headers["ETag"] as? String
+//
+//        //add the part to the list of completed parts
+//        self.completedPartsInfo!.parts?.append(completedPart!)
 
         //check if there are any other parts uploading
-        self.session!.getAllTasks(completionHandler: { (tasks:[URLSessionTask]) -> Void in
-            if tasks.count > 1 //completed task are flushed from the list, current task is still listed though, hence 1
-            {
-                //upload is still progressing
-            }
-            else
-            {
-                //all parts were uploaded, let AWS know
-                self.completeUpload(session)
-            }
-        })
+//        self.session!.getAllTasks(completionHandler: { (tasks:[URLSessionTask]) -> Void in
+//            if tasks.count > 1 //completed task are flushed from the list, current task is still listed though, hence 1
+//            {
+//                //upload is still progressing
+//            }
+//            else
+//            {
+//                //all parts were uploaded, let AWS know
+//                self.completeUpload(session)
+//            }
+//        })
     }
     
-    func completeUpload (_ session:Foundation.URLSession)
+    func completeUpload ()
     {
         //For some reason AWS needs the parts sorted, it can't do it on its own...
         let descriptor = NSSortDescriptor(key: "partNumber", ascending: true)
@@ -279,7 +320,7 @@ class AWSMultipartUpload: NSObject, URLSessionTaskDelegate, URLSessionDataDelega
         //}}
 
         //close up the session as we are done
-        self.session!.finishTasksAndInvalidate()
+        //self.session!.finishTasksAndInvalidate()
         self.session = nil
 
         //create the request to complete the multipart upload
@@ -287,18 +328,38 @@ class AWSMultipartUpload: NSObject, URLSessionTaskDelegate, URLSessionDataDelega
         complete!.uploadId = self.multipartUploadId
         complete!.bucket = self.bucketName
         complete!.multipartUpload = self.completedPartsInfo
-        complete!.key = "myGreatFile"
+        complete!.key = self.fileName//"myGreatFile"
 
         //run the request that will complete the uplaod
-        AWSS3.default().completeMultipartUpload(complete!).continueWith(block: { (task:AWSTask!) -> AnyObject? in
+        AWSS3.default().completeMultipartUpload(complete!).continueWith(block: { (task:AWSTask<AWSS3CompleteMultipartUploadOutput>!) -> AnyObject? in
             //handle error and do any needed cleanup
-            let fileManager = FileManager.default
-            do {
-                for tmpUrl in self.chunkUrls {
-                    try fileManager.removeItem( atPath: tmpUrl.absoluteString )
-                }
-            } catch{}
-            return nil
+//            let fileManager = FileManager.default
+//            do {
+//                for tmpUrl in self.chunkUrls {
+//                    try fileManager.removeItem( atPath: tmpUrl.absoluteString )
+//                }
+//            } catch{}
+            //{{
+//            if (uploadRequest.state != AWSS3TransferManagerRequestStatePaused) {
+//                [weakSelf.cache removeObjectForKey:cacheKey];
+//            }
+//
+//            if (uploadRequest.state == AWSS3TransferManagerRequestStateCanceling) {
+//                [weakSelf abortMultipartUploadsForRequest:uploadRequest];
+//            }
+
+            if ((task.error) != nil) {
+                print("error")
+                //return AWSTask<AWSS3CompleteMultipartUploadOutput>.init(forCompletionOfAllTasksWithResults: task!.error)
+            }
+
+            let uploadOutput = AWSS3PutObjectOutput()// *uploadOutput = [AWSS3TransferManagerUploadOutput new];
+            if ((task.result) != nil) {
+                //AWSS3CompleteMultipartUploadOutput *completeMultipartUploadOutput = task.result;
+                uploadOutput?.aws_copyProperties(from: task.result)//[uploadOutput aws_copyPropertiesFromObject:completeMultipartUploadOutput];
+            }
+            return uploadOutput;
+            //}}
         })
     }
 }
