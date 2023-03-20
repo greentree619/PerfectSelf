@@ -15,34 +15,24 @@ class ActorHomeViewController: UIViewController {
     @IBOutlet weak var filtermodal: UIStackView!
 
     @IBOutlet weak var scrollView: UIScrollView!
-    let v = UIImage(named: "video");
+ 
+    let r = UIImage(named: "reader");
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
         filtermodal.alpha = 0;
-        
         let containerView = UIView()
-        let num = 0...8
-        
+        let num = 0...10
         for i in num {
             let iv = UIImageView()
-            iv.image = v;
+            iv.image = r;
             iv.layer.masksToBounds = false;
-            iv.layer.shadowOpacity = 0.5;
-            iv.layer.shadowRadius = 5;
-            iv.layer.shadowOffset = CGSize(width: 5, height: 5);
-            
-            if i%2 == 0 {
-                iv.frame = CGRect(x: 20, y:Int(scrollView.frame.width*0.5-10)*i/2, width:Int(scrollView.frame.width*0.5-30), height:Int(scrollView.frame.width*0.5-30))
-                
-            }
-            else {
-                iv.frame = CGRect(x: Int(scrollView.frame.width*0.5+10), y:Int(scrollView.frame.width*0.5-10)*(i-1)/2, width:Int(scrollView.frame.width*0.5-30), height:Int(scrollView.frame.width*0.5-30))
-               
-            }
-           
+            iv.layer.shadowOpacity = 0.3;
+            iv.layer.shadowRadius = 3;
+            iv.layer.shadowOffset = CGSize(width: 2, height: 3);
+            iv.frame = CGRect(x: 0, y:120*i, width:Int(scrollView.frame.width), height:100)
             containerView.addSubview(iv)
         }
    
@@ -50,6 +40,33 @@ class ActorHomeViewController: UIViewController {
         
         scrollView.addSubview(containerView)
         scrollView.contentSize = containerView.frame.size
+//        let containerView = UIView()
+//        let num = 0...8
+//
+//        for i in num {
+//            let iv = UIImageView()
+//            iv.image = v;
+//            iv.layer.masksToBounds = false;
+//            iv.layer.shadowOpacity = 0.5;
+//            iv.layer.shadowRadius = 5;
+//            iv.layer.shadowOffset = CGSize(width: 5, height: 5);
+//
+//            if i%2 == 0 {
+//                iv.frame = CGRect(x: 20, y:Int(scrollView.frame.width*0.5-10)*i/2, width:Int(scrollView.frame.width*0.5-30), height:Int(scrollView.frame.width*0.5-30))
+//
+//            }
+//            else {
+//                iv.frame = CGRect(x: Int(scrollView.frame.width*0.5+10), y:Int(scrollView.frame.width*0.5-10)*(i-1)/2, width:Int(scrollView.frame.width*0.5-30), height:Int(scrollView.frame.width*0.5-30))
+//
+//            }
+//
+//            containerView.addSubview(iv)
+//        }
+//
+//        containerView.frame = CGRect(x: 0, y: 0, width: scrollView.frame.width, height: 800)
+//
+//        scrollView.addSubview(containerView)
+//        scrollView.contentSize = containerView.frame.size
     }
 
     @IBAction func ShowFilterModal(_ sender: UIButton) {
