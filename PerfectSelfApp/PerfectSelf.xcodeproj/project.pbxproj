@@ -24,6 +24,12 @@
 		47BC09BF29C5B44700B8F2C5 /* ActorBuildProfile2ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 47BC09BD29C5B44700B8F2C5 /* ActorBuildProfile2ViewController.xib */; };
 		47BC09C229C5B46800B8F2C5 /* ActorBuildProfile3ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47BC09C029C5B46800B8F2C5 /* ActorBuildProfile3ViewController.swift */; };
 		47BC09C329C5B46800B8F2C5 /* ActorBuildProfile3ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 47BC09C129C5B46800B8F2C5 /* ActorBuildProfile3ViewController.xib */; };
+		47CEBDDA29C7C24C006CE9DA /* ActorProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47CEBDD829C7C24C006CE9DA /* ActorProfileViewController.swift */; };
+		47CEBDDB29C7C24C006CE9DA /* ActorProfileViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 47CEBDD929C7C24C006CE9DA /* ActorProfileViewController.xib */; };
+		47CEBDDE29C7C272006CE9DA /* ActorProfileEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47CEBDDC29C7C272006CE9DA /* ActorProfileEditViewController.swift */; };
+		47CEBDDF29C7C272006CE9DA /* ActorProfileEditViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 47CEBDDD29C7C272006CE9DA /* ActorProfileEditViewController.xib */; };
+		47CEBDE229C7C293006CE9DA /* ActorProfileChangePasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47CEBDE029C7C293006CE9DA /* ActorProfileChangePasswordViewController.swift */; };
+		47CEBDE329C7C293006CE9DA /* ActorProfileChangePasswordViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 47CEBDE129C7C293006CE9DA /* ActorProfileChangePasswordViewController.xib */; };
 		47DC851429C3815500D86E5A /* ActorMessageCenterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47DC851229C3815500D86E5A /* ActorMessageCenterViewController.swift */; };
 		47DC851529C3815500D86E5A /* ActorMessageCenterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 47DC851329C3815500D86E5A /* ActorMessageCenterViewController.xib */; };
 		47E0B9F629C141C400C82255 /* ReaderTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47E0B9F529C141C400C82255 /* ReaderTabBarController.swift */; };
@@ -161,6 +167,12 @@
 		47BC09BD29C5B44700B8F2C5 /* ActorBuildProfile2ViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ActorBuildProfile2ViewController.xib; sourceTree = "<group>"; };
 		47BC09C029C5B46800B8F2C5 /* ActorBuildProfile3ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActorBuildProfile3ViewController.swift; sourceTree = "<group>"; };
 		47BC09C129C5B46800B8F2C5 /* ActorBuildProfile3ViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ActorBuildProfile3ViewController.xib; sourceTree = "<group>"; };
+		47CEBDD829C7C24C006CE9DA /* ActorProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActorProfileViewController.swift; sourceTree = "<group>"; };
+		47CEBDD929C7C24C006CE9DA /* ActorProfileViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ActorProfileViewController.xib; sourceTree = "<group>"; };
+		47CEBDDC29C7C272006CE9DA /* ActorProfileEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActorProfileEditViewController.swift; sourceTree = "<group>"; };
+		47CEBDDD29C7C272006CE9DA /* ActorProfileEditViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ActorProfileEditViewController.xib; sourceTree = "<group>"; };
+		47CEBDE029C7C293006CE9DA /* ActorProfileChangePasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActorProfileChangePasswordViewController.swift; sourceTree = "<group>"; };
+		47CEBDE129C7C293006CE9DA /* ActorProfileChangePasswordViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ActorProfileChangePasswordViewController.xib; sourceTree = "<group>"; };
 		47DC851229C3815500D86E5A /* ActorMessageCenterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActorMessageCenterViewController.swift; sourceTree = "<group>"; };
 		47DC851329C3815500D86E5A /* ActorMessageCenterViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ActorMessageCenterViewController.xib; sourceTree = "<group>"; };
 		47E0B9F529C141C400C82255 /* ReaderTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReaderTabBarController.swift; sourceTree = "<group>"; };
@@ -358,6 +370,19 @@
 				47BC09C129C5B46800B8F2C5 /* ActorBuildProfile3ViewController.xib */,
 			);
 			path = ActorBuildProfileScreen;
+			sourceTree = "<group>";
+		};
+		47CEBDD729C7C21F006CE9DA /* ActorProfileScreen */ = {
+			isa = PBXGroup;
+			children = (
+				47CEBDD829C7C24C006CE9DA /* ActorProfileViewController.swift */,
+				47CEBDD929C7C24C006CE9DA /* ActorProfileViewController.xib */,
+				47CEBDDC29C7C272006CE9DA /* ActorProfileEditViewController.swift */,
+				47CEBDDD29C7C272006CE9DA /* ActorProfileEditViewController.xib */,
+				47CEBDE029C7C293006CE9DA /* ActorProfileChangePasswordViewController.swift */,
+				47CEBDE129C7C293006CE9DA /* ActorProfileChangePasswordViewController.xib */,
+			);
+			path = ActorProfileScreen;
 			sourceTree = "<group>";
 		};
 		47DC851129C3813000D86E5A /* ActorMessageCenterScreen */ = {
@@ -571,6 +596,7 @@
 		BAD0B49A29BA17120061FEF5 /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				47CEBDD729C7C21F006CE9DA /* ActorProfileScreen */,
 				47BC09B729C5B3E300B8F2C5 /* ActorBuildProfileScreen */,
 				47DC851129C3813000D86E5A /* ActorMessageCenterScreen */,
 				47007BE229C2AF2B00F83CFD /* ActorSetPaymentScreen */,
@@ -971,6 +997,7 @@
 				BA4714BC29A79856007AABC2 /* GTWalsheimPro-Medium.ttf in Resources */,
 				BAD0B52829BA17130061FEF5 /* ActorHomeViewController.xib in Resources */,
 				BA4714C729A79856007AABC2 /* SF-Pro-Display-Bold.otf in Resources */,
+				47CEBDDF29C7C272006CE9DA /* ActorProfileEditViewController.xib in Resources */,
 				BAD0B50C29BA17130061FEF5 /* ProjectViewController.xib in Resources */,
 				BAD0B53029BA17130061FEF5 /* ActorReaderDetailViewController.xib in Resources */,
 				BAD0B52629BA17130061FEF5 /* ActorBookAppointmentViewController.xib in Resources */,
@@ -990,6 +1017,7 @@
 				BAD0B52529BA17130061FEF5 /* EditReadViewController.xib in Resources */,
 				BAD0B53C29BA17130061FEF5 /* ActorChatViewController.xib in Resources */,
 				BAD0B52D29BA17130061FEF5 /* ActorLibraryViewController.xib in Resources */,
+				47CEBDE329C7C293006CE9DA /* ActorProfileChangePasswordViewController.xib in Resources */,
 				BAD0B50B29BA17130061FEF5 /* MeetingListViewController.xib in Resources */,
 				BA4714C429A79856007AABC2 /* SanFranciscoText-Regular.otf in Resources */,
 				BA4714C929A79856007AABC2 /* SanFranciscoText-Bold.otf in Resources */,
@@ -998,6 +1026,7 @@
 				BAD0B53E29BA17130061FEF5 /* ReaderHomeViewController.xib in Resources */,
 				BA4714C529A79856007AABC2 /* SFProText-Semibold.otf in Resources */,
 				BAD0B53629BA17130061FEF5 /* LibraryViewController.xib in Resources */,
+				47CEBDDB29C7C24C006CE9DA /* ActorProfileViewController.xib in Resources */,
 				BA4714BB29A79856007AABC2 /* ABeeZee-Regular.ttf in Resources */,
 				BA4714BF29A79856007AABC2 /* ProximaNova-Semibold.otf in Resources */,
 				BA4714C029A79856007AABC2 /* ProximaNova-Bold.otf in Resources */,
@@ -1090,6 +1119,7 @@
 				79262EE720B0D6F600D576C1 /* AppDelegate.swift in Sources */,
 				BA0E353C29BF8C2800ED838A /* AdaptiveLayoutConstraint.swift in Sources */,
 				795A4A26221E081A00F8BB03 /* SessionDescription.swift in Sources */,
+				47CEBDE229C7C293006CE9DA /* ActorProfileChangePasswordViewController.swift in Sources */,
 				BA7034EF29AEF2A000BFB431 /* UIStoryBoard+Extensions.swift in Sources */,
 				BAD0B50E29BA17130061FEF5 /* ReaderProfileAvailabilityConfirmViewController.swift in Sources */,
 				47BC09BA29C5B42700B8F2C5 /* ActorBuildProfile1ViewController.swift in Sources */,
@@ -1109,10 +1139,12 @@
 				47E0B9F629C141C400C82255 /* ReaderTabBarController.swift in Sources */,
 				BAD0B54329BA17130061FEF5 /* ReaderProfileEditPersonalInfoViewController.swift in Sources */,
 				795A4A2A221E0FB100F8BB03 /* Message.swift in Sources */,
+				47CEBDDE29C7C272006CE9DA /* ActorProfileEditViewController.swift in Sources */,
 				BAD5C84F29AEDF0E00A2F109 /* CameraPreviewView.swift in Sources */,
 				BAB7379C29B40B7500F3D663 /* AWSMultipartUpload.swift in Sources */,
 				BAD0B52929BA17130061FEF5 /* ActorHomeViewController.swift in Sources */,
 				47007BD829C1E27B00F83CFD /* CalendarViewController.swift in Sources */,
+				47CEBDDA29C7C24C006CE9DA /* ActorProfileViewController.swift in Sources */,
 				BAD0B51829BA17130061FEF5 /* OverlayViewContoller.swift in Sources */,
 				BABBD2E829BFF3D1000A7120 /* HexUIColor.swift in Sources */,
 				BAD0B51229BA17130061FEF5 /* SignupViewController.swift in Sources */,

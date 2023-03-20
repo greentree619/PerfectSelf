@@ -76,7 +76,7 @@ class ActorTabBarController: UITabBarController {
               createNavController(for: ActorLibraryViewController(), title: NSLocalizedString("Library", comment: ""), image: UIImage(systemName: "book")!),
               UINavigationController(rootViewController: UIViewController()),
               createNavController(for: ActorBookingViewController(), title: NSLocalizedString("Book", comment: ""), image: UIImage(systemName: "calendar")!),
-              createNavController(for: ActorFindReaderViewController(), title: NSLocalizedString("FindReader", comment: ""), image: UIImage(systemName: "person")!)
+              createNavController(for: ActorProfileViewController(), title: NSLocalizedString("FindReader", comment: ""), image: UIImage(systemName: "person")!)
         ];
       }
 
