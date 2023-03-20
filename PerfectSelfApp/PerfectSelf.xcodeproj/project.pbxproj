@@ -48,6 +48,8 @@
 		BA0E353C29BF8C2800ED838A /* AdaptiveLayoutConstraint.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA0E353829BF8C2800ED838A /* AdaptiveLayoutConstraint.swift */; };
 		BA0E353D29BF8C2800ED838A /* TextFieldsFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA0E353929BF8C2800ED838A /* TextFieldsFont.swift */; };
 		BA3F909A29C457C200ABE966 /* PerfectSelfWebAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA3F909929C457C200ABE966 /* PerfectSelfWebAPI.swift */; };
+		BA00A54129C51E7100C90922 /* Data+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA00A54029C51E7100C90922 /* Data+Extension.swift */; };
+		BA24197329AF0D200011FDDD /* VideoRecordViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BA24197229AF0D200011FDDD /* VideoRecordViewController.xib */; };
 		BA4714BA29A79856007AABC2 /* ABeeZee-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BA4714A529A79856007AABC2 /* ABeeZee-Italic.ttf */; };
 		BA4714BB29A79856007AABC2 /* ABeeZee-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BA4714A629A79856007AABC2 /* ABeeZee-Regular.ttf */; };
 		BA4714BC29A79856007AABC2 /* GTWalsheimPro-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BA4714A829A79856007AABC2 /* GTWalsheimPro-Medium.ttf */; };
@@ -195,6 +197,8 @@
 		BA0E353729BF8C2800ED838A /* CGFloatExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGFloatExtension.swift; sourceTree = "<group>"; };
 		BA0E353829BF8C2800ED838A /* AdaptiveLayoutConstraint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdaptiveLayoutConstraint.swift; sourceTree = "<group>"; };
 		BA0E353929BF8C2800ED838A /* TextFieldsFont.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextFieldsFont.swift; sourceTree = "<group>"; };
+		BA00A54029C51E7100C90922 /* Data+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data+Extension.swift"; sourceTree = "<group>"; };
+		BA24197229AF0D200011FDDD /* VideoRecordViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = VideoRecordViewController.xib; sourceTree = "<group>"; };
 		BA25D82929B18CB70017B6A3 /* AWSS3.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = AWSS3.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BA25D82D29B18CBD0017B6A3 /* AWSCore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = AWSCore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BA3F909929C457C200ABE966 /* PerfectSelfWebAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PerfectSelfWebAPI.swift; sourceTree = "<group>"; };
@@ -437,6 +441,7 @@
 				795A4A27221E0A1B00F8BB03 /* IceCandidate.swift */,
 				BAB32E4429B07D9F0000F082 /* UIImageView+Extensions.swift */,
 				BABBD2E729BFF3D1000A7120 /* HexUIColor.swift */,
+				BA00A54029C51E7100C90922 /* Data+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1140,6 +1145,7 @@
 				BAD0B54329BA17130061FEF5 /* ReaderProfileEditPersonalInfoViewController.swift in Sources */,
 				795A4A2A221E0FB100F8BB03 /* Message.swift in Sources */,
 				47CEBDDE29C7C272006CE9DA /* ActorProfileEditViewController.swift in Sources */,
+				BA00A54129C51E7100C90922 /* Data+Extension.swift in Sources */,
 				BAD5C84F29AEDF0E00A2F109 /* CameraPreviewView.swift in Sources */,
 				BAB7379C29B40B7500F3D663 /* AWSMultipartUpload.swift in Sources */,
 				BAD0B52929BA17130061FEF5 /* ActorHomeViewController.swift in Sources */,
