@@ -28,6 +28,7 @@ class AWSMultipartUpload: NSObject, URLSessionTaskDelegate, URLSessionDataDelega
         
         //create a service configuration with the credential provider we just created
         let configuration = AWSServiceConfiguration.init(region: AWSRegionType.USEast2, credentialsProvider: credentialsProvider)
+        //let configuration = AWSServiceConfiguration(region: .USEast2,endpoint: AWSEndpoint(url: URL(string: "https://s3.amazonaws.com")) , credentialsProvider: credentialsProvider)
         
         //set this as the default configuration
         //this way any time the AWS frameworks needs to get credential
@@ -41,49 +42,83 @@ class AWSMultipartUpload: NSObject, URLSessionTaskDelegate, URLSessionDataDelega
     
     func upload(filePath: URL) -> Void
     {
-        generateFileDataInChunks( filePath: filePath )
-        //create a request to start a multipart upload
-        let multipart = AWSS3CreateMultipartUploadRequest()
-
-        //the key in AWS S3 parlance is the name of the file, it needs to be unique
-        multipart!.key = self.fileName//"myGreatFile.mp4"
-
-        //tell which bucket you want to upload to
-        multipart!.bucket = self.bucketName
-
-        //and the content type of the file you are uploading (in my case MP4 video)
-        multipart!.contentType = "video/MP4"
-
-        //access the default AWS S3 object, which is configured appropriately
-        let awsService = AWSS3.default()
-
-        //actually create the multipart upload using the multipart request we created earlier
-        awsService.createMultipartUpload(multipart!).continueWith (block: { (task:AWSTask!) -> AnyObject? in
-            if( task.error != nil )
-            {
-                let fileManager = FileManager.default
-                do {
-                    for tmpUrl in self.chunkUrls {
-                        try fileManager.removeItem( atPath: tmpUrl.absoluteString )
-                    }
-                } catch{}
-                return task
+        //let resource = Bundle.main.path(forResource: resource, ofType: type)!
+        //let Url = URL(fileURLWithPath: filePath.absoluteString)
+        
+        let expression  = AWSS3TransferUtilityUploadExpression()
+        expression.progressBlock = { (task: AWSS3TransferUtilityTask,progress: Progress) -> Void in
+          print(progress.fractionCompleted)   //2
+          if progress.isFinished{           //3
+            print("Upload Finished...")
+            //do any task here.
+          }
+        }
+        
+        expression.setValue("public-read-write", forRequestHeader: "x-amz-acl")   //4
+        expression.setValue("public-read-write", forRequestParameter: "x-amz-acl")
+        
+        //5
+        AWSS3TransferUtility.default().uploadFile(filePath, bucket: self.bucketName, key: String("test.mp4"), contentType: self.contentType, expression: expression) { (task:AWSS3TransferUtilityUploadTask, err:Error?) -> Void in
+            if(err != nil){
+                print("Failure uploading file")
+                
+            }else{
+                print("Success uploading file")
             }
-
-            //get the ID that AWS uses to uniquely identify this upload as you'll need it later
-            let output:AWSS3CreateMultipartUploadOutput = task.result!
-            self.multipartUploadId = output.uploadId! as String
-
-            //as individual part complete you'll want to keep track of those
-            //as AWS S3 requires the list of all parts to be able to reassemble the file
-            self.completedPartsInfo = AWSS3CompletedMultipartUpload()
-            self.completedPartsInfo!.parts = [AWSS3CompletedPart]()
-
-            //now that we have an upload ID we can actually start uploading the parts
-            self.uploadAllParts(filePath: filePath)
-
-            return task
+        }
+        .continueWith(block: { (task:AWSTask) -> AnyObject? in
+            if(task.error != nil){
+                print("Error uploading file: \(String(describing: task.error?.localizedDescription))")
+            }
+            if(task.result != nil){
+                print("Starting upload...")
+            }
+            return nil
         })
+        
+//        generateFileDataInChunks( filePath: filePath )
+//        //create a request to start a multipart upload
+//        let multipart = AWSS3CreateMultipartUploadRequest()
+//
+//        //the key in AWS S3 parlance is the name of the file, it needs to be unique
+//        multipart!.key = self.fileName//"myGreatFile.mp4"
+//
+//        //tell which bucket you want to upload to
+//        multipart!.bucket = self.bucketName
+//
+//        //and the content type of the file you are uploading (in my case MP4 video)
+//        multipart!.contentType = "video/MP4"
+//
+//        //access the default AWS S3 object, which is configured appropriately
+//        let awsService = AWSS3.default()
+//
+//        //actually create the multipart upload using the multipart request we created earlier
+//        awsService.createMultipartUpload(multipart!).continueWith (block: { (task:AWSTask!) -> AnyObject? in
+//            if( task.error != nil )
+//            {
+//                let fileManager = FileManager.default
+//                do {
+//                    for tmpUrl in self.chunkUrls {
+//                        try fileManager.removeItem( atPath: tmpUrl.absoluteString )
+//                    }
+//                } catch{}
+//                return task
+//            }
+//
+//            //get the ID that AWS uses to uniquely identify this upload as you'll need it later
+//            let output:AWSS3CreateMultipartUploadOutput = task.result!
+//            self.multipartUploadId = output.uploadId! as String
+//
+//            //as individual part complete you'll want to keep track of those
+//            //as AWS S3 requires the list of all parts to be able to reassemble the file
+//            self.completedPartsInfo = AWSS3CompletedMultipartUpload()
+//            self.completedPartsInfo!.parts = [AWSS3CompletedPart]()
+//
+//            //now that we have an upload ID we can actually start uploading the parts
+//            self.uploadAllParts(filePath: filePath)
+//
+//            return task
+//        })
     }
     
     func uploadAllParts (filePath: URL)
