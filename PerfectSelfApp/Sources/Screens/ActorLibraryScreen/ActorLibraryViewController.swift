@@ -24,22 +24,22 @@ class ActorLibraryViewController: UIViewController {
             let iv = UIImageView()
             iv.image = v;
             iv.layer.masksToBounds = false;
-            iv.layer.shadowOpacity = 0.5;
-            iv.layer.shadowRadius = 5;
+            iv.layer.shadowOpacity = 0.3;
+            iv.layer.shadowRadius = 3;
             iv.layer.shadowOffset = CGSize(width: 5, height: 5);
             
             if i%2 == 0 {
-                iv.frame = CGRect(x: 20, y:Int(scrollView.frame.width*0.5-10)*i/2, width:Int(scrollView.frame.width*0.5-30), height:Int(scrollView.frame.width*0.5-30))
-                print(110*i)
+                iv.frame = CGRect(x: 0, y:Int(scrollView.frame.width*0.5+20)*i/2, width:Int(scrollView.frame.width*0.5-10), height:Int(scrollView.frame.width*0.5-10))
+      
             }
             else {
-                iv.frame = CGRect(x: Int(scrollView.frame.width*0.5+10), y:Int(scrollView.frame.width*0.5-10)*(i-1)/2, width:Int(scrollView.frame.width*0.5-30), height:Int(scrollView.frame.width*0.5-30))
-                print(110*(i-1))
+                iv.frame = CGRect(x: Int(scrollView.frame.width*0.5+10), y:Int(scrollView.frame.width*0.5+20)*(i-1)/2, width:Int(scrollView.frame.width*0.5-10), height:Int(scrollView.frame.width*0.5-10))
+   
             }
             
             containerView.addSubview(iv)
         }
-        containerView.frame = CGRect(x: 0, y: 0, width: scrollView.frame.width, height: 800)
+        containerView.frame = CGRect(x: 0, y: 0, width: scrollView.frame.width, height: (scrollView.frame.width*0.5+20)*4+scrollView.frame.width*0.5)
         
         scrollView.addSubview(containerView)
         scrollView.contentSize = containerView.frame.size
