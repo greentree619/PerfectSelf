@@ -100,6 +100,13 @@ class SignupDetailViewController: UIViewController {
                     self.navigationController?.pushViewController(controller, animated: true);
                 }
             }
+            else
+            {
+                DispatchQueue.main.async {
+                    hideIndicator(sender: sender)
+                    Toast.show(message: "Signup failed! please try again.", controller: self)
+                }
+            }
         }
     }
     @IBAction func GoBack(_ sender: UIButton) {
