@@ -29,7 +29,7 @@
                 <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0G0-N9-4dV">
                     <rect key="frame" x="0.0" y="47" width="428" height="845"/>
                     <subviews>
-                        <stackView opaque="NO" contentMode="scaleToFill" semanticContentAttribute="spatial" preservesSuperviewLayoutMargins="YES" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="7q3-Ub-RYc">
+                        <stackView opaque="NO" contentMode="scaleToFill" semanticContentAttribute="spatial" preservesSuperviewLayoutMargins="YES" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="7q3-Ub-RYc" userLabel="Login Layout">
                             <rect key="frame" x="0.0" y="0.0" width="428" height="800"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Welcome Back" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iKj-hx-8j5">
@@ -73,7 +73,7 @@
                                     </subviews>
                                     <edgeInsets key="layoutMargins" top="30" left="8" bottom="10" right="8"/>
                                 </stackView>
-                                <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="PAf-xf-Dd0">
+                                <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="PAf-xf-Dd0" userLabel="LoginRole">
                                     <rect key="frame" x="20" y="375.33333333333331" width="388" height="81"/>
                                     <subviews>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Rf6-yp-tpa">
@@ -116,7 +116,7 @@
                                     </subviews>
                                     <edgeInsets key="layoutMargins" top="8" left="0.0" bottom="20" right="0.0"/>
                                 </stackView>
-                                <stackView opaque="NO" contentMode="scaleToFill" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="ctT-VS-Fz8">
+                                <stackView opaque="NO" contentMode="scaleToFill" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="ctT-VS-Fz8" userLabel="Email">
                                     <rect key="frame" x="20" y="466.33333333333337" width="388" height="45"/>
                                     <subviews>
                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="login_email" translatesAutoresizingMaskIntoConstraints="NO" id="HdI-sf-sfy">
@@ -154,7 +154,7 @@
                                         </userDefinedRuntimeAttribute>
                                     </userDefinedRuntimeAttributes>
                                 </stackView>
-                                <stackView opaque="NO" contentMode="scaleToFill" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="844-ea-dXr">
+                                <stackView opaque="NO" contentMode="scaleToFill" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="844-ea-dXr" userLabel="Password">
                                     <rect key="frame" x="20" y="521.33333333333337" width="388" height="45"/>
                                     <subviews>
                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="login_pass" translatesAutoresizingMaskIntoConstraints="NO" id="D15-rc-nsN">
@@ -202,7 +202,7 @@
                                         </userDefinedRuntimeAttribute>
                                     </userDefinedRuntimeAttributes>
                                 </stackView>
-                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="bottom" translatesAutoresizingMaskIntoConstraints="NO" id="s2F-3J-2cY">
+                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="bottom" translatesAutoresizingMaskIntoConstraints="NO" id="s2F-3J-2cY" userLabel="Forgot Password">
                                     <rect key="frame" x="20" y="576.33333333333337" width="388" height="16"/>
                                     <subviews>
                                         <stackView opaque="NO" contentMode="scaleToFill" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="fM8-E2-O19">
@@ -280,7 +280,7 @@
                                     </constraints>
                                     <edgeInsets key="layoutMargins" top="8" left="0.0" bottom="8" right="0.0"/>
                                 </stackView>
-                                <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="wHA-TX-42m">
+                                <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="wHA-TX-42m" userLabel="Third Party Login">
                                     <rect key="frame" x="20" y="734" width="388" height="58"/>
                                     <subviews>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="27D-Ov-PLk">
