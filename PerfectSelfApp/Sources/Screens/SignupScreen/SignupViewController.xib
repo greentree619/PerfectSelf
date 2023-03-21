@@ -15,7 +15,9 @@
                 <outlet property="btn_showconfirmpassword" destination="yeA-tV-Nco" id="uDt-lu-t3a"/>
                 <outlet property="btn_showpassword" destination="JLQ-Jr-h5S" id="T31-JL-Fdb"/>
                 <outlet property="text_confirmpassword" destination="PMP-oX-Ncq" id="fAW-50-j5t"/>
+                <outlet property="text_email" destination="4B3-2c-6qe" id="9nI-Le-o2e"/>
                 <outlet property="text_password" destination="FtB-LI-Rv2" id="H4o-vo-YjT"/>
+                <outlet property="text_phonenumber" destination="kTT-da-aDz" id="eAa-8k-nOa"/>
                 <outlet property="view" destination="dom-ZW-oxX" id="8W4-0a-9Pq"/>
             </connections>
         </placeholder>

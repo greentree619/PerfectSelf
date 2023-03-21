@@ -9,10 +9,16 @@
 import UIKit
 
 class SignupDetailViewController: UIViewController {
-
+    var email: String?
+    var phoneNumber: String?
+    var password: String?
+    var isActor: Bool = true
     
     @IBOutlet weak var btn_actor: UIButton!
     @IBOutlet weak var btn_reader: UIButton!
+    @IBOutlet weak var txtUserName: UITextField!
+    @IBOutlet weak var txtFirstName: UITextField!
+    @IBOutlet weak var txtLastName: UITextField!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,17 +29,78 @@ class SignupDetailViewController: UIViewController {
     @IBAction func SelectActorThpe(_ sender: UIButton) {
         sender.borderWidth = 3;
         btn_reader.borderWidth = 0;
+        isActor = true
     }
     
     @IBAction func SelectReaderType(_ sender: UIButton) {
         sender.borderWidth = 3;
         btn_actor.borderWidth = 0;
+        isActor = false
     }
     
     @IBAction func FinishSignUp(_ sender: UIButton) {
-//        let controller = ActorTabBarController();
-        let controller = ActorBuildProfile1ViewController()
-        self.navigationController?.pushViewController(controller, animated: true);
+        var inputCheck: String = ""
+        var focusTextField: UITextField? = nil
+        if(txtUserName.text!.isEmpty){
+            inputCheck += "- Please input user name.\n"
+            if(focusTextField == nil){
+                focusTextField = txtUserName
+            }
+        }
+        
+        if(txtFirstName.text!.isEmpty){
+            inputCheck += "- Please input user first name.\n"
+            if(focusTextField == nil){
+                focusTextField = txtFirstName
+            }
+        }
+        
+        if(txtLastName.text!.isEmpty){
+            inputCheck += "- Please input user last name.\n"
+            if(focusTextField == nil){
+                focusTextField = txtLastName
+            }
+        }
+        
+        if(!inputCheck.isEmpty){
+            showAlert(viewController: self, title: "Confirm", message: inputCheck) { UIAlertAction in
+                focusTextField!.becomeFirstResponder()
+            }
+            return
+        }
+        
+        showIndicator(sender: sender, viewController: self)
+        let userType = (isActor ? ACTOR_UTYPE
+                        : READER_UTYPE)
+        webAPI.signup(userType: userType, userName: txtUserName.text!, firstName: txtFirstName.text!, lastName: txtLastName.text!, email: email!, password: password!, phoneNumber: phoneNumber!) { data, response, error in
+            guard let data = data, error == nil else {
+                print(error?.localizedDescription ?? "No data")
+                return
+            }
+            
+            let responseJSON = try? JSONSerialization.jsonObject(with: data, options: [])
+            if let responseJSON = responseJSON as? [String: Any] {
+                //print(responseJSON["result"])
+                guard responseJSON["email"] != nil else {
+                    DispatchQueue.main.async {
+                        hideIndicator(sender: sender)
+                        Toast.show(message: "Signup failed! please try again.", controller: self)
+                        //self.text_email.becomeFirstResponder()
+                    }
+                    return
+                }
+                DispatchQueue.main.async {
+                    hideIndicator(sender: sender)
+                    //{{REFME
+                    UserDefaults.standard.set(String(self.email!), forKey: "USER_EMAIL")
+                    UserDefaults.standard.set(String(self.password!), forKey: "USER_PWD")
+                    //}}REFME
+                    
+                    let controller = ActorBuildProfile1ViewController()
+                    self.navigationController?.pushViewController(controller, animated: true);
+                }
+            }
+        }
     }
     @IBAction func GoBack(_ sender: UIButton) {
         self.navigationController?.popViewController(animated: true)

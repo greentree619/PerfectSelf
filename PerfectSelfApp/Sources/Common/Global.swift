@@ -10,6 +10,8 @@ import Foundation
 import UIKit
 
 let webAPI = PerfectSelfWebAPI()
+let ACTOR_UTYPE = 3
+let READER_UTYPE = 4
 var backgroundView: UIView? = nil
 var activityIndicatorView: UIActivityIndicatorView? = nil
 
@@ -70,4 +72,12 @@ func hideIndicator(sender: UIControl)
     activityIndicatorView?.removeFromSuperview()
     backgroundView?.removeFromSuperview()
     sender.isEnabled = true
+}
+
+func isValidEmail(email: String) -> Bool {
+    let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
+
+    let emailPred = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
+    let ret = emailPred.evaluate(with: email)
+    return ret
 }

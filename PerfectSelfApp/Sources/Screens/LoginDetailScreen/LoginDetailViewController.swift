@@ -48,6 +48,14 @@ class LoginDetailViewController: UIViewController {
                 focusTextField = text_email
             }
         }
+        
+        if(!isValidEmail(email: text_email.text!)){
+            inputCheck += "- Email format is wrong.\n"
+            if(focusTextField == nil){
+                focusTextField = text_email
+            }
+        }
+        
         if(text_password.text!.isEmpty){
             inputCheck += "- Please input user password.\n"
             if(focusTextField == nil){
@@ -69,6 +77,7 @@ class LoginDetailViewController: UIViewController {
                 return
             }
             let responseJSON = try? JSONSerialization.jsonObject(with: data, options: [])
+            
             if let responseJSON = responseJSON as? [String: Any] {
                 //print(responseJSON["result"])
                 guard let result = responseJSON["result"] else {
@@ -114,6 +123,14 @@ class LoginDetailViewController: UIViewController {
                         Toast.show(message: "Login failed! please try again.", controller: self)
                         self.text_email.becomeFirstResponder()
                     }
+                }
+            }
+            else
+            {
+                DispatchQueue.main.async {
+                    hideIndicator(sender: sender)
+                    Toast.show(message: "Login failed! please try again.", controller: self)
+                    self.text_email.becomeFirstResponder()
                 }
             }
         }

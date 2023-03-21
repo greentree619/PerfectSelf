@@ -17,6 +17,9 @@ class SignupViewController: UIViewController {
     
     @IBOutlet weak var text_confirmpassword: UITextField!
     @IBOutlet weak var text_password: UITextField!
+    @IBOutlet weak var text_email: UITextField!
+    @IBOutlet weak var text_phonenumber: UITextField!
+    
     @IBOutlet weak var btn_showpassword: UIButton!
     
     @IBOutlet weak var btn_showconfirmpassword: UIButton!
@@ -57,9 +60,65 @@ class SignupViewController: UIViewController {
         
     }
     @IBAction func SignUp(_ sender: UIButton) {
-        let controller = SignupDetailViewController();
-        self.navigationController?.pushViewController(controller, animated: true);
+        var inputCheck: String = ""
+        var focusTextField: UITextField? = nil
+        if(text_email.text!.isEmpty){
+            inputCheck += "- Please input user email.\n"
+            if(focusTextField == nil){
+                focusTextField = text_email
+            }
+        }
         
+        if(!isValidEmail(email: text_email.text!)){
+            inputCheck += "- Email format is wrong.\n"
+            if(focusTextField == nil){
+                focusTextField = text_email
+            }
+        }
+        
+        if(text_phonenumber.text!.isEmpty){
+            inputCheck += "- Please input user phone number.\n"
+            if(focusTextField == nil){
+                focusTextField = text_phonenumber
+            }
+        }
+        
+        if(text_password.text!.isEmpty){
+            inputCheck += "- Please input user password.\n"
+            if(focusTextField == nil){
+                focusTextField = text_password
+            }
+        }
+        
+        if(text_confirmpassword.text!.isEmpty){
+            inputCheck += "- Please input user confirm password.\n"
+            if(focusTextField == nil){
+                focusTextField = text_confirmpassword
+            }
+        }
+        
+        if(!text_password.text!.isEmpty
+           && !text_confirmpassword.text!.isEmpty
+           && text_password.text!.compare(text_confirmpassword.text!).rawValue != 0){
+            inputCheck += "- Password isn't match with confirm password.\n"
+            if(focusTextField == nil){
+                focusTextField = text_password
+            }
+        }
+        
+        if(!inputCheck.isEmpty){
+            showAlert(viewController: self, title: "Confirm", message: inputCheck) { UIAlertAction in
+                focusTextField!.becomeFirstResponder()
+            }
+            return
+        }
+        
+        let controller = SignupDetailViewController();
+        controller.email = text_email.text!
+        controller.phoneNumber = text_phonenumber.text!
+        controller.password = text_password.text!
+        
+        self.navigationController?.pushViewController(controller, animated: true);
     }
     /*
     // MARK: - Navigation

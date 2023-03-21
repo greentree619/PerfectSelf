@@ -44,6 +44,29 @@ class PerfectSelfWebAPI
         return executeAPI(with: "POST", apiPath: "Users/Login", json: json, completionHandler:completionHandler)
     }
     
+    func signup(userType: Int, userName: String, firstName: String, lastName: String, email: String, password: String, phoneNumber: String, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> Void
+    {
+        let json: [String: Any] = [
+            "userType": userType,
+            "userName": userName,
+            "email": email,
+            "password": password,
+            "firstName": firstName,
+            "lastName": lastName,
+            "dateOfBirth": "",
+            "gender": 0,
+            "currentAddress": "",
+            "permanentAddress": "",
+            "city": "",
+            "nationality": "",
+            "phoneNumber": phoneNumber,
+            "isLogin": false,
+            "token": "",
+            "isDeleted": false,
+        ]
+        return executeAPI(with: "POST", apiPath: "Users", json: json, completionHandler:completionHandler)
+    }
+    
     func login() -> Void
     {
         let json: [String: Any] = ["userName": "tester",
