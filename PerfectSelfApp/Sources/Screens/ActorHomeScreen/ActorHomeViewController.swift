@@ -17,12 +17,26 @@ class ActorHomeViewController: UIViewController {
     @IBOutlet weak var scrollView: UIScrollView!
  
     let r = UIImage(named: "reader");
+    let backgroundView = UIView()
+    
+    var isSponsored = true
+    var isAvailableSoon = false
+    var isTopRated = false
+    var isOnline = true
+    var is15TimeSlot = true
+    var is30TimeSlot = false
+    var is30PlusTimeSlot = false
+    var isStandBy = false
+    var isCommercialRead = true
+    var isShortRead = false
+    var isExtendedRead = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
         filtermodal.alpha = 0;
+
         let containerView = UIView()
         let num = 0...10
         for i in num {
@@ -40,85 +54,233 @@ class ActorHomeViewController: UIViewController {
         
         scrollView.addSubview(containerView)
         scrollView.contentSize = containerView.frame.size
-//        let containerView = UIView()
-//        let num = 0...8
-//
-//        for i in num {
-//            let iv = UIImageView()
-//            iv.image = v;
-//            iv.layer.masksToBounds = false;
-//            iv.layer.shadowOpacity = 0.5;
-//            iv.layer.shadowRadius = 5;
-//            iv.layer.shadowOffset = CGSize(width: 5, height: 5);
-//
-//            if i%2 == 0 {
-//                iv.frame = CGRect(x: 20, y:Int(scrollView.frame.width*0.5-10)*i/2, width:Int(scrollView.frame.width*0.5-30), height:Int(scrollView.frame.width*0.5-30))
-//
-//            }
-//            else {
-//                iv.frame = CGRect(x: Int(scrollView.frame.width*0.5+10), y:Int(scrollView.frame.width*0.5-10)*(i-1)/2, width:Int(scrollView.frame.width*0.5-30), height:Int(scrollView.frame.width*0.5-30))
-//
-//            }
-//
-//            containerView.addSubview(iv)
-//        }
-//
-//        containerView.frame = CGRect(x: 0, y: 0, width: scrollView.frame.width, height: 800)
-//
-//        scrollView.addSubview(containerView)
-//        scrollView.contentSize = containerView.frame.size
     }
 
     @IBAction func ShowFilterModal(_ sender: UIButton) {
-        UIView.animate(withDuration:0.5) {
+        UIView.animate(withDuration:0.3) {
             self.filtermodal.alpha = 1;
         }
+
+        backgroundView.backgroundColor = UIColor.black.withAlphaComponent(0.5)
+        backgroundView.frame = view.bounds
+        backgroundView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        view.insertSubview(backgroundView, belowSubview: filtermodal)
+        let tap = UITapGestureRecognizer(target: self, action: #selector(tapCallback))
+        backgroundView.addGestureRecognizer(tap)
+        backgroundView.isUserInteractionEnabled = true
+        
     }
-    
+    @objc func tapCallback() {
+        backgroundView.removeFromSuperview()
+        self.filtermodal.alpha = 0;
+    }
     @IBAction func ApplyFilter(_ sender: UIButton) {
-        UIView.animate(withDuration: 0.5){
-            self.filtermodal.alpha = 0;
-        }
+        backgroundView.removeFromSuperview()
+        self.filtermodal.alpha = 0;
+
     }
-    
-    @IBAction func ApplyViewAll(_ sender: UIButton) {
-        UIView.animate(withDuration: 0.5){
-            self.filtermodal.alpha = 0;
-        }
+    @IBAction func SelectMale(_ sender: UIButton) {
+        sender.isSelected = !sender.isSelected
+    }
+    @IBAction func SelectFemale(_ sender: UIButton) {
+        sender.isSelected = !sender.isSelected
     }
     
     @IBAction func CloseFilterModal(_ sender: UIButton) {
-        UIView.animate(withDuration: 0.5){
-            self.filtermodal.alpha = 0;
-        }
+        backgroundView.removeFromSuperview()
+        self.filtermodal.alpha = 0;
     }
-    
-    @IBAction func OnTap(_ sender: UITapGestureRecognizer) {
-        UIView.animate(withDuration: 0.5){
-            self.filtermodal.alpha = 0;
-        }
-    }
-    
-    @IBAction func ShowCalendar(_ sender: UIButton) {
-        let _ = BDatePicker.show(on: self, handledBy: HandleDateDidChange)
 
-        func HandleDateDidChange(to newDate: Date?)
-         {
-             guard let date = newDate else
-             {
-//               dateLabel.text = "nil"
-                 print("nil");
-                 return
-             }
-             print(date.description);
-            //dateLabel.text = date.description
-         }
-//        CalendarViewController.present(
-//                    initialView: self,
-//                    delegate: self)
+
+//
+//    @IBAction func ShowCalendar(_ sender: UIButton) {
+//        let _ = BDatePicker.show(on: self, handledBy: HandleDateDidChange)
+//
+//        func HandleDateDidChange(to newDate: Date?)
+//         {
+//             guard let date = newDate else
+//             {
+////               dateLabel.text = "nil"
+//                 print("nil");
+//                 return
+//             }
+//             print(date.description);
+//            //dateLabel.text = date.description
+//         }
+////        CalendarViewController.present(
+////                    initialView: self,
+////                    delegate: self)
+//    }
+
+    @IBAction func SelectSponsored(_ sender: UIButton) {
+        isSponsored = !isSponsored
+        
+        if isSponsored {
+            sender.backgroundColor = UIColor(rgb: 0x4865FF)
+            sender.setTitleColor(.white, for: .normal)
+           
+        }
+        else {
+            sender.backgroundColor = UIColor(rgb: 0xE5E5E5)
+            sender.setTitleColor(UIColor(rgb: 0x4865FF), for: .normal)
+        }
     }
     
+    @IBAction func SelectAvailableSoon(_ sender: UIButton) {
+        isAvailableSoon = !isAvailableSoon
+        
+        if isAvailableSoon {
+            sender.backgroundColor = UIColor(rgb: 0x4865FF)
+            sender.setTitleColor(.white, for: .normal)
+           
+        }
+        else {
+            sender.backgroundColor = UIColor(rgb: 0xE5E5E5)
+            sender.setTitleColor(UIColor(rgb: 0x4865FF), for: .normal)
+        }
+    }
+    @IBAction func SelectTopRated(_ sender: UIButton) {
+        isTopRated = !isTopRated
+        
+        if isTopRated {
+            sender.backgroundColor = UIColor(rgb: 0x4865FF)
+            sender.setTitleColor(.white, for: .normal)
+           
+        }
+        else {
+            sender.backgroundColor = UIColor(rgb: 0xE5E5E5)
+            sender.setTitleColor(UIColor(rgb: 0x4865FF), for: .normal)
+        }
+    }
     
+    @IBAction func SelectOnlineNow(_ sender: UIButton) {
+        isOnline = !isOnline
+        
+        if isOnline {
+            sender.backgroundColor = UIColor(rgb: 0x4865FF)
+            sender.setTitleColor(.white, for: .normal)
+           
+        }
+        else {
+            sender.backgroundColor = UIColor(rgb: 0xFFFFFF)
+            sender.setTitleColor(UIColor(rgb: 0x4865FF), for: .normal)
+        }
+    }
+    
+    @IBAction func SelectAvailableSoon1(_ sender: UIButton) {
+        isAvailableSoon = !isAvailableSoon
+        
+        if isAvailableSoon {
+            sender.backgroundColor = UIColor(rgb: 0x4865FF)
+            sender.setTitleColor(.white, for: .normal)
+           
+        }
+        else {
+            sender.backgroundColor = UIColor(rgb: 0xFFFFFF)
+            sender.setTitleColor(UIColor(rgb: 0x4865FF), for: .normal)
+        }
+    }
+    
+    @IBAction func Select15TimeSlot(_ sender: UIButton) {
+        is15TimeSlot = !is15TimeSlot
+        
+        if is15TimeSlot {
+            sender.backgroundColor = UIColor(rgb: 0x4865FF)
+            sender.setTitleColor(.white, for: .normal)
+           
+        }
+        else {
+            sender.backgroundColor = UIColor(rgb: 0xFFFFFF)
+            sender.setTitleColor(UIColor(rgb: 0x4865FF), for: .normal)
+        }
+    }
+    
+    @IBAction func Select30TimeSlot(_ sender: UIButton) {
+        is30TimeSlot = !is30TimeSlot
+        
+        if is30TimeSlot {
+            sender.backgroundColor = UIColor(rgb: 0x4865FF)
+            sender.setTitleColor(.white, for: .normal)
+           
+        }
+        else {
+            sender.backgroundColor = UIColor(rgb: 0xFFFFFF)
+            sender.setTitleColor(UIColor(rgb: 0x4865FF), for: .normal)
+        }
+    }
+    
+    @IBAction func Select30OverTimeSlot(_ sender: UIButton) {
+        is30PlusTimeSlot = !is30PlusTimeSlot
+        
+        if is30PlusTimeSlot {
+            sender.backgroundColor = UIColor(rgb: 0x4865FF)
+            sender.setTitleColor(.white, for: .normal)
+           
+        }
+        else {
+            sender.backgroundColor = UIColor(rgb: 0xFFFFFF)
+            sender.setTitleColor(UIColor(rgb: 0x4865FF), for: .normal)
+        }
+    }
+    
+    @IBAction func SelectStandByTimeSlot(_ sender: UIButton) {
+        isStandBy = !isStandBy
+        
+        if isStandBy {
+            sender.backgroundColor = UIColor(rgb: 0x4865FF)
+            sender.setTitleColor(.white, for: .normal)
+           
+        }
+        else {
+            sender.backgroundColor = UIColor(rgb: 0xFFFFFF)
+            sender.setTitleColor(UIColor(rgb: 0x4865FF), for: .normal)
+        }
+    }
+    
+    @IBAction func SelectCommercialRead(_ sender: UIButton) {
+        isCommercialRead = !isCommercialRead
+        
+        if isCommercialRead {
+            sender.backgroundColor = UIColor(rgb: 0x4865FF)
+            sender.setTitleColor(.white, for: .normal)
+            sender.tintColor = .white
+        }
+        else {
+            sender.backgroundColor = UIColor(rgb: 0xFFFFFF)
+            sender.setTitleColor(UIColor(rgb: 0x4865FF), for: .normal)
+            sender.tintColor = UIColor(rgb: 0x4865FF)
+        }
+    }
+    
+    @IBAction func SelectShortRead(_ sender: UIButton) {
+        isShortRead = !isShortRead
+        
+        if isShortRead {
+            sender.backgroundColor = UIColor(rgb: 0x4865FF)
+            sender.setTitleColor(.white, for: .normal)
+            sender.tintColor = .white
+        }
+        else {
+            sender.backgroundColor = UIColor(rgb: 0xFFFFFF)
+            sender.setTitleColor(UIColor(rgb: 0x4865FF), for: .normal)
+            sender.tintColor = UIColor(rgb: 0x4865FF)
+        }
+    }
+    
+    @IBAction func SelectExtendedRead(_ sender: UIButton) {
+        isExtendedRead = !isExtendedRead
+        
+        if isExtendedRead {
+            sender.backgroundColor = UIColor(rgb: 0x4865FF)
+            sender.setTitleColor(.white, for: .normal)
+            sender.tintColor = .white
+        }
+        else {
+            sender.backgroundColor = UIColor(rgb: 0xFFFFFF)
+            sender.setTitleColor(UIColor(rgb: 0x4865FF), for: .normal)
+            sender.tintColor = UIColor(rgb: 0x4865FF)
+        }
+    }
     /*
     // MARK: - Navigation
 
