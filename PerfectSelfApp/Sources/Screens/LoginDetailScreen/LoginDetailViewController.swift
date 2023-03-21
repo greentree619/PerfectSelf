@@ -32,6 +32,11 @@ class LoginDetailViewController: UIViewController {
         text_password.isSecureTextEntry = true;
         
         isShowPassword = false;
+        
+        let userEmail = UserDefaults.standard.string(forKey: "USER_EMAIL")
+        let userPwd = UserDefaults.standard.string(forKey: "USER_PWD")
+        text_email.text = userEmail
+        text_password.text = userPwd
     }
     
     @IBAction func DoLogin(_ sender: UIButton) {
@@ -82,6 +87,16 @@ class LoginDetailViewController: UIViewController {
                     
                     DispatchQueue.main.async {
                         hideIndicator(sender: sender)
+                        //{{REFME
+                        var rememberMeFlag: Bool = UserDefaults.standard.bool(forKey: "REMEMBER_USER")
+                        UserDefaults.standard.set(true, forKey: "REMEMBER_USER")
+                        rememberMeFlag = UserDefaults.standard.bool(forKey: "REMEMBER_USER")
+                        rememberMeFlag = rememberMeFlag
+                        
+                        UserDefaults.standard.set(String(self.text_email.text!), forKey: "USER_EMAIL")
+                        UserDefaults.standard.set(String(self.text_password.text!), forKey: "USER_PWD")
+                        //}}REFME
+                        
                         if self.btn_actor.isSelected {
                             let controller = ActorTabBarController();
                             self.navigationController?.pushViewController(controller, animated: true)
