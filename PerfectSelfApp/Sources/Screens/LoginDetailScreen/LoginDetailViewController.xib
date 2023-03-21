@@ -61,10 +61,10 @@
                                     </constraints>
                                 </imageView>
                                 <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZCT-xn-u3H">
-                                    <rect key="frame" x="20" y="300" width="388" height="65.333333333333314"/>
+                                    <rect key="frame" x="20" y="300" width="388" height="50"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" text="Account Type" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="393" translatesAutoresizingMaskIntoConstraints="NO" id="PMd-Oc-7Ct">
-                                            <rect key="frame" x="8" y="30" width="372" height="25.333333333333329"/>
+                                            <rect key="frame" x="8" y="30" width="372" height="10"/>
                                             <edgeInsets key="layoutMargins" top="8" left="20" bottom="8" right="20"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="21"/>
                                             <nil key="textColor"/>
@@ -74,10 +74,10 @@
                                     <edgeInsets key="layoutMargins" top="30" left="8" bottom="10" right="8"/>
                                 </stackView>
                                 <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="PAf-xf-Dd0" userLabel="LoginRole">
-                                    <rect key="frame" x="20" y="375.33333333333331" width="388" height="81"/>
+                                    <rect key="frame" x="20" y="360" width="388" height="73"/>
                                     <subviews>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Rf6-yp-tpa">
-                                            <rect key="frame" x="0.0" y="8" width="179" height="53"/>
+                                            <rect key="frame" x="0.0" y="8" width="179" height="45"/>
                                             <color key="backgroundColor" systemColor="systemGray3Color"/>
                                             <state key="normal" title="Button"/>
                                             <buttonConfiguration key="configuration" style="plain" image="login_actor" title="Actor"/>
@@ -97,7 +97,7 @@
                                             </connections>
                                         </button>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sOi-JV-SP6">
-                                            <rect key="frame" x="209" y="8" width="179" height="53"/>
+                                            <rect key="frame" x="209" y="8" width="179" height="45"/>
                                             <color key="backgroundColor" systemColor="systemGray3Color"/>
                                             <state key="normal" title="Button"/>
                                             <buttonConfiguration key="configuration" style="plain" image="login_reader" title="Reader"/>
@@ -117,7 +117,7 @@
                                     <edgeInsets key="layoutMargins" top="8" left="0.0" bottom="20" right="0.0"/>
                                 </stackView>
                                 <stackView opaque="NO" contentMode="scaleToFill" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="ctT-VS-Fz8" userLabel="Email">
-                                    <rect key="frame" x="20" y="466.33333333333337" width="388" height="45"/>
+                                    <rect key="frame" x="20" y="443" width="388" height="45"/>
                                     <subviews>
                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="login_email" translatesAutoresizingMaskIntoConstraints="NO" id="HdI-sf-sfy">
                                             <rect key="frame" x="8" y="8" width="19" height="29"/>
@@ -155,7 +155,7 @@
                                     </userDefinedRuntimeAttributes>
                                 </stackView>
                                 <stackView opaque="NO" contentMode="scaleToFill" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="844-ea-dXr" userLabel="Password">
-                                    <rect key="frame" x="20" y="521.33333333333337" width="388" height="45"/>
+                                    <rect key="frame" x="20" y="498" width="388" height="45"/>
                                     <subviews>
                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="login_pass" translatesAutoresizingMaskIntoConstraints="NO" id="D15-rc-nsN">
                                             <rect key="frame" x="8" y="8" width="19" height="29"/>
@@ -203,38 +203,94 @@
                                     </userDefinedRuntimeAttributes>
                                 </stackView>
                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="bottom" translatesAutoresizingMaskIntoConstraints="NO" id="s2F-3J-2cY" userLabel="Forgot Password">
-                                    <rect key="frame" x="20" y="576.33333333333337" width="388" height="16"/>
+                                    <rect key="frame" x="20" y="553" width="388" height="45"/>
                                     <subviews>
                                         <stackView opaque="NO" contentMode="scaleToFill" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="fM8-E2-O19">
-                                            <rect key="frame" x="265.33333333333331" y="0.0" width="122.66666666666669" height="16"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="388" height="45"/>
                                             <subviews>
-                                                <button opaque="NO" contentMode="scaleToFill" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5gs-TK-Gx8">
-                                                    <rect key="frame" x="0.0" y="0.0" width="16" height="16"/>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="M2f-6N-fHg" userLabel="Remember Me">
+                                                    <rect key="frame" x="0.0" y="0.0" width="194" height="45"/>
+                                                    <subviews>
+                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="otN-Yw-J12" userLabel="Remember Button">
+                                                            <rect key="frame" x="5" y="0.0" width="18" height="45"/>
+                                                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                            <state key="normal" image="icons8-unchecked-checkbox-14"/>
+                                                            <state key="selected" image="icons8-checked-checkbox-14"/>
+                                                            <buttonConfiguration key="configuration" style="plain" image="icons8-unchecked-checkbox-14" cornerStyle="dynamic">
+                                                                <backgroundConfiguration key="background" cornerRadius="3"/>
+                                                                <directionalEdgeInsets key="contentInsets" top="2" leading="2" bottom="2" trailing="2"/>
+                                                            </buttonConfiguration>
+                                                            <connections>
+                                                                <action selector="ChangeForgotPassword:" destination="-1" eventType="touchUpInside" id="8Ej-N2-CJa"/>
+                                                            </connections>
+                                                        </button>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Remember Me" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JDH-gQ-xGG">
+                                                            <rect key="frame" x="28" y="0.0" width="88" height="45"/>
+                                                            <edgeInsets key="layoutMargins" top="8" left="8" bottom="8" right="8"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                    <color key="backgroundColor" white="1" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="16" id="Chp-Jc-rEi"/>
-                                                        <constraint firstAttribute="width" constant="16" id="yHq-M6-dcW"/>
+                                                        <constraint firstAttribute="bottom" secondItem="otN-Yw-J12" secondAttribute="bottom" id="FQI-9T-7dE"/>
+                                                        <constraint firstItem="JDH-gQ-xGG" firstAttribute="top" secondItem="M2f-6N-fHg" secondAttribute="top" id="Kox-qN-RZr"/>
+                                                        <constraint firstItem="JDH-gQ-xGG" firstAttribute="leading" secondItem="otN-Yw-J12" secondAttribute="trailing" constant="5" id="Zyx-N6-ZE3"/>
+                                                        <constraint firstItem="otN-Yw-J12" firstAttribute="leading" secondItem="M2f-6N-fHg" secondAttribute="leading" constant="5" id="ixN-4X-rCb"/>
+                                                        <constraint firstItem="otN-Yw-J12" firstAttribute="top" secondItem="M2f-6N-fHg" secondAttribute="top" id="vCO-mO-l2Q"/>
+                                                        <constraint firstAttribute="bottom" secondItem="JDH-gQ-xGG" secondAttribute="bottom" id="xWw-mz-yuY"/>
                                                     </constraints>
-                                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                                    <state key="normal" image="icons8-unchecked-checkbox-14"/>
-                                                    <state key="selected" image="icons8-checked-checkbox-14"/>
-                                                    <buttonConfiguration key="configuration" style="plain" image="icons8-unchecked-checkbox-14" cornerStyle="dynamic">
-                                                        <backgroundConfiguration key="background" cornerRadius="3"/>
-                                                        <directionalEdgeInsets key="contentInsets" top="2" leading="2" bottom="2" trailing="2"/>
-                                                    </buttonConfiguration>
-                                                    <connections>
-                                                        <action selector="ChangeForgotPassword:" destination="-1" eventType="touchUpInside" id="WD2-bb-4Gk"/>
-                                                    </connections>
-                                                </button>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Forgot Password" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0VP-te-DSM">
-                                                    <rect key="frame" x="21.000000000000007" y="0.0" width="101.66666666666669" height="16"/>
-                                                    <edgeInsets key="layoutMargins" top="8" left="8" bottom="8" right="8"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
+                                                </view>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PQc-Q0-WrE" userLabel="Forgot Password">
+                                                    <rect key="frame" x="199" y="0.0" width="189" height="45"/>
+                                                    <subviews>
+                                                        <button opaque="NO" contentMode="scaleToFill" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5gs-TK-Gx8" userLabel="Forgot Button">
+                                                            <rect key="frame" x="64.333333333333314" y="0.0" width="18" height="45"/>
+                                                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                            <state key="normal" image="icons8-unchecked-checkbox-14"/>
+                                                            <state key="selected" image="icons8-checked-checkbox-14"/>
+                                                            <buttonConfiguration key="configuration" style="plain" image="icons8-unchecked-checkbox-14" cornerStyle="dynamic">
+                                                                <backgroundConfiguration key="background" cornerRadius="3"/>
+                                                                <directionalEdgeInsets key="contentInsets" top="2" leading="2" bottom="2" trailing="2"/>
+                                                            </buttonConfiguration>
+                                                            <connections>
+                                                                <action selector="ChangeForgotPassword:" destination="-1" eventType="touchUpInside" id="WD2-bb-4Gk"/>
+                                                            </connections>
+                                                        </button>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Forgot Password" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0VP-te-DSM">
+                                                            <rect key="frame" x="87.333333333333314" y="0.0" width="101.66666666666669" height="45"/>
+                                                            <edgeInsets key="layoutMargins" top="8" left="8" bottom="8" right="8"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                    <color key="backgroundColor" white="1" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <constraints>
+                                                        <constraint firstItem="5gs-TK-Gx8" firstAttribute="top" secondItem="PQc-Q0-WrE" secondAttribute="top" id="DDt-9u-4Ys"/>
+                                                        <constraint firstItem="0VP-te-DSM" firstAttribute="leading" secondItem="5gs-TK-Gx8" secondAttribute="trailing" constant="5" id="RZA-fa-eWy"/>
+                                                        <constraint firstAttribute="bottom" secondItem="5gs-TK-Gx8" secondAttribute="bottom" id="ent-HW-tZA"/>
+                                                        <constraint firstItem="0VP-te-DSM" firstAttribute="top" secondItem="PQc-Q0-WrE" secondAttribute="top" id="fcR-FO-QCP"/>
+                                                        <constraint firstAttribute="bottom" secondItem="0VP-te-DSM" secondAttribute="bottom" id="jtF-zb-yKt"/>
+                                                        <constraint firstAttribute="trailing" secondItem="0VP-te-DSM" secondAttribute="trailing" id="pwB-MM-DhP"/>
+                                                    </constraints>
+                                                </view>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="bottom" secondItem="PQc-Q0-WrE" secondAttribute="bottom" id="EHO-EP-70r"/>
+                                                <constraint firstItem="M2f-6N-fHg" firstAttribute="width" secondItem="fM8-E2-O19" secondAttribute="width" multiplier="0.5" id="FcL-Qd-eHY"/>
+                                                <constraint firstItem="PQc-Q0-WrE" firstAttribute="top" secondItem="fM8-E2-O19" secondAttribute="top" id="UYJ-pY-fIx"/>
+                                                <constraint firstItem="PQc-Q0-WrE" firstAttribute="width" secondItem="fM8-E2-O19" secondAttribute="width" multiplier="0.5" id="dps-m2-pRS"/>
+                                                <constraint firstAttribute="trailing" secondItem="PQc-Q0-WrE" secondAttribute="trailing" id="yaO-9s-vN8"/>
+                                            </constraints>
                                         </stackView>
                                     </subviews>
+                                    <constraints>
+                                        <constraint firstItem="fM8-E2-O19" firstAttribute="leading" secondItem="s2F-3J-2cY" secondAttribute="leading" id="50b-0t-Qu6"/>
+                                        <constraint firstAttribute="bottom" secondItem="fM8-E2-O19" secondAttribute="bottom" id="U0a-Cg-EJ0"/>
+                                        <constraint firstItem="fM8-E2-O19" firstAttribute="top" secondItem="s2F-3J-2cY" secondAttribute="top" id="dCD-8A-8PJ"/>
+                                    </constraints>
                                     <userDefinedRuntimeAttributes>
                                         <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                                             <real key="value" value="10"/>
@@ -242,7 +298,7 @@
                                     </userDefinedRuntimeAttributes>
                                 </stackView>
                                 <stackView opaque="NO" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4dE-Wk-iTF">
-                                    <rect key="frame" x="20" y="602.33333333333337" width="388" height="88"/>
+                                    <rect key="frame" x="20" y="608" width="388" height="88"/>
                                     <subviews>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SUU-EH-NYx">
                                             <rect key="frame" x="0.0" y="30" width="388" height="50"/>
@@ -259,19 +315,19 @@
                                     <edgeInsets key="layoutMargins" top="30" left="0.0" bottom="8" right="0.0"/>
                                 </stackView>
                                 <stackView opaque="NO" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" translatesAutoresizingMaskIntoConstraints="NO" id="v6E-R1-Lba">
-                                    <rect key="frame" x="20" y="700.33333333333337" width="388" height="23.666666666666629"/>
+                                    <rect key="frame" x="20" y="706" width="388" height="18"/>
                                     <subviews>
                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="login_line" translatesAutoresizingMaskIntoConstraints="NO" id="rd1-50-mdp">
-                                            <rect key="frame" x="0.0" y="8" width="129.33333333333334" height="7.6666666666666679"/>
+                                            <rect key="frame" x="0.0" y="8" width="129.33333333333334" height="2"/>
                                         </imageView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="or login with" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2BH-dZ-s3E">
-                                            <rect key="frame" x="129.33333333333331" y="8" width="129.33333333333331" height="7.6666666666666679"/>
+                                            <rect key="frame" x="129.33333333333331" y="8" width="129.33333333333331" height="2"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="login_line" translatesAutoresizingMaskIntoConstraints="NO" id="vVv-vB-bHa">
-                                            <rect key="frame" x="258.66666666666669" y="8" width="129.33333333333331" height="7.6666666666666679"/>
+                                            <rect key="frame" x="258.66666666666669" y="8" width="129.33333333333331" height="2"/>
                                         </imageView>
                                     </subviews>
                                     <constraints>
@@ -301,6 +357,7 @@
                                 </stackView>
                             </subviews>
                             <constraints>
+                                <constraint firstItem="s2F-3J-2cY" firstAttribute="height" secondItem="844-ea-dXr" secondAttribute="height" id="9bC-GU-cWW"/>
                                 <constraint firstAttribute="height" constant="800" id="e7u-Oz-2Dw" customClass="AdaptiveLayoutConstraint" customModule="PerfectSelf" customModuleProvider="target">
                                     <userDefinedRuntimeAttributes>
                                         <userDefinedRuntimeAttribute type="boolean" keyPath="setAdaptiveLayout" value="YES"/>
