@@ -77,6 +77,9 @@ class ActorHomeViewController: UIViewController {
     @IBAction func ApplyFilter(_ sender: UIButton) {
         backgroundView.removeFromSuperview()
         self.filtermodal.alpha = 0;
+        
+        let controller = ActorFindReaderViewController()
+        self.navigationController?.pushViewController(controller, animated: true)
 
     }
     @IBAction func SelectMale(_ sender: UIButton) {
@@ -280,6 +283,11 @@ class ActorHomeViewController: UIViewController {
             sender.setTitleColor(UIColor(rgb: 0x4865FF), for: .normal)
             sender.tintColor = UIColor(rgb: 0x4865FF)
         }
+    }
+    
+    @IBAction func GoMessageCenter(_ sender: UIButton) {
+        let controller = ActorMessageCenterViewController()
+        self.navigationController?.pushViewController(controller, animated: true)
     }
     /*
     // MARK: - Navigation

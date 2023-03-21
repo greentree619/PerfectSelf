@@ -12,6 +12,7 @@ class ActorChatViewController: UIViewController {
 
     @IBOutlet weak var modal_confirm_call: UIStackView!
     @IBOutlet weak var noMessage: UIStackView!
+    let backgroundView = UIView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,17 +24,28 @@ class ActorChatViewController: UIViewController {
     }
 
     @IBAction func CancelCall(_ sender: UIButton) {
+        backgroundView.removeFromSuperview()
         modal_confirm_call.isHidden = true;
     }
     @IBAction func ConfirmCall(_ sender: UIButton) {
+        backgroundView.removeFromSuperview()
         modal_confirm_call.isHidden = true;
     }
     @IBAction func DoVoiceCall(_ sender: UIButton) {
         modal_confirm_call.isHidden = false;
+        backgroundView.backgroundColor = UIColor.black.withAlphaComponent(0.5)
+        backgroundView.frame = view.bounds
+        backgroundView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        view.insertSubview(backgroundView, belowSubview: modal_confirm_call)
+ 
     }
     
     @IBAction func DoVideoCall(_ sender: UIButton) {
         modal_confirm_call.isHidden = false;
+        backgroundView.backgroundColor = UIColor.black.withAlphaComponent(0.5)
+        backgroundView.frame = view.bounds
+        backgroundView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        view.insertSubview(backgroundView, belowSubview: modal_confirm_call)
     }
     
     @IBAction func GoBack(_ sender: UIButton) {

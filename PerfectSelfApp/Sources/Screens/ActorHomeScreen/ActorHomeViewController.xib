@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21225" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21207"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
         <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -77,12 +77,17 @@
                                                     <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
                                                     <color key="backgroundColor" red="0.45882352941176469" green="0.52941176470588236" blue="0.85098039215686272" alpha="0.14999999999999999" colorSpace="calibratedRGB"/>
                                                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                                    <state key="normal" image="notify.blue"/>
+                                                    <state key="normal">
+                                                        <imageReference key="image" image="bell" catalog="system" symbolScale="large"/>
+                                                    </state>
                                                     <userDefinedRuntimeAttributes>
                                                         <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                                                             <real key="value" value="25"/>
                                                         </userDefinedRuntimeAttribute>
                                                     </userDefinedRuntimeAttributes>
+                                                    <connections>
+                                                        <action selector="GoMessageCenter:" destination="-1" eventType="touchUpInside" id="dqG-pO-M2M"/>
+                                                    </connections>
                                                 </button>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SYJ-ky-cq1">
                                                     <rect key="frame" x="34" y="0.0" width="16" height="16"/>
@@ -834,8 +839,8 @@
                                     <viewLayoutGuide key="frameLayoutGuide" id="xui-Zp-pK5"/>
                                     <variation key="default">
                                         <mask key="constraints">
-                                            <exclude reference="f0i-7d-FL7"/>
                                             <exclude reference="69u-jI-U77"/>
+                                            <exclude reference="f0i-7d-FL7"/>
                                         </mask>
                                     </variation>
                                 </scrollView>
@@ -891,6 +896,7 @@
         </view>
     </objects>
     <resources>
+        <image name="bell" catalog="system" width="125" height="128"/>
         <image name="calendar" catalog="system" width="128" height="107"/>
         <image name="checkmark.square" catalog="system" width="128" height="114"/>
         <image name="filter_divide" width="334" height="1"/>
@@ -898,7 +904,6 @@
         <image name="icons8-checked-checkbox-14" width="14" height="14"/>
         <image name="icons8-unchecked-checkbox-14" width="14" height="14"/>
         <image name="magnifyingglass" catalog="system" width="128" height="117"/>
-        <image name="notify.blue" width="17" height="21"/>
         <image name="person.fill" catalog="system" width="128" height="120"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

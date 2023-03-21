@@ -11,20 +11,20 @@ import UIKit
 class ActorFindReaderViewController: UIViewController {
 
     @IBOutlet weak var modal_sort: UIView!
-    @IBOutlet weak var modal_filter: UIView!
-    @IBOutlet weak var btn_filter: UIButton!
-    @IBOutlet weak var btn_sort: UIButton!
+//    @IBOutlet weak var modal_filter: UIView!
     
     @IBOutlet weak var scrollView: UIScrollView!
     
     let r = UIImage(named: "reader");
+    let backgroundView = UIView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        self.navigationItem.setHidesBackButton(true, animated: false)
         modal_sort.alpha = 0;
-        modal_filter.alpha = 0;
+//        modal_filter.alpha = 0;
         
         let containerView = UIView()
         let num = 0...10
@@ -36,6 +36,11 @@ class ActorFindReaderViewController: UIViewController {
             iv.layer.shadowRadius = 5;
             iv.layer.shadowOffset = CGSize(width: 2, height: 5);
             iv.frame = CGRect(x: 20, y:120*i, width:Int(scrollView.frame.width-40), height:100)
+            
+            let tap = UITapGestureRecognizer(target: self, action: #selector(tapReader))
+            iv.addGestureRecognizer(tap)
+            iv.isUserInteractionEnabled = true
+            
             containerView.addSubview(iv)
         }
    
@@ -45,36 +50,48 @@ class ActorFindReaderViewController: UIViewController {
         scrollView.contentSize = containerView.frame.size
 
     }
+    @objc func tapReader() {
+        let controller = ActorReaderDetailViewController()
+        self.navigationController?.pushViewController(controller, animated: true)
+    }
     @IBAction func SortReaders(_ sender: UIButton) {
-        UIView.animate(withDuration: 0.5) {
+        UIView.animate(withDuration: 0.3) {
            self.modal_sort.alpha = 1;
         };
-
+        backgroundView.backgroundColor = UIColor.black.withAlphaComponent(0.5)
+        backgroundView.frame = view.bounds
+        backgroundView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        view.insertSubview(backgroundView, belowSubview: modal_sort)
+        let tap = UITapGestureRecognizer(target: self, action: #selector(tapCallback))
+        backgroundView.addGestureRecognizer(tap)
+        backgroundView.isUserInteractionEnabled = true
     }
-
-    @IBAction func FilterReaders(_ sender: UIButton) {
-        UIView.animate(withDuration: 0.5) {
-            self.modal_filter.alpha = 1;
-        };
+    @objc func tapCallback() {
+        backgroundView.removeFromSuperview()
+        self.modal_sort.alpha = 0;
     }
+//    @IBAction func FilterReaders(_ sender: UIButton) {
+//        UIView.animate(withDuration: 0.5) {
+//            self.modal_filter.alpha = 1;
+//        };
+//    }
     
     @IBAction func SortApply(_ sender: UIButton) {
-        
-        UIView.animate(withDuration: 0.5) {
-            self.modal_sort.alpha = 0;
-        };
+        backgroundView.removeFromSuperview()
+        self.modal_sort.alpha = 0;
+      
         
     }
     
-    @IBAction func FilterApply(_ sender: UIButton) {
-        
-        UIView.animate(withDuration: 0.5) {
-            self.modal_filter.alpha = 0;
-        };
-    }
+//    @IBAction func FilterApply(_ sender: UIButton) {
+//
+//        UIView.animate(withDuration: 0.5) {
+//            self.modal_filter.alpha = 0;
+//        };
+//    }
     
     @IBAction func GoBack(_ sender: UIButton) {
-        print("clicked go back")
+        self.navigationController?.popViewController(animated: true)
     }
     /*
     // MARK: - Navigation
