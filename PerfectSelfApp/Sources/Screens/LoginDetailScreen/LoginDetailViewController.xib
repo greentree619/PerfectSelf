@@ -205,11 +205,11 @@
                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="bottom" translatesAutoresizingMaskIntoConstraints="NO" id="s2F-3J-2cY" userLabel="Forgot Password">
                                     <rect key="frame" x="20" y="553" width="388" height="45"/>
                                     <subviews>
-                                        <stackView opaque="NO" contentMode="scaleToFill" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="fM8-E2-O19">
+                                        <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="fM8-E2-O19">
                                             <rect key="frame" x="0.0" y="0.0" width="388" height="45"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="M2f-6N-fHg" userLabel="Remember Me">
-                                                    <rect key="frame" x="0.0" y="0.0" width="194" height="45"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="191.66666666666666" height="45"/>
                                                     <subviews>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="otN-Yw-J12" userLabel="Remember Button">
                                                             <rect key="frame" x="5" y="0.0" width="18" height="45"/>
@@ -243,10 +243,10 @@
                                                     </constraints>
                                                 </view>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PQc-Q0-WrE" userLabel="Forgot Password">
-                                                    <rect key="frame" x="199" y="0.0" width="189" height="45"/>
+                                                    <rect key="frame" x="196.66666666666663" y="0.0" width="191.33333333333337" height="45"/>
                                                     <subviews>
                                                         <button opaque="NO" contentMode="scaleToFill" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5gs-TK-Gx8" userLabel="Forgot Button">
-                                                            <rect key="frame" x="64.333333333333314" y="0.0" width="18" height="45"/>
+                                                            <rect key="frame" x="66.666666666666657" y="0.0" width="18" height="45"/>
                                                             <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                             <state key="normal" image="icons8-unchecked-checkbox-14"/>
                                                             <state key="selected" image="icons8-checked-checkbox-14"/>
@@ -259,7 +259,7 @@
                                                             </connections>
                                                         </button>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Forgot Password" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0VP-te-DSM">
-                                                            <rect key="frame" x="87.333333333333314" y="0.0" width="101.66666666666669" height="45"/>
+                                                            <rect key="frame" x="89.666666666666657" y="0.0" width="101.66666666666666" height="45"/>
                                                             <edgeInsets key="layoutMargins" top="8" left="8" bottom="8" right="8"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                             <nil key="textColor"/>
@@ -279,9 +279,7 @@
                                             </subviews>
                                             <constraints>
                                                 <constraint firstAttribute="bottom" secondItem="PQc-Q0-WrE" secondAttribute="bottom" id="EHO-EP-70r"/>
-                                                <constraint firstItem="M2f-6N-fHg" firstAttribute="width" secondItem="fM8-E2-O19" secondAttribute="width" multiplier="0.5" id="FcL-Qd-eHY"/>
                                                 <constraint firstItem="PQc-Q0-WrE" firstAttribute="top" secondItem="fM8-E2-O19" secondAttribute="top" id="UYJ-pY-fIx"/>
-                                                <constraint firstItem="PQc-Q0-WrE" firstAttribute="width" secondItem="fM8-E2-O19" secondAttribute="width" multiplier="0.5" id="dps-m2-pRS"/>
                                                 <constraint firstAttribute="trailing" secondItem="PQc-Q0-WrE" secondAttribute="trailing" id="yaO-9s-vN8"/>
                                             </constraints>
                                         </stackView>

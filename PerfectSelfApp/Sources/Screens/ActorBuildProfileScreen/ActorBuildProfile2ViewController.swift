@@ -17,6 +17,9 @@ class ActorBuildProfile2ViewController: UIViewController {
     let dropDownForAgeRange = DropDown()
     @IBOutlet weak var text_gender: UITextField!
     @IBOutlet weak var text_age: UITextField!
+    @IBOutlet weak var text_username: UITextField!
+    @IBOutlet weak var text_weight: UITextField!
+    @IBOutlet weak var text_height: UITextField!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,6 +28,7 @@ class ActorBuildProfile2ViewController: UIViewController {
         
 
         // The view to which the drop down will appear on
+        text_username.text = UserDefaults.standard.string(forKey: "USER_NAME")
         dropDownForGender.anchorView = genderview // UIView or UIBarButtonItem
         dropDownForAgeRange.anchorView = ageview
         // The list of items to display. Can be changed dynamically
@@ -73,7 +77,14 @@ class ActorBuildProfile2ViewController: UIViewController {
     }
     
     @IBAction func Continue(_ sender: UIButton) {
+        
         let controller = ActorBuildProfile3ViewController()
+        controller.username = text_username.text != nil ? text_username.text!: ""
+        controller.gender = text_gender.text != nil ? text_gender.text!: ""
+        controller.agerange = text_age.text != nil ? text_age.text! : ""
+        controller.height = text_height.text != nil ? text_height.text! : ""
+        controller.weight = text_weight.text != nil ? text_weight.text! : ""
+        
         self.navigationController?.pushViewController(controller, animated: true)
     }
     /*
