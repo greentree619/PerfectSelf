@@ -43,6 +43,7 @@
 		795A4A28221E0A1B00F8BB03 /* IceCandidate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 795A4A27221E0A1B00F8BB03 /* IceCandidate.swift */; };
 		795A4A2A221E0FB100F8BB03 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 795A4A29221E0FB100F8BB03 /* Message.swift */; };
 		798FBA492200F9A9009F525E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 798FBA482200F9A9009F525E /* LaunchScreen.storyboard */; };
+		BA00A54529CA1AD100C90922 /* Toast.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA00A54429CA1AD100C90922 /* Toast.swift */; };
 		BA0E353A29BF8C2800ED838A /* StackViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA0E353629BF8C2800ED838A /* StackViewExtension.swift */; };
 		BA0E353B29BF8C2800ED838A /* CGFloatExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA0E353729BF8C2800ED838A /* CGFloatExtension.swift */; };
 		BA0E353C29BF8C2800ED838A /* AdaptiveLayoutConstraint.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA0E353829BF8C2800ED838A /* AdaptiveLayoutConstraint.swift */; };
@@ -191,6 +192,7 @@
 		869D21314A3A21C4B3BFA98D /* Pods-PerfectSelf.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PerfectSelf.release.xcconfig"; path = "Target Support Files/Pods-PerfectSelf/Pods-PerfectSelf.release.xcconfig"; sourceTree = "<group>"; };
 		9B2028BF3D141AFCF2791F2E /* Pods-PerfectSelf.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PerfectSelf.debug.xcconfig"; path = "Target Support Files/Pods-PerfectSelf/Pods-PerfectSelf.debug.xcconfig"; sourceTree = "<group>"; };
 		9F05824DD001DE2D746EF6D8 /* Pods_PerfectSelf.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PerfectSelf.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		BA00A54429CA1AD100C90922 /* Toast.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Toast.swift; sourceTree = "<group>"; };
 		BA0E353629BF8C2800ED838A /* StackViewExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StackViewExtension.swift; sourceTree = "<group>"; };
 		BA0E353729BF8C2800ED838A /* CGFloatExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGFloatExtension.swift; sourceTree = "<group>"; };
 		BA0E353829BF8C2800ED838A /* AdaptiveLayoutConstraint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdaptiveLayoutConstraint.swift; sourceTree = "<group>"; };
@@ -541,6 +543,7 @@
 		BAB32E4129B064280000F082 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				BA00A54429CA1AD100C90922 /* Toast.swift */,
 				BAB32E4229B064640000F082 /* Global.swift */,
 				BAB7379B29B40B7500F3D663 /* AWSMultipartUpload.swift */,
 				BA3F909929C457C200ABE966 /* PerfectSelfWebAPI.swift */,
@@ -1098,6 +1101,7 @@
 				BAD0B52329BA17130061FEF5 /* HomeViewController.swift in Sources */,
 				BA0E353A29BF8C2800ED838A /* StackViewExtension.swift in Sources */,
 				BAD0B52429BA17130061FEF5 /* EditReadViewController.swift in Sources */,
+				BA00A54529CA1AD100C90922 /* Toast.swift in Sources */,
 				792198A222011A450051F03F /* Config.swift in Sources */,
 				BAC11B8529A8B37100580143 /* IDCaptureSessionMovieFileOutputCoordinator.m in Sources */,
 				79262EE720B0D6F600D576C1 /* AppDelegate.swift in Sources */,
