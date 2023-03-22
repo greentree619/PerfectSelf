@@ -84,7 +84,7 @@ class LoginDetailViewController: UIViewController {
                     DispatchQueue.main.async {
                         hideIndicator(sender: sender)
                         Toast.show(message: "Login failed! please try again.", controller: self)
-                        self.text_email.becomeFirstResponder()
+                        let _ = self.text_email.becomeFirstResponder()
                     }
                     return
                 }
@@ -121,7 +121,7 @@ class LoginDetailViewController: UIViewController {
                     DispatchQueue.main.async {
                         hideIndicator(sender: sender)
                         Toast.show(message: "Login failed! please try again.", controller: self)
-                        self.text_email.becomeFirstResponder()
+                        let _ = self.text_email.becomeFirstResponder()
                     }
                 }
             }
@@ -130,7 +130,7 @@ class LoginDetailViewController: UIViewController {
                 DispatchQueue.main.async {
                     hideIndicator(sender: sender)
                     Toast.show(message: "Login failed! please try again.", controller: self)
-                    self.text_email.becomeFirstResponder()
+                    let _ = self.text_email.becomeFirstResponder()
                 }
             }
         }
