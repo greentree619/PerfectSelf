@@ -139,7 +139,7 @@ class ActorBookAppointmentViewController: UIViewController {
          }
     }
     @IBAction func ContinueToUploadScript(_ sender: UIButton) {
-        let controller = ActorBookUploadScriptiewController()
+        let controller = ActorBookUploadScriptViewController()
         self.navigationController?.pushViewController(controller, animated: true)
     }
 //

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ActorBookUploadScriptiewController: UIViewController {
+class ActorBookUploadScriptViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
