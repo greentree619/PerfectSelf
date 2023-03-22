@@ -13,8 +13,6 @@
 		2F7EBC3622DCC6430015B46E /* WebSocketProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F7EBC3522DCC6430015B46E /* WebSocketProvider.swift */; };
 		2F7EBC3822DCCB4E0015B46E /* StarscreamProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F7EBC3722DCCB4E0015B46E /* StarscreamProvider.swift */; };
 		2F7EBC3A22DCCE240015B46E /* NativeWebSocket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F7EBC3922DCCE240015B46E /* NativeWebSocket.swift */; };
-		47007BD829C1E27B00F83CFD /* CalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47007BD629C1E27B00F83CFD /* CalendarViewController.swift */; };
-		47007BD929C1E27B00F83CFD /* CalendarViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 47007BD729C1E27B00F83CFD /* CalendarViewController.xib */; };
 		47007BE129C26F7A00F83CFD /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47007BE029C26F7A00F83CFD /* Item.swift */; };
 		47007BE929C2B0C000F83CFD /* ActorSetPaymentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47007BE729C2B0BF00F83CFD /* ActorSetPaymentViewController.swift */; };
 		47007BEA29C2B0C000F83CFD /* ActorSetPaymentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 47007BE829C2B0C000F83CFD /* ActorSetPaymentViewController.xib */; };
@@ -158,8 +156,6 @@
 		2F7EBC3522DCC6430015B46E /* WebSocketProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebSocketProvider.swift; sourceTree = "<group>"; };
 		2F7EBC3722DCCB4E0015B46E /* StarscreamProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarscreamProvider.swift; sourceTree = "<group>"; };
 		2F7EBC3922DCCE240015B46E /* NativeWebSocket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeWebSocket.swift; sourceTree = "<group>"; };
-		47007BD629C1E27B00F83CFD /* CalendarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewController.swift; sourceTree = "<group>"; };
-		47007BD729C1E27B00F83CFD /* CalendarViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CalendarViewController.xib; sourceTree = "<group>"; };
 		47007BE029C26F7A00F83CFD /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
 		47007BE729C2B0BF00F83CFD /* ActorSetPaymentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActorSetPaymentViewController.swift; sourceTree = "<group>"; };
 		47007BE829C2B0C000F83CFD /* ActorSetPaymentViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ActorSetPaymentViewController.xib; sourceTree = "<group>"; };
@@ -335,23 +331,6 @@
 				2F7EBC3922DCCE240015B46E /* NativeWebSocket.swift */,
 			);
 			path = WebSocketProvider;
-			sourceTree = "<group>";
-		};
-		47007BD429C1E23E00F83CFD /* Modal */ = {
-			isa = PBXGroup;
-			children = (
-				47007BD529C1E24900F83CFD /* CalendarModal */,
-			);
-			path = Modal;
-			sourceTree = "<group>";
-		};
-		47007BD529C1E24900F83CFD /* CalendarModal */ = {
-			isa = PBXGroup;
-			children = (
-				47007BD629C1E27B00F83CFD /* CalendarViewController.swift */,
-				47007BD729C1E27B00F83CFD /* CalendarViewController.xib */,
-			);
-			path = CalendarModal;
 			sourceTree = "<group>";
 		};
 		47007BE229C2AF2B00F83CFD /* ActorSetPaymentScreen */ = {
@@ -604,7 +583,6 @@
 				47BC09B729C5B3E300B8F2C5 /* ActorBuildProfileScreen */,
 				47DC851129C3813000D86E5A /* ActorMessageCenterScreen */,
 				47007BE229C2AF2B00F83CFD /* ActorSetPaymentScreen */,
-				47007BD429C1E23E00F83CFD /* Modal */,
 				47E0B9F429C1419900C82255 /* ReaderTabBarController */,
 				BABBD2E229BF9DC3000A7120 /* ActorTabBarController */,
 				BAD0B49B29BA17120061FEF5 /* ActorBookConfirmationScreen */,
@@ -1049,7 +1027,6 @@
 				BAD0B50329BA17130061FEF5 /* LoginDetailViewController.xib in Resources */,
 				BAD0B54029BA17130061FEF5 /* LoginViewController.xib in Resources */,
 				BAD0B51429BA17130061FEF5 /* ReaderProfileEditSkillViewController.xib in Resources */,
-				47007BD929C1E27B00F83CFD /* CalendarViewController.xib in Resources */,
 				BA4714C629A79856007AABC2 /* SF-Pro-Display-Regular.otf in Resources */,
 				BAD0B54229BA17130061FEF5 /* ReaderProfileEditPersonalInfoViewController.xib in Resources */,
 				798FBA492200F9A9009F525E /* LaunchScreen.storyboard in Resources */,
@@ -1150,7 +1127,6 @@
 				BAD5C84F29AEDF0E00A2F109 /* CameraPreviewView.swift in Sources */,
 				BAB7379C29B40B7500F3D663 /* AWSMultipartUpload.swift in Sources */,
 				BAD0B52929BA17130061FEF5 /* ActorHomeViewController.swift in Sources */,
-				47007BD829C1E27B00F83CFD /* CalendarViewController.swift in Sources */,
 				47CEBDDA29C7C24C006CE9DA /* ActorProfileViewController.swift in Sources */,
 				BAD0B51829BA17130061FEF5 /* OverlayViewContoller.swift in Sources */,
 				BABBD2E829BFF3D1000A7120 /* HexUIColor.swift in Sources */,

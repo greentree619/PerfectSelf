@@ -11,11 +11,11 @@ import FSCalendar
 import BDatePicker
 
 class ActorHomeViewController: UIViewController {
-
+    
     @IBOutlet weak var filtermodal: UIStackView!
-
+    
     @IBOutlet weak var scrollView: UIScrollView!
- 
+    
     let r = UIImage(named: "reader");
     let backgroundView = UIView()
     
@@ -33,10 +33,10 @@ class ActorHomeViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         // Do any additional setup after loading the view.
         filtermodal.alpha = 0;
-
+        
         let containerView = UIView()
         let num = 0...10
         for i in num {
@@ -49,18 +49,18 @@ class ActorHomeViewController: UIViewController {
             iv.frame = CGRect(x: 0, y:120*i, width:Int(scrollView.frame.width), height:100)
             containerView.addSubview(iv)
         }
-   
+        
         containerView.frame = CGRect(x: 0, y: 0, width: scrollView.frame.width, height: 800)
         
         scrollView.addSubview(containerView)
         scrollView.contentSize = containerView.frame.size
     }
-
+    
     @IBAction func ShowFilterModal(_ sender: UIButton) {
         UIView.animate(withDuration:0.3) {
             self.filtermodal.alpha = 1;
         }
-
+        
         backgroundView.backgroundColor = UIColor.black.withAlphaComponent(0.5)
         backgroundView.frame = view.bounds
         backgroundView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
@@ -80,7 +80,7 @@ class ActorHomeViewController: UIViewController {
         
         let controller = ActorFindReaderViewController()
         self.navigationController?.pushViewController(controller, animated: true)
-
+        
     }
     @IBAction func SelectMale(_ sender: UIButton) {
         sender.isSelected = !sender.isSelected
@@ -93,35 +93,35 @@ class ActorHomeViewController: UIViewController {
         backgroundView.removeFromSuperview()
         self.filtermodal.alpha = 0;
     }
-
-
-//
-//    @IBAction func ShowCalendar(_ sender: UIButton) {
-//        let _ = BDatePicker.show(on: self, handledBy: HandleDateDidChange)
-//
-//        func HandleDateDidChange(to newDate: Date?)
-//         {
-//             guard let date = newDate else
-//             {
-////               dateLabel.text = "nil"
-//                 print("nil");
-//                 return
-//             }
-//             print(date.description);
-//            //dateLabel.text = date.description
-//         }
-////        CalendarViewController.present(
-////                    initialView: self,
-////                    delegate: self)
-//    }
-
+    
+    
+    //
+    //    @IBAction func ShowCalendar(_ sender: UIButton) {
+    //        let _ = BDatePicker.show(on: self, handledBy: HandleDateDidChange)
+    //
+    //        func HandleDateDidChange(to newDate: Date?)
+    //         {
+    //             guard let date = newDate else
+    //             {
+    ////               dateLabel.text = "nil"
+    //                 print("nil");
+    //                 return
+    //             }
+    //             print(date.description);
+    //            //dateLabel.text = date.description
+    //         }
+    ////        CalendarViewController.present(
+    ////                    initialView: self,
+    ////                    delegate: self)
+    //    }
+    
     @IBAction func SelectSponsored(_ sender: UIButton) {
         isSponsored = !isSponsored
         
         if isSponsored {
             sender.backgroundColor = UIColor(rgb: 0x4865FF)
             sender.setTitleColor(.white, for: .normal)
-           
+            
         }
         else {
             sender.backgroundColor = UIColor(rgb: 0xE5E5E5)
@@ -135,7 +135,7 @@ class ActorHomeViewController: UIViewController {
         if isAvailableSoon {
             sender.backgroundColor = UIColor(rgb: 0x4865FF)
             sender.setTitleColor(.white, for: .normal)
-           
+            
         }
         else {
             sender.backgroundColor = UIColor(rgb: 0xE5E5E5)
@@ -148,7 +148,7 @@ class ActorHomeViewController: UIViewController {
         if isTopRated {
             sender.backgroundColor = UIColor(rgb: 0x4865FF)
             sender.setTitleColor(.white, for: .normal)
-           
+            
         }
         else {
             sender.backgroundColor = UIColor(rgb: 0xE5E5E5)
@@ -162,7 +162,7 @@ class ActorHomeViewController: UIViewController {
         if isOnline {
             sender.backgroundColor = UIColor(rgb: 0x4865FF)
             sender.setTitleColor(.white, for: .normal)
-           
+            
         }
         else {
             sender.backgroundColor = UIColor(rgb: 0xFFFFFF)
@@ -176,7 +176,7 @@ class ActorHomeViewController: UIViewController {
         if isAvailableSoon {
             sender.backgroundColor = UIColor(rgb: 0x4865FF)
             sender.setTitleColor(.white, for: .normal)
-           
+            
         }
         else {
             sender.backgroundColor = UIColor(rgb: 0xFFFFFF)
@@ -190,7 +190,7 @@ class ActorHomeViewController: UIViewController {
         if is15TimeSlot {
             sender.backgroundColor = UIColor(rgb: 0x4865FF)
             sender.setTitleColor(.white, for: .normal)
-           
+            
         }
         else {
             sender.backgroundColor = UIColor(rgb: 0xFFFFFF)
@@ -204,7 +204,7 @@ class ActorHomeViewController: UIViewController {
         if is30TimeSlot {
             sender.backgroundColor = UIColor(rgb: 0x4865FF)
             sender.setTitleColor(.white, for: .normal)
-           
+            
         }
         else {
             sender.backgroundColor = UIColor(rgb: 0xFFFFFF)
@@ -218,7 +218,7 @@ class ActorHomeViewController: UIViewController {
         if is30PlusTimeSlot {
             sender.backgroundColor = UIColor(rgb: 0x4865FF)
             sender.setTitleColor(.white, for: .normal)
-           
+            
         }
         else {
             sender.backgroundColor = UIColor(rgb: 0xFFFFFF)
@@ -232,7 +232,7 @@ class ActorHomeViewController: UIViewController {
         if isStandBy {
             sender.backgroundColor = UIColor(rgb: 0x4865FF)
             sender.setTitleColor(.white, for: .normal)
-           
+            
         }
         else {
             sender.backgroundColor = UIColor(rgb: 0xFFFFFF)
@@ -290,22 +290,13 @@ class ActorHomeViewController: UIViewController {
         self.navigationController?.pushViewController(controller, animated: true)
     }
     /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
-}
-extension ActorHomeViewController: PopUpModalDelegate {
-    func didTapCancel() {
-        self.dismiss(animated: true)
-    }
-
-    func didTapAccept(){
-
-    }
+     // MARK: - Navigation
+     
+     // In a storyboard-based application, you will often want to do a little preparation before navigation
+     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+     // Get the new view controller using segue.destination.
+     // Pass the selected object to the new view controller.
+     }
+     */
+    
 }
