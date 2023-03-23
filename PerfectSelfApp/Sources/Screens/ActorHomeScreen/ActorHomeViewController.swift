@@ -9,21 +9,6 @@
 import UIKit
 import FSCalendar
 
-struct ReaderProfile: Codable {
-    let title: String
-    let readerUid: String
-    let hourlyPrice: Int
-    let voiceType: Int
-    let others: Int
-    let about: String
-    let skills: String
-    let id: Int
-    let isDeleted: Bool
-    let createdTime: String
-    let updatedTime: String
-    let deletedTime: String
-}
-
 class ActorHomeViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout
 {
     
@@ -32,7 +17,8 @@ class ActorHomeViewController: UIViewController, UICollectionViewDataSource, UIC
     @IBOutlet weak var readerList: UICollectionView!
     
     @IBOutlet weak var readerListFlow: UICollectionViewFlowLayout!
-    var items = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32", "33", "34", "35", "36", "37", "38", "39", "40", "41", "42", "43", "44", "45", "46", "47", "48"]
+    var items = [ReaderProfile]()
+//    ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32", "33", "34", "35", "36", "37", "38", "39", "40", "41", "42", "43", "44", "45", "46", "47", "48"]
     
     let backgroundView = UIView()
     
@@ -56,10 +42,40 @@ class ActorHomeViewController: UIViewController, UICollectionViewDataSource, UIC
         readerList.register(nib, forCellWithReuseIdentifier: "Reader Collection View Cell")
         readerList.dataSource = self
         readerList.delegate = self
+        readerList.allowsSelection = true
         
         // Do any additional setup after loading the view.
         filtermodal.alpha = 0;
-        
+
+        showIndicator(sender: nil, viewController: self)
+        // call API to fetch reader list
+        webAPI.getAllReaders() { data, response, error in
+            DispatchQueue.main.async {
+                hideIndicator(sender: nil)
+            }
+            
+            guard let data = data, error == nil else {
+                print(error?.localizedDescription ?? "No data")
+                return
+            }
+            do {
+                let respItems = try JSONDecoder().decode([ReaderProfile].self, from: data)
+                //print(items)
+                DispatchQueue.main.async {
+                    self.items.removeAll()
+                    self.items.append(contentsOf: respItems)
+//                    for (i, reader) in items.enumerated() {
+//                    }
+                    self.readerList.reloadData()
+                }
+
+            } catch {
+                print(error)
+                DispatchQueue.main.async {
+                    Toast.show(message: "Fetching reader list failed! please try again.", controller: self)
+                }
+            }
+        }
     }
     
     // MARK: - Reader List Delegate.
@@ -80,12 +96,12 @@ class ActorHomeViewController: UIViewController, UICollectionViewDataSource, UIC
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         //
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Reader Collection View Cell", for: indexPath) as! ReaderCollectionViewCell
-        cell.readerName.text = self.items[indexPath.row];
+        cell.readerName.text = self.items[indexPath.row].readerUid;
         // return card
         return cell
     }
     
-    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         // add the code here to perform action on the cell
         print("didDeselectItemAt")
 //        let cell = collectionView.cellForItem(at: indexPath) as? LibraryCollectionViewCell

@@ -15,6 +15,21 @@ let READER_UTYPE = 4
 var backgroundView: UIView? = nil
 var activityIndicatorView: UIActivityIndicatorView? = nil
 
+struct ReaderProfile: Codable {
+    let title: String
+    let readerUid: String
+    let hourlyPrice: Int
+    let voiceType: Int
+    let others: Int
+    let about: String
+    let skills: String
+    let id: Int
+    let isDeleted: Bool
+    let createdTime: String
+    let updatedTime: String
+    let deletedTime: String
+}
+
 //        showAlert(viewController: self, title: "Confirm", message: "Please input") { UIAlertAction in
 //            print("Ok button tapped")
 //        }
@@ -51,9 +66,11 @@ func showConfirm(viewController: UIViewController
     viewController.present(dialogMessage, animated: true, completion: nil)
 }
 
-func showIndicator(sender: UIControl, viewController: UIViewController)
+func showIndicator(sender: UIControl?, viewController: UIViewController)
 {
-    sender.isEnabled = false
+    if(sender != nil){
+        sender!.isEnabled = false
+    }
     backgroundView = UIView()
     backgroundView!.backgroundColor = UIColor.black.withAlphaComponent(0.5)
     backgroundView!.frame = viewController.view.bounds
@@ -66,12 +83,15 @@ func showIndicator(sender: UIControl, viewController: UIViewController)
     activityIndicatorView!.startAnimating()
 }
 
-func hideIndicator(sender: UIControl)
+func hideIndicator(sender: UIControl?)
 {
     activityIndicatorView?.stopAnimating()
     activityIndicatorView?.removeFromSuperview()
     backgroundView?.removeFromSuperview()
-    sender.isEnabled = true
+    
+    if(sender != nil){
+        sender!.isEnabled = true
+    }
 }
 
 func isValidEmail(email: String) -> Bool {
