@@ -21,7 +21,7 @@
             <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <stackView opaque="NO" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="OSz-ID-ksE">
+                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="OSz-ID-ksE">
                     <rect key="frame" x="0.0" y="59" width="393" height="759"/>
                     <subviews>
                         <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="GYF-TW-VC5">
@@ -35,6 +35,11 @@
                             <constraints>
                                 <constraint firstAttribute="height" constant="200" id="hl4-at-je4" customClass="AdaptiveLayoutConstraint" customModule="PerfectSelf" customModuleProvider="target"/>
                             </constraints>
+                            <variation key="default">
+                                <mask key="constraints">
+                                    <exclude reference="hl4-at-je4"/>
+                                </mask>
+                            </variation>
                         </stackView>
                         <stackView opaque="NO" contentMode="scaleToFill" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="C20-Iy-fpz">
                             <rect key="frame" x="20" y="234" width="353" height="40"/>
@@ -222,12 +227,12 @@
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rFf-lq-h4n">
                                     <rect key="frame" x="0.0" y="0.0" width="353" height="50"/>
                                     <state key="normal" title="Button"/>
-                                    <buttonConfiguration key="configuration" style="filled" title="Message Alan" cornerStyle="dynamic">
+                                    <buttonConfiguration key="configuration" style="filled" title="Done" cornerStyle="dynamic">
                                         <backgroundConfiguration key="background" cornerRadius="12"/>
                                         <fontDescription key="titleFontDescription" type="system" pointSize="16"/>
                                     </buttonConfiguration>
                                     <connections>
-                                        <action selector="GotoMeetingCenter:" destination="-1" eventType="touchUpInside" id="XVP-fx-bJD"/>
+                                        <action selector="CompleteBooking:" destination="-1" eventType="touchUpInside" id="poA-XO-njH"/>
                                     </connections>
                                 </button>
                             </subviews>
@@ -246,6 +251,11 @@
                         <constraint firstAttribute="height" constant="759" id="j8C-fw-atO" customClass="AdaptiveLayoutConstraint" customModule="PerfectSelf" customModuleProvider="target"/>
                     </constraints>
                     <edgeInsets key="layoutMargins" top="0.0" left="20" bottom="8" right="20"/>
+                    <variation key="default">
+                        <mask key="constraints">
+                            <exclude reference="j8C-fw-atO"/>
+                        </mask>
+                    </variation>
                 </stackView>
             </subviews>
             <viewLayoutGuide key="safeArea" id="wvk-bL-wtl"/>
@@ -256,11 +266,6 @@
                 <constraint firstItem="OSz-ID-ksE" firstAttribute="top" secondItem="wvk-bL-wtl" secondAttribute="top" id="eTS-G7-amz"/>
                 <constraint firstItem="wvk-bL-wtl" firstAttribute="trailing" secondItem="OSz-ID-ksE" secondAttribute="trailing" id="kjc-ue-Fer"/>
             </constraints>
-            <variation key="default">
-                <mask key="constraints">
-                    <exclude reference="SoX-8g-kLA"/>
-                </mask>
-            </variation>
             <point key="canvasLocation" x="140" y="-627"/>
         </view>
         <tapGestureRecognizer id="EOQ-C0-EPP">

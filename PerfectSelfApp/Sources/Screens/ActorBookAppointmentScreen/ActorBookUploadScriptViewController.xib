@@ -12,6 +12,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ActorBookUploadScriptViewController" customModule="PerfectSelf" customModuleProvider="target">
             <connections>
+                <outlet property="text_script" destination="dLI-g7-Wda" id="jDh-gA-daV"/>
                 <outlet property="view" destination="9cN-op-sIT" id="9Tt-dZ-yMw"/>
             </connections>
         </placeholder>
@@ -244,7 +245,7 @@
                         <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6Ul-Uq-Af8">
                             <rect key="frame" x="20" y="645.66666666666663" width="353" height="90"/>
                             <subviews>
-                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XHR-RD-6vm" customClass="RoundView">
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XHR-RD-6vm">
                                     <rect key="frame" x="0.0" y="8" width="353" height="74"/>
                                     <subviews>
                                         <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Paste Script here." textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="dLI-g7-Wda">

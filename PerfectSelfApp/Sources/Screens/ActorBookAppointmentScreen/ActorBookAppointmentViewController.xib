@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21225" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_0" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21207"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
         <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -14,6 +14,7 @@
             <connections>
                 <outlet property="modal_time_end" destination="Sei-xz-Obw" id="Odn-df-VcQ"/>
                 <outlet property="modal_time_start" destination="Y53-QW-esd" id="xA3-At-P3Y"/>
+                <outlet property="picker_date" destination="KJ6-t1-Sza" id="ERv-XY-dcg"/>
                 <outlet property="picker_end_time" destination="Ewj-p3-Xeb" id="xKo-oo-pwG"/>
                 <outlet property="picker_start_time" destination="l80-Wh-fcv" id="6pz-pg-7Lb"/>
                 <outlet property="text_end" destination="1CI-Hn-dqS" id="fV8-pt-OtG"/>

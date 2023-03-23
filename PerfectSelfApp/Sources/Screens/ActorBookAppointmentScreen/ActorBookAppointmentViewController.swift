@@ -23,7 +23,10 @@ class ActorBookAppointmentViewController: UIViewController {
 //    @IBOutlet weak var btn_2pm: UIButton!
 //    @IBOutlet weak var btn_3pm: UIButton!
 //    @IBOutlet weak var btn_4pm: UIButton!
+
+    var rUid: String = ""
     let backgroundView = UIView()
+    let timeFormatter = DateFormatter()
     let dateFormatter = DateFormatter()
     @IBOutlet weak var text_end: UITextField!
     @IBOutlet weak var text_starttime: UITextField!
@@ -33,6 +36,7 @@ class ActorBookAppointmentViewController: UIViewController {
     
     @IBOutlet weak var picker_start_time: UIDatePicker!
     @IBOutlet weak var picker_end_time: UIDatePicker!
+    @IBOutlet weak var picker_date: UIDatePicker!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,7 +50,8 @@ class ActorBookAppointmentViewController: UIViewController {
         modal_time_start.alpha = 0
         modal_time_end.isHidden = true
         modal_time_end.alpha = 0
-        dateFormatter.dateFormat = "hh:mm a"
+        timeFormatter.dateFormat = "hh:mm a"
+        dateFormatter.dateFormat = "yyyy-MM-dd"
     }
     @IBAction func SelectStartTime(_ sender: UIButton) {
         
@@ -76,7 +81,7 @@ class ActorBookAppointmentViewController: UIViewController {
            self.modal_time_start.transform = CGAffineTransform(scaleX: 0.2, y: 0.2)
 
          }) { (success) in
-             self.text_starttime.text = self.dateFormatter.string(from: self.picker_start_time.date)
+             self.text_starttime.text = self.timeFormatter.string(from: self.picker_start_time.date)
              self.modal_time_start.isHidden = true
              self.modal_time_start.alpha = 0
              self.backgroundView.removeFromSuperview()
@@ -120,7 +125,7 @@ class ActorBookAppointmentViewController: UIViewController {
            self.modal_time_end.transform = CGAffineTransform(scaleX: 0.2, y: 0.2)
 
          }) { (success) in
-             self.text_end.text = self.dateFormatter.string(from: self.picker_end_time.date)
+             self.text_end.text = self.timeFormatter.string(from: self.picker_end_time.date)
              self.modal_time_end.isHidden = true
              self.modal_time_end.alpha = 0
              self.backgroundView.removeFromSuperview()
@@ -139,7 +144,36 @@ class ActorBookAppointmentViewController: UIViewController {
          }
     }
     @IBAction func ContinueToUploadScript(_ sender: UIButton) {
+        var inputCheck: String = ""
+        var focusTextField: UITextField? = nil
+        if(text_starttime.text!.isEmpty){
+            inputCheck += "- Please input user email.\n"
+            if(focusTextField == nil){
+                focusTextField = text_starttime
+            }
+        }
+        
+        if(text_end.text!.isEmpty){
+            inputCheck += "- Please input user password.\n"
+            if(focusTextField == nil){
+                focusTextField = text_end
+            }
+        }
+        
+        if(!inputCheck.isEmpty){
+            showAlert(viewController: self, title: "Confirm", message: inputCheck) { UIAlertAction in
+                focusTextField!.becomeFirstResponder()
+            }
+            return
+        }
+        
         let controller = ActorBookUploadScriptViewController()
+        controller.readerUid = rUid
+        controller.bookingDate = self.dateFormatter.string(from: self.picker_date.date)
+        let df = DateFormatter()
+        df.dateFormat = "hh:mm:ss"
+        controller.bookingTime = df.string(from: picker_start_time.date)
+        
         self.navigationController?.pushViewController(controller, animated: true)
     }
 //

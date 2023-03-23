@@ -2,7 +2,7 @@
 .DS_Store
 PerfectSelfApp/.DS_Store
 PerfectSelfApp/Sources/Screens/.DS_Store
-
+PerfectSelfApp/Podfile.lock
 # Xcode
 PerfectSelfApp/build/
 PerfectSelfApp/*.pbxuser

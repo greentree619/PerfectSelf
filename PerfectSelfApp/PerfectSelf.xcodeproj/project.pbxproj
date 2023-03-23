@@ -753,8 +753,8 @@
 		BAD0B4D129BA17130061FEF5 /* ActorBookAppointmentScreen */ = {
 			isa = PBXGroup;
 			children = (
-				BAD0B4D229BA17130061FEF5 /* ActorBookUploadScriptViewController.xib */,
 				BAD0B4D329BA17130061FEF5 /* ActorBookUploadScriptViewController.swift */,
+				BAD0B4D229BA17130061FEF5 /* ActorBookUploadScriptViewController.xib */,
 				4715EAEE29CA59C600437576 /* ActorBookAppointmentViewController.swift */,
 				4715EAEF29CA59C600437576 /* ActorBookAppointmentViewController.xib */,
 			);
