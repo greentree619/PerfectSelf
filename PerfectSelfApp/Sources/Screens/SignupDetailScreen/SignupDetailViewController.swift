@@ -92,6 +92,10 @@ class SignupDetailViewController: UIViewController {
                 DispatchQueue.main.async {
                     hideIndicator(sender: sender)
                     //{{REFME
+                    Toast.show(message: "Successfully signed up!", controller: self)
+                    UserDefaults.standard.set(responseJSON["uid"], forKey: "USER_ID")
+                    UserDefaults.standard.set(responseJSON["token"], forKey: "USER_TOKEN")
+                    UserDefaults.standard.set(String(self.txtUserName.text!), forKey: "USER_NAME")
                     UserDefaults.standard.set(String(self.email!), forKey: "USER_EMAIL")
                     UserDefaults.standard.set(String(self.password!), forKey: "USER_PWD")
                     //}}REFME

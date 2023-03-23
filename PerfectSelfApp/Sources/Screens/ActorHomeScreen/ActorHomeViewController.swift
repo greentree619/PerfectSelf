@@ -38,7 +38,7 @@ class ActorHomeViewController: UIViewController {
         filtermodal.alpha = 0;
         
         let containerView = UIView()
-        let num = 0...10
+        let num = 0...5
         for i in num {
             let iv = UIImageView()
             iv.image = r;
@@ -50,7 +50,7 @@ class ActorHomeViewController: UIViewController {
             containerView.addSubview(iv)
         }
         
-        containerView.frame = CGRect(x: 0, y: 0, width: scrollView.frame.width, height: 800)
+        containerView.frame = CGRect(x: 0, y: 0, width: scrollView.frame.width, height: 750)
         
         scrollView.addSubview(containerView)
         scrollView.contentSize = containerView.frame.size
