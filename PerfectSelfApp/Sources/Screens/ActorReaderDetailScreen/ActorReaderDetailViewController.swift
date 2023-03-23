@@ -18,13 +18,17 @@ class ActorReaderDetailViewController: UIViewController {
     @IBOutlet weak var line_videointro: UIImageView!
     @IBOutlet weak var line_review: UIImageView!
     
+    @IBOutlet weak var view_review: UIStackView!
+    @IBOutlet weak var view_videointro: UIStackView!
+    @IBOutlet weak var view_overview: UIStackView!
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
         line_videointro.isHidden = true
         line_review.isHidden = true
-        
+        view_videointro.isHidden = true
+        view_review.isHidden = true
         self.navigationItem.setHidesBackButton(true, animated: false)
     }
 
@@ -35,6 +39,9 @@ class ActorReaderDetailViewController: UIViewController {
         line_overview.isHidden = false
         line_videointro.isHidden = true
         line_review.isHidden = true
+        view_overview.isHidden = false
+        view_videointro.isHidden = true
+        view_review.isHidden = true
     }
     
     @IBAction func ShowVideoIntro(_ sender: UIButton) {
@@ -44,6 +51,9 @@ class ActorReaderDetailViewController: UIViewController {
         line_overview.isHidden = true
         line_videointro.isHidden = false
         line_review.isHidden = true
+        view_overview.isHidden = true
+        view_videointro.isHidden = false
+        view_review.isHidden = true
     }
     
     @IBAction func ShowReview(_ sender: UIButton) {
@@ -53,6 +63,9 @@ class ActorReaderDetailViewController: UIViewController {
         line_overview.isHidden = true
         line_videointro.isHidden = true
         line_review.isHidden = false
+        view_overview.isHidden = true
+        view_videointro.isHidden = true
+        view_review.isHidden = false
     }
     @IBAction func BookAppointment(_ sender: UIButton) {
         let controller = ActorBookAppointmentViewController();
