@@ -650,7 +650,7 @@
                                                         <stackView opaque="NO" contentMode="scaleToFill" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="sZX-wk-96A">
                                                             <rect key="frame" x="20" y="8" width="150" height="84"/>
                                                             <subviews>
-                                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="68H-vL-VHH" customClass="RoundView">
+                                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="68H-vL-VHH">
                                                                     <rect key="frame" x="0.0" y="0.0" width="150" height="84"/>
                                                                     <subviews>
                                                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="center" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="Li6-7W-U6l">
@@ -706,7 +706,7 @@
                                                         <stackView opaque="NO" contentMode="scaleToFill" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="6rL-jb-IVe">
                                                             <rect key="frame" x="180" y="8" width="150" height="84"/>
                                                             <subviews>
-                                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mE4-ib-nbA" customClass="RoundView">
+                                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mE4-ib-nbA">
                                                                     <rect key="frame" x="0.0" y="0.0" width="150" height="84"/>
                                                                     <subviews>
                                                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="center" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="3qL-g7-Lhu">
@@ -762,7 +762,7 @@
                                                         <stackView opaque="NO" contentMode="scaleToFill" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="o65-Uv-DhU">
                                                             <rect key="frame" x="340" y="8" width="150" height="84"/>
                                                             <subviews>
-                                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gpZ-Hz-Ecy" customClass="RoundView">
+                                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gpZ-Hz-Ecy">
                                                                     <rect key="frame" x="0.0" y="0.0" width="150" height="84"/>
                                                                     <subviews>
                                                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="center" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="weZ-hN-7xU">

@@ -77,7 +77,39 @@ class ActorBuildProfile2ViewController: UIViewController {
     }
     
     @IBAction func Continue(_ sender: UIButton) {
-        
+        var inputCheck: String = ""
+        var focusTextField: UITextField? = nil
+        if(text_gender.text!.isEmpty){
+            inputCheck += "- Please select gender.\n"
+            if(focusTextField == nil){
+                focusTextField = text_gender
+            }
+        }
+        if(text_age.text!.isEmpty){
+             inputCheck += "- Please select your age.\n"
+             if(focusTextField == nil){
+                 focusTextField = text_age
+             }
+         }
+        if(text_height.text!.isEmpty){
+            inputCheck += "- Please input your height.\n"
+            if(focusTextField == nil){
+                focusTextField = text_height
+            }
+        }
+ 
+        if(text_weight.text!.isEmpty){
+            inputCheck += "- Please input your weight.\n"
+            if(focusTextField == nil){
+                focusTextField = text_weight
+            }
+        }
+        if(!inputCheck.isEmpty){
+            showAlert(viewController: self, title: "Confirm", message: inputCheck) { UIAlertAction in
+                focusTextField!.becomeFirstResponder()
+            }
+            return
+        }
         let controller = ActorBuildProfile3ViewController()
         controller.username = text_username.text != nil ? text_username.text!: ""
         controller.gender = text_gender.text != nil ? text_gender.text!: ""
