@@ -40,6 +40,7 @@
 		47DC851429C3815500D86E5A /* ActorMessageCenterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47DC851229C3815500D86E5A /* ActorMessageCenterViewController.swift */; };
 		47DC851529C3815500D86E5A /* ActorMessageCenterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 47DC851329C3815500D86E5A /* ActorMessageCenterViewController.xib */; };
 		47E0B9F629C141C400C82255 /* ReaderTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47E0B9F529C141C400C82255 /* ReaderTabBarController.swift */; };
+		47FADFD929CC33F40049089A /* ReaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47FADFD829CC33F40049089A /* ReaderView.swift */; };
 		79177C9720B0DE7A00BCD399 /* WebRTCClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79177C9620B0DE7A00BCD399 /* WebRTCClient.swift */; };
 		79177C9920B0DF2700BCD399 /* SignalingClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79177C9820B0DF2700BCD399 /* SignalingClient.swift */; };
 		79177CA620B1F76E00BCD399 /* RTCStates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79177CA520B1F76E00BCD399 /* RTCStates.swift */; };
@@ -186,6 +187,7 @@
 		47DC851229C3815500D86E5A /* ActorMessageCenterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActorMessageCenterViewController.swift; sourceTree = "<group>"; };
 		47DC851329C3815500D86E5A /* ActorMessageCenterViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ActorMessageCenterViewController.xib; sourceTree = "<group>"; };
 		47E0B9F529C141C400C82255 /* ReaderTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReaderTabBarController.swift; sourceTree = "<group>"; };
+		47FADFD829CC33F40049089A /* ReaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReaderView.swift; sourceTree = "<group>"; };
 		79177C9620B0DE7A00BCD399 /* WebRTCClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebRTCClient.swift; sourceTree = "<group>"; };
 		79177C9820B0DF2700BCD399 /* SignalingClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignalingClient.swift; sourceTree = "<group>"; };
 		79177CA520B1F76E00BCD399 /* RTCStates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RTCStates.swift; sourceTree = "<group>"; };
@@ -762,6 +764,7 @@
 			children = (
 				BAD0B4D529BA17130061FEF5 /* ActorHomeViewController.xib */,
 				BAD0B4D629BA17130061FEF5 /* ActorHomeViewController.swift */,
+				47FADFD829CC33F40049089A /* ReaderView.swift */,
 			);
 			path = ActorHomeScreen;
 			sourceTree = "<group>";
@@ -1115,6 +1118,7 @@
 				BAA91BAC29AF2D93003E1CA2 /* UIView+Extensions.swift in Sources */,
 				BAD0B50029BA17130061FEF5 /* ActorBookConfirmationViewController.swift in Sources */,
 				BAD5C84E29AEDF0E00A2F109 /* PlayerView.swift in Sources */,
+				47FADFD929CC33F40049089A /* ReaderView.swift in Sources */,
 				BAA91BAA29AF2CBF003E1CA2 /* PrimaryButtons.swift in Sources */,
 				795A4A28221E0A1B00F8BB03 /* IceCandidate.swift in Sources */,
 				BAD0B52C29BA17130061FEF5 /* ActorLibraryViewController.swift in Sources */,

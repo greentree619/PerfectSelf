@@ -27,9 +27,12 @@ class PerfectSelfWebAPI
         let url = URL(string: "\(PERFECTSELF_WEBAPI_ROOT)\(apiPath)")!
         var request = URLRequest(url: url)
         request.httpMethod = method
-        request.setValue("\(String(describing: jsonData?.count))", forHTTPHeaderField: "Content-Length")
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.httpBody = jsonData
+        if method != "GET" {
+            request.httpBody = jsonData
+            request.setValue("\(String(describing: jsonData?.count))", forHTTPHeaderField: "Content-Length")
+        }
+        
         let task = URLSession.shared.dataTask(with: request, completionHandler:completionHandler)
         task.resume()
     }
@@ -97,6 +100,10 @@ class PerfectSelfWebAPI
             "skills": skills,
         ]
         return executeAPI(with: "POST", apiPath: "ReaderProfiles/", json: json, completionHandler:completionHandler)
+    }
+    func getAllReaders(completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> Void
+    {
+        return executeAPI(with: "GET", apiPath: "ReaderProfiles/", json: [:], completionHandler:completionHandler)
     }
     func login() -> Void
     {

@@ -8,7 +8,21 @@
 
 import UIKit
 import FSCalendar
-import BDatePicker
+
+struct ReaderProfile: Codable {
+    let title: String
+    let readerUid: String
+    let hourlyPrice: Int
+    let voiceType: Int
+    let others: Int
+    let about: String
+    let skills: String
+    let id: Int
+    let isDeleted: Bool
+    let createdTime: String
+    let updatedTime: String
+    let deletedTime: String
+}
 
 class ActorHomeViewController: UIViewController {
     
@@ -36,24 +50,125 @@ class ActorHomeViewController: UIViewController {
         
         // Do any additional setup after loading the view.
         filtermodal.alpha = 0;
-        
         let containerView = UIView()
-        let num = 0...5
-        for i in num {
-            let iv = UIImageView()
-            iv.image = r;
-            iv.layer.masksToBounds = false;
-            iv.layer.shadowOpacity = 0.3;
-            iv.layer.shadowRadius = 3;
-            iv.layer.shadowOffset = CGSize(width: 2, height: 3);
-            iv.frame = CGRect(x: 0, y:120*i, width:Int(scrollView.frame.width), height:100)
-            containerView.addSubview(iv)
+        let indicatorView = UIView()
+        indicatorView.frame = CGRect(x: 0, y: 0, width: scrollView.frame.width, height: scrollView.frame.height)
+        let activityIndicatorView = UIActivityIndicatorView(style: .large)
+        activityIndicatorView.center = indicatorView.center
+        indicatorView.addSubview(activityIndicatorView)
+        activityIndicatorView.startAnimating()
+        
+        scrollView.addSubview(indicatorView)
+        scrollView.contentSize = indicatorView.frame.size
+        
+        // call API to fetch reader list
+        
+        webAPI.getAllReaders() { data, response, error in
+            guard let data = data, error == nil else {
+                print(error?.localizedDescription ?? "No data")
+                return
+            }
+//            let responseJSON = try? JSONSerialization.jsonObject(with: data, options: [])
+            
+            do {
+                let items = try JSONDecoder().decode([ReaderProfile].self, from: data)
+                print(items)
+
+                DispatchQueue.main.async {
+//                    Toast.show(message: "Reader list fetched!", controller: self)
+                    activityIndicatorView.stopAnimating()
+                    indicatorView.removeFromSuperview()
+                    activityIndicatorView.stopAnimating()
+                    
+                    for (i, reader) in items.enumerated() {
+                        let item = ReaderView(frame: CGRect(x: 0, y:120*i, width:Int(self.scrollView.frame.width), height:100), name: "Reader Name", hourlyPrice: reader.hourlyPrice)
+                        item.tapCallback = {
+                            //                let controller = ActorReaderDetailViewController();
+                            //
+                            //                self.navigationController?.pushViewController(controller, animated: true)
+                            print("tapped reader")
+                        }
+
+                        item.layer.masksToBounds = false;
+                        item.layer.shadowOpacity = 0.5;
+                        item.layer.shadowRadius = 5;
+                        item.layer.shadowOffset = CGSize(width: 2, height: 5);
+                        item.layer.cornerRadius = 10
+
+                        containerView.addSubview(item)
+
+                    }
+
+                    containerView.frame = CGRect(x: 0, y: 0, width: Int(self.scrollView.frame.width), height: items.count*120+50)
+                    self.scrollView.addSubview(containerView)
+                    self.scrollView.contentSize = containerView.frame.size
+
+                }
+
+            } catch {
+                print(error)
+                DispatchQueue.main.async {
+                    //hideIndicator(sender: sender)
+                    indicatorView.removeFromSuperview()
+                    Toast.show(message: "Fetching reader list failed! please try again.", controller: self)
+                }
+            }
+            
+//            if let _ = responseJSON as? [String: Any] {
+//
+//                DispatchQueue.main.async {
+////                    hideIndicator(sender: sender)
+//                    containerView.removeFromSuperview()
+//                    Toast.show(message: "Reader list fetched!", controller: self)
+//                }
+//            }
+//            else
+//            {
+//                DispatchQueue.main.async {
+////                    hideIndicator(sender: sender)
+//                    Toast.show(message: "Fetching reader list failed! please try again.", controller: self)
+//                }
+//            }
         }
-        
-        containerView.frame = CGRect(x: 0, y: 0, width: scrollView.frame.width, height: 750)
-        
-        scrollView.addSubview(containerView)
-        scrollView.contentSize = containerView.frame.size
+//
+//
+//        let num = 0...10
+//        for i in num {
+//
+//            let item = Item(frame: CGRect(x: 0, y:120*i, width:Int(scrollView.frame.width), height:100), labelText: "Booking History")
+//            item.tapCallback = {
+////                let controller = ActorReaderDetailViewController();
+////
+////                self.navigationController?.pushViewController(controller, animated: true)
+//            }
+//
+//            item.layer.masksToBounds = false;
+//            item.layer.shadowOpacity = 0.5;
+//            item.layer.shadowRadius = 5;
+//            item.layer.shadowOffset = CGSize(width: 2, height: 5);
+//            item.layer.cornerRadius = 10
+//
+//            containerView.addSubview(item)
+//        }
+//
+
+//        let containerView = UIView()
+//        let num = 0...5
+//        for i in num {
+//            let iv = UIImageView()
+//            iv.image = r;
+//            iv.layer.masksToBounds = false;
+//            iv.layer.shadowOpacity = 0.3;
+//            iv.layer.shadowRadius = 3;
+//            iv.layer.shadowOffset = CGSize(width: 2, height: 3);
+//            iv.frame = CGRect(x: 0, y:120*i, width:Int(scrollView.frame.width), height:100)
+//            containerView.addSubview(iv)
+//        }
+//
+//        containerView.frame = CGRect(x: 0, y: 0, width: scrollView.frame.width, height: 750)
+//
+//        scrollView.addSubview(containerView)
+//        scrollView.contentSize = containerView.frame.size
     }
     
     @IBAction func ShowFilterModal(_ sender: UIButton) {
