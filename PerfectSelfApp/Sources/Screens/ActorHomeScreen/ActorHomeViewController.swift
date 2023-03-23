@@ -87,6 +87,7 @@ class ActorHomeViewController: UIViewController {
                             //
                             //                self.navigationController?.pushViewController(controller, animated: true)
                             print("tapped reader")
+
                         }
 
                         item.layer.masksToBounds = false;

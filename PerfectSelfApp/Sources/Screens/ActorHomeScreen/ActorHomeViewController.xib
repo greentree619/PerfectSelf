@@ -902,9 +902,6 @@
                 <constraint firstAttribute="bottom" secondItem="eHX-7G-XvN" secondAttribute="bottom" id="zF7-6g-wc0"/>
             </constraints>
             <variation key="default">
-                <mask key="subviews">
-                    <exclude reference="MFG-hr-Lk8"/>
-                </mask>
                 <mask key="constraints">
                     <exclude reference="zF7-6g-wc0"/>
                 </mask>

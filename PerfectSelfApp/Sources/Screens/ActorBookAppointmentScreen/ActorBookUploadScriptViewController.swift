@@ -10,6 +10,11 @@ import UIKit
 
 class ActorBookUploadScriptViewController: UIViewController {
 
+    var readerUid: String = ""
+    var bookingTime: String = ""
+    var bookingDate: String = ""
+    
+    @IBOutlet weak var text_script: UITextView!
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -20,6 +25,11 @@ class ActorBookUploadScriptViewController: UIViewController {
     @IBAction func GotoCheckout(_ sender: UIButton) {
         let controller = ActorSetPaymentViewController();
 
+        controller.readerUid = readerUid
+        controller.bookingTime = bookingTime
+        controller.bookingDate = bookingDate
+        controller.script = text_script.text
+        
         self.navigationController?.pushViewController(controller, animated: true)
     }
     @IBAction func GoBack(_ sender: UIButton) {

@@ -10,6 +10,11 @@ import UIKit
 
 class ActorSetPaymentViewController: UIViewController {
 
+    var readerUid: String = ""
+    var bookingTime: String = ""
+    var bookingDate: String = ""
+    var script: String = ""
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -20,6 +25,11 @@ class ActorSetPaymentViewController: UIViewController {
     @IBAction func DoCheckout(_ sender: UIButton) {
         let controller = ActorBookConfirmationViewController();
 
+        controller.readerUid = readerUid
+        controller.bookingTime = bookingTime
+        controller.bookingDate = bookingDate
+        controller.script = script
+        
         self.navigationController?.pushViewController(controller, animated: true)
     }
     
