@@ -67,6 +67,8 @@
 		BA4714C929A79856007AABC2 /* SanFranciscoText-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = BA4714B729A79856007AABC2 /* SanFranciscoText-Bold.otf */; };
 		BA4714CA29A79856007AABC2 /* SFProDisplay-Heavy.otf in Resources */ = {isa = PBXBuildFile; fileRef = BA4714B829A79856007AABC2 /* SFProDisplay-Heavy.otf */; };
 		BA4714CB29A79856007AABC2 /* SanFranciscoDisplay-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = BA4714B929A79856007AABC2 /* SanFranciscoDisplay-Regular.otf */; };
+		BA6A5E1E29CCD49D0063ED13 /* ReaderCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6A5E1C29CCD49D0063ED13 /* ReaderCollectionViewCell.swift */; };
+		BA6A5E1F29CCD49D0063ED13 /* ReaderCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BA6A5E1D29CCD49D0063ED13 /* ReaderCollectionViewCell.xib */; };
 		BA7034EF29AEF2A000BFB431 /* UIStoryBoard+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA7034ED29AEF2A000BFB431 /* UIStoryBoard+Extensions.swift */; };
 		BAA91BAA29AF2CBF003E1CA2 /* PrimaryButtons.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAA91BA929AF2CBF003E1CA2 /* PrimaryButtons.swift */; };
 		BAA91BAC29AF2D93003E1CA2 /* UIView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAA91BAB29AF2D93003E1CA2 /* UIView+Extensions.swift */; };
@@ -218,6 +220,8 @@
 		BA4714B729A79856007AABC2 /* SanFranciscoText-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SanFranciscoText-Bold.otf"; sourceTree = "<group>"; };
 		BA4714B829A79856007AABC2 /* SFProDisplay-Heavy.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFProDisplay-Heavy.otf"; sourceTree = "<group>"; };
 		BA4714B929A79856007AABC2 /* SanFranciscoDisplay-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SanFranciscoDisplay-Regular.otf"; sourceTree = "<group>"; };
+		BA6A5E1C29CCD49D0063ED13 /* ReaderCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReaderCollectionViewCell.swift; sourceTree = "<group>"; };
+		BA6A5E1D29CCD49D0063ED13 /* ReaderCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ReaderCollectionViewCell.xib; sourceTree = "<group>"; };
 		BA7034ED29AEF2A000BFB431 /* UIStoryBoard+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIStoryBoard+Extensions.swift"; sourceTree = "<group>"; };
 		BAA91BA929AF2CBF003E1CA2 /* PrimaryButtons.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrimaryButtons.swift; sourceTree = "<group>"; };
 		BAA91BAB29AF2D93003E1CA2 /* UIView+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Extensions.swift"; sourceTree = "<group>"; };
@@ -778,6 +782,8 @@
 			children = (
 				BAD0B4D529BA17130061FEF5 /* ActorHomeViewController.xib */,
 				BAD0B4D629BA17130061FEF5 /* ActorHomeViewController.swift */,
+				BA6A5E1C29CCD49D0063ED13 /* ReaderCollectionViewCell.swift */,
+				BA6A5E1D29CCD49D0063ED13 /* ReaderCollectionViewCell.xib */,
 			);
 			path = ActorHomeScreen;
 			sourceTree = "<group>";
@@ -977,6 +983,7 @@
 				BAD0B53329BA17130061FEF5 /* ReaderProfileEditAboutViewController.xib in Resources */,
 				BA4714CA29A79856007AABC2 /* SFProDisplay-Heavy.otf in Resources */,
 				BAD0B53529BA17130061FEF5 /* SignupDetailViewController.xib in Resources */,
+				BA6A5E1F29CCD49D0063ED13 /* ReaderCollectionViewCell.xib in Resources */,
 				79262EEE20B0D6F800D576C1 /* Assets.xcassets in Resources */,
 				BAD0B53929BA17130061FEF5 /* LibraryCell.xib in Resources */,
 				4715EAF129CA59C600437576 /* ActorBookAppointmentViewController.xib in Resources */,
@@ -1153,6 +1160,7 @@
 				BAD0B54129BA17130061FEF5 /* LoginViewController.swift in Sources */,
 				BAD5C85129AEE09F00A2F109 /* VideoHelper.swift in Sources */,
 				79177C9720B0DE7A00BCD399 /* WebRTCClient.swift in Sources */,
+				BA6A5E1E29CCD49D0063ED13 /* ReaderCollectionViewCell.swift in Sources */,
 				BAD0B52029BA17130061FEF5 /* ReaderProfileEditAvailabilityViewController.swift in Sources */,
 				47BC09C229C5B46800B8F2C5 /* ActorBuildProfile3ViewController.swift in Sources */,
 				BAD0B53229BA17130061FEF5 /* ReaderProfileEditAboutViewController.swift in Sources */,

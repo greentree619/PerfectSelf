@@ -10,13 +10,16 @@ import UIKit
 import FSCalendar
 import BDatePicker
 
-class ActorHomeViewController: UIViewController {
+class ActorHomeViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout
+{
     
     @IBOutlet weak var filtermodal: UIStackView!
     
-    @IBOutlet weak var scrollView: UIScrollView!
+    @IBOutlet weak var readerList: UICollectionView!
     
-    let r = UIImage(named: "reader");
+    @IBOutlet weak var readerListFlow: UICollectionViewFlowLayout!
+    var items = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32", "33", "34", "35", "36", "37", "38", "39", "40", "41", "42", "43", "44", "45", "46", "47", "48"]
+    
     let backgroundView = UIView()
     
     var isSponsored = true
@@ -30,30 +33,47 @@ class ActorHomeViewController: UIViewController {
     var isCommercialRead = true
     var isShortRead = false
     var isExtendedRead = false
+    let cellsPerRow = 1
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        let nib = UINib(nibName: "ReaderCollectionViewCell", bundle: nil)
+        readerList.register(nib, forCellWithReuseIdentifier: "Reader Collection View Cell")
+        readerList.dataSource = self
+        readerList.delegate = self
+        
         // Do any additional setup after loading the view.
         filtermodal.alpha = 0;
-        
-        let containerView = UIView()
-        let num = 0...10
-        for i in num {
-            let iv = UIImageView()
-            iv.image = r;
-            iv.layer.masksToBounds = false;
-            iv.layer.shadowOpacity = 0.3;
-            iv.layer.shadowRadius = 3;
-            iv.layer.shadowOffset = CGSize(width: 2, height: 3);
-            iv.frame = CGRect(x: 0, y:120*i, width:Int(scrollView.frame.width), height:100)
-            containerView.addSubview(iv)
-        }
-        
-        containerView.frame = CGRect(x: 0, y: 0, width: scrollView.frame.width, height: 800)
-        
-        scrollView.addSubview(containerView)
-        scrollView.contentSize = containerView.frame.size
+    }
+    
+    // MARK: - Reader List Delegate.
+    func collectionView(_ collectionView: UICollectionView,        numberOfItemsInSection section: Int) -> Int {
+         // myData is the array of items
+        return self.items.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let flowLayout = collectionViewLayout as! UICollectionViewFlowLayout
+        let totalSpace = flowLayout.sectionInset.left
+            + flowLayout.sectionInset.right
+            + (flowLayout.minimumInteritemSpacing * CGFloat(cellsPerRow - 1))
+        let size = Int((collectionView.bounds.width - totalSpace) / CGFloat(cellsPerRow))
+        return CGSize(width: size, height: 50)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        //
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Reader Collection View Cell", for: indexPath) as! ReaderCollectionViewCell
+        cell.readerName.text = self.items[indexPath.row];
+        // return card
+        return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
+        // add the code here to perform action on the cell
+        print("didDeselectItemAt")
+//        let cell = collectionView.cellForItem(at: indexPath) as? LibraryCollectionViewCell
     }
     
     @IBAction func ShowFilterModal(_ sender: UIButton) {

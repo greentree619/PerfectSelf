@@ -13,7 +13,8 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ActorHomeViewController" customModule="PerfectSelf" customModuleProvider="target">
             <connections>
                 <outlet property="filtermodal" destination="MFG-hr-Lk8" id="aNC-77-WyH"/>
-                <outlet property="scrollView" destination="29M-zy-fu3" id="9Hu-lD-IaM"/>
+                <outlet property="readerList" destination="JU1-QJ-Xxa" id="vCk-wb-Dww"/>
+                <outlet property="readerListFlow" destination="gkZ-Sc-3E3" id="Rsh-Vo-s8Z"/>
                 <outlet property="view" destination="aZf-Jp-goY" id="Pcc-s1-1bQ"/>
             </connections>
         </placeholder>
@@ -333,11 +334,16 @@
                                 <constraint firstAttribute="height" constant="20" id="JEi-fV-5RC" customClass="AdaptiveLayoutConstraint" customModule="PerfectSelf" customModuleProvider="target"/>
                             </constraints>
                         </stackView>
-                        <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="29M-zy-fu3">
+                        <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="JU1-QJ-Xxa">
                             <rect key="frame" x="20" y="324" width="353" height="484"/>
-                            <viewLayoutGuide key="contentLayoutGuide" id="4D9-bU-T3G"/>
-                            <viewLayoutGuide key="frameLayoutGuide" id="zdt-OD-0PE"/>
-                        </scrollView>
+                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="gkZ-Sc-3E3">
+                                <size key="itemSize" width="128" height="128"/>
+                                <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                            </collectionViewFlowLayout>
+                        </collectionView>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <gestureRecognizers/>
@@ -892,6 +898,11 @@
                 <constraint firstItem="lxL-ZG-ziF" firstAttribute="bottom" secondItem="MFG-hr-Lk8" secondAttribute="bottom" id="lPf-hz-qZg"/>
                 <constraint firstAttribute="bottom" secondItem="eHX-7G-XvN" secondAttribute="bottom" id="zF7-6g-wc0"/>
             </constraints>
+            <variation key="default">
+                <mask key="subviews">
+                    <exclude reference="MFG-hr-Lk8"/>
+                </mask>
+            </variation>
             <point key="canvasLocation" x="-11" y="668"/>
         </view>
     </objects>
