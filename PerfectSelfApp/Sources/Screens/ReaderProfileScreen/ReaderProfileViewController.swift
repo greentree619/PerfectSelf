@@ -10,34 +10,89 @@ import UIKit
 
 class ReaderProfileViewController: UIViewController {
 
-    var isChangingMode = false
+    var isEditingMode = false
     
     @IBOutlet weak var btn_edit_userinfo: UIButton!
-    @IBOutlet weak var btn_edit_rate: UIButton!
+    @IBOutlet weak var btn_edit_highlight: UIButton!
     @IBOutlet weak var btn_edit_about: UIButton!
     @IBOutlet weak var btn_edit_skills: UIButton!
     @IBOutlet weak var btn_edit_availability: UIButton!
     
-    @IBOutlet weak var view_viewall_availability: UIStackView!
-    @IBOutlet weak var view_viewall_skills: UIStackView!
+//    @IBOutlet weak var view_viewall_availability: UIStackView!
+//    @IBOutlet weak var view_viewall_skills: UIStackView!
+    
+    @IBOutlet weak var view_review: UIStackView!
+    @IBOutlet weak var view_videointro: UIStackView!
+    @IBOutlet weak var view_overview: UIStackView!
+    
+    @IBOutlet weak var btn_overview: UIButton!
+    @IBOutlet weak var btn_videointro: UIButton!
+    @IBOutlet weak var btn_review: UIButton!
+    
+    @IBOutlet weak var line_overview: UIImageView!
+    @IBOutlet weak var line_videointro: UIImageView!
+    @IBOutlet weak var line_review: UIImageView!
+    
+    @IBOutlet weak var readerTitle: UILabel!
+    @IBOutlet weak var readerAbout: UITextView!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        line_videointro.isHidden = true
+        line_review.isHidden = true
+        view_videointro.isHidden = true
+        view_review.isHidden = true
         btn_edit_userinfo.isHidden = true;
-        btn_edit_rate.isHidden = true;
+        btn_edit_highlight.isHidden = true;
         btn_edit_about.isHidden = true;
         btn_edit_skills.isHidden = true;
         btn_edit_availability.isHidden = true;
     }
 
+    @IBAction func ShowOverview(_ sender: UIButton) {
+        sender.tintColor = UIColor(rgb: 0x4063FF)
+        btn_videointro.tintColor = .black
+        btn_review.tintColor = .black
+        line_overview.isHidden = false
+        line_videointro.isHidden = true
+        line_review.isHidden = true
+        view_overview.isHidden = false
+        view_videointro.isHidden = true
+        view_review.isHidden = true
+    }
+    
+    @IBAction func ShowVideoIntro(_ sender: UIButton) {
+        sender.tintColor = UIColor(rgb: 0x4063FF)
+        btn_overview.tintColor = .black
+        btn_review.tintColor = .black
+        line_overview.isHidden = true
+        line_videointro.isHidden = false
+        line_review.isHidden = true
+        view_overview.isHidden = true
+        view_videointro.isHidden = false
+        view_review.isHidden = true
+    }
+    
+    @IBAction func ShowReview(_ sender: UIButton) {
+        sender.tintColor = UIColor(rgb: 0x4063FF)
+        btn_overview.tintColor = .black
+        btn_videointro.tintColor = .black
+        line_overview.isHidden = true
+        line_videointro.isHidden = true
+        line_review.isHidden = false
+        view_overview.isHidden = true
+        view_videointro.isHidden = true
+        view_review.isHidden = false
+    }
     @IBAction func EditUserInfo(_ sender: UIButton) {
         let controller = ReaderProfileEditPersonalInfoViewController()
         
         self.navigationController?.pushViewController(controller, animated: true)
     }
-    @IBAction func EditRate(_ sender: UIButton) {
+    @IBAction func EditHighlight(_ sender: UIButton) {
         let controller = ReaderProfileEditPersonalInfoViewController()
         
         self.navigationController?.pushViewController(controller, animated: true)
@@ -59,33 +114,61 @@ class ReaderProfileViewController: UIViewController {
     }
     @IBAction func EditProfile(_ sender: UIButton) {
 
-        if isChangingMode {
-            sender.isEnabled = false
-//            sender.setTitle("Edit Profile", for: UIButton.State.normal)
+        if isEditingMode {
+//            sender.isEnabled = false
           
-            let myNormalAttributedTitle = NSAttributedString(string: "Edit Profile", attributes: [NSAttributedString.Key.font : UIFont(name: "Arial", size: 10.0)!])
-            sender.setAttributedTitle(myNormalAttributedTitle, for: .normal)
-            sender.isEnabled = true;
-            isChangingMode = false;
-            view_viewall_skills.isHidden = false;
-            view_viewall_availability.isHidden = false;
+//            let myNormalAttributedTitle = NSAttributedString(string: "Edit Profile", attributes: [NSAttributedString.Key.font : UIFont(name: "Arial", size: 10.0)!])
+//            sender.setAttributedTitle(myNormalAttributedTitle, for: .normal)
+//            sender.isEnabled = true;
+            isEditingMode = false;
+//            view_viewall_skills.isHidden = false;
+//            view_viewall_availability.isHidden = false;
             btn_edit_userinfo.isHidden = true;
-            btn_edit_rate.isHidden = true;
+            btn_edit_highlight.isHidden = true;
             btn_edit_about.isHidden = true;
             btn_edit_skills.isHidden = true;
             btn_edit_availability.isHidden = true;
+            
+            // Call API for create/update reader's profile
+            
+            showIndicator(sender: sender, viewController: self)
+            let uid = UserDefaults.standard.string(forKey: "USER_ID")
+            
+            webAPI.createReaderProfile(readeruid: uid!, title: readerTitle.text != nil ? readerTitle.text! : "", about: readerAbout.text != nil ? readerAbout.text! : "", hourlyprice: "120", skills: "") { data, response, error in
+                guard let data = data, error == nil else {
+                    print(error?.localizedDescription ?? "No data")
+                    return
+                }
+                let responseJSON = try? JSONSerialization.jsonObject(with: data, options: [])
+
+                if let _ = responseJSON as? [String: Any] {
+                    
+                    DispatchQueue.main.async {
+                        hideIndicator(sender: sender)
+                        Toast.show(message: "Profile updated successfully!", controller: self)
+                    }
+                }
+                else
+                {
+                    DispatchQueue.main.async {
+                        hideIndicator(sender: sender)
+                        Toast.show(message: "Profile update failed! please try again.", controller: self)
+                    }
+                }
+            }
+            
         }
         else {
-            sender.isEnabled = false;
-//            sender.setTitle("Save Changes", for: UIButton.State.normal)
-            let myNormalAttributedTitle = NSAttributedString(string: "Save Changes", attributes: [NSAttributedString.Key.font : UIFont(name: "Arial", size: 10.0)!])
-            sender.setAttributedTitle(myNormalAttributedTitle, for: .normal)
-            sender.isEnabled = true;
-            isChangingMode = true;
-            view_viewall_skills.isHidden = true;
-            view_viewall_availability.isHidden = true;
+//            sender.isEnabled = false;
+////            sender.setTitle("Save Changes", for: UIButton.State.normal)
+//            let myNormalAttributedTitle = NSAttributedString(string: "Save Changes", attributes: [NSAttributedString.Key.font : UIFont(name: "Arial", size: 10.0)!])
+//            sender.setAttributedTitle(myNormalAttributedTitle, for: .normal)
+//            sender.isEnabled = true;
+            isEditingMode = true;
+//            view_viewall_skills.isHidden = true;
+//            view_viewall_availability.isHidden = true;
             btn_edit_userinfo.isHidden = false;
-            btn_edit_rate.isHidden = false;
+            btn_edit_highlight.isHidden = false;
             btn_edit_about.isHidden = false;
             btn_edit_skills.isHidden = false;
             btn_edit_availability.isHidden = false;

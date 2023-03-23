@@ -27,9 +27,12 @@ class PerfectSelfWebAPI
         let url = URL(string: "\(PERFECTSELF_WEBAPI_ROOT)\(apiPath)")!
         var request = URLRequest(url: url)
         request.httpMethod = method
-        request.setValue("\(String(describing: jsonData?.count))", forHTTPHeaderField: "Content-Length")
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.httpBody = jsonData
+        if method != "GET" {
+            request.httpBody = jsonData
+            request.setValue("\(String(describing: jsonData?.count))", forHTTPHeaderField: "Content-Length")
+        }
+        
         let task = URLSession.shared.dataTask(with: request, completionHandler:completionHandler)
         task.resume()
     }
@@ -66,7 +69,42 @@ class PerfectSelfWebAPI
         ]
         return executeAPI(with: "POST", apiPath: "Users", json: json, completionHandler:completionHandler)
     }
-    
+
+    func createActorProfile(actoruid: String, ageRange: String, height: String, weight: String, country: String, state: String, city: String, agency: String, vaccination: String, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> Void
+    {
+        let json: [String: Any] = [
+            "isDeleted": false,
+              "title": "",
+            "actorUid": actoruid,
+            "ageRange": ageRange,
+            "height": Int(height) ?? 0,
+            "weight": Int(weight) ?? 0,
+            "country": country,
+            "state": state,
+            "city": city,
+            "agencyCountry": agency,
+            "vaccinationStatus": Int(vaccination) ?? 0,
+        ]
+        return executeAPI(with: "POST", apiPath: "ActorProfiles/", json: json, completionHandler:completionHandler)
+    }
+    func createReaderProfile(readeruid: String, title: String, about: String, hourlyprice: String, skills: String, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> Void
+    {
+        let json: [String: Any] = [
+            "isDeleted": false,
+            "title": title,
+            "readerUid": readeruid,
+            "hourlyPrice": Int(hourlyprice) ?? 0,
+            "voiceType": 0,
+            "others": 0,
+            "about": about,
+            "skills": skills,
+        ]
+        return executeAPI(with: "POST", apiPath: "ReaderProfiles/", json: json, completionHandler:completionHandler)
+    }
+    func getAllReaders(completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> Void
+    {
+        return executeAPI(with: "GET", apiPath: "ReaderProfiles/", json: [:], completionHandler:completionHandler)
+    }
     func login() -> Void
     {
         let json: [String: Any] = ["userName": "tester",

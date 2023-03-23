@@ -74,10 +74,10 @@ class ReaderTabBarController: UITabBarController {
         
         viewControllers = [
               createNavController(for: ReaderHomeViewController(), title: NSLocalizedString("Home", comment: ""), image: UIImage(named: "icons8-home")!),
-              createNavController(for: ReaderProfileViewController(), title: NSLocalizedString("Library", comment: ""), image: UIImage(named: "icons8-video-message-25")!),
+              createNavController(for: ReaderMessageViewController(), title: NSLocalizedString("Chat", comment: ""), image: UIImage(named: "icons8-video-message-25")!),
               UINavigationController(rootViewController: UIViewController()),
-              createNavController(for: ReaderProfileViewController(), title: NSLocalizedString("Book", comment: ""), image: UIImage(named: "icons8-settings")!),
-              createNavController(for: ReaderProfileViewController(), title: NSLocalizedString("FindReader", comment: ""), image: UIImage(named: "icons8-customer-25")!)
+              createNavController(for: ReaderBookingViewController(), title: NSLocalizedString("Book", comment: ""), image: UIImage(named: "icons8-settings")!),
+              createNavController(for: ReaderProfileViewController(), title: NSLocalizedString("Profile", comment: ""), image: UIImage(named: "icons8-customer-25")!)
         ];
       }
 

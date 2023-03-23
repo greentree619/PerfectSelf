@@ -90,9 +90,12 @@ class LoginDetailViewController: UIViewController {
                 }
                 
                 if result as! Bool {
-                    //let user = responseJSON["user"] as? [String: Any]
-                    //let token = user!["token"] as? String
-                    //print(token!+"test")
+                    let user = responseJSON["user"] as? [String: Any]
+                    let token = user!["token"] as? String
+                    let uid = user!["uid"] as? String
+                    let username = user!["userName"] as? String
+//                    print(uid!+"ok")
+//                    print(token!+"test")
                     
                     DispatchQueue.main.async {
                         hideIndicator(sender: sender)
@@ -104,10 +107,15 @@ class LoginDetailViewController: UIViewController {
                         
                         UserDefaults.standard.set(String(self.text_email.text!), forKey: "USER_EMAIL")
                         UserDefaults.standard.set(String(self.text_password.text!), forKey: "USER_PWD")
+                        UserDefaults.standard.set(uid!, forKey: "USER_ID")
+                        UserDefaults.standard.set(token!, forKey: "USER_TOKEN")
+                        UserDefaults.standard.set(username!, forKey: "USER_NAME")
+                    
                         //}}REFME
                         
                         if self.btn_actor.isSelected {
                             let controller = ActorTabBarController();
+//                            let controller = ActorBuildProfile2ViewController()
                             self.navigationController?.pushViewController(controller, animated: true)
                         }
                         else {

@@ -8,7 +8,21 @@
 
 import UIKit
 import FSCalendar
-import BDatePicker
+
+struct ReaderProfile: Codable {
+    let title: String
+    let readerUid: String
+    let hourlyPrice: Int
+    let voiceType: Int
+    let others: Int
+    let about: String
+    let skills: String
+    let id: Int
+    let isDeleted: Bool
+    let createdTime: String
+    let updatedTime: String
+    let deletedTime: String
+}
 
 class ActorHomeViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout
 {
@@ -45,6 +59,37 @@ class ActorHomeViewController: UIViewController, UICollectionViewDataSource, UIC
         
         // Do any additional setup after loading the view.
         filtermodal.alpha = 0;
+        
+        // call API to fetch reader list
+        webAPI.getAllReaders() { data, response, error in
+            guard let data = data, error == nil else {
+                print(error?.localizedDescription ?? "No data")
+                return
+            }
+            do {
+                let items = try JSONDecoder().decode([ReaderProfile].self, from: data)
+                print(items)
+                
+                DispatchQueue.main.async {
+                    //                    Toast.show(message: "Reader list fetched!", controller: self)
+                    //activityIndicatorView.stopAnimating()
+                    //indicatorView.removeFromSuperview()
+                    //activityIndicatorView.stopAnimating()
+                    
+                    //                    for (i, reader) in items.enumerated() {
+                    //
+                    //
+                    //                    }
+                }
+                
+            } catch {
+                print(error)
+                DispatchQueue.main.async {
+                    //hideIndicator(sender: sender)
+                    Toast.show(message: "Fetching reader list failed! please try again.", controller: self)
+                }
+            }
+        }
     }
     
     // MARK: - Reader List Delegate.
