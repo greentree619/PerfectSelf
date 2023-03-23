@@ -66,6 +66,7 @@ class PerfectSelfWebAPI
         ]
         return executeAPI(with: "POST", apiPath: "Users", json: json, completionHandler:completionHandler)
     }
+
     func createActorProfile(actoruid: String, ageRange: String, height: String, weight: String, country: String, state: String, city: String, agency: String, vaccination: String, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> Void
     {
         let json: [String: Any] = [
@@ -82,6 +83,20 @@ class PerfectSelfWebAPI
             "vaccinationStatus": Int(vaccination) ?? 0,
         ]
         return executeAPI(with: "POST", apiPath: "ActorProfiles/", json: json, completionHandler:completionHandler)
+    }
+    func createReaderProfile(readeruid: String, title: String, about: String, hourlyprice: String, skills: String, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> Void
+    {
+        let json: [String: Any] = [
+            "isDeleted": false,
+            "title": title,
+            "readerUid": readeruid,
+            "hourlyPrice": Int(hourlyprice) ?? 0,
+            "voiceType": 0,
+            "others": 0,
+            "about": about,
+            "skills": skills,
+        ]
+        return executeAPI(with: "POST", apiPath: "ReaderProfiles/", json: json, completionHandler:completionHandler)
     }
     func login() -> Void
     {

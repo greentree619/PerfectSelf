@@ -33,6 +33,10 @@ class ReaderProfileViewController: UIViewController {
     @IBOutlet weak var line_videointro: UIImageView!
     @IBOutlet weak var line_review: UIImageView!
     
+    @IBOutlet weak var readerTitle: UILabel!
+    @IBOutlet weak var readerAbout: UITextView!
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -124,6 +128,35 @@ class ReaderProfileViewController: UIViewController {
             btn_edit_about.isHidden = true;
             btn_edit_skills.isHidden = true;
             btn_edit_availability.isHidden = true;
+            
+            // Call API for create/update reader's profile
+            
+            showIndicator(sender: sender, viewController: self)
+            let uid = UserDefaults.standard.string(forKey: "USER_ID")
+            
+            webAPI.createReaderProfile(readeruid: uid!, title: readerTitle.text != nil ? readerTitle.text! : "", about: readerAbout.text != nil ? readerAbout.text! : "", hourlyprice: "120", skills: "") { data, response, error in
+                guard let data = data, error == nil else {
+                    print(error?.localizedDescription ?? "No data")
+                    return
+                }
+                let responseJSON = try? JSONSerialization.jsonObject(with: data, options: [])
+
+                if let _ = responseJSON as? [String: Any] {
+                    
+                    DispatchQueue.main.async {
+                        hideIndicator(sender: sender)
+                        Toast.show(message: "Profile updated successfully!", controller: self)
+                    }
+                }
+                else
+                {
+                    DispatchQueue.main.async {
+                        hideIndicator(sender: sender)
+                        Toast.show(message: "Profile update failed! please try again.", controller: self)
+                    }
+                }
+            }
+            
         }
         else {
 //            sender.isEnabled = false;

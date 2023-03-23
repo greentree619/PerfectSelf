@@ -23,6 +23,8 @@
                 <outlet property="line_overview" destination="xyK-Hw-HdO" id="Kr8-5K-lOE"/>
                 <outlet property="line_review" destination="u1p-8g-GAe" id="kBm-B1-L7R"/>
                 <outlet property="line_videointro" destination="tdU-GU-Lx4" id="YTa-g1-uUV"/>
+                <outlet property="readerAbout" destination="eod-TK-5yy" id="RAA-n7-uBF"/>
+                <outlet property="readerTitle" destination="Xwa-R0-mVR" id="0zu-sV-dfv"/>
                 <outlet property="view" destination="cwf-CB-7ba" id="Uaz-3i-r2y"/>
                 <outlet property="view_overview" destination="06x-mB-ZVe" id="sgO-gL-e8N"/>
                 <outlet property="view_review" destination="fWY-2o-BYp" id="uLw-pA-wHd"/>
@@ -446,16 +448,16 @@
                                                                     <rect key="frame" x="0.0" y="0.0" width="353" height="300"/>
                                                                     <subviews>
                                                                         <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vrY-nX-IXt">
-                                                                            <rect key="frame" x="0.0" y="0.0" width="353" height="38"/>
+                                                                            <rect key="frame" x="0.0" y="0.0" width="353" height="18"/>
                                                                             <subviews>
                                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="About" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FQH-ed-gmD">
-                                                                                    <rect key="frame" x="0.0" y="10" width="335" height="18"/>
+                                                                                    <rect key="frame" x="0.0" y="0.0" width="335" height="18"/>
                                                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
                                                                                     <nil key="textColor"/>
                                                                                     <nil key="highlightedColor"/>
                                                                                 </label>
                                                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HYM-dZ-ztI">
-                                                                                    <rect key="frame" x="335" y="10" width="18" height="18"/>
+                                                                                    <rect key="frame" x="335" y="0.0" width="18" height="18"/>
                                                                                     <constraints>
                                                                                         <constraint firstAttribute="width" constant="18" id="mNu-D5-EzM"/>
                                                                                         <constraint firstAttribute="height" constant="18" id="p2q-29-V5Y"/>
@@ -471,10 +473,9 @@
                                                                                     </connections>
                                                                                 </button>
                                                                             </subviews>
-                                                                            <edgeInsets key="layoutMargins" top="10" left="0.0" bottom="10" right="0.0"/>
                                                                         </stackView>
-                                                                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="eod-TK-5yy">
-                                                                            <rect key="frame" x="0.0" y="48" width="353" height="213"/>
+                                                                        <textView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="eod-TK-5yy">
+                                                                            <rect key="frame" x="0.0" y="28" width="353" height="233"/>
                                                                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                                             <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                                                                             <color key="textColor" systemColor="labelColor"/>

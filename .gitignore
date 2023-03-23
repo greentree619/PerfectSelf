@@ -1,6 +1,7 @@
 # OS X
 .DS_Store
 PerfectSelfApp/.DS_Store
+PerfectSelfApp/Sources/Screens/.DS_Store
 
 # Xcode
 PerfectSelfApp/build/
