@@ -121,6 +121,10 @@ class PerfectSelfWebAPI
         ]
         return executeAPI(with: "POST", apiPath: "Books/", json: json, completionHandler:completionHandler)
     }
+    func getAllBookings(completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> Void
+    {
+        return executeAPI(with: "GET", apiPath: "Books/", json: [:], completionHandler:completionHandler)
+    }
     func login() -> Void
     {
         let json: [String: Any] = ["userName": "tester",

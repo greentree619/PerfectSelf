@@ -22,8 +22,8 @@ class ActorBookingViewController: UIViewController, UICollectionViewDataSource, 
     @IBOutlet weak var bookList: UICollectionView!
     //    @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var bookListFlow: UICollectionViewFlowLayout!
-    
-    var items = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32", "33", "34", "35", "36", "37", "38", "39", "40", "41", "42", "43", "44", "45", "46", "47", "48"]
+    var items = [BookingCard]()
+//    var items = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32", "33", "34", "35", "36", "37", "38", "39", "40", "41", "42", "43", "44", "45", "46", "47", "48"]
     //    let r = UIImage(named: "book");
     let cellsPerRow = 1
     override func viewDidLoad() {
@@ -38,49 +38,35 @@ class ActorBookingViewController: UIViewController, UICollectionViewDataSource, 
         line_pending.isHidden = true
         line_past.isHidden = true
         
-        
-//        let containerView = UIView()
-//        let num = 0...10
-//        for i in num {
-//            let iv = UIImageView()
-//            iv.image = r;
-//            iv.layer.masksToBounds = false;
-//            iv.layer.shadowOpacity = 0.3;
-//            iv.layer.shadowRadius = 3;
-//            iv.layer.shadowOffset = CGSize(width: 2, height: 3);
-//            iv.frame = CGRect(x: 0, y:120*i, width:Int(scrollView.frame.width), height:100)
-//            containerView.addSubview(iv)
-//        }
-//
-//        containerView.frame = CGRect(x: 0, y: 0, width: scrollView.frame.width, height: 800)
-//
-//        scrollView.addSubview(containerView)
-//        scrollView.contentSize = containerView.frame.size
-//        let containerView = UIView()
-//
-//        let num = 0...10
-//        for i in num {
-//
-//            let item = Item(frame: CGRect(x: 0, y:120*i, width:Int(scrollView.frame.width), height:100), labelText: "Booking History")
-//            item.tapCallback = {
-//                let controller = ActorReaderDetailViewController();
-//
-//                self.navigationController?.pushViewController(controller, animated: true)
-//            }
-//
-//            item.layer.masksToBounds = false;
-//            item.layer.shadowOpacity = 0.5;
-//            item.layer.shadowRadius = 5;
-//            item.layer.shadowOffset = CGSize(width: 2, height: 5);
-//            item.layer.cornerRadius = 10
-//
-//            containerView.addSubview(item)
-//        }
-//
-//        containerView.frame = CGRect(x: 0, y: 0, width: scrollView.frame.width, height: 1310)
-//
-//        scrollView.addSubview(containerView)
-//        scrollView.contentSize = containerView.frame.size
+        //call API to fetch booking list
+        showIndicator(sender: nil, viewController: self)
+        webAPI.getAllBookings() { data, response, error in
+            DispatchQueue.main.async {
+                hideIndicator(sender: nil)
+            }
+            
+            guard let data = data, error == nil else {
+                print(error?.localizedDescription ?? "No data")
+                return
+            }
+            do {
+                let respItems = try JSONDecoder().decode([BookingCard].self, from: data)
+                //print(items)
+                DispatchQueue.main.async {
+                    self.items.removeAll()
+                    self.items.append(contentsOf: respItems)
+//                    for (i, reader) in items.enumerated() {
+//                    }
+                    self.bookList.reloadData()
+                }
+
+            } catch {
+                print(error)
+                DispatchQueue.main.async {
+                    Toast.show(message: "Fetching reader list failed! please try again.", controller: self)
+                }
+            }
+        }
     }
     
     // MARK: - Booking List Delegate.
@@ -101,7 +87,7 @@ class ActorBookingViewController: UIViewController, UICollectionViewDataSource, 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         //
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Booking Collection View Cell", for: indexPath) as! BookingCollectionViewCell
-        cell.lbl_name.text = self.items[indexPath.row];
+        cell.lbl_name.text = self.items[indexPath.row].readerUid;
         cell.layer.masksToBounds = false
         cell.layer.shadowRadius = 5
         cell.layer.shadowOpacity = 0.5
