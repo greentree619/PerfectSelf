@@ -18,21 +18,21 @@
                 <rect key="frame" x="0.0" y="0.0" width="328" height="145"/>
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
-                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="gx6-C8-ndf">
+                    <stackView opaque="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" axis="vertical" distribution="fillEqually" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="gx6-C8-ndf">
                         <rect key="frame" x="0.0" y="0.0" width="328" height="145"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="eZe-fm-wg8">
-                                <rect key="frame" x="0.0" y="0.0" width="217" height="30"/>
+                                <rect key="frame" x="8" y="8" width="282.66666666666669" height="32.333333333333336"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Reading seesion with" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qkd-94-74j">
-                                        <rect key="frame" x="0.0" y="0.0" width="119.66666666666667" height="30"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="153.33333333333334" height="32.333333333333336"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Jonathan walker" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qSS-Q1-65b">
-                                        <rect key="frame" x="124.66666666666669" y="0.0" width="92.333333333333314" height="30"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                        <rect key="frame" x="158.33333333333334" y="0.0" width="124.33333333333334" height="32.333333333333336"/>
+                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="16"/>
                                         <color key="textColor" red="0.42352941179999998" green="0.62352941179999999" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -40,41 +40,56 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="V2b-E7-tng"/>
                                 </constraints>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="V2b-E7-tng"/>
+                                    </mask>
+                                </variation>
                             </stackView>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="RVi-Mk-CPf">
-                                <rect key="frame" x="0.0" y="35" width="232.66666666666666" height="18"/>
+                                <rect key="frame" x="8" y="40.333333333333329" width="296.66666666666669" height="32.333333333333329"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="tFW-VB-Syu">
-                                        <rect key="frame" x="0.0" y="0.0" width="116.33333333333333" height="18"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="148.33333333333334" height="32.333333333333336"/>
                                         <subviews>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="calendar" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="xXs-r3-DQz">
-                                                <rect key="frame" x="0.0" y="1.6666666666666643" width="18" height="15.000000000000004"/>
+                                                <rect key="frame" x="0.0" y="1.6666666666666661" width="18" height="29.333333333333336"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="18" id="LiI-6u-pAC"/>
                                                     <constraint firstAttribute="width" constant="18" id="Wfi-eu-Swa"/>
                                                 </constraints>
+                                                <variation key="default">
+                                                    <mask key="constraints">
+                                                        <exclude reference="LiI-6u-pAC"/>
+                                                    </mask>
+                                                </variation>
                                             </imageView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="16, Mar 2023" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CHF-Un-J7J">
-                                                <rect key="frame" x="22.999999999999993" y="0.0" width="93.333333333333314" height="18"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                                                <rect key="frame" x="22.999999999999993" y="0.0" width="125.33333333333331" height="32.333333333333336"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                         </subviews>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="bTB-zx-B9y">
-                                        <rect key="frame" x="116.33333333333334" y="0.0" width="116.33333333333334" height="18"/>
+                                        <rect key="frame" x="148.33333333333331" y="0.0" width="148.33333333333331" height="32.333333333333336"/>
                                         <subviews>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="clock" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="Wgy-iZ-TOz">
-                                                <rect key="frame" x="0.0" y="0.99999999999999822" width="18" height="16.666666666666664"/>
+                                                <rect key="frame" x="0.0" y="0.99999999999999822" width="18" height="31"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="18" id="8Qp-rx-cq0"/>
                                                     <constraint firstAttribute="width" constant="18" id="PCe-Sa-slq"/>
                                                 </constraints>
+                                                <variation key="default">
+                                                    <mask key="constraints">
+                                                        <exclude reference="8Qp-rx-cq0"/>
+                                                    </mask>
+                                                </variation>
                                             </imageView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="3:00 aM ~ 4:00 AM" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fF2-fh-riS">
-                                                <rect key="frame" x="23.000000000000021" y="0.0" width="93.333333333333314" height="18"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                                                <rect key="frame" x="22.999999999999993" y="0.0" width="125.33333333333331" height="32.333333333333336"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
@@ -83,25 +98,18 @@
                                 </subviews>
                             </stackView>
                             <stackView opaque="NO" contentMode="scaleToFill" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="95c-cL-0nL">
-                                <rect key="frame" x="0.0" y="58" width="95.333333333333329" height="20"/>
+                                <rect key="frame" x="8" y="72.666666666666671" width="104.33333333333333" height="32"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nwv-Eu-J9U">
-                                        <rect key="frame" x="0.0" y="0.0" width="95.333333333333329" height="20"/>
+                                        <rect key="frame" x="0.0" y="0.66666666666665719" width="104.33333333333333" height="30.333333333333332"/>
                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                         <state key="normal" title="view script">
                                             <imageReference key="image" image="arrowshape.right" catalog="system" symbolScale="small"/>
                                         </state>
-                                        <buttonConfiguration key="configuration" style="plain" imagePlacement="trailing" imagePadding="5" cornerStyle="dynamic">
+                                        <buttonConfiguration key="configuration" style="plain" imagePlacement="trailing" title="view script" imagePadding="5" cornerStyle="dynamic">
                                             <imageReference key="image" image="chevron.right" catalog="system" symbolScale="small"/>
                                             <backgroundConfiguration key="background"/>
-                                            <attributedString key="attributedTitle">
-                                                <fragment content="view script">
-                                                    <attributes>
-                                                        <font key="NSFont" metaFont="system" size="16"/>
-                                                        <font key="NSOriginalFont" size="12" name="Helvetica"/>
-                                                    </attributes>
-                                                </fragment>
-                                            </attributedString>
+                                            <fontDescription key="titleFontDescription" name=".SFNS-Regular" family=".SF NS" pointSize="18"/>
                                             <directionalEdgeInsets key="contentInsets" top="5" leading="5" bottom="5" trailing="5"/>
                                         </buttonConfiguration>
                                     </button>
@@ -109,44 +117,43 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="20" id="OBU-Te-TIu"/>
                                 </constraints>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="OBU-Te-TIu"/>
+                                    </mask>
+                                </variation>
                             </stackView>
-                            <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="B2i-T7-jWi">
-                                <rect key="frame" x="0.0" y="83" width="234" height="62"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" alignment="center" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="B2i-T7-jWi">
+                                <rect key="frame" x="8" y="104.66666666666667" width="280" height="32.333333333333329"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eoR-8B-GHc">
-                                        <rect key="frame" x="0.0" y="20" width="74.666666666666671" height="22"/>
+                                        <rect key="frame" x="0.0" y="1.6666666666666572" width="98" height="29"/>
                                         <state key="normal" title="Button"/>
-                                        <buttonConfiguration key="configuration" style="filled" cornerStyle="dynamic">
-                                            <backgroundConfiguration key="background"/>
+                                        <buttonConfiguration key="configuration" style="filled">
                                             <attributedString key="attributedTitle">
                                                 <fragment content="Join meeting">
                                                     <attributes>
-                                                        <font key="NSFont" metaFont="system" size="10"/>
-                                                        <font key="NSOriginalFont" size="12" name="Helvetica"/>
+                                                        <font key="NSFont" size="13" name="Helvetica"/>
                                                     </attributes>
                                                 </fragment>
                                             </attributedString>
-                                            <directionalEdgeInsets key="contentInsets" top="5" leading="0.0" bottom="5" trailing="0.0"/>
                                         </buttonConfiguration>
                                         <connections>
                                             <action selector="JoinMeeting:" destination="gTV-IL-0wX" eventType="touchUpInside" id="wML-nt-Gj8"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="s5q-UL-66W">
-                                        <rect key="frame" x="79.666666666666657" y="20.666666666666671" width="74.666666666666657" height="20.666666666666671"/>
+                                        <rect key="frame" x="103" y="2.3333333333333286" width="110.33333333333331" height="28"/>
                                         <state key="normal" title="Button"/>
-                                        <buttonConfiguration key="configuration" style="plain" cornerStyle="dynamic">
-                                            <backgroundConfiguration key="background"/>
+                                        <buttonConfiguration key="configuration" style="plain">
                                             <attributedString key="attributedTitle">
                                                 <fragment content="Send messsage">
                                                     <attributes>
-                                                        <color key="NSColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                        <font key="NSFont" size="9" name="Helvetica"/>
-                                                        <font key="NSOriginalFont" size="12" name="Helvetica"/>
+                                                        <font key="NSFont" size="12" name="Helvetica"/>
                                                     </attributes>
                                                 </fragment>
                                             </attributedString>
-                                            <directionalEdgeInsets key="contentInsets" top="5" leading="5" bottom="5" trailing="5"/>
+                                            <color key="baseForegroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         </buttonConfiguration>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
@@ -164,20 +171,17 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BMN-cX-vSa">
-                                        <rect key="frame" x="159.33333333333334" y="25.333333333333329" width="74.666666666666657" height="11.666666666666664"/>
+                                        <rect key="frame" x="218.33333333333334" y="2.3333333333333286" width="61.666666666666657" height="28"/>
                                         <state key="normal" title="Button"/>
-                                        <buttonConfiguration key="configuration" style="plain" cornerStyle="dynamic">
-                                            <backgroundConfiguration key="background"/>
+                                        <buttonConfiguration key="configuration" style="plain">
                                             <attributedString key="attributedTitle">
                                                 <fragment content="Cancel">
                                                     <attributes>
-                                                        <color key="NSColor" red="0.88111888111888115" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                        <font key="NSFont" size="10" name="Helvetica"/>
-                                                        <font key="NSOriginalFont" size="12" name="Helvetica"/>
+                                                        <font key="NSFont" size="12" name="Helvetica"/>
                                                     </attributes>
                                                 </fragment>
                                             </attributedString>
-                                            <directionalEdgeInsets key="contentInsets" top="0.0" leading="0.0" bottom="0.0" trailing="0.0"/>
+                                            <color key="baseForegroundColor" red="0.88111888110000003" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         </buttonConfiguration>
                                         <connections>
                                             <action selector="CancelBooking:" destination="gTV-IL-0wX" eventType="touchUpInside" id="Vm5-We-VRU"/>
@@ -186,6 +190,8 @@
                                 </subviews>
                             </stackView>
                         </subviews>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        <edgeInsets key="layoutMargins" top="8" left="8" bottom="8" right="8"/>
                     </stackView>
                 </subviews>
             </view>
@@ -202,7 +208,7 @@
                 <outlet property="lbl_name" destination="qSS-Q1-65b" id="TXP-Vg-W3u"/>
                 <outlet property="lbl_time" destination="fF2-fh-riS" id="2mv-Ea-M45"/>
             </connections>
-            <point key="canvasLocation" x="308.39694656488547" y="-14.43661971830986"/>
+            <point key="canvasLocation" x="336" y="-31"/>
         </collectionViewCell>
     </objects>
     <resources>

@@ -34,7 +34,7 @@ class ActorHomeViewController: UIViewController, UICollectionViewDataSource, UIC
     var isShortRead = false
     var isExtendedRead = false
     let cellsPerRow = 1
-    
+  
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -43,7 +43,7 @@ class ActorHomeViewController: UIViewController, UICollectionViewDataSource, UIC
         readerList.dataSource = self
         readerList.delegate = self
         readerList.allowsSelection = true
-        
+//        readerList.contentV
         // Do any additional setup after loading the view.
         filtermodal.alpha = 0;
 
@@ -90,7 +90,7 @@ class ActorHomeViewController: UIViewController, UICollectionViewDataSource, UIC
             + flowLayout.sectionInset.right
             + (flowLayout.minimumInteritemSpacing * CGFloat(cellsPerRow - 1))
         let size = Int((collectionView.bounds.width - totalSpace) / CGFloat(cellsPerRow))
-        return CGSize(width: size, height: 50)
+        return CGSize(width: size, height: 120)
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -98,6 +98,15 @@ class ActorHomeViewController: UIViewController, UICollectionViewDataSource, UIC
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Reader Collection View Cell", for: indexPath) as! ReaderCollectionViewCell
         cell.readerName.text = self.items[indexPath.row].readerUid;
         // return card
+        cell.layer.masksToBounds = false
+        cell.layer.shadowOffset = CGSizeZero
+        cell.layer.shadowRadius = 8
+        cell.layer.shadowOpacity = 0.2
+        cell.contentView.layer.cornerRadius = 12
+        cell.contentView.layer.borderWidth = 1.0
+        cell.contentView.layer.borderColor = UIColor.clear.cgColor
+        cell.contentView.layer.masksToBounds = true
+        
         return cell
     }
     

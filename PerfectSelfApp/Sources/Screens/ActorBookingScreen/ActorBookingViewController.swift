@@ -23,8 +23,7 @@ class ActorBookingViewController: UIViewController, UICollectionViewDataSource, 
     //    @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var bookListFlow: UICollectionViewFlowLayout!
     var items = [BookingCard]()
-//    var items = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32", "33", "34", "35", "36", "37", "38", "39", "40", "41", "42", "43", "44", "45", "46", "47", "48"]
-    //    let r = UIImage(named: "book");
+
     let cellsPerRow = 1
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,7 +32,7 @@ class ActorBookingViewController: UIViewController, UICollectionViewDataSource, 
         bookList.register(nib, forCellWithReuseIdentifier: "Booking Collection View Cell")
         bookList.dataSource = self
         bookList.delegate = self
-        
+        bookList.allowsSelection = true
         // Do any additional setup after loading the view.
         line_pending.isHidden = true
         line_past.isHidden = true
@@ -81,18 +80,37 @@ class ActorBookingViewController: UIViewController, UICollectionViewDataSource, 
             + flowLayout.sectionInset.right
             + (flowLayout.minimumInteritemSpacing * CGFloat(cellsPerRow - 1))
         let size = Int((collectionView.bounds.width - totalSpace) / CGFloat(cellsPerRow))
-        return CGSize(width: size, height: 120)
+        return CGSize(width: size, height: size*145/328)
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         //
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Booking Collection View Cell", for: indexPath) as! BookingCollectionViewCell
-        cell.lbl_name.text = self.items[indexPath.row].readerUid;
+        let isoDate = self.items[indexPath.row].bookStartTime
+
+        let dateFormatter = DateFormatter()
+//        dateFormatter.locale = Locale(identifier: "en_US_POSIX") // set locale to reliable US_POSIX
+        dateFormatter.dateFormat = "yyyy-MM-ddTHH:mm:ssZ"
+        let datestart = dateFormatter.date(from:isoDate)
+        let dateend = dateFormatter.date(from:self.items[indexPath.row].bookEndTime)
+        
+        let dateFormatter1 = DateFormatter()
+        dateFormatter1.dateFormat = "YY, MMM d"
+        let dateFormatter2 = DateFormatter()
+        dateFormatter2.dateFormat = "hh:mm a"
+        
+        cell.lbl_name.text = self.items[indexPath.row].readerName;
+        cell.lbl_date.text = dateFormatter1.string(from: datestart ?? Date())
+        cell.lbl_time.text = dateFormatter2.string(from: datestart ?? Date()) + "-" + dateFormatter2.string(from: dateend ?? Date())
+        
         cell.layer.masksToBounds = false
-        cell.layer.shadowRadius = 5
-        cell.layer.shadowOpacity = 0.5
-        cell.layer.shadowOffset = CGSize(width: 5, height: 5)
-        cell.backgroundColor = UIColor(rgb: 0xE5E5E5)
+        cell.layer.shadowOffset = CGSizeZero
+        cell.layer.shadowRadius = 8
+        cell.layer.shadowOpacity = 0.2
+        cell.contentView.layer.cornerRadius = 12
+        cell.contentView.layer.borderWidth = 1.0
+        cell.contentView.layer.borderColor = UIColor.clear.cgColor
+        cell.contentView.layer.masksToBounds = true
         // return card
         return cell
     }

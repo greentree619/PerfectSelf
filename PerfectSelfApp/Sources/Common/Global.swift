@@ -30,15 +30,18 @@ struct ReaderProfile: Codable {
     let deletedTime: String
 }
 struct BookingCard: Codable {
-    let actorUid: String
-    let readerUid: String
-    let bookTime: String
-    let scriptFile: String
     let id: Int
-    let isDeleted: Bool
-    let createdTime: String
-    let updatedTime: String
-    let deletedTime: String
+    let readerName: String
+    let title: String
+    let about: String
+    let scriptFile: String
+    let readerIsLogin: Bool
+    let bookStartTime: String
+    let bookEndTime: String
+    let hourlyPrice: Int
+    let skills: String
+    let voiceType: Int
+    let others: Int
 }
 //        showAlert(viewController: self, title: "Confirm", message: "Please input") { UIAlertAction in
 //            print("Ok button tapped")

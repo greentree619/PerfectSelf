@@ -3,4 +3,54 @@
    uuid = "F0C11FEE-1CE0-4BAD-9256-C2A83FEC7EF5"
    type = "0"
    version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "97A178E1-13D2-463B-919B-26B16B4E32D6"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Sources/Screens/ActorBookingScreen/ActorBookingViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "94"
+            endingLineNumber = "94"
+            landmarkName = "collectionView(_:cellForItemAt:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "97A178E1-13D2-463B-919B-26B16B4E32D6 - 3137e3a710200797"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "PerfectSelf.ActorBookingViewController.collectionView(_: __C.UICollectionView, cellForItemAt: Foundation.IndexPath) -&gt; __C.UICollectionViewCell"
+                  moduleName = "PerfectSelf"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/user232392/Desktop/PerfectSelf/PerfectSelfApp/Sources/Screens/ActorBookingScreen/ActorBookingViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "94"
+                  endingLineNumber = "94"
+                  offsetFromSymbolStart = "1176">
+               </Location>
+               <Location
+                  uuid = "97A178E1-13D2-463B-919B-26B16B4E32D6 - 3137e3a710200797"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "PerfectSelf.ActorBookingViewController.collectionView(_: __C.UICollectionView, cellForItemAt: Foundation.IndexPath) -&gt; __C.UICollectionViewCell"
+                  moduleName = "PerfectSelf"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/user232392/Desktop/PerfectSelf/PerfectSelfApp/Sources/Screens/ActorBookingScreen/ActorBookingViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "94"
+                  endingLineNumber = "94"
+                  offsetFromSymbolStart = "1288">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
 </Bucket>

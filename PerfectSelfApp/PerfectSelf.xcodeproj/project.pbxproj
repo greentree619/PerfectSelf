@@ -766,8 +766,8 @@
 		BAD0B4D429BA17130061FEF5 /* ActorHomeScreen */ = {
 			isa = PBXGroup;
 			children = (
-				BAD0B4D529BA17130061FEF5 /* ActorHomeViewController.xib */,
 				BAD0B4D629BA17130061FEF5 /* ActorHomeViewController.swift */,
+				BAD0B4D529BA17130061FEF5 /* ActorHomeViewController.xib */,
 				BA6A5E1C29CCD49D0063ED13 /* ReaderCollectionViewCell.swift */,
 				BA6A5E1D29CCD49D0063ED13 /* ReaderCollectionViewCell.xib */,
 			);

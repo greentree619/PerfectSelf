@@ -41,11 +41,7 @@ class ActorBookConfirmationViewController: UIViewController {
     @IBAction func CompleteBooking(_ sender: UIButton) {
         // call book api
         let actorUid = UserDefaults.standard.string(forKey: "USER_ID")
-        print(actorUid!)
-        print(readerUid)
-        print(bookingTime)
-        print(script)
-        print(bookingDate)
+
         let booking = bookingDate + "T" + bookingTime + "Z"
 
         showIndicator(sender: sender, viewController: self)
