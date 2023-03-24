@@ -9,6 +9,10 @@
 import UIKit
 
 class BookingCollectionViewCell: UICollectionViewCell {
+    public var signalClient: SignalingClient?
+    public var webRTCClient: WebRTCClient?
+    public var navigationController: UINavigationController?
+    public var parentViewController: UIViewController?
 
     @IBOutlet weak var lbl_time: UILabel!
     @IBOutlet weak var lbl_date: UILabel!
@@ -19,7 +23,10 @@ class BookingCollectionViewCell: UICollectionViewCell {
         
     }
     @IBAction func JoinMeeting(_ sender: UIButton) {
-        print("join")
+        //print("join")
+        let conferenceViewController = ConferenceViewController(signalClient: signalClient!, webRTCClient: webRTCClient!)
+        conferenceViewController.modalPresentationStyle = .fullScreen
+        self.parentViewController!.present(conferenceViewController, animated: false, completion: nil)
     }
     
     @IBAction func SendMessage(_ sender: UIButton) {

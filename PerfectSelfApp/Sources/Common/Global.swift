@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 
+let signalingServerConfig = Config.default
 let webAPI = PerfectSelfWebAPI()
 let ACTOR_UTYPE = 3
 let READER_UTYPE = 4
@@ -113,4 +114,17 @@ func isValidEmail(email: String) -> Bool {
     let emailPred = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
     let ret = emailPred.evaluate(with: email)
     return ret
+}
+
+func buildSignalingClient() -> SignalingClient {
+    // iOS 13 has native websocket support. For iOS 12 or lower we will use 3rd party library.
+    let webSocketProvider: WebSocketProvider
+    
+    if #available(iOS 13.0, *) {
+        webSocketProvider = NativeWebSocket(url: signalingServerConfig.signalingServerUrl)
+    } else {
+        webSocketProvider = StarscreamWebSocket(url: signalingServerConfig.signalingServerUrl)
+    }
+    
+    return SignalingClient(webSocket: webSocketProvider)
 }

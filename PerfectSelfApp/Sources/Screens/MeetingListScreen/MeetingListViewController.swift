@@ -14,7 +14,7 @@ class MeetingListViewController: UIViewController {
     
     private let signalClient: SignalingClient
     private let webRTCClient: WebRTCClient
-    private lazy var conferenceViewController = ConferenceViewController(webRTCClient: self.webRTCClient)
+    private lazy var conferenceViewController = ConferenceViewController(signalClient: signalClient, webRTCClient: self.webRTCClient)
     
     private var signalingConnected: Bool = false {
         didSet {

@@ -22,6 +22,7 @@ class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSample
     @IBOutlet weak var localVideoView: UIView!
     
     @IBOutlet weak var remoteCameraView: UIView!
+    private let signalClient: SignalingClient
     private let webRTCClient: WebRTCClient
     private var isRecording: Bool = false
     private var _filename = ""
@@ -38,7 +39,8 @@ class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSample
     }
     private var _captureState = _CaptureState.idle
     
-    init(webRTCClient: WebRTCClient) {
+    init(signalClient: SignalingClient, webRTCClient: WebRTCClient) {
+        self.signalClient = signalClient
         self.webRTCClient = webRTCClient
         super.init(nibName: String(describing: ConferenceViewController.self), bundle: Bundle.main)
     }
