@@ -38,7 +38,7 @@ class ActorLibraryViewController: UIViewController, UICollectionViewDataSource, 
         let totalSpace = flowLayout.sectionInset.left
             + flowLayout.sectionInset.right
             + (flowLayout.minimumInteritemSpacing * CGFloat(cellsPerRow - 1))
-        let size = Int((collectionView.bounds.width - totalSpace) / CGFloat(cellsPerRow))
+        let size = Int((collectionView.bounds.width - totalSpace - 2) / CGFloat(cellsPerRow))
         return CGSize(width: size, height: size)
     }
     
