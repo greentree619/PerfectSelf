@@ -15,11 +15,15 @@
 		2F7EBC3A22DCCE240015B46E /* NativeWebSocket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F7EBC3922DCCE240015B46E /* NativeWebSocket.swift */; };
 		47007BE929C2B0C000F83CFD /* ActorSetPaymentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47007BE729C2B0BF00F83CFD /* ActorSetPaymentViewController.swift */; };
 		47007BEA29C2B0C000F83CFD /* ActorSetPaymentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 47007BE829C2B0C000F83CFD /* ActorSetPaymentViewController.xib */; };
+		4715510129CDBF00007CE524 /* TimeSlotCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 471550FF29CDBF00007CE524 /* TimeSlotCollectionViewCell.swift */; };
+		4715510229CDBF00007CE524 /* TimeSlotCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4715510029CDBF00007CE524 /* TimeSlotCollectionViewCell.xib */; };
 		4715EAF029CA59C600437576 /* ActorBookAppointmentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4715EAEE29CA59C600437576 /* ActorBookAppointmentViewController.swift */; };
 		4715EAF129CA59C600437576 /* ActorBookAppointmentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4715EAEF29CA59C600437576 /* ActorBookAppointmentViewController.xib */; };
 		472F64FD29CC0868005A427D /* ReaderProfileEditAvailabilityViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 472F64FC29CC0868005A427D /* ReaderProfileEditAvailabilityViewController.xib */; };
 		475269BB29CD0F930094C3E9 /* BookingCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 475269B929CD0F930094C3E9 /* BookingCollectionViewCell.swift */; };
 		475269BC29CD0F930094C3E9 /* BookingCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 475269BA29CD0F930094C3E9 /* BookingCollectionViewCell.xib */; };
+		4772156129CE700C00319CBC /* VideoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4772155F29CE700C00319CBC /* VideoCollectionViewCell.swift */; };
+		4772156229CE700C00319CBC /* VideoCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4772156029CE700C00319CBC /* VideoCollectionViewCell.xib */; };
 		47BC09BA29C5B42700B8F2C5 /* ActorBuildProfile1ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47BC09B829C5B42700B8F2C5 /* ActorBuildProfile1ViewController.swift */; };
 		47BC09BB29C5B42700B8F2C5 /* ActorBuildProfile1ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 47BC09B929C5B42700B8F2C5 /* ActorBuildProfile1ViewController.xib */; };
 		47BC09BE29C5B44700B8F2C5 /* ActorBuildProfile2ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47BC09BC29C5B44700B8F2C5 /* ActorBuildProfile2ViewController.swift */; };
@@ -164,11 +168,15 @@
 		2F7EBC3922DCCE240015B46E /* NativeWebSocket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeWebSocket.swift; sourceTree = "<group>"; };
 		47007BE729C2B0BF00F83CFD /* ActorSetPaymentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActorSetPaymentViewController.swift; sourceTree = "<group>"; };
 		47007BE829C2B0C000F83CFD /* ActorSetPaymentViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ActorSetPaymentViewController.xib; sourceTree = "<group>"; };
+		471550FF29CDBF00007CE524 /* TimeSlotCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeSlotCollectionViewCell.swift; sourceTree = "<group>"; };
+		4715510029CDBF00007CE524 /* TimeSlotCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TimeSlotCollectionViewCell.xib; sourceTree = "<group>"; };
 		4715EAEE29CA59C600437576 /* ActorBookAppointmentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActorBookAppointmentViewController.swift; sourceTree = "<group>"; };
 		4715EAEF29CA59C600437576 /* ActorBookAppointmentViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ActorBookAppointmentViewController.xib; sourceTree = "<group>"; };
 		472F64FC29CC0868005A427D /* ReaderProfileEditAvailabilityViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ReaderProfileEditAvailabilityViewController.xib; sourceTree = "<group>"; };
 		475269B929CD0F930094C3E9 /* BookingCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookingCollectionViewCell.swift; sourceTree = "<group>"; };
 		475269BA29CD0F930094C3E9 /* BookingCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BookingCollectionViewCell.xib; sourceTree = "<group>"; };
+		4772155F29CE700C00319CBC /* VideoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoCollectionViewCell.swift; sourceTree = "<group>"; };
+		4772156029CE700C00319CBC /* VideoCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = VideoCollectionViewCell.xib; sourceTree = "<group>"; };
 		47BC09B829C5B42700B8F2C5 /* ActorBuildProfile1ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActorBuildProfile1ViewController.swift; sourceTree = "<group>"; };
 		47BC09B929C5B42700B8F2C5 /* ActorBuildProfile1ViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ActorBuildProfile1ViewController.xib; sourceTree = "<group>"; };
 		47BC09BC29C5B44700B8F2C5 /* ActorBuildProfile2ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActorBuildProfile2ViewController.swift; sourceTree = "<group>"; };
@@ -779,6 +787,8 @@
 			children = (
 				BAD0B4DB29BA17130061FEF5 /* ActorLibraryViewController.swift */,
 				BAD0B4DC29BA17130061FEF5 /* ActorLibraryViewController.xib */,
+				4772155F29CE700C00319CBC /* VideoCollectionViewCell.swift */,
+				4772156029CE700C00319CBC /* VideoCollectionViewCell.xib */,
 			);
 			path = ActorLibraryScreen;
 			sourceTree = "<group>";
@@ -796,6 +806,8 @@
 				BAD0B4BB29BA17130061FEF5 /* ReaderProfileEditSkillViewController.swift */,
 				BAD0B4DE29BA17130061FEF5 /* ReaderProfileViewController.swift */,
 				BAD0B4DF29BA17130061FEF5 /* ReaderProfileViewController.xib */,
+				471550FF29CDBF00007CE524 /* TimeSlotCollectionViewCell.swift */,
+				4715510029CDBF00007CE524 /* TimeSlotCollectionViewCell.xib */,
 			);
 			path = ReaderProfileScreen;
 			sourceTree = "<group>";
@@ -965,6 +977,7 @@
 				BAD0B53929BA17130061FEF5 /* LibraryCell.xib in Resources */,
 				4715EAF129CA59C600437576 /* ActorBookAppointmentViewController.xib in Resources */,
 				BAD0B52229BA17130061FEF5 /* HomeViewController.xib in Resources */,
+				4772156229CE700C00319CBC /* VideoCollectionViewCell.xib in Resources */,
 				47BC09C329C5B46800B8F2C5 /* ActorBuildProfile3ViewController.xib in Resources */,
 				472F64FD29CC0868005A427D /* ReaderProfileEditAvailabilityViewController.xib in Resources */,
 				BA4714BC29A79856007AABC2 /* GTWalsheimPro-Medium.ttf in Resources */,
@@ -1011,6 +1024,7 @@
 				BAD0B50829BA17130061FEF5 /* ConferenceViewController.xib in Resources */,
 				BAD0B50629BA17130061FEF5 /* MainViewController.xib in Resources */,
 				BAD0B54529BA17130061FEF5 /* ActorBookingViewController.xib in Resources */,
+				4715510229CDBF00007CE524 /* TimeSlotCollectionViewCell.xib in Resources */,
 				BAD0B50129BA17130061FEF5 /* ActorBookConfirmationViewController.xib in Resources */,
 				BAD0B50329BA17130061FEF5 /* LoginDetailViewController.xib in Resources */,
 				BAD0B54029BA17130061FEF5 /* LoginViewController.xib in Resources */,
@@ -1117,7 +1131,9 @@
 				BAD0B54329BA17130061FEF5 /* ReaderProfileEditPersonalInfoViewController.swift in Sources */,
 				795A4A2A221E0FB100F8BB03 /* Message.swift in Sources */,
 				47CEBDDE29C7C272006CE9DA /* ActorProfileEditViewController.swift in Sources */,
+				4715510129CDBF00007CE524 /* TimeSlotCollectionViewCell.swift in Sources */,
 				BAD5C84F29AEDF0E00A2F109 /* CameraPreviewView.swift in Sources */,
+				4772156129CE700C00319CBC /* VideoCollectionViewCell.swift in Sources */,
 				BAB7379C29B40B7500F3D663 /* AWSMultipartUpload.swift in Sources */,
 				BAD0B52929BA17130061FEF5 /* ActorHomeViewController.swift in Sources */,
 				47CEBDDA29C7C24C006CE9DA /* ActorProfileViewController.swift in Sources */,

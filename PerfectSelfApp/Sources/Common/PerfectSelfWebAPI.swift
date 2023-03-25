@@ -103,7 +103,7 @@ class PerfectSelfWebAPI
     }
     func getAllReaders(completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> Void
     {
-        return executeAPI(with: "GET", apiPath: "ReaderProfiles/", json: [:], completionHandler:completionHandler)
+        return executeAPI(with: "GET", apiPath: "ReaderProfiles/ReaderList", json: [:], completionHandler:completionHandler)
     }
     func getReaderById(id: String, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> Void
     {

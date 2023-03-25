@@ -8,52 +8,98 @@
 
 import UIKit
 
-class ActorFindReaderViewController: UIViewController {
+class ActorFindReaderViewController: UIViewController , UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout{
 
     @IBOutlet weak var modal_sort: UIView!
-//    @IBOutlet weak var modal_filter: UIView!
-    
-    @IBOutlet weak var scrollView: UIScrollView!
-    
-    let r = UIImage(named: "reader");
+    @IBOutlet weak var readerList: UICollectionView!
+    var items = [ReaderProfileCard]()
+    let cellsPerRow = 1
     let backgroundView = UIView()
-    
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        let nib = UINib(nibName: "ReaderCollectionViewCell", bundle: nil)
+        readerList.register(nib, forCellWithReuseIdentifier: "Reader Collection View Cell")
+        readerList.dataSource = self
+        readerList.delegate = self
+        readerList.allowsSelection = true
         // Do any additional setup after loading the view.
         self.navigationItem.setHidesBackButton(true, animated: false)
         modal_sort.alpha = 0;
-//        modal_filter.alpha = 0;
-        
-        let containerView = UIView()
-        let num = 0...10
-        for i in num {
-            let iv = UIImageView()
-            iv.image = r;
-            iv.layer.masksToBounds = false;
-            iv.layer.shadowOpacity = 0.5;
-            iv.layer.shadowRadius = 5;
-            iv.layer.shadowOffset = CGSize(width: 2, height: 5);
-            iv.frame = CGRect(x: 20, y:120*i, width:Int(scrollView.frame.width-40), height:100)
-            
-            let tap = UITapGestureRecognizer(target: self, action: #selector(tapReader))
-            iv.addGestureRecognizer(tap)
-            iv.isUserInteractionEnabled = true
-            
-            containerView.addSubview(iv)
-        }
-   
-        containerView.frame = CGRect(x: 0, y: 0, width: scrollView.frame.width, height: 800)
-        
-        scrollView.addSubview(containerView)
-        scrollView.contentSize = containerView.frame.size
 
+        
+        showIndicator(sender: nil, viewController: self)
+        // call API to fetch reader list
+        webAPI.getAllReaders() { data, response, error in
+            DispatchQueue.main.async {
+                hideIndicator(sender: nil)
+            }
+            
+            guard let data = data, error == nil else {
+                print(error?.localizedDescription ?? "No data")
+                return
+            }
+            do {
+                let respItems = try JSONDecoder().decode([ReaderProfileCard].self, from: data)
+                //print(items)
+                DispatchQueue.main.async {
+                    self.items.removeAll()
+                    self.items.append(contentsOf: respItems)
+//                    for (i, reader) in items.enumerated() {
+//                    }
+                    self.readerList.reloadData()
+                }
+
+            } catch {
+                print(error)
+                DispatchQueue.main.async {
+                    Toast.show(message: "Fetching reader list failed! please try again.", controller: self)
+                }
+            }
+        }
     }
-    @objc func tapReader() {
+    
+    // MARK: - Reader List Delegate.
+    func collectionView(_ collectionView: UICollectionView,        numberOfItemsInSection section: Int) -> Int {
+         // myData is the array of items
+        return self.items.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let flowLayout = collectionViewLayout as! UICollectionViewFlowLayout
+        let totalSpace = flowLayout.sectionInset.left
+            + flowLayout.sectionInset.right
+            + (flowLayout.minimumInteritemSpacing * CGFloat(cellsPerRow - 1))
+        let size = Int((collectionView.bounds.width - totalSpace) / CGFloat(cellsPerRow))
+        return CGSize(width: size, height: 120)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        //
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Reader Collection View Cell", for: indexPath) as! ReaderCollectionViewCell
+        cell.readerName.text = self.items[indexPath.row].userName;
+        // return card
+        cell.layer.masksToBounds = false
+        cell.layer.shadowOffset = CGSizeZero
+        cell.layer.shadowRadius = 8
+        cell.layer.shadowOpacity = 0.2
+        cell.contentView.layer.cornerRadius = 12
+        cell.contentView.layer.borderWidth = 1.0
+        cell.contentView.layer.borderColor = UIColor.clear.cgColor
+        cell.contentView.layer.masksToBounds = true
+        
+        return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        // add the code here to perform action on the cell
+        print("didDeselectItemAt" + String(indexPath.row))
         let controller = ActorReaderDetailViewController()
+        controller.readerUid = self.items[indexPath.row].userName
         self.navigationController?.pushViewController(controller, animated: true)
+//        let cell = collectionView.cellForItem(at: indexPath) as? LibraryCollectionViewCell
     }
+    
     @IBAction func SortReaders(_ sender: UIButton) {
         UIView.animate(withDuration: 0.3) {
            self.modal_sort.alpha = 1;
@@ -79,8 +125,6 @@ class ActorFindReaderViewController: UIViewController {
     @IBAction func SortApply(_ sender: UIButton) {
         backgroundView.removeFromSuperview()
         self.modal_sort.alpha = 0;
-      
-        
     }
     
 //    @IBAction func FilterApply(_ sender: UIButton) {

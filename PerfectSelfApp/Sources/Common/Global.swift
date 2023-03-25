@@ -15,20 +15,36 @@ let READER_UTYPE = 4
 var backgroundView: UIView? = nil
 var activityIndicatorView: UIActivityIndicatorView? = nil
 
-struct ReaderProfile: Codable {
-    let title: String
-    let readerUid: String
-    let hourlyPrice: Int
-    let voiceType: Int
-    let others: Int
-    let about: String
-    let skills: String
+struct ReaderProfileDetail: Codable {
     let id: Int
-    let isDeleted: Bool
-    let createdTime: String
-    let updatedTime: String
-    let deletedTime: String
+    let readerUid: String
+    let about: String
+    let others: Int
+    let skills: String
+    let title: String?
+    let voiceType: Int
+    let hourlyPrice: Int?
+    let date: String?
+    let from: String?
+    let to: String?
 }
+
+struct ReaderProfileCard: Codable {
+    let uid: String
+    let userName: String
+    let userType: Int
+    let email: String
+    let firstName: String
+    let lastName: String
+    let title: String?
+    let gender: Int
+    let isLogin: Bool
+    let hourlyPrice: Int?
+    let date: String?
+    let from: String?
+    let to: String?
+}
+
 struct BookingCard: Codable {
     let id: Int
     let readerName: String
@@ -43,6 +59,17 @@ struct BookingCard: Codable {
     let voiceType: Int
     let others: Int
 }
+struct VideoCard: Codable {
+    let id: Int
+    let readerUid: String
+    let tapName: String
+    let bucketName: String
+    let tapKey: String
+    let createdTime: String
+    let updatedTime: String
+    let deletedTime: String
+}
+
 //        showAlert(viewController: self, title: "Confirm", message: "Please input") { UIAlertAction in
 //            print("Ok button tapped")
 //        }

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ActorReaderDetailViewController: UIViewController {
+class ActorReaderDetailViewController: UIViewController , UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
 
     var id: String = "1"
     var readerUid: String = ""
@@ -26,13 +26,21 @@ class ActorReaderDetailViewController: UIViewController {
     @IBOutlet weak var view_reader: UIStackView!
     // info
     
-    
     @IBOutlet weak var reader_title: UILabel!
-    
     @IBOutlet weak var reader_hourly: UILabel!
+    
+    @IBOutlet weak var timeslotList: UICollectionView!
+    var items = ["1", "2", "3", "3", "2", "4"]
+    let cellsPerRow = 1
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        let nib = UINib(nibName: "TimeSlotCollectionViewCell", bundle: nil)
+        timeslotList.register(nib, forCellWithReuseIdentifier: "Time Slot Collection View Cell")
+        timeslotList.dataSource = self
+        timeslotList.delegate = self
+        timeslotList.allowsSelection = true
         // Do any additional setup after loading the view.
         line_videointro.isHidden = true
         line_review.isHidden = true
@@ -58,14 +66,14 @@ class ActorReaderDetailViewController: UIViewController {
                 return
             }
             do {
-                let item = try JSONDecoder().decode(ReaderProfile.self, from: data)
+                let item = try JSONDecoder().decode(ReaderProfileDetail.self, from: data)
                 print(item)
                 DispatchQueue.main.async {
                     activityIndicatorView.stopAnimating()
                     activityIndicatorView.removeFromSuperview()
                     self.view_reader.isHidden = false
                     self.reader_title.text = item.title
-                    self.reader_hourly.text = "$\(item.hourlyPrice/4) / 15 mins"
+                    self.reader_hourly.text = "$\((item.hourlyPrice ?? 0)/4) / 15 mins"
                     self.readerUid = item.readerUid
                 }
             }
@@ -80,7 +88,43 @@ class ActorReaderDetailViewController: UIViewController {
            
         }
     }
-
+    // MARK: - Time Slot List Delegate.
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+         // myData is the array of items
+        return self.items.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+//        let flowLayout = collectionViewLayout as! UICollectionViewFlowLayout
+//        let totalSpace = flowLayout.sectionInset.top
+//        + flowLayout.sectionInset.bottom
+//        + (flowLayout.minimumLineSpacing * CGFloat(cellsPerRow - 1))
+//        let size = Int((collectionView.bounds.width - totalSpace) / CGFloat(cellsPerRow))
+        return CGSize(width: 80, height: 74)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        //
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Time Slot Collection View Cell", for: indexPath) as! TimeSlotCollectionViewCell
+        cell.lbl_num_slot.text = "\(self.items[indexPath.row]) slot";
+        // return card
+//        cell.layer.masksToBounds = false
+//        cell.layer.shadowOffset = CGSizeZero
+//        cell.layer.shadowRadius = 8
+//        cell.layer.shadowOpacity = 0.2
+        cell.contentView.layer.cornerRadius = 12
+        cell.contentView.layer.borderWidth = 1.0
+        cell.contentView.layer.borderColor = UIColor.gray.cgColor
+        cell.contentView.layer.masksToBounds = true
+        
+        return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        // add the code here to perform action on the cell
+        print("didDeselectItemAt")
+//        let cell = collectionView.cellForItem(at: indexPath) as? LibraryCollectionViewCell
+    }
     @IBAction func ShowOverview(_ sender: UIButton) {
         sender.tintColor = UIColor(rgb: 0x4063FF)
         btn_videointro.tintColor = .black
