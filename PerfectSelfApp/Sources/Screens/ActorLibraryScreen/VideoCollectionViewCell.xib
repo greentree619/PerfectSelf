@@ -20,6 +20,9 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fub-qf-yfX">
                         <rect key="frame" x="0.0" y="0.0" width="120" height="120"/>
                         <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="video" translatesAutoresizingMaskIntoConstraints="NO" id="EtD-IZ-IeV">
+                                <rect key="frame" x="0.0" y="0.0" width="120" height="120"/>
+                            </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="biE-ag-2jm">
                                 <rect key="frame" x="39" y="50" width="42" height="20.333333333333329"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -29,9 +32,18 @@
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="EtD-IZ-IeV" firstAttribute="top" secondItem="fub-qf-yfX" secondAttribute="top" id="Hpk-dq-Vtf"/>
                             <constraint firstItem="biE-ag-2jm" firstAttribute="centerX" secondItem="fub-qf-yfX" secondAttribute="centerX" id="KrE-9F-bv9"/>
+                            <constraint firstItem="EtD-IZ-IeV" firstAttribute="leading" secondItem="fub-qf-yfX" secondAttribute="leading" id="MBK-B9-ygP"/>
                             <constraint firstItem="biE-ag-2jm" firstAttribute="centerY" secondItem="fub-qf-yfX" secondAttribute="centerY" id="U5t-WT-lwo"/>
+                            <constraint firstAttribute="trailing" secondItem="EtD-IZ-IeV" secondAttribute="trailing" id="fDx-ji-90C"/>
+                            <constraint firstAttribute="bottom" secondItem="EtD-IZ-IeV" secondAttribute="bottom" id="y3x-Z1-2bH"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="subviews">
+                                <exclude reference="biE-ag-2jm"/>
+                            </mask>
+                        </variation>
                     </view>
                 </subviews>
             </view>
@@ -49,4 +61,7 @@
             <point key="canvasLocation" x="20.610687022900763" y="37.676056338028168"/>
         </collectionViewCell>
     </objects>
+    <resources>
+        <image name="video" width="304" height="305"/>
+    </resources>
 </document>
