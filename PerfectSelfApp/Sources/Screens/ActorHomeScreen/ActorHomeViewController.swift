@@ -17,7 +17,7 @@ class ActorHomeViewController: UIViewController, UICollectionViewDataSource, UIC
     @IBOutlet weak var readerList: UICollectionView!
     
     @IBOutlet weak var readerListFlow: UICollectionViewFlowLayout!
-    var items = [ReaderProfile]()
+    var items = [ReaderProfileCard]()
 //    ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32", "33", "34", "35", "36", "37", "38", "39", "40", "41", "42", "43", "44", "45", "46", "47", "48"]
     
     let backgroundView = UIView()
@@ -59,7 +59,8 @@ class ActorHomeViewController: UIViewController, UICollectionViewDataSource, UIC
                 return
             }
             do {
-                let respItems = try JSONDecoder().decode([ReaderProfile].self, from: data)
+                print(data)
+                let respItems = try JSONDecoder().decode([ReaderProfileCard].self, from: data)
                 //print(items)
                 DispatchQueue.main.async {
                     self.items.removeAll()
@@ -96,7 +97,7 @@ class ActorHomeViewController: UIViewController, UICollectionViewDataSource, UIC
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         //
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Reader Collection View Cell", for: indexPath) as! ReaderCollectionViewCell
-        cell.readerName.text = self.items[indexPath.row].readerUid;
+        cell.readerName.text = self.items[indexPath.row].userName;
         // return card
         cell.layer.masksToBounds = false
         cell.layer.shadowOffset = CGSizeZero
@@ -112,7 +113,10 @@ class ActorHomeViewController: UIViewController, UICollectionViewDataSource, UIC
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         // add the code here to perform action on the cell
-        print("didDeselectItemAt")
+        print("didDeselectItemAt" + String(indexPath.row))
+        let controller = ActorReaderDetailViewController()
+        controller.readerUid = self.items[indexPath.row].userName
+        self.navigationController?.pushViewController(controller, animated: true)
 //        let cell = collectionView.cellForItem(at: indexPath) as? LibraryCollectionViewCell
     }
     

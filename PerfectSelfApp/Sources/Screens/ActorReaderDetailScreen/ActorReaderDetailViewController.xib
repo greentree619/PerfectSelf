@@ -20,6 +20,7 @@
                 <outlet property="line_videointro" destination="FPs-hC-IdD" id="MGn-hb-N3x"/>
                 <outlet property="reader_hourly" destination="SS9-VA-Ko1" id="LMM-ge-kh4"/>
                 <outlet property="reader_title" destination="SAY-go-fw4" id="YJd-Dj-kaH"/>
+                <outlet property="timeslotList" destination="ISM-a2-Uek" id="GDu-eI-QEN"/>
                 <outlet property="view" destination="o1W-e2-d2S" id="u1b-HY-jdm"/>
                 <outlet property="view_overview" destination="qma-OF-D60" id="c3o-97-hyN"/>
                 <outlet property="view_reader" destination="r8q-gI-ukk" id="pFa-Eu-CLA"/>
@@ -35,7 +36,7 @@
                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="GXU-A4-RLQ">
                     <rect key="frame" x="0.0" y="0.0" width="393" height="818"/>
                     <subviews>
-                        <stackView opaque="NO" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" axis="vertical" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="j1Q-0V-M7o">
+                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="j1Q-0V-M7o">
                             <rect key="frame" x="0.0" y="59" width="393" height="74"/>
                             <subviews>
                                 <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="mdD-Pn-f2O">
@@ -239,13 +240,25 @@
                                     </constraints>
                                 </stackView>
                                 <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gkz-xX-X19">
-                                    <rect key="frame" x="20" y="120" width="353" height="50"/>
+                                    <rect key="frame" x="20" y="120" width="353" height="80"/>
+                                    <subviews>
+                                        <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="ISM-a2-Uek">
+                                            <rect key="frame" x="0.0" y="0.0" width="353" height="80"/>
+                                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                            <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="20" minimumInteritemSpacing="10" id="gee-rn-HmL">
+                                                <size key="itemSize" width="128" height="128"/>
+                                                <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                                <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                                <inset key="sectionInset" minX="0.0" minY="3" maxX="0.0" maxY="3"/>
+                                            </collectionViewFlowLayout>
+                                        </collectionView>
+                                    </subviews>
                                     <constraints>
-                                        <constraint firstAttribute="height" constant="50" id="Ujc-6a-KNH" customClass="AdaptiveLayoutConstraint" customModule="PerfectSelf" customModuleProvider="target"/>
+                                        <constraint firstAttribute="height" constant="80" id="Ujc-6a-KNH" customClass="AdaptiveLayoutConstraint" customModule="PerfectSelf" customModuleProvider="target"/>
                                     </constraints>
                                 </stackView>
                                 <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NCM-ly-EdV">
-                                    <rect key="frame" x="20" y="180" width="353" height="3"/>
+                                    <rect key="frame" x="20" y="210" width="353" height="3"/>
                                     <subviews>
                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="filter_divide" translatesAutoresizingMaskIntoConstraints="NO" id="IUr-n8-Q7x">
                                             <rect key="frame" x="0.0" y="0.0" width="353" height="3"/>
@@ -256,7 +269,7 @@
                                     </constraints>
                                 </stackView>
                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="L5B-pM-fQO">
-                                    <rect key="frame" x="20" y="193" width="353" height="45"/>
+                                    <rect key="frame" x="20" y="223" width="353" height="45"/>
                                     <subviews>
                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="bPo-Ms-4Ix">
                                             <rect key="frame" x="0.0" y="0.0" width="353" height="44"/>
@@ -346,13 +359,13 @@
                                     </constraints>
                                 </stackView>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XCF-gD-PnE">
-                                    <rect key="frame" x="20" y="248" width="353" height="354"/>
+                                    <rect key="frame" x="20" y="278" width="353" height="324"/>
                                     <subviews>
                                         <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vXc-tv-xV3">
-                                            <rect key="frame" x="0.0" y="0.0" width="353" height="354"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="353" height="324"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="you have no review yet" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HFM-Bu-BuA">
-                                                    <rect key="frame" x="0.0" y="0.0" width="353" height="354"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="353" height="324"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.56862745100000001" green="0.58431372550000005" blue="0.60784313729999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -360,7 +373,7 @@
                                             </subviews>
                                         </stackView>
                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="n8x-MJ-eCR">
-                                            <rect key="frame" x="0.0" y="0.0" width="353" height="354"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="353" height="324"/>
                                             <subviews>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="videointro" translatesAutoresizingMaskIntoConstraints="NO" id="2oi-dG-bFb">
                                                     <rect key="frame" x="20" y="20" width="313" height="208.66666666666666"/>
@@ -369,10 +382,10 @@
                                                     </constraints>
                                                 </imageView>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="bottom" translatesAutoresizingMaskIntoConstraints="NO" id="ceg-ZK-JKT">
-                                                    <rect key="frame" x="20" y="238.66666666666666" width="313" height="95.333333333333343"/>
+                                                    <rect key="frame" x="20" y="238.66666666666666" width="313" height="65.333333333333343"/>
                                                     <subviews>
                                                         <stackView opaque="NO" contentMode="scaleToFill" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="4Dx-ex-Inc">
-                                                            <rect key="frame" x="191" y="0.0" width="122" height="95.333333333333329"/>
+                                                            <rect key="frame" x="191" y="0.0" width="122" height="65.333333333333329"/>
                                                             <subviews>
                                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Me1-Yz-9nf">
                                                                     <rect key="frame" x="0.0" y="0.0" width="122" height="29"/>
@@ -388,10 +401,10 @@
                                             <edgeInsets key="layoutMargins" top="20" left="20" bottom="20" right="20"/>
                                         </stackView>
                                         <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qma-OF-D60">
-                                            <rect key="frame" x="0.0" y="0.0" width="353" height="354"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="353" height="324"/>
                                             <subviews>
                                                 <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZEb-YA-54C">
-                                                    <rect key="frame" x="0.0" y="20" width="353" height="314"/>
+                                                    <rect key="frame" x="0.0" y="20" width="353" height="284"/>
                                                     <subviews>
                                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="llq-tb-PeZ">
                                                             <rect key="frame" x="0.0" y="0.0" width="353" height="612"/>

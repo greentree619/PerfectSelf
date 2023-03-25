@@ -14,7 +14,8 @@ class ReaderCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var availableDate: UILabel!
     @IBOutlet weak var score: UILabel!
     @IBOutlet weak var salary: UILabel!
-   
+    @IBOutlet weak var status: UIView!
+    
     override func awakeFromNib() {
         
         super.awakeFromNib()

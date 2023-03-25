@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ReaderProfileViewController: UIViewController {
+class ReaderProfileViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
 
     var isEditingMode = false
     
@@ -36,10 +36,18 @@ class ReaderProfileViewController: UIViewController {
     @IBOutlet weak var readerTitle: UILabel!
     @IBOutlet weak var readerAbout: UITextView!
     
+    @IBOutlet weak var timeslotList: UICollectionView!
+    var items = ["1", "2", "3", "3", "2", "4"]
+    let cellsPerRow = 1
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        let nib = UINib(nibName: "TimeSlotCollectionViewCell", bundle: nil)
+        timeslotList.register(nib, forCellWithReuseIdentifier: "Time Slot Collection View Cell")
+        timeslotList.dataSource = self
+        timeslotList.delegate = self
+        timeslotList.allowsSelection = true
         // Do any additional setup after loading the view.
         line_videointro.isHidden = true
         line_review.isHidden = true
@@ -50,8 +58,45 @@ class ReaderProfileViewController: UIViewController {
         btn_edit_about.isHidden = true;
         btn_edit_skills.isHidden = true;
         btn_edit_availability.isHidden = true;
+        
     }
-
+    // MARK: - Time Slot List Delegate.
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+         // myData is the array of items
+        return self.items.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+//        let flowLayout = collectionViewLayout as! UICollectionViewFlowLayout
+//        let totalSpace = flowLayout.sectionInset.top
+//        + flowLayout.sectionInset.bottom
+//        + (flowLayout.minimumLineSpacing * CGFloat(cellsPerRow - 1))
+//        let size = Int((collectionView.bounds.width - totalSpace) / CGFloat(cellsPerRow))
+        return CGSize(width: 80, height: 74)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        //
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Time Slot Collection View Cell", for: indexPath) as! TimeSlotCollectionViewCell
+        cell.lbl_num_slot.text = "\(self.items[indexPath.row]) slot";
+        // return card
+//        cell.layer.masksToBounds = false
+//        cell.layer.shadowOffset = CGSizeZero
+//        cell.layer.shadowRadius = 8
+//        cell.layer.shadowOpacity = 0.2
+        cell.contentView.layer.cornerRadius = 12
+        cell.contentView.layer.borderWidth = 1.0
+        cell.contentView.layer.borderColor = UIColor.gray.cgColor
+        cell.contentView.layer.masksToBounds = true
+        
+        return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        // add the code here to perform action on the cell
+        print("didDeselectItemAt")
+//        let cell = collectionView.cellForItem(at: indexPath) as? LibraryCollectionViewCell
+    }
     @IBAction func ShowOverview(_ sender: UIButton) {
         sender.tintColor = UIColor(rgb: 0x4063FF)
         btn_videointro.tintColor = .black
