@@ -21,7 +21,9 @@ class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSample
     
     @IBOutlet weak var localVideoView: UIView!
     
+    @IBOutlet weak var recordButton: UIButton!
     @IBOutlet weak var remoteCameraView: UIView!
+    
     private let signalClient: SignalingClient
     private let webRTCClient: WebRTCClient
     private var isRecording: Bool = false
@@ -34,15 +36,109 @@ class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSample
     private var _adpater: AVAssetWriterInputPixelBufferAdaptor?
     private var audioRecorder: AVAudioRecorder?
     
+    //MARK: WebRTC Conference Status
+    private var signalingConnected: Bool = false {
+        didSet {
+//REFME
+//            DispatchQueue.main.async {
+//                if self.signalingConnected {
+//                    self.signalingStatusLabel?.text = "Connected"
+//                    self.signalingStatusLabel?.textColor = UIColor.green
+//                }
+//                else {
+//                    self.signalingStatusLabel?.text = "Not connected"
+//                    self.signalingStatusLabel?.textColor = UIColor.red
+//                }
+//            }
+        }
+    }
+    
+    private var hasLocalSdp: Bool = false {
+        didSet {
+//REFME
+//            DispatchQueue.main.async {
+//                self.localSdpStatusLabel?.text = self.hasLocalSdp ? "✅" : "❌"
+//            }
+        }
+    }
+    
+    private var localCandidateCount: Int = 0 {
+        didSet {
+//REFME
+//            DispatchQueue.main.async {
+//                self.localCandidatesLabel?.text = "\(self.localCandidateCount)"
+//            }
+        }
+    }
+    
+    private var hasRemoteSdp: Bool = false {
+        didSet {
+//REFME
+//            DispatchQueue.main.async {
+//                self.remoteSdpStatusLabel?.text = self.hasRemoteSdp ? "✅" : "❌"
+//            }
+        }
+    }
+    
+    private var remoteCandidateCount: Int = 0 {
+        didSet {
+//REFME
+//            DispatchQueue.main.async {
+//                self.remoteCandidatesLabel?.text = "\(self.remoteCandidateCount)"
+//            }
+        }
+    }
+    
+    private var speakerOn: Bool = false {
+        didSet {
+//REFME
+//            let title = "Speaker: \(self.speakerOn ? "On" : "Off" )"
+//            self.speakerButton?.setTitle(title, for: .normal)
+        }
+    }
+    
+    private var mute: Bool = false {
+        didSet {
+//REFME
+//            let title = "Mute: \(self.mute ? "on" : "off")"
+//            self.muteButton?.setTitle(title, for: .normal)
+        }
+    }
+    
     private enum _CaptureState {
         case idle, start, capturing, end
     }
-    private var _captureState = _CaptureState.idle
+    
+    private var _captureState: _CaptureState = _CaptureState.idle {
+        didSet {
+            DispatchQueue.main.async {
+                if self._captureState == .idle
+                {
+                    self.recordButton.titleLabel?.text = "Start Recording"
+                }
+                else if self._captureState == .capturing
+                {
+                    self.recordButton.titleLabel?.text = "Stop Recording"
+                }
+            }
+        }
+    }
     
     init(signalClient: SignalingClient, webRTCClient: WebRTCClient) {
         self.signalClient = signalClient
         self.webRTCClient = webRTCClient
         super.init(nibName: String(describing: ConferenceViewController.self), bundle: Bundle.main)
+        
+        self.signalingConnected = false
+        self.hasLocalSdp = false
+        self.hasRemoteSdp = false
+        self.localCandidateCount = 0
+        self.remoteCandidateCount = 0
+        self.speakerOn = false
+        
+        self.webRTCClient.delegate = self
+        self.signalClient.delegate = self
+        self.signalClient.connect()
     }
     
     @available(*, unavailable)
@@ -64,6 +160,22 @@ class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSample
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.webRTCClient.speakerOn()
+        if( !self.hasLocalSdp && !self.hasRemoteSdp )
+        {
+            self.webRTCClient.offer { (sdp) in
+                self.hasLocalSdp = true
+                self.signalClient.send(sdp: sdp)
+            }
+        }
+        else if( !self.hasLocalSdp && self.hasRemoteSdp )
+        {
+            self.webRTCClient.answer { (localSdp) in
+                self.hasLocalSdp = true
+                self.signalClient.send(sdp: localSdp)
+            }
+        }
         
         let localRenderer = RTCMTLVideoView(frame: self.localVideoView?.frame ?? CGRect.zero)
         let remoteRenderer = RTCMTLVideoView(frame: self.remoteCameraView.frame)
@@ -119,7 +231,6 @@ class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSample
         
         self.webRTCClient.startCaptureLocalVideo(renderer: localRenderer)
         self.webRTCClient.renderRemoteVideo(to: remoteRenderer)
-        _captureState = .start
         
         if let localVideoView = self.localVideoView {
             self.embedView(localRenderer, into: localVideoView)
@@ -164,6 +275,13 @@ class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSample
         _captureState = .end
         audioRecorder?.stop()
     }
+    
+    @IBAction func recordingDidTap(_ sender: UIButton) {
+        if(_captureState == .idle){ _captureState = .start }
+        else if(_captureState == .capturing){_captureState = .end}
+        
+    }
+    
     
     func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
         let timestamp = CMSampleBufferGetPresentationTimeStamp(sampleBuffer).seconds
@@ -241,5 +359,71 @@ class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSample
     func audioRecorderEndInterruption(_ recorder: AVAudioRecorder, withOptions flags: Int)
     {
         os_log("audioRecorderEndInterruption")
+    }
+}
+
+//MARK: SignalClientDelegate
+extension ConferenceViewController: SignalClientDelegate {
+    func signalClientDidConnect(_ signalClient: SignalingClient) {
+        //REFME self.signalingConnected = true
+    }
+    
+    func signalClientDidDisconnect(_ signalClient: SignalingClient) {
+        //REFME self.signalingConnected = false
+    }
+    
+    func signalClient(_ signalClient: SignalingClient, didReceiveRemoteSdp sdp: RTCSessionDescription) {
+        print("Received remote sdp")
+        self.webRTCClient.set(remoteSdp: sdp) { (error) in
+            //REFME self.hasRemoteSdp = true
+        }
+    }
+    
+    func signalClient(_ signalClient: SignalingClient, didReceiveCandidate candidate: RTCIceCandidate) {
+        self.webRTCClient.set(remoteCandidate: candidate) { error in
+            print("Received remote candidate")
+            //REFME self.remoteCandidateCount += 1
+        }
+    }
+}
+
+//MARK: WebRTCClientDelegate
+extension ConferenceViewController: WebRTCClientDelegate {
+    
+    func webRTCClient(_ client: WebRTCClient, didDiscoverLocalCandidate candidate: RTCIceCandidate) {
+        print("discovered local candidate")
+        //REFME self.localCandidateCount += 1
+        self.signalClient.send(candidate: candidate)
+    }
+    
+    func webRTCClient(_ client: WebRTCClient, didChangeConnectionState state: RTCIceConnectionState) {
+//REFME
+//        let textColor: UIColor
+//        switch state {
+//        case .connected, .completed:
+//            textColor = .green
+//        case .disconnected:
+//            textColor = .orange
+//        case .failed, .closed:
+//            textColor = .red
+//        case .new, .checking, .count:
+//            textColor = .black
+//        @unknown default:
+//            textColor = .black
+//        }
+        DispatchQueue.main.async {
+            //REFME self.webRTCStatusLabel?.text = state.description.capitalized
+            //REFME self.webRTCStatusLabel?.textColor = textColor
+        }
+    }
+    
+    func webRTCClient(_ client: WebRTCClient, didReceiveData data: Data) {
+        DispatchQueue.main.async {
+//REFME
+//            let message = String(data: data, encoding: .utf8) ?? "(Binary: \(data.count) bytes)"
+//            let alert = UIAlertController(title: "Message from WebRTC", message: message, preferredStyle: .alert)
+//            alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+//            self.present(alert, animated: true, completion: nil)
+        }
     }
 }

@@ -12,6 +12,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ConferenceViewController" customModule="PerfectSelf" customModuleProvider="target">
             <connections>
                 <outlet property="localVideoView" destination="oVe-mG-07t" id="1nr-OD-BmB"/>
+                <outlet property="recordButton" destination="ojN-TJ-Aoy" id="qcq-EJ-Xh2"/>
                 <outlet property="remoteCameraView" destination="VYL-z9-Smz" id="hoL-7M-KD3"/>
                 <outlet property="view" destination="T4X-m9-Uf7" id="KyA-JP-28C"/>
             </connections>
@@ -160,10 +161,13 @@
                     <color key="tintColor" systemColor="tintColor"/>
                     <inset key="imageEdgeInsets" minX="30" minY="0.0" maxX="18" maxY="0.0"/>
                     <state key="normal" title="Button"/>
-                    <buttonConfiguration key="configuration" style="filled" image="view-script" title=" View Script">
+                    <buttonConfiguration key="configuration" style="filled" image="view-script" title="Start Recording">
                         <color key="baseForegroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <color key="baseBackgroundColor" red="0.12941176469999999" green="0.1450980392" blue="0.16078431369999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </buttonConfiguration>
+                    <connections>
+                        <action selector="recordingDidTap:" destination="-1" eventType="touchUpInside" id="G77-Uu-qSn"/>
+                    </connections>
                 </button>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7Aq-dX-F8Y">
                     <rect key="frame" x="277" y="180" width="96" height="27"/>
