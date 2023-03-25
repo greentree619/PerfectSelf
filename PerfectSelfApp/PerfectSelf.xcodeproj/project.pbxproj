@@ -117,7 +117,7 @@
 		BAD0B51629BA17130061FEF5 /* VideoCompositionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BAD0B4BD29BA17130061FEF5 /* VideoCompositionViewController.xib */; };
 		BAD0B51729BA17130061FEF5 /* AvaliableAudioInputsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BAD0B4BE29BA17130061FEF5 /* AvaliableAudioInputsViewController.xib */; };
 		BAD0B51829BA17130061FEF5 /* OverlayViewContoller.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAD0B4BF29BA17130061FEF5 /* OverlayViewContoller.swift */; };
-		BAD0B51929BA17130061FEF5 /* VideoRecordViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BAD0B4C029BA17130061FEF5 /* VideoRecordViewController.xib */; };
+		BAD0B51929BA17130061FEF5 /* OverlayViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BAD0B4C029BA17130061FEF5 /* OverlayViewController.xib */; };
 		BAD0B51A29BA17130061FEF5 /* AvailableAudioInputsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAD0B4C129BA17130061FEF5 /* AvailableAudioInputsViewController.swift */; };
 		BAD0B51B29BA17130061FEF5 /* VideoRecordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAD0B4C229BA17130061FEF5 /* VideoRecordViewController.swift */; };
 		BAD0B51C29BA17130061FEF5 /* VideoPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAD0B4C329BA17130061FEF5 /* VideoPicker.swift */; };
@@ -284,7 +284,7 @@
 		BAD0B4BD29BA17130061FEF5 /* VideoCompositionViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VideoCompositionViewController.xib; sourceTree = "<group>"; };
 		BAD0B4BE29BA17130061FEF5 /* AvaliableAudioInputsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AvaliableAudioInputsViewController.xib; sourceTree = "<group>"; };
 		BAD0B4BF29BA17130061FEF5 /* OverlayViewContoller.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OverlayViewContoller.swift; sourceTree = "<group>"; };
-		BAD0B4C029BA17130061FEF5 /* VideoRecordViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VideoRecordViewController.xib; sourceTree = "<group>"; };
+		BAD0B4C029BA17130061FEF5 /* OverlayViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OverlayViewController.xib; sourceTree = "<group>"; };
 		BAD0B4C129BA17130061FEF5 /* AvailableAudioInputsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AvailableAudioInputsViewController.swift; sourceTree = "<group>"; };
 		BAD0B4C229BA17130061FEF5 /* VideoRecordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoRecordViewController.swift; sourceTree = "<group>"; };
 		BAD0B4C329BA17130061FEF5 /* VideoPicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoPicker.swift; sourceTree = "<group>"; };
@@ -733,7 +733,7 @@
 				BAD0B4BD29BA17130061FEF5 /* VideoCompositionViewController.xib */,
 				BAD0B4BE29BA17130061FEF5 /* AvaliableAudioInputsViewController.xib */,
 				BAD0B4BF29BA17130061FEF5 /* OverlayViewContoller.swift */,
-				BAD0B4C029BA17130061FEF5 /* VideoRecordViewController.xib */,
+				BAD0B4C029BA17130061FEF5 /* OverlayViewController.xib */,
 				BAD0B4C129BA17130061FEF5 /* AvailableAudioInputsViewController.swift */,
 				BAD0B4C229BA17130061FEF5 /* VideoRecordViewController.swift */,
 				BAD0B4C329BA17130061FEF5 /* VideoPicker.swift */,
@@ -1015,7 +1015,7 @@
 				BA4714BB29A79856007AABC2 /* ABeeZee-Regular.ttf in Resources */,
 				BA4714BF29A79856007AABC2 /* ProximaNova-Semibold.otf in Resources */,
 				BA4714C029A79856007AABC2 /* ProximaNova-Bold.otf in Resources */,
-				BAD0B51929BA17130061FEF5 /* VideoRecordViewController.xib in Resources */,
+				BAD0B51929BA17130061FEF5 /* OverlayViewController.xib in Resources */,
 				47D4F80A29CBD8B600AFC4BA /* ReaderBookingViewController.xib in Resources */,
 				BA4714BA29A79856007AABC2 /* ABeeZee-Italic.ttf in Resources */,
 				BA4714C129A79856007AABC2 /* ProximaNova-Extrabold.otf in Resources */,

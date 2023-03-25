@@ -62,10 +62,10 @@ class ActorLibraryViewController: UIViewController, UICollectionViewDataSource, 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         // add the code here to perform action on the cell
         print("didDeselectItemAt" + String(indexPath.row))
-        let controller = ActorReaderDetailViewController()
-        controller.readerUid = self.items[indexPath.row]
-        self.navigationController?.pushViewController(controller, animated: true)
-//        let cell = collectionView.cellForItem(at: indexPath) as? LibraryCollectionViewCell
+        
+        let projectViewController = ProjectViewController()
+        projectViewController.modalPresentationStyle = .fullScreen
+        self.present(projectViewController, animated: false, completion: nil)
     }
     
 
