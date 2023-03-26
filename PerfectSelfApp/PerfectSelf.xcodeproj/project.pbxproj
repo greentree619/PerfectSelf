@@ -24,6 +24,8 @@
 		475269BC29CD0F930094C3E9 /* BookingCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 475269BA29CD0F930094C3E9 /* BookingCollectionViewCell.xib */; };
 		4772156129CE700C00319CBC /* VideoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4772155F29CE700C00319CBC /* VideoCollectionViewCell.swift */; };
 		4772156229CE700C00319CBC /* VideoCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4772156029CE700C00319CBC /* VideoCollectionViewCell.xib */; };
+		47843E4329CFEB2F008704CD /* ChatCardCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47843E4129CFEB2F008704CD /* ChatCardCollectionViewCell.swift */; };
+		47843E4429CFEB2F008704CD /* ChatCardCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 47843E4229CFEB2F008704CD /* ChatCardCollectionViewCell.xib */; };
 		47BC09BA29C5B42700B8F2C5 /* ActorBuildProfile1ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47BC09B829C5B42700B8F2C5 /* ActorBuildProfile1ViewController.swift */; };
 		47BC09BB29C5B42700B8F2C5 /* ActorBuildProfile1ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 47BC09B929C5B42700B8F2C5 /* ActorBuildProfile1ViewController.xib */; };
 		47BC09BE29C5B44700B8F2C5 /* ActorBuildProfile2ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47BC09BC29C5B44700B8F2C5 /* ActorBuildProfile2ViewController.swift */; };
@@ -36,14 +38,10 @@
 		47CEBDDF29C7C272006CE9DA /* ActorProfileEditViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 47CEBDDD29C7C272006CE9DA /* ActorProfileEditViewController.xib */; };
 		47CEBDE229C7C293006CE9DA /* ActorProfileChangePasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47CEBDE029C7C293006CE9DA /* ActorProfileChangePasswordViewController.swift */; };
 		47CEBDE329C7C293006CE9DA /* ActorProfileChangePasswordViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 47CEBDE129C7C293006CE9DA /* ActorProfileChangePasswordViewController.xib */; };
-		47D4F80029CBD5D000AFC4BA /* ReaderMessageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47D4F7FE29CBD5D000AFC4BA /* ReaderMessageViewController.swift */; };
-		47D4F80129CBD5D000AFC4BA /* ReaderMessageViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 47D4F7FF29CBD5D000AFC4BA /* ReaderMessageViewController.xib */; };
-		47D4F80429CBD60C00AFC4BA /* ReaderChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47D4F80229CBD60C00AFC4BA /* ReaderChatViewController.swift */; };
-		47D4F80529CBD60C00AFC4BA /* ReaderChatViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 47D4F80329CBD60C00AFC4BA /* ReaderChatViewController.xib */; };
 		47D4F80929CBD8B600AFC4BA /* ReaderBookingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47D4F80729CBD8B600AFC4BA /* ReaderBookingViewController.swift */; };
 		47D4F80A29CBD8B600AFC4BA /* ReaderBookingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 47D4F80829CBD8B600AFC4BA /* ReaderBookingViewController.xib */; };
-		47DC851429C3815500D86E5A /* ActorMessageCenterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47DC851229C3815500D86E5A /* ActorMessageCenterViewController.swift */; };
-		47DC851529C3815500D86E5A /* ActorMessageCenterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 47DC851329C3815500D86E5A /* ActorMessageCenterViewController.xib */; };
+		47DC851429C3815500D86E5A /* MessageCenterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47DC851229C3815500D86E5A /* MessageCenterViewController.swift */; };
+		47DC851529C3815500D86E5A /* MessageCenterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 47DC851329C3815500D86E5A /* MessageCenterViewController.xib */; };
 		47E0B9F629C141C400C82255 /* ReaderTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47E0B9F529C141C400C82255 /* ReaderTabBarController.swift */; };
 		79177C9720B0DE7A00BCD399 /* WebRTCClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79177C9620B0DE7A00BCD399 /* WebRTCClient.swift */; };
 		79177C9920B0DF2700BCD399 /* SignalingClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79177C9820B0DF2700BCD399 /* SignalingClient.swift */; };
@@ -147,8 +145,8 @@
 		BAD0B53929BA17130061FEF5 /* LibraryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BAD0B4ED29BA17130061FEF5 /* LibraryCell.xib */; };
 		BAD0B53A29BA17130061FEF5 /* ActorFindReaderViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BAD0B4EF29BA17130061FEF5 /* ActorFindReaderViewController.xib */; };
 		BAD0B53B29BA17130061FEF5 /* ActorFindReaderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAD0B4F029BA17130061FEF5 /* ActorFindReaderViewController.swift */; };
-		BAD0B53C29BA17130061FEF5 /* ActorChatViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BAD0B4F229BA17130061FEF5 /* ActorChatViewController.xib */; };
-		BAD0B53D29BA17130061FEF5 /* ActorChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAD0B4F329BA17130061FEF5 /* ActorChatViewController.swift */; };
+		BAD0B53C29BA17130061FEF5 /* ChatViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BAD0B4F229BA17130061FEF5 /* ChatViewController.xib */; };
+		BAD0B53D29BA17130061FEF5 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAD0B4F329BA17130061FEF5 /* ChatViewController.swift */; };
 		BAD0B53E29BA17130061FEF5 /* ReaderHomeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BAD0B4F529BA17130061FEF5 /* ReaderHomeViewController.xib */; };
 		BAD0B53F29BA17130061FEF5 /* ReaderHomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAD0B4F629BA17130061FEF5 /* ReaderHomeViewController.swift */; };
 		BAD0B54029BA17130061FEF5 /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BAD0B4F829BA17130061FEF5 /* LoginViewController.xib */; };
@@ -177,6 +175,8 @@
 		475269BA29CD0F930094C3E9 /* BookingCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BookingCollectionViewCell.xib; sourceTree = "<group>"; };
 		4772155F29CE700C00319CBC /* VideoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoCollectionViewCell.swift; sourceTree = "<group>"; };
 		4772156029CE700C00319CBC /* VideoCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = VideoCollectionViewCell.xib; sourceTree = "<group>"; };
+		47843E4129CFEB2F008704CD /* ChatCardCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatCardCollectionViewCell.swift; sourceTree = "<group>"; };
+		47843E4229CFEB2F008704CD /* ChatCardCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChatCardCollectionViewCell.xib; sourceTree = "<group>"; };
 		47BC09B829C5B42700B8F2C5 /* ActorBuildProfile1ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActorBuildProfile1ViewController.swift; sourceTree = "<group>"; };
 		47BC09B929C5B42700B8F2C5 /* ActorBuildProfile1ViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ActorBuildProfile1ViewController.xib; sourceTree = "<group>"; };
 		47BC09BC29C5B44700B8F2C5 /* ActorBuildProfile2ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActorBuildProfile2ViewController.swift; sourceTree = "<group>"; };
@@ -189,14 +189,10 @@
 		47CEBDDD29C7C272006CE9DA /* ActorProfileEditViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ActorProfileEditViewController.xib; sourceTree = "<group>"; };
 		47CEBDE029C7C293006CE9DA /* ActorProfileChangePasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActorProfileChangePasswordViewController.swift; sourceTree = "<group>"; };
 		47CEBDE129C7C293006CE9DA /* ActorProfileChangePasswordViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ActorProfileChangePasswordViewController.xib; sourceTree = "<group>"; };
-		47D4F7FE29CBD5D000AFC4BA /* ReaderMessageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReaderMessageViewController.swift; sourceTree = "<group>"; };
-		47D4F7FF29CBD5D000AFC4BA /* ReaderMessageViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ReaderMessageViewController.xib; sourceTree = "<group>"; };
-		47D4F80229CBD60C00AFC4BA /* ReaderChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReaderChatViewController.swift; sourceTree = "<group>"; };
-		47D4F80329CBD60C00AFC4BA /* ReaderChatViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ReaderChatViewController.xib; sourceTree = "<group>"; };
 		47D4F80729CBD8B600AFC4BA /* ReaderBookingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReaderBookingViewController.swift; sourceTree = "<group>"; };
 		47D4F80829CBD8B600AFC4BA /* ReaderBookingViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ReaderBookingViewController.xib; sourceTree = "<group>"; };
-		47DC851229C3815500D86E5A /* ActorMessageCenterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActorMessageCenterViewController.swift; sourceTree = "<group>"; };
-		47DC851329C3815500D86E5A /* ActorMessageCenterViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ActorMessageCenterViewController.xib; sourceTree = "<group>"; };
+		47DC851229C3815500D86E5A /* MessageCenterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageCenterViewController.swift; sourceTree = "<group>"; };
+		47DC851329C3815500D86E5A /* MessageCenterViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MessageCenterViewController.xib; sourceTree = "<group>"; };
 		47E0B9F529C141C400C82255 /* ReaderTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReaderTabBarController.swift; sourceTree = "<group>"; };
 		79177C9620B0DE7A00BCD399 /* WebRTCClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebRTCClient.swift; sourceTree = "<group>"; };
 		79177C9820B0DF2700BCD399 /* SignalingClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignalingClient.swift; sourceTree = "<group>"; };
@@ -314,8 +310,8 @@
 		BAD0B4ED29BA17130061FEF5 /* LibraryCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LibraryCell.xib; sourceTree = "<group>"; };
 		BAD0B4EF29BA17130061FEF5 /* ActorFindReaderViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ActorFindReaderViewController.xib; sourceTree = "<group>"; };
 		BAD0B4F029BA17130061FEF5 /* ActorFindReaderViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActorFindReaderViewController.swift; sourceTree = "<group>"; };
-		BAD0B4F229BA17130061FEF5 /* ActorChatViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ActorChatViewController.xib; sourceTree = "<group>"; };
-		BAD0B4F329BA17130061FEF5 /* ActorChatViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActorChatViewController.swift; sourceTree = "<group>"; };
+		BAD0B4F229BA17130061FEF5 /* ChatViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChatViewController.xib; sourceTree = "<group>"; };
+		BAD0B4F329BA17130061FEF5 /* ChatViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
 		BAD0B4F529BA17130061FEF5 /* ReaderHomeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ReaderHomeViewController.xib; sourceTree = "<group>"; };
 		BAD0B4F629BA17130061FEF5 /* ReaderHomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReaderHomeViewController.swift; sourceTree = "<group>"; };
 		BAD0B4F829BA17130061FEF5 /* LoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoginViewController.xib; sourceTree = "<group>"; };
@@ -388,17 +384,6 @@
 			path = ActorProfileScreen;
 			sourceTree = "<group>";
 		};
-		47D4F7FD29CBD5A600AFC4BA /* ReaderMessageScreen */ = {
-			isa = PBXGroup;
-			children = (
-				47D4F7FE29CBD5D000AFC4BA /* ReaderMessageViewController.swift */,
-				47D4F7FF29CBD5D000AFC4BA /* ReaderMessageViewController.xib */,
-				47D4F80229CBD60C00AFC4BA /* ReaderChatViewController.swift */,
-				47D4F80329CBD60C00AFC4BA /* ReaderChatViewController.xib */,
-			);
-			path = ReaderMessageScreen;
-			sourceTree = "<group>";
-		};
 		47D4F80629CBD89800AFC4BA /* ReaderBookingScreen */ = {
 			isa = PBXGroup;
 			children = (
@@ -408,13 +393,17 @@
 			path = ReaderBookingScreen;
 			sourceTree = "<group>";
 		};
-		47DC851129C3813000D86E5A /* ActorMessageCenterScreen */ = {
+		47DC851129C3813000D86E5A /* MessageCenterScreen */ = {
 			isa = PBXGroup;
 			children = (
-				47DC851229C3815500D86E5A /* ActorMessageCenterViewController.swift */,
-				47DC851329C3815500D86E5A /* ActorMessageCenterViewController.xib */,
+				47DC851229C3815500D86E5A /* MessageCenterViewController.swift */,
+				47DC851329C3815500D86E5A /* MessageCenterViewController.xib */,
+				BAD0B4F329BA17130061FEF5 /* ChatViewController.swift */,
+				BAD0B4F229BA17130061FEF5 /* ChatViewController.xib */,
+				47843E4129CFEB2F008704CD /* ChatCardCollectionViewCell.swift */,
+				47843E4229CFEB2F008704CD /* ChatCardCollectionViewCell.xib */,
 			);
-			path = ActorMessageCenterScreen;
+			path = MessageCenterScreen;
 			sourceTree = "<group>";
 		};
 		47E0B9F429C1419900C82255 /* ReaderTabBarController */ = {
@@ -621,10 +610,9 @@
 			isa = PBXGroup;
 			children = (
 				47D4F80629CBD89800AFC4BA /* ReaderBookingScreen */,
-				47D4F7FD29CBD5A600AFC4BA /* ReaderMessageScreen */,
 				47CEBDD729C7C21F006CE9DA /* ActorProfileScreen */,
 				47BC09B729C5B3E300B8F2C5 /* ActorBuildProfileScreen */,
-				47DC851129C3813000D86E5A /* ActorMessageCenterScreen */,
+				47DC851129C3813000D86E5A /* MessageCenterScreen */,
 				47007BE229C2AF2B00F83CFD /* ActorSetPaymentScreen */,
 				47E0B9F429C1419900C82255 /* ReaderTabBarController */,
 				BABBD2E229BF9DC3000A7120 /* ActorTabBarController */,
@@ -647,7 +635,6 @@
 				BAD0B4E629BA17130061FEF5 /* SignupDetailScreen */,
 				BAD0B4E929BA17130061FEF5 /* LibraryScreen */,
 				BAD0B4EE29BA17130061FEF5 /* ActorFindReaderScreen */,
-				BAD0B4F129BA17130061FEF5 /* ActorChatScreen */,
 				BAD0B4F429BA17130061FEF5 /* ReaderHomeScreen */,
 				BAD0B4F729BA17130061FEF5 /* LoginScreen */,
 				BAD0B4FD29BA17130061FEF5 /* ActorBookingScreen */,
@@ -850,15 +837,6 @@
 			path = ActorFindReaderScreen;
 			sourceTree = "<group>";
 		};
-		BAD0B4F129BA17130061FEF5 /* ActorChatScreen */ = {
-			isa = PBXGroup;
-			children = (
-				BAD0B4F229BA17130061FEF5 /* ActorChatViewController.xib */,
-				BAD0B4F329BA17130061FEF5 /* ActorChatViewController.swift */,
-			);
-			path = ActorChatScreen;
-			sourceTree = "<group>";
-		};
 		BAD0B4F429BA17130061FEF5 /* ReaderHomeScreen */ = {
 			isa = PBXGroup;
 			children = (
@@ -966,7 +944,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				47DC851529C3815500D86E5A /* ActorMessageCenterViewController.xib in Resources */,
+				47DC851529C3815500D86E5A /* MessageCenterViewController.xib in Resources */,
 				BAD0B50429BA17130061FEF5 /* VideoViewController.xib in Resources */,
 				47BC09BB29C5B42700B8F2C5 /* ActorBuildProfile1ViewController.xib in Resources */,
 				BAD0B53329BA17130061FEF5 /* ReaderProfileEditAboutViewController.xib in Resources */,
@@ -997,9 +975,8 @@
 				BA4714BE29A79856007AABC2 /* GTWalsheimPro-Bold.ttf in Resources */,
 				BA4714C329A79856007AABC2 /* SFProText-Regular.otf in Resources */,
 				BAD0B52F29BA17130061FEF5 /* ReaderProfileViewController.xib in Resources */,
-				47D4F80529CBD60C00AFC4BA /* ReaderChatViewController.xib in Resources */,
 				BAD0B52529BA17130061FEF5 /* EditReadViewController.xib in Resources */,
-				BAD0B53C29BA17130061FEF5 /* ActorChatViewController.xib in Resources */,
+				BAD0B53C29BA17130061FEF5 /* ChatViewController.xib in Resources */,
 				BAD0B52D29BA17130061FEF5 /* ActorLibraryViewController.xib in Resources */,
 				47CEBDE329C7C293006CE9DA /* ActorProfileChangePasswordViewController.xib in Resources */,
 				BAD0B50B29BA17130061FEF5 /* MeetingListViewController.xib in Resources */,
@@ -1010,7 +987,6 @@
 				BAD0B53E29BA17130061FEF5 /* ReaderHomeViewController.xib in Resources */,
 				BA4714C529A79856007AABC2 /* SFProText-Semibold.otf in Resources */,
 				BAD0B53629BA17130061FEF5 /* LibraryViewController.xib in Resources */,
-				47D4F80129CBD5D000AFC4BA /* ReaderMessageViewController.xib in Resources */,
 				47CEBDDB29C7C24C006CE9DA /* ActorProfileViewController.xib in Resources */,
 				BA4714BB29A79856007AABC2 /* ABeeZee-Regular.ttf in Resources */,
 				BA4714BF29A79856007AABC2 /* ProximaNova-Semibold.otf in Resources */,
@@ -1026,6 +1002,7 @@
 				BAD0B54529BA17130061FEF5 /* ActorBookingViewController.xib in Resources */,
 				4715510229CDBF00007CE524 /* TimeSlotCollectionViewCell.xib in Resources */,
 				BAD0B50129BA17130061FEF5 /* ActorBookConfirmationViewController.xib in Resources */,
+				47843E4429CFEB2F008704CD /* ChatCardCollectionViewCell.xib in Resources */,
 				BAD0B50329BA17130061FEF5 /* LoginDetailViewController.xib in Resources */,
 				BAD0B54029BA17130061FEF5 /* LoginViewController.xib in Resources */,
 				BAD0B51429BA17130061FEF5 /* ReaderProfileEditSkillViewController.xib in Resources */,
@@ -1098,8 +1075,7 @@
 				475269BB29CD0F930094C3E9 /* BookingCollectionViewCell.swift in Sources */,
 				BAD0B53F29BA17130061FEF5 /* ReaderHomeViewController.swift in Sources */,
 				BAB32E4329B064640000F082 /* Global.swift in Sources */,
-				47DC851429C3815500D86E5A /* ActorMessageCenterViewController.swift in Sources */,
-				47D4F80429CBD60C00AFC4BA /* ReaderChatViewController.swift in Sources */,
+				47DC851429C3815500D86E5A /* MessageCenterViewController.swift in Sources */,
 				BAD0B52329BA17130061FEF5 /* HomeViewController.swift in Sources */,
 				BA0E353A29BF8C2800ED838A /* StackViewExtension.swift in Sources */,
 				BAD0B52429BA17130061FEF5 /* EditReadViewController.swift in Sources */,
@@ -1112,7 +1088,6 @@
 				47D4F80929CBD8B600AFC4BA /* ReaderBookingViewController.swift in Sources */,
 				47CEBDE229C7C293006CE9DA /* ActorProfileChangePasswordViewController.swift in Sources */,
 				BA7034EF29AEF2A000BFB431 /* UIStoryBoard+Extensions.swift in Sources */,
-				47D4F80029CBD5D000AFC4BA /* ReaderMessageViewController.swift in Sources */,
 				47BC09BA29C5B42700B8F2C5 /* ActorBuildProfile1ViewController.swift in Sources */,
 				BAD0B50729BA17130061FEF5 /* MainViewController.swift in Sources */,
 				BAD0B52729BA17130061FEF5 /* ActorBookUploadScriptViewController.swift in Sources */,
@@ -1122,7 +1097,7 @@
 				BAD0B52E29BA17130061FEF5 /* ReaderProfileViewController.swift in Sources */,
 				79177CA620B1F76E00BCD399 /* RTCStates.swift in Sources */,
 				BAD0B51B29BA17130061FEF5 /* VideoRecordViewController.swift in Sources */,
-				BAD0B53D29BA17130061FEF5 /* ActorChatViewController.swift in Sources */,
+				BAD0B53D29BA17130061FEF5 /* ChatViewController.swift in Sources */,
 				BAD0B53B29BA17130061FEF5 /* ActorFindReaderViewController.swift in Sources */,
 				79177C9920B0DF2700BCD399 /* SignalingClient.swift in Sources */,
 				BAD0B54429BA17130061FEF5 /* ActorBookingViewController.swift in Sources */,
@@ -1153,6 +1128,7 @@
 				BAC11B8229A8B37100580143 /* IDCaptureSessionAssetWriterCoordinator.m in Sources */,
 				47BC09BE29C5B44700B8F2C5 /* ActorBuildProfile2ViewController.swift in Sources */,
 				BAD0B50929BA17130061FEF5 /* ConferenceViewController.swift in Sources */,
+				47843E4329CFEB2F008704CD /* ChatCardCollectionViewCell.swift in Sources */,
 				2F7EBC3622DCC6430015B46E /* WebSocketProvider.swift in Sources */,
 				BAD0B54129BA17130061FEF5 /* LoginViewController.swift in Sources */,
 				BAD5C85129AEE09F00A2F109 /* VideoHelper.swift in Sources */,
