@@ -80,7 +80,7 @@ class ActorHomeViewController: UIViewController, UICollectionViewDataSource, UIC
     }
     
     // MARK: - Reader List Delegate.
-    func collectionView(_ collectionView: UICollectionView,        numberOfItemsInSection section: Int) -> Int {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
          // myData is the array of items
         return self.items.count
     }
