@@ -66,7 +66,7 @@
                 <constraint firstItem="DWs-xC-5cd" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="clO-fr-6gp"/>
             </constraints>
             <connections>
-                <outlet property="lbl_date_manth" destination="fH9-RQ-YHD" id="dtq-7D-jni"/>
+                <outlet property="lbl_date_month" destination="fH9-RQ-YHD" id="D52-iZ-vnB"/>
                 <outlet property="lbl_num_slot" destination="Obx-pH-Tkd" id="eRc-pg-yXL"/>
                 <outlet property="lbl_weekday" destination="e9W-89-eoz" id="v2S-f3-rWX"/>
             </connections>

@@ -35,9 +35,11 @@ class ReaderProfileViewController: UIViewController, UICollectionViewDataSource,
     
     @IBOutlet weak var readerTitle: UILabel!
     @IBOutlet weak var readerAbout: UITextView!
-    
+    @IBOutlet weak var readerSkills: UILabel!
+    @IBOutlet weak var hourlyPrice: UILabel!
     @IBOutlet weak var timeslotList: UICollectionView!
-    var items = ["1", "2", "3", "3", "2", "4"]
+    var items = [Availability]()
+//    ["1", "2", "3", "3", "2", "4"]
     let cellsPerRow = 1
     
     override func viewDidLoad() {
@@ -60,6 +62,70 @@ class ReaderProfileViewController: UIViewController, UICollectionViewDataSource,
         btn_edit_availability.isHidden = true;
         
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true);
+        
+        // call API for reader profile
+        let uid = UserDefaults.standard.string(forKey: "USER_ID")!
+        showIndicator(sender: nil, viewController: self)
+        
+        // FIXME
+        webAPI.getReaderById(id: "1") { data, response, error in
+//        webAPI.getReaderById(id:uid) { data, response, error in
+            guard let data = data, error == nil else {
+                print(error?.localizedDescription ?? "No data")
+                return
+            }
+            do {
+                let item = try JSONDecoder().decode(ReaderProfileDetail.self, from: data)
+                print(item)
+                DispatchQueue.main.async {
+                    self.readerTitle.text = item.title
+                    self.readerAbout.text = item.about
+                    self.hourlyPrice.text = "$\((item.hourlyPrice ?? 0)/4) / 15 mins"
+                    self.readerSkills.text = item.skills
+                    
+                    //call API for available time slots
+                    
+                    webAPI.getAvailabilityById(id: uid) {data1, response1, error1 in
+                        DispatchQueue.main.async {
+                            hideIndicator(sender: nil);
+                        }
+                        guard let data1 = data1, error1 == nil else {
+                            print(error1?.localizedDescription ?? "No data")
+                            return
+                        }
+                        do {
+                            let respItems = try JSONDecoder().decode([Availability].self, from: data1)
+                            print(respItems)
+                            DispatchQueue.main.async {
+                                //update availability time slots
+                                self.items.removeAll()
+                                self.items.append(contentsOf: respItems)
+            //                    for (i, reader) in items.enumerated() {
+            //                    }
+                                self.timeslotList.reloadData()
+                            }
+                        }
+                        catch {
+                            DispatchQueue.main.async {
+                                Toast.show(message: "Something went wrong. try again later", controller: self)
+                            }
+                            print("there")
+                        }
+                    }
+                }
+            }
+            catch {
+                DispatchQueue.main.async {
+                    Toast.show(message: "Something went wrong. try again later", controller: self)
+                }
+                print("here")
+            }
+        }
+        
+    }
     // MARK: - Time Slot List Delegate.
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
          // myData is the array of items
@@ -78,7 +144,20 @@ class ReaderProfileViewController: UIViewController, UICollectionViewDataSource,
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         //
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Time Slot Collection View Cell", for: indexPath) as! TimeSlotCollectionViewCell
+
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
+        let date = dateFormatter.date(from: self.items[indexPath.row].date)!
+    
+        dateFormatter.dateFormat = "EEE"
+        let weekDay = dateFormatter.string(from: date)
+        
+        dateFormatter.dateFormat = "dd MM"
+        let dayMonth = dateFormatter.string(from: date)
+        
         cell.lbl_num_slot.text = "\(self.items[indexPath.row]) slot";
+        cell.lbl_weekday.text = weekDay
+        cell.lbl_date_month.text = dayMonth
         // return card
 //        cell.layer.masksToBounds = false
 //        cell.layer.shadowOffset = CGSizeZero
@@ -175,32 +254,32 @@ class ReaderProfileViewController: UIViewController, UICollectionViewDataSource,
             btn_edit_availability.isHidden = true;
             
             // Call API for create/update reader's profile
-            
-            showIndicator(sender: sender, viewController: self)
-            let uid = UserDefaults.standard.string(forKey: "USER_ID")
-            
-            webAPI.createReaderProfile(readeruid: uid!, title: readerTitle.text != nil ? readerTitle.text! : "", about: readerAbout.text != nil ? readerAbout.text! : "", hourlyprice: "120", skills: "") { data, response, error in
-                guard let data = data, error == nil else {
-                    print(error?.localizedDescription ?? "No data")
-                    return
-                }
-                let responseJSON = try? JSONSerialization.jsonObject(with: data, options: [])
-
-                if let _ = responseJSON as? [String: Any] {
-                    
-                    DispatchQueue.main.async {
-                        hideIndicator(sender: sender)
-                        Toast.show(message: "Profile updated successfully!", controller: self)
-                    }
-                }
-                else
-                {
-                    DispatchQueue.main.async {
-                        hideIndicator(sender: sender)
-                        Toast.show(message: "Profile update failed! please try again.", controller: self)
-                    }
-                }
-            }
+//
+//            showIndicator(sender: sender, viewController: self)
+//            let uid = UserDefaults.standard.string(forKey: "USER_ID")
+//
+//            webAPI.createReaderProfile(readeruid: uid!, title: readerTitle.text != nil ? readerTitle.text! : "", about: readerAbout.text != nil ? readerAbout.text! : "", hourlyprice: "120", skills: "") { data, response, error in
+//                guard let data = data, error == nil else {
+//                    print(error?.localizedDescription ?? "No data")
+//                    return
+//                }
+//                let responseJSON = try? JSONSerialization.jsonObject(with: data, options: [])
+//
+//                if let _ = responseJSON as? [String: Any] {
+//
+//                    DispatchQueue.main.async {
+//                        hideIndicator(sender: sender)
+//                        Toast.show(message: "Profile updated successfully!", controller: self)
+//                    }
+//                }
+//                else
+//                {
+//                    DispatchQueue.main.async {
+//                        hideIndicator(sender: sender)
+//                        Toast.show(message: "Profile update failed! please try again.", controller: self)
+//                    }
+//                }
+//            }
             
         }
         else {

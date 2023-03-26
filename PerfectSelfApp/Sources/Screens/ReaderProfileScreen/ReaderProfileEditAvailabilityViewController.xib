@@ -29,14 +29,14 @@
                 <stackView opaque="NO" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="hz9-rm-mfY">
                     <rect key="frame" x="0.0" y="59" width="393" height="759"/>
                     <subviews>
-                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="vzJ-jp-K1f">
+                        <stackView opaque="NO" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" axis="vertical" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="vzJ-jp-K1f">
                             <rect key="frame" x="0.0" y="0.0" width="393" height="80"/>
                             <subviews>
                                 <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="j5l-l2-gZ8">
                                     <rect key="frame" x="20" y="0.0" width="179" height="80"/>
                                     <subviews>
                                         <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" horizontalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LKp-wO-dVI">
-                                            <rect key="frame" x="0.0" y="23" width="35" height="34"/>
+                                            <rect key="frame" x="0.0" y="31" width="35" height="18"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="34" id="Tfw-68-yif" customClass="AdaptiveLayoutConstraint" customModule="PerfectSelf" customModuleProvider="target"/>
                                                 <constraint firstAttribute="width" constant="35" id="xdY-r5-ZUO" customClass="AdaptiveLayoutConstraint" customModule="PerfectSelf" customModuleProvider="target"/>

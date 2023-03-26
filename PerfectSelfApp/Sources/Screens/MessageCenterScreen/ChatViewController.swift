@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ActorChatViewController: UIViewController {
+class ChatViewController: UIViewController {
 
     @IBOutlet weak var modal_confirm_call: UIStackView!
     @IBOutlet weak var noMessage: UIStackView!

@@ -351,7 +351,7 @@ class ActorHomeViewController: UIViewController, UICollectionViewDataSource, UIC
     }
     
     @IBAction func GoMessageCenter(_ sender: UIButton) {
-        let controller = ActorMessageCenterViewController()
+        let controller = MessageCenterViewController()
         self.navigationController?.pushViewController(controller, animated: true)
     }
     /*

@@ -11,7 +11,7 @@ import UIKit
 class TimeSlotCollectionViewCell: UICollectionViewCell {
 
     @IBOutlet weak var lbl_num_slot: UILabel!
-    @IBOutlet weak var lbl_date_manth: UILabel!
+    @IBOutlet weak var lbl_date_month: UILabel!
     @IBOutlet weak var lbl_weekday: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()

@@ -70,6 +70,16 @@ struct VideoCard: Codable {
     let updatedTime: String
     let deletedTime: String
 }
+struct Availability: Codable {
+    let id: Int
+    let readerUid: String
+    let date: String
+    let fromTime: String
+    let toTime: String
+    let createdTime: String
+    let updatedTime: String
+    let deletedTime: String
+}
 
 //        showAlert(viewController: self, title: "Confirm", message: "Please input") { UIAlertAction in
 //            print("Ok button tapped")
