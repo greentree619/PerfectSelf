@@ -98,6 +98,7 @@ class ActorHomeViewController: UIViewController, UICollectionViewDataSource, UIC
         //
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Reader Collection View Cell", for: indexPath) as! ReaderCollectionViewCell
         cell.readerName.text = self.items[indexPath.row].userName;
+        cell.salary.text = "$" + String((self.items[indexPath.row].hourlyPrice ?? 0)/4)
         // return card
         cell.layer.masksToBounds = false
         cell.layer.shadowOffset = CGSizeZero
