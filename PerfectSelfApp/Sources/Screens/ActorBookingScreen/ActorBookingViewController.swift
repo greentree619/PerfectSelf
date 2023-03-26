@@ -36,7 +36,7 @@ class ActorBookingViewController: UIViewController, UICollectionViewDataSource, 
         // Do any additional setup after loading the view.
         line_pending.isHidden = true
         line_past.isHidden = true
-        
+         
         //call API to fetch booking list
         showIndicator(sender: nil, viewController: self)
         webAPI.getAllBookings() { data, response, error in

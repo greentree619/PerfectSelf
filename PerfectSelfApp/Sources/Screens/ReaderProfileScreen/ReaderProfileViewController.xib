@@ -20,10 +20,12 @@
                 <outlet property="btn_overview" destination="WRm-qL-ROr" id="NyX-53-lkM"/>
                 <outlet property="btn_review" destination="Man-FI-Kt9" id="bc5-ia-IV6"/>
                 <outlet property="btn_videointro" destination="sWm-O9-Not" id="nMS-ud-aVO"/>
+                <outlet property="hourlyPrice" destination="FDv-W4-fTn" id="ySG-Mn-dLt"/>
                 <outlet property="line_overview" destination="xyK-Hw-HdO" id="Kr8-5K-lOE"/>
                 <outlet property="line_review" destination="u1p-8g-GAe" id="kBm-B1-L7R"/>
                 <outlet property="line_videointro" destination="tdU-GU-Lx4" id="YTa-g1-uUV"/>
                 <outlet property="readerAbout" destination="eod-TK-5yy" id="RAA-n7-uBF"/>
+                <outlet property="readerSkills" destination="1Xi-Uk-42C" id="hGe-Ay-EhY"/>
                 <outlet property="readerTitle" destination="Xwa-R0-mVR" id="0zu-sV-dfv"/>
                 <outlet property="timeslotList" destination="rBQ-tT-sx0" id="LRE-rl-GhJ"/>
                 <outlet property="view" destination="cwf-CB-7ba" id="Uaz-3i-r2y"/>
@@ -644,6 +646,14 @@
                                                                         </stackView>
                                                                         <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="YKl-dT-0Iz">
                                                                             <rect key="frame" x="0.0" y="43" width="353" height="115"/>
+                                                                            <subviews>
+                                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1Xi-Uk-42C">
+                                                                                    <rect key="frame" x="0.0" y="0.0" width="353" height="115"/>
+                                                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                                                    <nil key="textColor"/>
+                                                                                    <nil key="highlightedColor"/>
+                                                                                </label>
+                                                                            </subviews>
                                                                         </stackView>
                                                                     </subviews>
                                                                     <constraints>
