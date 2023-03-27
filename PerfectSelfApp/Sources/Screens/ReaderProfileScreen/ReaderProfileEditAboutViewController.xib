@@ -12,6 +12,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ReaderProfileEditAboutViewController" customModule="PerfectSelf" customModuleProvider="target">
             <connections>
+                <outlet property="text_about" destination="2QE-kk-wnd" id="wzC-RS-gRg"/>
                 <outlet property="view" destination="F7B-mW-hZc" id="DSz-Gi-ju2"/>
             </connections>
         </placeholder>
@@ -23,14 +24,14 @@
                 <stackView opaque="NO" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="wXU-rh-amf">
                     <rect key="frame" x="0.0" y="59" width="393" height="759"/>
                     <subviews>
-                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="kvF-zI-iSp">
+                        <stackView opaque="NO" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" axis="vertical" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="kvF-zI-iSp">
                             <rect key="frame" x="0.0" y="0.0" width="393" height="80"/>
                             <subviews>
                                 <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Jct-78-mT4">
                                     <rect key="frame" x="20" y="0.0" width="141" height="80"/>
                                     <subviews>
                                         <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" horizontalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="giX-Fz-eTp">
-                                            <rect key="frame" x="0.0" y="23" width="35" height="34"/>
+                                            <rect key="frame" x="0.0" y="31" width="35" height="18"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="34" id="KT2-Kn-ZJa" customClass="AdaptiveLayoutConstraint" customModule="PerfectSelf" customModuleProvider="target"/>
                                                 <constraint firstAttribute="width" constant="35" id="jch-e8-3mb" customClass="AdaptiveLayoutConstraint" customModule="PerfectSelf" customModuleProvider="target"/>
@@ -89,7 +90,9 @@
                                         <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="2QE-kk-wnd">
                                             <rect key="frame" x="10" y="10" width="333" height="230"/>
                                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                            <string key="text">Hi! My name is Jonathan Walker.brief self introduction brief self introduction brief self introduction brief self introduction brief self introduction brief self introduction </string>
+                                            <string key="text">Hi! My name is Jonathan Walker.
+
+brief self introduction brief self introduction brief self introduction brief self introduction brief self introduction brief self introduction </string>
                                             <color key="textColor" systemColor="labelColor"/>
                                             <fontDescription key="fontDescription" type="system" weight="medium" pointSize="10"/>
                                             <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>

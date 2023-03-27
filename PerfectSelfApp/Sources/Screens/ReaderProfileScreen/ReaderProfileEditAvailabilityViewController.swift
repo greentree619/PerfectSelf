@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import BDatePicker
 
 class ReaderProfileEditAvailabilityViewController: UIViewController {
 
@@ -21,7 +20,7 @@ class ReaderProfileEditAvailabilityViewController: UIViewController {
     
     @IBOutlet weak var picker_start_time: UIDatePicker!
     @IBOutlet weak var picker_end_time: UIDatePicker!
-    
+    @IBOutlet weak var picker_date: UIDatePicker!
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -124,7 +123,49 @@ class ReaderProfileEditAvailabilityViewController: UIViewController {
          }
     }
     @IBAction func SaveChanges(_ sender: UIButton) {
-        self.navigationController?.popViewController(animated: true)
+        // call API to add new availability
+        var inputCheck: String = ""
+        var focusTextField: UITextField? = nil
+        if(text_starttime.text!.isEmpty){
+            inputCheck += "- Please set start time.\n"
+            if(focusTextField == nil){
+                focusTextField = text_starttime
+            }
+        }
+        
+        if(text_end.text!.isEmpty){
+            inputCheck += "- Please set end time.\n"
+            if(focusTextField == nil){
+                focusTextField = text_end
+            }
+        }
+        
+        if(!inputCheck.isEmpty){
+            showAlert(viewController: self, title: "Confirm", message: inputCheck) { UIAlertAction in
+                focusTextField!.becomeFirstResponder()
+            }
+            return
+        }
+        showIndicator(sender: nil, viewController: self)
+        let uid = UserDefaults.standard.string(forKey: "USER_ID")!
+        let df = DateFormatter()
+        df.dateFormat = "yyyy-MM-dd'T'HH:mm:ss'Z'"
+        print(df.string(from: picker_date.date))
+        webAPI.addAvailability(uid: uid, date: df.string(from: picker_date.date), fromTime: df.string(from: picker_start_time.date), toTime: df.string(from: picker_end_time.date)) { data, response, error in
+            DispatchQueue.main.async {
+                hideIndicator(sender: nil);
+            }
+            guard let _ = data, error == nil else {
+                print(error?.localizedDescription ?? "No data")
+                return
+            }
+            DispatchQueue.main.async {
+                Toast.show(message: "Successfully added new time slot", controller: self)
+                self.navigationController?.popViewController(animated: true)
+            }
+        }
+        
+        
     }
     @IBAction func GoBack(_ sender: UIButton) {
         self.navigationController?.popViewController(animated: true)

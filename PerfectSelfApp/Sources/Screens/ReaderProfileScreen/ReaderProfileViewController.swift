@@ -88,7 +88,7 @@ class ReaderProfileViewController: UIViewController, UICollectionViewDataSource,
                     
                     //call API for available time slots
                     
-                    webAPI.getAvailabilityById(id: uid) {data1, response1, error1 in
+                    webAPI.getAvailabilityById(uid: uid) {data1, response1, error1 in
                         DispatchQueue.main.async {
                             hideIndicator(sender: nil);
                         }
@@ -146,16 +146,16 @@ class ReaderProfileViewController: UIViewController, UICollectionViewDataSource,
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Time Slot Collection View Cell", for: indexPath) as! TimeSlotCollectionViewCell
 
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
-        let date = dateFormatter.date(from: self.items[indexPath.row].date)!
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss'Z'"
+        let date = dateFormatter.date(from: self.items[indexPath.row].date)
     
         dateFormatter.dateFormat = "EEE"
-        let weekDay = dateFormatter.string(from: date)
+        let weekDay = dateFormatter.string(from: date ?? Date())
         
-        dateFormatter.dateFormat = "dd MM"
-        let dayMonth = dateFormatter.string(from: date)
+        dateFormatter.dateFormat = "dd MMM"
+        let dayMonth = dateFormatter.string(from: date ?? Date())
         
-        cell.lbl_num_slot.text = "\(self.items[indexPath.row]) slot";
+        cell.lbl_num_slot.text = "1 slot";
         cell.lbl_weekday.text = weekDay
         cell.lbl_date_month.text = dayMonth
         // return card
@@ -211,6 +211,11 @@ class ReaderProfileViewController: UIViewController, UICollectionViewDataSource,
         view_videointro.isHidden = true
         view_review.isHidden = false
     }
+//    func dataChanged(data: String) {
+//        // Handle the updated data
+//        print("Updated data: \(data)")
+//        self.readerAbout.text = data
+//    }
     @IBAction func EditUserInfo(_ sender: UIButton) {
         let controller = ReaderProfileEditPersonalInfoViewController()
         
@@ -223,7 +228,7 @@ class ReaderProfileViewController: UIViewController, UICollectionViewDataSource,
     }
     @IBAction func EditAbout(_ sender: UIButton) {
         let controller = ReaderProfileEditAboutViewController()
-        
+//        controller.delegate = self
         self.navigationController?.pushViewController(controller, animated: true)
     }
     @IBAction func EditSkills(_ sender: UIButton) {
@@ -254,32 +259,32 @@ class ReaderProfileViewController: UIViewController, UICollectionViewDataSource,
             btn_edit_availability.isHidden = true;
             
             // Call API for create/update reader's profile
-//
-//            showIndicator(sender: sender, viewController: self)
-//            let uid = UserDefaults.standard.string(forKey: "USER_ID")
-//
-//            webAPI.createReaderProfile(readeruid: uid!, title: readerTitle.text != nil ? readerTitle.text! : "", about: readerAbout.text != nil ? readerAbout.text! : "", hourlyprice: "120", skills: "") { data, response, error in
-//                guard let data = data, error == nil else {
-//                    print(error?.localizedDescription ?? "No data")
-//                    return
-//                }
-//                let responseJSON = try? JSONSerialization.jsonObject(with: data, options: [])
-//
-//                if let _ = responseJSON as? [String: Any] {
-//
-//                    DispatchQueue.main.async {
-//                        hideIndicator(sender: sender)
-//                        Toast.show(message: "Profile updated successfully!", controller: self)
-//                    }
-//                }
-//                else
-//                {
-//                    DispatchQueue.main.async {
-//                        hideIndicator(sender: sender)
-//                        Toast.show(message: "Profile update failed! please try again.", controller: self)
-//                    }
-//                }
-//            }
+
+            showIndicator(sender: sender, viewController: self)
+            let uid = UserDefaults.standard.string(forKey: "USER_ID")
+
+            webAPI.createReaderProfile(readeruid: uid!, title: readerTitle.text != nil ? readerTitle.text! : "", about: readerAbout.text != nil ? readerAbout.text! : "", hourlyprice: "120", skills: "") { data, response, error in
+                guard let data = data, error == nil else {
+                    print(error?.localizedDescription ?? "No data")
+                    return
+                }
+                let responseJSON = try? JSONSerialization.jsonObject(with: data, options: [])
+
+                if let _ = responseJSON as? [String: Any] {
+
+                    DispatchQueue.main.async {
+                        hideIndicator(sender: sender)
+                        Toast.show(message: "Profile updated successfully!", controller: self)
+                    }
+                }
+                else
+                {
+                    DispatchQueue.main.async {
+                        hideIndicator(sender: sender)
+                        Toast.show(message: "Profile update failed! please try again.", controller: self)
+                    }
+                }
+            }
             
         }
         else {
