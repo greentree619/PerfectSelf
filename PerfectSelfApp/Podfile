@@ -9,7 +9,6 @@ target 'PerfectSelf' do
   pod 'AWSS3'
   pod 'JJFloatingActionButton'
   pod 'FSCalendar'
-  pod 'BDatePicker', :path => '../BDatePicker-master/'
   pod 'DropDown'
 
 end

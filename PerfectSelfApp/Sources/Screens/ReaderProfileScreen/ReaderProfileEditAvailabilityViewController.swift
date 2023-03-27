@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import BDatePicker
 
 class ReaderProfileEditAvailabilityViewController: UIViewController {
 
