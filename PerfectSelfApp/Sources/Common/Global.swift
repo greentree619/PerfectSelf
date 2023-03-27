@@ -15,6 +15,15 @@ let READER_UTYPE = 4
 var backgroundView: UIView? = nil
 var activityIndicatorView: UIActivityIndicatorView? = nil
 
+//struct Message: Codable {
+//    let text: String
+//    let timestamp: String
+//}
+enum MessageType {
+    case sent
+    case received
+}
+
 struct ReaderProfileDetail: Codable {
     let id: Int
     let readerUid: String
