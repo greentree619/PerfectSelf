@@ -8,8 +8,14 @@
 
 import UIKit
 
-class ReaderProfileEditAboutViewController: UIViewController {
+//protocol DataDelegate: AnyObject {
+//    func dataChanged(data: String)
+//}
 
+class ReaderProfileEditAboutViewController: UIViewController {
+//    weak var delegate: DataDelegate?
+
+    @IBOutlet weak var text_about: UITextView!
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -22,6 +28,21 @@ class ReaderProfileEditAboutViewController: UIViewController {
     }
     
     @IBAction func SaveChanges(_ sender: UIButton) {
+        // call API for about update
+//        showIndicator(sender: nil, viewController: self)
+//        let uid = UserDefaults.standard.string(forKey: "USER_ID")!
+//        webAPI.editReaderProfile(readeruid: uid, title: nil, about: text_about.text, hourlyprice: nil, skills: nil) { data, response, error in
+//            
+//        }
+//        
+//
+//        // Save the data
+//        let newData = text_about.text!
+//        
+//        // Call the delegate method to notify the previous view controller
+//        delegate?.dataChanged(data: newData)
+//        
+        // Pop the current view controller off the navigation stack
         self.navigationController?.popViewController(animated: true)
     }
     /*

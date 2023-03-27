@@ -14,6 +14,7 @@
             <connections>
                 <outlet property="modal_time_end" destination="4eK-hr-M6M" id="viV-R9-hKb"/>
                 <outlet property="modal_time_start" destination="ST2-0n-GKX" id="iSS-lX-M1u"/>
+                <outlet property="picker_date" destination="mXS-5a-ats" id="8eP-sD-Opb"/>
                 <outlet property="picker_end_time" destination="1bt-Ih-1wr" id="SHe-KJ-GRA"/>
                 <outlet property="picker_start_time" destination="LuK-Eh-dcM" id="Fmj-vL-eIY"/>
                 <outlet property="text_end" destination="roj-gz-oNg" id="zqB-M8-Icj"/>
@@ -29,14 +30,14 @@
                 <stackView opaque="NO" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="hz9-rm-mfY">
                     <rect key="frame" x="0.0" y="59" width="393" height="759"/>
                     <subviews>
-                        <stackView opaque="NO" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" axis="vertical" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="vzJ-jp-K1f">
+                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="vzJ-jp-K1f">
                             <rect key="frame" x="0.0" y="0.0" width="393" height="80"/>
                             <subviews>
                                 <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="j5l-l2-gZ8">
                                     <rect key="frame" x="20" y="0.0" width="179" height="80"/>
                                     <subviews>
                                         <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" horizontalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LKp-wO-dVI">
-                                            <rect key="frame" x="0.0" y="31" width="35" height="18"/>
+                                            <rect key="frame" x="0.0" y="23" width="35" height="34"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="34" id="Tfw-68-yif" customClass="AdaptiveLayoutConstraint" customModule="PerfectSelf" customModuleProvider="target"/>
                                                 <constraint firstAttribute="width" constant="35" id="xdY-r5-ZUO" customClass="AdaptiveLayoutConstraint" customModule="PerfectSelf" customModuleProvider="target"/>
@@ -435,12 +436,6 @@
                 <constraint firstItem="hz9-rm-mfY" firstAttribute="leading" secondItem="Ez9-sv-9RZ" secondAttribute="leading" id="tOL-Jf-c4P"/>
                 <constraint firstItem="ST2-0n-GKX" firstAttribute="centerX" secondItem="Naz-ET-dRL" secondAttribute="centerX" id="wNt-g3-dz5"/>
             </constraints>
-            <variation key="default">
-                <mask key="subviews">
-                    <exclude reference="4eK-hr-M6M"/>
-                    <exclude reference="ST2-0n-GKX"/>
-                </mask>
-            </variation>
             <point key="canvasLocation" x="-676" y="-37"/>
         </view>
     </objects>

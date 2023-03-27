@@ -87,6 +87,14 @@ class PerfectSelfWebAPI
         ]
         return executeAPI(with: "POST", apiPath: "ActorProfiles/", json: json, completionHandler:completionHandler)
     }
+    func getAllReaders(completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> Void
+    {
+        return executeAPI(with: "GET", apiPath: "ReaderProfiles/ReaderList", json: [:], completionHandler:completionHandler)
+    }
+    func getReaderById(id: String, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> Void
+    {
+        return executeAPI(with: "GET", apiPath: "ReaderProfiles/\(id)", json: [:], completionHandler:completionHandler)
+    }
     func createReaderProfile(readeruid: String, title: String, about: String, hourlyprice: String, skills: String, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> Void
     {
         let json: [String: Any] = [
@@ -101,13 +109,19 @@ class PerfectSelfWebAPI
         ]
         return executeAPI(with: "POST", apiPath: "ReaderProfiles/", json: json, completionHandler:completionHandler)
     }
-    func getAllReaders(completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> Void
+    func editReaderProfile(readeruid: String, title: String, about: String, hourlyprice: String, skills: String, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> Void
     {
-        return executeAPI(with: "GET", apiPath: "ReaderProfiles/ReaderList", json: [:], completionHandler:completionHandler)
-    }
-    func getReaderById(id: String, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> Void
-    {
-        return executeAPI(with: "GET", apiPath: "ReaderProfiles/\(id)", json: [:], completionHandler:completionHandler)
+        let json: [String: Any] = [
+            "isDeleted": false,
+            "title": title,
+            "readerUid": readeruid,
+            "hourlyPrice": Int(hourlyprice) ?? 0,
+            "voiceType": 0,
+            "others": 0,
+            "about": about,
+            "skills": skills,
+        ]
+        return executeAPI(with: "PUT", apiPath: "ReaderProfiles/\(readeruid)", json: json, completionHandler:completionHandler)
     }
     func bookAppointment(actorUid: String, readerUid: String, bookTime: String, script: String, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> Void
     {
@@ -125,9 +139,20 @@ class PerfectSelfWebAPI
     {
         return executeAPI(with: "GET", apiPath: "Books/DetailList/", json: [:], completionHandler:completionHandler)
     }
-    func getAvailabilityById(id: String, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> Void
+    func getAvailabilityById(uid: String, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> Void
     {
-        return executeAPI(with: "GET", apiPath: "Availabilities/UpcomingByUid/\(id)/\(Date.getCurrentDate())", json: [:], completionHandler:completionHandler)
+        return executeAPI(with: "GET", apiPath: "Availabilities/UpcomingByUid/\(uid)/\(Date.getCurrentDate())", json: [:], completionHandler:completionHandler)
+    }
+    func addAvailability(uid: String, date: String, fromTime: String, toTime: String, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> Void
+    {
+        let json: [String: Any] = [
+            "readerUid": uid,
+            "isDeleted": false,
+            "date": date,
+            "fromTime": fromTime,
+            "toTime": toTime
+        ]
+        return executeAPI(with: "POST", apiPath: "Availabilities/", json: json, completionHandler:completionHandler)
     }
     func login() -> Void
     {
