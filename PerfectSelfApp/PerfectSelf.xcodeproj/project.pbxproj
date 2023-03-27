@@ -1003,12 +1003,9 @@
 				BA4714BB29A79856007AABC2 /* ABeeZee-Regular.ttf in Resources */,
 				BA4714BF29A79856007AABC2 /* ProximaNova-Semibold.otf in Resources */,
 				BA4714C029A79856007AABC2 /* ProximaNova-Bold.otf in Resources */,
-<<<<<<< HEAD
 				BAD0B51929BA17130061FEF5 /* OverlayViewController.xib in Resources */,
-=======
 				BAD0B51929BA17130061FEF5 /* VideoRecordViewController.xib in Resources */,
 				47B65BDF29D173F700B3FD20 /* MessageCell.xib in Resources */,
->>>>>>> feature/ticket-507
 				47D4F80A29CBD8B600AFC4BA /* ReaderBookingViewController.xib in Resources */,
 				BA4714BA29A79856007AABC2 /* ABeeZee-Italic.ttf in Resources */,
 				BA4714C129A79856007AABC2 /* ProximaNova-Extrabold.otf in Resources */,
