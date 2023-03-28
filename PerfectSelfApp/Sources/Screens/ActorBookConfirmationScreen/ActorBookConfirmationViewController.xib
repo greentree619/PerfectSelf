@@ -4,6 +4,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
+        <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -24,25 +25,51 @@
                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="OSz-ID-ksE">
                     <rect key="frame" x="0.0" y="59" width="393" height="759"/>
                     <subviews>
-                        <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="GYF-TW-VC5">
+                        <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="ojb-J4-Xxt">
                             <rect key="frame" x="20" y="0.0" width="353" height="34"/>
+                            <subviews>
+                                <stackView opaque="NO" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" axis="vertical" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="T6B-ji-XO0">
+                                    <rect key="frame" x="0.0" y="0.0" width="353" height="34"/>
+                                    <subviews>
+                                        <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" horizontalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tFt-2o-IDn">
+                                            <rect key="frame" x="0.0" y="0.0" width="34" height="34"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="34" id="JbF-l3-zDV" customClass="AdaptiveLayoutConstraint" customModule="PerfectSelf" customModuleProvider="target"/>
+                                                <constraint firstAttribute="width" constant="34" id="MZt-Fe-51r" customClass="AdaptiveLayoutConstraint" customModule="PerfectSelf" customModuleProvider="target"/>
+                                            </constraints>
+                                            <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                            <state key="normal">
+                                                <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <imageReference key="image" image="arrow.left" catalog="system" symbolScale="small"/>
+                                            </state>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                    <real key="value" value="8"/>
+                                                </userDefinedRuntimeAttribute>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                    <real key="value" value="2"/>
+                                                </userDefinedRuntimeAttribute>
+                                                <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                    <color key="value" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </userDefinedRuntimeAttribute>
+                                            </userDefinedRuntimeAttributes>
+                                            <connections>
+                                                <action selector="GoBack:" destination="-1" eventType="touchUpInside" id="Exx-G7-h5u"/>
+                                            </connections>
+                                        </button>
+                                    </subviews>
+                                </stackView>
+                            </subviews>
                             <constraints>
-                                <constraint firstAttribute="height" constant="34" id="HlV-Id-Qwa" customClass="AdaptiveLayoutConstraint" customModule="PerfectSelf" customModuleProvider="target"/>
+                                <constraint firstAttribute="height" constant="34" id="NPe-LJ-A0b" customClass="AdaptiveLayoutConstraint" customModule="PerfectSelf" customModuleProvider="target"/>
                             </constraints>
                         </stackView>
                         <stackView opaque="NO" contentMode="scaleToFill" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="QTu-l6-kJe">
-                            <rect key="frame" x="20" y="34" width="353" height="200"/>
-                            <constraints>
-                                <constraint firstAttribute="height" constant="200" id="hl4-at-je4" customClass="AdaptiveLayoutConstraint" customModule="PerfectSelf" customModuleProvider="target"/>
-                            </constraints>
-                            <variation key="default">
-                                <mask key="constraints">
-                                    <exclude reference="hl4-at-je4"/>
-                                </mask>
-                            </variation>
+                            <rect key="frame" x="20" y="34" width="353" height="246"/>
                         </stackView>
                         <stackView opaque="NO" contentMode="scaleToFill" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="C20-Iy-fpz">
-                            <rect key="frame" x="20" y="234" width="353" height="40"/>
+                            <rect key="frame" x="20" y="280" width="353" height="40"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Booking confirmation" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2Xd-Mh-e7T">
                                     <rect key="frame" x="0.0" y="9.3333333333333162" width="353" height="21.666666666666671"/>
@@ -56,7 +83,7 @@
                             </constraints>
                         </stackView>
                         <stackView opaque="NO" contentMode="scaleToFill" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="MDJ-zU-Phw">
-                            <rect key="frame" x="20" y="274" width="353" height="40"/>
+                            <rect key="frame" x="20" y="320" width="353" height="40"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Reading with  Alan Walker" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZD7-xC-dTf">
                                     <rect key="frame" x="8" y="8.6666666666666856" width="337" height="15.666666666666664"/>
@@ -71,7 +98,7 @@
                             <edgeInsets key="layoutMargins" top="8" left="8" bottom="15" right="8"/>
                         </stackView>
                         <stackView opaque="NO" contentMode="scaleToFill" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="Qjw-zN-07m">
-                            <rect key="frame" x="20" y="314" width="353" height="3"/>
+                            <rect key="frame" x="20" y="360" width="353" height="3"/>
                             <subviews>
                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="filter_divide" translatesAutoresizingMaskIntoConstraints="NO" id="S7U-zh-Z6U">
                                     <rect key="frame" x="0.0" y="1" width="353" height="1"/>
@@ -82,7 +109,7 @@
                             </constraints>
                         </stackView>
                         <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="Guk-w7-39A">
-                            <rect key="frame" x="20" y="317" width="353" height="50"/>
+                            <rect key="frame" x="20" y="363" width="353" height="50"/>
                             <subviews>
                                 <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qba-7k-glD">
                                     <rect key="frame" x="0.0" y="0.0" width="176.66666666666666" height="50"/>
@@ -112,7 +139,7 @@
                             </constraints>
                         </stackView>
                         <stackView opaque="NO" contentMode="scaleToFill" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="dXw-4r-f5s">
-                            <rect key="frame" x="20" y="367" width="353" height="3"/>
+                            <rect key="frame" x="20" y="413" width="353" height="3"/>
                             <subviews>
                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="filter_divide" translatesAutoresizingMaskIntoConstraints="NO" id="IOG-2u-fOM">
                                     <rect key="frame" x="0.0" y="1" width="353" height="1"/>
@@ -123,7 +150,7 @@
                             </constraints>
                         </stackView>
                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="V0v-nQ-Sa4">
-                            <rect key="frame" x="20" y="370" width="353" height="185"/>
+                            <rect key="frame" x="20" y="416" width="353" height="185"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add a reminder" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DYk-hB-xis">
                                     <rect key="frame" x="0.0" y="7.9999999999999991" width="98.666666666666671" height="15.666666666666664"/>
@@ -138,7 +165,7 @@
                                             <rect key="frame" x="20" y="8" width="141.66666666666666" height="137.33333333333334"/>
                                             <subviews>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icons8-google-calendar-25" translatesAutoresizingMaskIntoConstraints="NO" id="lsK-km-eRj">
-                                                    <rect key="frame" x="52.666666666666671" y="30" width="36" height="36"/>
+                                                    <rect key="frame" x="52.666666666666671" y="29.999999999999943" width="36" height="36"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="36" id="AX7-w4-rcZ"/>
                                                         <constraint firstAttribute="width" constant="36" id="k07-0T-OlD"/>
@@ -173,7 +200,7 @@
                                             <rect key="frame" x="191.66666666666663" y="8" width="141.33333333333337" height="137.33333333333334"/>
                                             <subviews>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" image="calendar" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="nrK-MG-MRl">
-                                                    <rect key="frame" x="52.666666666666657" y="31.666666666666664" width="36" height="32.999999999999993"/>
+                                                    <rect key="frame" x="52.666666666666657" y="31.666666666666607" width="36" height="32.999999999999993"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="36" id="TJ6-Aw-BU1"/>
                                                         <constraint firstAttribute="height" constant="36" id="yGu-2e-Pe0"/>
@@ -216,13 +243,13 @@
                             <edgeInsets key="layoutMargins" top="8" left="0.0" bottom="8" right="0.0"/>
                         </stackView>
                         <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="sKF-zY-6hf">
-                            <rect key="frame" x="20" y="555" width="353" height="100"/>
+                            <rect key="frame" x="20" y="601" width="353" height="100"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="100" id="PGW-bh-yzJ" customClass="AdaptiveLayoutConstraint" customModule="PerfectSelf" customModuleProvider="target"/>
                             </constraints>
                         </stackView>
                         <stackView opaque="NO" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" translatesAutoresizingMaskIntoConstraints="NO" id="iSi-Wl-Tgw">
-                            <rect key="frame" x="20" y="655" width="353" height="50"/>
+                            <rect key="frame" x="20" y="701" width="353" height="50"/>
                             <subviews>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rFf-lq-h4n">
                                     <rect key="frame" x="0.0" y="0.0" width="353" height="50"/>
@@ -238,12 +265,6 @@
                             </subviews>
                             <constraints>
                                 <constraint firstAttribute="height" constant="50" id="G7a-zK-XiI"/>
-                            </constraints>
-                        </stackView>
-                        <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="7pF-Nd-7B7">
-                            <rect key="frame" x="20" y="705" width="353" height="46"/>
-                            <constraints>
-                                <constraint firstAttribute="height" constant="46" id="Ykn-hN-MlW" customClass="AdaptiveLayoutConstraint" customModule="PerfectSelf" customModuleProvider="target"/>
                             </constraints>
                         </stackView>
                     </subviews>
@@ -280,6 +301,7 @@
         </tapGestureRecognizer>
     </objects>
     <resources>
+        <image name="arrow.left" catalog="system" width="128" height="95"/>
         <image name="calendar" catalog="system" width="128" height="107"/>
         <image name="filter_divide" width="334" height="1"/>
         <image name="icons8-google-calendar-25" width="25" height="25"/>

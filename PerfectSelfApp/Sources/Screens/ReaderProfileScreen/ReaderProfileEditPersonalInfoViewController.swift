@@ -18,10 +18,8 @@ class ReaderProfileEditPersonalInfoViewController: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        self.navigationItem.setHidesBackButton(true, animated: false);
         readerName.text = username
         readerTitle.text = usertitle
-        
     }
 
 
@@ -76,14 +74,14 @@ class ReaderProfileEditPersonalInfoViewController: UIViewController {
                     }
                     DispatchQueue.main.async {
                         
-                        self.navigationController?.popViewController(animated: true)
+                        self.dismiss(animated: false)
                     }
                 }
             }
         }
     }
     @IBAction func GoBack(_ sender: UIButton) {
-        self.navigationController?.popViewController(animated: true);
+        self.dismiss(animated: false)
     }
     /*
     // MARK: - Navigation

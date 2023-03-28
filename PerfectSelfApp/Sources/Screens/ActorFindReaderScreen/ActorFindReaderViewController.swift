@@ -96,7 +96,8 @@ class ActorFindReaderViewController: UIViewController , UICollectionViewDataSour
         print("didDeselectItemAt" + String(indexPath.row))
         let controller = ActorReaderDetailViewController()
         controller.uid = self.items[indexPath.row].uid
-        self.navigationController?.pushViewController(controller, animated: true)
+        controller.modalPresentationStyle = .fullScreen
+        self.present(controller, animated: false, completion: nil)
 //        let cell = collectionView.cellForItem(at: indexPath) as? LibraryCollectionViewCell
     }
     
@@ -135,7 +136,7 @@ class ActorFindReaderViewController: UIViewController , UICollectionViewDataSour
 //    }
     
     @IBAction func GoBack(_ sender: UIButton) {
-        self.navigationController?.popViewController(animated: true)
+        self.navigationController?.popViewController(animated: false)
     }
     /*
     // MARK: - Navigation

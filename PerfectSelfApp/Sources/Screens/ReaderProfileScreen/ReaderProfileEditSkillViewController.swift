@@ -17,7 +17,7 @@ class ReaderProfileEditSkillViewController: UIViewController, UICollectionViewDa
     
     @IBOutlet weak var skillView: UIStackView!
     @IBOutlet weak var selectedSkillList: UICollectionView!
-    @IBOutlet weak var selectedSkillView: UIStackView!
+//    @IBOutlet weak var selectedSkillView: UIStackView!
     var items = [String]()
     let cellsPerRow = 1
     
@@ -36,8 +36,7 @@ class ReaderProfileEditSkillViewController: UIViewController, UICollectionViewDa
         selectedSkillList.dataSource = self
         selectedSkillList.delegate = self
         selectedSkillList.allowsSelection = true
-        // Do any additional setup after loading the view.
-        self.navigationItem.setHidesBackButton(true, animated: false)
+    
         
          let accordionView = MKAccordionView(frame: CGRect(x: 0, y: 0, width: skillView.bounds.width, height: skillView.bounds.height-50))
           
@@ -86,10 +85,10 @@ class ReaderProfileEditSkillViewController: UIViewController, UICollectionViewDa
     }
 
     @IBAction func SaveChanges(_ sender: UIButton) {
-        self.navigationController?.popViewController(animated: true)
+        self.dismiss(animated: false)
     }
     @IBAction func GoBack(_ sender: UIButton) {
-        self.navigationController?.popViewController(animated: true)
+        self.dismiss(animated: false)
     }
     /*
     // MARK: - Navigation

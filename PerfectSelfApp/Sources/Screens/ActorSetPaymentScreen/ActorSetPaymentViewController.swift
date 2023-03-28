@@ -19,7 +19,7 @@ class ActorSetPaymentViewController: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        self.navigationItem.setHidesBackButton(true, animated: false)
+
     }
 
     @IBAction func DoCheckout(_ sender: UIButton) {
@@ -29,12 +29,12 @@ class ActorSetPaymentViewController: UIViewController {
         controller.bookingTime = bookingTime
         controller.bookingDate = bookingDate
         controller.script = script
-        
-        self.navigationController?.pushViewController(controller, animated: true)
+        controller.modalPresentationStyle = .fullScreen
+        self.present(controller, animated: false, completion: nil)
     }
     
     @IBAction func GoBack(_ sender: UIButton) {
-        _ = navigationController?.popViewController(animated: true)
+        self.dismiss(animated: false)
     }
     /*
     // MARK: - Navigation

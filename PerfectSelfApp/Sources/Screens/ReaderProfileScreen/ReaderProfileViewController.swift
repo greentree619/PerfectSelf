@@ -216,17 +216,14 @@ class ReaderProfileViewController: UIViewController, UICollectionViewDataSource,
         view_videointro.isHidden = true
         view_review.isHidden = false
     }
-//    func dataChanged(data: String) {
-//        // Handle the updated data
-//        print("Updated data: \(data)")
-//        self.readerAbout.text = data
-//    }
+
     @IBAction func EditUserInfo(_ sender: UIButton) {
         let controller = ReaderProfileEditPersonalInfoViewController()
         controller.username = readerUsername.text ?? ""
         controller.usertitle = readerTitle.text ?? ""
         controller.uid = id
-        self.navigationController?.pushViewController(controller, animated: true)
+        controller.modalPresentationStyle = .fullScreen
+        self.present(controller, animated: false)
     }
 //    @IBAction func EditHighlight(_ sender: UIButton) {
 //        let controller = ReaderProfileEditPersonalInfoViewController()
@@ -238,81 +235,39 @@ class ReaderProfileViewController: UIViewController, UICollectionViewDataSource,
 //        controller.delegate = self
         controller.uid = id
         controller.about = readerAbout.text
-        self.navigationController?.pushViewController(controller, animated: true)
+        controller.modalPresentationStyle = .fullScreen
+        self.present(controller, animated: false)
     }
     @IBAction func EditSkills(_ sender: UIButton) {
         let controller = ReaderProfileEditSkillViewController()
         
-        self.navigationController?.pushViewController(controller, animated: true)
+        controller.modalPresentationStyle = .fullScreen
+        self.present(controller, animated: false)
     }
     @IBAction func EditAvailability(_ sender: UIButton) {
         let controller = ReaderProfileEditAvailabilityViewController()
         controller.uid = id
-        self.navigationController?.pushViewController(controller, animated: true)
+        controller.modalPresentationStyle = .fullScreen
+        self.present(controller, animated: false)
     }
     @IBAction func EditProfile(_ sender: UIButton) {
 
         if isEditingMode {
-//            sender.isEnabled = false
-          
-//            let myNormalAttributedTitle = NSAttributedString(string: "Edit Profile", attributes: [NSAttributedString.Key.font : UIFont(name: "Arial", size: 10.0)!])
-//            sender.setAttributedTitle(myNormalAttributedTitle, for: .normal)
-//            sender.isEnabled = true;
             isEditingMode = false;
-//            view_viewall_skills.isHidden = false;
-//            view_viewall_availability.isHidden = false;
             btn_edit_userinfo.isHidden = true;
             btn_edit_highlight.isHidden = true;
             btn_edit_about.isHidden = true;
             btn_edit_skills.isHidden = true;
             btn_edit_availability.isHidden = true;
-            
-            // Call API for create/update reader's profile
-
-//            showIndicator(sender: sender, viewController: self)
-//            let uid = UserDefaults.standard.string(forKey: "USER_ID")
-//
-//            webAPI.createReaderProfile(readeruid: uid!, title: readerTitle.text != nil ? readerTitle.text! : "", about: readerAbout.text != nil ? readerAbout.text! : "", hourlyprice: "120", skills: "") { data, response, error in
-//                guard let data = data, error == nil else {
-//                    print(error?.localizedDescription ?? "No data")
-//                    return
-//                }
-//                let responseJSON = try? JSONSerialization.jsonObject(with: data, options: [])
-//
-//                if let _ = responseJSON as? [String: Any] {
-//
-//                    DispatchQueue.main.async {
-//                        hideIndicator(sender: sender)
-//                        Toast.show(message: "Profile updated successfully!", controller: self)
-//                    }
-//                }
-//                else
-//                {
-//                    DispatchQueue.main.async {
-//                        hideIndicator(sender: sender)
-//                        Toast.show(message: "Profile update failed! please try again.", controller: self)
-//                    }
-//                }
-//            }
-            
         }
         else {
-//            sender.isEnabled = false;
-////            sender.setTitle("Save Changes", for: UIButton.State.normal)
-//            let myNormalAttributedTitle = NSAttributedString(string: "Save Changes", attributes: [NSAttributedString.Key.font : UIFont(name: "Arial", size: 10.0)!])
-//            sender.setAttributedTitle(myNormalAttributedTitle, for: .normal)
-//            sender.isEnabled = true;
             isEditingMode = true;
-//            view_viewall_skills.isHidden = true;
-//            view_viewall_availability.isHidden = true;
             btn_edit_userinfo.isHidden = false;
             btn_edit_highlight.isHidden = false;
             btn_edit_about.isHidden = false;
             btn_edit_skills.isHidden = false;
             btn_edit_availability.isHidden = false;
         }
-
-        
     }
     
     /*

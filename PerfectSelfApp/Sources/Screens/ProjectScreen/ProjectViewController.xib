@@ -20,7 +20,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sSD-iP-Ty3" customClass="PlayerView" customModule="PerfectSelf" customModuleProvider="target">
-                    <rect key="frame" x="0.0" y="0.0" width="393" height="818"/>
+                    <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                     <subviews>
                         <containerView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Uvo-b5-JOW">
                             <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
@@ -240,7 +240,7 @@
                 <constraint firstItem="sSD-iP-Ty3" firstAttribute="leading" secondItem="HWB-Y9-ZdC" secondAttribute="leading" id="VNo-sp-Vgo"/>
                 <constraint firstItem="sSD-iP-Ty3" firstAttribute="trailing" secondItem="HWB-Y9-ZdC" secondAttribute="trailing" id="Xwm-lD-Lp3"/>
                 <constraint firstItem="sSD-iP-Ty3" firstAttribute="top" secondItem="aCy-Za-TYj" secondAttribute="top" id="Y9h-50-D5y"/>
-                <constraint firstItem="HWB-Y9-ZdC" firstAttribute="bottom" secondItem="sSD-iP-Ty3" secondAttribute="bottom" id="aNX-ce-5U8"/>
+                <constraint firstAttribute="bottom" secondItem="sSD-iP-Ty3" secondAttribute="bottom" id="aNX-ce-5U8"/>
                 <constraint firstItem="5Kf-yP-EPd" firstAttribute="width" secondItem="bTx-jD-fRI" secondAttribute="width" id="bPJ-iD-pBj"/>
                 <constraint firstItem="HWB-Y9-ZdC" firstAttribute="trailing" secondItem="zD4-LN-r71" secondAttribute="trailing" constant="20" id="bfC-VB-gfy"/>
                 <constraint firstItem="HWB-Y9-ZdC" firstAttribute="trailing" secondItem="fnp-5V-gTt" secondAttribute="trailing" constant="20" id="dlJ-6w-dLL"/>

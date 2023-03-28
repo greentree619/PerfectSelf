@@ -26,7 +26,6 @@ class MessageCenterViewController: UIViewController, UICollectionViewDataSource,
         chatCardList.delegate = self
         chatCardList.allowsSelection = true
         // Do any additional setup after loading the view.
-        self.navigationItem.setHidesBackButton(true, animated: false)
         
     }
     
@@ -67,7 +66,9 @@ class MessageCenterViewController: UIViewController, UICollectionViewDataSource,
         // add the code here to perform action on the cell
         print("didDeselectItemAt" + String(indexPath.row))
         let controller = ChatViewController();
-        self.navigationController?.pushViewController(controller, animated: true);
+        controller.modalPresentationStyle = .fullScreen
+        self.present(controller, animated: false)
+//        self.navigationController?.pushViewController(controller, animated: true);
 //        let cell = collectionView.cellForItem(at: indexPath) as? LibraryCollectionViewCell
     }
   

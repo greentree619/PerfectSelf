@@ -20,7 +20,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gNi-yJ-TIt" customClass="PlayerView" customModule="PerfectSelf" customModuleProvider="target">
-                    <rect key="frame" x="0.0" y="0.0" width="393" height="818"/>
+                    <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                     <subviews>
                         <containerView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PAu-zb-QOW">
                             <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
@@ -321,7 +321,7 @@
                 <constraint firstItem="gNi-yJ-TIt" firstAttribute="top" secondItem="GgI-Tw-8jH" secondAttribute="top" id="bOA-dD-aav"/>
                 <constraint firstItem="QmO-sV-Vye" firstAttribute="trailing" secondItem="27J-jm-KbH" secondAttribute="trailing" id="eX5-UR-wCo"/>
                 <constraint firstItem="GgE-0z-xA4" firstAttribute="trailing" secondItem="27J-jm-KbH" secondAttribute="trailing" id="fzh-lC-h8s"/>
-                <constraint firstItem="27J-jm-KbH" firstAttribute="bottom" secondItem="gNi-yJ-TIt" secondAttribute="bottom" id="hMK-Iz-0rE"/>
+                <constraint firstAttribute="bottom" secondItem="gNi-yJ-TIt" secondAttribute="bottom" id="hMK-Iz-0rE"/>
                 <constraint firstItem="gNi-yJ-TIt" firstAttribute="leading" secondItem="27J-jm-KbH" secondAttribute="leading" id="ptV-W3-pr1"/>
                 <constraint firstItem="27J-jm-KbH" firstAttribute="bottom" secondItem="GgE-0z-xA4" secondAttribute="bottom" id="upO-Eb-ajq"/>
                 <constraint firstItem="c0h-XZ-ZGT" firstAttribute="top" secondItem="QmO-sV-Vye" secondAttribute="bottom" constant="12" id="znk-FG-svd"/>

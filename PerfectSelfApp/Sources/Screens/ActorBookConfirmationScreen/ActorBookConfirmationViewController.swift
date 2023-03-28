@@ -22,7 +22,6 @@ class ActorBookConfirmationViewController: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        self.navigationItem.setHidesBackButton(true, animated: false)
         
         
     }
@@ -38,6 +37,10 @@ class ActorBookConfirmationViewController: UIViewController {
         add_to_calendar.layer.borderColor = CGColor(red: 0.46, green: 0.53, blue: 0.85, alpha: 1.0)
     }
     
+    @IBAction func GoBack(_ sender: UIButton) {
+        self.dismiss(animated: false)
+        
+    }
     @IBAction func CompleteBooking(_ sender: UIButton) {
         // call book api
         let actorUid = UserDefaults.standard.string(forKey: "USER_ID")
@@ -57,9 +60,9 @@ class ActorBookConfirmationViewController: UIViewController {
                 DispatchQueue.main.async {
                     hideIndicator(sender: sender)
                     Toast.show(message: "success!", controller: self)
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
-                            // do stuff 2 seconds later
-                        _ = self.navigationController?.popToRootViewController(animated: true)
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                            // do stuff 1 seconds later
+                        self.presentingViewController?.presentingViewController?.presentingViewController?.presentingViewController?.presentingViewController?.dismiss(animated: false, completion: nil)
                     }
                     
                 }
@@ -69,19 +72,11 @@ class ActorBookConfirmationViewController: UIViewController {
                 DispatchQueue.main.async {
                     hideIndicator(sender: sender)
                     Toast.show(message: "Unable to create booking at this time. please try again later.", controller:  self)
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
-                            // do stuff 2 seconds later
-                        _ = self.navigationController?.popToRootViewController(animated: true)
-                    }
-                    
                 }
             }
         }
         
        
-    }
-    @IBAction func GoBack(_ sender: UIButton) {
-        _ = navigationController?.popViewController(animated: true)
     }
     
     
