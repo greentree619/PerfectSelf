@@ -9,7 +9,7 @@
 import UIKit
 
 class ReaderProfileEditAvailabilityViewController: UIViewController {
-
+    var uid : String = ""
     let backgroundView = UIView()
     let dateFormatter = DateFormatter()
     @IBOutlet weak var text_end: UITextField!
@@ -147,10 +147,10 @@ class ReaderProfileEditAvailabilityViewController: UIViewController {
             return
         }
         showIndicator(sender: nil, viewController: self)
-        let uid = UserDefaults.standard.string(forKey: "USER_ID")!
+//        let uid = UserDefaults.standard.string(forKey: "USER_ID")!
         let df = DateFormatter()
         df.dateFormat = "yyyy-MM-dd'T'HH:mm:ss'Z'"
-        print(df.string(from: picker_date.date))
+//        print(df.string(from: picker_date.date))
         webAPI.addAvailability(uid: uid, date: df.string(from: picker_date.date), fromTime: df.string(from: picker_start_time.date), toTime: df.string(from: picker_end_time.date)) { data, response, error in
             DispatchQueue.main.async {
                 hideIndicator(sender: nil);
@@ -160,7 +160,7 @@ class ReaderProfileEditAvailabilityViewController: UIViewController {
                 return
             }
             DispatchQueue.main.async {
-                Toast.show(message: "Successfully added new time slot", controller: self)
+//                Toast.show(message: "Successfully added new time slot", controller: self)
                 self.navigationController?.popViewController(animated: true)
             }
         }

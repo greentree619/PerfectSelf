@@ -28,12 +28,12 @@ enum MessageType {
 struct ReaderProfileDetail: Codable {
     let uid: String
     let userName: String
-    let title: String?
-    let hourlyPrice: Float?
-    let others: Int?
-    let voiceType: Int?
-    let about: String?
-    let skills: String?
+    let title: String
+    let hourlyPrice: Float
+    let others: Int
+    let voiceType: Int
+    let about: String
+    let skills: String
 }
 
 struct ReaderProfileCard: Codable {

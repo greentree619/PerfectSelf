@@ -67,7 +67,7 @@ class ActorReaderDetailViewController: UIViewController , UICollectionViewDataSo
                     self.reader_name.text = item.userName
                     self.reader_title.text = item.title
                     self.reader_about.text = item.about
-                    self.reader_hourly.text = "$\((item.hourlyPrice ?? 0)/4) / 15 mins"
+                    self.reader_hourly.text = "$\(item.hourlyPrice/4) / 15 mins"
                     self.reader_skill.text = item.skills
                     
                     //call API for available time slots

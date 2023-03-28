@@ -109,19 +109,62 @@ class PerfectSelfWebAPI
         ]
         return executeAPI(with: "POST", apiPath: "ReaderProfiles/", json: json, completionHandler:completionHandler)
     }
-    func editReaderProfile(readeruid: String, title: String, about: String, hourlyprice: String, skills: String, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> Void
+
+    func editReaderProfileAbout(uid: String, about: String, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> Void
+    {
+        let json: [String: Any] = [
+            "isDeleted": false,
+            "title": "",
+            "readerUid": uid,
+            "hourlyPrice": -1,
+            "voiceType": -1,
+            "others": -1,
+            "about": about,
+            "skills": "",
+        ]
+        return executeAPI(with: "PUT", apiPath: "ReaderProfiles/\(uid)", json: json, completionHandler:completionHandler)
+    }
+    func editReaderProfileTitle(uid: String, title: String, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> Void
     {
         let json: [String: Any] = [
             "isDeleted": false,
             "title": title,
-            "readerUid": readeruid,
-            "hourlyPrice": Int(hourlyprice) ?? 0,
-            "voiceType": 0,
-            "others": 0,
-            "about": about,
-            "skills": skills,
+            "readerUid": uid,
+            "hourlyPrice": -1,
+            "voiceType": -1,
+            "others": -1,
+            "about": "",
+            "skills": "",
         ]
-        return executeAPI(with: "PUT", apiPath: "ReaderProfiles/\(readeruid)", json: json, completionHandler:completionHandler)
+        return executeAPI(with: "PUT", apiPath: "ReaderProfiles/\(uid)", json: json, completionHandler:completionHandler)
+    }
+    func editReaderProfileName(uid: String, username: String, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> Void
+    {
+        let json: [String: Any] = [
+            "id": 0,
+            "isDeleted": true,
+            "createdTime": "2023-03-28T14:05:15.103Z",
+            "updatedTime": "2023-03-28T14:05:15.103Z",
+            "deletedTime": "2023-03-28T14:05:15.103Z",
+            "uid": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+            "userType": -1,
+            "userName": username,
+            "email": "string",
+            "password": "",
+            "firstName": "",
+            "lastName": "",
+            "dateOfBirth": "",
+            "gender": 0,
+            "currentAddress": "",
+            "permanentAddress": "",
+            "city": "",
+            "nationality": "",
+            "phoneNumber": "",
+            "isLogin": true,
+            "token": "string"
+        ]
+        
+        return executeAPI(with: "PUT", apiPath: "Users/\(uid)", json: json, completionHandler:completionHandler)
     }
     func bookAppointment(actorUid: String, readerUid: String, bookTime: String, script: String, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> Void
     {

@@ -12,6 +12,8 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ReaderProfileEditPersonalInfoViewController" customModule="PerfectSelf" customModuleProvider="target">
             <connections>
+                <outlet property="readerName" destination="M8r-bE-Gay" id="TFy-6t-Y9r"/>
+                <outlet property="readerTitle" destination="trG-Nz-P5q" id="CwI-vR-zcR"/>
                 <outlet property="view" destination="Upe-0B-Qtn" id="MeT-NQ-r5D"/>
             </connections>
         </placeholder>
@@ -53,7 +55,7 @@
                                                 </userDefinedRuntimeAttribute>
                                             </userDefinedRuntimeAttributes>
                                             <connections>
-                                                <action selector="SaveChange:" destination="-1" eventType="touchUpInside" id="FXB-aB-juQ"/>
+                                                <action selector="GoBack:" destination="-1" eventType="touchUpInside" id="sit-cr-n1y"/>
                                             </connections>
                                         </button>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Edit Personal Info" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="x29-ng-ncR">
@@ -150,7 +152,7 @@
                                                 <backgroundConfiguration key="background" cornerRadius="5"/>
                                             </buttonConfiguration>
                                             <connections>
-                                                <action selector="GoBack:" destination="-1" eventType="touchUpInside" id="fbV-sj-jwq"/>
+                                                <action selector="SaveChange:" destination="-1" eventType="touchUpInside" id="Jsg-TL-x7l"/>
                                             </connections>
                                         </button>
                                     </subviews>
@@ -169,7 +171,7 @@
             <constraints>
                 <constraint firstItem="8Yx-Mc-WkH" firstAttribute="top" secondItem="Q7y-dZ-0f2" secondAttribute="top" id="5Fj-hy-DQh"/>
                 <constraint firstItem="Q7y-dZ-0f2" firstAttribute="bottom" secondItem="8Yx-Mc-WkH" secondAttribute="bottom" id="c3X-hR-WuX"/>
-                <constraint firstAttribute="trailing" secondItem="8Yx-Mc-WkH" secondAttribute="trailing" id="cE5-Qr-XND"/>
+                <constraint firstItem="Q7y-dZ-0f2" firstAttribute="trailing" secondItem="8Yx-Mc-WkH" secondAttribute="trailing" id="cE5-Qr-XND"/>
                 <constraint firstItem="8Yx-Mc-WkH" firstAttribute="leading" secondItem="Q7y-dZ-0f2" secondAttribute="leading" id="oRC-FO-7td"/>
             </constraints>
             <point key="canvasLocation" x="138" y="-627"/>

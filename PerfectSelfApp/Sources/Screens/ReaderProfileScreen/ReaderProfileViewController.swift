@@ -11,7 +11,7 @@ import UIKit
 class ReaderProfileViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
 
     var isEditingMode = false
-    
+    var id = ""
     @IBOutlet weak var btn_edit_userinfo: UIButton!
     @IBOutlet weak var btn_edit_highlight: UIButton!
     @IBOutlet weak var btn_edit_about: UIButton!
@@ -33,6 +33,7 @@ class ReaderProfileViewController: UIViewController, UICollectionViewDataSource,
     @IBOutlet weak var line_videointro: UIImageView!
     @IBOutlet weak var line_review: UIImageView!
     
+    @IBOutlet weak var readerUsername: UILabel!
     @IBOutlet weak var readerTitle: UILabel!
     @IBOutlet weak var readerAbout: UITextView!
     @IBOutlet weak var readerSkills: UILabel!
@@ -60,7 +61,7 @@ class ReaderProfileViewController: UIViewController, UICollectionViewDataSource,
         btn_edit_about.isHidden = true;
         btn_edit_skills.isHidden = true;
         btn_edit_availability.isHidden = true;
-        
+        id = UserDefaults.standard.string(forKey: "USER_ID") ?? ""
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -82,12 +83,13 @@ class ReaderProfileViewController: UIViewController, UICollectionViewDataSource,
                 let item = try JSONDecoder().decode(ReaderProfileDetail.self, from: data)
                 print(item)
                 DispatchQueue.main.async {
+                    self.readerUsername.text = item.userName
                     self.readerTitle.text = item.title
                     self.readerAbout.text = item.about
-                    self.hourlyPrice.text = "$\((item.hourlyPrice ?? 0)/4) / 15 mins"
+                    self.hourlyPrice.text = "$\(item.hourlyPrice/4) / 15 mins"
                     self.readerSkills.text = item.skills
                     
-                    //call API for available time slots
+                    // call API for available time slots
                     
                     webAPI.getAvailabilityById(uid: uid) {data1, response1, error1 in
                         DispatchQueue.main.async {
@@ -221,7 +223,9 @@ class ReaderProfileViewController: UIViewController, UICollectionViewDataSource,
 //    }
     @IBAction func EditUserInfo(_ sender: UIButton) {
         let controller = ReaderProfileEditPersonalInfoViewController()
-        
+        controller.username = readerUsername.text ?? ""
+        controller.usertitle = readerTitle.text ?? ""
+        controller.uid = id
         self.navigationController?.pushViewController(controller, animated: true)
     }
     @IBAction func EditHighlight(_ sender: UIButton) {
@@ -232,6 +236,8 @@ class ReaderProfileViewController: UIViewController, UICollectionViewDataSource,
     @IBAction func EditAbout(_ sender: UIButton) {
         let controller = ReaderProfileEditAboutViewController()
 //        controller.delegate = self
+        controller.uid = id
+        controller.about = readerAbout.text
         self.navigationController?.pushViewController(controller, animated: true)
     }
     @IBAction func EditSkills(_ sender: UIButton) {
@@ -241,7 +247,7 @@ class ReaderProfileViewController: UIViewController, UICollectionViewDataSource,
     }
     @IBAction func EditAvailability(_ sender: UIButton) {
         let controller = ReaderProfileEditAvailabilityViewController()
-        
+        controller.uid = id
         self.navigationController?.pushViewController(controller, animated: true)
     }
     @IBAction func EditProfile(_ sender: UIButton) {
@@ -263,31 +269,31 @@ class ReaderProfileViewController: UIViewController, UICollectionViewDataSource,
             
             // Call API for create/update reader's profile
 
-            showIndicator(sender: sender, viewController: self)
-            let uid = UserDefaults.standard.string(forKey: "USER_ID")
-
-            webAPI.createReaderProfile(readeruid: uid!, title: readerTitle.text != nil ? readerTitle.text! : "", about: readerAbout.text != nil ? readerAbout.text! : "", hourlyprice: "120", skills: "") { data, response, error in
-                guard let data = data, error == nil else {
-                    print(error?.localizedDescription ?? "No data")
-                    return
-                }
-                let responseJSON = try? JSONSerialization.jsonObject(with: data, options: [])
-
-                if let _ = responseJSON as? [String: Any] {
-
-                    DispatchQueue.main.async {
-                        hideIndicator(sender: sender)
-                        Toast.show(message: "Profile updated successfully!", controller: self)
-                    }
-                }
-                else
-                {
-                    DispatchQueue.main.async {
-                        hideIndicator(sender: sender)
-                        Toast.show(message: "Profile update failed! please try again.", controller: self)
-                    }
-                }
-            }
+//            showIndicator(sender: sender, viewController: self)
+//            let uid = UserDefaults.standard.string(forKey: "USER_ID")
+//
+//            webAPI.createReaderProfile(readeruid: uid!, title: readerTitle.text != nil ? readerTitle.text! : "", about: readerAbout.text != nil ? readerAbout.text! : "", hourlyprice: "120", skills: "") { data, response, error in
+//                guard let data = data, error == nil else {
+//                    print(error?.localizedDescription ?? "No data")
+//                    return
+//                }
+//                let responseJSON = try? JSONSerialization.jsonObject(with: data, options: [])
+//
+//                if let _ = responseJSON as? [String: Any] {
+//
+//                    DispatchQueue.main.async {
+//                        hideIndicator(sender: sender)
+//                        Toast.show(message: "Profile updated successfully!", controller: self)
+//                    }
+//                }
+//                else
+//                {
+//                    DispatchQueue.main.async {
+//                        hideIndicator(sender: sender)
+//                        Toast.show(message: "Profile update failed! please try again.", controller: self)
+//                    }
+//                }
+//            }
             
         }
         else {
