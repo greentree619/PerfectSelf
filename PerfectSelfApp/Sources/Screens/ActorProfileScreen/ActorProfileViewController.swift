@@ -29,7 +29,10 @@ class ActorProfileViewController: UIViewController {
     }
     
     @IBAction func LogOut(_ sender: UIButton) {
-        
+        print("ok")
+
+        // Optional: Dismiss the tab bar controller
+        self.dismiss(animated: true, completion: nil)
     }
     /*
     // MARK: - Navigation
