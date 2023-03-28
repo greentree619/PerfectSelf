@@ -73,11 +73,11 @@ class ReaderTabBarController: UITabBarController {
 //        fakeNC.isNavigationBarHidden = true;
         
         viewControllers = [
-              createNavController(for: ReaderHomeViewController(), title: NSLocalizedString("Home", comment: ""), image: UIImage(named: "icons8-home")!),
-              createNavController(for: MessageCenterViewController(), title: NSLocalizedString("Chat", comment: ""), image: UIImage(named: "icons8-video-message-25")!),
+              createNavController(for: ReaderHomeViewController(), title: NSLocalizedString("Home", comment: ""), image: UIImage(systemName: "homekit")!),
+              createNavController(for: ReaderBookingViewController(), title: NSLocalizedString("Chat", comment: ""), image: UIImage(systemName: "calendar")!),
               UINavigationController(rootViewController: UIViewController()),
-              createNavController(for: ReaderBookingViewController(), title: NSLocalizedString("Book", comment: ""), image: UIImage(named: "icons8-settings")!),
-              createNavController(for: ReaderProfileViewController(), title: NSLocalizedString("Profile", comment: ""), image: UIImage(named: "icons8-customer-25")!)
+              createNavController(for: MessageCenterViewController(), title: NSLocalizedString("Book", comment: ""), image: UIImage(systemName: "ellipsis.message")!),
+              createNavController(for: ReaderProfileViewController(), title: NSLocalizedString("Profile", comment: ""), image: UIImage(systemName: "person")!)
         ];
       }
 
