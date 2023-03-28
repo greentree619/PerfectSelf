@@ -70,11 +70,12 @@ class ReaderProfileViewController: UIViewController, UICollectionViewDataSource,
         let uid = UserDefaults.standard.string(forKey: "USER_ID")!
         showIndicator(sender: nil, viewController: self)
         
-        // FIXME
-        webAPI.getReaderById(id: "1") { data, response, error in
-//        webAPI.getReaderById(id:uid) { data, response, error in
+        webAPI.getReaderById(id:uid) { data, response, error in
             guard let data = data, error == nil else {
                 print(error?.localizedDescription ?? "No data")
+                DispatchQueue.main.async {
+                    hideIndicator(sender: nil);
+                }
                 return
             }
             do {
@@ -111,17 +112,19 @@ class ReaderProfileViewController: UIViewController, UICollectionViewDataSource,
                         catch {
                             DispatchQueue.main.async {
                                 Toast.show(message: "Something went wrong. try again later", controller: self)
+                                print("here")
                             }
-                            print("there")
                         }
                     }
                 }
             }
             catch {
+                print(error)
+                print("there")
                 DispatchQueue.main.async {
+                    hideIndicator(sender: nil);
                     Toast.show(message: "Something went wrong. try again later", controller: self)
                 }
-                print("here")
             }
         }
         

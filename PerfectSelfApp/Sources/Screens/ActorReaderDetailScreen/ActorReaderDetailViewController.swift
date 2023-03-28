@@ -10,8 +10,7 @@ import UIKit
 
 class ActorReaderDetailViewController: UIViewController , UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
 
-    var id: String = "1"
-    var readerUid: String = ""
+    var uid: String = ""
     @IBOutlet weak var btn_overview: UIButton!
     @IBOutlet weak var btn_videointro: UIButton!
     @IBOutlet weak var btn_review: UIButton!
@@ -23,14 +22,18 @@ class ActorReaderDetailViewController: UIViewController , UICollectionViewDataSo
     @IBOutlet weak var view_review: UIStackView!
     @IBOutlet weak var view_videointro: UIStackView!
     @IBOutlet weak var view_overview: UIStackView!
-    @IBOutlet weak var view_reader: UIStackView!
+//    @IBOutlet weak var view_reader: UIStackView!
     // info
     
+    @IBOutlet weak var reader_name: UILabel!
     @IBOutlet weak var reader_title: UILabel!
     @IBOutlet weak var reader_hourly: UILabel!
-    
+    @IBOutlet weak var reader_skill: UILabel!
+    @IBOutlet weak var reader_about: UITextView!
     @IBOutlet weak var timeslotList: UICollectionView!
-    var items = ["1", "2", "3", "3", "2", "4"]
+    
+//    var items = ["1", "2", "3", "3", "2", "4"]
+    var items = [Availability]()
     let cellsPerRow = 1
     
     override func viewDidLoad() {
@@ -47,45 +50,63 @@ class ActorReaderDetailViewController: UIViewController , UICollectionViewDataSo
         view_videointro.isHidden = true
         view_review.isHidden = true
         self.navigationItem.setHidesBackButton(true, animated: false)
-        view_reader.isHidden = true
+//        view_reader.isHidden = true
         
         // call api for reader details
-        let activityIndicatorView = UIActivityIndicatorView(style: .large)
-        activityIndicatorView.center = view.center
-        view.addSubview(activityIndicatorView)
-        activityIndicatorView.startAnimating()
+        showIndicator(sender: nil, viewController: self)
         
-        webAPI.getReaderById(id: id) { data, response, error in
+        webAPI.getReaderById(id:uid) { data, response, error in
             guard let data = data, error == nil else {
                 print(error?.localizedDescription ?? "No data")
-                DispatchQueue.main.async {
-                    Toast.show(message: "Something went wrong. try again later", controller: self)
-                    activityIndicatorView.stopAnimating()
-                    activityIndicatorView.removeFromSuperview()
-                }
                 return
             }
             do {
                 let item = try JSONDecoder().decode(ReaderProfileDetail.self, from: data)
                 print(item)
                 DispatchQueue.main.async {
-                    activityIndicatorView.stopAnimating()
-                    activityIndicatorView.removeFromSuperview()
-                    self.view_reader.isHidden = false
+                    self.reader_name.text = item.userName
                     self.reader_title.text = item.title
+                    self.reader_about.text = item.about
                     self.reader_hourly.text = "$\((item.hourlyPrice ?? 0)/4) / 15 mins"
-                    self.readerUid = item.readerUid
+                    self.reader_skill.text = item.skills
+                    
+                    //call API for available time slots
+                    
+                    webAPI.getAvailabilityById(uid: self.uid) {data1, response1, error1 in
+                        DispatchQueue.main.async {
+                            hideIndicator(sender: nil);
+                        }
+                        guard let data1 = data1, error1 == nil else {
+                            print(error1?.localizedDescription ?? "No data")
+                            return
+                        }
+                        do {
+                            let respItems = try JSONDecoder().decode([Availability].self, from: data1)
+                            print(respItems)
+                            DispatchQueue.main.async {
+                                //update availability time slots
+                                self.items.removeAll()
+                                self.items.append(contentsOf: respItems)
+            //                    for (i, reader) in items.enumerated() {
+            //                    }
+                                self.timeslotList.reloadData()
+                            }
+                        }
+                        catch {
+                            print(error)
+                            DispatchQueue.main.async {
+                                Toast.show(message: "Something went wrong. try again later", controller: self)
+                            }
+                        }
+                    }
                 }
             }
             catch {
+                print(error)
                 DispatchQueue.main.async {
                     Toast.show(message: "Something went wrong. try again later", controller: self)
-                    activityIndicatorView.stopAnimating()
-                    activityIndicatorView.removeFromSuperview()
                 }
             }
-           
-           
         }
     }
     // MARK: - Time Slot List Delegate.
@@ -106,7 +127,20 @@ class ActorReaderDetailViewController: UIViewController , UICollectionViewDataSo
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         //
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Time Slot Collection View Cell", for: indexPath) as! TimeSlotCollectionViewCell
-        cell.lbl_num_slot.text = "\(self.items[indexPath.row]) slot";
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss'Z'"
+        let date = dateFormatter.date(from: self.items[indexPath.row].date)
+    
+        dateFormatter.dateFormat = "EEE"
+        let weekDay = dateFormatter.string(from: date ?? Date())
+        
+        dateFormatter.dateFormat = "dd MMM"
+        let dayMonth = dateFormatter.string(from: date ?? Date())
+        
+        cell.lbl_num_slot.text = "1 slot";
+        cell.lbl_weekday.text = weekDay
+        cell.lbl_date_month.text = dayMonth
         // return card
 //        cell.layer.masksToBounds = false
 //        cell.layer.shadowOffset = CGSizeZero
@@ -162,14 +196,13 @@ class ActorReaderDetailViewController: UIViewController , UICollectionViewDataSo
     }
     @IBAction func BookAppointment(_ sender: UIButton) {
         let controller = ActorBookAppointmentViewController();
-        controller.rUid = readerUid
+        controller.rUid = uid
         self.navigationController?.pushViewController(controller, animated: true)
     }
     
 
     @IBAction func GoBack(_ sender: UIButton) {
         _ = navigationController?.popViewController(animated: true)
-        print("ok")
     }
   
     /*

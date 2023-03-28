@@ -116,7 +116,7 @@ class ActorHomeViewController: UIViewController, UICollectionViewDataSource, UIC
         // add the code here to perform action on the cell
         print("didDeselectItemAt" + String(indexPath.row))
         let controller = ActorReaderDetailViewController()
-        controller.readerUid = self.items[indexPath.row].userName
+        controller.uid = self.items[indexPath.row].uid
         self.navigationController?.pushViewController(controller, animated: true)
 //        let cell = collectionView.cellForItem(at: indexPath) as? LibraryCollectionViewCell
     }
