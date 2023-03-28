@@ -49,7 +49,7 @@ class ActorReaderDetailViewController: UIViewController , UICollectionViewDataSo
         line_review.isHidden = true
         view_videointro.isHidden = true
         view_review.isHidden = true
-        self.navigationItem.setHidesBackButton(true, animated: false)
+    
 //        view_reader.isHidden = true
         
         // call api for reader details
@@ -197,12 +197,15 @@ class ActorReaderDetailViewController: UIViewController , UICollectionViewDataSo
     @IBAction func BookAppointment(_ sender: UIButton) {
         let controller = ActorBookAppointmentViewController();
         controller.rUid = uid
-        self.navigationController?.pushViewController(controller, animated: true)
+        controller.modalPresentationStyle = .fullScreen
+        self.present(controller, animated: false, completion: nil)
+//        self.navigationController?.pushViewController(controller, animated: true)
     }
     
 
     @IBAction func GoBack(_ sender: UIButton) {
-        _ = navigationController?.popViewController(animated: true)
+//        _ = navigationController?.popViewController(animated: true)
+        self.dismiss(animated: false)
     }
   
     /*

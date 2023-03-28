@@ -21,12 +21,12 @@ class ReaderProfileEditAboutViewController: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        self.navigationItem.setHidesBackButton(true, animated: false)
+    
         text_about.text = about
     }
 
     @IBAction func GoBack(_ sender: UIButton) {
-        self.navigationController?.popViewController(animated: true)
+        self.dismiss(animated: false)
     }
     
     @IBAction func SaveChanges(_ sender: UIButton) {
@@ -43,7 +43,7 @@ class ReaderProfileEditAboutViewController: UIViewController {
             }
             
             DispatchQueue.main.async {
-                self.navigationController?.popViewController(animated: true)
+                self.dismiss(animated: false)
             }
         }
     }

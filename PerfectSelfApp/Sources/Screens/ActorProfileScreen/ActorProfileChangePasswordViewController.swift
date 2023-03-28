@@ -20,14 +20,13 @@ class ActorProfileChangePasswordViewController: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        self.navigationItem.setHidesBackButton(true, animated: false)
     }
 
     @IBAction func SaveNewPassword(_ sender: UIButton) {
-        self.navigationController?.popViewController(animated: true)
+        self.dismiss(animated: false)
     }
     @IBAction func GoBack(_ sender: UIButton) {
-        self.navigationController?.popViewController(animated: true)
+        self.dismiss(animated: false)
     }
     
     @IBAction func ShowOldPassword(_ sender: UIButton) {

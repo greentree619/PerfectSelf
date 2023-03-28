@@ -116,8 +116,11 @@ class ActorHomeViewController: UIViewController, UICollectionViewDataSource, UIC
         // add the code here to perform action on the cell
         print("didDeselectItemAt" + String(indexPath.row))
         let controller = ActorReaderDetailViewController()
+        controller.modalPresentationStyle = .fullScreen
         controller.uid = self.items[indexPath.row].uid
-        self.navigationController?.pushViewController(controller, animated: true)
+
+        self.present(controller, animated: false, completion: nil)
+//        self.navigationController?.pushViewController(controller, animated: true)
 //        let cell = collectionView.cellForItem(at: indexPath) as? LibraryCollectionViewCell
     }
     
@@ -144,7 +147,7 @@ class ActorHomeViewController: UIViewController, UICollectionViewDataSource, UIC
         self.filtermodal.alpha = 0;
         
         let controller = ActorFindReaderViewController()
-        self.navigationController?.pushViewController(controller, animated: true)
+        self.navigationController?.pushViewController(controller, animated: false)
         
     }
     @IBAction func SelectMale(_ sender: UIButton) {

@@ -18,12 +18,14 @@ class ActorProfileViewController: UIViewController {
 
     @IBAction func EditProfile(_ sender: UIButton) {
         let controller = ActorProfileEditViewController()
-        self.navigationController?.pushViewController(controller, animated: true)
+        controller.modalPresentationStyle = .fullScreen
+        self.present(controller, animated: false)
     }
     
     @IBAction func ChangePassword(_ sender: UIButton) {
         let controller = ActorProfileChangePasswordViewController()
-        self.navigationController?.pushViewController(controller, animated: true)
+        controller.modalPresentationStyle = .fullScreen
+        self.present(controller, animated: false)
     }
     
     @IBAction func LogOut(_ sender: UIButton) {

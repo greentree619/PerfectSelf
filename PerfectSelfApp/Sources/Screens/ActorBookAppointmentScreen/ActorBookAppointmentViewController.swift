@@ -1,4 +1,4 @@
-//
+
 //  ActorBookAppointmentViewController.swift
 //  PerfectSelf
 //
@@ -42,7 +42,7 @@ class ActorBookAppointmentViewController: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        self.navigationItem.setHidesBackButton(true, animated: false)
+
 //        text_starttime.inputView = picker_start_time
 //        text_end.inputView = picker_end_time
         
@@ -173,8 +173,9 @@ class ActorBookAppointmentViewController: UIViewController {
         let df = DateFormatter()
         df.dateFormat = "hh:mm:ss"
         controller.bookingTime = df.string(from: picker_start_time.date)
-        
-        self.navigationController?.pushViewController(controller, animated: true)
+        controller.modalPresentationStyle = .fullScreen
+        self.present(controller, animated: false, completion: nil)
+//        self.navigationController?.pushViewController(controller, animated: true)
     }
 //
 //    @IBAction func Select9Time(_ sender: UIButton) {
@@ -371,7 +372,8 @@ class ActorBookAppointmentViewController: UIViewController {
 //        }
 //    }
     @IBAction func GoBack(_ sender: UIButton) {
-        self.navigationController?.popViewController(animated: true)
+//        self.navigationController?.popViewController(animated: true)
+        self.dismiss(animated: false)
     }
     /*
     // MARK: - Navigation

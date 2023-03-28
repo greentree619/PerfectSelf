@@ -35,14 +35,14 @@
             <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="e5e-7d-MvY">
-                    <rect key="frame" x="0.0" y="59" width="393" height="759"/>
+                <stackView opaque="NO" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="e5e-7d-MvY">
+                    <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                     <subviews>
-                        <stackView opaque="NO" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" axis="vertical" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="Yy8-SY-x3X">
-                            <rect key="frame" x="0.0" y="0.0" width="393" height="80"/>
+                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="Yy8-SY-x3X">
+                            <rect key="frame" x="0.0" y="0.0" width="393" height="139"/>
                             <subviews>
                                 <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Imw-SD-ufN">
-                                    <rect key="frame" x="20" y="0.0" width="197.66666666666666" height="40"/>
+                                    <rect key="frame" x="20" y="59" width="197.66666666666666" height="40"/>
                                     <subviews>
                                         <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" horizontalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RWo-du-lFU">
                                             <rect key="frame" x="0.0" y="3" width="35" height="34"/>
@@ -81,12 +81,12 @@
                                 </stackView>
                             </subviews>
                             <constraints>
-                                <constraint firstAttribute="height" constant="80" id="S1B-8c-fws" customClass="AdaptiveLayoutConstraint" customModule="PerfectSelf" customModuleProvider="target"/>
+                                <constraint firstAttribute="height" constant="139" id="gqY-oX-KDf"/>
                             </constraints>
                             <edgeInsets key="layoutMargins" top="0.0" left="20" bottom="40" right="20"/>
                         </stackView>
                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Mwj-Io-Ga6">
-                            <rect key="frame" x="0.0" y="80" width="393" height="679"/>
+                            <rect key="frame" x="0.0" y="139" width="393" height="713"/>
                             <subviews>
                                 <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="NDN-gi-Hn0">
                                     <rect key="frame" x="20" y="20" width="353" height="60"/>
@@ -629,7 +629,7 @@
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="N7l-7n-BN6">
                                             <rect key="frame" x="107" y="0.0" width="246" height="40"/>
                                             <state key="normal" title="Button"/>
-                                            <buttonConfiguration key="configuration" style="filled" title="Book aggpointment"/>
+                                            <buttonConfiguration key="configuration" style="filled" title="Book appointment"/>
                                             <connections>
                                                 <action selector="BookAppointment:" destination="-1" eventType="touchUpInside" id="Lb5-rS-PNd"/>
                                             </connections>
@@ -649,13 +649,13 @@
                             </userDefinedRuntimeAttributes>
                         </stackView>
                     </subviews>
+                    <color key="backgroundColor" red="0.45882352939999999" green="0.52941176469999995" blue="0.85098039219999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                 </stackView>
             </subviews>
             <viewLayoutGuide key="safeArea" id="1mG-Qz-FhT"/>
-            <color key="backgroundColor" red="0.45882352939999999" green="0.52941176469999995" blue="0.85098039219999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
-                <constraint firstItem="e5e-7d-MvY" firstAttribute="top" secondItem="1mG-Qz-FhT" secondAttribute="top" id="DAH-1Z-aqy"/>
-                <constraint firstItem="1mG-Qz-FhT" firstAttribute="bottom" secondItem="e5e-7d-MvY" secondAttribute="bottom" id="MIQ-s8-xu1"/>
+                <constraint firstItem="e5e-7d-MvY" firstAttribute="top" secondItem="o1W-e2-d2S" secondAttribute="top" id="DAH-1Z-aqy"/>
+                <constraint firstAttribute="bottom" secondItem="e5e-7d-MvY" secondAttribute="bottom" id="MIQ-s8-xu1"/>
                 <constraint firstItem="e5e-7d-MvY" firstAttribute="leading" secondItem="1mG-Qz-FhT" secondAttribute="leading" id="nhR-cq-bEu"/>
                 <constraint firstItem="1mG-Qz-FhT" firstAttribute="trailing" secondItem="e5e-7d-MvY" secondAttribute="trailing" id="ocs-bK-fXC"/>
             </constraints>

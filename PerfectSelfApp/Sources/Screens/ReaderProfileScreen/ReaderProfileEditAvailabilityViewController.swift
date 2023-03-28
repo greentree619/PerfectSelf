@@ -25,7 +25,6 @@ class ReaderProfileEditAvailabilityViewController: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        self.navigationItem.setHidesBackButton(true, animated: false)
         modal_time_start.isHidden = true
         modal_time_start.alpha = 0
         modal_time_end.isHidden = true
@@ -161,14 +160,14 @@ class ReaderProfileEditAvailabilityViewController: UIViewController {
             }
             DispatchQueue.main.async {
 //                Toast.show(message: "Successfully added new time slot", controller: self)
-                self.navigationController?.popViewController(animated: true)
+                self.dismiss(animated: false)
             }
         }
         
         
     }
     @IBAction func GoBack(_ sender: UIButton) {
-        self.navigationController?.popViewController(animated: true)
+        self.dismiss(animated: false)
     }
     
     /*

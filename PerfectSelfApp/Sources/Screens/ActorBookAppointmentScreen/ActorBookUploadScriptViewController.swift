@@ -19,7 +19,7 @@ class ActorBookUploadScriptViewController: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        self.navigationItem.setHidesBackButton(true, animated: false)
+
     }
 
     @IBAction func GotoCheckout(_ sender: UIButton) {
@@ -29,11 +29,13 @@ class ActorBookUploadScriptViewController: UIViewController {
         controller.bookingTime = bookingTime
         controller.bookingDate = bookingDate
         controller.script = text_script.text
-        
-        self.navigationController?.pushViewController(controller, animated: true)
+        controller.modalPresentationStyle = .fullScreen
+//        self.navigationController?.pushViewController(controller, animated: true)
+        self.present(controller, animated: false, completion: nil)
     }
     @IBAction func GoBack(_ sender: UIButton) {
-        _ = navigationController?.popViewController(animated: true)
+//        _ = navigationController?.popViewController(animated: true)
+        self.dismiss(animated: false)
     }
     
     /*

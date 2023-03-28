@@ -44,7 +44,6 @@ class ActorProfileEditViewController: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        self.navigationItem.setHidesBackButton(true, animated: false);
         
         // set dropdown
         dropDownForGender.anchorView = genderview // UIView or UIBarButtonItem
@@ -131,7 +130,7 @@ class ActorProfileEditViewController: UIViewController {
     }
 
     @IBAction func SaveChanges(_ sender: UIButton) {
-        self.navigationController?.popViewController(animated: true)
+        self.dismiss(animated: false)
     }
     @IBAction func ShowDropDownForAge(_ sender: UIButton) {
         dropDownForAgeRange.show()
@@ -156,7 +155,7 @@ class ActorProfileEditViewController: UIViewController {
         dropDownForVaccination.show()
     }
     @IBAction func GoBack(_ sender: UIButton) {
-        self.navigationController?.popViewController(animated: true)
+        self.dismiss(animated: false)
     }
     /*
     // MARK: - Navigation

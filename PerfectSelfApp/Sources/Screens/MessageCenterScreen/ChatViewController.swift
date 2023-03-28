@@ -28,7 +28,7 @@ class ChatViewController: UIViewController, UICollectionViewDataSource, UICollec
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        self.navigationItem.setHidesBackButton(true, animated: false)
+
         modal_confirm_call.isHidden = true;
         noMessage.isHidden = false;
         
@@ -39,11 +39,12 @@ class ChatViewController: UIViewController, UICollectionViewDataSource, UICollec
     }
 
     @IBAction func SendMessage(_ sender: UIButton) {
-        noMessage.isHidden = true;
+        
         kkk = kkk + 1
         guard let text = messageTextField.text, !text.isEmpty else {
             return // Don't send empty messages
         }
+        noMessage.isHidden = true;
         messageTextField.text = ""
         let message = CustomMessage(text: text, type: kkk % 2 == 0 ? "sent" : "received")// Create a new message object
         messages.append(message) // Add the new message to the messages array
@@ -156,7 +157,8 @@ class ChatViewController: UIViewController, UICollectionViewDataSource, UICollec
     }
     
     @IBAction func GoBack(_ sender: UIButton) {
-        _ = navigationController?.popViewController(animated: true)
+//        _ = navigationController?.popViewController(animated: true)
+        self.dismiss(animated: false)
     }
     /*
     // MARK: - Navigation
