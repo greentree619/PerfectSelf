@@ -214,10 +214,10 @@ class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSample
             do {
                 // 5
                 audioRecorder = try AVAudioRecorder(url: audioURL, settings: settings)
-                audioRecorder!.delegate = self
-                audioRecorder!.record()
+                audioRecorder?.delegate = self
+                audioRecorder?.record()
             } catch {
-                audioRecorder!.stop()
+                audioRecorder?.stop()
                 //finishRecording(success: false)
             }
         
@@ -275,7 +275,7 @@ class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSample
     }
     
     @IBAction func backDidTap(_ sender: UIButton) {
-        audioRecorder!.stop()
+        audioRecorder?.stop()
         _captureState = .end
         self.dismiss(animated: false)
     }
