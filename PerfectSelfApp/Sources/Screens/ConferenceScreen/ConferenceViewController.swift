@@ -17,7 +17,7 @@ enum PipelineMode
     case PipelineModeAssetWriter
 }// internal state machine
 
-class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDelegate, AVAudioRecorderDelegate {
+class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDelegate, AVAudioRecorderDelegate   {
     
     @IBOutlet weak var localVideoView: UIView!
     
@@ -199,35 +199,29 @@ class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSample
         _captureSession = capturer.captureSession
         //}} Init to record video.
         
-//        //{{Init to record audio
-//        var settings: [String: Any]  = [String: String]()
-//        settings[AVFormatIDKey] = kAudioFormatMPEG4AAC
-//        settings[AVSampleRateKey] = 8000.0
-//        settings[AVNumberOfChannelsKey] = 1
-//        settings[AVLinearPCMBitDepthKey] = 16
-//        //settings[AVLinearPCMIsBigEndianKey] = false
-//        //settings[AVLinearPCMIsFloatKey] = false
-//        settings[AVEncoderAudioQualityKey] = AVAudioQuality.max.rawValue
-//
-//        //let searchPaths: [String] = NSSearchPathForDirectoriesInDomains(.documentDirectory, .allDomainsMask, true)
-//        let documentPath_ = getDocumentsDirectory()//searchPaths.first
-//        let pathToSave = "\(documentPath_)\(dateString())"
-//        let url = URL.init(fileURLWithPath: pathToSave)
-//
-//        do{
-//            audioRecorder = try AVAudioRecorder(url: url, settings: settings)
-//        }
-//        catch let error
-//        {
-//            print(error.localizedDescription)
-//        }
-//
-//        // Initialize degate, metering, etc.
-//        audioRecorder?.delegate = self
-//        audioRecorder?.isMeteringEnabled = true
-//        audioRecorder?.prepareToRecord()
-//        audioRecorder?.record()
-//        //}}Init to record audio
+        
+        let audioURL = ConferenceViewController.getWhistleURL()
+            print(audioURL.absoluteString)
+
+            // 4
+            let settings = [
+                AVFormatIDKey: Int(kAudioFormatMPEG4AAC),
+                AVSampleRateKey: 12000,
+                AVNumberOfChannelsKey: 1,
+                AVEncoderAudioQualityKey: AVAudioQuality.high.rawValue
+            ]
+
+            do {
+                // 5
+                audioRecorder = try AVAudioRecorder(url: audioURL, settings: settings)
+                audioRecorder!.delegate = self
+                audioRecorder!.record()
+            } catch {
+                audioRecorder!.stop()
+                //finishRecording(success: false)
+            }
+        
+        //}}Init to record audio
         
         self.webRTCClient.startCaptureLocalVideo(renderer: localRenderer)
         self.webRTCClient.renderRemoteVideo(to: remoteRenderer)
@@ -237,6 +231,16 @@ class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSample
         }
         self.embedView(remoteRenderer, into: self.remoteCameraView)
         self.remoteCameraView.sendSubviewToBack(remoteRenderer)
+    }
+    
+    class func getDocumentsDirectory() -> URL {
+        let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+        let documentsDirectory = paths[0]
+        return documentsDirectory
+    }
+
+    class func getWhistleURL() -> URL {
+        return getDocumentsDirectory().appendingPathComponent("whistle.m4a")
     }
     
     private func embedView(_ view: UIView, into containerView: UIView) {
@@ -271,9 +275,9 @@ class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSample
     }
     
     @IBAction func backDidTap(_ sender: UIButton) {
-        self.dismiss(animated: false)
+        audioRecorder!.stop()
         _captureState = .end
-        audioRecorder?.stop()
+        self.dismiss(animated: false)
     }
     
     @IBAction func recordingDidTap(_ sender: UIButton) {
@@ -333,33 +337,32 @@ class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSample
         }
     }
     
-    /* audioRecorderDidFinishRecording:successfully: is called when a recording has been finished or stopped. This method is NOT called if the recorder is stopped due to an interruption. */
-    func audioRecorderDidFinishRecording(_ recorder: AVAudioRecorder, successfully flag: Bool)
-    {
-        os_log("audioRecorderDidFinishRecording")
+    func audioRecorderDidFinishRecording(_ recorder: AVAudioRecorder, successfully flag: Bool) {
+        if !flag {
+            //finishRecording(success: false)
+        }
     }
-
-    
-    /* if an error occurs while encoding it will be reported to the delegate. */
-    func audioRecorderEncodeErrorDidOccur(_ recorder: AVAudioRecorder, error: Error?)
-    {
-        os_log("audioRecorderDidFinishRecording")
-    }
-    
-    /* audioRecorderBeginInterruption: is called when the audio session has been interrupted while the recorder was recording. The recorded file will be closed. */
-    
-    func audioRecorderBeginInterruption(_ recorder: AVAudioRecorder)
-    {
-        os_log("audioRecorderBeginInterruption")
-    }
-
-    
-    /* audioRecorderEndInterruption:withOptions: is called when the audio session interruption has ended and this recorder had been interrupted while recording. */
-    /* Currently the only flag is AVAudioSessionInterruptionFlags_ShouldResume. */
-    func audioRecorderEndInterruption(_ recorder: AVAudioRecorder, withOptions flags: Int)
-    {
-        os_log("audioRecorderEndInterruption")
-    }
+//
+//    /* if an error occurs while encoding it will be reported to the delegate. */
+//    func audioRecorderEncodeErrorDidOccur(_ recorder: AVAudioRecorder, error: Error?)
+//    {
+//        os_log("audioRecorderDidFinishRecording")
+//    }
+//
+//    /* audioRecorderBeginInterruption: is called when the audio session has been interrupted while the recorder was recording. The recorded file will be closed. */
+//
+//    func audioRecorderBeginInterruption(_ recorder: AVAudioRecorder)
+//    {
+//        os_log("audioRecorderBeginInterruption")
+//    }
+//
+//
+//    /* audioRecorderEndInterruption:withOptions: is called when the audio session interruption has ended and this recorder had been interrupted while recording. */
+//    /* Currently the only flag is AVAudioSessionInterruptionFlags_ShouldResume. */
+//    func audioRecorderEndInterruption(_ recorder: AVAudioRecorder, withOptions flags: Int)
+//    {
+//        os_log("audioRecorderEndInterruption")
+//    }
 }
 
 //MARK: SignalClientDelegate
