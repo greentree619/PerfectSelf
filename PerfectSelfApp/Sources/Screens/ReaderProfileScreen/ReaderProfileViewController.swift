@@ -228,11 +228,11 @@ class ReaderProfileViewController: UIViewController, UICollectionViewDataSource,
         controller.uid = id
         self.navigationController?.pushViewController(controller, animated: true)
     }
-    @IBAction func EditHighlight(_ sender: UIButton) {
-        let controller = ReaderProfileEditPersonalInfoViewController()
-        
-        self.navigationController?.pushViewController(controller, animated: true)
-    }
+//    @IBAction func EditHighlight(_ sender: UIButton) {
+//        let controller = ReaderProfileEditPersonalInfoViewController()
+//
+//        self.navigationController?.pushViewController(controller, animated: true)
+//    }
     @IBAction func EditAbout(_ sender: UIButton) {
         let controller = ReaderProfileEditAboutViewController()
 //        controller.delegate = self

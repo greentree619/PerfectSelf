@@ -60,19 +60,16 @@ class ReaderProfileEditPersonalInfoViewController: UIViewController {
                 }
                 return
             }
-            print("333")
-            if let httpResponse = response as? HTTPURLResponse {
-                print("statusCode: \(httpResponse.statusCode)")
-            }
+//            print("333")
+//            if let httpResponse = response as? HTTPURLResponse {
+//                print("statusCode: \(httpResponse.statusCode)")
+//            }
             DispatchQueue.main.async {
                 webAPI.editReaderProfileName(uid: self.uid, username: self.readerName.text!) { data, response, error in
                     DispatchQueue.main.async {
                         hideIndicator(sender: nil);
                     }
-                    print("444")
-                    if let httpResponse = response as? HTTPURLResponse {
-                        print("statusCode: \(httpResponse.statusCode)")
-                    }
+                   
                     guard let _ = data, error == nil else {
                         print(error?.localizedDescription ?? "No data")
                         return

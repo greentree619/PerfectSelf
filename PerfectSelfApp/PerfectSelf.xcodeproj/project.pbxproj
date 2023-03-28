@@ -28,6 +28,14 @@
 		4772156229CE700C00319CBC /* VideoCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4772156029CE700C00319CBC /* VideoCollectionViewCell.xib */; };
 		47843E4329CFEB2F008704CD /* ChatCardCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47843E4129CFEB2F008704CD /* ChatCardCollectionViewCell.swift */; };
 		47843E4429CFEB2F008704CD /* ChatCardCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 47843E4229CFEB2F008704CD /* ChatCardCollectionViewCell.xib */; };
+		47B025A529D3361100DFECE7 /* MKAccordionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47B025A429D3361100DFECE7 /* MKAccordionView.swift */; };
+		47B025C629D3477900DFECE7 /* grayBar.png in Resources */ = {isa = PBXBuildFile; fileRef = 47B025C129D3477800DFECE7 /* grayBar.png */; };
+		47B025C729D3477900DFECE7 /* grayBarSelected.png in Resources */ = {isa = PBXBuildFile; fileRef = 47B025C229D3477800DFECE7 /* grayBarSelected.png */; };
+		47B025C829D3477900DFECE7 /* open.png in Resources */ = {isa = PBXBuildFile; fileRef = 47B025C329D3477800DFECE7 /* open.png */; };
+		47B025C929D3477900DFECE7 /* lightGrayBarWithBlueStripe.png in Resources */ = {isa = PBXBuildFile; fileRef = 47B025C429D3477900DFECE7 /* lightGrayBarWithBlueStripe.png */; };
+		47B025CA29D3477900DFECE7 /* close.png in Resources */ = {isa = PBXBuildFile; fileRef = 47B025C529D3477900DFECE7 /* close.png */; };
+		47B025CD29D34D8300DFECE7 /* SkillCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47B025CB29D34D8300DFECE7 /* SkillCell.swift */; };
+		47B025CE29D34D8300DFECE7 /* SkillCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 47B025CC29D34D8300DFECE7 /* SkillCell.xib */; };
 		47B65BDE29D173F700B3FD20 /* MessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47B65BDC29D173F700B3FD20 /* MessageCell.swift */; };
 		47B65BDF29D173F700B3FD20 /* MessageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 47B65BDD29D173F700B3FD20 /* MessageCell.xib */; };
 		47BC09BA29C5B42700B8F2C5 /* ActorBuildProfile1ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47BC09B829C5B42700B8F2C5 /* ActorBuildProfile1ViewController.swift */; };
@@ -183,6 +191,14 @@
 		4772156029CE700C00319CBC /* VideoCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = VideoCollectionViewCell.xib; sourceTree = "<group>"; };
 		47843E4129CFEB2F008704CD /* ChatCardCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatCardCollectionViewCell.swift; sourceTree = "<group>"; };
 		47843E4229CFEB2F008704CD /* ChatCardCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChatCardCollectionViewCell.xib; sourceTree = "<group>"; };
+		47B025A429D3361100DFECE7 /* MKAccordionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MKAccordionView.swift; sourceTree = "<group>"; };
+		47B025C129D3477800DFECE7 /* grayBar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = grayBar.png; sourceTree = "<group>"; };
+		47B025C229D3477800DFECE7 /* grayBarSelected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = grayBarSelected.png; sourceTree = "<group>"; };
+		47B025C329D3477800DFECE7 /* open.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = open.png; sourceTree = "<group>"; };
+		47B025C429D3477900DFECE7 /* lightGrayBarWithBlueStripe.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lightGrayBarWithBlueStripe.png; sourceTree = "<group>"; };
+		47B025C529D3477900DFECE7 /* close.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = close.png; sourceTree = "<group>"; };
+		47B025CB29D34D8300DFECE7 /* SkillCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkillCell.swift; sourceTree = "<group>"; };
+		47B025CC29D34D8300DFECE7 /* SkillCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SkillCell.xib; sourceTree = "<group>"; };
 		47B65BDC29D173F700B3FD20 /* MessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageCell.swift; sourceTree = "<group>"; };
 		47B65BDD29D173F700B3FD20 /* MessageCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MessageCell.xib; sourceTree = "<group>"; };
 		47BC09B829C5B42700B8F2C5 /* ActorBuildProfile1ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActorBuildProfile1ViewController.swift; sourceTree = "<group>"; };
@@ -427,6 +443,11 @@
 		79177C9A20B0E82B00BCD399 /* SupportingFiles */ = {
 			isa = PBXGroup;
 			children = (
+				47B025C529D3477900DFECE7 /* close.png */,
+				47B025C129D3477800DFECE7 /* grayBar.png */,
+				47B025C229D3477800DFECE7 /* grayBarSelected.png */,
+				47B025C429D3477900DFECE7 /* lightGrayBarWithBlueStripe.png */,
+				47B025C329D3477800DFECE7 /* open.png */,
 				798FBA482200F9A9009F525E /* LaunchScreen.storyboard */,
 				79262EF220B0D6F800D576C1 /* Info.plist */,
 			);
@@ -795,18 +816,21 @@
 		BAD0B4DD29BA17130061FEF5 /* ReaderProfileScreen */ = {
 			isa = PBXGroup;
 			children = (
+				47B025A429D3361100DFECE7 /* MKAccordionView.swift */,
 				BAD0B4C929BA17130061FEF5 /* ReaderProfileEditAvailabilityViewController.swift */,
 				472F64FC29CC0868005A427D /* ReaderProfileEditAvailabilityViewController.xib */,
 				BAD0B4E429BA17130061FEF5 /* ReaderProfileEditAboutViewController.swift */,
 				BAD0B4E529BA17130061FEF5 /* ReaderProfileEditAboutViewController.xib */,
 				BAD0B4FC29BA17130061FEF5 /* ReaderProfileEditPersonalInfoViewController.swift */,
 				BAD0B4FB29BA17130061FEF5 /* ReaderProfileEditPersonalInfoViewController.xib */,
-				BAD0B4BA29BA17130061FEF5 /* ReaderProfileEditSkillViewController.xib */,
 				BAD0B4BB29BA17130061FEF5 /* ReaderProfileEditSkillViewController.swift */,
+				BAD0B4BA29BA17130061FEF5 /* ReaderProfileEditSkillViewController.xib */,
 				BAD0B4DE29BA17130061FEF5 /* ReaderProfileViewController.swift */,
 				BAD0B4DF29BA17130061FEF5 /* ReaderProfileViewController.xib */,
 				471550FF29CDBF00007CE524 /* TimeSlotCollectionViewCell.swift */,
 				4715510029CDBF00007CE524 /* TimeSlotCollectionViewCell.xib */,
+				47B025CB29D34D8300DFECE7 /* SkillCell.swift */,
+				47B025CC29D34D8300DFECE7 /* SkillCell.xib */,
 			);
 			path = ReaderProfileScreen;
 			sourceTree = "<group>";
@@ -971,15 +995,19 @@
 				47BC09C329C5B46800B8F2C5 /* ActorBuildProfile3ViewController.xib in Resources */,
 				472F64FD29CC0868005A427D /* ReaderProfileEditAvailabilityViewController.xib in Resources */,
 				BA4714BC29A79856007AABC2 /* GTWalsheimPro-Medium.ttf in Resources */,
+				47B025CE29D34D8300DFECE7 /* SkillCell.xib in Resources */,
 				BAD0B52829BA17130061FEF5 /* ActorHomeViewController.xib in Resources */,
 				BA4714C729A79856007AABC2 /* SF-Pro-Display-Bold.otf in Resources */,
+				47B025C829D3477900DFECE7 /* open.png in Resources */,
 				47CEBDDF29C7C272006CE9DA /* ActorProfileEditViewController.xib in Resources */,
 				BAD0B50C29BA17130061FEF5 /* ProjectViewController.xib in Resources */,
 				BAD0B53029BA17130061FEF5 /* ActorReaderDetailViewController.xib in Resources */,
 				BAD0B52629BA17130061FEF5 /* ActorBookUploadScriptViewController.xib in Resources */,
+				47B025C729D3477900DFECE7 /* grayBarSelected.png in Resources */,
 				BAD0B51329BA17130061FEF5 /* SignupViewController.xib in Resources */,
 				47007BEA29C2B0C000F83CFD /* ActorSetPaymentViewController.xib in Resources */,
 				BAD0B53A29BA17130061FEF5 /* ActorFindReaderViewController.xib in Resources */,
+				47B025CA29D3477900DFECE7 /* close.png in Resources */,
 				BAD0B51729BA17130061FEF5 /* AvaliableAudioInputsViewController.xib in Resources */,
 				BA4714C829A79856007AABC2 /* SF-Pro-Display-Heavy.otf in Resources */,
 				BA4714CB29A79856007AABC2 /* SanFranciscoDisplay-Regular.otf in Resources */,
@@ -987,8 +1015,10 @@
 				BA4714BE29A79856007AABC2 /* GTWalsheimPro-Bold.ttf in Resources */,
 				BA4714C329A79856007AABC2 /* SFProText-Regular.otf in Resources */,
 				BAD0B52F29BA17130061FEF5 /* ReaderProfileViewController.xib in Resources */,
+				47B025C629D3477900DFECE7 /* grayBar.png in Resources */,
 				BAD0B52529BA17130061FEF5 /* EditReadViewController.xib in Resources */,
 				BAD0B53C29BA17130061FEF5 /* ChatViewController.xib in Resources */,
+				47B025C929D3477900DFECE7 /* lightGrayBarWithBlueStripe.png in Resources */,
 				BAD0B52D29BA17130061FEF5 /* ActorLibraryViewController.xib in Resources */,
 				47CEBDE329C7C293006CE9DA /* ActorProfileChangePasswordViewController.xib in Resources */,
 				BAD0B50B29BA17130061FEF5 /* MeetingListViewController.xib in Resources */,
@@ -1004,7 +1034,7 @@
 				BA4714BF29A79856007AABC2 /* ProximaNova-Semibold.otf in Resources */,
 				BA4714C029A79856007AABC2 /* ProximaNova-Bold.otf in Resources */,
 				BAD0B51929BA17130061FEF5 /* OverlayViewController.xib in Resources */,
-				BAD0B51929BA17130061FEF5 /* VideoRecordViewController.xib in Resources */,
+				BAD0B51929BA17130061FEF5 /* OverlayViewController.xib in Resources */,
 				47B65BDF29D173F700B3FD20 /* MessageCell.xib in Resources */,
 				47D4F80A29CBD8B600AFC4BA /* ReaderBookingViewController.xib in Resources */,
 				BA4714BA29A79856007AABC2 /* ABeeZee-Italic.ttf in Resources */,
@@ -1157,9 +1187,11 @@
 				BAD0B51D29BA17130061FEF5 /* VideoCompositionViewController.swift in Sources */,
 				BAC11B8629A8B37100580143 /* IDAssetWriterCoordinator.m in Sources */,
 				2F7EBC3822DCCB4E0015B46E /* StarscreamProvider.swift in Sources */,
+				47B025A529D3361100DFECE7 /* MKAccordionView.swift in Sources */,
 				BAD0B50A29BA17130061FEF5 /* MeetingListViewController.swift in Sources */,
 				BAD0B51529BA17130061FEF5 /* ReaderProfileEditSkillViewController.swift in Sources */,
 				2F7EBC3A22DCCE240015B46E /* NativeWebSocket.swift in Sources */,
+				47B025CD29D34D8300DFECE7 /* SkillCell.swift in Sources */,
 				470AEBCA29D1ACE200AD3848 /* StringHeight.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
