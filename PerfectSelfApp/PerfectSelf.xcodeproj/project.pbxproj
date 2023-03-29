@@ -131,7 +131,6 @@
 		BAD0B51829BA17130061FEF5 /* OverlayViewContoller.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAD0B4BF29BA17130061FEF5 /* OverlayViewContoller.swift */; };
 		BAD0B51929BA17130061FEF5 /* OverlayViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BAD0B4C029BA17130061FEF5 /* OverlayViewController.xib */; };
 		BAD0B51A29BA17130061FEF5 /* AvailableAudioInputsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAD0B4C129BA17130061FEF5 /* AvailableAudioInputsViewController.swift */; };
-		BAD0B51B29BA17130061FEF5 /* VideoRecordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAD0B4C229BA17130061FEF5 /* VideoRecordViewController.swift */; };
 		BAD0B51C29BA17130061FEF5 /* VideoPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAD0B4C329BA17130061FEF5 /* VideoPicker.swift */; };
 		BAD0B51D29BA17130061FEF5 /* VideoCompositionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAD0B4C429BA17130061FEF5 /* VideoCompositionViewController.swift */; };
 		BAD0B52029BA17130061FEF5 /* ReaderProfileEditAvailabilityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAD0B4C929BA17130061FEF5 /* ReaderProfileEditAvailabilityViewController.swift */; };
@@ -310,7 +309,6 @@
 		BAD0B4BF29BA17130061FEF5 /* OverlayViewContoller.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OverlayViewContoller.swift; sourceTree = "<group>"; };
 		BAD0B4C029BA17130061FEF5 /* OverlayViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OverlayViewController.xib; sourceTree = "<group>"; };
 		BAD0B4C129BA17130061FEF5 /* AvailableAudioInputsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AvailableAudioInputsViewController.swift; sourceTree = "<group>"; };
-		BAD0B4C229BA17130061FEF5 /* VideoRecordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoRecordViewController.swift; sourceTree = "<group>"; };
 		BAD0B4C329BA17130061FEF5 /* VideoPicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoPicker.swift; sourceTree = "<group>"; };
 		BAD0B4C429BA17130061FEF5 /* VideoCompositionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoCompositionViewController.swift; sourceTree = "<group>"; };
 		BAD0B4C929BA17130061FEF5 /* ReaderProfileEditAvailabilityViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReaderProfileEditAvailabilityViewController.swift; sourceTree = "<group>"; };
@@ -756,14 +754,13 @@
 		BAD0B4BC29BA17130061FEF5 /* OverlayScreen */ = {
 			isa = PBXGroup;
 			children = (
+				BAD0B4C429BA17130061FEF5 /* VideoCompositionViewController.swift */,
 				BAD0B4BD29BA17130061FEF5 /* VideoCompositionViewController.xib */,
+				BAD0B4C129BA17130061FEF5 /* AvailableAudioInputsViewController.swift */,
 				BAD0B4BE29BA17130061FEF5 /* AvaliableAudioInputsViewController.xib */,
 				BAD0B4BF29BA17130061FEF5 /* OverlayViewContoller.swift */,
 				BAD0B4C029BA17130061FEF5 /* OverlayViewController.xib */,
-				BAD0B4C129BA17130061FEF5 /* AvailableAudioInputsViewController.swift */,
-				BAD0B4C229BA17130061FEF5 /* VideoRecordViewController.swift */,
 				BAD0B4C329BA17130061FEF5 /* VideoPicker.swift */,
-				BAD0B4C429BA17130061FEF5 /* VideoCompositionViewController.swift */,
 			);
 			path = OverlayScreen;
 			sourceTree = "<group>";
@@ -1148,7 +1145,6 @@
 				BAD0B51C29BA17130061FEF5 /* VideoPicker.swift in Sources */,
 				BAD0B52E29BA17130061FEF5 /* ReaderProfileViewController.swift in Sources */,
 				79177CA620B1F76E00BCD399 /* RTCStates.swift in Sources */,
-				BAD0B51B29BA17130061FEF5 /* VideoRecordViewController.swift in Sources */,
 				BAD0B53D29BA17130061FEF5 /* ChatViewController.swift in Sources */,
 				BAD0B53B29BA17130061FEF5 /* ActorFindReaderViewController.swift in Sources */,
 				79177C9920B0DF2700BCD399 /* SignalingClient.swift in Sources */,

@@ -11,6 +11,10 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="OverlayViewController" customModule="PerfectSelf" customModuleProvider="target">
             <connections>
+                <outlet property="btnRecord" destination="uQk-2e-edp" id="56Z-nK-wgr"/>
+                <outlet property="btnTimer" destination="oYB-fe-qia" id="3eh-83-SKk"/>
+                <outlet property="cameraView" destination="jkb-fE-oc3" id="7ov-Qh-ix6"/>
+                <outlet property="playerView" destination="hgi-yo-jYB" id="CSW-08-ino"/>
                 <outlet property="view" destination="9iQ-U3-AXN" id="M81-Xx-BD9"/>
             </connections>
         </placeholder>
@@ -19,11 +23,11 @@
             <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hgi-yo-jYB" userLabel="remoteCamera">
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hgi-yo-jYB" userLabel="remoteCamera" customClass="PlayerView" customModule="PerfectSelf" customModuleProvider="target">
                     <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                     <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </view>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jkb-fE-oc3" userLabel="localCamera">
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jkb-fE-oc3" userLabel="localCamera" customClass="CameraPreviewView" customModule="PerfectSelf" customModuleProvider="target">
                     <rect key="frame" x="20" y="180" width="149" height="189"/>
                     <subviews>
                         <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hpA-7P-8U9">
@@ -88,8 +92,8 @@
                 <view alpha="0.69999998807907104" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Q1Y-Wv-N0h" userLabel="Top Bar">
                     <rect key="frame" x="0.0" y="59" width="393" height="87"/>
                     <subviews>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Conference" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cLY-w6-fnb">
-                            <rect key="frame" x="147.33333333333334" y="32.333333333333329" width="98.333333333333343" height="22.333333333333329"/>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Conference Update" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cLY-w6-fnb">
+                            <rect key="frame" x="113.33333333333333" y="32.333333333333329" width="166.33333333333337" height="22.333333333333329"/>
                             <edgeInsets key="layoutMargins" top="8" left="8" bottom="8" right="8"/>
                             <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="19"/>
                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -121,7 +125,7 @@
                                 <attributedString key="attributedTitle"/>
                             </state>
                             <connections>
-                                <action selector="backDidTap:" destination="-1" eventType="touchUpInside" id="ZgH-v9-lKM"/>
+                                <action selector="backDidTap:" destination="-1" eventType="touchUpInside" id="77C-28-h8D"/>
                             </connections>
                         </button>
                     </subviews>
@@ -162,6 +166,9 @@
                         <color key="baseForegroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <color key="baseBackgroundColor" red="0.12941176469999999" green="0.1450980392" blue="0.16078431369999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </buttonConfiguration>
+                    <connections>
+                        <action selector="startRecordClicked:" destination="-1" eventType="touchUpInside" id="j6g-c5-R1h"/>
+                    </connections>
                 </button>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RLo-gp-mGa">
                     <rect key="frame" x="277" y="180" width="96" height="27"/>

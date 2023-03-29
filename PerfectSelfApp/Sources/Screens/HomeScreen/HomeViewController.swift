@@ -74,8 +74,8 @@ class HomeViewController: UIViewController {
 
 extension HomeViewController: VideoPickerDelegate {
     func didSelect(url: URL?) {
-        let vc = VideoRecordViewController()
-        vc.uploadVideourl = url
-        self.show(vc, sender: nil)
+//        let vc = VideoRecordViewController()
+//        vc.uploadVideourl = url
+//        self.show(vc, sender: nil)
     }
 }
