@@ -11,8 +11,8 @@ import UIKit
 class ActorLibraryViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     
     @IBOutlet weak var videoList: UICollectionView!
-//    var items = [VideoCard]()
-    var items = [TapeLibrary]()//["1", "2", "3", "4", "5", "6", "7", "8", "9","10", "11", "12", "13"]
+    var items = [VideoCard]()
+//    var items = ["1", "2", "3", "4", "5", "6", "7", "8", "9","10", "11", "12", "13"]
     let cellsPerRow = 2
     
     override func viewDidLoad() {
@@ -36,16 +36,16 @@ class ActorLibraryViewController: UIViewController, UICollectionViewDataSource, 
                 return
             }
             do {
-                let respItems = try JSONDecoder().decode([TapeLibrary].self, from: data)
+                let respItems = try JSONDecoder().decode([VideoCard].self, from: data)
                 //print(items)
                 DispatchQueue.main.async {
                     self.items.removeAll()
                     self.items.append(contentsOf: respItems)
-//                    for (i, reader) in items.enumerated() {
-//                    }
+                    //                    for (i, reader) in items.enumerated() {
+                    //                    }
                     self.videoList.reloadData()
                 }
-
+                
             } catch {
                 print(error)
                 DispatchQueue.main.async {
@@ -53,6 +53,7 @@ class ActorLibraryViewController: UIViewController, UICollectionViewDataSource, 
                 }
             }
         }
+        
     }
     
     // MARK: - Video List Delegate.
@@ -67,6 +68,7 @@ class ActorLibraryViewController: UIViewController, UICollectionViewDataSource, 
             + flowLayout.sectionInset.right
             + (flowLayout.minimumInteritemSpacing * CGFloat(cellsPerRow - 1))
         let size = Int((collectionView.bounds.width - totalSpace - 2) / CGFloat(cellsPerRow))
+        print(size)
         return CGSize(width: size, height: size)
     }
     
@@ -76,6 +78,11 @@ class ActorLibraryViewController: UIViewController, UICollectionViewDataSource, 
         cell.name.text = self.items[indexPath.row].tapeName
         let thumb = "https://video-thumbnail-bucket-123456789.s3.us-east-2.amazonaws.com/\(self.items[indexPath.row].tapeKey)-0.jpg"
         cell.tapeThumb.imageFrom(url: URL(string:thumb )!)
+        let df = DateFormatter()
+        df.dateFormat = "yyyy-MM-dd'T'hh:mm:ss"
+        let d = df.date(from: self.items[indexPath.row].createdTime)
+        df.dateFormat = "dd-MM-yyyy"
+        cell.createdDate.text = df.string(from: d ?? Date())
         // return card
         cell.layer.masksToBounds = false
         cell.layer.shadowOffset = CGSizeZero
