@@ -13,6 +13,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ActorHomeViewController" customModule="PerfectSelf" customModuleProvider="target">
             <connections>
                 <outlet property="filtermodal" destination="MFG-hr-Lk8" id="aNC-77-WyH"/>
+                <outlet property="greetingLabel" destination="Gjf-XO-iAc" id="XfX-dP-bag"/>
                 <outlet property="readerList" destination="JU1-QJ-Xxa" id="vCk-wb-Dww"/>
                 <outlet property="readerListFlow" destination="gkZ-Sc-3E3" id="Rsh-Vo-s8Z"/>
                 <outlet property="view" destination="aZf-Jp-goY" id="Pcc-s1-1bQ"/>

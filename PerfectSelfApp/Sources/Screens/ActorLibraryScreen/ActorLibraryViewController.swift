@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import HSPopupMenu
 
 class ActorLibraryViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     
@@ -14,6 +15,7 @@ class ActorLibraryViewController: UIViewController, UICollectionViewDataSource, 
     var items = [VideoCard]()
 //    var items = ["1", "2", "3", "4", "5", "6", "7", "8", "9","10", "11", "12", "13"]
     let cellsPerRow = 2
+    var menuArray: [HSMenu] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -53,9 +55,25 @@ class ActorLibraryViewController: UIViewController, UICollectionViewDataSource, 
                 }
             }
         }
-        
+        //
+        let menu1 = HSMenu(icon: nil, title: "Create Folder")
+        let menu2 = HSMenu(icon: nil, title: "Edit")
+
+        menuArray = [menu1, menu2]
     }
-    
+ 
+    @IBAction func ShowFolderMenu(_ sender: UIButton) {
+        let originInWindow = sender.convert(CGPoint.zero, to: nil)
+        
+        let x = originInWindow.x
+        let y = originInWindow.y + sender.frame.height
+
+        print("Button coordinates: (\(x), \(y))")
+        let popupMenu = HSPopupMenu(menuArray: menuArray, arrowPoint: CGPoint(x: x, y: y))
+        popupMenu.popUp()
+        popupMenu.delegate = self
+
+    }
     // MARK: - Video List Delegate.
     func collectionView(_ collectionView: UICollectionView,        numberOfItemsInSection section: Int) -> Int {
          // myData is the array of items
@@ -116,4 +134,9 @@ class ActorLibraryViewController: UIViewController, UICollectionViewDataSource, 
     }
     */
 
+}
+extension ActorLibraryViewController: HSPopupMenuDelegate {
+    func popupMenu(_ popupMenu: HSPopupMenu, didSelectAt index: Int) {
+        print("selected index is: " + "\(index)")
+    }
 }

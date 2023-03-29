@@ -26,6 +26,7 @@ class MessageCenterViewController: UIViewController, UICollectionViewDataSource,
         chatCardList.delegate = self
         chatCardList.allowsSelection = true
         // Do any additional setup after loading the view.
+        self.navigationItem.setHidesBackButton(true, animated: false)
         
     }
     
@@ -72,7 +73,10 @@ class MessageCenterViewController: UIViewController, UICollectionViewDataSource,
 //        let cell = collectionView.cellForItem(at: indexPath) as? LibraryCollectionViewCell
     }
   
-
+    @IBAction func GoBack(_ sender: UIButton) {
+        self.navigationController?.popViewController(animated: true)
+    }
+    
     /*
     // MARK: - Navigation
 

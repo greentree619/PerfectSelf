@@ -11,5 +11,6 @@ target 'PerfectSelf' do
   pod 'FSCalendar'
   pod 'DropDown'
   pod 'AnimatedCardInput'
+  pod 'HSPopupMenu'
 
 end
