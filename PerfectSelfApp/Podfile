@@ -10,5 +10,6 @@ target 'PerfectSelf' do
   pod 'JJFloatingActionButton'
   pod 'FSCalendar'
   pod 'DropDown'
+  pod 'AnimatedCardInput'
 
 end

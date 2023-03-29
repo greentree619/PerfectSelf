@@ -183,21 +183,26 @@ extension ReaderProfileEditSkillViewController : MKAccordionViewDelegate {
         case .Formal :
             
           let view : UIView! = UIView(frame: CGRect(x:0, y:0, width: accordionView.bounds.width , height: 40))
-            view.backgroundColor = UIColor(red: 220.0/255.0, green: 221.0/255.0, blue: 223.0/255.0, alpha: 1.0)
+            view.backgroundColor = UIColor(rgb: 0xE5E5E5)
+            view.cornerRadius = 10
+            view.clipsToBounds = false
             
             // Image before Home
-          let bgImageView : UIImageView = UIImageView(frame: CGRect(x: 5, y:16, width:11, height:8))
-            bgImageView.image = UIImage(named: ( sectionOpen ? "favorites-pointer" : "favorites-pointer"))!
+          let bgImageView : UIImageView = UIImageView(frame: CGRect(x: 10, y:12, width:16, height:16))
+//          let bgImageView : UIImageView = UIImageView(frame: CGRect(x: 5, y:16, width:11, height:8))
+            bgImageView.image = UIImage(systemName: ( sectionOpen ? "record.circle" : "circle"))!
+            bgImageView.tintColor = .black
+//            bgImageView.image = UIImage(named: ( sectionOpen ? "favorites-pointer" : "favorites-pointer"))!
             view.addSubview(bgImageView)
             
             // Arrow Image
-          let arrowImageView : UIImageView = UIImageView(frame: CGRect( x: view.bounds.width - 12 - 10 , y: 15, width: 12, height: 6))
-            arrowImageView.image = UIImage(named: ( sectionOpen ? "arrow-down" : "arrow-up"))!
-            view.addSubview(arrowImageView)
+//          let arrowImageView : UIImageView = UIImageView(frame: CGRect( x: view.bounds.width - 12 - 10 , y: 15, width: 12, height: 6))
+//            arrowImageView.image = UIImage(named: ( sectionOpen ? "arrow-down" : "arrow-up"))!
+//            view.addSubview(arrowImageView)
             
             
             // Title Label
-          let titleLabel : UILabel = UILabel(frame: CGRect(x: 23, y: 0, width: view.bounds.width - 120, height: view.bounds.height))
+          let titleLabel : UILabel = UILabel(frame: CGRect(x: 36, y: 0, width: view.bounds.width - 120, height: view.bounds.height))
           titleLabel.text = headerLabel[section]
           titleLabel.textColor = UIColor.black
           titleLabel.font = UIFont.systemFont(ofSize: 15, weight: UIFont.Weight.regular)

@@ -115,12 +115,15 @@ class LoginDetailViewController: UIViewController {
                         
                         if self.btn_actor.isSelected {
                             let controller = ActorTabBarController();
-//                            let controller = ActorBuildProfile2ViewController()
-                            self.navigationController?.pushViewController(controller, animated: true)
+                            controller.modalPresentationStyle = .fullScreen
+                            self.present(controller, animated: false)
+//                            self.navigationController?.pushViewController(controller, animated: true)
                         }
                         else {
                             let controller = ReaderTabBarController();
-                            self.navigationController?.pushViewController(controller, animated: true)
+                            controller.modalPresentationStyle = .fullScreen
+                            self.present(controller, animated: false)
+//                            self.navigationController?.pushViewController(controller, animated: true)
                         }
                     }
                 }
