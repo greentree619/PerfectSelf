@@ -13,6 +13,7 @@ class BookingCollectionViewCell: UICollectionViewCell {
     public var webRTCClient: WebRTCClient?
     public var navigationController: UINavigationController?
     public var parentViewController: UIViewController?
+    public var roomUid: String?
 
     @IBOutlet weak var lbl_time: UILabel!
     @IBOutlet weak var lbl_date: UILabel!
@@ -24,7 +25,7 @@ class BookingCollectionViewCell: UICollectionViewCell {
     }
     @IBAction func JoinMeeting(_ sender: UIButton) {
         //print("join")
-        let conferenceViewController = ConferenceViewController(signalClient: signalClient!, webRTCClient: webRTCClient!)
+        let conferenceViewController = ConferenceViewController(signalClient: signalClient!, webRTCClient: webRTCClient!, roomUid: self.roomUid!)
         conferenceViewController.modalPresentationStyle = .fullScreen
         self.parentViewController!.present(conferenceViewController, animated: false, completion: nil)
     }

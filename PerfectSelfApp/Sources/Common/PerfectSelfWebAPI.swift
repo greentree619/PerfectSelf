@@ -178,14 +178,17 @@ class PerfectSelfWebAPI
         ]
         return executeAPI(with: "POST", apiPath: "Books/", json: json, completionHandler:completionHandler)
     }
+    
     func getAllBookings(completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> Void
     {
         return executeAPI(with: "GET", apiPath: "Books/DetailList/", json: [:], completionHandler:completionHandler)
     }
+    
     func getAvailabilityById(uid: String, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> Void
     {
         return executeAPI(with: "GET", apiPath: "Availabilities/UpcomingByUid/\(uid)/\(Date.getCurrentDate())", json: [:], completionHandler:completionHandler)
     }
+    
     func addAvailability(uid: String, date: String, fromTime: String, toTime: String, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> Void
     {
         let json: [String: Any] = [
@@ -197,6 +200,7 @@ class PerfectSelfWebAPI
         ]
         return executeAPI(with: "POST", apiPath: "Availabilities/", json: json, completionHandler:completionHandler)
     }
+    
     func login() -> Void
     {
         let json: [String: Any] = ["userName": "tester",
@@ -221,6 +225,24 @@ class PerfectSelfWebAPI
 //                    return token!
                 }
             }
+        }
+    }
+    
+    func addLibrary(uid: String, tapeName: String, bucketName: String, tapeKey: String) -> Void
+    {
+        let json: [String: Any] = ["readerUid": uid,
+                                   "tapeName": tapeName,
+                                   "bucketName": bucketName,
+                                   "tapeKey": tapeKey]
+        
+        return executeAPI(with: "POST", apiPath: "Library", json: json){ data, response, error in
+            guard let data = data, error == nil else {
+                print(error?.localizedDescription ?? "No data")
+                return
+            }
+            let _ = try? JSONSerialization.jsonObject(with: data, options: [])
+//            print("ok")
+//            print(data)
         }
     }
     

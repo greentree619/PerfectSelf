@@ -14,7 +14,7 @@ class MeetingListViewController: UIViewController {
     
     private let signalClient: SignalingClient
     private let webRTCClient: WebRTCClient
-    private lazy var conferenceViewController = ConferenceViewController(signalClient: signalClient, webRTCClient: self.webRTCClient)
+//    private lazy var conferenceViewController = ConferenceViewController(signalClient: signalClient, webRTCClient: self.webRTCClient, roomUid: )
     
     private var signalingConnected: Bool = false {
         didSet {
@@ -115,8 +115,8 @@ class MeetingListViewController: UIViewController {
             }
         }
         
-        conferenceViewController.modalPresentationStyle = .fullScreen
-        self.present(conferenceViewController, animated: false, completion: nil)
+//        conferenceViewController.modalPresentationStyle = .fullScreen
+//        self.present(conferenceViewController, animated: false, completion: nil)
     }
     
     @IBAction func backDidTap(_ sender: UIButton)
