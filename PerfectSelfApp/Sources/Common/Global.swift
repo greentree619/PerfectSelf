@@ -15,6 +15,7 @@ let ACTOR_UTYPE = 3
 let READER_UTYPE = 4
 var backgroundView: UIView? = nil
 var activityIndicatorView: UIActivityIndicatorView? = nil
+var uiViewContoller: UIViewController? = nil
 
 //struct Message: Codable {
 //    let text: String
@@ -55,6 +56,7 @@ struct ReaderProfileCard: Codable {
 struct BookingCard: Codable {
     let id: Int
     let readerName: String
+    let roomUid: String
     let title: String
     let about: String
     let scriptFile: String
@@ -170,4 +172,13 @@ func buildSignalingClient() -> SignalingClient {
     }
     
     return SignalingClient(webSocket: webSocketProvider)
+}
+
+func getDateString() -> String{
+    let now = Date()
+    let formatter = DateFormatter()
+    formatter.timeZone = TimeZone.current
+    formatter.dateFormat = "yyyy-MM-dd"
+    let dateString = formatter.string(from: now)
+    return dateString
 }

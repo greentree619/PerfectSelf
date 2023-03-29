@@ -35,6 +35,10 @@ class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSample
     private var _assetWriterInput: AVAssetWriterInput?
     private var _adpater: AVAssetWriterInputPixelBufferAdaptor?
     private var audioRecorder: AVAudioRecorder?
+    private var uploadCount = 0
+    public var audioUrl: URL?
+    private var userName: String?
+    private var roomUid: String
     
     //MARK: WebRTC Conference Status
     private var signalingConnected: Bool = false {
@@ -124,9 +128,10 @@ class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSample
         }
     }
     
-    init(signalClient: SignalingClient, webRTCClient: WebRTCClient) {
+    init(signalClient: SignalingClient, webRTCClient: WebRTCClient, roomUid: String) {
         self.signalClient = signalClient
         self.webRTCClient = webRTCClient
+        self.roomUid = roomUid
         super.init(nibName: String(describing: ConferenceViewController.self), bundle: Bundle.main)
         
         self.signalingConnected = false
@@ -139,6 +144,7 @@ class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSample
         self.webRTCClient.delegate = self
         self.signalClient.delegate = self
         self.signalClient.connect()
+        uiViewContoller = self
     }
     
     @available(*, unavailable)
@@ -160,6 +166,8 @@ class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSample
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.userName = UserDefaults.standard.string(forKey: "USER_NAME")
         
         self.webRTCClient.speakerOn()
         if( !self.hasLocalSdp && !self.hasRemoteSdp )
@@ -199,27 +207,27 @@ class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSample
         _captureSession = capturer.captureSession
         //}} Init to record video.
         
-        
-        let audioURL = ConferenceViewController.getWhistleURL()
-            print(audioURL.absoluteString)
+        let audioURL = getWhistleURL(fileName: self.userName!)
+        self.audioUrl = audioURL
+        print(audioURL.absoluteString)
 
-            // 4
-            let settings = [
-                AVFormatIDKey: Int(kAudioFormatMPEG4AAC),
-                AVSampleRateKey: 12000,
-                AVNumberOfChannelsKey: 1,
-                AVEncoderAudioQualityKey: AVAudioQuality.high.rawValue
-            ]
+        // 4
+        let settings = [
+            AVFormatIDKey: Int(kAudioFormatMPEG4AAC),
+            AVSampleRateKey: 12000,
+            AVNumberOfChannelsKey: 1,
+            AVEncoderAudioQualityKey: AVAudioQuality.high.rawValue
+        ]
 
-            do {
-                // 5
-                audioRecorder = try AVAudioRecorder(url: audioURL, settings: settings)
-                audioRecorder?.delegate = self
-                audioRecorder?.record()
-            } catch {
-                audioRecorder?.stop()
-                //finishRecording(success: false)
-            }
+        do {
+            // 5
+            //try FileManager.default.removeItem(atPath: audioURL.absoluteString)
+            audioRecorder = try AVAudioRecorder(url: audioURL, settings: settings)
+            audioRecorder?.delegate = self
+        } catch {
+            audioRecorder?.stop()
+            //finishRecording(success: false)
+        }
         
         //}}Init to record audio
         
@@ -236,11 +244,12 @@ class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSample
     class func getDocumentsDirectory() -> URL {
         let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
         let documentsDirectory = paths[0]
+        //let documentsDirectory = URL(string: NSTemporaryDirectory())
         return documentsDirectory
     }
 
-    class func getWhistleURL() -> URL {
-        return getDocumentsDirectory().appendingPathComponent("whistle.m4a")
+    func getWhistleURL(fileName: String) -> URL {
+        return getDocumentsDirectory().appendingPathComponent("\(fileName)\(uploadCount).m4a")
     }
     
     private func embedView(_ view: UIView, into containerView: UIView) {
@@ -281,9 +290,14 @@ class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSample
     }
     
     @IBAction func recordingDidTap(_ sender: UIButton) {
-        if(_captureState == .idle){ _captureState = .start }
-        else if(_captureState == .capturing){_captureState = .end}
-        
+        if(_captureState == .idle){
+            _captureState = .start
+            audioRecorder?.record()
+        }
+        else if(_captureState == .capturing){
+            _captureState = .end
+            audioRecorder?.stop()
+        }
     }
     
     
@@ -292,8 +306,10 @@ class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSample
         switch _captureState {
         case .start:
             // Set up recorder
-            _filename = UUID().uuidString
-            let videoPath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!.appendingPathComponent("\(_filename).mp4")
+            _filename = self.userName!//UUID().uuidString
+            let videoPath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!.appendingPathComponent("\(_filename)\(uploadCount).mp4")
+            //let videoPath = URL(string: "\(NSTemporaryDirectory())\(_filename).mp4")
+            
             let writer = try! AVAssetWriter(outputURL: videoPath, fileType: .mp4)
             let settings = _videoOutput!.recommendedVideoSettingsForAssetWriter(writingTo: .mp4)
             let input = AVAssetWriterInput(mediaType: .video, outputSettings: settings) // [AVVideoCodecKey: AVVideoCodecType.h264, AVVideoWidthKey: 1920, AVVideoHeightKey: 1080])
@@ -320,16 +336,41 @@ class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSample
             break
         case .end:
             guard _assetWriterInput?.isReadyForMoreMediaData == true, _assetWriter!.status != .failed else { break }
-            let url = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!.appendingPathComponent("\(_filename).mp4")
+            let url = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!.appendingPathComponent("\(self.userName!)\(uploadCount).mp4")
+            //let url = URL(string: "\(NSTemporaryDirectory())\(self.userName!).mp4")
             _assetWriterInput?.markAsFinished()
             _assetWriter?.finishWriting { [weak self] in
                 self?._captureState = .idle
                 self?._assetWriter = nil
                 self?._assetWriterInput = nil
+                
+//                let activity = UIActivityViewController(activityItems: [url], applicationActivities: nil)
+    //                    self?.present(activity, animated: true, completion: nil)
+                
+                let prefixKey = "\(getDateString())/\((uiViewContoller! as! ConferenceViewController).roomUid)/"
+                let awsUpload = AWSMultipartUpload()
                 DispatchQueue.main.async {
-                    let activity = UIActivityViewController(activityItems: [url], applicationActivities: nil)
-                    self?.present(activity, animated: true, completion: nil)
+                    showIndicator(sender: nil, viewController: uiViewContoller!)
                 }
+                
+                awsUpload.multipartUpload(filePath: (uiViewContoller! as! ConferenceViewController).audioUrl!, prefixKey: prefixKey){ (error: Error?) -> Void in
+                   
+
+                }
+                awsUpload.multipartUpload(filePath: url, prefixKey: prefixKey){ error -> Void in
+                    if(error == nil)
+                    {
+                        DispatchQueue.main.async {
+                            hideIndicator(sender: nil)
+                        }
+                        
+                        let uid = UserDefaults.standard.string(forKey: "USER_ID")
+                        webAPI.addLibrary(uid: uid!, tapeName: "tapeName", bucketName: "video-client-upload-123456798", tapeKey: "\((uiViewContoller! as! ConferenceViewController).userName!)\((uiViewContoller! as! ConferenceViewController).uploadCount)")
+                        ConferenceViewController.clearTempFolder()
+                    }
+                }
+                (uiViewContoller! as! ConferenceViewController).uploadCount += 1
+                
             }
             break
         default:
@@ -342,27 +383,16 @@ class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSample
             //finishRecording(success: false)
         }
     }
-//
-//    /* if an error occurs while encoding it will be reported to the delegate. */
-//    func audioRecorderEncodeErrorDidOccur(_ recorder: AVAudioRecorder, error: Error?)
-//    {
-//        os_log("audioRecorderDidFinishRecording")
-//    }
-//
-//    /* audioRecorderBeginInterruption: is called when the audio session has been interrupted while the recorder was recording. The recorded file will be closed. */
-//
-//    func audioRecorderBeginInterruption(_ recorder: AVAudioRecorder)
-//    {
-//        os_log("audioRecorderBeginInterruption")
-//    }
-//
-//
-//    /* audioRecorderEndInterruption:withOptions: is called when the audio session interruption has ended and this recorder had been interrupted while recording. */
-//    /* Currently the only flag is AVAudioSessionInterruptionFlags_ShouldResume. */
-//    func audioRecorderEndInterruption(_ recorder: AVAudioRecorder, withOptions flags: Int)
-//    {
-//        os_log("audioRecorderEndInterruption")
-//    }
+    
+    class func clearTempFolder() {
+        let fileManager = FileManager.default
+        let myDocuments = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first!
+        let diskCacheStorageBaseUrl = myDocuments//.appendingPathComponent("diskCache")
+        guard let filePaths = try? fileManager.contentsOfDirectory(at: diskCacheStorageBaseUrl, includingPropertiesForKeys: nil, options: []) else { return }
+        for filePath in filePaths {
+            try? fileManager.removeItem(at: filePath)
+        }
+    }
 }
 
 //MARK: SignalClientDelegate

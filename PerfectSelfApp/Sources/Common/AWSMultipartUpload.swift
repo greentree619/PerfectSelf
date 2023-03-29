@@ -58,7 +58,7 @@ class AWSMultipartUpload: NSObject, URLSessionTaskDelegate, URLSessionDataDelega
         super.init()
     }
     
-    func multipartUpload(filePath: URL) -> Void
+    func multipartUpload(filePath: URL, prefixKey: String, completeHandler:@escaping((Error?)->Void)) -> Void
     {
         let expression = AWSS3TransferUtilityMultiPartUploadExpression()
               expression.progressBlock = {(task, progress) in
@@ -67,9 +67,10 @@ class AWSMultipartUpload: NSObject, URLSessionTaskDelegate, URLSessionDataDelega
                       
                   })
                   print(progress.fractionCompleted)   //2
-                  if progress.isFinished{           //3
+                  if progress.isFinished {           //3
                     print("Upload Finished...")
                     //do any task here.
+                      completeHandler(nil)
                   }
            }
 
@@ -83,12 +84,13 @@ class AWSMultipartUpload: NSObject, URLSessionTaskDelegate, URLSessionDataDelega
 
            let transferUtility = AWSS3TransferUtility.default()
 
-        transferUtility.uploadUsingMultiPart(fileURL: filePath, bucket: self.bucketName, key: String(filePath.lastPathComponent), contentType: self.contentType,
+        transferUtility.uploadUsingMultiPart(fileURL: filePath, bucket: self.bucketName, key: String("\(prefixKey)\(filePath.lastPathComponent)"), contentType: self.contentType,
                 expression: expression,
                 completionHandler: completionHandler).continueWith {
                (task) -> AnyObject? in
                        if let error = task.error {
-                          print("Error: \(error.localizedDescription)")
+                           print("Error: \(error.localizedDescription)")
+                           //completeHandler(error)
                        }
 
                        if let _ = task.result {

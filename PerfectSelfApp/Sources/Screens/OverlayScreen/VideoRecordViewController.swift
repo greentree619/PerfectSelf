@@ -36,9 +36,9 @@ class VideoRecordViewController: UIViewController {
         btnTimer.isEnabled = true
         self.lblTimer.isHidden = true
         
-        let awsUpload = AWSMultipartUpload()
+        //let awsUpload = AWSMultipartUpload()
         //awsUpload.upload(filePath: url)
-        awsUpload.multipartUpload(filePath: url)
+        //awsUpload.multipartUpload(filePath: url)
     }
 
     override func viewDidAppear(_ animated: Bool) {

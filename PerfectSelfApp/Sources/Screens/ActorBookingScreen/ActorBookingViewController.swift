@@ -89,6 +89,7 @@ class ActorBookingViewController: UIViewController, UICollectionViewDataSource, 
         //
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Booking Collection View Cell", for: indexPath) as! BookingCollectionViewCell
         let isoDate = self.items[indexPath.row].bookStartTime
+        let roomUid = self.items[indexPath.row].roomUid
 
         let dateFormatter = DateFormatter()
 //        dateFormatter.locale = Locale(identifier: "en_US_POSIX") // set locale to reliable US_POSIX
@@ -118,6 +119,7 @@ class ActorBookingViewController: UIViewController, UICollectionViewDataSource, 
         cell.signalClient = self.signalClient
         cell.navigationController = self.navigationController
         cell.parentViewController = self
+        cell.roomUid = roomUid
         return cell
     }
     
