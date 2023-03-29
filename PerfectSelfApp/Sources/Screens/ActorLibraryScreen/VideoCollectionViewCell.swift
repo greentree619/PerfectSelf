@@ -10,7 +10,9 @@ import UIKit
 
 class VideoCollectionViewCell: UICollectionViewCell {
 
+    @IBOutlet weak var tapeThumb: UIImageView!
     @IBOutlet weak var name: UILabel!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

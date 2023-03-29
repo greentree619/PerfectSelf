@@ -78,6 +78,7 @@ struct VideoCard: Codable {
     let updatedTime: String
     let deletedTime: String
 }
+
 struct Availability: Codable {
     let id: Int
     let readerUid: String
@@ -87,6 +88,14 @@ struct Availability: Codable {
     let createdTime: String
     let updatedTime: String
     let deletedTime: String
+}
+
+struct TapeLibrary: Codable {
+    let id: Int
+    let readerUid: String
+    let tapeName: String
+    let bucketName: String
+    let tapeKey: String
 }
 
 //        showAlert(viewController: self, title: "Confirm", message: "Please input") { UIAlertAction in
