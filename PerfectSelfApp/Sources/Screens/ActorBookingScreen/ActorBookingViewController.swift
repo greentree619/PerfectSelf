@@ -38,38 +38,42 @@ class ActorBookingViewController: UIViewController, UICollectionViewDataSource, 
         // Do any additional setup after loading the view.
         line_pending.isHidden = true
         line_past.isHidden = true
-         
-        //call API to fetch booking list
-        showIndicator(sender: nil, viewController: self)
-        webAPI.getAllBookings() { data, response, error in
-            DispatchQueue.main.async {
-                hideIndicator(sender: nil)
-            }
-            
-            guard let data = data, error == nil else {
-                print(error?.localizedDescription ?? "No data")
-                return
-            }
-            do {
-                let respItems = try JSONDecoder().decode([BookingCard].self, from: data)
-                //print(items)
-                DispatchQueue.main.async {
-                    self.items.removeAll()
-                    self.items.append(contentsOf: respItems)
+       
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true);
+        
+       //call API to fetch booking list
+       showIndicator(sender: nil, viewController: self)
+        let id = UserDefaults.standard.string(forKey: "USER_ID")!
+        webAPI.getBookingsByUid(uid: id) { data, response, error in
+           DispatchQueue.main.async {
+               hideIndicator(sender: nil)
+           }
+           
+           guard let data = data, error == nil else {
+               print(error?.localizedDescription ?? "No data")
+               return
+           }
+           do {
+               let respItems = try JSONDecoder().decode([BookingCard].self, from: data)
+               //print(items)
+               DispatchQueue.main.async {
+                   self.items.removeAll()
+                   self.items.append(contentsOf: respItems)
 //                    for (i, reader) in items.enumerated() {
 //                    }
-                    self.bookList.reloadData()
-                }
+                   self.bookList.reloadData()
+               }
 
-            } catch {
-                print(error)
-                DispatchQueue.main.async {
-                    Toast.show(message: "Fetching reader list failed! please try again.", controller: self)
-                }
-            }
-        }
+           } catch {
+               print(error)
+               DispatchQueue.main.async {
+                   Toast.show(message: "Fetching reader list failed! please try again.", controller: self)
+               }
+           }
+       }
     }
-    
     // MARK: - Booking List Delegate.
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
          // myData is the array of items
@@ -88,19 +92,22 @@ class ActorBookingViewController: UIViewController, UICollectionViewDataSource, 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         //
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Booking Collection View Cell", for: indexPath) as! BookingCollectionViewCell
-        let isoDate = self.items[indexPath.row].bookStartTime
         let roomUid = self.items[indexPath.row].roomUid
 
         let dateFormatter = DateFormatter()
 //        dateFormatter.locale = Locale(identifier: "en_US_POSIX") // set locale to reliable US_POSIX
-        dateFormatter.dateFormat = "yyyy-MM-ddTHH:mm:ssZ"
-        let datestart = dateFormatter.date(from:isoDate)
-        let dateend = dateFormatter.date(from:self.items[indexPath.row].bookEndTime)
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
+        let datestart = dateFormatter.date(from: self.items[indexPath.row].bookStartTime)
+        let dateend = dateFormatter.date(from: self.items[indexPath.row].bookEndTime)
+        
+        print(self.items[indexPath.row].bookStartTime)
+        print(self.items[indexPath.row].bookEndTime)
         
         let dateFormatter1 = DateFormatter()
-        dateFormatter1.dateFormat = "YY, MMM d"
+        dateFormatter1.dateFormat = "dd MMM, yyyy"
         let dateFormatter2 = DateFormatter()
         dateFormatter2.dateFormat = "hh:mm a"
+        
         
         cell.lbl_name.text = self.items[indexPath.row].readerName;
         cell.lbl_date.text = dateFormatter1.string(from: datestart ?? Date())

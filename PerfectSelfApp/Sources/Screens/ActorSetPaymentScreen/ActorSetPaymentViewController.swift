@@ -11,7 +11,8 @@ import UIKit
 class ActorSetPaymentViewController: UIViewController {
 
     var readerUid: String = ""
-    var bookingTime: String = ""
+    var bookingStartTime: String = ""
+    var bookingEndTime: String = ""
     var bookingDate: String = ""
     var script: String = ""
     
@@ -43,7 +44,8 @@ class ActorSetPaymentViewController: UIViewController {
         let controller = ActorBookConfirmationViewController();
 
         controller.readerUid = readerUid
-        controller.bookingTime = bookingTime
+        controller.bookingStartTime = bookingStartTime
+        controller.bookingEndTime = bookingEndTime
         controller.bookingDate = bookingDate
         controller.script = script
         controller.modalPresentationStyle = .fullScreen

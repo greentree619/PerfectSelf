@@ -11,7 +11,8 @@ import UIKit
 class ActorBookUploadScriptViewController: UIViewController {
 
     var readerUid: String = ""
-    var bookingTime: String = ""
+    var bookingStartTime: String = ""
+    var bookingEndTime: String = ""
     var bookingDate: String = ""
     
     @IBOutlet weak var text_script: UITextView!
@@ -26,7 +27,8 @@ class ActorBookUploadScriptViewController: UIViewController {
         let controller = ActorSetPaymentViewController();
 
         controller.readerUid = readerUid
-        controller.bookingTime = bookingTime
+        controller.bookingStartTime = bookingStartTime
+        controller.bookingEndTime = bookingEndTime
         controller.bookingDate = bookingDate
         controller.script = text_script.text
         controller.modalPresentationStyle = .fullScreen

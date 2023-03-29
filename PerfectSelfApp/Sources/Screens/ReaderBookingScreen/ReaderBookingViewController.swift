@@ -40,7 +40,8 @@ class ReaderBookingViewController: UIViewController, UICollectionViewDataSource,
         
         //call API to fetch booking list
         showIndicator(sender: nil, viewController: self)
-        webAPI.getAllBookings() { data, response, error in
+        let id = UserDefaults.standard.string(forKey: "USER_ID")!
+        webAPI.getBookingsByUid(uid: id) { data, response, error in
             DispatchQueue.main.async {
                 hideIndicator(sender: nil)
             }
@@ -87,20 +88,23 @@ class ReaderBookingViewController: UIViewController, UICollectionViewDataSource,
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         //
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Booking Collection View Cell", for: indexPath) as! BookingCollectionViewCell
-        let isoDate = self.items[indexPath.row].bookStartTime
 
         let dateFormatter = DateFormatter()
 //        dateFormatter.locale = Locale(identifier: "en_US_POSIX") // set locale to reliable US_POSIX
-        dateFormatter.dateFormat = "yyyy-MM-ddTHH:mm:ssZ"
-        let datestart = dateFormatter.date(from:isoDate)
-        let dateend = dateFormatter.date(from:self.items[indexPath.row].bookEndTime)
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
+        let datestart = dateFormatter.date(from: self.items[indexPath.row].bookStartTime)
+        let dateend = dateFormatter.date(from: self.items[indexPath.row].bookEndTime)
+        
+        print(self.items[indexPath.row].bookStartTime)
+        print(self.items[indexPath.row].bookEndTime)
         
         let dateFormatter1 = DateFormatter()
-        dateFormatter1.dateFormat = "YY, MMM d"
+        dateFormatter1.dateFormat = "dd MMM, yyyy"
         let dateFormatter2 = DateFormatter()
         dateFormatter2.dateFormat = "hh:mm a"
         
-        cell.lbl_name.text = self.items[indexPath.row].readerName;
+        
+        cell.lbl_name.text = self.items[indexPath.row].actorName;
         cell.lbl_date.text = dateFormatter1.string(from: datestart ?? Date())
         cell.lbl_time.text = dateFormatter2.string(from: datestart ?? Date()) + "-" + dateFormatter2.string(from: dateend ?? Date())
         

@@ -166,23 +166,28 @@ class PerfectSelfWebAPI
         
         return executeAPI(with: "PUT", apiPath: "Users/\(uid)", json: json, completionHandler:completionHandler)
     }
-    
-    func bookAppointment(actorUid: String, readerUid: String, bookTime: String, script: String, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> Void
+    func bookAppointment(actorUid: String, readerUid: String, bookStartTime: String,bookEndTime: String, script: String, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> Void
     {
                 
         let json: [String: Any] = [
-            "isDeleted": false,
+  
             "actorUid": actorUid,
             "readerUid": readerUid,
-            "bookTime": bookTime,
+            "bookStartTime": bookStartTime,
+            "bookEndTime": bookEndTime,
             "scriptFile": script,
         ]
+   
         return executeAPI(with: "POST", apiPath: "Books/", json: json, completionHandler:completionHandler)
     }
+<<<<<<< HEAD
     
     func getAllBookings(completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> Void
+=======
+    func getBookingsByUid(uid: String, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> Void
+>>>>>>> feature/ticket-509
     {
-        return executeAPI(with: "GET", apiPath: "Books/DetailList/", json: [:], completionHandler:completionHandler)
+        return executeAPI(with: "GET", apiPath: "Books/DetailList/ByUid/\(uid)", json: [:], completionHandler:completionHandler)
     }
     
     func getAvailabilityById(uid: String, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> Void

@@ -12,7 +12,8 @@ class ActorBookConfirmationViewController: UIViewController {
 
     var readerUid: String = ""
     var bookingDate: String = ""
-    var bookingTime: String = ""
+    var bookingStartTime: String = ""
+    var bookingEndTime: String = ""
     var script: String = ""
     
     @IBOutlet weak var add_to_calendar: UIStackView!
@@ -43,12 +44,12 @@ class ActorBookConfirmationViewController: UIViewController {
     }
     @IBAction func CompleteBooking(_ sender: UIButton) {
         // call book api
-        let actorUid = UserDefaults.standard.string(forKey: "USER_ID")
+        let actorUid = UserDefaults.standard.string(forKey: "USER_ID")!
 
-        let booking = bookingDate + "T" + bookingTime + "Z"
-
+        let bookingStart = bookingDate + "T" + bookingStartTime + "Z"
+        let bookingEnd = bookingDate + "T" + bookingEndTime + "Z"
         showIndicator(sender: sender, viewController: self)
-        webAPI.bookAppointment(actorUid: actorUid!, readerUid: readerUid, bookTime:booking, script: script) { data, response, error in
+        webAPI.bookAppointment(actorUid: actorUid, readerUid: readerUid, bookStartTime:bookingStart, bookEndTime: bookingEnd, script: script) { data, response, error in
             guard let data = data, error == nil else {
                 hideIndicator(sender: sender)
                 print(error?.localizedDescription ?? "No data")
