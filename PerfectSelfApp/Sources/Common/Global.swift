@@ -53,19 +53,15 @@ struct ReaderProfileCard: Codable {
 }
 
 struct BookingCard: Codable {
-    let id: Int
+    let actorUid: String
+    let readerUid: String
     let readerName: String
-    let title: String
-    let about: String
+    let actorName: String
     let scriptFile: String
-    let readerIsLogin: Bool
     let bookStartTime: String
     let bookEndTime: String
-    let hourlyPrice: Int
-    let skills: String
-    let voiceType: Int
-    let others: Int
 }
+
 struct VideoCard: Codable {
     let id: Int
     let readerUid: String

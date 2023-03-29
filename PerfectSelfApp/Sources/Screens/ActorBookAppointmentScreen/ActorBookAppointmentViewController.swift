@@ -172,7 +172,8 @@ class ActorBookAppointmentViewController: UIViewController {
         controller.bookingDate = self.dateFormatter.string(from: self.picker_date.date)
         let df = DateFormatter()
         df.dateFormat = "hh:mm:ss"
-        controller.bookingTime = df.string(from: picker_start_time.date)
+        controller.bookingStartTime = df.string(from: picker_start_time.date)
+        controller.bookingEndTime = df.string(from: picker_end_time.date)
         controller.modalPresentationStyle = .fullScreen
         self.present(controller, animated: false, completion: nil)
 //        self.navigationController?.pushViewController(controller, animated: true)
