@@ -65,9 +65,9 @@ struct BookingCard: Codable {
 struct VideoCard: Codable {
     let id: Int
     let readerUid: String
-    let tapName: String
+    let tapeName: String
     let bucketName: String
-    let tapKey: String
+    let tapeKey: String
     let createdTime: String
     let updatedTime: String
     let deletedTime: String
