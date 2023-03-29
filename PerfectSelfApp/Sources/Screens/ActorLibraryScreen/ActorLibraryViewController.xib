@@ -23,17 +23,17 @@
                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Gvq-cy-Njm">
                     <rect key="frame" x="0.0" y="0.0" width="393" height="818"/>
                     <subviews>
-                        <stackView opaque="NO" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="yPe-BQ-ZEE">
+                        <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="yPe-BQ-ZEE">
                             <rect key="frame" x="0.0" y="59" width="393" height="80"/>
                             <subviews>
                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="OxY-ZR-abE">
                                     <rect key="frame" x="20.000000000000007" y="0.0" width="117.66666666666669" height="70"/>
                                 </stackView>
                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="VXW-1f-uve">
-                                    <rect key="frame" x="137.66666666666666" y="0.0" width="117.66666666666666" height="70"/>
+                                    <rect key="frame" x="137.66666666666666" y="23" width="117.66666666666666" height="24"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Library" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xLv-19-IJY">
-                                            <rect key="frame" x="26.666666666666686" y="0.0" width="64.666666666666671" height="70"/>
+                                            <rect key="frame" x="26.666666666666686" y="0.0" width="64.666666666666671" height="24"/>
                                             <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
                                             <color key="textColor" red="0.98039215690000003" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
@@ -41,13 +41,16 @@
                                     </subviews>
                                 </stackView>
                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="bottom" translatesAutoresizingMaskIntoConstraints="NO" id="CcG-xd-rjP">
-                                    <rect key="frame" x="255.33333333333334" y="0.0" width="117.66666666666666" height="70"/>
+                                    <rect key="frame" x="255.33333333333334" y="24" width="117.66666666666666" height="22"/>
                                     <subviews>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ECc-DI-YOg">
-                                            <rect key="frame" x="101.66666666666666" y="0.0" width="16" height="70"/>
+                                            <rect key="frame" x="101.66666666666666" y="0.0" width="16" height="22"/>
                                             <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                             <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                             <state key="normal" image="icons8-dot-16"/>
+                                            <connections>
+                                                <action selector="ShowFolderMenu:" destination="-1" eventType="touchUpInside" id="sZ0-e5-cPu"/>
+                                            </connections>
                                         </button>
                                     </subviews>
                                 </stackView>

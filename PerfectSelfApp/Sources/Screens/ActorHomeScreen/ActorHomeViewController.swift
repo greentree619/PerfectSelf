@@ -20,6 +20,7 @@ class ActorHomeViewController: UIViewController, UICollectionViewDataSource, UIC
     var items = [ReaderProfileCard]()
 //    ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32", "33", "34", "35", "36", "37", "38", "39", "40", "41", "42", "43", "44", "45", "46", "47", "48"]
     
+    @IBOutlet weak var greetingLabel: UILabel!
     let backgroundView = UIView()
     
     var isSponsored = true
@@ -37,7 +38,7 @@ class ActorHomeViewController: UIViewController, UICollectionViewDataSource, UIC
   
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+         
         let nib = UINib(nibName: "ReaderCollectionViewCell", bundle: nil)
         readerList.register(nib, forCellWithReuseIdentifier: "Reader Collection View Cell")
         readerList.dataSource = self
@@ -45,6 +46,8 @@ class ActorHomeViewController: UIViewController, UICollectionViewDataSource, UIC
         readerList.allowsSelection = true
 //        readerList.contentV
         // Do any additional setup after loading the view.
+        let name = UserDefaults.standard.string(forKey: "USER_NAME")
+        greetingLabel.text = "Hi, " + (name ?? "")
         filtermodal.alpha = 0;
 
         showIndicator(sender: nil, viewController: self)
