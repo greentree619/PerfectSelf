@@ -367,10 +367,9 @@ class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSample
                         let uid = UserDefaults.standard.string(forKey: "USER_ID")
                         webAPI.addLibrary(uid: uid!, tapeName: "tapeName", bucketName: "video-client-upload-123456798", tapeKey: "\(prefixKey)\((uiViewContoller! as! ConferenceViewController).userName!)\((uiViewContoller! as! ConferenceViewController).uploadCount)")
                         ConferenceViewController.clearTempFolder()
+                        (uiViewContoller! as! ConferenceViewController).uploadCount += 1
                     }
                 }
-                (uiViewContoller! as! ConferenceViewController).uploadCount += 1
-                
             }
             break
         default:
