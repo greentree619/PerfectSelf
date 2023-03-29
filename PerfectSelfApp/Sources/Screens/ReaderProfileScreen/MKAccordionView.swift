@@ -59,7 +59,7 @@ class MKAccordionView: UIView {
     
     
     fileprivate var arrayOfBool : NSMutableArray?
-    private var previousOpenedSection : Int? = -1
+    private var previousOpenedSection : Int? = 0
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -70,10 +70,10 @@ class MKAccordionView: UIView {
         tableView?.alwaysBounceVertical = true
         tableView?.backgroundColor = UIColor.clear
         
+        let nib = UINib(nibName: "CreditCardCell", bundle: nil)
+        tableView?.register(nib, forCellReuseIdentifier: "Credit Card Cell")
         
         self.addSubview(tableView!);
-        
-        
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -81,14 +81,15 @@ class MKAccordionView: UIView {
     }
     
     @objc func sectionHeaderTapped(_ recognizer: UITapGestureRecognizer) {
-
+   
       guard let tag = recognizer.view?.tag else { return }
-        
+ 
       let indexPath = IndexPath(row: 0, section: tag)
         if (indexPath.row == 0) {
             
           var collapsed : Bool! = (arrayOfBool?.object(at: indexPath.section) as AnyObject).boolValue
-          collapsed = !collapsed;
+          collapsed = true;
+//          collapsed = !collapsed;
             
             if isCollapsedAllWhenOneIsOpen! {
                 
@@ -247,8 +248,8 @@ extension MKAccordionView : UITableViewDataSource {
         if arrayOfBool == nil {
             arrayOfBool = NSMutableArray()
             let sections : Int! = numberOfSections - 1
-            for _ in 0...sections {
-              arrayOfBool?.add(NSNumber(value: false))
+            for i in 0...sections {
+                arrayOfBool?.add(NSNumber(value: i == 0 ? true : false))
             }
         }
             
