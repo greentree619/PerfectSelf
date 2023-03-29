@@ -57,6 +57,7 @@
             <size key="customSize" width="105" height="101"/>
             <connections>
                 <outlet property="name" destination="biE-ag-2jm" id="eYp-bt-3Hq"/>
+                <outlet property="tapeThumb" destination="EtD-IZ-IeV" id="KTg-qJ-XB0"/>
             </connections>
             <point key="canvasLocation" x="20.610687022900763" y="37.676056338028168"/>
         </collectionViewCell>
