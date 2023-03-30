@@ -37,6 +37,11 @@ class ReaderBookingViewController: UIViewController, UICollectionViewDataSource,
         // Do any additional setup after loading the view.
         line_pending.isHidden = true
         line_past.isHidden = true
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true);
+        
         
         //call API to fetch booking list
         showIndicator(sender: nil, viewController: self)
@@ -88,7 +93,8 @@ class ReaderBookingViewController: UIViewController, UICollectionViewDataSource,
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         //
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Booking Collection View Cell", for: indexPath) as! BookingCollectionViewCell
-
+        let roomUid = self.items[indexPath.row].roomUid
+        
         let dateFormatter = DateFormatter()
 //        dateFormatter.locale = Locale(identifier: "en_US_POSIX") // set locale to reliable US_POSIX
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
@@ -120,6 +126,7 @@ class ReaderBookingViewController: UIViewController, UICollectionViewDataSource,
         cell.signalClient = self.signalClient
         cell.navigationController = self.navigationController
         cell.parentViewController = self
+        cell.roomUid = roomUid
         return cell
     }
     

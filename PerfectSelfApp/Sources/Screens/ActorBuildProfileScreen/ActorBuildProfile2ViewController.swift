@@ -11,6 +11,7 @@ import DropDown
 
 class ActorBuildProfile2ViewController: UIViewController {
 
+    var userType: String = ""
     @IBOutlet weak var genderview: UIStackView!
     @IBOutlet weak var ageview: UIStackView!
     let dropDownForGender = DropDown()
@@ -69,8 +70,9 @@ class ActorBuildProfile2ViewController: UIViewController {
         
     }
     @IBAction func Later(_ sender: UIButton) {
-        let controller = ActorTabBarController()
-        self.navigationController?.pushViewController(controller, animated: true)
+        let controller = userType == "actor" ? ActorTabBarController() : ReaderTabBarController();
+        controller.modalPresentationStyle = .fullScreen
+        self.present(controller, animated: false)
     }
     @IBAction func GoBack(_ sender: UIButton) {
         self.navigationController?.popViewController(animated: true)
@@ -116,7 +118,7 @@ class ActorBuildProfile2ViewController: UIViewController {
         controller.agerange = text_age.text != nil ? text_age.text! : ""
         controller.height = text_height.text != nil ? text_height.text! : ""
         controller.weight = text_weight.text != nil ? text_weight.text! : ""
-        
+        controller.userType = userType
         self.navigationController?.pushViewController(controller, animated: true)
     }
     /*

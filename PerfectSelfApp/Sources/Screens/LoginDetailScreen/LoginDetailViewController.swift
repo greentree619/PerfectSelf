@@ -94,6 +94,7 @@ class LoginDetailViewController: UIViewController {
                     let token = user!["token"] as? String
                     let uid = user!["uid"] as? String
                     let username = user!["userName"] as? String
+                    
 //                    print(uid!+"ok")
 //                    print(token!+"test")
                     
@@ -110,16 +111,18 @@ class LoginDetailViewController: UIViewController {
                         UserDefaults.standard.set(uid!, forKey: "USER_ID")
                         UserDefaults.standard.set(token!, forKey: "USER_TOKEN")
                         UserDefaults.standard.set(username!, forKey: "USER_NAME")
-                    
+                        
                         //}}REFME
                         
                         if self.btn_actor.isSelected {
+                            UserDefaults.standard.set("actor", forKey: "USER_TYPE")
                             let controller = ActorTabBarController();
                             controller.modalPresentationStyle = .fullScreen
                             self.present(controller, animated: false)
 //                            self.navigationController?.pushViewController(controller, animated: true)
                         }
                         else {
+                            UserDefaults.standard.set("reader", forKey: "USER_TYPE")
                             let controller = ReaderTabBarController();
                             controller.modalPresentationStyle = .fullScreen
                             self.present(controller, animated: false)

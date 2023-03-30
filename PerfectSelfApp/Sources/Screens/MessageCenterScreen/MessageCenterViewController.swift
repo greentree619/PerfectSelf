@@ -14,6 +14,7 @@ class MessageCenterViewController: UIViewController, UICollectionViewDataSource,
 //    let r = UIImage(named: "reader");
     let divide = UIImage(named: "filter_divide");
     @IBOutlet weak var chatCardList: UICollectionView!
+    @IBOutlet weak var btn_back: UIButton!
     var items = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32", "33", "34", "35", "36", "37", "38", "39", "40", "41", "42", "43", "44", "45", "46", "47", "48"]
     let cellsPerRow = 1
     
@@ -27,7 +28,8 @@ class MessageCenterViewController: UIViewController, UICollectionViewDataSource,
         chatCardList.allowsSelection = true
         // Do any additional setup after loading the view.
         self.navigationItem.setHidesBackButton(true, animated: false)
-        
+        let userType = UserDefaults.standard.string(forKey: "USER_TYPE")
+        btn_back.isHidden = userType == "reader"
     }
     
     // MARK: - ChatCard List Delegate.

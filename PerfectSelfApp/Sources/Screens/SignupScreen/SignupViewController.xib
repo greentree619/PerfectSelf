@@ -297,6 +297,9 @@
                                                         </attributedString>
                                                         <directionalEdgeInsets key="contentInsets" top="0.0" leading="0.0" bottom="0.0" trailing="0.0"/>
                                                     </buttonConfiguration>
+                                                    <connections>
+                                                        <action selector="SignIn:" destination="-1" eventType="touchUpInside" id="ZeS-s6-5oS"/>
+                                                    </connections>
                                                 </button>
                                             </subviews>
                                         </stackView>

@@ -12,6 +12,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MessageCenterViewController" customModule="PerfectSelf" customModuleProvider="target">
             <connections>
+                <outlet property="btn_back" destination="5KY-bM-EjF" id="9dV-hb-5fo"/>
                 <outlet property="chatCardList" destination="Iwc-dS-W6l" id="khs-M8-Gyw"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -21,7 +22,7 @@
             <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="wek-Ab-tqX">
+                <stackView opaque="NO" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="wek-Ab-tqX">
                     <rect key="frame" x="0.0" y="59" width="393" height="759"/>
                     <subviews>
                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="JCy-RM-v78">
