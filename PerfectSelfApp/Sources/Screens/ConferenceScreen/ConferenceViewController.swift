@@ -299,6 +299,10 @@ class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSample
     
     @IBAction func recordingDidTap(_ sender: UIButton) {
         if(_captureState == .idle){
+            //Send record cmd to other.
+            let recStart: Data = "#CMD#REC#START#".data(using: .utf8)!
+            self.webRTCClient.sendData(recStart)
+            
             self.count = 3
             self.lblTimer.text = "\(self.count)"
             lblTimer.isHidden = false
@@ -317,6 +321,8 @@ class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSample
             })
         }
         else if(_captureState == .capturing){
+            let recStart: Data = "#CMD#REC#END#".data(using: .utf8)!
+            self.webRTCClient.sendData(recStart)
             _captureState = .end
             audioRecorder?.stop()
         }
@@ -501,6 +507,38 @@ extension ConferenceViewController: WebRTCClientDelegate {
     }
     
     func webRTCClient(_ client: WebRTCClient, didReceiveData data: Data) {
+        let message = String(data: data, encoding: .utf8) ?? "(Binary: \(data.count) bytes)"
+        let startCmd = String(describing: "#CMD#REC#START#".cString(using: String.Encoding.utf8))
+        let endCmd = String(describing: "#CMD#REC#END#".cString(using: String.Encoding.utf8))
+        if(message.compare(startCmd).rawValue == 0)
+        {//recording Start
+            if(_captureState == .idle){                
+                self.count = 3
+                self.lblTimer.text = "\(self.count)"
+                lblTimer.isHidden = false
+                if timer != nil {
+                    timer.invalidate()
+                }
+                timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true, block: { timer in
+                    self.count -= 1
+                    self.lblTimer.text = "\(self.count)"
+                    if self.count == 0 {
+                        self.lblTimer.isHidden = true
+                        timer.invalidate()
+                        self._captureState = .start
+                        self.audioRecorder?.record()
+                    }
+                })
+            }
+        }
+        else if(message.compare(endCmd).rawValue == 0)
+        {//recording end
+            if(_captureState == .capturing){
+                _captureState = .end
+                audioRecorder?.stop()
+            }
+        }
+        
         DispatchQueue.main.async {
 //REFME
 //            let message = String(data: data, encoding: .utf8) ?? "(Binary: \(data.count) bytes)"
