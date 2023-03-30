@@ -10,6 +10,11 @@ import UIKit
 
 class ActorFindReaderViewController: UIViewController , UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout{
 
+    @IBOutlet weak var btn_relevance: UIButton!
+    @IBOutlet weak var btn_pricehightolow: UIButton!
+    @IBOutlet weak var btn_pricelowtohigh: UIButton!
+    @IBOutlet weak var btn_soonest: UIButton!
+    @IBOutlet weak var numberOfReader: UILabel!
     @IBOutlet weak var modal_sort: UIView!
     @IBOutlet weak var readerList: UICollectionView!
     var items = [ReaderProfileCard]()
@@ -48,6 +53,7 @@ class ActorFindReaderViewController: UIViewController , UICollectionViewDataSour
 //                    for (i, reader) in items.enumerated() {
 //                    }
                     self.readerList.reloadData()
+                    self.numberOfReader.text = "\(respItems.count) Readers Listed"
                 }
 
             } catch {
@@ -127,14 +133,32 @@ class ActorFindReaderViewController: UIViewController , UICollectionViewDataSour
         backgroundView.removeFromSuperview()
         self.modal_sort.alpha = 0;
     }
+
+    @IBAction func SelectRelevance(_ sender: UIButton) {
+        btn_relevance.tintColor = UIColor(rgb: 0x4383C4)
+        btn_pricehightolow.tintColor = .black
+        btn_pricelowtohigh.tintColor = .black
+        btn_soonest.tintColor = .black
+    }
     
-//    @IBAction func FilterApply(_ sender: UIButton) {
-//
-//        UIView.animate(withDuration: 0.5) {
-//            self.modal_filter.alpha = 0;
-//        };
-//    }
-    
+    @IBAction func SelectPriceHighToLow(_ sender: UIButton) {
+        btn_relevance.tintColor = .black
+        btn_pricehightolow.tintColor = UIColor(rgb: 0x4383C4)
+        btn_pricelowtohigh.tintColor = .black
+        btn_soonest.tintColor = .black
+    }
+    @IBAction func SelectPriceLowToHigh(_ sender: UIButton) {
+        btn_relevance.tintColor = .black
+        btn_pricehightolow.tintColor = .black
+        btn_pricelowtohigh.tintColor = UIColor(rgb: 0x4383C4)
+        btn_soonest.tintColor = .black
+    }
+    @IBAction func SelectAvailableSoonest(_ sender: UIButton) {
+        btn_relevance.tintColor = .black
+        btn_pricehightolow.tintColor = .black
+        btn_pricelowtohigh.tintColor = .black
+        btn_soonest.tintColor = UIColor(rgb: 0x4383C4)
+    }
     @IBAction func GoBack(_ sender: UIButton) {
         self.navigationController?.popViewController(animated: false)
     }
