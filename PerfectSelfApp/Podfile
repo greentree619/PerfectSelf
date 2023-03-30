@@ -13,5 +13,5 @@ target 'PerfectSelf' do
   pod 'AnimatedCardInput'
   pod 'HSPopupMenu'
   pod 'RangeSeekSlider'
-
+  pod 'IQKeyboardManagerSwift'
 end

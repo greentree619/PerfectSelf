@@ -37,9 +37,9 @@ class PerfectSelfWebAPI
         task.resume()
     }
     
-    func login(email: String, password: String, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> Void
+    func login(userType: Int, email: String, password: String, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> Void
     {
-        let json: [String: Any] = ["userName": "tester",
+        let json: [String: Any] = ["userType": userType,// 3 for actor, 4 for reader
                                    "email": email,
                                    "password": password]
         

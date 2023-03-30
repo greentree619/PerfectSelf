@@ -126,6 +126,9 @@ class SignupViewController: UIViewController {
         
         self.navigationController?.pushViewController(controller, animated: false);
     }
+    @IBAction func GoBack(_ sender: UIButton) {
+        self.navigationController?.popViewController(animated: true)
+    }
     /*
     // MARK: - Navigation
 
