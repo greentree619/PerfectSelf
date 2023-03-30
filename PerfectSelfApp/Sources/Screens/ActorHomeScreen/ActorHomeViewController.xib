@@ -16,6 +16,7 @@
                 <outlet property="greetingLabel" destination="Gjf-XO-iAc" id="XfX-dP-bag"/>
                 <outlet property="readerList" destination="JU1-QJ-Xxa" id="vCk-wb-Dww"/>
                 <outlet property="readerListFlow" destination="gkZ-Sc-3E3" id="Rsh-Vo-s8Z"/>
+                <outlet property="sliderView" destination="3Fe-u7-u4O" id="84x-ph-FvJ"/>
                 <outlet property="view" destination="aZf-Jp-goY" id="Pcc-s1-1bQ"/>
             </connections>
         </placeholder>
@@ -655,9 +656,9 @@
                                                                 </label>
                                                             </subviews>
                                                         </stackView>
-                                                        <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="64" minValue="0.0" maxValue="100" translatesAutoresizingMaskIntoConstraints="NO" id="Rgv-Z0-16x">
-                                                            <rect key="frame" x="-2" y="50" width="357" height="26"/>
-                                                        </slider>
+                                                        <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3Fe-u7-u4O">
+                                                            <rect key="frame" x="0.0" y="50" width="353" height="25"/>
+                                                        </stackView>
                                                         <stackView opaque="NO" contentMode="scaleToFill" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="fWT-kh-aqm">
                                                             <rect key="frame" x="0.0" y="75" width="353" height="25"/>
                                                             <subviews>
@@ -699,9 +700,9 @@
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="u2a-6F-4hM">
-                                                            <rect key="frame" x="0.0" y="26.666666666666629" width="45" height="26.666666666666671"/>
+                                                            <rect key="frame" x="0.0" y="26.666666666666629" width="55" height="26.666666666666671"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                            <inset key="contentEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
                                                             <state key="normal" title="Male" image="icons8-unchecked-checkbox-14">
                                                                 <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             </state>
@@ -711,8 +712,9 @@
                                                             </connections>
                                                         </button>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GyU-tR-kSe">
-                                                            <rect key="frame" x="0.0" y="53.333333333333364" width="61" height="26.666666666666664"/>
+                                                            <rect key="frame" x="0.0" y="53.333333333333364" width="71" height="26.666666666666664"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                            <inset key="contentEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
                                                             <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                             <state key="normal" title="Female" image="icons8-unchecked-checkbox-14">
                                                                 <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

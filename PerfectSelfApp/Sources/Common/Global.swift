@@ -86,14 +86,6 @@ struct Availability: Codable {
     let deletedTime: String
 }
 
-struct TapeLibrary: Codable {
-    let id: Int
-    let readerUid: String
-    let tapeName: String
-    let bucketName: String
-    let tapeKey: String
-}
-
 //        showAlert(viewController: self, title: "Confirm", message: "Please input") { UIAlertAction in
 //            print("Ok button tapped")
 //        }

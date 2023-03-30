@@ -184,7 +184,10 @@ class PerfectSelfWebAPI
     {
         return executeAPI(with: "GET", apiPath: "Books/DetailList/ByUid/\(uid)", json: [:], completionHandler:completionHandler)
     }
-    
+    func cancelBookingByRoomUid(uid: String, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> Void
+    {
+        return executeAPI(with: "DELETE", apiPath: "Books/ByRoomUid/\(uid)", json: [:], completionHandler:completionHandler)
+    }
     func getAvailabilityById(uid: String, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> Void
     {
         return executeAPI(with: "GET", apiPath: "Availabilities/UpcomingByUid/\(uid)/\(Date.getCurrentDate())", json: [:], completionHandler:completionHandler)
