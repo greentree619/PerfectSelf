@@ -100,6 +100,7 @@ class ActorLibraryViewController: UIViewController, UICollectionViewDataSource, 
         // add the code here to perform action on the cell
         print("didDeselectItemAt" + String(indexPath.row))
         
+        selectedTape = self.items[indexPath.row]
         let projectViewController = ProjectViewController()
         projectViewController.modalPresentationStyle = .fullScreen
         self.present(projectViewController, animated: false, completion: nil)

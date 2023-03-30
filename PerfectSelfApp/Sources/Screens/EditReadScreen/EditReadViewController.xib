@@ -11,6 +11,8 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="EditReadViewController" customModule="PerfectSelf" customModuleProvider="target">
             <connections>
+                <outlet property="playerView" destination="gNi-yJ-TIt" id="BeL-lB-uih"/>
+                <outlet property="slider" destination="Iiz-wc-mvQ" id="dfe-i6-O9p"/>
                 <outlet property="view" destination="GgI-Tw-8jH" id="oQK-0P-Io0"/>
             </connections>
         </placeholder>
@@ -29,17 +31,10 @@
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </view>
-                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" hidesWhenStopped="YES" animating="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="v8z-TB-Zc4">
+                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="v8z-TB-Zc4">
                     <rect key="frame" x="197" y="438" width="20" height="20"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 </activityIndicatorView>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="5" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="u1A-up-lw7">
-                    <rect key="frame" x="175" y="388" width="62.5" height="119.5"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <fontDescription key="fontDescription" type="boldSystem" pointSize="100"/>
-                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                    <nil key="highlightedColor"/>
-                </label>
                 <view alpha="0.69999998807907104" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QmO-sV-Vye" userLabel="Top Bar">
                     <rect key="frame" x="0.0" y="59" width="393" height="87"/>
                     <subviews>
@@ -77,9 +72,9 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GgE-0z-xA4" userLabel="Player Control Bar">
                     <rect key="frame" x="0.0" y="699" width="393" height="119"/>
                     <subviews>
-                        <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="Kwm-hS-wEW">
-                            <rect key="frame" x="34" y="27" width="325" height="4"/>
-                        </progressView>
+                        <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="Iiz-wc-mvQ">
+                            <rect key="frame" x="32" y="10" width="329" height="31"/>
+                        </slider>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VCn-4g-Fio" userLabel="control area">
                             <rect key="frame" x="34" y="52" width="325" height="55"/>
                             <subviews>
@@ -94,6 +89,9 @@
                                             <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                             <state key="normal" title="" image="play2"/>
+                                            <connections>
+                                                <action selector="playDidTap:" destination="-1" eventType="touchUpInside" id="IPe-uM-BdX"/>
+                                            </connections>
                                         </button>
                                     </subviews>
                                     <constraints>
@@ -270,12 +268,12 @@
                     <constraints>
                         <constraint firstItem="VCn-4g-Fio" firstAttribute="leading" secondItem="GgE-0z-xA4" secondAttribute="leading" constant="34" id="2RN-xg-8rG"/>
                         <constraint firstAttribute="trailing" secondItem="VCn-4g-Fio" secondAttribute="trailing" constant="34" id="DGn-a9-ola"/>
-                        <constraint firstItem="VCn-4g-Fio" firstAttribute="top" secondItem="Kwm-hS-wEW" secondAttribute="bottom" constant="21" id="MuD-n1-tnz"/>
-                        <constraint firstAttribute="trailing" secondItem="Kwm-hS-wEW" secondAttribute="trailing" constant="34" id="Orz-9q-uFq"/>
+                        <constraint firstItem="VCn-4g-Fio" firstAttribute="top" secondItem="Iiz-wc-mvQ" secondAttribute="bottom" constant="12" id="IPd-Ft-q2h"/>
+                        <constraint firstItem="Iiz-wc-mvQ" firstAttribute="leading" secondItem="GgE-0z-xA4" secondAttribute="leading" constant="34" id="TgT-2I-HMC"/>
                         <constraint firstAttribute="height" constant="119" id="b2y-j8-paZ"/>
-                        <constraint firstItem="Kwm-hS-wEW" firstAttribute="top" secondItem="GgE-0z-xA4" secondAttribute="top" constant="27" id="jD5-Tx-vpq"/>
+                        <constraint firstAttribute="trailing" secondItem="Iiz-wc-mvQ" secondAttribute="trailing" constant="34" id="dRP-Q1-pWd"/>
+                        <constraint firstItem="Iiz-wc-mvQ" firstAttribute="top" secondItem="GgE-0z-xA4" secondAttribute="top" constant="10" id="gR7-X4-iu3"/>
                         <constraint firstAttribute="bottom" secondItem="VCn-4g-Fio" secondAttribute="bottom" constant="12" id="nZy-ad-RYK"/>
-                        <constraint firstItem="Kwm-hS-wEW" firstAttribute="leading" secondItem="GgE-0z-xA4" secondAttribute="leading" constant="34" id="u96-Yf-JUL"/>
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="c0h-XZ-ZGT" userLabel="setting">
@@ -326,6 +324,11 @@
                 <constraint firstItem="27J-jm-KbH" firstAttribute="bottom" secondItem="GgE-0z-xA4" secondAttribute="bottom" id="upO-Eb-ajq"/>
                 <constraint firstItem="c0h-XZ-ZGT" firstAttribute="top" secondItem="QmO-sV-Vye" secondAttribute="bottom" constant="12" id="znk-FG-svd"/>
             </constraints>
+            <variation key="default">
+                <mask key="subviews">
+                    <exclude reference="v8z-TB-Zc4"/>
+                </mask>
+            </variation>
             <point key="canvasLocation" x="-1" y="-12"/>
         </view>
     </objects>

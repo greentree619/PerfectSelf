@@ -23,7 +23,7 @@ class OverlayViewController: UIViewController {
     @IBOutlet var btnStop: UIButton!
     var count = 5
     var timer: Timer!
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         //self.containerView.isHidden = true
@@ -31,7 +31,7 @@ class OverlayViewController: UIViewController {
         playerView.delegate = self
         guard let url = uploadVideourl else { return }
         playerView.url = url
-        slider.minimumValue = 0
+        //slider.minimumValue = 0
         btnStop.isEnabled = false
         btnRecord.isEnabled = true
         btnTimer.isEnabled = true

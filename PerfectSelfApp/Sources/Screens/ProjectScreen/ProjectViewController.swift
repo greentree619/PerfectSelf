@@ -8,12 +8,65 @@
 
 import Foundation
 import UIKit
+import Photos
 
 class ProjectViewController: UIViewController {
+    var savedFileUrl: URL? = nil
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        
+        var downloadImageURL: NSString = "https://\(selectedTape!.bucketName).s3.us-east-2.amazonaws.com/8CF21CA9-DD2D-4A30-B81B-9B554D3B4D5A.mp4" as NSString
+        
+        downloadImageURL = downloadImageURL.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)! as NSString
+        
+        let requestURL: NSURL = NSURL(string: downloadImageURL as String)!
+        
+        let request = URLRequest(url: requestURL as URL, cachePolicy: .useProtocolCachePolicy, timeoutInterval: 10.0)
+        let config = URLSessionConfiguration.default
+        let session = URLSession(configuration: config)
+        let task = session.dataTask(with: request, completionHandler: {(data, response, error) in
+            DispatchQueue.main.async {
+                hideIndicator(sender: nil)
+            }
+            
+             if error != nil {
+                  //print(error!.localizedDescription)
+                 DispatchQueue.main.async {
+                     Toast.show(message: "Faild to download tape from library", controller: self)
+                 }
+             }
+             else {
+                 //print(response)//print(response ?? default "")
+                 let documentsPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0];
+                 let filePath = URL(fileURLWithPath: "\(documentsPath)/tempFile.mp4")
+                 DispatchQueue.main.async {
+                     do{
+                         try data!.write(to: filePath)
+                         self.savedFileUrl = filePath
+//                         PHPhotoLibrary.shared().performChanges({
+//                             PHAssetChangeRequest.creationRequestForAssetFromVideo(atFileURL: filePath)
+//                         }) { completed, error in
+//                             if completed {
+//                                 //print("Video is saved!")
+//                                 DispatchQueue.main.async {
+//                                     Toast.show(message: "Video is saved!", controller: self)
+//                                 }
+//                             }
+//                         }
+                     }
+                     catch{
+                         print("error: \(error)")
+                     }
+                 }
+             }
+         })
+        
+        DispatchQueue.main.async {
+            showIndicator(sender: nil, viewController: self)
+            task.resume()
+        }
     }
     
     @IBAction func backDidTapped(_ sender: UIButton) {
@@ -21,13 +74,22 @@ class ProjectViewController: UIViewController {
     }
     
     @IBAction func recordNewTakeDidTapped(_ sender: UIButton) {
+        guard self.savedFileUrl != nil else{
+            return
+        }
+        
         let overlayViewController = OverlayViewController()
+        overlayViewController.uploadVideourl = self.savedFileUrl
         overlayViewController.modalPresentationStyle = .fullScreen
         self.present(overlayViewController, animated: false, completion: nil)
     }
     
     @IBAction func editDidTapped(_ sender: UIButton) {
-        let editReadViewController = EditReadViewController()
+        guard self.savedFileUrl != nil else{
+            return
+        }
+        
+        let editReadViewController = EditReadViewController(videoRrl: self.savedFileUrl!)
         editReadViewController.modalPresentationStyle = .fullScreen
         self.present(editReadViewController, animated: false, completion: nil)
     }

@@ -8,9 +8,13 @@
 import UIKit
 import WebRTC
 
-class EditReadViewController: UIViewController {
+class EditReadViewController: UIViewController, PlayerViewDelegate {
+    let videoURL: URL
+    @IBOutlet weak var playerView: PlayerView!
+    @IBOutlet weak var slider: UISlider!
     
-    init() {
+    init(videoRrl: URL) {
+        self.videoURL = videoRrl
         super.init(nibName: String(describing: EditReadViewController.self), bundle: Bundle.main)
     }
     
@@ -21,8 +25,51 @@ class EditReadViewController: UIViewController {
     
     override func viewDidLoad() {
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        setupPlayer()
+    }
+
+    func setupPlayer() {
+        playerView.url = videoURL
+        playerView.delegate = self
+        slider.minimumValue = 0
+    }
         
     @IBAction func backDidTap(_ sender: UIButton) {
         self.dismiss(animated: false)
+    }
+    
+    @IBAction func playDidTap(_ sender: UIButton) {
+        if playerView.rate > 0 {
+            playerView.pause()
+            //isPlaying = false
+        } else {
+           playerView.play()
+           //isPlaying = true
+        }
+    }
+    
+    
+    func playerVideo(player: PlayerView, currentTime: Double) {
+        slider.value = Float(currentTime)
+    }
+    
+    func playerVideo(player: PlayerView, duration: Double) {
+        slider.maximumValue =  Float(duration)
+    }
+    
+    func playerVideo(player: PlayerView, statusItemPlayer: AVPlayer.Status, error: Error?) {
+        
+    }
+    
+    func playerVideo(player: PlayerView, statusItemPlayer: AVPlayerItem.Status, error: Error?) {
+        
+    }
+    
+    func playerVideoDidEnd(player: PlayerView) {
+        
     }
 }
