@@ -65,6 +65,8 @@ class OverlayViewController: UIViewController {
     @IBAction func startRecordClicked(_ sender: UIButton) {
         if(!isOnRecording)
         {
+            self.count = 5
+            self.lblTimer.text = "\(self.count)"
             lblTimer.isHidden = false
             if timer != nil {
                 timer.invalidate()

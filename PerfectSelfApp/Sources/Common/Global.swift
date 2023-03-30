@@ -123,7 +123,7 @@ func showConfirm(viewController: UIViewController
     viewController.present(dialogMessage, animated: true, completion: nil)
 }
 
-func showIndicator(sender: UIControl?, viewController: UIViewController)
+func showIndicator(sender: UIControl?, viewController: UIViewController, color: UIColor=UIColor.black)
 {
     if(sender != nil){
         sender!.isEnabled = false
@@ -135,6 +135,7 @@ func showIndicator(sender: UIControl?, viewController: UIViewController)
     viewController.view.addSubview(backgroundView!)
     
     activityIndicatorView = UIActivityIndicatorView(style: .large)
+    activityIndicatorView?.color = color
     activityIndicatorView!.center = viewController.view.center
     viewController.view.addSubview(activityIndicatorView!)
     activityIndicatorView!.startAnimating()
@@ -176,7 +177,7 @@ func getDateString() -> String{
     let now = Date()
     let formatter = DateFormatter()
     formatter.timeZone = TimeZone.current
-    formatter.dateFormat = "yyyy-MM-dd-HHmm"
+    formatter.dateFormat = "yyyy-MM-dd-HHmmss"
     let dateString = formatter.string(from: now)
     return dateString
 }

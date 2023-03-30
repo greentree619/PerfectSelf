@@ -23,6 +23,9 @@ class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSample
     
     @IBOutlet weak var recordButton: UIButton!
     @IBOutlet weak var remoteCameraView: UIView!
+    @IBOutlet var lblTimer: UILabel!
+    var count = 3
+    var timer: Timer!
     
     private let signalClient: SignalingClient
     private let webRTCClient: WebRTCClient
@@ -152,21 +155,23 @@ class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSample
         fatalError("init(coder:) has not been implemented")
     }
     
-    func dateString() -> String {
-      let formatter = DateFormatter()
-      formatter.dateFormat = "ddMMMYY_hhmmssa"
-      let fileName = formatter.string(from: Date())
-      return "\(fileName).mp3"
-    }
+//    func dateString() -> String {
+//      let formatter = DateFormatter()
+//      formatter.dateFormat = "ddMMMYY_hhmmssa"
+//      let fileName = formatter.string(from: Date())
+//      return "\(fileName).mp3"
+//    }
     
-    func getDocumentsDirectory() -> URL {
-        let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
-        return paths[0]
-    }
+//    func getDocumentsDirectory() -> URL {
+//        let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+//        return paths[0]
+//    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        ConferenceViewController.clearTempFolder()
+        lblTimer.isHidden = true
         self.userName = UserDefaults.standard.string(forKey: "USER_NAME")
         
         self.webRTCClient.speakerOn()
@@ -207,9 +212,8 @@ class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSample
         _captureSession = capturer.captureSession
         //}} Init to record video.
         
-        let audioURL = getWhistleURL(fileName: self.userName!)
-        self.audioUrl = audioURL
-        print(audioURL.absoluteString)
+        let audioTmpUrl = getAudioTempURL()
+        //print(self.audioUrl!.absoluteString)
 
         // 4
         let settings = [
@@ -222,7 +226,7 @@ class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSample
         do {
             // 5
             //try FileManager.default.removeItem(atPath: audioURL.absoluteString)
-            audioRecorder = try AVAudioRecorder(url: audioURL, settings: settings)
+            audioRecorder = try AVAudioRecorder(url: audioTmpUrl, settings: settings)
             audioRecorder?.delegate = self
         } catch {
             audioRecorder?.stop()
@@ -248,8 +252,12 @@ class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSample
         return documentsDirectory
     }
 
-    func getWhistleURL(fileName: String) -> URL {
-        return getDocumentsDirectory().appendingPathComponent("\(fileName)\(uploadCount).m4a")
+    func getAudioFileURL(fileName: String) -> URL {
+        return ConferenceViewController.getDocumentsDirectory().appendingPathComponent("\(fileName)\(uploadCount).m4a")
+    }
+    
+    func getAudioTempURL() -> URL {
+        return ConferenceViewController.getDocumentsDirectory().appendingPathComponent("audioTemp.m4a")
     }
     
     private func embedView(_ view: UIView, into containerView: UIView) {
@@ -291,8 +299,22 @@ class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSample
     
     @IBAction func recordingDidTap(_ sender: UIButton) {
         if(_captureState == .idle){
-            _captureState = .start
-            audioRecorder?.record()
+            self.count = 3
+            self.lblTimer.text = "\(self.count)"
+            lblTimer.isHidden = false
+            if timer != nil {
+                timer.invalidate()
+            }
+            timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true, block: { timer in
+                self.count -= 1
+                self.lblTimer.text = "\(self.count)"
+                if self.count == 0 {
+                    self.lblTimer.isHidden = true
+                    timer.invalidate()
+                    self._captureState = .start
+                    self.audioRecorder?.record()
+                }
+            })
         }
         else if(_captureState == .capturing){
             _captureState = .end
@@ -350,24 +372,42 @@ class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSample
                 let prefixKey = "\(getDateString())/\((uiViewContoller! as! ConferenceViewController).roomUid)/"
                 let awsUpload = AWSMultipartUpload()
                 DispatchQueue.main.async {
-                    showIndicator(sender: nil, viewController: uiViewContoller!)
+                    showIndicator(sender: nil, viewController: uiViewContoller!, color:UIColor.white)
+                    Toast.show(message: "Start to upload record files", controller: uiViewContoller!)
                 }
                 
+                //Upload audio at first
                 awsUpload.multipartUpload(filePath: (uiViewContoller! as! ConferenceViewController).audioUrl!, prefixKey: prefixKey){ (error: Error?) -> Void in
-                   
-
-                }
-                awsUpload.multipartUpload(filePath: url, prefixKey: prefixKey){ error -> Void in
                     if(error == nil)
+                    {//Then Upload video
+                        awsUpload.multipartUpload(filePath: url, prefixKey: prefixKey){ error -> Void in
+                            if(error == nil)
+                            {
+                                DispatchQueue.main.async {
+                                    hideIndicator(sender: nil)
+                                    Toast.show(message: "Completed to upload record files", controller: uiViewContoller!)
+                                }
+        
+                                let uid = UserDefaults.standard.string(forKey: "USER_ID")
+                                webAPI.addLibrary(uid: uid!, tapeName: "tapeName", bucketName: "video-client-upload-123456798", tapeKey: "\(prefixKey)\((uiViewContoller! as! ConferenceViewController).userName!)\((uiViewContoller! as! ConferenceViewController).uploadCount)")
+                                ConferenceViewController.clearTempFolder()
+                                (uiViewContoller! as! ConferenceViewController).uploadCount += 1
+                            }
+                            else
+                            {
+                                DispatchQueue.main.async {
+                                    hideIndicator(sender: nil)
+                                    Toast.show(message: "Failed to upload record files", controller: uiViewContoller!)
+                                }
+                            }
+                        }
+                    }
+                    else
                     {
                         DispatchQueue.main.async {
                             hideIndicator(sender: nil)
+                            Toast.show(message: "Failed to upload record files", controller: uiViewContoller!)
                         }
-                        
-                        let uid = UserDefaults.standard.string(forKey: "USER_ID")
-                        webAPI.addLibrary(uid: uid!, tapeName: "tapeName", bucketName: "video-client-upload-123456798", tapeKey: "\(prefixKey)\((uiViewContoller! as! ConferenceViewController).userName!)\((uiViewContoller! as! ConferenceViewController).uploadCount)")
-                        ConferenceViewController.clearTempFolder()
-                        (uiViewContoller! as! ConferenceViewController).uploadCount += 1
                     }
                 }
             }
@@ -379,7 +419,18 @@ class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSample
     
     func audioRecorderDidFinishRecording(_ recorder: AVAudioRecorder, successfully flag: Bool) {
         if !flag {
-            //finishRecording(success: false)
+            audioRecorder?.stop()
+            Toast.show(message: "Audio recording be failed", controller: self)
+        }
+        else
+        {
+            let tmpUrl = getAudioTempURL()
+            self.audioUrl = getAudioFileURL(fileName: self.userName!)
+            do {
+                try FileManager.default.moveItem(at: tmpUrl, to: self.audioUrl!)
+            } catch {
+                print(error)
+            }
         }
     }
     

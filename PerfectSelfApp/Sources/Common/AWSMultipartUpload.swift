@@ -70,7 +70,7 @@ class AWSMultipartUpload: NSObject, URLSessionTaskDelegate, URLSessionDataDelega
                   if progress.isFinished {           //3
                     print("Upload Finished...")
                     //do any task here.
-                      completeHandler(nil)
+                      
                   }
            }
 
@@ -79,6 +79,7 @@ class AWSMultipartUpload: NSObject, URLSessionTaskDelegate, URLSessionDataDelega
               DispatchQueue.main.async(execute: {
                  // Do something e.g. Alert a user for transfer completion.
                  // On failed uploads, `error` contains the error object.
+                  completeHandler(error)
               })
            }
 

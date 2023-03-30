@@ -90,7 +90,7 @@ class ProjectViewController: UIViewController, PlayerViewDelegate {
          })
         
         DispatchQueue.main.async {
-            showIndicator(sender: nil, viewController: self)
+            showIndicator(sender: nil, viewController: self, color:UIColor.white)
             task.resume()
         }
     }

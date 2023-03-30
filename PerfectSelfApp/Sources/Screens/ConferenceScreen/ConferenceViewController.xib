@@ -11,6 +11,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ConferenceViewController" customModule="PerfectSelf" customModuleProvider="target">
             <connections>
+                <outlet property="lblTimer" destination="KCc-F3-IiK" id="F8h-2h-Fo0"/>
                 <outlet property="localVideoView" destination="oVe-mG-07t" id="1nr-OD-BmB"/>
                 <outlet property="recordButton" destination="ojN-TJ-Aoy" id="qcq-EJ-Xh2"/>
                 <outlet property="remoteCameraView" destination="VYL-z9-Smz" id="hoL-7M-KD3"/>
