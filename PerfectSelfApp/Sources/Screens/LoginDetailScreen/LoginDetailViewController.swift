@@ -21,6 +21,7 @@ class LoginDetailViewController: UIViewController {
     @IBOutlet weak var btn_showpassword: UIButton!
     
     var isShowPassword = false;
+    var userType = 3 // 3 for actor, 4 for reader
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -69,15 +70,15 @@ class LoginDetailViewController: UIViewController {
             }
             return
         }
-        
         showIndicator(sender: sender, viewController: self)
-        webAPI.login(email: text_email.text!, password: text_password.text!){ data, response, error in
+        webAPI.login(userType: userType, email: text_email.text!, password: text_password.text!){ data, response, error in
             guard let data = data, error == nil else {
                 print(error?.localizedDescription ?? "No data")
                 return
             }
             let responseJSON = try? JSONSerialization.jsonObject(with: data, options: [])
-            
+            print(responseJSON ?? "ok")
+           
             if let responseJSON = responseJSON as? [String: Any] {
                 //print(responseJSON["result"])
                 guard let result = responseJSON["result"] else {
@@ -132,9 +133,10 @@ class LoginDetailViewController: UIViewController {
                 }
                 else
                 {
+                    let err = responseJSON["error"] as? String
                     DispatchQueue.main.async {
                         hideIndicator(sender: sender)
-                        Toast.show(message: "Login failed! please try again.", controller: self)
+                        Toast.show(message: err ?? "", controller: self)
                         let _ = self.text_email.becomeFirstResponder()
                     }
                 }
@@ -155,12 +157,14 @@ class LoginDetailViewController: UIViewController {
         sender.borderWidth = 3;
         btn_reader.borderWidth = 0;
         btn_reader.isSelected = false;
+        userType = 3;
     }
     @IBAction func ReaderSelected(_ sender: UIButton) {
         sender.isSelected=true;
         sender.borderWidth = 3;
         btn_actor.borderWidth = 0;
         btn_actor.isSelected = false;
+        userType = 4;
     }
     
     @IBAction func ChangeForgotPassword(_ sender: UIButton) {
