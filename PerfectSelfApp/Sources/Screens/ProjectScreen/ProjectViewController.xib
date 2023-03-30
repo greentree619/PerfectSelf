@@ -11,6 +11,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ProjectViewController" customModule="PerfectSelf" customModuleProvider="target">
             <connections>
+                <outlet property="playerView" destination="sSD-iP-Ty3" id="uu5-BE-olQ"/>
                 <outlet property="view" destination="aCy-Za-TYj" id="Ev5-RZ-hck"/>
             </connections>
         </placeholder>

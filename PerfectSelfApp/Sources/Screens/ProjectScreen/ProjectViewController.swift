@@ -10,12 +10,36 @@ import Foundation
 import UIKit
 import Photos
 
-class ProjectViewController: UIViewController {
+class ProjectViewController: UIViewController, PlayerViewDelegate {
+    func playerVideo(player: PlayerView, currentTime: Double) {
+        //player.pause()
+        //self.playerView.updateFocusIfNeeded()
+    }
+    
+    func playerVideo(player: PlayerView, duration: Double) {
+        //player.currentTime = duration/100
+        //player.player!.seek(to: CMTime(value: 1, timescale: 600))
+        player.play()
+    }
+    
+    func playerVideo(player: PlayerView, statusItemPlayer: AVPlayer.Status, error: Error?) {
+        
+    }
+    
+    func playerVideo(player: PlayerView, statusItemPlayer: AVPlayerItem.Status, error: Error?) {
+        
+    }
+    
+    func playerVideoDidEnd(player: PlayerView) {
+        
+    }
+    
     var savedFileUrl: URL? = nil
-
+    @IBOutlet weak var playerView: PlayerView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        self.playerView.delegate = self
         
         var downloadImageURL: NSString = "https://\(selectedTape!.bucketName).s3.us-east-2.amazonaws.com/8CF21CA9-DD2D-4A30-B81B-9B554D3B4D5A.mp4" as NSString
         
@@ -45,6 +69,8 @@ class ProjectViewController: UIViewController {
                      do{
                          try data!.write(to: filePath)
                          self.savedFileUrl = filePath
+                         self.playerView.url = filePath
+                         
 //                         PHPhotoLibrary.shared().performChanges({
 //                             PHAssetChangeRequest.creationRequestForAssetFromVideo(atFileURL: filePath)
 //                         }) { completed, error in

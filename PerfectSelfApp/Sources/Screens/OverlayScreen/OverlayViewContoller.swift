@@ -24,6 +24,21 @@ class OverlayViewController: UIViewController {
     var count = 5
     var timer: Timer!
     
+    private var isOnRecording: Bool = false {
+        didSet {
+            DispatchQueue.main.async {
+                if self.isOnRecording == false
+                {
+                    self.btnRecord.titleLabel?.text = "Start Recording"
+                }
+                else if self.isOnRecording == true
+                {
+                    self.btnRecord.titleLabel?.text = "Stop Recording"
+                }
+            }
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         //self.containerView.isHidden = true
@@ -32,18 +47,15 @@ class OverlayViewController: UIViewController {
         guard let url = uploadVideourl else { return }
         playerView.url = url
         //slider.minimumValue = 0
-        btnStop.isEnabled = false
+        //btnStop.isEnabled = false
         btnRecord.isEnabled = true
-        btnTimer.isEnabled = true
-        self.lblTimer.isHidden = true
-        
-        //let awsUpload = AWSMultipartUpload()
-        //awsUpload.upload(filePath: url)
-        //awsUpload.multipartUpload(filePath: url)
+        //btnTimer.isEnabled = true
+        lblTimer.isHidden = true
     }
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        playerView.invalidateIntrinsicContentSize()
         if cameraView.captureSession.isRunning == true {
             return
         }
@@ -51,22 +63,49 @@ class OverlayViewController: UIViewController {
     }
     
     @IBAction func startRecordClicked(_ sender: UIButton) {
+        if(!isOnRecording)
+        {
+            lblTimer.isHidden = false
+            if timer != nil {
+                timer.invalidate()
+            }
+            timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true, block: { timer in
+                self.count -= 1
+                self.lblTimer.text = "\(self.count)"
+                if self.count == 0 {
+                    self.btnTimer.isEnabled = true
+                    self.lblTimer.isHidden = true
+                    timer.invalidate()
+                    self.startRecordAction()
+                    self.isOnRecording = true
+                }
+            })
+        }
+        else
+        {
+            stopRecordAction()
+            self.isOnRecording = false
+        }
+    }
+    
+    func startRecordAction()
+    {
         if !cameraView.isVideoRecording {
             cameraView.startVideoRecording()
-            btnRecord.isEnabled = false
-            btnStop.isEnabled = true
-            btnTimer.isEnabled = false
+            //btnRecord.isEnabled = false
+            //btnStop.isEnabled = true
+            //btnTimer.isEnabled = false
         }
         playerView.play()
     }
-
     
-    @IBAction func stopRecord(_ sender: UIButton) {
+    func stopRecordAction()
+    {
         if cameraView.isVideoRecording {
             cameraView.stopVideoRecording()
-            btnRecord.isEnabled = true
-            btnStop.isEnabled = false
-            btnTimer.isEnabled = true
+            //btnRecord.isEnabled = true
+            //btnStop.isEnabled = false
+            //btnTimer.isEnabled = true
         }
         playerView.stop()
     }
@@ -100,7 +139,7 @@ class OverlayViewController: UIViewController {
     func mergedVideos(recordUrl:URL, uploadUrl:URL) {
         let recordAsset = AVAsset(url: recordUrl)
         let uploadAsset = AVAsset(url: uploadUrl)
-
+        
         activityMonitor.startAnimating()
 
         let mixComposition = AVMutableComposition()
@@ -238,10 +277,10 @@ extension OverlayViewController: CameraPreviewDelegate {
     }
 
     func videDidEndRecording(with url: URL?, error: Error?) {
-        guard let url = url, let uploadurl = self.uploadVideourl else {
-            return
-        }
-        self.mergedVideos(recordUrl: url, uploadUrl: uploadurl)
+//        guard let url = url, let uploadurl = self.uploadVideourl else {
+//            return
+//        }
+        //FIXME self.mergedVideos(recordUrl: url, uploadUrl: uploadurl)
     }
 
 }
@@ -255,11 +294,11 @@ extension OverlayViewController: AvailableAudioInputsViewControllerDelegate {
 
 extension OverlayViewController: PlayerViewDelegate {
     func playerVideo(player: PlayerView, currentTime: Double) {
-        slider.value = Float(currentTime)
+        //slider.value = Float(currentTime)
     }
 
     func playerVideo(player: PlayerView, duration: Double) {
-        slider.maximumValue = Float(duration)
+        //slider.maximumValue = Float(duration)
     }
 
     func playerVideo(player: PlayerView, statusItemPlayer: AVPlayer.Status, error: Error?) {
@@ -272,5 +311,8 @@ extension OverlayViewController: PlayerViewDelegate {
     
     func playerVideoDidEnd(player: PlayerView) {
         //
+        //print("End")
+        stopRecordAction()
+        isOnRecording = false
     }
 }
