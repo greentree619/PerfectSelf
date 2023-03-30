@@ -77,7 +77,6 @@ class LoginDetailViewController: UIViewController {
                 return
             }
             let responseJSON = try? JSONSerialization.jsonObject(with: data, options: [])
-            print(responseJSON ?? "ok")
            
             if let responseJSON = responseJSON as? [String: Any] {
                 //print(responseJSON["result"])
@@ -193,6 +192,9 @@ class LoginDetailViewController: UIViewController {
         }
     }
     
+    @IBAction func GoBack(_ sender: UIButton) {
+        self.navigationController?.popViewController(animated: true)
+    }
     
     /*
      // MARK: - Navigation
