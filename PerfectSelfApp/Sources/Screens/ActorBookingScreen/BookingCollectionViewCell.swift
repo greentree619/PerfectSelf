@@ -31,10 +31,35 @@ class BookingCollectionViewCell: UICollectionViewCell {
     }
     
     @IBAction func SendMessage(_ sender: UIButton) {
-        print("send message")
+        let controller = ChatViewController()
+        controller.modalPresentationStyle = .fullScreen
+        self.parentViewController!.present(controller, animated: false, completion: nil)
     }
     
     @IBAction func CancelBooking(_ sender: UIButton) {
-        print("Cancel booking")
+        showConfirm(viewController: self.parentViewController!, title: "Confirm", message: "Are you sure?") { UIAlertAction in
+            // call API for real cancellation
+            showIndicator(sender: nil, viewController: self.parentViewController!)
+            webAPI.cancelBookingByRoomUid(uid: self.roomUid!) { data, response, error in
+                DispatchQueue.main.async {
+                    hideIndicator(sender: nil)
+                }
+                guard let _ = data, error == nil else {
+                    print(error?.localizedDescription ?? "No data")
+                    DispatchQueue.main.async {
+                        Toast.show(message: "error while cancelling book. try again later", controller: self.parentViewController!)
+                    }
+                    return
+                }
+                DispatchQueue.main.async {
+                    Toast.show(message: "Cancelled book", controller: self.parentViewController!)
+                    self.parentViewController?.viewWillAppear(false)
+                }
+            }
+            
+            
+        } cancelHandler: { UIAlertAction in
+            print("Cancel button tapped")
+        }
     }
 }

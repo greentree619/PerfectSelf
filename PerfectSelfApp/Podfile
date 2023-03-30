@@ -12,5 +12,6 @@ target 'PerfectSelf' do
   pod 'DropDown'
   pod 'AnimatedCardInput'
   pod 'HSPopupMenu'
+  pod 'RangeSeekSlider'
 
 end

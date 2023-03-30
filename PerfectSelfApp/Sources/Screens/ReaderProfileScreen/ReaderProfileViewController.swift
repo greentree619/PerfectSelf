@@ -121,8 +121,7 @@ class ReaderProfileViewController: UIViewController, UICollectionViewDataSource,
                 }
             }
             catch {
-                print(error)
-                print("there")
+            
                 DispatchQueue.main.async {
                     hideIndicator(sender: nil);
                     Toast.show(message: "Something went wrong. try again later", controller: self)

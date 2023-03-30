@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import FSCalendar
+import RangeSeekSlider
 
 class ActorHomeViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout
 {
@@ -17,9 +17,9 @@ class ActorHomeViewController: UIViewController, UICollectionViewDataSource, UIC
     @IBOutlet weak var readerList: UICollectionView!
     
     @IBOutlet weak var readerListFlow: UICollectionViewFlowLayout!
-    var items = [ReaderProfileCard]()
-//    ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32", "33", "34", "35", "36", "37", "38", "39", "40", "41", "42", "43", "44", "45", "46", "47", "48"]
+   
     
+    @IBOutlet weak var sliderView: UIStackView!
     @IBOutlet weak var greetingLabel: UILabel!
     let backgroundView = UIView()
     
@@ -34,6 +34,8 @@ class ActorHomeViewController: UIViewController, UICollectionViewDataSource, UIC
     var isCommercialRead = true
     var isShortRead = false
     var isExtendedRead = false
+    
+    var items = [ReaderProfileCard]()
     let cellsPerRow = 1
   
     override func viewDidLoad() {
@@ -62,7 +64,7 @@ class ActorHomeViewController: UIViewController, UICollectionViewDataSource, UIC
                 return
             }
             do {
-                print(data)
+               
                 let respItems = try JSONDecoder().decode([ReaderProfileCard].self, from: data)
                 //print(items)
                 DispatchQueue.main.async {
@@ -80,6 +82,16 @@ class ActorHomeViewController: UIViewController, UICollectionViewDataSource, UIC
                 }
             }
         }
+        
+        //
+        let rangeSlider = RangeSeekSlider(frame: CGRect(x: 0, y: 0, width: sliderView.frame.width, height: sliderView.frame.height))
+        sliderView.addSubview(rangeSlider)
+        rangeSlider.minValue = 0
+        rangeSlider.maxValue = 100
+        rangeSlider.selectedMinValue = 10
+        rangeSlider.selectedMaxValue = 30
+        rangeSlider.step = 1
+
     }
     
     // MARK: - Reader List Delegate.
