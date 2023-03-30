@@ -70,14 +70,18 @@ class SignupDetailViewController: UIViewController {
         }
         
         showIndicator(sender: sender, viewController: self)
-        let userType = (isActor ? ACTOR_UTYPE
-                        : READER_UTYPE)
+        let userType = (isActor ? ACTOR_UTYPE : READER_UTYPE)
         webAPI.signup(userType: userType, userName: txtUserName.text!, firstName: txtFirstName.text!, lastName: txtLastName.text!, email: email!, password: password!, phoneNumber: phoneNumber!) { data, response, error in
             guard let data = data, error == nil else {
                 print(error?.localizedDescription ?? "No data")
+                DispatchQueue.main.async {
+                    hideIndicator(sender: sender)
+                }
                 return
             }
-            
+            if let httpResponse = response as? HTTPURLResponse {
+                print("statusCode: \(httpResponse.statusCode)")
+            }
             let responseJSON = try? JSONSerialization.jsonObject(with: data, options: [])
             if let responseJSON = responseJSON as? [String: Any] {
                 //print(responseJSON["result"])
@@ -98,9 +102,11 @@ class SignupDetailViewController: UIViewController {
                     UserDefaults.standard.set(String(self.txtUserName.text!), forKey: "USER_NAME")
                     UserDefaults.standard.set(String(self.email!), forKey: "USER_EMAIL")
                     UserDefaults.standard.set(String(self.password!), forKey: "USER_PWD")
+                    UserDefaults.standard.set(self.isActor ? "actor" : "reader", forKey: "USER_TYPE")
                     //}}REFME
                     
                     let controller = ActorBuildProfile1ViewController()
+                    controller.userType = self.isActor ? "actor" : "reader"
                     self.navigationController?.pushViewController(controller, animated: true);
                 }
             }

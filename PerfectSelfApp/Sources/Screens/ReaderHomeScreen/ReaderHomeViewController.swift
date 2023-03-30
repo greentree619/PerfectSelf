@@ -31,6 +31,10 @@ class ReaderHomeViewController: UIViewController, UICollectionViewDataSource, UI
         if let thumb = switch_mode.subviews[0].subviews[1].subviews[2] as? UIImageView {
             thumb.transform = CGAffineTransform(scaleX:1.25, y: 1.333)
         }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true);
         
         //call API to fetch booking list
         showIndicator(sender: nil, viewController: self)
@@ -65,9 +69,7 @@ class ReaderHomeViewController: UIViewController, UICollectionViewDataSource, UI
                 }
             }
         }
-      
     }
-    
     // MARK: - Booking List Delegate.
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
          // myData is the array of items
@@ -86,7 +88,8 @@ class ReaderHomeViewController: UIViewController, UICollectionViewDataSource, UI
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         //
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Booking Collection View Cell", for: indexPath) as! BookingCollectionViewCell
-
+        let roomUid = self.items[indexPath.row].roomUid
+        
         let dateFormatter = DateFormatter()
 //        dateFormatter.locale = Locale(identifier: "en_US_POSIX") // set locale to reliable US_POSIX
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
@@ -100,7 +103,6 @@ class ReaderHomeViewController: UIViewController, UICollectionViewDataSource, UI
         dateFormatter1.dateFormat = "dd MMM, yyyy"
         let dateFormatter2 = DateFormatter()
         dateFormatter2.dateFormat = "hh:mm a"
-        
         
         cell.lbl_name.text = self.items[indexPath.row].actorName;
         cell.lbl_date.text = dateFormatter1.string(from: datestart ?? Date())
@@ -118,7 +120,7 @@ class ReaderHomeViewController: UIViewController, UICollectionViewDataSource, UI
         cell.signalClient = self.signalClient
         cell.navigationController = self.navigationController
         cell.parentViewController = self
-        // return card
+        cell.roomUid = roomUid
         return cell
     }
     

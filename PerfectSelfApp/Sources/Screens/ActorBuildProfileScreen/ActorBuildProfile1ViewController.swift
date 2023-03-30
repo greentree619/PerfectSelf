@@ -10,6 +10,7 @@ import UIKit
 
 class ActorBuildProfile1ViewController: UIViewController {
 
+    var userType : String = ""
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -18,11 +19,13 @@ class ActorBuildProfile1ViewController: UIViewController {
 
 
     @IBAction func Later(_ sender: UIButton) {
-        let controller = ActorTabBarController()
-        self.navigationController?.pushViewController(controller, animated: true)
+        let controller = userType == "actor" ? ActorTabBarController() : ReaderTabBarController();
+        controller.modalPresentationStyle = .fullScreen
+        self.present(controller, animated: false)
     }
     @IBAction func BuildProfile(_ sender: UIButton) {
         let controller = ActorBuildProfile2ViewController()
+        controller.userType = userType
         self.navigationController?.pushViewController(controller, animated: true)
     }
     /*

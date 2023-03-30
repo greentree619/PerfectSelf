@@ -120,6 +120,12 @@ class SignupViewController: UIViewController {
         
         self.navigationController?.pushViewController(controller, animated: true);
     }
+    
+    @IBAction func SignIn(_ sender: UIButton) {
+        let controller = LoginDetailViewController();
+        
+        self.navigationController?.pushViewController(controller, animated: false);
+    }
     /*
     // MARK: - Navigation
 
