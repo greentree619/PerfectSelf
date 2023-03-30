@@ -21,7 +21,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window.rootViewController = self.buildMainViewController()
         window.makeKeyAndVisible()
         self.window = window
-        IQKeyboardManager.shared.enable = true
+        IQKeyboardManager.shared.enable = false
         return true
     }
     

@@ -12,11 +12,12 @@ struct CustomMessage: Codable {
     let text: String
     let type: String
 }
-class ChatViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+class ChatViewController: KUIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
 
     @IBOutlet weak var modal_confirm_call: UIStackView!
     @IBOutlet weak var noMessage: UIStackView!
     let backgroundView = UIView()
+
     
     @IBOutlet weak var messageCollectionView: UICollectionView!
     @IBOutlet weak var messageTextField: UITextField!
@@ -140,6 +141,7 @@ class ChatViewController: UIViewController, UICollectionViewDataSource, UICollec
         modal_confirm_call.isHidden = true;
     }
     @IBAction func DoVoiceCall(_ sender: UIButton) {
+        view.endEditing(true)
         modal_confirm_call.isHidden = false;
         backgroundView.backgroundColor = UIColor.black.withAlphaComponent(0.5)
         backgroundView.frame = view.bounds
@@ -149,6 +151,7 @@ class ChatViewController: UIViewController, UICollectionViewDataSource, UICollec
     }
     
     @IBAction func DoVideoCall(_ sender: UIButton) {
+        view.endEditing(true)
         modal_confirm_call.isHidden = false;
         backgroundView.backgroundColor = UIColor.black.withAlphaComponent(0.5)
         backgroundView.frame = view.bounds

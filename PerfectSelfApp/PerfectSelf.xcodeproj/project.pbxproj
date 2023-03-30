@@ -21,6 +21,7 @@
 		4715EAF029CA59C600437576 /* ActorBookAppointmentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4715EAEE29CA59C600437576 /* ActorBookAppointmentViewController.swift */; };
 		4715EAF129CA59C600437576 /* ActorBookAppointmentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4715EAEF29CA59C600437576 /* ActorBookAppointmentViewController.xib */; };
 		472F64FD29CC0868005A427D /* ReaderProfileEditAvailabilityViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 472F64FC29CC0868005A427D /* ReaderProfileEditAvailabilityViewController.xib */; };
+		4732BDD029D62A98001CBAC5 /* KeyboardManage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4732BDCF29D62A98001CBAC5 /* KeyboardManage.swift */; };
 		4744C4A629D088FD00963C92 /* DateFormat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4744C4A529D088FD00963C92 /* DateFormat.swift */; };
 		475269BB29CD0F930094C3E9 /* BookingCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 475269B929CD0F930094C3E9 /* BookingCollectionViewCell.swift */; };
 		475269BC29CD0F930094C3E9 /* BookingCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 475269BA29CD0F930094C3E9 /* BookingCollectionViewCell.xib */; };
@@ -186,6 +187,7 @@
 		4715EAEE29CA59C600437576 /* ActorBookAppointmentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActorBookAppointmentViewController.swift; sourceTree = "<group>"; };
 		4715EAEF29CA59C600437576 /* ActorBookAppointmentViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ActorBookAppointmentViewController.xib; sourceTree = "<group>"; };
 		472F64FC29CC0868005A427D /* ReaderProfileEditAvailabilityViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ReaderProfileEditAvailabilityViewController.xib; sourceTree = "<group>"; };
+		4732BDCF29D62A98001CBAC5 /* KeyboardManage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardManage.swift; sourceTree = "<group>"; };
 		4744C4A529D088FD00963C92 /* DateFormat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormat.swift; sourceTree = "<group>"; };
 		475269B929CD0F930094C3E9 /* BookingCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookingCollectionViewCell.swift; sourceTree = "<group>"; };
 		475269BA29CD0F930094C3E9 /* BookingCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BookingCollectionViewCell.xib; sourceTree = "<group>"; };
@@ -611,6 +613,7 @@
 			children = (
 				BA00A54429CA1AD100C90922 /* Toast.swift */,
 				BAB32E4229B064640000F082 /* Global.swift */,
+				4732BDCF29D62A98001CBAC5 /* KeyboardManage.swift */,
 				BAB7379B29B40B7500F3D663 /* AWSMultipartUpload.swift */,
 				BA3F909929C457C200ABE966 /* PerfectSelfWebAPI.swift */,
 			);
@@ -1189,6 +1192,7 @@
 				79177C9720B0DE7A00BCD399 /* WebRTCClient.swift in Sources */,
 				BA6A5E1E29CCD49D0063ED13 /* ReaderCollectionViewCell.swift in Sources */,
 				BAD0B52029BA17130061FEF5 /* ReaderProfileEditAvailabilityViewController.swift in Sources */,
+				4732BDD029D62A98001CBAC5 /* KeyboardManage.swift in Sources */,
 				47BC09C229C5B46800B8F2C5 /* ActorBuildProfile3ViewController.swift in Sources */,
 				BAD0B53229BA17130061FEF5 /* ReaderProfileEditAboutViewController.swift in Sources */,
 				BABBD2E529BF9E2E000A7120 /* ActorTabBarController.swift in Sources */,
