@@ -62,7 +62,7 @@ class ActorHomeViewController: UIViewController, UICollectionViewDataSource, UIC
                 return
             }
             do {
-                print(data)
+               
                 let respItems = try JSONDecoder().decode([ReaderProfileCard].self, from: data)
                 //print(items)
                 DispatchQueue.main.async {

@@ -176,7 +176,8 @@ class ActorBuildProfile3ViewController: UIViewController {
                 DispatchQueue.main.async {
                     hideIndicator(sender: sender)
                     let controller = ActorTabBarController()
-                    self.navigationController?.pushViewController(controller, animated: true)
+                    controller.modalPresentationStyle = .fullScreen
+                    self.present(controller, animated: false)
                 }
             }
             else
