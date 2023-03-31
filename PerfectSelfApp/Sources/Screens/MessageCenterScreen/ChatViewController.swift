@@ -12,11 +12,12 @@ struct CustomMessage: Codable {
     let text: String
     let type: String
 }
-class ChatViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+class ChatViewController: KUIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
 
     @IBOutlet weak var modal_confirm_call: UIStackView!
     @IBOutlet weak var noMessage: UIStackView!
     let backgroundView = UIView()
+
     
     @IBOutlet weak var messageCollectionView: UICollectionView!
     @IBOutlet weak var messageTextField: UITextField!
@@ -132,28 +133,53 @@ class ChatViewController: UIViewController, UICollectionViewDataSource, UICollec
 //    }
        
     @IBAction func CancelCall(_ sender: UIButton) {
-        backgroundView.removeFromSuperview()
-        modal_confirm_call.isHidden = true;
+        UIView.animate(withDuration: 0.3, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0, options: [], animations: {
+            //use if you wish to darken the background
+            //self.viewDim.alpha = 0
+            self.modal_confirm_call.transform = CGAffineTransform(scaleX: 0.2, y: 0.2)
+            
+        }) { (success) in
+            self.backgroundView.removeFromSuperview()
+            self.self.modal_confirm_call.isHidden = true;
+        }
     }
     @IBAction func ConfirmCall(_ sender: UIButton) {
-        backgroundView.removeFromSuperview()
-        modal_confirm_call.isHidden = true;
+        UIView.animate(withDuration: 0.3, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0, options: [], animations: {
+            //use if you wish to darken the background
+            //self.viewDim.alpha = 0
+            self.modal_confirm_call.transform = CGAffineTransform(scaleX: 0.2, y: 0.2)
+            
+        }) { (success) in
+            self.backgroundView.removeFromSuperview()
+            self.self.modal_confirm_call.isHidden = true;
+        }
     }
     @IBAction func DoVoiceCall(_ sender: UIButton) {
+        view.endEditing(true)
         modal_confirm_call.isHidden = false;
         backgroundView.backgroundColor = UIColor.black.withAlphaComponent(0.5)
         backgroundView.frame = view.bounds
         backgroundView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         view.insertSubview(backgroundView, belowSubview: modal_confirm_call)
  
+        modal_confirm_call.transform = CGAffineTransform(scaleX: 0.8, y: 1.2)
+        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0, options: [], animations: {
+            self.modal_confirm_call.transform = .identity
+        })
     }
     
     @IBAction func DoVideoCall(_ sender: UIButton) {
+        view.endEditing(true)
         modal_confirm_call.isHidden = false;
         backgroundView.backgroundColor = UIColor.black.withAlphaComponent(0.5)
         backgroundView.frame = view.bounds
         backgroundView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         view.insertSubview(backgroundView, belowSubview: modal_confirm_call)
+        
+        modal_confirm_call.transform = CGAffineTransform(scaleX: 0.8, y: 1.2)
+        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0, options: [], animations: {
+            self.modal_confirm_call.transform = .identity
+        })
     }
     
     @IBAction func GoBack(_ sender: UIButton) {
