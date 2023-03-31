@@ -124,6 +124,7 @@ class PerfectSelfWebAPI
         ]
         return executeAPI(with: "PUT", apiPath: "ReaderProfiles/\(uid)", json: json, completionHandler:completionHandler)
     }
+    
     func editReaderProfileTitle(uid: String, title: String, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> Void
     {
         let json: [String: Any] = [
@@ -138,6 +139,22 @@ class PerfectSelfWebAPI
         ]
         return executeAPI(with: "PUT", apiPath: "ReaderProfiles/\(uid)", json: json, completionHandler:completionHandler)
     }
+    
+    func editReaderHourlyRate(uid: String, hourlyRate: Int, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> Void
+    {
+        let json: [String: Any] = [
+            "isDeleted": false,
+            "title": "",
+            "readerUid": uid,
+            "hourlyPrice": hourlyRate,
+            "voiceType": -1,
+            "others": -1,
+            "about": "",
+            "skills": "",
+        ]
+        return executeAPI(with: "PUT", apiPath: "ReaderProfiles/\(uid)", json: json, completionHandler:completionHandler)
+    }
+    
     func editReaderProfileName(uid: String, username: String, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> Void
     {
         let json: [String: Any] = [
