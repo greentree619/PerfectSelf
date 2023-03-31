@@ -29,9 +29,9 @@ struct SessionDescription: Codable {
     let type: SdpType
     let roomId: String
     
-    init(from rtcSessionDescription: RTCSessionDescription) {
+    init(from rtcSessionDescription: RTCSessionDescription, roomID: String) {
         self.sdp = rtcSessionDescription.sdp
-        self.roomId = "123456789"
+        self.roomId = roomID//"123456789"
         
         switch rtcSessionDescription.type {
         case .offer:    self.type = .offer

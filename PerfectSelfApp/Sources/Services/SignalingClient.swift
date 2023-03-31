@@ -32,8 +32,8 @@ final class SignalingClient {
         self.webSocket.connect()
     }
     
-    func send(sdp rtcSdp: RTCSessionDescription) {
-        let message = Message.sdp(SessionDescription(from: rtcSdp))
+    func send(sdp rtcSdp: RTCSessionDescription, roomId: String) {
+        let message = Message.sdp(SessionDescription(from: rtcSdp, roomID: roomId))
         do {
             let dataMessage = try self.encoder.encode(message)
             
@@ -44,8 +44,8 @@ final class SignalingClient {
         }
     }
     
-    func send(candidate rtcIceCandidate: RTCIceCandidate) {
-        let message = Message.candidate(IceCandidate(from: rtcIceCandidate))
+    func send(candidate rtcIceCandidate: RTCIceCandidate, roomId: String) {
+        let message = Message.candidate(IceCandidate(from: rtcIceCandidate, roomID: roomId))
         do {
             let dataMessage = try self.encoder.encode(message)
             self.webSocket.send(data: dataMessage)

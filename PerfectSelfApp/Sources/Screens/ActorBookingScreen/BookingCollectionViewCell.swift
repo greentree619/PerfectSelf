@@ -31,7 +31,7 @@ class BookingCollectionViewCell: UICollectionViewCell {
     }
     
     @IBAction func SendMessage(_ sender: UIButton) {
-        let controller = ChatViewController()
+        let controller = ChatViewController(signalClient: signalClient!, webRTCClient: webRTCClient!, roomUid: self.roomUid!)
         controller.modalPresentationStyle = .fullScreen
         self.parentViewController!.present(controller, animated: false, completion: nil)
     }

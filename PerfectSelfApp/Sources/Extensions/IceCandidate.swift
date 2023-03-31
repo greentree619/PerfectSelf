@@ -16,11 +16,11 @@ struct IceCandidate: Codable {
     let sdpMid: String?
     let roomId: String
     
-    init(from iceCandidate: RTCIceCandidate) {
+    init(from iceCandidate: RTCIceCandidate, roomID: String) {
         self.sdpMLineIndex = iceCandidate.sdpMLineIndex
         self.sdpMid = iceCandidate.sdpMid
         self.sdp = iceCandidate.sdp
-        self.roomId = "123456789"
+        self.roomId = roomID//"123456789"
     }
     
     var rtcIceCandidate: RTCIceCandidate {

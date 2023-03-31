@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import WebRTC
+import os.log
 
 struct CustomMessage: Codable {
     let text: String
@@ -25,6 +27,102 @@ class ChatViewController: KUIViewController, UICollectionViewDataSource, UIColle
     var messages: [CustomMessage] = []
     let cellsPerRow = 1
     var kkk = 0
+    private let signalClient: SignalingClient
+    private let webRTCClient: WebRTCClient
+    private var roomUid: String
+    
+    //MARK: WebRTC Conference Status
+    private var signalingConnected: Bool = false {
+        didSet {
+//REFME
+//            DispatchQueue.main.async {
+//                if self.signalingConnected {
+//                    self.signalingStatusLabel?.text = "Connected"
+//                    self.signalingStatusLabel?.textColor = UIColor.green
+//                }
+//                else {
+//                    self.signalingStatusLabel?.text = "Not connected"
+//                    self.signalingStatusLabel?.textColor = UIColor.red
+//                }
+//            }
+        }
+    }
+    
+    private var hasLocalSdp: Bool = false {
+        didSet {
+//REFME
+//            DispatchQueue.main.async {
+//                self.localSdpStatusLabel?.text = self.hasLocalSdp ? "✅" : "❌"
+//            }
+        }
+    }
+    
+    private var localCandidateCount: Int = 0 {
+        didSet {
+//REFME
+//            DispatchQueue.main.async {
+//                self.localCandidatesLabel?.text = "\(self.localCandidateCount)"
+//            }
+        }
+    }
+    
+    private var hasRemoteSdp: Bool = false {
+        didSet {
+//REFME
+//            DispatchQueue.main.async {
+//                self.remoteSdpStatusLabel?.text = self.hasRemoteSdp ? "✅" : "❌"
+//            }
+        }
+    }
+    
+    private var remoteCandidateCount: Int = 0 {
+        didSet {
+//REFME
+//            DispatchQueue.main.async {
+//                self.remoteCandidatesLabel?.text = "\(self.remoteCandidateCount)"
+//            }
+        }
+    }
+    
+    private var speakerOn: Bool = false {
+        didSet {
+//REFME
+//            let title = "Speaker: \(self.speakerOn ? "On" : "Off" )"
+//            self.speakerButton?.setTitle(title, for: .normal)
+        }
+    }
+    
+    private var mute: Bool = false {
+        didSet {
+//REFME
+//            let title = "Mute: \(self.mute ? "on" : "off")"
+//            self.muteButton?.setTitle(title, for: .normal)
+        }
+    }
+    
+    init(signalClient: SignalingClient, webRTCClient: WebRTCClient, roomUid: String) {
+        self.signalClient = signalClient
+        self.webRTCClient = webRTCClient
+        self.roomUid = roomUid
+        super.init(nibName: String(describing: ConferenceViewController.self), bundle: Bundle.main)
+        
+        self.signalingConnected = false
+        self.hasLocalSdp = false
+        self.hasRemoteSdp = false
+        self.localCandidateCount = 0
+        self.remoteCandidateCount = 0
+        self.speakerOn = false
+        
+        self.webRTCClient.delegate = self
+        self.signalClient.delegate = self
+        self.signalClient.connect()
+        uiViewContoller = self
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -41,13 +139,13 @@ class ChatViewController: KUIViewController, UICollectionViewDataSource, UIColle
 
     @IBAction func SendMessage(_ sender: UIButton) {
         
-        kkk = kkk + 1
+        //Omitted kkk = kkk + 1
         guard let text = messageTextField.text, !text.isEmpty else {
             return // Don't send empty messages
         }
         noMessage.isHidden = true;
         messageTextField.text = ""
-        let message = CustomMessage(text: text, type: kkk % 2 == 0 ? "sent" : "received")// Create a new message object
+        let message = CustomMessage(text: text, type: "sent")// Create a new message object
         messages.append(message) // Add the new message to the messages array
 
         messageCollectionView.reloadData() // Refresh the table view to display the new message
@@ -56,6 +154,9 @@ class ChatViewController: KUIViewController, UICollectionViewDataSource, UIColle
         let lastIndexPath = IndexPath(item: lastItemIndex, section: 0)
         messageCollectionView.scrollToItem(at: lastIndexPath, at: .bottom, animated: true)
         // TODO: Send the message to the server or save it to local storage
+        
+        let recStart: Data = text.data(using: .utf8)!
+        self.webRTCClient.sendData(recStart)
     }
     // MARK: - Message List Delegate.
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -196,4 +297,70 @@ class ChatViewController: KUIViewController, UICollectionViewDataSource, UIColle
     }
     */
 
+}
+
+
+//MARK: SignalClientDelegate
+extension ChatViewController: SignalClientDelegate {
+    func signalClientDidConnect(_ signalClient: SignalingClient) {
+        //REFME self.signalingConnected = true
+    }
+    
+    func signalClientDidDisconnect(_ signalClient: SignalingClient) {
+        //REFME self.signalingConnected = false
+    }
+    
+    func signalClient(_ signalClient: SignalingClient, didReceiveRemoteSdp sdp: RTCSessionDescription) {
+        print("Received remote sdp")
+        self.webRTCClient.set(remoteSdp: sdp) { (error) in
+            //REFME self.hasRemoteSdp = true
+        }
+    }
+    
+    func signalClient(_ signalClient: SignalingClient, didReceiveCandidate candidate: RTCIceCandidate) {
+        self.webRTCClient.set(remoteCandidate: candidate) { error in
+            print("Received remote candidate")
+            //REFME self.remoteCandidateCount += 1
+        }
+    }
+}
+
+//MARK: WebRTCClientDelegate
+extension ChatViewController: WebRTCClientDelegate {
+    
+    func webRTCClient(_ client: WebRTCClient, didDiscoverLocalCandidate candidate: RTCIceCandidate) {
+        print("discovered local candidate")
+        //REFME self.localCandidateCount += 1
+        self.signalClient.send(candidate: candidate, roomId: self.roomUid)
+    }
+    
+    func webRTCClient(_ client: WebRTCClient, didChangeConnectionState state: RTCIceConnectionState) {
+//REFME
+//        let textColor: UIColor
+//        switch state {
+//        case .connected, .completed:
+//            textColor = .green
+//        case .disconnected:
+//            textColor = .orange
+//        case .failed, .closed:
+//            textColor = .red
+//        case .new, .checking, .count:
+//            textColor = .black
+//        @unknown default:
+//            textColor = .black
+//        }
+        DispatchQueue.main.async {
+            //REFME self.webRTCStatusLabel?.text = state.description.capitalized
+            //REFME self.webRTCStatusLabel?.textColor = textColor
+        }
+    }
+    
+    func webRTCClient(_ client: WebRTCClient, didReceiveData data: Data) {
+        DispatchQueue.main.async {
+            let message = String(data: data, encoding: .utf8) ?? "(Binary: \(data.count) bytes)"
+            let messageWrap = CustomMessage(text: message, type: "received")// Create a new message object
+            self.messages.append(messageWrap) // Add the new message to the messages array
+            self.messageCollectionView.reloadData() // Refresh the table view to display the new message
+        }
+    }
 }

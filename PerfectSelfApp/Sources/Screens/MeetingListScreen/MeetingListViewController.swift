@@ -104,14 +104,14 @@ class MeetingListViewController: UIViewController {
         {
             self.webRTCClient.offer { (sdp) in
                 self.hasLocalSdp = true
-                self.signalClient.send(sdp: sdp)
+                //Omitted self.signalClient.send(sdp: sdp)
             }
         }
         else if( !self.hasLocalSdp && self.hasRemoteSdp )
         {
             self.webRTCClient.answer { (localSdp) in
                 self.hasLocalSdp = true
-                self.signalClient.send(sdp: localSdp)
+                //Omitted self.signalClient.send(sdp: localSdp)
             }
         }
         
@@ -155,7 +155,7 @@ extension MeetingListViewController: WebRTCClientDelegate {
     func webRTCClient(_ client: WebRTCClient, didDiscoverLocalCandidate candidate: RTCIceCandidate) {
         print("discovered local candidate")
         self.localCandidateCount += 1
-        self.signalClient.send(candidate: candidate)
+        //Omitted self.signalClient.send(candidate: candidate)
     }
     
     func webRTCClient(_ client: WebRTCClient, didChangeConnectionState state: RTCIceConnectionState) {

@@ -68,7 +68,9 @@ class MessageCenterViewController: UIViewController, UICollectionViewDataSource,
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         // add the code here to perform action on the cell
         print("didDeselectItemAt" + String(indexPath.row))
-        let controller = ChatViewController();
+        
+        let roomUid = "1234567890"//self.items[indexPath.row].roomUid
+        let controller = ChatViewController(signalClient: signalClient, webRTCClient: webRTCClient, roomUid: roomUid);
         controller.modalPresentationStyle = .fullScreen
         self.present(controller, animated: false)
 //        self.navigationController?.pushViewController(controller, animated: true);

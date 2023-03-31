@@ -179,14 +179,14 @@ class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSample
         {
             self.webRTCClient.offer { (sdp) in
                 self.hasLocalSdp = true
-                self.signalClient.send(sdp: sdp)
+                self.signalClient.send(sdp: sdp, roomId: self.roomUid)
             }
         }
         else if( !self.hasLocalSdp && self.hasRemoteSdp )
         {
             self.webRTCClient.answer { (localSdp) in
                 self.hasLocalSdp = true
-                self.signalClient.send(sdp: localSdp)
+                self.signalClient.send(sdp: localSdp, roomId: self.roomUid)
             }
         }
         
@@ -482,7 +482,7 @@ extension ConferenceViewController: WebRTCClientDelegate {
     func webRTCClient(_ client: WebRTCClient, didDiscoverLocalCandidate candidate: RTCIceCandidate) {
         print("discovered local candidate")
         //REFME self.localCandidateCount += 1
-        self.signalClient.send(candidate: candidate)
+        self.signalClient.send(candidate: candidate, roomId: self.roomUid)
     }
     
     func webRTCClient(_ client: WebRTCClient, didChangeConnectionState state: RTCIceConnectionState) {
