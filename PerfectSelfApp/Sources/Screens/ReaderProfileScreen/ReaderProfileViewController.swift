@@ -222,7 +222,12 @@ class ReaderProfileViewController: UIViewController, UICollectionViewDataSource,
         controller.usertitle = readerTitle.text ?? ""
         controller.uid = id
         controller.modalPresentationStyle = .fullScreen
-        self.present(controller, animated: false)
+        let transition = CATransition()
+        transition.duration = 0.5 // Set animation duration
+        transition.type = CATransitionType.push // Set transition type to push
+        transition.subtype = CATransitionSubtype.fromRight // Set transition subtype to from right
+        self.view.window?.layer.add(transition, forKey: kCATransition) // Add transition to window layer
+        present(controller, animated: false, completion: nil)
     }
 //    @IBAction func EditHighlight(_ sender: UIButton) {
 //        let controller = ReaderProfileEditPersonalInfoViewController()
@@ -230,24 +235,39 @@ class ReaderProfileViewController: UIViewController, UICollectionViewDataSource,
 //        self.navigationController?.pushViewController(controller, animated: true)
 //    }
     @IBAction func EditAbout(_ sender: UIButton) {
-        let controller = ReaderProfileEditAboutViewController()
-//        controller.delegate = self
+        let controller = ReaderProfileEditAboutViewController() // Instantiate View Controller B
         controller.uid = id
         controller.about = readerAbout.text
         controller.modalPresentationStyle = .fullScreen
-        self.present(controller, animated: false)
+        let transition = CATransition()
+        transition.duration = 0.5 // Set animation duration
+        transition.type = CATransitionType.push // Set transition type to push
+        transition.subtype = CATransitionSubtype.fromRight // Set transition subtype to from right
+        self.view.window?.layer.add(transition, forKey: kCATransition) // Add transition to window layer
+        present(controller, animated: false, completion: nil)
+
     }
     @IBAction func EditSkills(_ sender: UIButton) {
         let controller = ReaderProfileEditSkillViewController()
         
         controller.modalPresentationStyle = .fullScreen
-        self.present(controller, animated: false)
+        let transition = CATransition()
+        transition.duration = 0.5 // Set animation duration
+        transition.type = CATransitionType.push // Set transition type to push
+        transition.subtype = CATransitionSubtype.fromRight // Set transition subtype to from right
+        self.view.window?.layer.add(transition, forKey: kCATransition) // Add transition to window layer
+        present(controller, animated: false, completion: nil)
     }
     @IBAction func EditAvailability(_ sender: UIButton) {
         let controller = ReaderProfileEditAvailabilityViewController()
         controller.uid = id
         controller.modalPresentationStyle = .fullScreen
-        self.present(controller, animated: false)
+        let transition = CATransition()
+        transition.duration = 0.5 // Set animation duration
+        transition.type = CATransitionType.push // Set transition type to push
+        transition.subtype = CATransitionSubtype.fromRight // Set transition subtype to from right
+        self.view.window?.layer.add(transition, forKey: kCATransition) // Add transition to window layer
+        present(controller, animated: false, completion: nil)
     }
     @IBAction func EditProfile(_ sender: UIButton) {
 
