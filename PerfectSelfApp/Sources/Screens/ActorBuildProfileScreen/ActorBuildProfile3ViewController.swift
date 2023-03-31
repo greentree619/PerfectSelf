@@ -11,7 +11,7 @@ import DropDown
 
 class ActorBuildProfile3ViewController: UIViewController {
 
-    var userType:String = ""
+//    var userType:String = ""
     var username:String = ""
     var gender:String = ""
     var agerange:String = ""
@@ -120,7 +120,7 @@ class ActorBuildProfile3ViewController: UIViewController {
         dropDownForVaccination.show()
     }
     @IBAction func Later(_ sender: UIButton) {
-        let controller = userType == "actor" ? ActorTabBarController() : ReaderTabBarController();
+        let controller = ActorTabBarController()
         controller.modalPresentationStyle = .fullScreen
         self.present(controller, animated: false)
     }
@@ -177,7 +177,7 @@ class ActorBuildProfile3ViewController: UIViewController {
                 
                 DispatchQueue.main.async {
                     hideIndicator(sender: sender)
-                    let controller = self.userType == "actor" ? ActorTabBarController() : ReaderTabBarController();
+                    let controller = ActorTabBarController() 
                     controller.modalPresentationStyle = .fullScreen
                     self.present(controller, animated: false)
                 }
