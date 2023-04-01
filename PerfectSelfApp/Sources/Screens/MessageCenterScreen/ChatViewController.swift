@@ -104,7 +104,7 @@ class ChatViewController: KUIViewController, UICollectionViewDataSource, UIColle
         self.signalClient = signalClient
         self.webRTCClient = webRTCClient
         self.roomUid = roomUid
-        super.init(nibName: String(describing: ConferenceViewController.self), bundle: Bundle.main)
+        super.init(nibName: String(describing: ChatViewController.self), bundle: Bundle.main)
         
         self.signalingConnected = false
         self.hasLocalSdp = false
@@ -135,6 +135,22 @@ class ChatViewController: KUIViewController, UICollectionViewDataSource, UIColle
         messageCollectionView.register(nib, forCellWithReuseIdentifier: "Message Cell")
         messageCollectionView.dataSource = self
         messageCollectionView.delegate = self
+        
+        self.webRTCClient.speakerOff()
+        if( !self.hasLocalSdp && !self.hasRemoteSdp )
+        {
+            self.webRTCClient.offer { (sdp) in
+                self.hasLocalSdp = true
+                self.signalClient.send(sdp: sdp, roomId: self.roomUid)
+            }
+        }
+        else if( !self.hasLocalSdp && self.hasRemoteSdp )
+        {
+            self.webRTCClient.answer { (localSdp) in
+                self.hasLocalSdp = true
+                self.signalClient.send(sdp: localSdp, roomId: self.roomUid)
+            }
+        }
     }
 
     @IBAction func SendMessage(_ sender: UIButton) {
