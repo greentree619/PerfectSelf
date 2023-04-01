@@ -12,8 +12,8 @@ import WebRTC
 protocol SignalClientDelegate: AnyObject {
     func signalClientDidConnect(_ signalClient: SignalingClient)
     func signalClientDidDisconnect(_ signalClient: SignalingClient)
-    func signalClient(_ signalClient: SignalingClient, didReceiveRemoteSdp sdp: RTCSessionDescription)
-    func signalClient(_ signalClient: SignalingClient, didReceiveCandidate candidate: RTCIceCandidate)
+    func signalClient(_ signalClient: SignalingClient, didReceiveRemoteSdp sdp: RTCSessionDescription, roomId: String)
+    func signalClient(_ signalClient: SignalingClient, didReceiveCandidate candidate: RTCIceCandidate, roomId: String)
 }
 
 final class SignalingClient {
@@ -84,9 +84,9 @@ extension SignalingClient: WebSocketProviderDelegate {
         
         switch message {
         case .candidate(let iceCandidate):
-            self.delegate?.signalClient(self, didReceiveCandidate: iceCandidate.rtcIceCandidate)
+            self.delegate?.signalClient(self, didReceiveCandidate: iceCandidate.rtcIceCandidate, roomId: iceCandidate.roomId)
         case .sdp(let sessionDescription):
-            self.delegate?.signalClient(self, didReceiveRemoteSdp: sessionDescription.rtcSessionDescription)
+            self.delegate?.signalClient(self, didReceiveRemoteSdp: sessionDescription.rtcSessionDescription, roomId: sessionDescription.roomId)
         }
 
     }
@@ -95,6 +95,7 @@ extension SignalingClient: WebSocketProviderDelegate {
 final class SignalingClientStatus: NSObject, SignalClientDelegate {
     private let signalClient: SignalingClient
     private let webRTCClient: WebRTCClient
+    var remoteSdpTable = Dictionary<String, RTCSessionDescription>()
     
     public var signalingConnected: Bool = false {
         didSet {
@@ -163,6 +164,16 @@ final class SignalingClientStatus: NSObject, SignalClientDelegate {
         self.signalClient.connect()
     }
     
+    func isRemoteSdp(roomId: String) -> Bool{
+        if(self.remoteSdpTable[roomId] != nil)
+        {
+            self.webRTCClient.set(remoteSdp: self.remoteSdpTable[roomId]!) { (error) in
+                self.hasRemoteSdp = true
+            }
+        }
+        return self.hasRemoteSdp;
+    }
+    
     func signalClientDidConnect(_ signalClient: SignalingClient) {
         self.signalingConnected = true
     }
@@ -171,16 +182,14 @@ final class SignalingClientStatus: NSObject, SignalClientDelegate {
         self.signalingConnected = false
     }
     
-    func signalClient(_ signalClient: SignalingClient, didReceiveRemoteSdp sdp: RTCSessionDescription) {
-        print("Received remote sdp")
-        self.webRTCClient.set(remoteSdp: sdp) { (error) in
-            self.hasRemoteSdp = true
-        }
+    func signalClient(_ signalClient: SignalingClient, didReceiveRemoteSdp sdp: RTCSessionDescription, roomId: String) {
+        print("Received remote sdp roomId=\(roomId)")
+        self.remoteSdpTable[roomId] = sdp
     }
     
-    func signalClient(_ signalClient: SignalingClient, didReceiveCandidate candidate: RTCIceCandidate) {
+    func signalClient(_ signalClient: SignalingClient, didReceiveCandidate candidate: RTCIceCandidate, roomId: String) {
         self.webRTCClient.set(remoteCandidate: candidate) { error in
-            print("Received remote candidate")
+            print("Received remote candidate roomId=\(roomId)")
             self.remoteCandidateCount += 1
         }
     }

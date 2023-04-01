@@ -137,14 +137,14 @@ class ChatViewController: KUIViewController, UICollectionViewDataSource, UIColle
         messageCollectionView.delegate = self
         
         self.webRTCClient.speakerOn()
-        if( !signalingClientStatus!.hasLocalSdp && !signalingClientStatus!.hasRemoteSdp )
+        if( !signalingClientStatus!.hasLocalSdp && !signalingClientStatus!.isRemoteSdp(roomId: self.roomUid))
         {
             self.webRTCClient.offer { (sdp) in
                 signalingClientStatus!.hasLocalSdp = true
                 self.signalClient.send(sdp: sdp, roomId: self.roomUid)
             }
         }
-        else if( !signalingClientStatus!.hasLocalSdp && signalingClientStatus!.hasRemoteSdp )
+        else if( !signalingClientStatus!.hasLocalSdp && signalingClientStatus!.isRemoteSdp(roomId: self.roomUid) )
         {
             self.webRTCClient.answer { (localSdp) in
                 signalingClientStatus!.hasLocalSdp = true
