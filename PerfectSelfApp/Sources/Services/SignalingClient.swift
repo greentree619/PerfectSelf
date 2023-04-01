@@ -184,7 +184,7 @@ final class SignalingClientStatus: NSObject, SignalClientDelegate {
     
     func signalClient(_ signalClient: SignalingClient, didReceiveRemoteSdp sdp: RTCSessionDescription, roomId: String) {
         print("Received remote sdp roomId=\(roomId)")
-        self.remoteSdpTable[roomId] = sdp
+        self.remoteSdpTable[roomId] = (sdp.copy() as! RTCSessionDescription)
     }
     
     func signalClient(_ signalClient: SignalingClient, didReceiveCandidate candidate: RTCIceCandidate, roomId: String) {
