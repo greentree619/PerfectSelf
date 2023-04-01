@@ -19,6 +19,7 @@ class FilterViewController: UIViewController {
     var isCommercialRead = true
     var isShortRead = false
     var isExtendedRead = false
+    var parentUIViewController : UIViewController?
     
     @IBOutlet weak var sliderView: UIStackView!
   
@@ -41,13 +42,14 @@ class FilterViewController: UIViewController {
       }
 
     @IBAction func ApplyFilter(_ sender: UIButton) {
-       
+        
 //        let controller = ActorFindReaderViewController()
 //        self.navigationController?.pushViewController(controller, animated: true)
         self.dismiss(animated: true) {
             print("ok")
             let controller = ActorFindReaderViewController()
-            self.navigationController?.pushViewController(controller, animated: true)
+            
+            self.parentUIViewController?.navigationController?.pushViewController(controller, animated: true)
         }
     }
     @IBAction func SelectMale(_ sender: UIButton) {

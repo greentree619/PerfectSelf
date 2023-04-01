@@ -153,6 +153,7 @@ class ActorHomeViewController: UIViewController, UICollectionViewDataSource, UIC
 //        backgroundView.isUserInteractionEnabled = true
         let controller = FilterViewController()
         controller.modalPresentationStyle = .overFullScreen
+        controller.parentUIViewController = self
         self.present(controller, animated: true)
         
     }
