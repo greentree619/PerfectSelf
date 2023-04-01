@@ -12,6 +12,12 @@ import DropDown
 class ReaderBuildProfileViewController: UIViewController {
 
     var username = ""
+    var firstname = ""
+    var lastname = ""
+    var email = ""
+    var password = ""
+    var phonenumber = ""
+    
     @IBOutlet weak var text_hourly: UITextField!
     @IBOutlet weak var text_gender: UITextField!
     @IBOutlet weak var text_title: UITextField!
@@ -50,9 +56,57 @@ class ReaderBuildProfileViewController: UIViewController {
         
     }
     @IBAction func Done(_ sender: UIButton) {
-        let controller = ReaderTabBarController();
-        controller.modalPresentationStyle = .fullScreen
-        self.present(controller, animated: false)
+        // calll API for reader signup
+        
+        showIndicator(sender: sender, viewController: self)
+        webAPI.signup(userType: READER_UTYPE, userName: username, firstName: firstname, lastName: lastname, email: email, password: password, phoneNumber: phonenumber) { data, response, error in
+            guard let data = data, error == nil else {
+                print(error?.localizedDescription ?? "No data")
+                DispatchQueue.main.async {
+                    hideIndicator(sender: sender)
+                }
+                return
+            }
+            if let httpResponse = response as? HTTPURLResponse {
+                print("statusCode: \(httpResponse.statusCode)")
+            }
+            let responseJSON = try? JSONSerialization.jsonObject(with: data, options: [])
+            if let responseJSON = responseJSON as? [String: Any] {
+                //print(responseJSON["result"])
+                guard responseJSON["email"] != nil else {
+                    DispatchQueue.main.async {
+                        hideIndicator(sender: sender)
+                        Toast.show(message: "Signup failed! please try again.", controller: self)
+                        //self.text_email.becomeFirstResponder()
+                    }
+                    return
+                }
+                DispatchQueue.main.async {
+                    hideIndicator(sender: sender)
+                    //{{REFME
+                    Toast.show(message: "Successfully signed up!", controller: self)
+                    UserDefaults.standard.set(responseJSON["uid"], forKey: "USER_ID")
+                    UserDefaults.standard.set(responseJSON["token"], forKey: "USER_TOKEN")
+                    UserDefaults.standard.set(self.username, forKey: "USER_NAME")
+                    UserDefaults.standard.set(self.email, forKey: "USER_EMAIL")
+                    UserDefaults.standard.set(self.password, forKey: "USER_PWD")
+                    UserDefaults.standard.set("reader", forKey: "USER_TYPE")
+                    //}}REFME
+                    
+                    let controller = ReaderTabBarController();
+                    controller.modalPresentationStyle = .fullScreen
+                    self.present(controller, animated: false)
+                }
+            }
+            else
+            {
+                DispatchQueue.main.async {
+                    hideIndicator(sender: sender)
+                    Toast.show(message: "Signup failed! please try again.", controller: self)
+                }
+            }
+        }
+        
     }
     @IBAction func GoBack(_ sender: UIButton) {
         self.navigationController?.popViewController(animated: true)

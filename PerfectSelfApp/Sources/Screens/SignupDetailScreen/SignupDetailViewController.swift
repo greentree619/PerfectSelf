@@ -9,9 +9,9 @@
 import UIKit
 
 class SignupDetailViewController: UIViewController {
-    var email: String?
-    var phoneNumber: String?
-    var password: String?
+    var email: String = ""
+    var phoneNumber: String = ""
+    var password: String = ""
     var isActor: Bool = true
     
     @IBOutlet weak var btn_actor: UIButton!
@@ -70,10 +70,10 @@ class SignupDetailViewController: UIViewController {
         }
         
        
-        let userType = (isActor ? ACTOR_UTYPE : READER_UTYPE)
+//        let userType = (isActor ? ACTOR_UTYPE : READER_UTYPE)
         if isActor {
             showIndicator(sender: sender, viewController: self)
-            webAPI.signup(userType: userType, userName: txtUserName.text!, firstName: txtFirstName.text!, lastName: txtLastName.text!, email: email!, password: password!, phoneNumber: phoneNumber!) { data, response, error in
+            webAPI.signup(userType: ACTOR_UTYPE, userName: txtUserName.text!, firstName: txtFirstName.text!, lastName: txtLastName.text!, email: email, password: password, phoneNumber: phoneNumber) { data, response, error in
                 guard let data = data, error == nil else {
                     print(error?.localizedDescription ?? "No data")
                     DispatchQueue.main.async {
@@ -102,9 +102,9 @@ class SignupDetailViewController: UIViewController {
                         UserDefaults.standard.set(responseJSON["uid"], forKey: "USER_ID")
                         UserDefaults.standard.set(responseJSON["token"], forKey: "USER_TOKEN")
                         UserDefaults.standard.set(String(self.txtUserName.text!), forKey: "USER_NAME")
-                        UserDefaults.standard.set(String(self.email!), forKey: "USER_EMAIL")
-                        UserDefaults.standard.set(String(self.password!), forKey: "USER_PWD")
-                        UserDefaults.standard.set(self.isActor ? "actor" : "reader", forKey: "USER_TYPE")
+                        UserDefaults.standard.set(String(self.email), forKey: "USER_EMAIL")
+                        UserDefaults.standard.set(String(self.password), forKey: "USER_PWD")
+                        UserDefaults.standard.set("actor", forKey: "USER_TYPE")
                         //}}REFME
                         
                         let controller = ActorBuildProfile1ViewController()
@@ -123,6 +123,11 @@ class SignupDetailViewController: UIViewController {
         else {
             let controller = ReaderBuildProfileViewController()
             controller.username = self.txtUserName.text!
+            controller.firstname = self.txtFirstName.text!
+            controller.lastname = self.txtLastName.text!
+            controller.email = self.email
+            controller.password = self.password
+            controller.phonenumber = self.phoneNumber
             self.navigationController?.pushViewController(controller, animated: true);
         }
         
