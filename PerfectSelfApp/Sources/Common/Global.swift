@@ -17,9 +17,9 @@ var backgroundView: UIView? = nil
 var activityIndicatorView: UIActivityIndicatorView? = nil
 var uiViewContoller: UIViewController? = nil
 var selectedTape: VideoCard?
-let webRTCClient = WebRTCClient(iceServers: signalingServerConfig.webRTCIceServers)
-let signalClient = buildSignalingClient()
-let signalingClientStatus = SignalingClientStatus(signalClient: signalClient, webRTCClient: webRTCClient)
+var webRTCClient = WebRTCClient(iceServers: signalingServerConfig.webRTCIceServers)
+var signalClient = buildSignalingClient()
+let signalingClientStatus = SignalingClientStatus(signalClient: &signalClient, webRTCClient: &webRTCClient)
 
 //struct Message: Codable {
 //    let text: String

@@ -100,7 +100,7 @@ class ChatViewController: KUIViewController, UICollectionViewDataSource, UIColle
         }
     }
     
-    init(signalClient: SignalingClient, webRTCClient: WebRTCClient, roomUid: String) {
+    init(signalClient: inout SignalingClient, webRTCClient: inout WebRTCClient, roomUid: String) {
         self.signalClient = signalClient
         self.webRTCClient = webRTCClient
         self.roomUid = roomUid

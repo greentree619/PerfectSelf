@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import WebRTC
 
 class ReaderHomeViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
 
@@ -14,8 +15,8 @@ class ReaderHomeViewController: UIViewController, UICollectionViewDataSource, UI
     
     @IBOutlet weak var bookList: UICollectionView!
     var items = [BookingCard]()
-    let webRTCClient = WebRTCClient(iceServers: signalingServerConfig.webRTCIceServers)
-    let signalClient = buildSignalingClient()
+    //let webRTCClient: WebRTCClient = webRTCClient// = WebRTCClient(iceServers: signalingServerConfig.webRTCIceServers)
+    //let signalClient: SignalingClient = signalClient// = buildSignalingClient()
     let cellsPerRow = 1
     
     override func viewDidLoad() {
@@ -116,8 +117,8 @@ class ReaderHomeViewController: UIViewController, UICollectionViewDataSource, UI
         cell.contentView.layer.borderWidth = 1.0
         cell.contentView.layer.borderColor = UIColor.clear.cgColor
         cell.contentView.layer.masksToBounds = true
-        cell.webRTCClient = self.webRTCClient
-        cell.signalClient = self.signalClient
+        cell.webRTCClient = webRTCClient
+        cell.signalClient = signalClient
         cell.navigationController = self.navigationController
         cell.parentViewController = self
         cell.roomUid = roomUid

@@ -148,7 +148,7 @@ final class SignalingClientStatus: SignalClientDelegate {
         }
     }
     
-    init(signalClient: SignalingClient, webRTCClient: WebRTCClient) {
+    init(signalClient: inout SignalingClient, webRTCClient: inout WebRTCClient) {
         self.signalClient = signalClient
         self.webRTCClient = webRTCClient
         
