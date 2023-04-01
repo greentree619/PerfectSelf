@@ -113,7 +113,7 @@ class LoginDetailViewController: UIViewController {
                         UserDefaults.standard.set(username!, forKey: "USER_NAME")
                         
                         //}}REFME
-                        
+                        signalClient.connect()
                         if self.btn_actor.isSelected {
                             UserDefaults.standard.set("actor", forKey: "USER_TYPE")
                             let controller = ActorTabBarController();

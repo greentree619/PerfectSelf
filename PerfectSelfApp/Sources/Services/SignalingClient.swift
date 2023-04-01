@@ -91,3 +91,94 @@ extension SignalingClient: WebSocketProviderDelegate {
 
     }
 }
+
+final class SignalingClientStatus: SignalClientDelegate {
+    private let signalClient: SignalingClient
+    private let webRTCClient: WebRTCClient
+    
+    public var signalingConnected: Bool = false {
+        didSet {
+//REFME
+//            DispatchQueue.main.async {
+//                if self.signalingConnected {
+//                    self.signalingStatusLabel?.text = "Connected"
+//                    self.signalingStatusLabel?.textColor = UIColor.green
+//                }
+//                else {
+//                    self.signalingStatusLabel?.text = "Not connected"
+//                    self.signalingStatusLabel?.textColor = UIColor.red
+//                }
+//            }
+        }
+    }
+    
+    public var hasLocalSdp: Bool = false {
+        didSet {
+//REFME
+//            DispatchQueue.main.async {
+//                self.localSdpStatusLabel?.text = self.hasLocalSdp ? "✅" : "❌"
+//            }
+        }
+    }
+    
+    public var localCandidateCount: Int = 0 {
+        didSet {
+//REFME
+//            DispatchQueue.main.async {
+//                self.localCandidatesLabel?.text = "\(self.localCandidateCount)"
+//            }
+        }
+    }
+    
+    public var hasRemoteSdp: Bool = false {
+        didSet {
+//REFME
+//            DispatchQueue.main.async {
+//                self.remoteSdpStatusLabel?.text = self.hasRemoteSdp ? "✅" : "❌"
+//            }
+        }
+    }
+    
+    public var remoteCandidateCount: Int = 0 {
+        didSet {
+//REFME
+//            DispatchQueue.main.async {
+//                self.remoteCandidatesLabel?.text = "\(self.remoteCandidateCount)"
+//            }
+        }
+    }
+    
+    init(signalClient: SignalingClient, webRTCClient: WebRTCClient) {
+        self.signalClient = signalClient
+        self.webRTCClient = webRTCClient
+        
+        self.signalingConnected = false
+        self.hasLocalSdp = false
+        self.hasRemoteSdp = false
+        self.localCandidateCount = 0
+        self.remoteCandidateCount = 0
+        self.signalClient.delegate = self
+    }
+    
+    func signalClientDidConnect(_ signalClient: SignalingClient) {
+        self.signalingConnected = true
+    }
+    
+    func signalClientDidDisconnect(_ signalClient: SignalingClient) {
+        self.signalingConnected = false
+    }
+    
+    func signalClient(_ signalClient: SignalingClient, didReceiveRemoteSdp sdp: RTCSessionDescription) {
+        print("Received remote sdp")
+        self.webRTCClient.set(remoteSdp: sdp) { (error) in
+            self.hasRemoteSdp = true
+        }
+    }
+    
+    func signalClient(_ signalClient: SignalingClient, didReceiveCandidate candidate: RTCIceCandidate) {
+        self.webRTCClient.set(remoteCandidate: candidate) { error in
+            print("Received remote candidate")
+            self.remoteCandidateCount += 1
+        }
+    }
+}
