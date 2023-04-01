@@ -1,6 +1,38 @@
 const WebSocket = require('ws');
 var roomTable = {};
-var ws2roomTable = {};
+
+const getCircularReplacer = () => {
+  const seen = new WeakSet();
+  return (key, value) => {
+    if (typeof value === "object" && value !== null) {
+      if (seen.has(value)) {
+        return;
+      }
+      seen.add(value);
+    }
+    return value;
+  };
+};
+
+const getWSRoomId = (wsObj) => {
+    var matchRoomId = ""
+    var keyAry = Object.keys(roomTable);
+    for(var k=0; k < keyAry.length; k++)
+    {
+        var roomId = keyAry[k];
+        var wsAry = roomTable[roomId];
+        console.log("roomTable=>", roomId, "->", wsAry.length);
+        for(var i = 0; i < wsAry.length; i++) {
+            console.log("roomTable=> wsAry.forEach", wsAry[i] === wsObj);
+            if ( wsAry[i] === wsObj && wsAry[i].readyState === WebSocket.OPEN) {
+                k = keyAry.length;
+                matchRoomId = roomId;
+                break;
+            }
+        }
+    }
+    return matchRoomId;
+}
 
 const wss = new WebSocket.Server({ port: 8080 }, () => {
     console.log("Signaling server is now listening on port 8080")
@@ -31,12 +63,14 @@ wss.on('connection', (ws) => {
         const payload = JSON.parse(message.data);
         console.log("onmessage=>", payload.payload.roomId, "->", message.data + "\n");
 
-        if(ws2roomTable[ws] == null)
+        var wsRoomId = getWSRoomId(ws);
+        console.log("onmessage=>getWSRoomId->",  wsRoomId+"\n");
+        if(  wsRoomId.length == 0 )
         {
-            if( roomTable[payload.payload.roomId] == null ) roomTable[payload.payload.roomId] = [ws];
+            //console.log("onmessage=>roomTable->",  roomTable[payload.payload.roomId]+"\n");
+            if( roomTable[payload.payload.roomId] == null || roomTable[payload.payload.roomId] == undefined ) roomTable[payload.payload.roomId] = [ws];
             else roomTable[payload.payload.roomId].push(ws);
-        }
-        ws2roomTable[ws] = payload.payload.roomId;        
+        }        
         console.log("onmessage=>count->",  roomTable[payload.payload.roomId].length+"\n");
 
         //wss.broadcast(ws, message.data);
@@ -46,12 +80,15 @@ wss.on('connection', (ws) => {
     ws.onclose = () => {
         console.log(`Client disconnected. Total connected clients: ${wss.clients.size}`)
 
-        var roomId = ws2roomTable[ws];
-        const index = roomTable[roomId].indexOf(ws);
-        if (index > -1) {
-            roomTable[roomId].splice(index, 1);
+        var wsRoomId = getWSRoomId(ws);
+        console.log(`onclose RoomID=${wsRoomId}`)
+        if(wsRoomId.length > 0)
+        {
+            const index = roomTable[wsRoomId].indexOf(ws);
+            if (index > -1) {
+                roomTable[wsRoomId].splice(index, 1);
+            }
+            console.log(`onclose count=${roomTable[wsRoomId].length}`)
         }
-        delete ws2roomTable[ws]
-        console.log(`RoomID=${roomId}, count=${roomTable[roomId].length}`)
     }
 });
