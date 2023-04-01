@@ -14,7 +14,7 @@ const getCircularReplacer = () => {
   };
 };
 
-const getWSRoomId = (wsObj) => {
+const getWSRoomId = (wsObj, flag) => {
     var matchRoomId = ""
     var keyAry = Object.keys(roomTable);
     for(var k=0; k < keyAry.length; k++)
@@ -23,8 +23,8 @@ const getWSRoomId = (wsObj) => {
         var wsAry = roomTable[roomId];
         console.log("roomTable=>", roomId, "->", wsAry.length);
         for(var i = 0; i < wsAry.length; i++) {
-            console.log("roomTable=> wsAry.forEach", wsAry[i] === wsObj);
-            if ( wsAry[i] === wsObj && wsAry[i].readyState === WebSocket.OPEN) {
+            console.log("roomTable=> wsAry.forEach", wsAry[i] === wsObj, wsAry[i].readyState === flag);
+            if ( wsAry[i] === wsObj && wsAry[i].readyState === flag) {
                 k = keyAry.length;
                 matchRoomId = roomId;
                 break;
@@ -49,11 +49,15 @@ wss.broadcast = (ws, data) => {
 
 // send to other peers.
 wss.sendToPeer = (peers, ws, data) => {
+    var ret = false;
     peers.forEach((client) => {
+        console.log("sendToPeer=> peers.forEach", client !== ws, client.readyState === WebSocket.OPEN);
         if (client !== ws && client.readyState === WebSocket.OPEN) {
             client.send(data);
+            ret = true;
         }
     });
+    return ret;
 };
 
 wss.on('connection', (ws) => {
@@ -63,7 +67,7 @@ wss.on('connection', (ws) => {
         const payload = JSON.parse(message.data);
         console.log("onmessage=>", payload.payload.roomId, "->", message.data + "\n");
 
-        var wsRoomId = getWSRoomId(ws);
+        var wsRoomId = getWSRoomId(ws, WebSocket.OPEN);
         console.log("onmessage=>getWSRoomId->",  wsRoomId+"\n");
         if(  wsRoomId.length == 0 )
         {
@@ -74,19 +78,27 @@ wss.on('connection', (ws) => {
         console.log("onmessage=>count->",  roomTable[payload.payload.roomId].length+"\n");
 
         //wss.broadcast(ws, message.data);
-        wss.sendToPeer(roomTable[payload.payload.roomId], ws, message.data);
+        if( !wss.sendToPeer(roomTable[payload.payload.roomId], ws, message.data) )
+        {
+            //wss.broadcast(ws, message.data);
+        }
     }
 
     ws.onclose = () => {
         console.log(`Client disconnected. Total connected clients: ${wss.clients.size}`)
 
-        var wsRoomId = getWSRoomId(ws);
+        var wsRoomId = getWSRoomId(ws, WebSocket.CLOSED);
         console.log(`onclose RoomID=${wsRoomId}`)
         if(wsRoomId.length > 0)
         {
-            const index = roomTable[wsRoomId].indexOf(ws);
-            if (index > -1) {
-                roomTable[wsRoomId].splice(index, 1);
+            var wsAry = roomTable[wsRoomId];
+            console.log("onclose-roomTable=>", wsRoomId, "->", wsAry.length);
+            for (var i = 0; i < wsAry.length; i++) {
+                console.log("roomTable=> wsAry.forEach", wsAry[i] === ws);
+                if (wsAry[i] === ws) {
+                    roomTable[wsRoomId].splice(i, 1);
+                    break;
+                }
             }
             console.log(`onclose count=${roomTable[wsRoomId].length}`)
         }
