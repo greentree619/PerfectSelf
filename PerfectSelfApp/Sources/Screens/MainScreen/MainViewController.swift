@@ -178,14 +178,14 @@ extension MainViewController: SignalClientDelegate {
         self.signalingConnected = false
     }
     
-    func signalClient(_ signalClient: SignalingClient, didReceiveRemoteSdp sdp: RTCSessionDescription) {
+    func signalClient(_ signalClient: SignalingClient, didReceiveRemoteSdp sdp: RTCSessionDescription, roomId: String) {
         print("Received remote sdp")
         self.webRTCClient.set(remoteSdp: sdp) { (error) in
             self.hasRemoteSdp = true
         }
     }
     
-    func signalClient(_ signalClient: SignalingClient, didReceiveCandidate candidate: RTCIceCandidate) {
+    func signalClient(_ signalClient: SignalingClient, didReceiveCandidate candidate: RTCIceCandidate, roomId: String) {
         self.webRTCClient.set(remoteCandidate: candidate) { error in
             print("Received remote candidate")
             self.remoteCandidateCount += 1
