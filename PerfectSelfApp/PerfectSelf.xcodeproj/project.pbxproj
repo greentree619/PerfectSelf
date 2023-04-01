@@ -27,6 +27,8 @@
 		4744C4A629D088FD00963C92 /* DateFormat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4744C4A529D088FD00963C92 /* DateFormat.swift */; };
 		475269BB29CD0F930094C3E9 /* BookingCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 475269B929CD0F930094C3E9 /* BookingCollectionViewCell.swift */; };
 		475269BC29CD0F930094C3E9 /* BookingCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 475269BA29CD0F930094C3E9 /* BookingCollectionViewCell.xib */; };
+		4770CE5329D7C904009C2284 /* FilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4770CE5129D7C904009C2284 /* FilterViewController.swift */; };
+		4770CE5429D7C904009C2284 /* FilterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4770CE5229D7C904009C2284 /* FilterViewController.xib */; };
 		4772156129CE700C00319CBC /* VideoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4772155F29CE700C00319CBC /* VideoCollectionViewCell.swift */; };
 		4772156229CE700C00319CBC /* VideoCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4772156029CE700C00319CBC /* VideoCollectionViewCell.xib */; };
 		4776C12B29D3F3330008A915 /* CreditCardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4776C12929D3F3330008A915 /* CreditCardCell.swift */; };
@@ -196,6 +198,8 @@
 		4744C4A529D088FD00963C92 /* DateFormat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormat.swift; sourceTree = "<group>"; };
 		475269B929CD0F930094C3E9 /* BookingCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookingCollectionViewCell.swift; sourceTree = "<group>"; };
 		475269BA29CD0F930094C3E9 /* BookingCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BookingCollectionViewCell.xib; sourceTree = "<group>"; };
+		4770CE5129D7C904009C2284 /* FilterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterViewController.swift; sourceTree = "<group>"; };
+		4770CE5229D7C904009C2284 /* FilterViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FilterViewController.xib; sourceTree = "<group>"; };
 		4772155F29CE700C00319CBC /* VideoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoCollectionViewCell.swift; sourceTree = "<group>"; };
 		4772156029CE700C00319CBC /* VideoCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = VideoCollectionViewCell.xib; sourceTree = "<group>"; };
 		4776C12929D3F3330008A915 /* CreditCardCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreditCardCell.swift; sourceTree = "<group>"; };
@@ -822,6 +826,8 @@
 				BAD0B4D529BA17130061FEF5 /* ActorHomeViewController.xib */,
 				BA6A5E1C29CCD49D0063ED13 /* ReaderCollectionViewCell.swift */,
 				BA6A5E1D29CCD49D0063ED13 /* ReaderCollectionViewCell.xib */,
+				4770CE5129D7C904009C2284 /* FilterViewController.swift */,
+				4770CE5229D7C904009C2284 /* FilterViewController.xib */,
 			);
 			path = ActorHomeScreen;
 			sourceTree = "<group>";
@@ -1010,6 +1016,7 @@
 				BAD0B50429BA17130061FEF5 /* VideoViewController.xib in Resources */,
 				47BC09BB29C5B42700B8F2C5 /* ActorBuildProfile1ViewController.xib in Resources */,
 				BAD0B53329BA17130061FEF5 /* ReaderProfileEditAboutViewController.xib in Resources */,
+				4770CE5429D7C904009C2284 /* FilterViewController.xib in Resources */,
 				BA4714CA29A79856007AABC2 /* SFProDisplay-Heavy.otf in Resources */,
 				BAD0B53529BA17130061FEF5 /* SignupDetailViewController.xib in Resources */,
 				BA6A5E1F29CCD49D0063ED13 /* ReaderCollectionViewCell.xib in Resources */,
@@ -1142,6 +1149,7 @@
 				4776C12B29D3F3330008A915 /* CreditCardCell.swift in Sources */,
 				BAC11B8429A8B37100580143 /* IDFileManager.m in Sources */,
 				BA3F909A29C457C200ABE966 /* PerfectSelfWebAPI.swift in Sources */,
+				4770CE5329D7C904009C2284 /* FilterViewController.swift in Sources */,
 				BAC11B8729A8B37100580143 /* IDPermissionsManager.m in Sources */,
 				BAC11B8329A8B37100580143 /* IDCaptureSessionCoordinator.m in Sources */,
 				47007BE929C2B0C000F83CFD /* ActorSetPaymentViewController.swift in Sources */,

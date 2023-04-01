@@ -897,6 +897,11 @@
                 <constraint firstItem="lxL-ZG-ziF" firstAttribute="bottom" secondItem="MFG-hr-Lk8" secondAttribute="bottom" id="lPf-hz-qZg"/>
                 <constraint firstItem="lxL-ZG-ziF" firstAttribute="bottom" secondItem="eHX-7G-XvN" secondAttribute="bottom" id="zF7-6g-wc0"/>
             </constraints>
+            <variation key="default">
+                <mask key="subviews">
+                    <exclude reference="MFG-hr-Lk8"/>
+                </mask>
+            </variation>
             <point key="canvasLocation" x="-11" y="668"/>
         </view>
     </objects>

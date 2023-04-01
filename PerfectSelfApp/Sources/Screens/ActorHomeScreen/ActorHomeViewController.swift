@@ -12,7 +12,7 @@ import RangeSeekSlider
 class ActorHomeViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout
 {
     
-    @IBOutlet weak var filtermodal: UIStackView!
+//    @IBOutlet weak var filtermodal: UIStackView!
     
     @IBOutlet weak var readerList: UICollectionView!
     
@@ -26,14 +26,14 @@ class ActorHomeViewController: UIViewController, UICollectionViewDataSource, UIC
     var isSponsored = true
     var isAvailableSoon = false
     var isTopRated = false
-    var isOnline = true
-    var is15TimeSlot = true
-    var is30TimeSlot = false
-    var is30PlusTimeSlot = false
-    var isStandBy = false
-    var isCommercialRead = true
-    var isShortRead = false
-    var isExtendedRead = false
+//    var isOnline = true
+//    var is15TimeSlot = true
+//    var is30TimeSlot = false
+//    var is30PlusTimeSlot = false
+//    var isStandBy = false
+//    var isCommercialRead = true
+//    var isShortRead = false
+//    var isExtendedRead = false
     
     var items = [ReaderProfileCard]()
     let cellsPerRow = 1
@@ -140,17 +140,20 @@ class ActorHomeViewController: UIViewController, UICollectionViewDataSource, UIC
     }
     
     @IBAction func ShowFilterModal(_ sender: UIButton) {
-        UIView.animate(withDuration:0.3) {
-            self.filtermodal.alpha = 1;
-        }
-        
-        backgroundView.backgroundColor = UIColor.black.withAlphaComponent(0.5)
-        backgroundView.frame = view.bounds
-        backgroundView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        view.insertSubview(backgroundView, belowSubview: filtermodal)
-        let tap = UITapGestureRecognizer(target: self, action: #selector(tapCallback))
-        backgroundView.addGestureRecognizer(tap)
-        backgroundView.isUserInteractionEnabled = true
+//        UIView.animate(withDuration:0.3) {
+//            self.filtermodal.alpha = 1;
+//        }
+//
+//        backgroundView.backgroundColor = UIColor.black.withAlphaComponent(0.5)
+//        backgroundView.frame = view.bounds
+//        backgroundView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+//        view.insertSubview(backgroundView, belowSubview: filtermodal)
+//        let tap = UITapGestureRecognizer(target: self, action: #selector(tapCallback))
+//        backgroundView.addGestureRecognizer(tap)
+//        backgroundView.isUserInteractionEnabled = true
+        let controller = FilterViewController()
+        controller.modalPresentationStyle = .overFullScreen
+        self.present(controller, animated: true)
         
     }
     @objc func tapCallback() {
