@@ -11,6 +11,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="FilterViewController" customModule="PerfectSelf" customModuleProvider="target">
             <connections>
+                <outlet property="sliderView" destination="yo1-us-5hb" id="jpH-7M-fN0"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -19,6 +20,13 @@
             <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="To1-dm-q2i">
+                    <rect key="frame" x="0.0" y="0.0" width="393" height="818"/>
+                    <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.5" colorSpace="calibratedRGB"/>
+                    <connections>
+                        <outletCollection property="gestureRecognizers" destination="08c-P5-OKN" appends="YES" id="Dyr-ze-vlv"/>
+                    </connections>
+                </view>
                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Iqs-g3-udm">
                     <rect key="frame" x="0.0" y="202" width="393" height="650"/>
                     <subviews>
@@ -42,6 +50,9 @@
                                         <backgroundConfiguration key="background" strokeWidth="0.0"/>
                                         <directionalEdgeInsets key="contentInsets" top="5" leading="5" bottom="5" trailing="5"/>
                                     </buttonConfiguration>
+                                    <connections>
+                                        <action selector="CloseFilterModal:" destination="-1" eventType="touchUpInside" id="kb8-03-2Ij"/>
+                                    </connections>
                                 </button>
                             </subviews>
                             <constraints>
@@ -94,6 +105,9 @@
                                                                             <real key="value" value="5"/>
                                                                         </userDefinedRuntimeAttribute>
                                                                     </userDefinedRuntimeAttributes>
+                                                                    <connections>
+                                                                        <action selector="SelectOnlineNow:" destination="-1" eventType="touchUpInside" id="j2m-iR-2sz"/>
+                                                                    </connections>
                                                                 </button>
                                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Krg-B9-xsA">
                                                                     <rect key="frame" x="97" y="8" width="103" height="25"/>
@@ -113,6 +127,9 @@
                                                                             <real key="value" value="5"/>
                                                                         </userDefinedRuntimeAttribute>
                                                                     </userDefinedRuntimeAttributes>
+                                                                    <connections>
+                                                                        <action selector="SelectAvailableSoon:" destination="-1" eventType="touchUpInside" id="riq-3X-3yc"/>
+                                                                    </connections>
                                                                 </button>
                                                             </subviews>
                                                             <edgeInsets key="layoutMargins" top="8" left="8" bottom="8" right="8"/>
@@ -154,6 +171,9 @@
                                                                             <real key="value" value="5"/>
                                                                         </userDefinedRuntimeAttribute>
                                                                     </userDefinedRuntimeAttributes>
+                                                                    <connections>
+                                                                        <action selector="Select15TimeSlot:" destination="-1" eventType="touchUpInside" id="lQY-Qs-jwA"/>
+                                                                    </connections>
                                                                 </button>
                                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Oqe-zK-bQH">
                                                                     <rect key="frame" x="72" y="13" width="66" height="25"/>
@@ -173,6 +193,9 @@
                                                                             <real key="value" value="5"/>
                                                                         </userDefinedRuntimeAttribute>
                                                                     </userDefinedRuntimeAttributes>
+                                                                    <connections>
+                                                                        <action selector="Select30TimeSlot:" destination="-1" eventType="touchUpInside" id="r1t-QS-8Gu"/>
+                                                                    </connections>
                                                                 </button>
                                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="baB-dq-YlT">
                                                                     <rect key="frame" x="148" y="13" width="73" height="25"/>
@@ -192,6 +215,9 @@
                                                                             <real key="value" value="5"/>
                                                                         </userDefinedRuntimeAttribute>
                                                                     </userDefinedRuntimeAttributes>
+                                                                    <connections>
+                                                                        <action selector="Select30OverTimeSlot:" destination="-1" eventType="touchUpInside" id="5Pr-Zf-2dn"/>
+                                                                    </connections>
                                                                 </button>
                                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JXk-qf-NLh">
                                                                     <rect key="frame" x="231" y="13" width="71" height="25"/>
@@ -211,6 +237,9 @@
                                                                             <real key="value" value="5"/>
                                                                         </userDefinedRuntimeAttribute>
                                                                     </userDefinedRuntimeAttributes>
+                                                                    <connections>
+                                                                        <action selector="SelectStandByTimeSlot:" destination="-1" eventType="touchUpInside" id="Or8-lj-i7B"/>
+                                                                    </connections>
                                                                 </button>
                                                             </subviews>
                                                             <edgeInsets key="layoutMargins" top="8" left="8" bottom="8" right="8"/>
@@ -342,6 +371,9 @@
                                                                 <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             </state>
                                                             <state key="selected" title="Male" image="icons8-checked-checkbox-14"/>
+                                                            <connections>
+                                                                <action selector="SelectMale:" destination="-1" eventType="touchUpInside" id="R1E-ar-v17"/>
+                                                            </connections>
                                                         </button>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rmz-p2-J2c">
                                                             <rect key="frame" x="0.0" y="53.333333333333364" width="71" height="26.666666666666664"/>
@@ -352,6 +384,9 @@
                                                                 <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             </state>
                                                             <state key="selected" title="Female" image="icons8-checked-checkbox-14"/>
+                                                            <connections>
+                                                                <action selector="SelectFemale:" destination="-1" eventType="touchUpInside" id="DzA-tZ-mzG"/>
+                                                            </connections>
                                                         </button>
                                                     </subviews>
                                                     <constraints>
@@ -403,6 +438,9 @@
                                                                             <real key="value" value="5"/>
                                                                         </userDefinedRuntimeAttribute>
                                                                     </userDefinedRuntimeAttributes>
+                                                                    <connections>
+                                                                        <action selector="SelectCommercialRead:" destination="-1" eventType="touchUpInside" id="WeW-yD-pwi"/>
+                                                                    </connections>
                                                                 </button>
                                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2u1-ie-Rld">
                                                                     <rect key="frame" x="135.66666666666666" y="8" width="86.666666666666657" height="34"/>
@@ -425,6 +463,9 @@
                                                                             <real key="value" value="5"/>
                                                                         </userDefinedRuntimeAttribute>
                                                                     </userDefinedRuntimeAttributes>
+                                                                    <connections>
+                                                                        <action selector="SelectShortRead:" destination="-1" eventType="touchUpInside" id="5XS-71-tcV"/>
+                                                                    </connections>
                                                                 </button>
                                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pDe-jw-aNQ">
                                                                     <rect key="frame" x="232.33333333333334" y="8" width="105.66666666666666" height="34"/>
@@ -447,6 +488,9 @@
                                                                             <real key="value" value="5"/>
                                                                         </userDefinedRuntimeAttribute>
                                                                     </userDefinedRuntimeAttributes>
+                                                                    <connections>
+                                                                        <action selector="SelectExtendedRead:" destination="-1" eventType="touchUpInside" id="hUU-Rs-nZW"/>
+                                                                    </connections>
                                                                 </button>
                                                             </subviews>
                                                             <edgeInsets key="layoutMargins" top="8" left="8" bottom="8" right="8"/>
@@ -494,6 +538,9 @@
                                     <rect key="frame" x="0.0" y="0.0" width="353" height="50"/>
                                     <state key="normal" title="Button"/>
                                     <buttonConfiguration key="configuration" style="filled" title="Apply"/>
+                                    <connections>
+                                        <action selector="ApplyFilter:" destination="-1" eventType="touchUpInside" id="vOb-7n-Eml"/>
+                                    </connections>
                                 </button>
                             </subviews>
                             <constraints>
@@ -514,14 +561,23 @@
                 </stackView>
             </subviews>
             <viewLayoutGuide key="safeArea" id="hBF-yy-6Wf"/>
-            <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.5" colorSpace="calibratedRGB"/>
+            <gestureRecognizers/>
             <constraints>
                 <constraint firstItem="Iqs-g3-udm" firstAttribute="leading" secondItem="hBF-yy-6Wf" secondAttribute="leading" id="BJ5-x7-J3Z"/>
                 <constraint firstAttribute="trailing" secondItem="Iqs-g3-udm" secondAttribute="trailing" id="CjH-G9-eXE"/>
+                <constraint firstItem="hBF-yy-6Wf" firstAttribute="bottom" secondItem="To1-dm-q2i" secondAttribute="bottom" id="EKF-RJ-Bpe"/>
                 <constraint firstAttribute="bottom" secondItem="Iqs-g3-udm" secondAttribute="bottom" id="Sb7-sa-jPr"/>
+                <constraint firstItem="hBF-yy-6Wf" firstAttribute="trailing" secondItem="To1-dm-q2i" secondAttribute="trailing" id="Woj-oc-G0N"/>
+                <constraint firstItem="To1-dm-q2i" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="YLc-xb-DnR"/>
+                <constraint firstItem="To1-dm-q2i" firstAttribute="leading" secondItem="hBF-yy-6Wf" secondAttribute="leading" id="bAx-t9-ZRU"/>
             </constraints>
             <point key="canvasLocation" x="139" y="21"/>
         </view>
+        <tapGestureRecognizer id="08c-P5-OKN">
+            <connections>
+                <action selector="tapCallback:" destination="-1" id="gS3-Tq-BLV"/>
+            </connections>
+        </tapGestureRecognizer>
     </objects>
     <resources>
         <image name="calendar" catalog="system" width="128" height="107"/>
