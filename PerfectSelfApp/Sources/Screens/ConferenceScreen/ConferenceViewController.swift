@@ -458,8 +458,8 @@ extension ConferenceViewController: WebRTCClientDelegate {
     
     func webRTCClient(_ client: WebRTCClient, didReceiveData data: Data) {
         let message = String(data: data, encoding: .utf8) ?? "(Binary: \(data.count) bytes)"
-        let startCmd = String(describing: "#CMD#REC#START#".cString(using: String.Encoding.utf8))
-        let endCmd = String(describing: "#CMD#REC#END#".cString(using: String.Encoding.utf8))
+        let startCmd = "#CMD#REC#START#"//String(describing: "#CMD#REC#START#".cString(using: String.Encoding.utf8))
+        let endCmd = "#CMD#REC#END#"//String(describing: "#CMD#REC#END#".cString(using: String.Encoding.utf8))
         if(message.compare(startCmd).rawValue == 0)
         {//recording Start
             if(_captureState == .idle){                
