@@ -32,57 +32,57 @@ class ChatViewController: KUIViewController, UICollectionViewDataSource, UIColle
     private var roomUid: String
     
     //MARK: WebRTC Conference Status
-    private var signalingConnected: Bool = false {
-        didSet {
-//REFME
-//            DispatchQueue.main.async {
-//                if self.signalingConnected {
-//                    self.signalingStatusLabel?.text = "Connected"
-//                    self.signalingStatusLabel?.textColor = UIColor.green
-//                }
-//                else {
-//                    self.signalingStatusLabel?.text = "Not connected"
-//                    self.signalingStatusLabel?.textColor = UIColor.red
-//                }
-//            }
-        }
-    }
-    
-    private var hasLocalSdp: Bool = false {
-        didSet {
-//REFME
-//            DispatchQueue.main.async {
-//                self.localSdpStatusLabel?.text = self.hasLocalSdp ? "✅" : "❌"
-//            }
-        }
-    }
-    
-    private var localCandidateCount: Int = 0 {
-        didSet {
-//REFME
-//            DispatchQueue.main.async {
-//                self.localCandidatesLabel?.text = "\(self.localCandidateCount)"
-//            }
-        }
-    }
-    
-    private var hasRemoteSdp: Bool = false {
-        didSet {
-//REFME
-//            DispatchQueue.main.async {
-//                self.remoteSdpStatusLabel?.text = self.hasRemoteSdp ? "✅" : "❌"
-//            }
-        }
-    }
-    
-    private var remoteCandidateCount: Int = 0 {
-        didSet {
-//REFME
-//            DispatchQueue.main.async {
-//                self.remoteCandidatesLabel?.text = "\(self.remoteCandidateCount)"
-//            }
-        }
-    }
+//    private var signalingConnected: Bool = false {
+//        didSet {
+////REFME
+////            DispatchQueue.main.async {
+////                if self.signalingConnected {
+////                    self.signalingStatusLabel?.text = "Connected"
+////                    self.signalingStatusLabel?.textColor = UIColor.green
+////                }
+////                else {
+////                    self.signalingStatusLabel?.text = "Not connected"
+////                    self.signalingStatusLabel?.textColor = UIColor.red
+////                }
+////            }
+//        }
+//    }
+//
+//    private var hasLocalSdp: Bool = false {
+//        didSet {
+////REFME
+////            DispatchQueue.main.async {
+////                self.localSdpStatusLabel?.text = self.hasLocalSdp ? "✅" : "❌"
+////            }
+//        }
+//    }
+//
+//    private var localCandidateCount: Int = 0 {
+//        didSet {
+////REFME
+////            DispatchQueue.main.async {
+////                self.localCandidatesLabel?.text = "\(self.localCandidateCount)"
+////            }
+//        }
+//    }
+//
+//    private var hasRemoteSdp: Bool = false {
+//        didSet {
+////REFME
+////            DispatchQueue.main.async {
+////                self.remoteSdpStatusLabel?.text = self.hasRemoteSdp ? "✅" : "❌"
+////            }
+//        }
+//    }
+//
+//    private var remoteCandidateCount: Int = 0 {
+//        didSet {
+////REFME
+////            DispatchQueue.main.async {
+////                self.remoteCandidatesLabel?.text = "\(self.remoteCandidateCount)"
+////            }
+//        }
+//    }
     
     private var speakerOn: Bool = false {
         didSet {
@@ -106,16 +106,16 @@ class ChatViewController: KUIViewController, UICollectionViewDataSource, UIColle
         self.roomUid = roomUid
         super.init(nibName: String(describing: ChatViewController.self), bundle: Bundle.main)
         
-        self.signalingConnected = false
-        self.hasLocalSdp = false
-        self.hasRemoteSdp = false
-        self.localCandidateCount = 0
-        self.remoteCandidateCount = 0
+//        self.signalingConnected = false
+//        self.hasLocalSdp = false
+//        self.hasRemoteSdp = false
+//        self.localCandidateCount = 0
+//        self.remoteCandidateCount = 0
         self.speakerOn = false
         
         self.webRTCClient.delegate = self
-        self.signalClient.delegate = self
-        self.signalClient.connect()
+//        self.signalClient.delegate = self
+//        self.signalClient.connect()
         uiViewContoller = self
     }
     
@@ -136,18 +136,18 @@ class ChatViewController: KUIViewController, UICollectionViewDataSource, UIColle
         messageCollectionView.dataSource = self
         messageCollectionView.delegate = self
         
-        self.webRTCClient.speakerOff()
-        if( !self.hasLocalSdp && !self.hasRemoteSdp )
+        self.webRTCClient.speakerOn()
+        if( !signalingClientStatus!.hasLocalSdp && !signalingClientStatus!.hasRemoteSdp )
         {
             self.webRTCClient.offer { (sdp) in
-                self.hasLocalSdp = true
+                signalingClientStatus!.hasLocalSdp = true
                 self.signalClient.send(sdp: sdp, roomId: self.roomUid)
             }
         }
-        else if( !self.hasLocalSdp && self.hasRemoteSdp )
+        else if( !signalingClientStatus!.hasLocalSdp && signalingClientStatus!.hasRemoteSdp )
         {
             self.webRTCClient.answer { (localSdp) in
-                self.hasLocalSdp = true
+                signalingClientStatus!.hasLocalSdp = true
                 self.signalClient.send(sdp: localSdp, roomId: self.roomUid)
             }
         }
@@ -317,29 +317,29 @@ class ChatViewController: KUIViewController, UICollectionViewDataSource, UIColle
 
 
 //MARK: SignalClientDelegate
-extension ChatViewController: SignalClientDelegate {
-    func signalClientDidConnect(_ signalClient: SignalingClient) {
-        //REFME self.signalingConnected = true
-    }
-    
-    func signalClientDidDisconnect(_ signalClient: SignalingClient) {
-        //REFME self.signalingConnected = false
-    }
-    
-    func signalClient(_ signalClient: SignalingClient, didReceiveRemoteSdp sdp: RTCSessionDescription) {
-        print("Received remote sdp")
-        self.webRTCClient.set(remoteSdp: sdp) { (error) in
-            //REFME self.hasRemoteSdp = true
-        }
-    }
-    
-    func signalClient(_ signalClient: SignalingClient, didReceiveCandidate candidate: RTCIceCandidate) {
-        self.webRTCClient.set(remoteCandidate: candidate) { error in
-            print("Received remote candidate")
-            //REFME self.remoteCandidateCount += 1
-        }
-    }
-}
+//extension ChatViewController: SignalClientDelegate {
+//    func signalClientDidConnect(_ signalClient: SignalingClient) {
+//        //REFME self.signalingConnected = true
+//    }
+//    
+//    func signalClientDidDisconnect(_ signalClient: SignalingClient) {
+//        //REFME self.signalingConnected = false
+//    }
+//    
+//    func signalClient(_ signalClient: SignalingClient, didReceiveRemoteSdp sdp: RTCSessionDescription) {
+//        print("Received remote sdp")
+//        self.webRTCClient.set(remoteSdp: sdp) { (error) in
+//            //REFME self.hasRemoteSdp = true
+//        }
+//    }
+//    
+//    func signalClient(_ signalClient: SignalingClient, didReceiveCandidate candidate: RTCIceCandidate) {
+//        self.webRTCClient.set(remoteCandidate: candidate) { error in
+//            print("Received remote candidate")
+//            //REFME self.remoteCandidateCount += 1
+//        }
+//    }
+//}
 
 //MARK: WebRTCClientDelegate
 extension ChatViewController: WebRTCClientDelegate {
