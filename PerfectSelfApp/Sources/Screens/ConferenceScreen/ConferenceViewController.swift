@@ -125,17 +125,17 @@ class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSample
         self.userName = UserDefaults.standard.string(forKey: "USER_NAME")
         
         self.webRTCClient.speakerOn()
-        if( !signalingClientStatus.hasLocalSdp && !signalingClientStatus.hasRemoteSdp )
+        if( !signalingClientStatus!.hasLocalSdp && !signalingClientStatus!.hasRemoteSdp )
         {
             self.webRTCClient.offer { (sdp) in
-                signalingClientStatus.hasLocalSdp = true
+                signalingClientStatus!.hasLocalSdp = true
                 self.signalClient.send(sdp: sdp, roomId: self.roomUid)
             }
         }
-        else if( !signalingClientStatus.hasLocalSdp && signalingClientStatus.hasRemoteSdp )
+        else if( !signalingClientStatus!.hasLocalSdp && signalingClientStatus!.hasRemoteSdp )
         {
             self.webRTCClient.answer { (localSdp) in
-                signalingClientStatus.hasLocalSdp = true
+                signalingClientStatus!.hasLocalSdp = true
                 self.signalClient.send(sdp: localSdp, roomId: self.roomUid)
             }
         }

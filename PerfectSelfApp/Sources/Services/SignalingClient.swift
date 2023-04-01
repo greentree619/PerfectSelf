@@ -92,7 +92,7 @@ extension SignalingClient: WebSocketProviderDelegate {
     }
 }
 
-final class SignalingClientStatus: SignalClientDelegate {
+final class SignalingClientStatus: NSObject, SignalClientDelegate {
     private let signalClient: SignalingClient
     private let webRTCClient: WebRTCClient
     
@@ -152,12 +152,15 @@ final class SignalingClientStatus: SignalClientDelegate {
         self.signalClient = signalClient
         self.webRTCClient = webRTCClient
         
+        super.init()
+        
         self.signalingConnected = false
         self.hasLocalSdp = false
         self.hasRemoteSdp = false
         self.localCandidateCount = 0
         self.remoteCandidateCount = 0
         self.signalClient.delegate = self
+        self.signalClient.connect()
     }
     
     func signalClientDidConnect(_ signalClient: SignalingClient) {
