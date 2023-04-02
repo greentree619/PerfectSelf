@@ -160,6 +160,11 @@ class ReaderProfileEditAvailabilityViewController: UIViewController {
             }
             DispatchQueue.main.async {
 //                Toast.show(message: "Successfully added new time slot", controller: self)
+                let transition = CATransition()
+                transition.duration = 0.5 // Set animation duration
+                transition.type = CATransitionType.push // Set transition type to push
+                transition.subtype = CATransitionSubtype.fromLeft // Set transition subtype to from right
+                self.view.window?.layer.add(transition, forKey: kCATransition) // Add transition to window layer
                 self.dismiss(animated: false)
             }
         }
@@ -167,7 +172,12 @@ class ReaderProfileEditAvailabilityViewController: UIViewController {
         
     }
     @IBAction func GoBack(_ sender: UIButton) {
-        self.dismiss(animated: false)
+        let transition = CATransition()
+        transition.duration = 0.5 // Set animation duration
+        transition.type = CATransitionType.push // Set transition type to push
+        transition.subtype = CATransitionSubtype.fromLeft // Set transition subtype to from right
+        self.view.window?.layer.add(transition, forKey: kCATransition) // Add transition to window layer
+        self.dismiss(animated: true)
     }
     
     /*

@@ -117,7 +117,7 @@
                                             <integer key="value" value="5"/>
                                         </userDefinedRuntimeAttribute>
                                         <userDefinedRuntimeAttribute type="size" keyPath="layer.shadowOffset">
-                                            <size key="value" width="0.0" height="0.0"/>
+                                            <size key="value" width="0.0" height="5"/>
                                         </userDefinedRuntimeAttribute>
                                         <userDefinedRuntimeAttribute type="number" keyPath="layer.shadowOpacity">
                                             <real key="value" value="0.29999999999999999"/>

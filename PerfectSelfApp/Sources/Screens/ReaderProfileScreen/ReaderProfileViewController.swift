@@ -12,13 +12,14 @@ class ReaderProfileViewController: UIViewController, UICollectionViewDataSource,
 
     var isEditingMode = false
     var id = ""
+    var hourlyRate: Int = 0
     @IBOutlet weak var btn_edit_userinfo: UIButton!
     @IBOutlet weak var btn_edit_highlight: UIButton!
     @IBOutlet weak var btn_edit_about: UIButton!
     @IBOutlet weak var btn_edit_skills: UIButton!
     @IBOutlet weak var btn_edit_availability: UIButton!
-    
-//    @IBOutlet weak var view_viewall_availability: UIStackView!
+    @IBOutlet weak var view_edit_hourly_rate: UIStackView!
+    //    @IBOutlet weak var view_viewall_availability: UIStackView!
 //    @IBOutlet weak var view_viewall_skills: UIStackView!
     
     @IBOutlet weak var view_review: UIStackView!
@@ -61,6 +62,7 @@ class ReaderProfileViewController: UIViewController, UICollectionViewDataSource,
         btn_edit_about.isHidden = true;
         btn_edit_skills.isHidden = true;
         btn_edit_availability.isHidden = true;
+        view_edit_hourly_rate.isHidden = true;
         id = UserDefaults.standard.string(forKey: "USER_ID") ?? ""
     }
     
@@ -88,7 +90,7 @@ class ReaderProfileViewController: UIViewController, UICollectionViewDataSource,
                     self.readerAbout.text = item.about
                     self.hourlyPrice.text = "$\(item.hourlyPrice/4) / 15 mins"
                     self.readerSkills.text = item.skills
-                    
+                    self.hourlyRate = item.hourlyPrice
                     // call API for available time slots
                     
                     webAPI.getAvailabilityById(uid: uid) {data1, response1, error1 in
@@ -222,7 +224,12 @@ class ReaderProfileViewController: UIViewController, UICollectionViewDataSource,
         controller.usertitle = readerTitle.text ?? ""
         controller.uid = id
         controller.modalPresentationStyle = .fullScreen
-        self.present(controller, animated: false)
+        let transition = CATransition()
+        transition.duration = 0.5 // Set animation duration
+        transition.type = CATransitionType.push // Set transition type to push
+        transition.subtype = CATransitionSubtype.fromRight // Set transition subtype to from right
+        self.view.window?.layer.add(transition, forKey: kCATransition) // Add transition to window layer
+        present(controller, animated: false, completion: nil)
     }
 //    @IBAction func EditHighlight(_ sender: UIButton) {
 //        let controller = ReaderProfileEditPersonalInfoViewController()
@@ -230,24 +237,51 @@ class ReaderProfileViewController: UIViewController, UICollectionViewDataSource,
 //        self.navigationController?.pushViewController(controller, animated: true)
 //    }
     @IBAction func EditAbout(_ sender: UIButton) {
-        let controller = ReaderProfileEditAboutViewController()
-//        controller.delegate = self
+        let controller = ReaderProfileEditAboutViewController() // Instantiate View Controller B
         controller.uid = id
         controller.about = readerAbout.text
         controller.modalPresentationStyle = .fullScreen
-        self.present(controller, animated: false)
+        let transition = CATransition()
+        transition.duration = 0.5 // Set animation duration
+        transition.type = CATransitionType.push // Set transition type to push
+        transition.subtype = CATransitionSubtype.fromRight // Set transition subtype to from right
+        self.view.window?.layer.add(transition, forKey: kCATransition) // Add transition to window layer
+        present(controller, animated: false, completion: nil)
+
     }
     @IBAction func EditSkills(_ sender: UIButton) {
         let controller = ReaderProfileEditSkillViewController()
         
         controller.modalPresentationStyle = .fullScreen
-        self.present(controller, animated: false)
+        let transition = CATransition()
+        transition.duration = 0.5 // Set animation duration
+        transition.type = CATransitionType.push // Set transition type to push
+        transition.subtype = CATransitionSubtype.fromRight // Set transition subtype to from right
+        self.view.window?.layer.add(transition, forKey: kCATransition) // Add transition to window layer
+        present(controller, animated: false, completion: nil)
     }
     @IBAction func EditAvailability(_ sender: UIButton) {
         let controller = ReaderProfileEditAvailabilityViewController()
         controller.uid = id
         controller.modalPresentationStyle = .fullScreen
-        self.present(controller, animated: false)
+        let transition = CATransition()
+        transition.duration = 0.5 // Set animation duration
+        transition.type = CATransitionType.push // Set transition type to push
+        transition.subtype = CATransitionSubtype.fromRight // Set transition subtype to from right
+        self.view.window?.layer.add(transition, forKey: kCATransition) // Add transition to window layer
+        present(controller, animated: false, completion: nil)
+    }
+    @IBAction func EditHourlyRate(_ sender: UIButton) {
+        let controller = ReaderProfileEditHourlyRateViewController()
+        controller.hourlyrate = hourlyRate
+        controller.uid = id
+        controller.modalPresentationStyle = .fullScreen
+        let transition = CATransition()
+        transition.duration = 0.5 // Set animation duration
+        transition.type = CATransitionType.push // Set transition type to push
+        transition.subtype = CATransitionSubtype.fromRight // Set transition subtype to from right
+        self.view.window?.layer.add(transition, forKey: kCATransition) // Add transition to window layer
+        present(controller, animated: false, completion: nil)
     }
     @IBAction func EditProfile(_ sender: UIButton) {
 
@@ -258,6 +292,7 @@ class ReaderProfileViewController: UIViewController, UICollectionViewDataSource,
             btn_edit_about.isHidden = true;
             btn_edit_skills.isHidden = true;
             btn_edit_availability.isHidden = true;
+            view_edit_hourly_rate.isHidden = true;
         }
         else {
             isEditingMode = true;
@@ -266,6 +301,7 @@ class ReaderProfileViewController: UIViewController, UICollectionViewDataSource,
             btn_edit_about.isHidden = false;
             btn_edit_skills.isHidden = false;
             btn_edit_availability.isHidden = false;
+            view_edit_hourly_rate.isHidden = false;
         }
     }
     

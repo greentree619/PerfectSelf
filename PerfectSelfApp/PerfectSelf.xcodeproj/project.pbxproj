@@ -20,11 +20,15 @@
 		4715510229CDBF00007CE524 /* TimeSlotCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4715510029CDBF00007CE524 /* TimeSlotCollectionViewCell.xib */; };
 		4715EAF029CA59C600437576 /* ActorBookAppointmentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4715EAEE29CA59C600437576 /* ActorBookAppointmentViewController.swift */; };
 		4715EAF129CA59C600437576 /* ActorBookAppointmentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4715EAEF29CA59C600437576 /* ActorBookAppointmentViewController.xib */; };
+		471D260C29D76869003DAF0A /* ReaderBuildProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 471D260A29D76869003DAF0A /* ReaderBuildProfileViewController.swift */; };
+		471D260D29D76869003DAF0A /* ReaderBuildProfileViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 471D260B29D76869003DAF0A /* ReaderBuildProfileViewController.xib */; };
 		472F64FD29CC0868005A427D /* ReaderProfileEditAvailabilityViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 472F64FC29CC0868005A427D /* ReaderProfileEditAvailabilityViewController.xib */; };
 		4732BDD029D62A98001CBAC5 /* KeyboardManage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4732BDCF29D62A98001CBAC5 /* KeyboardManage.swift */; };
 		4744C4A629D088FD00963C92 /* DateFormat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4744C4A529D088FD00963C92 /* DateFormat.swift */; };
 		475269BB29CD0F930094C3E9 /* BookingCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 475269B929CD0F930094C3E9 /* BookingCollectionViewCell.swift */; };
 		475269BC29CD0F930094C3E9 /* BookingCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 475269BA29CD0F930094C3E9 /* BookingCollectionViewCell.xib */; };
+		4770CE5329D7C904009C2284 /* FilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4770CE5129D7C904009C2284 /* FilterViewController.swift */; };
+		4770CE5429D7C904009C2284 /* FilterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4770CE5229D7C904009C2284 /* FilterViewController.xib */; };
 		4772156129CE700C00319CBC /* VideoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4772155F29CE700C00319CBC /* VideoCollectionViewCell.swift */; };
 		4772156229CE700C00319CBC /* VideoCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4772156029CE700C00319CBC /* VideoCollectionViewCell.xib */; };
 		4776C12B29D3F3330008A915 /* CreditCardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4776C12929D3F3330008A915 /* CreditCardCell.swift */; };
@@ -58,6 +62,8 @@
 		47DC851429C3815500D86E5A /* MessageCenterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47DC851229C3815500D86E5A /* MessageCenterViewController.swift */; };
 		47DC851529C3815500D86E5A /* MessageCenterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 47DC851329C3815500D86E5A /* MessageCenterViewController.xib */; };
 		47E0B9F629C141C400C82255 /* ReaderTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47E0B9F529C141C400C82255 /* ReaderTabBarController.swift */; };
+		47F9BA8729D7006600050403 /* ReaderProfileEditHourlyRateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47F9BA8529D7006600050403 /* ReaderProfileEditHourlyRateViewController.swift */; };
+		47F9BA8829D7006600050403 /* ReaderProfileEditHourlyRateViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 47F9BA8629D7006600050403 /* ReaderProfileEditHourlyRateViewController.xib */; };
 		79177C9720B0DE7A00BCD399 /* WebRTCClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79177C9620B0DE7A00BCD399 /* WebRTCClient.swift */; };
 		79177C9920B0DF2700BCD399 /* SignalingClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79177C9820B0DF2700BCD399 /* SignalingClient.swift */; };
 		79177CA620B1F76E00BCD399 /* RTCStates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79177CA520B1F76E00BCD399 /* RTCStates.swift */; };
@@ -185,11 +191,15 @@
 		4715510029CDBF00007CE524 /* TimeSlotCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TimeSlotCollectionViewCell.xib; sourceTree = "<group>"; };
 		4715EAEE29CA59C600437576 /* ActorBookAppointmentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActorBookAppointmentViewController.swift; sourceTree = "<group>"; };
 		4715EAEF29CA59C600437576 /* ActorBookAppointmentViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ActorBookAppointmentViewController.xib; sourceTree = "<group>"; };
+		471D260A29D76869003DAF0A /* ReaderBuildProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReaderBuildProfileViewController.swift; sourceTree = "<group>"; };
+		471D260B29D76869003DAF0A /* ReaderBuildProfileViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ReaderBuildProfileViewController.xib; sourceTree = "<group>"; };
 		472F64FC29CC0868005A427D /* ReaderProfileEditAvailabilityViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ReaderProfileEditAvailabilityViewController.xib; sourceTree = "<group>"; };
 		4732BDCF29D62A98001CBAC5 /* KeyboardManage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardManage.swift; sourceTree = "<group>"; };
 		4744C4A529D088FD00963C92 /* DateFormat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormat.swift; sourceTree = "<group>"; };
 		475269B929CD0F930094C3E9 /* BookingCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookingCollectionViewCell.swift; sourceTree = "<group>"; };
 		475269BA29CD0F930094C3E9 /* BookingCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BookingCollectionViewCell.xib; sourceTree = "<group>"; };
+		4770CE5129D7C904009C2284 /* FilterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterViewController.swift; sourceTree = "<group>"; };
+		4770CE5229D7C904009C2284 /* FilterViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FilterViewController.xib; sourceTree = "<group>"; };
 		4772155F29CE700C00319CBC /* VideoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoCollectionViewCell.swift; sourceTree = "<group>"; };
 		4772156029CE700C00319CBC /* VideoCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = VideoCollectionViewCell.xib; sourceTree = "<group>"; };
 		4776C12929D3F3330008A915 /* CreditCardCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreditCardCell.swift; sourceTree = "<group>"; };
@@ -223,6 +233,8 @@
 		47DC851229C3815500D86E5A /* MessageCenterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageCenterViewController.swift; sourceTree = "<group>"; };
 		47DC851329C3815500D86E5A /* MessageCenterViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MessageCenterViewController.xib; sourceTree = "<group>"; };
 		47E0B9F529C141C400C82255 /* ReaderTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReaderTabBarController.swift; sourceTree = "<group>"; };
+		47F9BA8529D7006600050403 /* ReaderProfileEditHourlyRateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReaderProfileEditHourlyRateViewController.swift; sourceTree = "<group>"; };
+		47F9BA8629D7006600050403 /* ReaderProfileEditHourlyRateViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ReaderProfileEditHourlyRateViewController.xib; sourceTree = "<group>"; };
 		79177C9620B0DE7A00BCD399 /* WebRTCClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebRTCClient.swift; sourceTree = "<group>"; };
 		79177C9820B0DF2700BCD399 /* SignalingClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignalingClient.swift; sourceTree = "<group>"; };
 		79177CA520B1F76E00BCD399 /* RTCStates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RTCStates.swift; sourceTree = "<group>"; };
@@ -386,6 +398,15 @@
 				4776C12A29D3F3330008A915 /* CreditCardCell.xib */,
 			);
 			path = ActorSetPaymentScreen;
+			sourceTree = "<group>";
+		};
+		471D260929D76828003DAF0A /* ReaderBuildProfileScreen */ = {
+			isa = PBXGroup;
+			children = (
+				471D260A29D76869003DAF0A /* ReaderBuildProfileViewController.swift */,
+				471D260B29D76869003DAF0A /* ReaderBuildProfileViewController.xib */,
+			);
+			path = ReaderBuildProfileScreen;
 			sourceTree = "<group>";
 		};
 		47BC09B729C5B3E300B8F2C5 /* ActorBuildProfileScreen */ = {
@@ -649,6 +670,7 @@
 		BAD0B49A29BA17120061FEF5 /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				471D260929D76828003DAF0A /* ReaderBuildProfileScreen */,
 				47D4F80629CBD89800AFC4BA /* ReaderBookingScreen */,
 				47CEBDD729C7C21F006CE9DA /* ActorProfileScreen */,
 				47BC09B729C5B3E300B8F2C5 /* ActorBuildProfileScreen */,
@@ -804,6 +826,8 @@
 				BAD0B4D529BA17130061FEF5 /* ActorHomeViewController.xib */,
 				BA6A5E1C29CCD49D0063ED13 /* ReaderCollectionViewCell.swift */,
 				BA6A5E1D29CCD49D0063ED13 /* ReaderCollectionViewCell.xib */,
+				4770CE5129D7C904009C2284 /* FilterViewController.swift */,
+				4770CE5229D7C904009C2284 /* FilterViewController.xib */,
 			);
 			path = ActorHomeScreen;
 			sourceTree = "<group>";
@@ -837,6 +861,8 @@
 				4715510029CDBF00007CE524 /* TimeSlotCollectionViewCell.xib */,
 				47B025CB29D34D8300DFECE7 /* SkillCell.swift */,
 				47B025CC29D34D8300DFECE7 /* SkillCell.xib */,
+				47F9BA8529D7006600050403 /* ReaderProfileEditHourlyRateViewController.swift */,
+				47F9BA8629D7006600050403 /* ReaderProfileEditHourlyRateViewController.xib */,
 			);
 			path = ReaderProfileScreen;
 			sourceTree = "<group>";
@@ -990,11 +1016,13 @@
 				BAD0B50429BA17130061FEF5 /* VideoViewController.xib in Resources */,
 				47BC09BB29C5B42700B8F2C5 /* ActorBuildProfile1ViewController.xib in Resources */,
 				BAD0B53329BA17130061FEF5 /* ReaderProfileEditAboutViewController.xib in Resources */,
+				4770CE5429D7C904009C2284 /* FilterViewController.xib in Resources */,
 				BA4714CA29A79856007AABC2 /* SFProDisplay-Heavy.otf in Resources */,
 				BAD0B53529BA17130061FEF5 /* SignupDetailViewController.xib in Resources */,
 				BA6A5E1F29CCD49D0063ED13 /* ReaderCollectionViewCell.xib in Resources */,
 				79262EEE20B0D6F800D576C1 /* Assets.xcassets in Resources */,
 				BAD0B53929BA17130061FEF5 /* LibraryCell.xib in Resources */,
+				471D260D29D76869003DAF0A /* ReaderBuildProfileViewController.xib in Resources */,
 				4715EAF129CA59C600437576 /* ActorBookAppointmentViewController.xib in Resources */,
 				BAD0B52229BA17130061FEF5 /* HomeViewController.xib in Resources */,
 				4772156229CE700C00319CBC /* VideoCollectionViewCell.xib in Resources */,
@@ -1028,6 +1056,7 @@
 				47B025C929D3477900DFECE7 /* lightGrayBarWithBlueStripe.png in Resources */,
 				BAD0B52D29BA17130061FEF5 /* ActorLibraryViewController.xib in Resources */,
 				47CEBDE329C7C293006CE9DA /* ActorProfileChangePasswordViewController.xib in Resources */,
+				47F9BA8829D7006600050403 /* ReaderProfileEditHourlyRateViewController.xib in Resources */,
 				BAD0B50B29BA17130061FEF5 /* MeetingListViewController.xib in Resources */,
 				BA4714C429A79856007AABC2 /* SanFranciscoText-Regular.otf in Resources */,
 				BA4714C929A79856007AABC2 /* SanFranciscoText-Bold.otf in Resources */,
@@ -1120,6 +1149,7 @@
 				4776C12B29D3F3330008A915 /* CreditCardCell.swift in Sources */,
 				BAC11B8429A8B37100580143 /* IDFileManager.m in Sources */,
 				BA3F909A29C457C200ABE966 /* PerfectSelfWebAPI.swift in Sources */,
+				4770CE5329D7C904009C2284 /* FilterViewController.swift in Sources */,
 				BAC11B8729A8B37100580143 /* IDPermissionsManager.m in Sources */,
 				BAC11B8329A8B37100580143 /* IDCaptureSessionCoordinator.m in Sources */,
 				47007BE929C2B0C000F83CFD /* ActorSetPaymentViewController.swift in Sources */,
@@ -1181,6 +1211,7 @@
 				4744C4A629D088FD00963C92 /* DateFormat.swift in Sources */,
 				47BC09BE29C5B44700B8F2C5 /* ActorBuildProfile2ViewController.swift in Sources */,
 				BAD0B50929BA17130061FEF5 /* ConferenceViewController.swift in Sources */,
+				47F9BA8729D7006600050403 /* ReaderProfileEditHourlyRateViewController.swift in Sources */,
 				47843E4329CFEB2F008704CD /* ChatCardCollectionViewCell.swift in Sources */,
 				2F7EBC3622DCC6430015B46E /* WebSocketProvider.swift in Sources */,
 				BAD0B54129BA17130061FEF5 /* LoginViewController.swift in Sources */,
@@ -1194,6 +1225,7 @@
 				BABBD2E529BF9E2E000A7120 /* ActorTabBarController.swift in Sources */,
 				BAD0B51D29BA17130061FEF5 /* VideoCompositionViewController.swift in Sources */,
 				BAC11B8629A8B37100580143 /* IDAssetWriterCoordinator.m in Sources */,
+				471D260C29D76869003DAF0A /* ReaderBuildProfileViewController.swift in Sources */,
 				2F7EBC3822DCCB4E0015B46E /* StarscreamProvider.swift in Sources */,
 				47B025A529D3361100DFECE7 /* MKAccordionView.swift in Sources */,
 				BAD0B50A29BA17130061FEF5 /* MeetingListViewController.swift in Sources */,

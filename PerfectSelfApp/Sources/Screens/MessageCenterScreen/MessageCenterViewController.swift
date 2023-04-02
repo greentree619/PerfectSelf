@@ -54,7 +54,7 @@ class MessageCenterViewController: UIViewController, UICollectionViewDataSource,
         
         // return card
         cell.layer.masksToBounds = false
-        cell.layer.shadowOffset = CGSizeZero
+        cell.layer.shadowOffset = CGSize(width: 3,height: 3)
         cell.layer.shadowRadius = 8
         cell.layer.shadowOpacity = 0.2
         cell.contentView.layer.cornerRadius = 12

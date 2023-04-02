@@ -124,7 +124,7 @@ class SignupViewController: UIViewController {
     @IBAction func SignIn(_ sender: UIButton) {
         let controller = LoginDetailViewController();
         
-        self.navigationController?.pushViewController(controller, animated: false);
+        self.navigationController?.pushViewController(controller, animated: true);
     }
     @IBAction func GoBack(_ sender: UIButton) {
         self.navigationController?.popViewController(animated: true)
