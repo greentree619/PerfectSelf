@@ -66,6 +66,12 @@ wss.on('connection', (ws) => {
     ws.onmessage = (message) => {
         const payload = JSON.parse(message.data);
         console.log("onmessage=>", payload.payload.roomId, "->", message.data + "\n");
+        if(payload.payload.sdp == "close")
+        {//
+            console.log("onmessage=>Close", "\n");
+            ws.close();
+            return;
+        }
 
         var wsRoomId = getWSRoomId(ws, WebSocket.OPEN);
         console.log("onmessage=>getWSRoomId->",  wsRoomId+"\n");
