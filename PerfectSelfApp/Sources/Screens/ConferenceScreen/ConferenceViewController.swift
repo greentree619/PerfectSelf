@@ -27,9 +27,9 @@ class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSample
     var count = 3
     var timer: Timer!
     
-    private var signalClient: SignalingClient
-    private var webRTCClient: WebRTCClient
-    private var signalingClientStatus: SignalingClientStatus
+//    private var signalClient: SignalingClient
+//    private var webRTCClient: WebRTCClient
+//    private var signalingClientStatus: SignalingClientStatus
     private var isRecording: Bool = false
     private var _filename = ""
     private var _time: Double = 0
@@ -83,9 +83,7 @@ class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSample
     }
     
     init() {
-        self.signalClient = buildSignalingClient()
-        self.webRTCClient = WebRTCClient(iceServers: signalingServerConfig.webRTCIceServers)
-        self.signalingClientStatus = SignalingClientStatus(signalClient: &self.signalClient, webRTCClient: &self.webRTCClient)
+        
         super.init(nibName: String(describing: ConferenceViewController.self), bundle: Bundle.main)
         
 //        self.signalingConnected = false
@@ -95,7 +93,7 @@ class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSample
 //        self.remoteCandidateCount = 0
         self.speakerOn = false
         
-        self.webRTCClient.delegate = self
+        PerfectSelf.webRTCClient.delegate = self
 //        self.signalClient.delegate = self
 //        self.signalClient.connect()
         uiViewContoller = self
@@ -129,8 +127,8 @@ class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSample
         lblTimer.isHidden = true
         self.userName = UserDefaults.standard.string(forKey: "USER_NAME")
         
-        self.webRTCClient.speakerOn()
-        self.signalClient.sendRoomId(roomId: self.roomUid!)
+        PerfectSelf.webRTCClient.speakerOn()
+        signalClient.sendRoomId(roomId: self.roomUid!)
         
 //        self.webRTCClient.offer { (sdp) in
 //            signalingClientStatus!.hasLocalSdp = true
@@ -161,7 +159,7 @@ class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSample
         
         //{{ Init to record video.
         let output = AVCaptureVideoDataOutput()
-        guard let capturer = self.webRTCClient.videoCapturer as? RTCCameraVideoCapturer else {
+        guard let capturer = PerfectSelf.webRTCClient.videoCapturer as? RTCCameraVideoCapturer else {
             return
         }
         capturer.captureSession.canAddOutput(output)
@@ -199,8 +197,8 @@ class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSample
         
         //}}Init to record audio
         
-        self.webRTCClient.startCaptureLocalVideo(renderer: localRenderer)
-        self.webRTCClient.renderRemoteVideo(to: remoteRenderer)
+        PerfectSelf.webRTCClient.startCaptureLocalVideo(renderer: localRenderer)
+        PerfectSelf.webRTCClient.renderRemoteVideo(to: remoteRenderer)
         
         if let localVideoView = self.localVideoView {
             self.embedView(localRenderer, into: localVideoView)
@@ -265,7 +263,7 @@ class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSample
         if(_captureState == .idle){
             //Send record cmd to other.
             let recStart: Data = "#CMD#REC#START#".data(using: .utf8)!
-            self.webRTCClient.sendData(recStart)
+            PerfectSelf.webRTCClient.sendData(recStart)
             
             self.count = 3
             self.lblTimer.text = "\(self.count)"
@@ -286,7 +284,7 @@ class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSample
         }
         else if(_captureState == .capturing){
             let recStart: Data = "#CMD#REC#END#".data(using: .utf8)!
-            self.webRTCClient.sendData(recStart)
+            PerfectSelf.webRTCClient.sendData(recStart)
             _captureState = .end
             audioRecorder?.stop()
         }
@@ -446,7 +444,7 @@ extension ConferenceViewController: WebRTCClientDelegate {
     func webRTCClient(_ client: WebRTCClient, didDiscoverLocalCandidate candidate: RTCIceCandidate) {
         print("discovered local candidate")
         //REFME self.localCandidateCount += 1
-        self.signalClient.send(candidate: candidate, roomId: self.roomUid!)
+        signalClient.send(candidate: candidate, roomId: self.roomUid!)
     }
     
     func webRTCClient(_ client: WebRTCClient, didChangeConnectionState state: RTCIceConnectionState) {

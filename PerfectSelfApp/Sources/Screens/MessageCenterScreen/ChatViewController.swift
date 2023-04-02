@@ -27,9 +27,9 @@ class ChatViewController: KUIViewController, UICollectionViewDataSource, UIColle
     var messages: [CustomMessage] = []
     let cellsPerRow = 1
     var kkk = 0
-    private var signalClient: SignalingClient
-    private var webRTCClient: WebRTCClient
-    private let signalingClientStatus: SignalingClientStatus
+//    private var signalClient: SignalingClient
+//    private var webRTCClient: WebRTCClient
+//    private let signalingClientStatus: SignalingClientStatus
     var roomUid: String?
     
     //MARK: WebRTC Conference Status
@@ -102,9 +102,7 @@ class ChatViewController: KUIViewController, UICollectionViewDataSource, UIColle
     }
     
     init() {
-        self.signalClient = buildSignalingClient()
-        self.webRTCClient = WebRTCClient(iceServers: signalingServerConfig.webRTCIceServers)
-        self.signalingClientStatus = SignalingClientStatus(signalClient: &self.signalClient, webRTCClient: &self.webRTCClient)
+
         super.init(nibName: String(describing: ChatViewController.self), bundle: Bundle.main)
         
 //        self.signalingConnected = false
@@ -114,7 +112,7 @@ class ChatViewController: KUIViewController, UICollectionViewDataSource, UIColle
 //        self.remoteCandidateCount = 0
         self.speakerOn = false
         
-        self.webRTCClient.delegate = self
+        PerfectSelf.webRTCClient.delegate = self
 //        self.signalClient.delegate = self
 //        self.signalClient.connect()
         uiViewContoller = self
@@ -137,14 +135,14 @@ class ChatViewController: KUIViewController, UICollectionViewDataSource, UIColle
         messageCollectionView.dataSource = self
         messageCollectionView.delegate = self
         
-        self.webRTCClient.speakerOn()
+        PerfectSelf.webRTCClient.speakerOn()
         
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        self.signalClient.sendRoomId(roomId: self.roomUid!)
+        signalClient.sendRoomId(roomId: self.roomUid!)
 //        self.webRTCClient.offer { (sdp) in
 //            signalingClientStatus!.hasLocalSdp = true
 //            signalingClientStatus!.roomId = self.roomUid
@@ -187,7 +185,7 @@ class ChatViewController: KUIViewController, UICollectionViewDataSource, UIColle
         // TODO: Send the message to the server or save it to local storage
         
         let recStart: Data = text.data(using: .utf8)!
-        self.webRTCClient.sendData(recStart)
+        PerfectSelf.webRTCClient.sendData(recStart)
     }
     // MARK: - Message List Delegate.
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -362,7 +360,7 @@ extension ChatViewController: WebRTCClientDelegate {
     func webRTCClient(_ client: WebRTCClient, didDiscoverLocalCandidate candidate: RTCIceCandidate) {
         print("discovered local candidate")
         //REFME self.localCandidateCount += 1
-        self.signalClient.send(candidate: candidate, roomId: self.roomUid!)
+        signalClient.send(candidate: candidate, roomId: self.roomUid!)
     }
     
     func webRTCClient(_ client: WebRTCClient, didChangeConnectionState state: RTCIceConnectionState) {
