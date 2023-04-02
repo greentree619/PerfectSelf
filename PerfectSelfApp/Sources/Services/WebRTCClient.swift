@@ -91,7 +91,6 @@ final class WebRTCClient: NSObject {
             guard let sdp = sdp else {
                 return
             }
-            
             self.peerConnection.setLocalDescription(sdp, completionHandler: { (error) in
                 completion(sdp)
             })
@@ -104,6 +103,10 @@ final class WebRTCClient: NSObject {
     
     func set(remoteCandidate: RTCIceCandidate, completion: @escaping (Error?) -> ()) {
         self.peerConnection.add(remoteCandidate, completionHandler: completion)
+    }
+    
+    func getLocalDescription() -> RTCSessionDescription{
+        return self.peerConnection.localDescription!
     }
     
     // MARK: Media

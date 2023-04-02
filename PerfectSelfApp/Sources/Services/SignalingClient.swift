@@ -180,10 +180,7 @@ final class SignalingClientStatus: NSObject, SignalClientDelegate {
             self.webRTCClient.set(remoteSdp: sdp) { (error) in
                 self.hasRemoteSdp = true
             }
-            
-            self.webRTCClient.answer { (localSdp) in
-                self.signalClient.send(sdp: localSdp, roomId: self.roomId)
-            }
+            self.signalClient.send(sdp: self.webRTCClient.getLocalDescription(), roomId: self.roomId)
         }
             
         
