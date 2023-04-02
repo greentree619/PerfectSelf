@@ -127,6 +127,10 @@ class MeetingListViewController: UIViewController {
 }
     
 extension MeetingListViewController: SignalClientDelegate {
+    func signalClient(_ signalClient: SignalingClient, didReceiveRequest roomId: String) {
+        
+    }
+    
     func signalClientDidConnect(_ signalClient: SignalingClient) {
         self.signalingConnected = true
     }

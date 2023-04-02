@@ -14,6 +14,7 @@ protocol SignalClientDelegate: AnyObject {
     func signalClientDidDisconnect(_ signalClient: SignalingClient)
     func signalClient(_ signalClient: SignalingClient, didReceiveRemoteSdp sdp: RTCSessionDescription, roomId: String)
     func signalClient(_ signalClient: SignalingClient, didReceiveCandidate candidate: RTCIceCandidate, roomId: String)
+    func signalClient(_ signalClient: SignalingClient, didReceiveRequest roomId: String)
 }
 
 final class SignalingClient {
@@ -54,6 +55,17 @@ final class SignalingClient {
             debugPrint("Warning: Could not encode candidate: \(error)")
         }
     }
+    
+    func sendRoomId(roomId: String) {
+        let message = Message.sdp(SessionDescription(from: "", roomID: roomId))
+        do {
+            let dataMessage = try self.encoder.encode(message)
+            self.webSocket.send(data: dataMessage)
+        }
+        catch {
+            debugPrint("Warning: Could not encode sdp: \(error)")
+        }
+    }
 }
 
 
@@ -86,7 +98,16 @@ extension SignalingClient: WebSocketProviderDelegate {
         case .candidate(let iceCandidate):
             self.delegate?.signalClient(self, didReceiveCandidate: iceCandidate.rtcIceCandidate, roomId: iceCandidate.roomId)
         case .sdp(let sessionDescription):
-            self.delegate?.signalClient(self, didReceiveRemoteSdp: sessionDescription.rtcSessionDescription, roomId: sessionDescription.roomId)
+            do {
+                if(sessionDescription.sdp != "")
+                {
+                    self.delegate?.signalClient(self, didReceiveRemoteSdp: sessionDescription.rtcSessionDescription, roomId: sessionDescription.roomId)
+                }
+                else
+                {
+                    self.delegate?.signalClient(self, didReceiveRequest: sessionDescription.roomId)
+                }
+            }
         }
 
     }
@@ -95,7 +116,7 @@ extension SignalingClient: WebSocketProviderDelegate {
 final class SignalingClientStatus: NSObject, SignalClientDelegate {
     private let signalClient: SignalingClient
     private let webRTCClient: WebRTCClient
-    var roomId: String = ""
+    //var roomId: String = ""
     
     public var signalingConnected: Bool = false {
         didSet {
@@ -174,24 +195,33 @@ final class SignalingClientStatus: NSObject, SignalClientDelegate {
     
     func signalClient(_ signalClient: SignalingClient, didReceiveRemoteSdp sdp: RTCSessionDescription, roomId: String) {
         print("Received remote sdp roomId=\(roomId)")
-        if (self.roomId != roomId) {return}
         
-        if (self.hasLocalSdp && !self.hasRemoteSdp){
+        if (!self.hasRemoteSdp)
+        {
             self.webRTCClient.set(remoteSdp: sdp) { (error) in
                 self.hasRemoteSdp = true
             }
-            self.signalClient.send(sdp: self.webRTCClient.getLocalDescription(), roomId: self.roomId)
         }
-            
         
+        if (!self.hasLocalSdp && self.hasRemoteSdp){
+            self.webRTCClient.answer { (localSdp) in
+                signalingClientStatus!.hasLocalSdp = true
+                self.signalClient.send(sdp: localSdp, roomId: roomId)
+            }
+        }
     }
     
     func signalClient(_ signalClient: SignalingClient, didReceiveCandidate candidate: RTCIceCandidate, roomId: String) {
-        if (self.roomId != roomId) {return}
-        
         self.webRTCClient.set(remoteCandidate: candidate) { error in
             print("Received remote candidate roomId=\(roomId)")
             self.remoteCandidateCount += 1
+        }
+    }
+    
+    func signalClient(_ signalClient: SignalingClient, didReceiveRequest roomId: String) {
+        self.webRTCClient.offer { (sdp) in
+            self.hasLocalSdp = true
+            self.signalClient.send(sdp: sdp, roomId: roomId)
         }
     }
 }

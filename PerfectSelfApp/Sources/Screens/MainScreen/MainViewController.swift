@@ -170,6 +170,10 @@ class MainViewController: UIViewController {
 }
 
 extension MainViewController: SignalClientDelegate {
+    func signalClient(_ signalClient: SignalingClient, didReceiveRequest roomId: String) {
+        
+    }
+    
     func signalClientDidConnect(_ signalClient: SignalingClient) {
         self.signalingConnected = true
     }

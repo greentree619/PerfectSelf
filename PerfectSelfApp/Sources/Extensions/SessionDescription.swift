@@ -43,6 +43,12 @@ struct SessionDescription: Codable {
         }
     }
     
+    init(from sdp: String, roomID: String) {
+        self.sdp = sdp
+        self.roomId = roomID//"123456789"
+        self.type = .offer
+    }
+    
     var rtcSessionDescription: RTCSessionDescription {
         return RTCSessionDescription(type: self.type.rtcSdpType, sdp: self.sdp)
     }
