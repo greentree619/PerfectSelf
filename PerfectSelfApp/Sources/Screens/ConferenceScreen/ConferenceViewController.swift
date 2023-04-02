@@ -474,23 +474,25 @@ extension ConferenceViewController: WebRTCClientDelegate {
         let endCmd = "#CMD#REC#END#"//String(describing: "#CMD#REC#END#".cString(using: String.Encoding.utf8))
         if(message.compare(startCmd).rawValue == 0)
         {//recording Start
-            if(_captureState == .idle){                
-                self.count = 3
-                self.lblTimer.text = "\(self.count)"
-                lblTimer.isHidden = false
-                if timer != nil {
-                    timer.invalidate()
-                }
-                timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true, block: { timer in
-                    self.count -= 1
+            if(_captureState == .idle){
+                DispatchQueue.main.async {
+                    self.count = 3
                     self.lblTimer.text = "\(self.count)"
-                    if self.count == 0 {
-                        self.lblTimer.isHidden = true
-                        timer.invalidate()
-                        self._captureState = .start
-                        self.audioRecorder?.record()
+                    self.lblTimer.isHidden = false
+                    if self.timer != nil {
+                        self.timer.invalidate()
                     }
-                })
+                    self.timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true, block: { timer in
+                        self.count -= 1
+                        self.lblTimer.text = "\(self.count)"
+                        if self.count == 0 {
+                            self.lblTimer.isHidden = true
+                            timer.invalidate()
+                            self._captureState = .start
+                            self.audioRecorder?.record()
+                        }
+                    })
+                }
             }
         }
         else if(message.compare(endCmd).rawValue == 0)
