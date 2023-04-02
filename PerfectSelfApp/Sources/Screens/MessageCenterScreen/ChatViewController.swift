@@ -137,20 +137,27 @@ class ChatViewController: KUIViewController, UICollectionViewDataSource, UIColle
         messageCollectionView.delegate = self
         
         self.webRTCClient.speakerOn()
-        if( !signalingClientStatus!.hasLocalSdp && !signalingClientStatus!.isRemoteSdp(roomId: self.roomUid))
-        {
-            self.webRTCClient.offer { (sdp) in
-                signalingClientStatus!.hasLocalSdp = true
-                self.signalClient.send(sdp: sdp, roomId: self.roomUid)
-            }
+        self.webRTCClient.offer { (sdp) in
+            signalingClientStatus!.hasLocalSdp = true
+            signalingClientStatus!.roomId = self.roomUid
+            self.signalClient.send(sdp: sdp, roomId: self.roomUid)
+            
         }
-        else if( !signalingClientStatus!.hasLocalSdp && signalingClientStatus!.isRemoteSdp(roomId: self.roomUid) )
-        {
-            self.webRTCClient.answer { (localSdp) in
-                signalingClientStatus!.hasLocalSdp = true
-                self.signalClient.send(sdp: localSdp, roomId: self.roomUid)
-            }
-        }
+        
+//        if( !signalingClientStatus!.hasLocalSdp && !signalingClientStatus!.isRemoteSdp(roomId: self.roomUid))
+//        {
+//            self.webRTCClient.offer { (sdp) in
+//                signalingClientStatus!.hasLocalSdp = true
+//                self.signalClient.send(sdp: sdp, roomId: self.roomUid)
+//            }
+//        }
+//        else if( !signalingClientStatus!.hasLocalSdp && signalingClientStatus!.isRemoteSdp(roomId: self.roomUid) )
+//        {
+//            self.webRTCClient.answer { (localSdp) in
+//                signalingClientStatus!.hasLocalSdp = true
+//                self.signalClient.send(sdp: localSdp, roomId: self.roomUid)
+//            }
+//        }
     }
 
     @IBAction func SendMessage(_ sender: UIButton) {

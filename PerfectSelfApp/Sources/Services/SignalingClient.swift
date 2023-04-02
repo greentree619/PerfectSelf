@@ -95,7 +95,7 @@ extension SignalingClient: WebSocketProviderDelegate {
 final class SignalingClientStatus: NSObject, SignalClientDelegate {
     private let signalClient: SignalingClient
     private let webRTCClient: WebRTCClient
-    var remoteSdpTable = Dictionary<String, RTCSessionDescription>()
+    var roomId: String = ""
     
     public var signalingConnected: Bool = false {
         didSet {
@@ -164,16 +164,6 @@ final class SignalingClientStatus: NSObject, SignalClientDelegate {
         self.signalClient.connect()
     }
     
-    func isRemoteSdp(roomId: String) -> Bool{
-        if(self.remoteSdpTable[roomId] != nil)
-        {
-            self.webRTCClient.set(remoteSdp: self.remoteSdpTable[roomId]!) { (error) in
-                self.hasRemoteSdp = true
-            }
-        }
-        return self.hasRemoteSdp;
-    }
-    
     func signalClientDidConnect(_ signalClient: SignalingClient) {
         self.signalingConnected = true
     }
@@ -184,10 +174,24 @@ final class SignalingClientStatus: NSObject, SignalClientDelegate {
     
     func signalClient(_ signalClient: SignalingClient, didReceiveRemoteSdp sdp: RTCSessionDescription, roomId: String) {
         print("Received remote sdp roomId=\(roomId)")
-        self.remoteSdpTable[roomId] = (sdp.copy() as! RTCSessionDescription)
+        if (self.roomId != roomId) {return}
+        
+        if (self.hasLocalSdp && !self.hasRemoteSdp){
+            self.webRTCClient.set(remoteSdp: sdp) { (error) in
+                self.hasRemoteSdp = true
+            }
+            
+            self.webRTCClient.answer { (localSdp) in
+                self.signalClient.send(sdp: localSdp, roomId: self.roomId)
+            }
+        }
+            
+        
     }
     
     func signalClient(_ signalClient: SignalingClient, didReceiveCandidate candidate: RTCIceCandidate, roomId: String) {
+        if (self.roomId != roomId) {return}
+        
         self.webRTCClient.set(remoteCandidate: candidate) { error in
             print("Received remote candidate roomId=\(roomId)")
             self.remoteCandidateCount += 1

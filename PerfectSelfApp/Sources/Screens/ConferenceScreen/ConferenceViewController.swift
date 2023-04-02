@@ -125,20 +125,26 @@ class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSample
         self.userName = UserDefaults.standard.string(forKey: "USER_NAME")
         
         self.webRTCClient.speakerOn()
-        if( !signalingClientStatus!.hasLocalSdp && !signalingClientStatus!.isRemoteSdp(roomId: self.roomUid))
-        {
-            self.webRTCClient.offer { (sdp) in
-                signalingClientStatus!.hasLocalSdp = true
-                self.signalClient.send(sdp: sdp, roomId: self.roomUid)
-            }
+        self.webRTCClient.offer { (sdp) in
+            signalingClientStatus!.hasLocalSdp = true
+            signalingClientStatus!.roomId = self.roomUid
+            self.signalClient.send(sdp: sdp, roomId: self.roomUid)
+            
         }
-        else if( !signalingClientStatus!.hasLocalSdp && signalingClientStatus!.isRemoteSdp(roomId: self.roomUid) )
-        {
-            self.webRTCClient.answer { (localSdp) in
-                signalingClientStatus!.hasLocalSdp = true
-                self.signalClient.send(sdp: localSdp, roomId: self.roomUid)
-            }
-        }
+//        if( !signalingClientStatus!.hasLocalSdp && !signalingClientStatus!.isRemoteSdp(roomId: self.roomUid))
+//        {
+//            self.webRTCClient.offer { (sdp) in
+//                signalingClientStatus!.hasLocalSdp = true
+//                self.signalClient.send(sdp: sdp, roomId: self.roomUid)
+//            }
+//        }
+//        else if( !signalingClientStatus!.hasLocalSdp && signalingClientStatus!.isRemoteSdp(roomId: self.roomUid) )
+//        {
+//            self.webRTCClient.answer { (localSdp) in
+//                signalingClientStatus!.hasLocalSdp = true
+//                self.signalClient.send(sdp: localSdp, roomId: self.roomUid)
+//            }
+//        }
         
         let localRenderer = RTCMTLVideoView(frame: self.localVideoView?.frame ?? CGRect.zero)
         let remoteRenderer = RTCMTLVideoView(frame: self.remoteCameraView.frame)
