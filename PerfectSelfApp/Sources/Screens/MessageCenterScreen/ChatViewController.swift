@@ -313,6 +313,7 @@ class ChatViewController: KUIViewController, UICollectionViewDataSource, UIColle
     @IBAction func GoBack(_ sender: UIButton) {
 //        _ = navigationController?.popViewController(animated: true)
         self.dismiss(animated: false)
+        self.signalClient.sendRoomIdClose(roomId: self.roomUid)
     }
     /*
     // MARK: - Navigation

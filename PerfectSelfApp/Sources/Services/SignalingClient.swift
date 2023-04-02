@@ -66,6 +66,17 @@ final class SignalingClient {
             debugPrint("Warning: Could not encode sdp: \(error)")
         }
     }
+    
+    func sendRoomIdClose(roomId: String) {
+        let message = Message.sdp(SessionDescription(from: "close", roomID: roomId))
+        do {
+            let dataMessage = try self.encoder.encode(message)
+            self.webSocket.send(data: dataMessage)
+        }
+        catch {
+            debugPrint("Warning: Could not encode sdp: \(error)")
+        }
+    }
 }
 
 
@@ -80,7 +91,7 @@ extension SignalingClient: WebSocketProviderDelegate {
         // try to reconnect every two seconds
         DispatchQueue.global().asyncAfter(deadline: .now() + 2) {
             debugPrint("Trying to reconnect to signaling server...")
-            self.webSocket.connect()
+            //Omitted self.webSocket.connect()
         }
     }
     

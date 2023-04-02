@@ -256,6 +256,7 @@ class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSample
         audioRecorder?.stop()
         _captureState = .end
         self.dismiss(animated: false)
+        self.signalClient.sendRoomIdClose(roomId: self.roomUid)
     }
     
     @IBAction func recordingDidTap(_ sender: UIButton) {
