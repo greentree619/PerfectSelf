@@ -27,8 +27,9 @@ class ChatViewController: KUIViewController, UICollectionViewDataSource, UIColle
     var messages: [CustomMessage] = []
     let cellsPerRow = 1
     var kkk = 0
-    private let signalClient: SignalingClient
-    private let webRTCClient: WebRTCClient
+    private var signalClient: SignalingClient
+    private var webRTCClient: WebRTCClient
+    private let signalingClientStatus: SignalingClientStatus
     private var roomUid: String
     
     //MARK: WebRTC Conference Status
@@ -100,9 +101,10 @@ class ChatViewController: KUIViewController, UICollectionViewDataSource, UIColle
         }
     }
     
-    init(signalClient: inout SignalingClient, webRTCClient: inout WebRTCClient, roomUid: String) {
-        self.signalClient = signalClient
-        self.webRTCClient = webRTCClient
+    init(roomUid: String) {
+        self.signalClient = buildSignalingClient()
+        self.webRTCClient = WebRTCClient(iceServers: signalingServerConfig.webRTCIceServers)
+        self.signalingClientStatus = SignalingClientStatus(signalClient: &self.signalClient, webRTCClient: &self.webRTCClient)
         self.roomUid = roomUid
         super.init(nibName: String(describing: ChatViewController.self), bundle: Bundle.main)
         

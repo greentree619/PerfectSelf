@@ -70,7 +70,7 @@ class MessageCenterViewController: UIViewController, UICollectionViewDataSource,
         print("didDeselectItemAt" + String(indexPath.row))
         
         let roomUid = "1234567890"//self.items[indexPath.row].roomUid
-        let controller = ChatViewController(signalClient: &signalClient!, webRTCClient: &webRTCClient!, roomUid: roomUid);
+        let controller = ChatViewController(roomUid: roomUid);
         controller.modalPresentationStyle = .fullScreen
         self.present(controller, animated: false)
 //        self.navigationController?.pushViewController(controller, animated: true);

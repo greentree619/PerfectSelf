@@ -117,8 +117,8 @@ class ReaderHomeViewController: UIViewController, UICollectionViewDataSource, UI
         cell.contentView.layer.borderWidth = 1.0
         cell.contentView.layer.borderColor = UIColor.clear.cgColor
         cell.contentView.layer.masksToBounds = true
-        cell.webRTCClient = webRTCClient
-        cell.signalClient = signalClient
+//        cell.webRTCClient = webRTCClient
+//        cell.signalClient = signalClient
         cell.navigationController = self.navigationController
         cell.parentViewController = self
         cell.roomUid = roomUid

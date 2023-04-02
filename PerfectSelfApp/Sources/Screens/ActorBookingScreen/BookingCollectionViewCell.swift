@@ -9,8 +9,8 @@
 import UIKit
 
 class BookingCollectionViewCell: UICollectionViewCell {
-    public var signalClient: SignalingClient?
-    public var webRTCClient: WebRTCClient?
+//    public var signalClient: SignalingClient?
+//    public var webRTCClient: WebRTCClient?
     public var navigationController: UINavigationController?
     public var parentViewController: UIViewController?
     public var roomUid: String?
@@ -25,13 +25,13 @@ class BookingCollectionViewCell: UICollectionViewCell {
     }
     @IBAction func JoinMeeting(_ sender: UIButton) {
         //print("join")
-        let conferenceViewController = ConferenceViewController(signalClient: &signalClient!, webRTCClient: &webRTCClient!, roomUid: self.roomUid!)
+        let conferenceViewController = ConferenceViewController(roomUid: self.roomUid!)
         conferenceViewController.modalPresentationStyle = .fullScreen
         self.parentViewController!.present(conferenceViewController, animated: false, completion: nil)
     }
     
     @IBAction func SendMessage(_ sender: UIButton) {
-        let controller = ChatViewController(signalClient: &signalClient!, webRTCClient: &webRTCClient!, roomUid: self.roomUid!)
+        let controller = ChatViewController(roomUid: self.roomUid!)
         controller.modalPresentationStyle = .fullScreen
         self.parentViewController!.present(controller, animated: false, completion: nil)
     }

@@ -34,11 +34,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //        //==
 //        let mainViewController = MeetingListViewController(signalClient: signalClient, webRTCClient: webRTCClient)
 //        //}}
-        
-        webRTCClient = WebRTCClient(iceServers: signalingServerConfig.webRTCIceServers)
-        signalClient = buildSignalingClient()
-        signalingClientStatus = SignalingClientStatus(signalClient: &signalClient!, webRTCClient: &webRTCClient!)
-        
         let mainViewController = LoginViewController()
         let navViewController = UINavigationController(rootViewController: mainViewController)
         navViewController.navigationBar.prefersLargeTitles = true

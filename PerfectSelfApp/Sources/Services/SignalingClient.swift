@@ -205,7 +205,7 @@ final class SignalingClientStatus: NSObject, SignalClientDelegate {
         
         if (!self.hasLocalSdp && self.hasRemoteSdp){
             self.webRTCClient.answer { (localSdp) in
-                signalingClientStatus!.hasLocalSdp = true
+                self.hasLocalSdp = true
                 self.signalClient.send(sdp: localSdp, roomId: roomId)
             }
         }

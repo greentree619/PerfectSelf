@@ -27,8 +27,9 @@ class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSample
     var count = 3
     var timer: Timer!
     
-    private let signalClient: SignalingClient
-    private let webRTCClient: WebRTCClient
+    private var signalClient: SignalingClient
+    private var webRTCClient: WebRTCClient
+    private let signalingClientStatus: SignalingClientStatus
     private var isRecording: Bool = false
     private var _filename = ""
     private var _time: Double = 0
@@ -81,9 +82,10 @@ class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSample
         }
     }
     
-    init(signalClient: inout SignalingClient, webRTCClient: inout WebRTCClient, roomUid: String) {
-        self.signalClient = signalClient
-        self.webRTCClient = webRTCClient
+    init(roomUid: String) {
+        self.signalClient = buildSignalingClient()
+        self.webRTCClient = WebRTCClient(iceServers: signalingServerConfig.webRTCIceServers)
+        self.signalingClientStatus = SignalingClientStatus(signalClient: &self.signalClient, webRTCClient: &self.webRTCClient)
         self.roomUid = roomUid
         super.init(nibName: String(describing: ConferenceViewController.self), bundle: Bundle.main)
         
