@@ -29,7 +29,7 @@ class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSample
     
     private var signalClient: SignalingClient
     private var webRTCClient: WebRTCClient
-    private let signalingClientStatus: SignalingClientStatus
+    private var signalingClientStatus: SignalingClientStatus
     private var isRecording: Bool = false
     private var _filename = ""
     private var _time: Double = 0
@@ -42,7 +42,7 @@ class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSample
     private var uploadCount = 0
     public var audioUrl: URL?
     private var userName: String?
-    private var roomUid: String
+    var roomUid: String?
     
     //MARK: WebRTC Conference Status
     
@@ -82,11 +82,10 @@ class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSample
         }
     }
     
-    init(roomUid: String) {
+    init() {
         self.signalClient = buildSignalingClient()
         self.webRTCClient = WebRTCClient(iceServers: signalingServerConfig.webRTCIceServers)
         self.signalingClientStatus = SignalingClientStatus(signalClient: &self.signalClient, webRTCClient: &self.webRTCClient)
-        self.roomUid = roomUid
         super.init(nibName: String(describing: ConferenceViewController.self), bundle: Bundle.main)
         
 //        self.signalingConnected = false
@@ -121,13 +120,17 @@ class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSample
     
     override func viewDidLoad() {
         super.viewDidLoad()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         
         ConferenceViewController.clearTempFolder()
         lblTimer.isHidden = true
         self.userName = UserDefaults.standard.string(forKey: "USER_NAME")
         
         self.webRTCClient.speakerOn()
-        self.signalClient.sendRoomId(roomId: self.roomUid)
+        self.signalClient.sendRoomId(roomId: self.roomUid!)
         
 //        self.webRTCClient.offer { (sdp) in
 //            signalingClientStatus!.hasLocalSdp = true
@@ -336,7 +339,7 @@ class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSample
 //                let activity = UIActivityViewController(activityItems: [url], applicationActivities: nil)
     //                    self?.present(activity, animated: true, completion: nil)
                 
-                let prefixKey = "\(getDateString())/\((uiViewContoller! as! ConferenceViewController).roomUid)/"
+                let prefixKey = "\(getDateString())/\((uiViewContoller! as! ConferenceViewController).roomUid!)/"
                 let awsUpload = AWSMultipartUpload()
                 DispatchQueue.main.async {
                     showIndicator(sender: nil, viewController: uiViewContoller!, color:UIColor.white)
@@ -443,7 +446,7 @@ extension ConferenceViewController: WebRTCClientDelegate {
     func webRTCClient(_ client: WebRTCClient, didDiscoverLocalCandidate candidate: RTCIceCandidate) {
         print("discovered local candidate")
         //REFME self.localCandidateCount += 1
-        self.signalClient.send(candidate: candidate, roomId: self.roomUid)
+        self.signalClient.send(candidate: candidate, roomId: self.roomUid!)
     }
     
     func webRTCClient(_ client: WebRTCClient, didChangeConnectionState state: RTCIceConnectionState) {
@@ -473,23 +476,28 @@ extension ConferenceViewController: WebRTCClientDelegate {
         let endCmd = "#CMD#REC#END#"//String(describing: "#CMD#REC#END#".cString(using: String.Encoding.utf8))
         if(message.compare(startCmd).rawValue == 0)
         {//recording Start
-            if(_captureState == .idle){                
+            if(_captureState == .idle){
                 self.count = 3
-                self.lblTimer.text = "\(self.count)"
-                lblTimer.isHidden = false
-                if timer != nil {
-                    timer.invalidate()
-                }
-                timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true, block: { timer in
-                    self.count -= 1
+                DispatchQueue.main.async {
                     self.lblTimer.text = "\(self.count)"
-                    if self.count == 0 {
-                        self.lblTimer.isHidden = true
-                        timer.invalidate()
-                        self._captureState = .start
-                        self.audioRecorder?.record()
+                    self.lblTimer.isHidden = false
+                    if self.timer != nil {
+                        self.timer.invalidate()
                     }
-                })
+                    
+                    self.timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true, block: { timer in
+                        self.count -= 1
+                        DispatchQueue.main.async {
+                            self.lblTimer.text = "\(self.count)"
+                            if self.count == 0 {
+                                self.lblTimer.isHidden = true
+                                timer.invalidate()
+                                self._captureState = .start
+                                self.audioRecorder?.record()
+                            }
+                        }
+                    })
+                }
             }
         }
         else if(message.compare(endCmd).rawValue == 0)

@@ -8,6 +8,7 @@
 
 import UIKit
 
+let chatController = ChatViewController();
 class MessageCenterViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
 
 //    @IBOutlet weak var scrollView: UIScrollView!
@@ -70,9 +71,9 @@ class MessageCenterViewController: UIViewController, UICollectionViewDataSource,
         print("didDeselectItemAt" + String(indexPath.row))
         
         let roomUid = "1234567890"//self.items[indexPath.row].roomUid
-        let controller = ChatViewController(roomUid: roomUid);
-        controller.modalPresentationStyle = .fullScreen
-        self.present(controller, animated: false)
+        chatController.roomUid = roomUid
+        chatController.modalPresentationStyle = .fullScreen
+        self.present(chatController, animated: false)
 //        self.navigationController?.pushViewController(controller, animated: true);
 //        let cell = collectionView.cellForItem(at: indexPath) as? LibraryCollectionViewCell
     }

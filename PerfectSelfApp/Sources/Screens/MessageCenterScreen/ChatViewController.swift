@@ -30,7 +30,7 @@ class ChatViewController: KUIViewController, UICollectionViewDataSource, UIColle
     private var signalClient: SignalingClient
     private var webRTCClient: WebRTCClient
     private let signalingClientStatus: SignalingClientStatus
-    private var roomUid: String
+    var roomUid: String?
     
     //MARK: WebRTC Conference Status
 //    private var signalingConnected: Bool = false {
@@ -101,11 +101,10 @@ class ChatViewController: KUIViewController, UICollectionViewDataSource, UIColle
         }
     }
     
-    init(roomUid: String) {
+    init() {
         self.signalClient = buildSignalingClient()
         self.webRTCClient = WebRTCClient(iceServers: signalingServerConfig.webRTCIceServers)
         self.signalingClientStatus = SignalingClientStatus(signalClient: &self.signalClient, webRTCClient: &self.webRTCClient)
-        self.roomUid = roomUid
         super.init(nibName: String(describing: ChatViewController.self), bundle: Bundle.main)
         
 //        self.signalingConnected = false
@@ -139,8 +138,13 @@ class ChatViewController: KUIViewController, UICollectionViewDataSource, UIColle
         messageCollectionView.delegate = self
         
         self.webRTCClient.speakerOn()
-        self.signalClient.sendRoomId(roomId: self.roomUid)
         
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        self.signalClient.sendRoomId(roomId: self.roomUid!)
 //        self.webRTCClient.offer { (sdp) in
 //            signalingClientStatus!.hasLocalSdp = true
 //            signalingClientStatus!.roomId = self.roomUid
@@ -358,7 +362,7 @@ extension ChatViewController: WebRTCClientDelegate {
     func webRTCClient(_ client: WebRTCClient, didDiscoverLocalCandidate candidate: RTCIceCandidate) {
         print("discovered local candidate")
         //REFME self.localCandidateCount += 1
-        self.signalClient.send(candidate: candidate, roomId: self.roomUid)
+        self.signalClient.send(candidate: candidate, roomId: self.roomUid!)
     }
     
     func webRTCClient(_ client: WebRTCClient, didChangeConnectionState state: RTCIceConnectionState) {

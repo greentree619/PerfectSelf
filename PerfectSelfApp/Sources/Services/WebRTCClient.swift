@@ -97,6 +97,11 @@ final class WebRTCClient: NSObject {
         }
     }
     
+    func close()
+    {
+        self.peerConnection.close()
+    }
+    
     func set(remoteSdp: RTCSessionDescription, completion: @escaping (Error?) -> ()) {
         self.peerConnection.setRemoteDescription(remoteSdp, completionHandler: completion)
     }

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+let conferenceViewController = ConferenceViewController()
 
 class BookingCollectionViewCell: UICollectionViewCell {
 //    public var signalClient: SignalingClient?
@@ -25,15 +26,16 @@ class BookingCollectionViewCell: UICollectionViewCell {
     }
     @IBAction func JoinMeeting(_ sender: UIButton) {
         //print("join")
-        let conferenceViewController = ConferenceViewController(roomUid: self.roomUid!)
+        conferenceViewController.roomUid = self.roomUid
         conferenceViewController.modalPresentationStyle = .fullScreen
         self.parentViewController!.present(conferenceViewController, animated: false, completion: nil)
     }
     
     @IBAction func SendMessage(_ sender: UIButton) {
-        let controller = ChatViewController(roomUid: self.roomUid!)
-        controller.modalPresentationStyle = .fullScreen
-        self.parentViewController!.present(controller, animated: false, completion: nil)
+        //Omitted let controller = ChatViewController(roomUid: self.roomUid!)
+        chatController.roomUid = self.roomUid
+        chatController.modalPresentationStyle = .fullScreen
+        self.parentViewController!.present(chatController, animated: false, completion: nil)
     }
     
     @IBAction func CancelBooking(_ sender: UIButton) {
