@@ -9,7 +9,16 @@
 import UIKit
 import RangeSeekSlider
 
-class FilterViewController: UIViewController {
+class FilterViewController: UIViewController, SelectDateDelegate {
+    func didPassData(fromDate: Date, toDate: Date) {
+        let df = DateFormatter()
+        df.dateFormat = "dd/MM/yyyy"
+        text_date_range.text = df.string(from: fromDate) + "-" + df.string(from: toDate)
+        isDateSelected = true
+        self.fromDate = fromDate
+        self.toDate = toDate
+    }
+    
     var isAvailableSoon = false
     var isOnline = true
     var is15TimeSlot = true
@@ -19,10 +28,14 @@ class FilterViewController: UIViewController {
     var isCommercialRead = true
     var isShortRead = false
     var isExtendedRead = false
+    var isDateSelected = false
+    var fromDate = Date()
+    var toDate = Date()
+    
     var parentUIViewController : UIViewController?
     
     @IBOutlet weak var sliderView: UIStackView!
-  
+    @IBOutlet weak var text_date_range: UITextField!
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -41,6 +54,17 @@ class FilterViewController: UIViewController {
           self.dismiss(animated: true);
       }
 
+    @IBAction func tapSelectAvailableDate(_ sender: UITapGestureRecognizer) {
+        let controller = DateSelectViewController()
+        controller.delegate = self
+        controller.modalPresentationStyle = .fullScreen
+        let transition = CATransition()
+        transition.duration = 0.5 // Set animation duration
+        transition.type = CATransitionType.push // Set transition type to push
+        transition.subtype = CATransitionSubtype.fromRight // Set transition subtype to from right
+        self.view.window?.layer.add(transition, forKey: kCATransition) // Add transition to window layer
+        self.present(controller, animated: false, completion: nil)
+    }
     @IBAction func ApplyFilter(_ sender: UIButton) {
         
 //        let controller = ActorFindReaderViewController()

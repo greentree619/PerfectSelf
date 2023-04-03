@@ -14,4 +14,5 @@ target 'PerfectSelf' do
   pod 'HSPopupMenu'
   pod 'RangeSeekSlider'
   pod 'IQKeyboardManagerSwift'
+  pod "Koyomi"
 end

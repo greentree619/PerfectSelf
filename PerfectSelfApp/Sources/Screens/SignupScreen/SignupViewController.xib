@@ -26,7 +26,7 @@
             <rect key="frame" x="0.0" y="0.0" width="428" height="926"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PLv-VA-Uoz">
+                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PLv-VA-Uoz">
                     <rect key="frame" x="0.0" y="47" width="428" height="845"/>
                     <subviews>
                         <stackView opaque="NO" contentMode="scaleAspectFit" preservesSuperviewLayoutMargins="YES" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="QcO-6h-1j8">
@@ -405,15 +405,7 @@
                                     <edgeInsets key="layoutMargins" top="10" left="0.0" bottom="10" right="0.0"/>
                                 </stackView>
                             </subviews>
-                            <constraints>
-                                <constraint firstAttribute="height" constant="920" id="bvw-1S-rGA" customClass="AdaptiveLayoutConstraint" customModule="PerfectSelf" customModuleProvider="target"/>
-                            </constraints>
                             <edgeInsets key="layoutMargins" top="0.0" left="20" bottom="20" right="20"/>
-                            <variation key="default">
-                                <mask key="constraints">
-                                    <exclude reference="bvw-1S-rGA"/>
-                                </mask>
-                            </variation>
                         </stackView>
                     </subviews>
                     <constraints>
