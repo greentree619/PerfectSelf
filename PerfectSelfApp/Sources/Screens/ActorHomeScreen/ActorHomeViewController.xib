@@ -15,6 +15,7 @@
                 <outlet property="greetingLabel" destination="Gjf-XO-iAc" id="XfX-dP-bag"/>
                 <outlet property="readerList" destination="JU1-QJ-Xxa" id="vCk-wb-Dww"/>
                 <outlet property="readerListFlow" destination="gkZ-Sc-3E3" id="Rsh-Vo-s8Z"/>
+                <outlet property="spin" destination="TvA-8H-NFz" id="L5c-yJ-00N"/>
                 <outlet property="view" destination="aZf-Jp-goY" id="Pcc-s1-1bQ"/>
             </connections>
         </placeholder>
@@ -337,16 +338,35 @@
                             </constraints>
                             <edgeInsets key="layoutMargins" top="0.0" left="20" bottom="0.0" right="20"/>
                         </stackView>
-                        <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="JU1-QJ-Xxa">
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kaT-Gz-mPy">
                             <rect key="frame" x="0.0" y="265" width="393" height="494"/>
+                            <subviews>
+                                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="JU1-QJ-Xxa">
+                                    <rect key="frame" x="0.0" y="0.0" width="393" height="494"/>
+                                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                    <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="20" minimumInteritemSpacing="10" id="gkZ-Sc-3E3">
+                                        <size key="itemSize" width="128" height="128"/>
+                                        <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                        <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                        <inset key="sectionInset" minX="20" minY="10" maxX="20" maxY="10"/>
+                                    </collectionViewFlowLayout>
+                                </collectionView>
+                                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="TvA-8H-NFz">
+                                    <rect key="frame" x="0.0" y="0.0" width="393" height="494"/>
+                                </activityIndicatorView>
+                            </subviews>
                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                            <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="20" minimumInteritemSpacing="10" id="gkZ-Sc-3E3">
-                                <size key="itemSize" width="128" height="128"/>
-                                <size key="headerReferenceSize" width="0.0" height="0.0"/>
-                                <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                                <inset key="sectionInset" minX="20" minY="10" maxX="20" maxY="10"/>
-                            </collectionViewFlowLayout>
-                        </collectionView>
+                            <constraints>
+                                <constraint firstItem="TvA-8H-NFz" firstAttribute="leading" secondItem="kaT-Gz-mPy" secondAttribute="leading" id="9X3-Tn-S48"/>
+                                <constraint firstAttribute="trailing" secondItem="JU1-QJ-Xxa" secondAttribute="trailing" id="9f2-XK-DgR"/>
+                                <constraint firstAttribute="trailing" secondItem="TvA-8H-NFz" secondAttribute="trailing" id="Ehx-mq-6Hy"/>
+                                <constraint firstItem="JU1-QJ-Xxa" firstAttribute="leading" secondItem="kaT-Gz-mPy" secondAttribute="leading" id="GCs-J7-unQ"/>
+                                <constraint firstAttribute="bottom" secondItem="TvA-8H-NFz" secondAttribute="bottom" id="P1O-sE-tSp"/>
+                                <constraint firstItem="JU1-QJ-Xxa" firstAttribute="top" secondItem="kaT-Gz-mPy" secondAttribute="top" id="T4m-wL-y6h"/>
+                                <constraint firstItem="TvA-8H-NFz" firstAttribute="top" secondItem="kaT-Gz-mPy" secondAttribute="top" id="vJN-Ps-lGt"/>
+                                <constraint firstAttribute="bottom" secondItem="JU1-QJ-Xxa" secondAttribute="bottom" id="yAP-UC-M5v"/>
+                            </constraints>
+                        </view>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <gestureRecognizers/>

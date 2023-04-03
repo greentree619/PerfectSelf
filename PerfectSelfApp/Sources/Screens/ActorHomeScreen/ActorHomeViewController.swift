@@ -11,29 +11,16 @@ import RangeSeekSlider
 
 class ActorHomeViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout
 {
-    
-//    @IBOutlet weak var filtermodal: UIStackView!
-    
     @IBOutlet weak var readerList: UICollectionView!
     
+    @IBOutlet weak var spin: UIActivityIndicatorView!
     @IBOutlet weak var readerListFlow: UICollectionViewFlowLayout!
-   
-    
-//    @IBOutlet weak var sliderView: UIStackView!
     @IBOutlet weak var greetingLabel: UILabel!
     let backgroundView = UIView()
     
     var isSponsored = true
     var isAvailableSoon = false
     var isTopRated = false
-//    var isOnline = true
-//    var is15TimeSlot = true
-//    var is30TimeSlot = false
-//    var is30PlusTimeSlot = false
-//    var isStandBy = false
-//    var isCommercialRead = true
-//    var isShortRead = false
-//    var isExtendedRead = false
     
     var items = [ReaderProfileCard]()
     let cellsPerRow = 1
@@ -46,17 +33,19 @@ class ActorHomeViewController: UIViewController, UICollectionViewDataSource, UIC
         readerList.dataSource = self
         readerList.delegate = self
         readerList.allowsSelection = true
-//        readerList.contentV
         // Do any additional setup after loading the view.
         let name = UserDefaults.standard.string(forKey: "USER_NAME")
         greetingLabel.text = "Hi, " + (name ?? "")
-//        filtermodal.alpha = 0;
-
-        showIndicator(sender: nil, viewController: self)
+        fetchReaderList()
+    }
+    func fetchReaderList() {
+        spin.isHidden = false
+        spin.startAnimating()
         // call API to fetch reader list
         webAPI.getAllReaders() { data, response, error in
             DispatchQueue.main.async {
-                hideIndicator(sender: nil)
+                self.spin.stopAnimating()
+                self.spin.isHidden = true
             }
             
             guard let data = data, error == nil else {
@@ -82,18 +71,7 @@ class ActorHomeViewController: UIViewController, UICollectionViewDataSource, UIC
                 }
             }
         }
-        
-        //
-//        let rangeSlider = RangeSeekSlider(frame: CGRect(x: 0, y: 0, width: sliderView.frame.width, height: sliderView.frame.height))
-//        sliderView.addSubview(rangeSlider)
-//        rangeSlider.minValue = 0
-//        rangeSlider.maxValue = 100
-//        rangeSlider.selectedMinValue = 10
-//        rangeSlider.selectedMaxValue = 30
-//        rangeSlider.step = 1
-
     }
-    
     // MARK: - Reader List Delegate.
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
          // myData is the array of items

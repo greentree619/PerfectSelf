@@ -12,6 +12,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="FilterViewController" customModule="PerfectSelf" customModuleProvider="target">
             <connections>
                 <outlet property="sliderView" destination="yo1-us-5hb" id="jpH-7M-fN0"/>
+                <outlet property="text_date_range" destination="2su-gN-dNx" id="x0Z-rp-dVF"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -21,7 +22,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="To1-dm-q2i">
-                    <rect key="frame" x="0.0" y="0.0" width="393" height="818"/>
+                    <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                     <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.5" colorSpace="calibratedRGB"/>
                     <connections>
                         <outletCollection property="gestureRecognizers" destination="08c-P5-OKN" appends="YES" id="Dyr-ze-vlv"/>
@@ -60,10 +61,10 @@
                             </constraints>
                         </stackView>
                         <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4UV-76-rIc">
-                            <rect key="frame" x="20" y="60" width="353" height="476"/>
+                            <rect key="frame" x="20" y="60" width="353" height="510"/>
                             <subviews>
                                 <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sny-q3-WTO">
-                                    <rect key="frame" x="0.0" y="0.0" width="353" height="476"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="353" height="510"/>
                                     <subviews>
                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="a1W-4S-nZO">
                                             <rect key="frame" x="0.0" y="0.0" width="353" height="540"/>
@@ -264,12 +265,13 @@
                                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="calendar" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="o4K-49-rSR">
                                                                     <rect key="frame" x="8.0000000000000018" y="9.6666666666666643" width="20.666666666666671" height="17.333333333333336"/>
                                                                 </imageView>
-                                                                <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="02/03/2023- 04/03/2023" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="2su-gN-dNx">
+                                                                <textField opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="02/03/2023- 04/03/2023" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="2su-gN-dNx">
                                                                     <rect key="frame" x="38.666666666666671" y="7.9999999999999982" width="163.66666666666663" height="20.333333333333329"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                                     <textInputTraits key="textInputTraits"/>
                                                                 </textField>
                                                             </subviews>
+                                                            <gestureRecognizers/>
                                                             <edgeInsets key="layoutMargins" top="8" left="8" bottom="8" right="8"/>
                                                             <userDefinedRuntimeAttributes>
                                                                 <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
@@ -282,6 +284,9 @@
                                                                     <color key="value" red="0.42304941950000002" green="0.62298968629999996" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 </userDefinedRuntimeAttribute>
                                                             </userDefinedRuntimeAttributes>
+                                                            <connections>
+                                                                <outletCollection property="gestureRecognizers" destination="sGe-UG-cPG" appends="YES" id="gM5-dl-dQa"/>
+                                                            </connections>
                                                         </stackView>
                                                     </subviews>
                                                     <constraints>
@@ -532,7 +537,7 @@
                             </constraints>
                         </stackView>
                         <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BxN-vy-dZ8">
-                            <rect key="frame" x="20" y="546" width="353" height="50"/>
+                            <rect key="frame" x="20" y="580" width="353" height="50"/>
                             <subviews>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="42u-9L-1U3">
                                     <rect key="frame" x="0.0" y="0.0" width="353" height="50"/>
@@ -576,6 +581,11 @@
         <tapGestureRecognizer id="08c-P5-OKN">
             <connections>
                 <action selector="tapCallback:" destination="-1" id="gS3-Tq-BLV"/>
+            </connections>
+        </tapGestureRecognizer>
+        <tapGestureRecognizer id="sGe-UG-cPG">
+            <connections>
+                <action selector="tapSelectAvailableDate:" destination="-1" id="2CS-jp-KMF"/>
             </connections>
         </tapGestureRecognizer>
     </objects>
