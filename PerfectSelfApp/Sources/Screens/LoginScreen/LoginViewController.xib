@@ -69,7 +69,7 @@
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="top" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OMI-2J-pDN">
                                     <rect key="frame" x="229" y="89.333333333333371" width="169" height="34.333333333333343"/>
-                                    <buttonConfiguration key="configuration" style="gray" title="SignUp" titleAlignment="center"/>
+                                    <buttonConfiguration key="configuration" style="gray" title="Sign Up" titleAlignment="center"/>
                                     <connections>
                                         <action selector="signup:" destination="-1" eventType="touchUpInside" id="5I7-YD-gKe"/>
                                     </connections>
