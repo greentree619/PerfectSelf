@@ -53,6 +53,41 @@
 		47BC09BF29C5B44700B8F2C5 /* ActorBuildProfile2ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 47BC09BD29C5B44700B8F2C5 /* ActorBuildProfile2ViewController.xib */; };
 		47BC09C229C5B46800B8F2C5 /* ActorBuildProfile3ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47BC09C029C5B46800B8F2C5 /* ActorBuildProfile3ViewController.swift */; };
 		47BC09C329C5B46800B8F2C5 /* ActorBuildProfile3ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 47BC09C129C5B46800B8F2C5 /* ActorBuildProfile3ViewController.xib */; };
+		47C9731529DC1DB500468E11 /* Madrigal.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 47C9731329DC1DB500468E11 /* Madrigal.ttf */; };
+		47C9731629DC1DB500468E11 /* Licencia de uso gratuito.txt in Resources */ = {isa = PBXBuildFile; fileRef = 47C9731429DC1DB500468E11 /* Licencia de uso gratuito.txt */; };
+		47C9732F29DC1E5A00468E11 /* Raleway-Italic-VariableFont_wght.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 47C9731829DC1E5A00468E11 /* Raleway-Italic-VariableFont_wght.ttf */; };
+		47C9733029DC1E5A00468E11 /* Raleway-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 47C9731A29DC1E5A00468E11 /* Raleway-BoldItalic.ttf */; };
+		47C9733129DC1E5A00468E11 /* Raleway-MediumItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 47C9731B29DC1E5A00468E11 /* Raleway-MediumItalic.ttf */; };
+		47C9733229DC1E5A00468E11 /* Raleway-ThinItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 47C9731C29DC1E5A00468E11 /* Raleway-ThinItalic.ttf */; };
+		47C9733329DC1E5A00468E11 /* Raleway-ExtraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 47C9731D29DC1E5A00468E11 /* Raleway-ExtraLight.ttf */; };
+		47C9733429DC1E5A00468E11 /* Raleway-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 47C9731E29DC1E5A00468E11 /* Raleway-Medium.ttf */; };
+		47C9733529DC1E5A00468E11 /* Raleway-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 47C9731F29DC1E5A00468E11 /* Raleway-SemiBold.ttf */; };
+		47C9733629DC1E5A00468E11 /* Raleway-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 47C9732029DC1E5A00468E11 /* Raleway-ExtraBold.ttf */; };
+		47C9733729DC1E5A00468E11 /* Raleway-ExtraBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 47C9732129DC1E5A00468E11 /* Raleway-ExtraBoldItalic.ttf */; };
+		47C9733829DC1E5A00468E11 /* Raleway-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 47C9732229DC1E5A00468E11 /* Raleway-Regular.ttf */; };
+		47C9733929DC1E5A00468E11 /* Raleway-ExtraLightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 47C9732329DC1E5A00468E11 /* Raleway-ExtraLightItalic.ttf */; };
+		47C9733A29DC1E5A00468E11 /* Raleway-SemiBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 47C9732429DC1E5A00468E11 /* Raleway-SemiBoldItalic.ttf */; };
+		47C9733B29DC1E5A00468E11 /* Raleway-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 47C9732529DC1E5A00468E11 /* Raleway-Light.ttf */; };
+		47C9733C29DC1E5A00468E11 /* Raleway-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 47C9732629DC1E5A00468E11 /* Raleway-Black.ttf */; };
+		47C9733D29DC1E5A00468E11 /* Raleway-BlackItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 47C9732729DC1E5A00468E11 /* Raleway-BlackItalic.ttf */; };
+		47C9733E29DC1E5A00468E11 /* Raleway-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 47C9732829DC1E5A00468E11 /* Raleway-LightItalic.ttf */; };
+		47C9733F29DC1E5A00468E11 /* Raleway-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 47C9732929DC1E5A00468E11 /* Raleway-Thin.ttf */; };
+		47C9734029DC1E5A00468E11 /* Raleway-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 47C9732A29DC1E5A00468E11 /* Raleway-Italic.ttf */; };
+		47C9734129DC1E5A00468E11 /* Raleway-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 47C9732B29DC1E5A00468E11 /* Raleway-Bold.ttf */; };
+		47C9734229DC1E5A00468E11 /* OFL.txt in Resources */ = {isa = PBXBuildFile; fileRef = 47C9732C29DC1E5A00468E11 /* OFL.txt */; };
+		47C9734329DC1E5A00468E11 /* Raleway-VariableFont_wght.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 47C9732D29DC1E5A00468E11 /* Raleway-VariableFont_wght.ttf */; };
+		47C9734429DC1E5A00468E11 /* README.txt in Resources */ = {isa = PBXBuildFile; fileRef = 47C9732E29DC1E5A00468E11 /* README.txt */; };
+		47C9735129DC255000468E11 /* Lato-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 47C9734629DC255000468E11 /* Lato-Italic.ttf */; };
+		47C9735229DC255000468E11 /* Lato-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 47C9734729DC255000468E11 /* Lato-LightItalic.ttf */; };
+		47C9735329DC255000468E11 /* Lato-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 47C9734829DC255000468E11 /* Lato-Thin.ttf */; };
+		47C9735429DC255000468E11 /* Lato-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 47C9734929DC255000468E11 /* Lato-Bold.ttf */; };
+		47C9735529DC255000468E11 /* Lato-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 47C9734A29DC255000468E11 /* Lato-Black.ttf */; };
+		47C9735629DC255000468E11 /* Lato-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 47C9734B29DC255000468E11 /* Lato-Regular.ttf */; };
+		47C9735729DC255000468E11 /* Lato-BlackItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 47C9734C29DC255000468E11 /* Lato-BlackItalic.ttf */; };
+		47C9735829DC255000468E11 /* OFL.txt in Resources */ = {isa = PBXBuildFile; fileRef = 47C9734D29DC255000468E11 /* OFL.txt */; };
+		47C9735929DC255000468E11 /* Lato-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 47C9734E29DC255000468E11 /* Lato-BoldItalic.ttf */; };
+		47C9735A29DC255000468E11 /* Lato-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 47C9734F29DC255000468E11 /* Lato-Light.ttf */; };
+		47C9735B29DC255000468E11 /* Lato-ThinItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 47C9735029DC255000468E11 /* Lato-ThinItalic.ttf */; };
 		47CEBDDA29C7C24C006CE9DA /* ActorProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47CEBDD829C7C24C006CE9DA /* ActorProfileViewController.swift */; };
 		47CEBDDB29C7C24C006CE9DA /* ActorProfileViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 47CEBDD929C7C24C006CE9DA /* ActorProfileViewController.xib */; };
 		47CEBDDE29C7C272006CE9DA /* ActorProfileEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47CEBDDC29C7C272006CE9DA /* ActorProfileEditViewController.swift */; };
@@ -226,6 +261,41 @@
 		47BC09BD29C5B44700B8F2C5 /* ActorBuildProfile2ViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ActorBuildProfile2ViewController.xib; sourceTree = "<group>"; };
 		47BC09C029C5B46800B8F2C5 /* ActorBuildProfile3ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActorBuildProfile3ViewController.swift; sourceTree = "<group>"; };
 		47BC09C129C5B46800B8F2C5 /* ActorBuildProfile3ViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ActorBuildProfile3ViewController.xib; sourceTree = "<group>"; };
+		47C9731329DC1DB500468E11 /* Madrigal.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Madrigal.ttf; sourceTree = "<group>"; };
+		47C9731429DC1DB500468E11 /* Licencia de uso gratuito.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Licencia de uso gratuito.txt"; sourceTree = "<group>"; };
+		47C9731829DC1E5A00468E11 /* Raleway-Italic-VariableFont_wght.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Raleway-Italic-VariableFont_wght.ttf"; sourceTree = "<group>"; };
+		47C9731A29DC1E5A00468E11 /* Raleway-BoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Raleway-BoldItalic.ttf"; sourceTree = "<group>"; };
+		47C9731B29DC1E5A00468E11 /* Raleway-MediumItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Raleway-MediumItalic.ttf"; sourceTree = "<group>"; };
+		47C9731C29DC1E5A00468E11 /* Raleway-ThinItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Raleway-ThinItalic.ttf"; sourceTree = "<group>"; };
+		47C9731D29DC1E5A00468E11 /* Raleway-ExtraLight.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Raleway-ExtraLight.ttf"; sourceTree = "<group>"; };
+		47C9731E29DC1E5A00468E11 /* Raleway-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Raleway-Medium.ttf"; sourceTree = "<group>"; };
+		47C9731F29DC1E5A00468E11 /* Raleway-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Raleway-SemiBold.ttf"; sourceTree = "<group>"; };
+		47C9732029DC1E5A00468E11 /* Raleway-ExtraBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Raleway-ExtraBold.ttf"; sourceTree = "<group>"; };
+		47C9732129DC1E5A00468E11 /* Raleway-ExtraBoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Raleway-ExtraBoldItalic.ttf"; sourceTree = "<group>"; };
+		47C9732229DC1E5A00468E11 /* Raleway-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Raleway-Regular.ttf"; sourceTree = "<group>"; };
+		47C9732329DC1E5A00468E11 /* Raleway-ExtraLightItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Raleway-ExtraLightItalic.ttf"; sourceTree = "<group>"; };
+		47C9732429DC1E5A00468E11 /* Raleway-SemiBoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Raleway-SemiBoldItalic.ttf"; sourceTree = "<group>"; };
+		47C9732529DC1E5A00468E11 /* Raleway-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Raleway-Light.ttf"; sourceTree = "<group>"; };
+		47C9732629DC1E5A00468E11 /* Raleway-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Raleway-Black.ttf"; sourceTree = "<group>"; };
+		47C9732729DC1E5A00468E11 /* Raleway-BlackItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Raleway-BlackItalic.ttf"; sourceTree = "<group>"; };
+		47C9732829DC1E5A00468E11 /* Raleway-LightItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Raleway-LightItalic.ttf"; sourceTree = "<group>"; };
+		47C9732929DC1E5A00468E11 /* Raleway-Thin.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Raleway-Thin.ttf"; sourceTree = "<group>"; };
+		47C9732A29DC1E5A00468E11 /* Raleway-Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Raleway-Italic.ttf"; sourceTree = "<group>"; };
+		47C9732B29DC1E5A00468E11 /* Raleway-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Raleway-Bold.ttf"; sourceTree = "<group>"; };
+		47C9732C29DC1E5A00468E11 /* OFL.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = OFL.txt; sourceTree = "<group>"; };
+		47C9732D29DC1E5A00468E11 /* Raleway-VariableFont_wght.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Raleway-VariableFont_wght.ttf"; sourceTree = "<group>"; };
+		47C9732E29DC1E5A00468E11 /* README.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.txt; sourceTree = "<group>"; };
+		47C9734629DC255000468E11 /* Lato-Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Italic.ttf"; sourceTree = "<group>"; };
+		47C9734729DC255000468E11 /* Lato-LightItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-LightItalic.ttf"; sourceTree = "<group>"; };
+		47C9734829DC255000468E11 /* Lato-Thin.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Thin.ttf"; sourceTree = "<group>"; };
+		47C9734929DC255000468E11 /* Lato-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Bold.ttf"; sourceTree = "<group>"; };
+		47C9734A29DC255000468E11 /* Lato-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Black.ttf"; sourceTree = "<group>"; };
+		47C9734B29DC255000468E11 /* Lato-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Regular.ttf"; sourceTree = "<group>"; };
+		47C9734C29DC255000468E11 /* Lato-BlackItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-BlackItalic.ttf"; sourceTree = "<group>"; };
+		47C9734D29DC255000468E11 /* OFL.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = OFL.txt; sourceTree = "<group>"; };
+		47C9734E29DC255000468E11 /* Lato-BoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-BoldItalic.ttf"; sourceTree = "<group>"; };
+		47C9734F29DC255000468E11 /* Lato-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Light.ttf"; sourceTree = "<group>"; };
+		47C9735029DC255000468E11 /* Lato-ThinItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-ThinItalic.ttf"; sourceTree = "<group>"; };
 		47CEBDD829C7C24C006CE9DA /* ActorProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActorProfileViewController.swift; sourceTree = "<group>"; };
 		47CEBDD929C7C24C006CE9DA /* ActorProfileViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ActorProfileViewController.xib; sourceTree = "<group>"; };
 		47CEBDDC29C7C272006CE9DA /* ActorProfileEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActorProfileEditViewController.swift; sourceTree = "<group>"; };
@@ -426,6 +496,70 @@
 			path = ActorBuildProfileScreen;
 			sourceTree = "<group>";
 		};
+		47C9731229DC1DB500468E11 /* madrigal */ = {
+			isa = PBXGroup;
+			children = (
+				47C9731329DC1DB500468E11 /* Madrigal.ttf */,
+				47C9731429DC1DB500468E11 /* Licencia de uso gratuito.txt */,
+			);
+			path = madrigal;
+			sourceTree = "<group>";
+		};
+		47C9731729DC1E5A00468E11 /* Raleway */ = {
+			isa = PBXGroup;
+			children = (
+				47C9731829DC1E5A00468E11 /* Raleway-Italic-VariableFont_wght.ttf */,
+				47C9731929DC1E5A00468E11 /* static */,
+				47C9732C29DC1E5A00468E11 /* OFL.txt */,
+				47C9732D29DC1E5A00468E11 /* Raleway-VariableFont_wght.ttf */,
+				47C9732E29DC1E5A00468E11 /* README.txt */,
+			);
+			path = Raleway;
+			sourceTree = "<group>";
+		};
+		47C9731929DC1E5A00468E11 /* static */ = {
+			isa = PBXGroup;
+			children = (
+				47C9731A29DC1E5A00468E11 /* Raleway-BoldItalic.ttf */,
+				47C9731B29DC1E5A00468E11 /* Raleway-MediumItalic.ttf */,
+				47C9731C29DC1E5A00468E11 /* Raleway-ThinItalic.ttf */,
+				47C9731D29DC1E5A00468E11 /* Raleway-ExtraLight.ttf */,
+				47C9731E29DC1E5A00468E11 /* Raleway-Medium.ttf */,
+				47C9731F29DC1E5A00468E11 /* Raleway-SemiBold.ttf */,
+				47C9732029DC1E5A00468E11 /* Raleway-ExtraBold.ttf */,
+				47C9732129DC1E5A00468E11 /* Raleway-ExtraBoldItalic.ttf */,
+				47C9732229DC1E5A00468E11 /* Raleway-Regular.ttf */,
+				47C9732329DC1E5A00468E11 /* Raleway-ExtraLightItalic.ttf */,
+				47C9732429DC1E5A00468E11 /* Raleway-SemiBoldItalic.ttf */,
+				47C9732529DC1E5A00468E11 /* Raleway-Light.ttf */,
+				47C9732629DC1E5A00468E11 /* Raleway-Black.ttf */,
+				47C9732729DC1E5A00468E11 /* Raleway-BlackItalic.ttf */,
+				47C9732829DC1E5A00468E11 /* Raleway-LightItalic.ttf */,
+				47C9732929DC1E5A00468E11 /* Raleway-Thin.ttf */,
+				47C9732A29DC1E5A00468E11 /* Raleway-Italic.ttf */,
+				47C9732B29DC1E5A00468E11 /* Raleway-Bold.ttf */,
+			);
+			path = static;
+			sourceTree = "<group>";
+		};
+		47C9734529DC255000468E11 /* Lato */ = {
+			isa = PBXGroup;
+			children = (
+				47C9734629DC255000468E11 /* Lato-Italic.ttf */,
+				47C9734729DC255000468E11 /* Lato-LightItalic.ttf */,
+				47C9734829DC255000468E11 /* Lato-Thin.ttf */,
+				47C9734929DC255000468E11 /* Lato-Bold.ttf */,
+				47C9734A29DC255000468E11 /* Lato-Black.ttf */,
+				47C9734B29DC255000468E11 /* Lato-Regular.ttf */,
+				47C9734C29DC255000468E11 /* Lato-BlackItalic.ttf */,
+				47C9734D29DC255000468E11 /* OFL.txt */,
+				47C9734E29DC255000468E11 /* Lato-BoldItalic.ttf */,
+				47C9734F29DC255000468E11 /* Lato-Light.ttf */,
+				47C9735029DC255000468E11 /* Lato-ThinItalic.ttf */,
+			);
+			path = Lato;
+			sourceTree = "<group>";
+		};
 		47CEBDD729C7C21F006CE9DA /* ActorProfileScreen */ = {
 			isa = PBXGroup;
 			children = (
@@ -577,6 +711,9 @@
 		BA4714A329A79856007AABC2 /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
+				47C9734529DC255000468E11 /* Lato */,
+				47C9731729DC1E5A00468E11 /* Raleway */,
+				47C9731229DC1DB500468E11 /* madrigal */,
 				BA4714A429A79856007AABC2 /* ABeeZee */,
 				BA4714A729A79856007AABC2 /* GTWalsheimPro */,
 				BA4714AB29A79856007AABC2 /* ProximaNova  */,
@@ -1018,33 +1155,51 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				47C9734429DC1E5A00468E11 /* README.txt in Resources */,
 				47DC851529C3815500D86E5A /* MessageCenterViewController.xib in Resources */,
 				BAD0B50429BA17130061FEF5 /* VideoViewController.xib in Resources */,
 				47BC09BB29C5B42700B8F2C5 /* ActorBuildProfile1ViewController.xib in Resources */,
 				BAD0B53329BA17130061FEF5 /* ReaderProfileEditAboutViewController.xib in Resources */,
+				47C9735329DC255000468E11 /* Lato-Thin.ttf in Resources */,
+				47C9733229DC1E5A00468E11 /* Raleway-ThinItalic.ttf in Resources */,
 				4770CE5429D7C904009C2284 /* FilterViewController.xib in Resources */,
 				BA4714CA29A79856007AABC2 /* SFProDisplay-Heavy.otf in Resources */,
 				BAD0B53529BA17130061FEF5 /* SignupDetailViewController.xib in Resources */,
+				47C9733D29DC1E5A00468E11 /* Raleway-BlackItalic.ttf in Resources */,
 				474D242029DA9EED00FD7DF0 /* DateSelectViewController.xib in Resources */,
 				BA6A5E1F29CCD49D0063ED13 /* ReaderCollectionViewCell.xib in Resources */,
+				47C9733829DC1E5A00468E11 /* Raleway-Regular.ttf in Resources */,
+				47C9733629DC1E5A00468E11 /* Raleway-ExtraBold.ttf in Resources */,
+				47C9733F29DC1E5A00468E11 /* Raleway-Thin.ttf in Resources */,
+				47C9733129DC1E5A00468E11 /* Raleway-MediumItalic.ttf in Resources */,
 				79262EEE20B0D6F800D576C1 /* Assets.xcassets in Resources */,
+				47C9733029DC1E5A00468E11 /* Raleway-BoldItalic.ttf in Resources */,
+				47C9735929DC255000468E11 /* Lato-BoldItalic.ttf in Resources */,
 				BAD0B53929BA17130061FEF5 /* LibraryCell.xib in Resources */,
 				471D260D29D76869003DAF0A /* ReaderBuildProfileViewController.xib in Resources */,
 				4715EAF129CA59C600437576 /* ActorBookAppointmentViewController.xib in Resources */,
 				BAD0B52229BA17130061FEF5 /* HomeViewController.xib in Resources */,
 				4772156229CE700C00319CBC /* VideoCollectionViewCell.xib in Resources */,
 				47BC09C329C5B46800B8F2C5 /* ActorBuildProfile3ViewController.xib in Resources */,
+				47C9734129DC1E5A00468E11 /* Raleway-Bold.ttf in Resources */,
 				472F64FD29CC0868005A427D /* ReaderProfileEditAvailabilityViewController.xib in Resources */,
+				47C9734329DC1E5A00468E11 /* Raleway-VariableFont_wght.ttf in Resources */,
+				47C9735529DC255000468E11 /* Lato-Black.ttf in Resources */,
 				BA4714BC29A79856007AABC2 /* GTWalsheimPro-Medium.ttf in Resources */,
 				47B025CE29D34D8300DFECE7 /* SkillCell.xib in Resources */,
+				47C9733429DC1E5A00468E11 /* Raleway-Medium.ttf in Resources */,
 				BAD0B52829BA17130061FEF5 /* ActorHomeViewController.xib in Resources */,
 				BA4714C729A79856007AABC2 /* SF-Pro-Display-Bold.otf in Resources */,
+				47C9733729DC1E5A00468E11 /* Raleway-ExtraBoldItalic.ttf in Resources */,
 				47B025C829D3477900DFECE7 /* open.png in Resources */,
 				4776C12C29D3F3330008A915 /* CreditCardCell.xib in Resources */,
+				47C9733329DC1E5A00468E11 /* Raleway-ExtraLight.ttf in Resources */,
 				47CEBDDF29C7C272006CE9DA /* ActorProfileEditViewController.xib in Resources */,
+				47C9733929DC1E5A00468E11 /* Raleway-ExtraLightItalic.ttf in Resources */,
 				BAD0B50C29BA17130061FEF5 /* ProjectViewController.xib in Resources */,
 				BAD0B53029BA17130061FEF5 /* ActorReaderDetailViewController.xib in Resources */,
 				BAD0B52629BA17130061FEF5 /* ActorBookUploadScriptViewController.xib in Resources */,
+				47C9732F29DC1E5A00468E11 /* Raleway-Italic-VariableFont_wght.ttf in Resources */,
 				47B025C729D3477900DFECE7 /* grayBarSelected.png in Resources */,
 				BAD0B51329BA17130061FEF5 /* SignupViewController.xib in Resources */,
 				47007BEA29C2B0C000F83CFD /* ActorSetPaymentViewController.xib in Resources */,
@@ -1052,13 +1207,20 @@
 				47B025CA29D3477900DFECE7 /* close.png in Resources */,
 				BAD0B51729BA17130061FEF5 /* AvaliableAudioInputsViewController.xib in Resources */,
 				BA4714C829A79856007AABC2 /* SF-Pro-Display-Heavy.otf in Resources */,
+				47C9734029DC1E5A00468E11 /* Raleway-Italic.ttf in Resources */,
 				BA4714CB29A79856007AABC2 /* SanFranciscoDisplay-Regular.otf in Resources */,
 				BA4714BD29A79856007AABC2 /* GTWalsheimPro-Regular.ttf in Resources */,
 				BA4714BE29A79856007AABC2 /* GTWalsheimPro-Bold.ttf in Resources */,
 				BA4714C329A79856007AABC2 /* SFProText-Regular.otf in Resources */,
+				47C9735129DC255000468E11 /* Lato-Italic.ttf in Resources */,
 				BAD0B52F29BA17130061FEF5 /* ReaderProfileViewController.xib in Resources */,
+				47C9733C29DC1E5A00468E11 /* Raleway-Black.ttf in Resources */,
 				47B025C629D3477900DFECE7 /* grayBar.png in Resources */,
+				47C9735429DC255000468E11 /* Lato-Bold.ttf in Resources */,
 				BAD0B52529BA17130061FEF5 /* EditReadViewController.xib in Resources */,
+				47C9731529DC1DB500468E11 /* Madrigal.ttf in Resources */,
+				47C9735829DC255000468E11 /* OFL.txt in Resources */,
+				47C9731629DC1DB500468E11 /* Licencia de uso gratuito.txt in Resources */,
 				BAD0B53C29BA17130061FEF5 /* ChatViewController.xib in Resources */,
 				47B025C929D3477900DFECE7 /* lightGrayBarWithBlueStripe.png in Resources */,
 				BAD0B52D29BA17130061FEF5 /* ActorLibraryViewController.xib in Resources */,
@@ -1067,21 +1229,27 @@
 				BAD0B50B29BA17130061FEF5 /* MeetingListViewController.xib in Resources */,
 				BA4714C429A79856007AABC2 /* SanFranciscoText-Regular.otf in Resources */,
 				BA4714C929A79856007AABC2 /* SanFranciscoText-Bold.otf in Resources */,
+				47C9733B29DC1E5A00468E11 /* Raleway-Light.ttf in Resources */,
 				BAD0B51629BA17130061FEF5 /* VideoCompositionViewController.xib in Resources */,
 				BABBD2E629BF9E2E000A7120 /* ActorTabBarController.xib in Resources */,
 				BAD0B53E29BA17130061FEF5 /* ReaderHomeViewController.xib in Resources */,
 				BA4714C529A79856007AABC2 /* SFProText-Semibold.otf in Resources */,
 				BAD0B53629BA17130061FEF5 /* LibraryViewController.xib in Resources */,
 				47CEBDDB29C7C24C006CE9DA /* ActorProfileViewController.xib in Resources */,
+				47C9735229DC255000468E11 /* Lato-LightItalic.ttf in Resources */,
 				BA4714BB29A79856007AABC2 /* ABeeZee-Regular.ttf in Resources */,
 				BA4714BF29A79856007AABC2 /* ProximaNova-Semibold.otf in Resources */,
+				47C9733529DC1E5A00468E11 /* Raleway-SemiBold.ttf in Resources */,
 				BA4714C029A79856007AABC2 /* ProximaNova-Bold.otf in Resources */,
 				BAD0B51929BA17130061FEF5 /* OverlayViewController.xib in Resources */,
 				BAD0B51929BA17130061FEF5 /* OverlayViewController.xib in Resources */,
 				47B65BDF29D173F700B3FD20 /* MessageCell.xib in Resources */,
+				47C9733E29DC1E5A00468E11 /* Raleway-LightItalic.ttf in Resources */,
 				47D4F80A29CBD8B600AFC4BA /* ReaderBookingViewController.xib in Resources */,
 				BA4714BA29A79856007AABC2 /* ABeeZee-Italic.ttf in Resources */,
 				BA4714C129A79856007AABC2 /* ProximaNova-Extrabold.otf in Resources */,
+				47C9735629DC255000468E11 /* Lato-Regular.ttf in Resources */,
+				47C9735729DC255000468E11 /* Lato-BlackItalic.ttf in Resources */,
 				BA4714C229A79856007AABC2 /* ProximaNova-Regular.otf in Resources */,
 				47BC09BF29C5B44700B8F2C5 /* ActorBuildProfile2ViewController.xib in Resources */,
 				BAD0B50829BA17130061FEF5 /* ConferenceViewController.xib in Resources */,
@@ -1090,9 +1258,13 @@
 				4715510229CDBF00007CE524 /* TimeSlotCollectionViewCell.xib in Resources */,
 				BAD0B50129BA17130061FEF5 /* ActorBookConfirmationViewController.xib in Resources */,
 				47843E4429CFEB2F008704CD /* ChatCardCollectionViewCell.xib in Resources */,
+				47C9735B29DC255000468E11 /* Lato-ThinItalic.ttf in Resources */,
 				BAD0B50329BA17130061FEF5 /* LoginDetailViewController.xib in Resources */,
 				BAD0B54029BA17130061FEF5 /* LoginViewController.xib in Resources */,
+				47C9733A29DC1E5A00468E11 /* Raleway-SemiBoldItalic.ttf in Resources */,
+				47C9734229DC1E5A00468E11 /* OFL.txt in Resources */,
 				BAD0B51429BA17130061FEF5 /* ReaderProfileEditSkillViewController.xib in Resources */,
+				47C9735A29DC255000468E11 /* Lato-Light.ttf in Resources */,
 				BA4714C629A79856007AABC2 /* SF-Pro-Display-Regular.otf in Resources */,
 				BAD0B54229BA17130061FEF5 /* ReaderProfileEditPersonalInfoViewController.xib in Resources */,
 				798FBA492200F9A9009F525E /* LaunchScreen.storyboard in Resources */,
