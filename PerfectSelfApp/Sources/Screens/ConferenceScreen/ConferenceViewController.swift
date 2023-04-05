@@ -334,50 +334,53 @@ class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSample
                 self?._assetWriter = nil
                 self?._assetWriterInput = nil
                 
-//                let activity = UIActivityViewController(activityItems: [url], applicationActivities: nil)
-    //                    self?.present(activity, animated: true, completion: nil)
-                
-                let prefixKey = "\(getDateString())/\((uiViewContoller! as! ConferenceViewController).roomUid)/"
-                let awsUpload = AWSMultipartUpload()
-                DispatchQueue.main.async {
-                    showIndicator(sender: nil, viewController: uiViewContoller!, color:UIColor.white)
-                    Toast.show(message: "Start to upload record files", controller: uiViewContoller!)
-                }
-                
-                //Upload audio at first
-                awsUpload.multipartUpload(filePath: (uiViewContoller! as! ConferenceViewController).audioUrl!, prefixKey: prefixKey){ (error: Error?) -> Void in
-                    if(error == nil)
-                    {//Then Upload video
-                        awsUpload.multipartUpload(filePath: url, prefixKey: prefixKey){ error -> Void in
-                            if(error == nil)
-                            {
-                                DispatchQueue.main.async {
-                                    hideIndicator(sender: nil)
-                                    Toast.show(message: "Completed to upload record files", controller: uiViewContoller!)
+                DispatchQueue.global(qos: .userInitiated).async {
+                    
+    //                let activity = UIActivityViewController(activityItems: [url], applicationActivities: nil)
+        //                    self?.present(activity, animated: true, completion: nil)
+                    
+                    let prefixKey = "\(getDateString())/\((uiViewContoller! as! ConferenceViewController).roomUid)/"
+                    let awsUpload = AWSMultipartUpload()
+                    DispatchQueue.main.async {
+                        showIndicator(sender: nil, viewController: uiViewContoller!, color:UIColor.white)
+                        Toast.show(message: "Start to upload record files", controller: uiViewContoller!)
+                    }
+                    
+                    //Upload audio at first
+                    awsUpload.multipartUpload(filePath: (uiViewContoller! as! ConferenceViewController).audioUrl!, prefixKey: prefixKey){ (error: Error?) -> Void in
+                        if(error == nil)
+                        {//Then Upload video
+                            awsUpload.multipartUpload(filePath: url, prefixKey: prefixKey){ error -> Void in
+                                if(error == nil)
+                                {
+                                    DispatchQueue.main.async {
+                                        hideIndicator(sender: nil)
+                                        Toast.show(message: "Completed to upload record files", controller: uiViewContoller!)
+                                    }
+            
+                                    let uid = UserDefaults.standard.string(forKey: "USER_ID")
+                                    webAPI.addLibrary(uid: uid!, tapeName: "tapeName", bucketName: "video-client-upload-123456798", tapeKey: "\(prefixKey)\((uiViewContoller! as! ConferenceViewController).userName!)\((uiViewContoller! as! ConferenceViewController).uploadCount)")
+                                    ConferenceViewController.clearTempFolder()
+                                    (uiViewContoller! as! ConferenceViewController).uploadCount += 1
                                 }
-        
-                                let uid = UserDefaults.standard.string(forKey: "USER_ID")
-                                webAPI.addLibrary(uid: uid!, tapeName: "tapeName", bucketName: "video-client-upload-123456798", tapeKey: "\(prefixKey)\((uiViewContoller! as! ConferenceViewController).userName!)\((uiViewContoller! as! ConferenceViewController).uploadCount)")
-                                ConferenceViewController.clearTempFolder()
-                                (uiViewContoller! as! ConferenceViewController).uploadCount += 1
-                            }
-                            else
-                            {
-                                DispatchQueue.main.async {
-                                    hideIndicator(sender: nil)
-                                    Toast.show(message: "Failed to upload record files", controller: uiViewContoller!)
+                                else
+                                {
+                                    DispatchQueue.main.async {
+                                        hideIndicator(sender: nil)
+                                        Toast.show(message: "Failed to upload record files", controller: uiViewContoller!)
+                                    }
                                 }
                             }
                         }
-                    }
-                    else
-                    {
-                        DispatchQueue.main.async {
-                            hideIndicator(sender: nil)
-                            Toast.show(message: "Failed to upload record files", controller: uiViewContoller!)
+                        else
+                        {
+                            DispatchQueue.main.async {
+                                hideIndicator(sender: nil)
+                                Toast.show(message: "Failed to upload record files", controller: uiViewContoller!)
+                            }
                         }
                     }
-                }
+                }//DispatchQueue.global
             }
             break
         default:
