@@ -74,7 +74,6 @@
 		47C9733F29DC1E5A00468E11 /* Raleway-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 47C9732929DC1E5A00468E11 /* Raleway-Thin.ttf */; };
 		47C9734029DC1E5A00468E11 /* Raleway-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 47C9732A29DC1E5A00468E11 /* Raleway-Italic.ttf */; };
 		47C9734129DC1E5A00468E11 /* Raleway-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 47C9732B29DC1E5A00468E11 /* Raleway-Bold.ttf */; };
-		47C9734229DC1E5A00468E11 /* OFL.txt in Resources */ = {isa = PBXBuildFile; fileRef = 47C9732C29DC1E5A00468E11 /* OFL.txt */; };
 		47C9734329DC1E5A00468E11 /* Raleway-VariableFont_wght.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 47C9732D29DC1E5A00468E11 /* Raleway-VariableFont_wght.ttf */; };
 		47C9734429DC1E5A00468E11 /* README.txt in Resources */ = {isa = PBXBuildFile; fileRef = 47C9732E29DC1E5A00468E11 /* README.txt */; };
 		47C9735129DC255000468E11 /* Lato-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 47C9734629DC255000468E11 /* Lato-Italic.ttf */; };
@@ -282,7 +281,6 @@
 		47C9732929DC1E5A00468E11 /* Raleway-Thin.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Raleway-Thin.ttf"; sourceTree = "<group>"; };
 		47C9732A29DC1E5A00468E11 /* Raleway-Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Raleway-Italic.ttf"; sourceTree = "<group>"; };
 		47C9732B29DC1E5A00468E11 /* Raleway-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Raleway-Bold.ttf"; sourceTree = "<group>"; };
-		47C9732C29DC1E5A00468E11 /* OFL.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = OFL.txt; sourceTree = "<group>"; };
 		47C9732D29DC1E5A00468E11 /* Raleway-VariableFont_wght.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Raleway-VariableFont_wght.ttf"; sourceTree = "<group>"; };
 		47C9732E29DC1E5A00468E11 /* README.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.txt; sourceTree = "<group>"; };
 		47C9734629DC255000468E11 /* Lato-Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Italic.ttf"; sourceTree = "<group>"; };
@@ -510,7 +508,6 @@
 			children = (
 				47C9731829DC1E5A00468E11 /* Raleway-Italic-VariableFont_wght.ttf */,
 				47C9731929DC1E5A00468E11 /* static */,
-				47C9732C29DC1E5A00468E11 /* OFL.txt */,
 				47C9732D29DC1E5A00468E11 /* Raleway-VariableFont_wght.ttf */,
 				47C9732E29DC1E5A00468E11 /* README.txt */,
 			);
@@ -1262,7 +1259,6 @@
 				BAD0B50329BA17130061FEF5 /* LoginDetailViewController.xib in Resources */,
 				BAD0B54029BA17130061FEF5 /* LoginViewController.xib in Resources */,
 				47C9733A29DC1E5A00468E11 /* Raleway-SemiBoldItalic.ttf in Resources */,
-				47C9734229DC1E5A00468E11 /* OFL.txt in Resources */,
 				BAD0B51429BA17130061FEF5 /* ReaderProfileEditSkillViewController.xib in Resources */,
 				47C9735A29DC255000468E11 /* Lato-Light.ttf in Resources */,
 				BA4714C629A79856007AABC2 /* SF-Pro-Display-Regular.otf in Resources */,
