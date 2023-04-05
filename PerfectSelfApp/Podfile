@@ -15,4 +15,5 @@ target 'PerfectSelf' do
   pod 'RangeSeekSlider'
   pod 'IQKeyboardManagerSwift'
   pod "Koyomi"
+  pod 'skpsmtpmessage'
 end

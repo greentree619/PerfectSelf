@@ -7,10 +7,9 @@
 //
 
 import UIKit
+import skpsmtpmessage
 
 class ActorBookingViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
-
-    
     @IBOutlet weak var btn_upcoming: UIButton!
     @IBOutlet weak var btn_past: UIButton!
     @IBOutlet weak var btn_pending: UIButton!
@@ -40,6 +39,47 @@ class ActorBookingViewController: UIViewController, UICollectionViewDataSource, 
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true);
+        
+        //{{
+        print("Start Sending");
+        MailSender.shared.sendEmail(toEmail: "maximenkoe2020@gmail.com"
+                                    , fromEmail: "greentree619@outlook.com"
+                                    , subject:  "test"
+                                    , body: "email")
+        
+//        let emailMessage: SKPSMTPMessage = SKPSMTPMessage()
+//        emailMessage.fromEmail = "reader@outlook.com"//sender email address
+//        emailMessage.toEmail = "greentree619@outlook.com"  //receiver email address
+//        emailMessage.relayHost = "smtp.gmail.com"
+//        emailMessage.relayPorts = [587]
+//        //emailMessage.ccEmail =@"your cc address"
+//        //emailMessage.bccEmail =@"your bcc address"
+//        emailMessage.requiresAuth = true
+//        emailMessage.login = "maximenkoe2020@gmail.com" //sender email address
+//        emailMessage.pass = "Maximenkoe=@2020!" //sender email password
+//        emailMessage.subject = "email subject header message"
+//        emailMessage.wantsSecure = true
+//        emailMessage.delegate = self // you must include <SKPSMTPMessageDelegate> to your class
+//        let messageBody: String = "your email body message";
+//                 //for example :   NSString *messageBody = [NSString stringWithFormat:@"Tour Name: %@\nName: %@\nEmail: %@\nContact No: %@\nAddress: %@\nNote: %@",selectedTour,nameField.text,emailField.text,foneField.text,addField.text,txtView.text];
+//              // Now creating plain text email message
+//        let plainMsg : [String: String] = [
+//            kSKPSMTPPartContentTypeKey:  "text/plain",
+//            kSKPSMTPPartMessageKey:  messageBody,
+//            kSKPSMTPPartContentTransferEncodingKey:  "8bit"
+//        ]
+//
+//        emailMessage.parts = Array( plainMsg )
+//                    //in addition : Logic for attaching file with email message.
+//                 /*
+//            NSString *filePath = [[NSBundle mainBundle] pathForResource:@"filename" ofType:@"JPG"];
+//            NSData *fileData = [NSData dataWithContentsOfFile:filePath];
+//            NSDictionary *fileMsg = [NSDictionary dictionaryWithObjectsAndKeys:@"text/directory;\r\n\tx-
+//        unix-mode=0644;\r\n\tname=\"filename.JPG\"",kSKPSMTPPartContentTypeKey,@"attachment;\r\n\tfilename=\"filename.JPG\"",kSKPSMTPPartContentDispositionKey,[fileData encodeBase64ForData],kSKPSMTPPartMessageKey,@"base64",kSKPSMTPPartContentTransferEncodingKey,nil];
+//          emailMessage.parts = [NSArray arrayWithObjects:plainMsg,fileMsg,nil]; //including plain msg and attached file msg
+//                    */
+//        emailMessage.send()
+        //}}
         
        //call API to fetch booking list
        showIndicator(sender: nil, viewController: self)
@@ -169,5 +209,4 @@ class ActorBookingViewController: UIViewController, UICollectionViewDataSource, 
         // Pass the selected object to the new view controller.
     }
     */
-
 }
