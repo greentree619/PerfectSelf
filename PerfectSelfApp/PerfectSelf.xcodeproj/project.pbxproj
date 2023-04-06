@@ -29,6 +29,8 @@
 		474D242029DA9EED00FD7DF0 /* DateSelectViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 474D241E29DA9EED00FD7DF0 /* DateSelectViewController.xib */; };
 		475269BB29CD0F930094C3E9 /* BookingCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 475269B929CD0F930094C3E9 /* BookingCollectionViewCell.swift */; };
 		475269BC29CD0F930094C3E9 /* BookingCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 475269BA29CD0F930094C3E9 /* BookingCollectionViewCell.xib */; };
+		475ECFF629DEF3E2004AED9A /* SortViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 475ECFF429DEF3E2004AED9A /* SortViewController.swift */; };
+		475ECFF729DEF3E2004AED9A /* SortViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 475ECFF529DEF3E2004AED9A /* SortViewController.xib */; };
 		4770CE5329D7C904009C2284 /* FilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4770CE5129D7C904009C2284 /* FilterViewController.swift */; };
 		4770CE5429D7C904009C2284 /* FilterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4770CE5229D7C904009C2284 /* FilterViewController.xib */; };
 		4772156129CE700C00319CBC /* VideoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4772155F29CE700C00319CBC /* VideoCollectionViewCell.swift */; };
@@ -236,6 +238,8 @@
 		474D241E29DA9EED00FD7DF0 /* DateSelectViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DateSelectViewController.xib; sourceTree = "<group>"; };
 		475269B929CD0F930094C3E9 /* BookingCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookingCollectionViewCell.swift; sourceTree = "<group>"; };
 		475269BA29CD0F930094C3E9 /* BookingCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BookingCollectionViewCell.xib; sourceTree = "<group>"; };
+		475ECFF429DEF3E2004AED9A /* SortViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortViewController.swift; sourceTree = "<group>"; };
+		475ECFF529DEF3E2004AED9A /* SortViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SortViewController.xib; sourceTree = "<group>"; };
 		4770CE5129D7C904009C2284 /* FilterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterViewController.swift; sourceTree = "<group>"; };
 		4770CE5229D7C904009C2284 /* FilterViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FilterViewController.xib; sourceTree = "<group>"; };
 		4772155F29CE700C00319CBC /* VideoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -1041,6 +1045,8 @@
 			children = (
 				BAD0B4EF29BA17130061FEF5 /* ActorFindReaderViewController.xib */,
 				BAD0B4F029BA17130061FEF5 /* ActorFindReaderViewController.swift */,
+				475ECFF429DEF3E2004AED9A /* SortViewController.swift */,
+				475ECFF529DEF3E2004AED9A /* SortViewController.xib */,
 			);
 			path = ActorFindReaderScreen;
 			sourceTree = "<group>";
@@ -1256,6 +1262,7 @@
 				BAD0B50129BA17130061FEF5 /* ActorBookConfirmationViewController.xib in Resources */,
 				47843E4429CFEB2F008704CD /* ChatCardCollectionViewCell.xib in Resources */,
 				47C9735B29DC255000468E11 /* Lato-ThinItalic.ttf in Resources */,
+				475ECFF729DEF3E2004AED9A /* SortViewController.xib in Resources */,
 				BAD0B50329BA17130061FEF5 /* LoginDetailViewController.xib in Resources */,
 				BAD0B54029BA17130061FEF5 /* LoginViewController.xib in Resources */,
 				47C9733A29DC1E5A00468E11 /* Raleway-SemiBoldItalic.ttf in Resources */,
@@ -1391,6 +1398,7 @@
 				47843E4329CFEB2F008704CD /* ChatCardCollectionViewCell.swift in Sources */,
 				2F7EBC3622DCC6430015B46E /* WebSocketProvider.swift in Sources */,
 				BAD0B54129BA17130061FEF5 /* LoginViewController.swift in Sources */,
+				475ECFF629DEF3E2004AED9A /* SortViewController.swift in Sources */,
 				BAD5C85129AEE09F00A2F109 /* VideoHelper.swift in Sources */,
 				79177C9720B0DE7A00BCD399 /* WebRTCClient.swift in Sources */,
 				BA6A5E1E29CCD49D0063ED13 /* ReaderCollectionViewCell.swift in Sources */,

@@ -10,6 +10,7 @@ import UIKit
 
 class LoginViewController: UIViewController {
 
+    @IBOutlet weak var lbl_version: UILabel!
     @IBAction func login(_ sender: UIButton) {
         let controller = LoginDetailViewController()
         self.navigationController?.pushViewController(controller, animated: true)
@@ -24,6 +25,11 @@ class LoginViewController: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        if let version = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String,
+           let build = Bundle.main.object(forInfoDictionaryKey: kCFBundleVersionKey as String) as? String {
+            lbl_version.text = "version \(version).\(build)"
+        }
+
     }
 
 

@@ -25,6 +25,7 @@
                 <outlet property="reader_title" destination="GgS-XK-ALA" id="wZA-RN-tfq"/>
                 <outlet property="timeslotList" destination="lrr-Jz-8iq" id="Om0-Id-gt7"/>
                 <outlet property="view" destination="o1W-e2-d2S" id="u1b-HY-jdm"/>
+                <outlet property="view_container" destination="FtS-5u-tFX" id="GPT-Cj-zPj"/>
                 <outlet property="view_overview" destination="wlp-U6-Std" id="3Cl-4Z-D3J"/>
                 <outlet property="view_review" destination="5wd-Y6-vSC" id="Mt9-EA-KGc"/>
                 <outlet property="view_videointro" destination="SKv-jM-ZL0" id="Ebh-mq-cyu"/>
