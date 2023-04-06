@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21225" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21207"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -191,7 +191,7 @@
                     </userDefinedRuntimeAttributes>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Lb7-Ge-vfZ" userLabel="recycle">
-                    <rect key="frame" x="337" y="324" width="36" height="36"/>
+                    <rect key="frame" x="337" y="274" width="36" height="36"/>
                     <subviews>
                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="button-circle-bg2" translatesAutoresizingMaskIntoConstraints="NO" id="mZr-Bs-fJ3">
                             <rect key="frame" x="0.0" y="0.0" width="36" height="36"/>
@@ -245,14 +245,18 @@
                 <constraint firstItem="5Kf-yP-EPd" firstAttribute="width" secondItem="bTx-jD-fRI" secondAttribute="width" id="bPJ-iD-pBj"/>
                 <constraint firstItem="HWB-Y9-ZdC" firstAttribute="trailing" secondItem="zD4-LN-r71" secondAttribute="trailing" constant="20" id="bfC-VB-gfy"/>
                 <constraint firstItem="HWB-Y9-ZdC" firstAttribute="trailing" secondItem="fnp-5V-gTt" secondAttribute="trailing" constant="20" id="dlJ-6w-dLL"/>
-                <constraint firstItem="tG5-98-nPm" firstAttribute="top" secondItem="zD4-LN-r71" secondAttribute="bottom" constant="14" id="dyb-jE-nF8"/>
                 <constraint firstItem="zD4-LN-r71" firstAttribute="top" secondItem="LiK-78-fBX" secondAttribute="bottom" constant="17" id="e8N-UL-CTa"/>
                 <constraint firstItem="bTx-jD-fRI" firstAttribute="leading" secondItem="HWB-Y9-ZdC" secondAttribute="leading" constant="20" id="gRs-w4-Ea9"/>
                 <constraint firstItem="fnp-5V-gTt" firstAttribute="leading" secondItem="HWB-Y9-ZdC" secondAttribute="leading" constant="20" id="jkH-gK-Uxc"/>
                 <constraint firstItem="HWB-Y9-ZdC" firstAttribute="bottom" secondItem="bTx-jD-fRI" secondAttribute="bottom" constant="27" id="kQe-zD-s8c"/>
-                <constraint firstItem="Lb7-Ge-vfZ" firstAttribute="top" secondItem="tG5-98-nPm" secondAttribute="bottom" constant="14" id="nGA-C1-3iW"/>
+                <constraint firstItem="Lb7-Ge-vfZ" firstAttribute="top" secondItem="zD4-LN-r71" secondAttribute="bottom" constant="14" id="nGA-C1-3iW"/>
                 <constraint firstItem="r2M-Xa-QWH" firstAttribute="trailing" secondItem="HWB-Y9-ZdC" secondAttribute="trailing" id="xG2-gH-aLo"/>
             </constraints>
+            <variation key="default">
+                <mask key="subviews">
+                    <exclude reference="tG5-98-nPm"/>
+                </mask>
+            </variation>
             <point key="canvasLocation" x="-1" y="-12"/>
         </view>
     </objects>
