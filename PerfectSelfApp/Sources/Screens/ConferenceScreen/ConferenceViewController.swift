@@ -17,15 +17,19 @@ enum PipelineMode
     case PipelineModeAssetWriter
 }// internal state machine
 
-class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDelegate, AVAudioRecorderDelegate   {
+class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDelegate, AVAudioRecorderDelegate {
     
     @IBOutlet weak var localVideoView: UIView!
     
+    @IBOutlet weak var timeSelect: UIPickerView!
     @IBOutlet weak var recordButton: UIButton!
     @IBOutlet weak var remoteCameraView: UIView!
     @IBOutlet var lblTimer: UILabel!
+        @IBOutlet weak var timeSelectCtrl: UIPickerView!
+    @IBOutlet weak var timeSelectPannel: UIView!
     var count = 3
     var timer: Timer!
+    var selectedCount = 3
     
     private var signalClient: SignalingClient
     private var webRTCClient: WebRTCClient
@@ -43,6 +47,8 @@ class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSample
     public var audioUrl: URL?
     private var userName: String?
     private var roomUid: String
+    
+    private var waitSecKey: String = "REC_WAIT_SEC"
     
     //MARK: WebRTC Conference Status
     
@@ -100,6 +106,10 @@ class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSample
 //        self.signalClient.delegate = self
 //        self.signalClient.connect()
         uiViewContoller = self
+        
+        let waitSec = UserDefaults.standard.integer(forKey: self.waitSecKey)
+        count = waitSec == 0 ? 3 : waitSec
+        selectedCount = count
     }
     
     @available(*, unavailable)
@@ -126,6 +136,8 @@ class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSample
         lblTimer.isHidden = true
         self.userName = UserDefaults.standard.string(forKey: "USER_NAME")
         
+        self.timeSelect.delegate = self
+        self.timeSelect.dataSource = self
         self.webRTCClient.speakerOn()
         self.signalClient.sendRoomId(roomId: self.roomUid)
         
@@ -265,7 +277,7 @@ class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSample
             let recStart: Data = "#CMD#REC#START#".data(using: .utf8)!
             self.webRTCClient.sendData(recStart)
             
-            self.count = 3
+            self.count = self.selectedCount
             self.lblTimer.text = "\(self.count)"
             lblTimer.isHidden = false
             if timer != nil {
@@ -290,6 +302,21 @@ class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSample
         }
     }
     
+    @IBAction func setTimerDidTap(_ sender: Any) {
+        timeSelectCtrl .selectRow( self.selectedCount-1, inComponent: 0, animated: true)
+        timeSelectPannel.isHidden = false
+    }
+    
+    
+    @IBAction func okDidTap(_ sender: Any) {
+        UserDefaults.standard.set(self.selectedCount, forKey: self.waitSecKey)
+        self.count = selectedCount
+        timeSelectPannel.isHidden = true
+    }
+    
+    @IBAction func cancelDidTap(_ sender: Any) {
+        timeSelectPannel.isHidden = true
+    }
     
     func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
         let timestamp = CMSampleBufferGetPresentationTimeStamp(sampleBuffer).seconds
@@ -441,6 +468,27 @@ class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSample
 //    }
 //}
 
+////MARK: UIPickerViewDelegate
+extension ConferenceViewController: UIPickerViewDelegate, UIPickerViewDataSource  {
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return 10
+    }
+
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return "\(row+1)"
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+            // This method is triggered whenever the user makes a change to the picker selection.
+            // The parameter named row and component represents what was selected.
+        self.selectedCount = row+1
+    }
+}
+
 //MARK: WebRTCClientDelegate
 extension ConferenceViewController: WebRTCClientDelegate {
     
@@ -479,7 +527,7 @@ extension ConferenceViewController: WebRTCClientDelegate {
         {//recording Start
             if(_captureState == .idle){
                 DispatchQueue.main.async {
-                    self.count = 3
+                    self.count = self.selectedCount
                     self.lblTimer.text = "\(self.count)"
                     self.lblTimer.isHidden = false
                     if self.timer != nil {
