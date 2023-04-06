@@ -21,6 +21,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="LoginViewController" customModule="PerfectSelf" customModuleProvider="target">
             <connections>
+                <outlet property="lbl_version" destination="Haz-d8-2gN" id="Nfl-gp-pUZ"/>
                 <outlet property="view" destination="thj-qu-bdS" id="ydG-lv-WpL"/>
             </connections>
         </placeholder>
@@ -33,10 +34,10 @@
                     <rect key="frame" x="0.0" y="0.0" width="375" height="778"/>
                     <subviews>
                         <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="buK-hB-JDR">
-                            <rect key="frame" x="0.0" y="0.0" width="375" height="404.33333333333331"/>
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="393"/>
                             <subviews>
                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="login" translatesAutoresizingMaskIntoConstraints="NO" id="VSY-N8-O8y">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="404.33333333333331"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="393"/>
                                 </imageView>
                             </subviews>
                             <constraints>
@@ -48,15 +49,26 @@
                                 </mask>
                             </variation>
                         </stackView>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PERFECT SELF" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tSP-Y7-Qki">
-                            <rect key="frame" x="0.0" y="439.33333333333331" width="375" height="33.666666666666686"/>
+                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" translatesAutoresizingMaskIntoConstraints="NO" id="WnO-5h-OKN">
+                            <rect key="frame" x="0.0" y="428" width="375" height="45"/>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PERFECT SELF" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tSP-Y7-Qki">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="31"/>
+                                    <fontDescription key="fontDescription" name="Madrigal" family="Madrigal" pointSize="32"/>
+                                    <nil key="textColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1.5.200" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Haz-d8-2gN">
+                                    <rect key="frame" x="0.0" y="31" width="375" height="14"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                    <nil key="textColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                            </subviews>
                             <constraints>
-                                <constraint firstAttribute="height" constant="33.666666666666686" id="IHg-HV-SlH"/>
+                                <constraint firstAttribute="height" constant="45" id="NZd-ZD-F3c" customClass="AdaptiveLayoutConstraint" customModule="PerfectSelf" customModuleProvider="target"/>
                             </constraints>
-                            <fontDescription key="fontDescription" name="Madrigal" family="Madrigal" pointSize="32"/>
-                            <nil key="textColor"/>
-                            <nil key="highlightedColor"/>
-                        </label>
+                        </stackView>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Present your best self" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4mx-6s-clW">
                             <rect key="frame" x="0.0" y="508" width="375" height="30"/>
                             <constraints>

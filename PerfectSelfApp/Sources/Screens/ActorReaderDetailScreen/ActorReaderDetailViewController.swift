@@ -22,7 +22,8 @@ class ActorReaderDetailViewController: UIViewController , UICollectionViewDataSo
     @IBOutlet weak var view_review: UIStackView!
     @IBOutlet weak var view_videointro: UIStackView!
     @IBOutlet weak var view_overview: UIStackView!
-//    @IBOutlet weak var view_reader: UIStackView!
+   
+    @IBOutlet weak var view_container: UIView!
     // info
     
     @IBOutlet weak var reader_name: UILabel!
@@ -47,10 +48,11 @@ class ActorReaderDetailViewController: UIViewController , UICollectionViewDataSo
         // Do any additional setup after loading the view.
         line_videointro.isHidden = true
         line_review.isHidden = true
-        view_videointro.isHidden = true
-        view_review.isHidden = true
-    
-//        view_reader.isHidden = true
+        self.view_videointro.alpha = 0
+        self.view_review.alpha = 0
+        self.view_overview.frame.origin.x = 0
+        self.view_videointro.frame.origin.x = self.view_container.frame.width
+        self.view_review.frame.origin.x = self.view_container.frame.width
         
         // call api for reader details
         showIndicator(sender: nil, viewController: self)
@@ -166,9 +168,15 @@ class ActorReaderDetailViewController: UIViewController , UICollectionViewDataSo
         line_overview.isHidden = false
         line_videointro.isHidden = true
         line_review.isHidden = true
-        view_overview.isHidden = false
-        view_videointro.isHidden = true
-        view_review.isHidden = true
+        
+        UIView.animate(withDuration: 0.5, animations: {
+            self.view_overview.alpha = 1
+            self.view_videointro.alpha = 0
+            self.view_review.alpha = 0
+            self.view_overview.frame.origin.x = 0
+            self.view_videointro.frame.origin.x = self.view_container.frame.width
+            self.view_review.frame.origin.x = self.view_container.frame.width
+        })        
     }
     
     @IBAction func ShowVideoIntro(_ sender: UIButton) {
@@ -178,9 +186,15 @@ class ActorReaderDetailViewController: UIViewController , UICollectionViewDataSo
         line_overview.isHidden = true
         line_videointro.isHidden = false
         line_review.isHidden = true
-        view_overview.isHidden = true
-        view_videointro.isHidden = false
-        view_review.isHidden = true
+        
+        UIView.animate(withDuration: 0.5, animations: {
+            self.view_overview.alpha = 0
+            self.view_videointro.alpha = 1
+            self.view_review.alpha = 0
+            self.view_overview.frame.origin.x = -self.view_container.frame.width
+            self.view_videointro.frame.origin.x = 0
+            self.view_review.frame.origin.x = self.view_container.frame.width
+        })
     }
     
     @IBAction func ShowReview(_ sender: UIButton) {
@@ -190,9 +204,15 @@ class ActorReaderDetailViewController: UIViewController , UICollectionViewDataSo
         line_overview.isHidden = true
         line_videointro.isHidden = true
         line_review.isHidden = false
-        view_overview.isHidden = true
-        view_videointro.isHidden = true
-        view_review.isHidden = false
+        
+        UIView.animate(withDuration: 0.5, animations: {
+            self.view_overview.alpha = 0
+            self.view_videointro.alpha = 0
+            self.view_review.alpha = 1
+            self.view_overview.frame.origin.x = -self.view_container.frame.width
+            self.view_videointro.frame.origin.x = -self.view_container.frame.width
+            self.view_review.frame.origin.x = 0
+        })
     }
     @IBAction func BookAppointment(_ sender: UIButton) {
         let controller = ActorBookAppointmentViewController();
