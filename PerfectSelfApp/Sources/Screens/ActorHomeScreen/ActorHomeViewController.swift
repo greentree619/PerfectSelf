@@ -121,17 +121,6 @@ class ActorHomeViewController: UIViewController, UICollectionViewDataSource, UIC
     }
     
     @IBAction func ShowFilterModal(_ sender: UIButton) {
-//        UIView.animate(withDuration:0.3) {
-//            self.filtermodal.alpha = 1;
-//        }
-//
-//        backgroundView.backgroundColor = UIColor.black.withAlphaComponent(0.5)
-//        backgroundView.frame = view.bounds
-//        backgroundView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-//        view.insertSubview(backgroundView, belowSubview: filtermodal)
-//        let tap = UITapGestureRecognizer(target: self, action: #selector(tapCallback))
-//        backgroundView.addGestureRecognizer(tap)
-//        backgroundView.isUserInteractionEnabled = true
         let controller = FilterViewController()
         controller.modalPresentationStyle = .overFullScreen
         controller.parentUIViewController = self

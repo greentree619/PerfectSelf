@@ -12,11 +12,6 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ActorFindReaderViewController" customModule="PerfectSelf" customModuleProvider="target">
             <connections>
-                <outlet property="btn_pricehightolow" destination="l7D-mz-Odj" id="fgh-56-gRF"/>
-                <outlet property="btn_pricelowtohigh" destination="zx9-qt-d6W" id="v7B-Hy-ytv"/>
-                <outlet property="btn_relevance" destination="HOh-3h-iup" id="02t-Po-Dck"/>
-                <outlet property="btn_soonest" destination="dxx-E5-5cT" id="vCn-n0-YBy"/>
-                <outlet property="modal_sort" destination="pI4-Rh-3Mh" id="vEi-OX-b2L"/>
                 <outlet property="numberOfReader" destination="ydB-V6-let" id="7Gq-yD-qj5"/>
                 <outlet property="readerList" destination="Q6G-qo-PUq" id="JoH-59-aOP"/>
                 <outlet property="view" destination="Dga-xf-wjE" id="M31-Nq-2uD"/>
@@ -257,237 +252,25 @@
                     </subviews>
                     <gestureRecognizers/>
                 </stackView>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pI4-Rh-3Mh">
-                    <rect key="frame" x="0.0" y="508" width="393" height="344"/>
-                    <subviews>
-                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="yif-q8-3Lx">
-                            <rect key="frame" x="0.0" y="0.0" width="393" height="344"/>
-                            <subviews>
-                                <stackView opaque="NO" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1q8-e6-2Fu">
-                                    <rect key="frame" x="20" y="10" width="353" height="40"/>
-                                    <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SortBy" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rOL-9B-3FF">
-                                            <rect key="frame" x="0.0" y="0.0" width="353" height="40"/>
-                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                            <nil key="textColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                    </subviews>
-                                    <constraints>
-                                        <constraint firstAttribute="height" constant="40" id="dKR-vk-O7d" customClass="AdaptiveLayoutConstraint" customModule="PerfectSelf" customModuleProvider="target"/>
-                                    </constraints>
-                                </stackView>
-                                <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HJe-jC-NZg">
-                                    <rect key="frame" x="20" y="50" width="353" height="10"/>
-                                    <constraints>
-                                        <constraint firstAttribute="height" constant="10" id="UGv-Kx-OMU" customClass="AdaptiveLayoutConstraint" customModule="PerfectSelf" customModuleProvider="target"/>
-                                    </constraints>
-                                </stackView>
-                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="bvO-GV-CaK">
-                                    <rect key="frame" x="20" y="60" width="353" height="35"/>
-                                    <subviews>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HOh-3h-iup">
-                                            <rect key="frame" x="0.0" y="0.0" width="353" height="35"/>
-                                            <fontDescription key="fontDescription" type="system" weight="medium" pointSize="14"/>
-                                            <inset key="contentEdgeInsets" minX="10" minY="5" maxX="10" maxY="5"/>
-                                            <inset key="titleEdgeInsets" minX="20" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                            <state key="normal" title="Relevance">
-                                                <imageReference key="image" image="circle" catalog="system" symbolScale="small"/>
-                                            </state>
-                                            <connections>
-                                                <action selector="SelectRelevance:" destination="-1" eventType="touchUpInside" id="aA8-Ks-0d6"/>
-                                            </connections>
-                                        </button>
-                                    </subviews>
-                                    <constraints>
-                                        <constraint firstAttribute="height" constant="35" id="PEY-d6-mpI" customClass="AdaptiveLayoutConstraint" customModule="PerfectSelf" customModuleProvider="target"/>
-                                    </constraints>
-                                </stackView>
-                                <stackView opaque="NO" contentMode="scaleToFill" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="Cb7-1y-DVo">
-                                    <rect key="frame" x="20" y="95" width="353" height="10"/>
-                                    <subviews>
-                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="filter_divide" translatesAutoresizingMaskIntoConstraints="NO" id="2IO-gq-Gew">
-                                            <rect key="frame" x="0.0" y="4.6666666666666288" width="353" height="1"/>
-                                        </imageView>
-                                    </subviews>
-                                    <constraints>
-                                        <constraint firstAttribute="height" constant="10" id="aif-61-9Y7" customClass="AdaptiveLayoutConstraint" customModule="PerfectSelf" customModuleProvider="target"/>
-                                    </constraints>
-                                </stackView>
-                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="EeC-GD-tkR">
-                                    <rect key="frame" x="20" y="105" width="353" height="35"/>
-                                    <subviews>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="l7D-mz-Odj">
-                                            <rect key="frame" x="0.0" y="0.0" width="353" height="35"/>
-                                            <fontDescription key="fontDescription" type="system" weight="medium" pointSize="14"/>
-                                            <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                            <inset key="contentEdgeInsets" minX="10" minY="5" maxX="10" maxY="5"/>
-                                            <inset key="titleEdgeInsets" minX="20" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                            <state key="normal" title="Price high to low">
-                                                <color key="titleColor" systemColor="tintColor"/>
-                                                <imageReference key="image" image="circle" catalog="system" symbolScale="small"/>
-                                            </state>
-                                            <connections>
-                                                <action selector="SelectPriceHighToLow:" destination="-1" eventType="touchUpInside" id="bBt-V7-UUp"/>
-                                            </connections>
-                                        </button>
-                                    </subviews>
-                                    <constraints>
-                                        <constraint firstAttribute="height" constant="35" id="UHt-BS-WVp" customClass="AdaptiveLayoutConstraint" customModule="PerfectSelf" customModuleProvider="target"/>
-                                    </constraints>
-                                </stackView>
-                                <stackView opaque="NO" contentMode="scaleToFill" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="oju-sA-tkI">
-                                    <rect key="frame" x="20" y="140" width="353" height="10"/>
-                                    <subviews>
-                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="filter_divide" translatesAutoresizingMaskIntoConstraints="NO" id="Ddn-Ig-WfF">
-                                            <rect key="frame" x="0.0" y="4.6666666666666288" width="353" height="1"/>
-                                        </imageView>
-                                    </subviews>
-                                    <constraints>
-                                        <constraint firstAttribute="height" constant="10" id="hgm-FK-yx9" customClass="AdaptiveLayoutConstraint" customModule="PerfectSelf" customModuleProvider="target"/>
-                                    </constraints>
-                                </stackView>
-                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="ekC-yz-cIu">
-                                    <rect key="frame" x="20" y="150" width="353" height="35"/>
-                                    <subviews>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zx9-qt-d6W">
-                                            <rect key="frame" x="0.0" y="0.0" width="353" height="35"/>
-                                            <fontDescription key="fontDescription" type="system" weight="medium" pointSize="14"/>
-                                            <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                            <inset key="contentEdgeInsets" minX="10" minY="5" maxX="10" maxY="5"/>
-                                            <inset key="titleEdgeInsets" minX="20" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                            <state key="normal" title="Price low to high">
-                                                <color key="titleColor" systemColor="tintColor"/>
-                                                <imageReference key="image" image="circle" catalog="system" symbolScale="small"/>
-                                            </state>
-                                            <connections>
-                                                <action selector="SelectPriceLowToHigh:" destination="-1" eventType="touchUpInside" id="saP-8v-cjF"/>
-                                            </connections>
-                                        </button>
-                                    </subviews>
-                                    <constraints>
-                                        <constraint firstAttribute="height" constant="35" id="z4z-KA-4Kv" customClass="AdaptiveLayoutConstraint" customModule="PerfectSelf" customModuleProvider="target"/>
-                                    </constraints>
-                                </stackView>
-                                <stackView opaque="NO" contentMode="scaleToFill" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="to2-uz-OCB">
-                                    <rect key="frame" x="20" y="185" width="353" height="10"/>
-                                    <subviews>
-                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="filter_divide" translatesAutoresizingMaskIntoConstraints="NO" id="bqS-l8-ZRm">
-                                            <rect key="frame" x="0.0" y="4.6666666666666288" width="353" height="1"/>
-                                        </imageView>
-                                    </subviews>
-                                    <constraints>
-                                        <constraint firstAttribute="height" constant="10" id="zV6-YB-vZC" customClass="AdaptiveLayoutConstraint" customModule="PerfectSelf" customModuleProvider="target"/>
-                                    </constraints>
-                                </stackView>
-                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="L0K-Ia-URG">
-                                    <rect key="frame" x="20" y="195" width="353" height="35"/>
-                                    <subviews>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dxx-E5-5cT">
-                                            <rect key="frame" x="0.0" y="0.0" width="353" height="35"/>
-                                            <fontDescription key="fontDescription" type="system" weight="medium" pointSize="14"/>
-                                            <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                            <inset key="contentEdgeInsets" minX="10" minY="5" maxX="10" maxY="5"/>
-                                            <inset key="titleEdgeInsets" minX="20" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                            <state key="normal" title="Available(soonest)">
-                                                <color key="titleColor" systemColor="tintColor"/>
-                                                <imageReference key="image" image="circle" catalog="system" symbolScale="small"/>
-                                            </state>
-                                            <connections>
-                                                <action selector="SelectAvailableSoonest:" destination="-1" eventType="touchUpInside" id="3JL-jj-s5U"/>
-                                            </connections>
-                                        </button>
-                                    </subviews>
-                                    <constraints>
-                                        <constraint firstAttribute="height" constant="35" id="Lhr-cT-cIM" customClass="AdaptiveLayoutConstraint" customModule="PerfectSelf" customModuleProvider="target"/>
-                                    </constraints>
-                                </stackView>
-                                <stackView opaque="NO" contentMode="scaleToFill" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="Xcz-Dt-SLh">
-                                    <rect key="frame" x="20" y="230" width="353" height="10"/>
-                                    <subviews>
-                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="filter_divide" translatesAutoresizingMaskIntoConstraints="NO" id="Vcb-MQ-B1t">
-                                            <rect key="frame" x="0.0" y="4.6666666666666288" width="353" height="1"/>
-                                        </imageView>
-                                    </subviews>
-                                    <constraints>
-                                        <constraint firstAttribute="height" constant="10" id="5be-0I-X1a" customClass="AdaptiveLayoutConstraint" customModule="PerfectSelf" customModuleProvider="target"/>
-                                    </constraints>
-                                </stackView>
-                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="3rE-d3-e6F">
-                                    <rect key="frame" x="20" y="240" width="353" height="50"/>
-                                    <subviews>
-                                        <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DOr-Fc-Eao">
-                                            <rect key="frame" x="10" y="5" width="333" height="40"/>
-                                            <subviews>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6Dl-F2-xl3">
-                                                    <rect key="frame" x="0.0" y="0.0" width="333" height="40"/>
-                                                    <inset key="contentEdgeInsets" minX="10" minY="10" maxX="10" maxY="10"/>
-                                                    <state key="normal" title="Button"/>
-                                                    <buttonConfiguration key="configuration" style="filled" title="Save to apply">
-                                                        <backgroundConfiguration key="background" cornerRadius="8"/>
-                                                    </buttonConfiguration>
-                                                    <connections>
-                                                        <action selector="SortApply:" destination="-1" eventType="touchUpInside" id="pNI-HX-5J4"/>
-                                                    </connections>
-                                                </button>
-                                            </subviews>
-                                        </stackView>
-                                    </subviews>
-                                    <constraints>
-                                        <constraint firstAttribute="height" constant="50" id="Y2k-9J-Axe" customClass="AdaptiveLayoutConstraint" customModule="PerfectSelf" customModuleProvider="target"/>
-                                    </constraints>
-                                    <edgeInsets key="layoutMargins" top="5" left="10" bottom="5" right="10"/>
-                                </stackView>
-                            </subviews>
-                            <edgeInsets key="layoutMargins" top="10" left="20" bottom="20" right="20"/>
-                        </stackView>
-                    </subviews>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                    <constraints>
-                        <constraint firstAttribute="bottom" secondItem="yif-q8-3Lx" secondAttribute="bottom" id="9BQ-0a-A2Q"/>
-                        <constraint firstItem="yif-q8-3Lx" firstAttribute="leading" secondItem="pI4-Rh-3Mh" secondAttribute="leading" id="EbF-Hh-o0A"/>
-                        <constraint firstAttribute="trailing" secondItem="yif-q8-3Lx" secondAttribute="trailing" id="dZR-bc-kch"/>
-                        <constraint firstItem="yif-q8-3Lx" firstAttribute="top" secondItem="pI4-Rh-3Mh" secondAttribute="top" id="eGc-I0-m7u"/>
-                    </constraints>
-                    <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                            <real key="value" value="10"/>
-                        </userDefinedRuntimeAttribute>
-                    </userDefinedRuntimeAttributes>
-                </view>
             </subviews>
             <viewLayoutGuide key="safeArea" id="mgT-BR-uZD"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <gestureRecognizers/>
             <constraints>
                 <constraint firstAttribute="bottom" secondItem="UWA-KP-nNx" secondAttribute="bottom" id="9Jc-eh-oPd"/>
-                <constraint firstAttribute="bottom" secondItem="pI4-Rh-3Mh" secondAttribute="bottom" id="I0l-q9-T7i"/>
-                <constraint firstAttribute="trailing" secondItem="pI4-Rh-3Mh" secondAttribute="trailing" constant="20" symbolic="YES" id="N5C-qB-gep"/>
                 <constraint firstItem="UWA-KP-nNx" firstAttribute="top" secondItem="mgT-BR-uZD" secondAttribute="top" id="Yyy-0N-40E"/>
-                <constraint firstItem="mgT-BR-uZD" firstAttribute="trailing" secondItem="pI4-Rh-3Mh" secondAttribute="trailing" id="g7g-Mh-qAZ"/>
-                <constraint firstItem="pI4-Rh-3Mh" firstAttribute="leading" secondItem="mgT-BR-uZD" secondAttribute="leading" id="vdN-Pk-2hb"/>
                 <constraint firstItem="UWA-KP-nNx" firstAttribute="trailing" secondItem="mgT-BR-uZD" secondAttribute="trailing" id="wbf-Fj-Yqv"/>
                 <constraint firstItem="UWA-KP-nNx" firstAttribute="leading" secondItem="Dga-xf-wjE" secondAttribute="leading" id="yFj-th-Udv"/>
             </constraints>
-            <variation key="default">
-                <mask key="constraints">
-                    <exclude reference="N5C-qB-gep"/>
-                </mask>
-            </variation>
             <point key="canvasLocation" x="80" y="-627"/>
         </view>
     </objects>
     <resources>
         <image name="arrow.left" catalog="system" width="128" height="95"/>
         <image name="arrow.up.and.down.text.horizontal" catalog="system" width="128" height="87"/>
-        <image name="circle" catalog="system" width="128" height="123"/>
-        <image name="filter_divide" width="334" height="1"/>
         <image name="magnifyingglass" catalog="system" width="128" height="117"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
-        <systemColor name="tintColor">
-            <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
