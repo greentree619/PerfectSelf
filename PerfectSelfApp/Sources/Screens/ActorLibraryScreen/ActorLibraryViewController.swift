@@ -86,7 +86,7 @@ class ActorLibraryViewController: UIViewController, UICollectionViewDataSource, 
             + flowLayout.sectionInset.right
             + (flowLayout.minimumInteritemSpacing * CGFloat(cellsPerRow - 1))
         let size = Int((collectionView.bounds.width - totalSpace - 2) / CGFloat(cellsPerRow))
-        print(size)
+       
         return CGSize(width: size, height: size)
     }
     
@@ -102,14 +102,14 @@ class ActorLibraryViewController: UIViewController, UICollectionViewDataSource, 
         df.dateFormat = "dd-MM-yyyy"
         cell.createdDate.text = df.string(from: d ?? Date())
         // return card
-        cell.layer.masksToBounds = false
-        cell.layer.shadowOffset = CGSizeZero
-        cell.layer.shadowRadius = 8
-        cell.layer.shadowOpacity = 0.2
-        cell.contentView.layer.cornerRadius = 12
-        cell.contentView.layer.borderWidth = 1.0
-        cell.contentView.layer.borderColor = UIColor.clear.cgColor
-        cell.contentView.layer.masksToBounds = true
+//        cell.layer.masksToBounds = false
+//        cell.layer.shadowOffset = CGSizeZero
+//        cell.layer.shadowRadius = 8
+//        cell.layer.shadowOpacity = 0.2
+//        cell.contentView.layer.cornerRadius = 12
+//        cell.contentView.layer.borderWidth = 1.0
+//        cell.contentView.layer.borderColor = UIColor.clear.cgColor
+//        cell.contentView.layer.masksToBounds = true
         
         return cell
     }
