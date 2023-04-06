@@ -198,13 +198,24 @@ class ActorReaderDetailViewController: UIViewController , UICollectionViewDataSo
         let controller = ActorBookAppointmentViewController();
         controller.rUid = uid
         controller.modalPresentationStyle = .fullScreen
-        self.present(controller, animated: false, completion: nil)
-//        self.navigationController?.pushViewController(controller, animated: true)
+     
+        let transition = CATransition()
+        transition.duration = 0.5 // Set animation duration
+        transition.type = CATransitionType.push // Set transition type to push
+        transition.subtype = CATransitionSubtype.fromRight // Set transition subtype to from right
+        self.view.window?.layer.add(transition, forKey: kCATransition) // Add transition to window layer
+        self.present(controller, animated: false)
     }
     
 
     @IBAction func GoBack(_ sender: UIButton) {
 //        _ = navigationController?.popViewController(animated: true)
+        let transition = CATransition()
+        transition.duration = 0.5 // Set animation duration
+        transition.type = CATransitionType.push // Set transition type to push
+        transition.subtype = CATransitionSubtype.fromLeft // Set transition subtype to from right
+        self.view.window?.layer.add(transition, forKey: kCATransition) // Add transition to window layer
+    
         self.dismiss(animated: false)
     }
   

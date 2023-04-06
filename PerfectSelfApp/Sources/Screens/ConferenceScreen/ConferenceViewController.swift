@@ -267,6 +267,13 @@ class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSample
     @IBAction func backDidTap(_ sender: UIButton) {
         audioRecorder?.stop()
         _captureState = .end
+        
+        let transition = CATransition()
+        transition.duration = 0.5 // Set animation duration
+        transition.type = CATransitionType.push // Set transition type to push
+        transition.subtype = CATransitionSubtype.fromLeft // Set transition subtype to from right
+        self.view.window?.layer.add(transition, forKey: kCATransition) // Add transition to window layer
+    
         self.dismiss(animated: false)
         self.signalClient.sendRoomIdClose(roomId: self.roomUid)
     }

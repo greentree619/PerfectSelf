@@ -130,6 +130,11 @@ class ActorProfileEditViewController: UIViewController {
     }
 
     @IBAction func SaveChanges(_ sender: UIButton) {
+        let transition = CATransition()
+        transition.duration = 0.5 // Set animation duration
+        transition.type = CATransitionType.push // Set transition type to push
+        transition.subtype = CATransitionSubtype.fromLeft // Set transition subtype to from right
+        self.view.window?.layer.add(transition, forKey: kCATransition) // Add transition to window layer
         self.dismiss(animated: false)
     }
     @IBAction func ShowDropDownForAge(_ sender: UIButton) {
@@ -155,6 +160,11 @@ class ActorProfileEditViewController: UIViewController {
         dropDownForVaccination.show()
     }
     @IBAction func GoBack(_ sender: UIButton) {
+        let transition = CATransition()
+        transition.duration = 0.5 // Set animation duration
+        transition.type = CATransitionType.push // Set transition type to push
+        transition.subtype = CATransitionSubtype.fromLeft // Set transition subtype to from right
+        self.view.window?.layer.add(transition, forKey: kCATransition) // Add transition to window layer
         self.dismiss(animated: false)
     }
     /*

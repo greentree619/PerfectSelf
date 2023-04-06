@@ -112,9 +112,12 @@ class ActorHomeViewController: UIViewController, UICollectionViewDataSource, UIC
         controller.modalPresentationStyle = .fullScreen
         controller.uid = self.items[indexPath.row].uid
 
-        self.present(controller, animated: false, completion: nil)
-//        self.navigationController?.pushViewController(controller, animated: true)
-//        let cell = collectionView.cellForItem(at: indexPath) as? LibraryCollectionViewCell
+        let transition = CATransition()
+        transition.duration = 0.5 // Set animation duration
+        transition.type = CATransitionType.push // Set transition type to push
+        transition.subtype = CATransitionSubtype.fromRight // Set transition subtype to from right
+        self.view.window?.layer.add(transition, forKey: kCATransition) // Add transition to window layer
+        self.present(controller, animated: false)
     }
     
     @IBAction func ShowFilterModal(_ sender: UIButton) {
