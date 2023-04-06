@@ -24,6 +24,14 @@ class ActorBookingViewController: UIViewController, UICollectionViewDataSource, 
     @IBOutlet weak var bookListFlow: UICollectionViewFlowLayout!
     var items = [BookingCard]()
 
+    @IBOutlet weak var view_rate: UIStackView!
+    
+    @IBOutlet weak var img_star1: UIImageView!
+    @IBOutlet weak var img_star2: UIImageView!
+    @IBOutlet weak var img_star3: UIImageView!
+    @IBOutlet weak var img_star4: UIImageView!
+    @IBOutlet weak var img_star5: UIImageView!
+    
     let cellsPerRow = 1
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -159,6 +167,39 @@ class ActorBookingViewController: UIViewController, UICollectionViewDataSource, 
         line_upcoming.isHidden = true
         line_pending.isHidden = true
         line_past.isHidden = false
+    }
+    
+    @IBAction func CloseRateView(_ sender: UIButton) {
+        view_rate.isHidden = true
+    }
+    
+    @IBAction func RateWithStar1(_ sender: UITapGestureRecognizer) {
+        img_star1.tintColor = UIColor(rgb: 0xFFCC00)
+    }
+    @IBAction func RateWithStar2(_ sender: UITapGestureRecognizer) {
+        img_star1.tintColor = UIColor(rgb: 0xFFCC00)
+        img_star2.tintColor = UIColor(rgb: 0xFFCC00)
+    }
+    
+    @IBAction func RateWithStar3(_ sender: UITapGestureRecognizer) {
+        img_star1.tintColor = UIColor(rgb: 0xFFCC00)
+        img_star2.tintColor = UIColor(rgb: 0xFFCC00)
+        img_star3.tintColor = UIColor(rgb: 0xFFCC00)
+    }
+    
+    @IBAction func RateWithStar4(_ sender: UITapGestureRecognizer) {
+        img_star1.tintColor = UIColor(rgb: 0xFFCC00)
+        img_star2.tintColor = UIColor(rgb: 0xFFCC00)
+        img_star3.tintColor = UIColor(rgb: 0xFFCC00)
+        img_star4.tintColor = UIColor(rgb: 0xFFCC00)
+    }
+    
+    @IBAction func RateWithStar5(_ sender: UITapGestureRecognizer) {
+        img_star1.tintColor = UIColor(rgb: 0xFFCC00)
+        img_star2.tintColor = UIColor(rgb: 0xFFCC00)
+        img_star3.tintColor = UIColor(rgb: 0xFFCC00)
+        img_star4.tintColor = UIColor(rgb: 0xFFCC00)
+        img_star5.tintColor = UIColor(rgb: 0xFFCC00)
     }
     /*
     // MARK: - Navigation
