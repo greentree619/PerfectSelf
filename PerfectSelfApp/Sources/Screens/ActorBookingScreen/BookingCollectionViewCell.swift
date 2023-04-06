@@ -27,13 +27,24 @@ class BookingCollectionViewCell: UICollectionViewCell {
         //print("join")
         let conferenceViewController = ConferenceViewController(roomUid: self.roomUid!)
         conferenceViewController.modalPresentationStyle = .fullScreen
-        self.parentViewController!.present(conferenceViewController, animated: false, completion: nil)
+        
+        let transition = CATransition()
+        transition.duration = 0.5 // Set animation duration
+        transition.type = CATransitionType.push // Set transition type to push
+        transition.subtype = CATransitionSubtype.fromRight // Set transition subtype to from right
+        self.parentViewController!.view.window?.layer.add(transition, forKey: kCATransition) // Add transition to window layer
+        self.parentViewController!.present(conferenceViewController, animated: false)
     }
     
     @IBAction func SendMessage(_ sender: UIButton) {
         let controller = ChatViewController(roomUid: self.roomUid!)
         controller.modalPresentationStyle = .fullScreen
-        self.parentViewController!.present(controller, animated: false, completion: nil)
+        let transition = CATransition()
+        transition.duration = 0.5 // Set animation duration
+        transition.type = CATransitionType.push // Set transition type to push
+        transition.subtype = CATransitionSubtype.fromRight // Set transition subtype to from right
+        self.parentViewController!.view.window?.layer.add(transition, forKey: kCATransition) // Add transition to window layer
+        self.parentViewController!.present(controller, animated: false)
     }
     
     @IBAction func CancelBooking(_ sender: UIButton) {

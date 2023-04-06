@@ -317,7 +317,13 @@ class ChatViewController: KUIViewController, UICollectionViewDataSource, UIColle
     }
     
     @IBAction func GoBack(_ sender: UIButton) {
-//        _ = navigationController?.popViewController(animated: true)
+
+        let transition = CATransition()
+        transition.duration = 0.5 // Set animation duration
+        transition.type = CATransitionType.push // Set transition type to push
+        transition.subtype = CATransitionSubtype.fromLeft // Set transition subtype to from right
+        self.view.window?.layer.add(transition, forKey: kCATransition) // Add transition to window layer
+    
         self.dismiss(animated: false)
         self.signalClient.sendRoomIdClose(roomId: self.roomUid)
     }

@@ -103,8 +103,13 @@ class ActorFindReaderViewController: UIViewController , UICollectionViewDataSour
         let controller = ActorReaderDetailViewController()
         controller.uid = self.items[indexPath.row].uid
         controller.modalPresentationStyle = .fullScreen
-        self.present(controller, animated: false, completion: nil)
-//        let cell = collectionView.cellForItem(at: indexPath) as? LibraryCollectionViewCell
+ 
+        let transition = CATransition()
+        transition.duration = 0.5 // Set animation duration
+        transition.type = CATransitionType.push // Set transition type to push
+        transition.subtype = CATransitionSubtype.fromRight // Set transition subtype to from right
+        self.view.window?.layer.add(transition, forKey: kCATransition) // Add transition to window layer
+        self.present(controller, animated: false)
     }
     
     @IBAction func SortReaders(_ sender: UIButton) {
@@ -160,7 +165,7 @@ class ActorFindReaderViewController: UIViewController , UICollectionViewDataSour
         btn_soonest.tintColor = UIColor(rgb: 0x4383C4)
     }
     @IBAction func GoBack(_ sender: UIButton) {
-        self.navigationController?.popViewController(animated: false)
+        self.navigationController?.popViewController(animated: true)
     }
     /*
     // MARK: - Navigation
