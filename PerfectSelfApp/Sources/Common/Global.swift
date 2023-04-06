@@ -184,3 +184,19 @@ func getDateString() -> String{
     let dateString = formatter.string(from: now)
     return dateString
 }
+
+func getCurrentTime(milisecond: Float64) -> String{
+    let seconds = (UInt) (milisecond / 1000) % 60
+    let  minutes = (UInt) (((UInt)(milisecond / (1000*60))) % 60)
+    let hours   = (UInt) (((UInt)(milisecond / (1000*60*60))) % 24)
+    let curTimeText: String = String.localizedStringWithFormat("%i:%02i:%02i", hours, minutes, seconds)
+    return curTimeText
+}
+
+func getCurrentTime(second: Float64) -> String{
+    let seconds = (UInt)((Int(second)) % 60)
+    let  minutes = (UInt) (((UInt)(second / (1000*60))) % 60)
+    let hours   = (UInt) (((UInt)(second / (1000*60*60))) % 24)
+    let curTimeText: String = String.localizedStringWithFormat("%i:%02i:%02i", hours, minutes, seconds)
+    return curTimeText
+}
