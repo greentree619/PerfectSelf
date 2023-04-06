@@ -9,6 +9,17 @@
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <array key="Raleway-Bold.ttf">
+            <string>Raleway-Bold</string>
+        </array>
+        <array key="Raleway-SemiBold.ttf">
+            <string>Raleway-SemiBold</string>
+        </array>
+        <array key="Raleway-VariableFont_wght.ttf">
+            <string>RalewayRoman-Regular</string>
+        </array>
+    </customFonts>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="LoginDetailViewController" customModule="PerfectSelf" customModuleProvider="target">
             <connections>
@@ -30,14 +41,14 @@
                     <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                     <subviews>
                         <stackView opaque="NO" contentMode="scaleToFill" semanticContentAttribute="spatial" preservesSuperviewLayoutMargins="YES" axis="vertical" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="7q3-Ub-RYc" userLabel="Login Layout">
-                            <rect key="frame" x="0.0" y="0.0" width="375" height="830.5"/>
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="824.5"/>
                             <subviews>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8VJ-zC-Qe3">
                                     <rect key="frame" x="20" y="20" width="335" height="34"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Welcome Back" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iKj-hx-8j5">
                                             <rect key="frame" x="0.0" y="0.0" width="335" height="34"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                            <fontDescription key="fontDescription" name="Raleway-Bold" family="Raleway" pointSize="24"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
@@ -86,7 +97,7 @@
                                     <constraints>
                                         <constraint firstAttribute="height" constant="20" id="viA-ED-wI7"/>
                                     </constraints>
-                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <fontDescription key="fontDescription" name="RalewayRoman-Regular" family="Raleway" pointSize="16"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
@@ -106,7 +117,7 @@
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" text="Account Type" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="393" translatesAutoresizingMaskIntoConstraints="NO" id="PMd-Oc-7Ct">
                                             <rect key="frame" x="0.0" y="0.0" width="335" height="25"/>
                                             <edgeInsets key="layoutMargins" top="8" left="20" bottom="8" right="20"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                                            <fontDescription key="fontDescription" name="Raleway-SemiBold" family="Raleway" pointSize="16"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
@@ -269,9 +280,9 @@
                                                             </connections>
                                                         </button>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Remember Me" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JDH-gQ-xGG">
-                                                            <rect key="frame" x="28" y="0.0" width="88" height="45"/>
+                                                            <rect key="frame" x="28" y="0.0" width="90" height="45"/>
                                                             <edgeInsets key="layoutMargins" top="8" left="8" bottom="8" right="8"/>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                            <fontDescription key="fontDescription" name="RalewayRoman-Regular" family="Raleway" pointSize="13"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
@@ -290,7 +301,7 @@
                                                     <rect key="frame" x="170" y="0.0" width="165" height="45"/>
                                                     <subviews>
                                                         <button opaque="NO" contentMode="scaleToFill" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5gs-TK-Gx8" userLabel="Forgot Button">
-                                                            <rect key="frame" x="40.5" y="0.0" width="18" height="45"/>
+                                                            <rect key="frame" x="41" y="0.0" width="18" height="45"/>
                                                             <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                             <state key="normal" image="icons8-unchecked-checkbox-14"/>
                                                             <state key="selected" image="icons8-checked-checkbox-14"/>
@@ -303,9 +314,9 @@
                                                             </connections>
                                                         </button>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Forgot Password" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0VP-te-DSM">
-                                                            <rect key="frame" x="63.5" y="0.0" width="101.5" height="45"/>
+                                                            <rect key="frame" x="64" y="0.0" width="101" height="45"/>
                                                             <edgeInsets key="layoutMargins" top="8" left="8" bottom="8" right="8"/>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                            <fontDescription key="fontDescription" name="RalewayRoman-Regular" family="Raleway" pointSize="13"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
@@ -357,19 +368,19 @@
                                     <edgeInsets key="layoutMargins" top="50" left="0.0" bottom="8" right="0.0"/>
                                 </stackView>
                                 <stackView opaque="NO" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" translatesAutoresizingMaskIntoConstraints="NO" id="v6E-R1-Lba">
-                                    <rect key="frame" x="20" y="717" width="335" height="20.5"/>
+                                    <rect key="frame" x="20" y="717" width="335" height="14.5"/>
                                     <subviews>
                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="login_line" translatesAutoresizingMaskIntoConstraints="NO" id="rd1-50-mdp">
-                                            <rect key="frame" x="0.0" y="0.0" width="111.5" height="20.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="111.5" height="14.5"/>
                                         </imageView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="or login with" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2BH-dZ-s3E">
-                                            <rect key="frame" x="111.5" y="0.0" width="112" height="20.5"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <rect key="frame" x="111.5" y="0.0" width="112" height="14.5"/>
+                                            <fontDescription key="fontDescription" name="RalewayRoman-Regular" family="Raleway" pointSize="12"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="login_line" translatesAutoresizingMaskIntoConstraints="NO" id="vVv-vB-bHa">
-                                            <rect key="frame" x="223.5" y="0.0" width="111.5" height="20.5"/>
+                                            <rect key="frame" x="223.5" y="0.0" width="111.5" height="14.5"/>
                                         </imageView>
                                     </subviews>
                                     <constraints>
@@ -378,7 +389,7 @@
                                     </constraints>
                                 </stackView>
                                 <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="wHA-TX-42m" userLabel="Third Party Login">
-                                    <rect key="frame" x="20" y="752.5" width="335" height="70"/>
+                                    <rect key="frame" x="20" y="746.5" width="335" height="70"/>
                                     <subviews>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="27D-Ov-PLk">
                                             <rect key="frame" x="0.0" y="8" width="162.5" height="52"/>

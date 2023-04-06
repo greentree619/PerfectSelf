@@ -10,9 +10,9 @@ import UIKit
 import WebRTC
 import os.log
 
-struct CustomMessage: Codable {
+struct CustomMessage {
     let text: String
-    let type: String
+    let type: MessageType
 }
 class ChatViewController: KUIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
 
@@ -166,16 +166,22 @@ class ChatViewController: KUIViewController, UICollectionViewDataSource, UIColle
 
     @IBAction func SendMessage(_ sender: UIButton) {
         
-        //Omitted kkk = kkk + 1
         guard let text = messageTextField.text, !text.isEmpty else {
             return // Don't send empty messages
         }
+//        kkk = kkk + 1
         noMessage.isHidden = true;
         messageTextField.text = ""
-        let message = CustomMessage(text: text, type: "sent")// Create a new message object
+        let message = CustomMessage(text: text, type: .sent)// Create a new message object
+//        let message = CustomMessage(text: text, type: kkk % 2 == 0 ? .received : .sent)// Create a new message object
         messages.append(message) // Add the new message to the messages array
 
         messageCollectionView.reloadData() // Refresh the table view to display the new message
+        //DELME
+//        for i in messages {
+//            print(i.type)
+//        }
+//        print("*****")
         // Scroll to the last item in collection view
         let lastItemIndex = messageCollectionView.numberOfItems(inSection: 0) - 1
         let lastIndexPath = IndexPath(item: lastItemIndex, section: 0)
@@ -311,7 +317,13 @@ class ChatViewController: KUIViewController, UICollectionViewDataSource, UIColle
     }
     
     @IBAction func GoBack(_ sender: UIButton) {
-//        _ = navigationController?.popViewController(animated: true)
+
+        let transition = CATransition()
+        transition.duration = 0.5 // Set animation duration
+        transition.type = CATransitionType.push // Set transition type to push
+        transition.subtype = CATransitionSubtype.fromLeft // Set transition subtype to from right
+        self.view.window?.layer.add(transition, forKey: kCATransition) // Add transition to window layer
+    
         self.dismiss(animated: false)
         self.signalClient.sendRoomIdClose(roomId: self.roomUid)
     }
@@ -386,7 +398,7 @@ extension ChatViewController: WebRTCClientDelegate {
     func webRTCClient(_ client: WebRTCClient, didReceiveData data: Data) {
         DispatchQueue.main.async {
             let message = String(data: data, encoding: .utf8) ?? "(Binary: \(data.count) bytes)"
-            let messageWrap = CustomMessage(text: message, type: "received")// Create a new message object
+            let messageWrap = CustomMessage(text: message, type: .received)// Create a new message object
             self.messages.append(messageWrap) // Add the new message to the messages array
             self.messageCollectionView.reloadData() // Refresh the table view to display the new message
         }

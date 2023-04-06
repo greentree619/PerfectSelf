@@ -9,6 +9,20 @@
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <array key="Lato-Bold.ttf">
+            <string>Lato-Bold</string>
+        </array>
+        <array key="Lato-Regular.ttf">
+            <string>Lato-Regular</string>
+        </array>
+        <array key="Raleway-SemiBold.ttf">
+            <string>Raleway-SemiBold</string>
+        </array>
+        <array key="Raleway-VariableFont_wght.ttf">
+            <string>RalewayRoman-Bold</string>
+        </array>
+    </customFonts>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ActorBookConfirmationViewController" customModule="PerfectSelf" customModuleProvider="target">
             <connections>
@@ -72,8 +86,8 @@
                             <rect key="frame" x="20" y="280" width="353" height="40"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Booking confirmation" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2Xd-Mh-e7T">
-                                    <rect key="frame" x="0.0" y="9.3333333333333162" width="353" height="21.666666666666671"/>
-                                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
+                                    <rect key="frame" x="0.0" y="8" width="353" height="24"/>
+                                    <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="20"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
@@ -87,8 +101,8 @@
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Reading with  Alan Walker" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZD7-xC-dTf">
                                     <rect key="frame" x="8" y="8.6666666666666856" width="337" height="15.666666666666664"/>
-                                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                    <nil key="textColor"/>
+                                    <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="13"/>
+                                    <color key="textColor" red="0.58039215690000001" green="0.59607843140000005" blue="0.6705882353" alpha="1" colorSpace="calibratedRGB"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                             </subviews>
@@ -112,22 +126,11 @@
                             <rect key="frame" x="20" y="363" width="353" height="50"/>
                             <subviews>
                                 <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qba-7k-glD">
-                                    <rect key="frame" x="0.0" y="0.0" width="176.66666666666666" height="50"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="353" height="50"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Time: 12:30 EST" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uaE-s9-c8I">
-                                            <rect key="frame" x="0.0" y="0.0" width="176.66666666666666" height="50"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                            <nil key="textColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                    </subviews>
-                                </stackView>
-                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="bottom" translatesAutoresizingMaskIntoConstraints="NO" id="WYm-ZI-r9v">
-                                    <rect key="frame" x="176.66666666666663" y="0.0" width="176.33333333333337" height="50"/>
-                                    <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date: July 14, 2022" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hgN-32-uXB">
-                                            <rect key="frame" x="59.666666666666664" y="0.0" width="116.66666666666669" height="50"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Time: Mar 14, 2023  3:00 pm EST" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uaE-s9-c8I">
+                                            <rect key="frame" x="0.0" y="0.0" width="353" height="50"/>
+                                            <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="12"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
@@ -153,27 +156,27 @@
                             <rect key="frame" x="20" y="416" width="353" height="185"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add a reminder" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DYk-hB-xis">
-                                    <rect key="frame" x="0.0" y="7.9999999999999991" width="98.666666666666671" height="15.666666666666664"/>
-                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="13"/>
+                                    <rect key="frame" x="0.0" y="7.9999999999999982" width="96.333333333333329" height="16.333333333333329"/>
+                                    <fontDescription key="fontDescription" name="RalewayRoman-Bold" family="Raleway" pointSize="13"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="lHb-e6-DAT">
-                                    <rect key="frame" x="0.0" y="23.666666666666686" width="353" height="153.33333333333334"/>
+                                    <rect key="frame" x="0.0" y="24.333333333333314" width="353" height="152.66666666666666"/>
                                     <subviews>
                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="DCh-cO-rrw">
-                                            <rect key="frame" x="20" y="8" width="141.66666666666666" height="137.33333333333334"/>
+                                            <rect key="frame" x="20" y="8" width="141.66666666666666" height="136.66666666666666"/>
                                             <subviews>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icons8-google-calendar-25" translatesAutoresizingMaskIntoConstraints="NO" id="lsK-km-eRj">
-                                                    <rect key="frame" x="52.666666666666671" y="29.999999999999943" width="36" height="36"/>
+                                                    <rect key="frame" x="52.666666666666671" y="30.000000000000057" width="36" height="36"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="36" id="AX7-w4-rcZ"/>
                                                         <constraint firstAttribute="width" constant="36" id="k07-0T-OlD"/>
                                                     </constraints>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add to Google calendar" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vZi-QS-c4C">
-                                                    <rect key="frame" x="25.666666666666679" y="85.999999999999943" width="90.333333333333314" height="31.333333333333329"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                    <rect key="frame" x="24.666666666666679" y="86.000000000000057" width="92.333333333333314" height="30.666666666666671"/>
+                                                    <fontDescription key="fontDescription" name="Raleway-SemiBold" family="Raleway" pointSize="13"/>
                                                     <color key="textColor" red="0.45882352939999999" green="0.52941176469999995" blue="0.85098039219999999" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -197,18 +200,18 @@
                                             </connections>
                                         </stackView>
                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="cy6-cM-FRw">
-                                            <rect key="frame" x="191.66666666666663" y="8" width="141.33333333333337" height="137.33333333333334"/>
+                                            <rect key="frame" x="191.66666666666663" y="8" width="141.33333333333337" height="136.66666666666666"/>
                                             <subviews>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" image="calendar" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="nrK-MG-MRl">
-                                                    <rect key="frame" x="52.666666666666657" y="31.666666666666607" width="36" height="32.999999999999993"/>
+                                                    <rect key="frame" x="52.666666666666657" y="31.666666666666721" width="36" height="32.999999999999993"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="36" id="TJ6-Aw-BU1"/>
                                                         <constraint firstAttribute="height" constant="36" id="yGu-2e-Pe0"/>
                                                     </constraints>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add to calendar" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LVu-OS-amu">
-                                                    <rect key="frame" x="22.666666666666686" y="85.999999999999943" width="96" height="31.333333333333329"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                    <rect key="frame" x="21.33333333333335" y="86.000000000000057" width="98.666666666666686" height="30.666666666666671"/>
+                                                    <fontDescription key="fontDescription" name="Raleway-SemiBold" family="Raleway" pointSize="13"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>

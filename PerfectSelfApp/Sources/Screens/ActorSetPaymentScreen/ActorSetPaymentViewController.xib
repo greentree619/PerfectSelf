@@ -9,6 +9,11 @@
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <array key="Lato-Bold.ttf">
+            <string>Lato-Bold</string>
+        </array>
+    </customFonts>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ActorSetPaymentViewController" customModule="PerfectSelf" customModuleProvider="target">
             <connections>
@@ -78,45 +83,15 @@
                                         <constraint firstAttribute="height" constant="170" id="HNd-zp-Gxn" customClass="AdaptiveLayoutConstraint" customModule="PerfectSelf" customModuleProvider="target"/>
                                     </constraints>
                                 </stackView>
-                                <stackView opaque="NO" contentMode="scaleToFill" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="x6V-wb-Xsc">
-                                    <rect key="frame" x="20" y="212" width="353" height="38.333333333333343"/>
-                                    <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Set Payment" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3mw-xw-LYa">
-                                            <rect key="frame" x="8" y="15.666666666666687" width="337" height="21.666666666666671"/>
-                                            <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
-                                            <nil key="textColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                    </subviews>
-                                    <constraints>
-                                        <constraint firstAttribute="height" constant="38.329999999999998" id="Pan-sA-L0H" customClass="AdaptiveLayoutConstraint" customModule="PerfectSelf" customModuleProvider="target"/>
-                                    </constraints>
-                                    <edgeInsets key="layoutMargins" top="15" left="8" bottom="0.0" right="8"/>
-                                </stackView>
-                                <stackView opaque="NO" contentMode="scaleToFill" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="EPr-16-49t">
-                                    <rect key="frame" x="20" y="250.33333333333334" width="353" height="40.333333333333343"/>
-                                    <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select the payment method" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TDy-0f-3nI">
-                                            <rect key="frame" x="8" y="8.6666666666666856" width="337" height="15.666666666666664"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                            <nil key="textColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                    </subviews>
-                                    <constraints>
-                                        <constraint firstAttribute="height" constant="40.329999999999998" id="phh-rQ-Sjp" customClass="AdaptiveLayoutConstraint" customModule="PerfectSelf" customModuleProvider="target"/>
-                                    </constraints>
-                                    <edgeInsets key="layoutMargins" top="8" left="8" bottom="15" right="8"/>
-                                </stackView>
                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="I7m-MP-rD0">
-                                    <rect key="frame" x="20" y="290.66666666666674" width="353" height="376.33333333333326"/>
+                                    <rect key="frame" x="20" y="212" width="353" height="455"/>
                                     <subviews>
                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="nN5-ne-H00">
-                                            <rect key="frame" x="0.0" y="0.0" width="353" height="48"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="353" height="49.333333333333336"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Payment Options" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aal-zR-tSc">
-                                                    <rect key="frame" x="10" y="15" width="333" height="18"/>
-                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                                    <rect key="frame" x="10" y="14.999999999999998" width="333" height="19.333333333333329"/>
+                                                    <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="16"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -124,13 +99,13 @@
                                             <edgeInsets key="layoutMargins" top="15" left="10" bottom="15" right="10"/>
                                         </stackView>
                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="filter_divide" translatesAutoresizingMaskIntoConstraints="NO" id="rIi-Ry-9kn">
-                                            <rect key="frame" x="0.0" y="48" width="353" height="1"/>
+                                            <rect key="frame" x="0.0" y="49.333333333333314" width="353" height="1"/>
                                         </imageView>
                                         <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gtl-Oi-zWN">
-                                            <rect key="frame" x="0.0" y="49" width="353" height="327.33333333333331"/>
+                                            <rect key="frame" x="0.0" y="50.333333333333314" width="353" height="404.66666666666669"/>
                                             <subviews>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="RRi-EY-Ue8">
-                                                    <rect key="frame" x="10" y="0.0" width="333" height="327.33333333333331"/>
+                                                    <rect key="frame" x="10" y="0.0" width="333" height="404.66666666666669"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="400" id="jtV-Jx-RDX"/>
                                                     </constraints>

@@ -7,6 +7,17 @@
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <array key="Madrigal.ttf">
+            <string>Madrigal</string>
+        </array>
+        <array key="Raleway-Bold.ttf">
+            <string>Raleway-Bold</string>
+        </array>
+        <array key="Raleway-Medium.ttf">
+            <string>Raleway-Medium</string>
+        </array>
+    </customFonts>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="LoginViewController" customModule="PerfectSelf" customModuleProvider="target">
             <connections>
@@ -42,7 +53,7 @@
                             <constraints>
                                 <constraint firstAttribute="height" constant="33.666666666666686" id="IHg-HV-SlH"/>
                             </constraints>
-                            <fontDescription key="fontDescription" type="boldSystem" pointSize="28"/>
+                            <fontDescription key="fontDescription" name="Madrigal" family="Madrigal" pointSize="32"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
@@ -51,7 +62,7 @@
                             <constraints>
                                 <constraint firstAttribute="height" constant="30" id="Ms6-KG-zfQ"/>
                             </constraints>
-                            <fontDescription key="fontDescription" type="boldSystem" pointSize="25"/>
+                            <fontDescription key="fontDescription" name="Raleway-Bold" family="Raleway" pointSize="24"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
@@ -60,7 +71,7 @@
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Connect With Readers and Film Your Best Self Tape" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CSN-38-KRU">
                                     <rect key="frame" x="20" y="20" width="335" height="50"/>
-                                    <fontDescription key="fontDescription" type="system" pointSize="19"/>
+                                    <fontDescription key="fontDescription" name="Raleway-Medium" family="Raleway" pointSize="16"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
@@ -76,7 +87,9 @@
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VM4-l0-c7t">
                                     <rect key="frame" x="20" y="0.0" width="162.66666666666666" height="60"/>
                                     <state key="normal" title="Button"/>
-                                    <buttonConfiguration key="configuration" style="filled" title="Login" titleAlignment="center"/>
+                                    <buttonConfiguration key="configuration" style="filled" title="Login" titleAlignment="center">
+                                        <fontDescription key="titleFontDescription" name="Georgia" family="Georgia" pointSize="16"/>
+                                    </buttonConfiguration>
                                     <connections>
                                         <action selector="login:" destination="-1" eventType="touchUpInside" id="MB3-4F-RY0"/>
                                     </connections>

@@ -11,7 +11,7 @@ import UIKit
 class MessageCell: UICollectionViewCell {
 
     @IBOutlet weak var messageLabel: UILabel!
-    var messageType: String?
+    var messageType: MessageType?
     
     @IBOutlet weak var container: UIStackView!
     @IBOutlet weak var messageView: UIStackView!
@@ -27,22 +27,27 @@ class MessageCell: UICollectionViewCell {
         guard let messageType = messageType else {
             return
         }
-        
+//        print("here", messageType)
         switch messageType {
-        case "sent":
+        case .sent:
             container.alignment = .trailing
             messageView.backgroundColor = UIColor(rgb: 0x7587D9)
             messageView.layer.cornerRadius = 10
             messageView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMinXMaxYCorner, .layerMaxXMinYCorner]
         
-        case "received":
+        case .received:
             container.alignment = .leading
             messageView.backgroundColor = UIColor(rgb: 0xA9A9A9)
             messageView.layer.cornerRadius = 10
             messageView.layer.maskedCorners = [.layerMaxXMaxYCorner, .layerMaxXMinYCorner, .layerMinXMaxYCorner]
-        default:
-            print("hey")
         }
     }
+    override func prepareForReuse() {
+         super.prepareForReuse()
+         
+         // Reset any properties that could affect the cell's appearance
+        container.alignment = .fill
+//        print("there" )
+     }
 
 }

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21225" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21207"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -15,6 +15,9 @@
                 <outlet property="localVideoView" destination="oVe-mG-07t" id="1nr-OD-BmB"/>
                 <outlet property="recordButton" destination="ojN-TJ-Aoy" id="qcq-EJ-Xh2"/>
                 <outlet property="remoteCameraView" destination="VYL-z9-Smz" id="hoL-7M-KD3"/>
+                <outlet property="timeSelect" destination="jCg-6L-bYu" id="BST-us-Kgn"/>
+                <outlet property="timeSelectCtrl" destination="jCg-6L-bYu" id="kgc-Wt-oo3"/>
+                <outlet property="timeSelectPannel" destination="zO4-6W-k28" id="HJl-m8-wRm"/>
                 <outlet property="view" destination="T4X-m9-Uf7" id="KyA-JP-28C"/>
             </connections>
         </placeholder>
@@ -149,10 +152,13 @@
                     <color key="tintColor" systemColor="systemBlueColor"/>
                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                     <state key="normal" title=" Start Timer" image="start-timer"/>
-                    <buttonConfiguration key="configuration" style="filled" image="start-timer" title=" Start Timer" titleAlignment="automatic">
+                    <buttonConfiguration key="configuration" style="filled" image="start-timer" title=" Set Timer" titleAlignment="automatic">
                         <color key="baseForegroundColor" red="0.14901960780000001" green="0.1960784314" blue="0.21960784310000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <color key="baseBackgroundColor" red="0.85098039219999999" green="0.85098039219999999" blue="0.85098039219999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="baseBackgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </buttonConfiguration>
+                    <connections>
+                        <action selector="setTimerDidTap:" destination="-1" eventType="touchUpInside" id="WNh-XF-mXn"/>
+                    </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ojN-TJ-Aoy">
                     <rect key="frame" x="20" y="733" width="173.66666666666666" height="58"/>
@@ -163,20 +169,20 @@
                     <inset key="imageEdgeInsets" minX="30" minY="0.0" maxX="18" maxY="0.0"/>
                     <state key="normal" title="Button"/>
                     <buttonConfiguration key="configuration" style="filled" image="view-script" title="Start Recording">
+                        <backgroundConfiguration key="background" image="book_back"/>
                         <color key="baseForegroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <color key="baseBackgroundColor" red="0.12941176469999999" green="0.1450980392" blue="0.16078431369999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </buttonConfiguration>
                     <connections>
                         <action selector="recordingDidTap:" destination="-1" eventType="touchUpInside" id="G77-Uu-qSn"/>
                     </connections>
                 </button>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7Aq-dX-F8Y">
-                    <rect key="frame" x="277" y="180" width="96" height="27"/>
+                    <rect key="frame" x="277" y="121" width="96" height="27"/>
                     <subviews>
-                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="recording" translatesAutoresizingMaskIntoConstraints="NO" id="grL-OO-0uq">
+                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" ambiguous="YES" image="recording" translatesAutoresizingMaskIntoConstraints="NO" id="grL-OO-0uq">
                             <rect key="frame" x="7" y="7.6666666666666572" width="12" height="12"/>
                         </imageView>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Record Meeting" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yb7-RM-WRr">
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Record Meeting" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yb7-RM-WRr">
                             <rect key="frame" x="26.666666666666689" y="8.6666666666666572" width="62.333333333333343" height="10"/>
                             <fontDescription key="fontDescription" type="system" pointSize="8"/>
                             <color key="textColor" red="0.97647058819999999" green="0.32549019610000002" blue="0.098039215690000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -198,6 +204,69 @@
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                 </view>
+                <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zO4-6W-k28" userLabel="Timer Select">
+                    <rect key="frame" x="0.0" y="538" width="393" height="314"/>
+                    <subviews>
+                        <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jCg-6L-bYu" userLabel="Time span">
+                            <rect key="frame" x="0.0" y="50" width="393" height="264"/>
+                        </pickerView>
+                        <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="60c-Ld-QrE">
+                            <rect key="frame" x="281" y="12" width="100" height="25"/>
+                            <subviews>
+                                <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VSX-gt-rIZ" userLabel="ok">
+                                    <rect key="frame" x="0.0" y="0.0" width="50" height="25"/>
+                                    <color key="backgroundColor" red="0.45882352941176469" green="0.52941176470588236" blue="0.85098039215686272" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                    <state key="normal" image="checkmark" catalog="system"/>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                            <real key="value" value="5"/>
+                                        </userDefinedRuntimeAttribute>
+                                    </userDefinedRuntimeAttributes>
+                                    <connections>
+                                        <action selector="okDidTap:" destination="-1" eventType="touchUpInside" id="cvd-H0-PMw"/>
+                                    </connections>
+                                </button>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="i3V-Bn-amH" userLabel="cancel">
+                                    <rect key="frame" x="50" y="0.0" width="50" height="25"/>
+                                    <color key="backgroundColor" red="0.89803921568627454" green="0.89803921568627454" blue="0.89803921568627454" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="tintColor" red="0.14901960780000001" green="0.1960784314" blue="0.21960784310000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                    <state key="normal" image="xmark" catalog="system"/>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                            <real key="value" value="5"/>
+                                        </userDefinedRuntimeAttribute>
+                                    </userDefinedRuntimeAttributes>
+                                    <connections>
+                                        <action selector="cancelDidTap:" destination="-1" eventType="touchUpInside" id="73Q-bU-rEI"/>
+                                    </connections>
+                                </button>
+                            </subviews>
+                            <constraints>
+                                <constraint firstItem="VSX-gt-rIZ" firstAttribute="width" secondItem="i3V-Bn-amH" secondAttribute="width" id="f2y-5h-KCq"/>
+                                <constraint firstAttribute="height" constant="25" id="gA3-3F-nJC"/>
+                                <constraint firstAttribute="width" constant="100" id="tkQ-LN-ivR"/>
+                            </constraints>
+                        </stackView>
+                    </subviews>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    <constraints>
+                        <constraint firstAttribute="trailing" secondItem="jCg-6L-bYu" secondAttribute="trailing" id="ERf-sS-n3e"/>
+                        <constraint firstAttribute="trailing" secondItem="60c-Ld-QrE" secondAttribute="trailing" constant="12" id="YO5-ur-ye5"/>
+                        <constraint firstAttribute="bottom" secondItem="jCg-6L-bYu" secondAttribute="bottom" id="ZgT-Hl-Jpe"/>
+                        <constraint firstItem="jCg-6L-bYu" firstAttribute="leading" secondItem="zO4-6W-k28" secondAttribute="leading" id="gBs-QB-SKr"/>
+                        <constraint firstAttribute="height" constant="314" id="mVM-yB-dPd"/>
+                        <constraint firstItem="jCg-6L-bYu" firstAttribute="top" secondItem="zO4-6W-k28" secondAttribute="top" constant="50" id="uFf-8a-Zlb"/>
+                        <constraint firstItem="60c-Ld-QrE" firstAttribute="top" secondItem="zO4-6W-k28" secondAttribute="top" constant="12" id="yeP-pJ-P0Y"/>
+                    </constraints>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                            <real key="value" value="27"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </view>
             </subviews>
             <viewLayoutGuide key="safeArea" id="hdh-dU-uYV"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -209,7 +278,9 @@
                 <constraint firstItem="vdA-kj-hut" firstAttribute="width" secondItem="ojN-TJ-Aoy" secondAttribute="width" id="FRG-tG-nIG"/>
                 <constraint firstItem="7Aq-dX-F8Y" firstAttribute="trailing" secondItem="hdh-dU-uYV" secondAttribute="trailing" constant="-20" id="GO2-Jb-eDP"/>
                 <constraint firstItem="vdA-kj-hut" firstAttribute="leading" secondItem="ojN-TJ-Aoy" secondAttribute="trailing" constant="6" id="Lzq-zn-5o1"/>
+                <constraint firstItem="hdh-dU-uYV" firstAttribute="trailing" secondItem="zO4-6W-k28" secondAttribute="trailing" id="MWp-S0-Opc"/>
                 <constraint firstItem="VYL-z9-Smz" firstAttribute="leading" secondItem="hdh-dU-uYV" secondAttribute="leading" id="RIU-2d-cyU"/>
+                <constraint firstItem="zO4-6W-k28" firstAttribute="leading" secondItem="hdh-dU-uYV" secondAttribute="leading" id="UTs-wz-ruK"/>
                 <constraint firstItem="VYL-z9-Smz" firstAttribute="top" secondItem="T4X-m9-Uf7" secondAttribute="top" id="UYo-MG-Zs0"/>
                 <constraint firstItem="oVe-mG-07t" firstAttribute="leading" secondItem="hdh-dU-uYV" secondAttribute="leading" constant="20" id="aqF-JH-Umu"/>
                 <constraint firstItem="hdh-dU-uYV" firstAttribute="bottom" secondItem="ojN-TJ-Aoy" secondAttribute="bottom" constant="27" id="bqd-lN-AhP"/>
@@ -218,17 +289,26 @@
                 <constraint firstItem="ZDA-HM-us0" firstAttribute="trailing" secondItem="hdh-dU-uYV" secondAttribute="trailing" id="eFQ-rJ-Z6b"/>
                 <constraint firstItem="7Aq-dX-F8Y" firstAttribute="top" secondItem="ZDA-HM-us0" secondAttribute="bottom" constant="34" id="joE-K6-8IC"/>
                 <constraint firstItem="VYL-z9-Smz" firstAttribute="trailing" secondItem="hdh-dU-uYV" secondAttribute="trailing" id="sbh-ie-wTU"/>
+                <constraint firstAttribute="bottom" secondItem="zO4-6W-k28" secondAttribute="bottom" id="tZx-EL-Rei"/>
                 <constraint firstItem="ZDA-HM-us0" firstAttribute="leading" secondItem="hdh-dU-uYV" secondAttribute="leading" id="uus-zw-qZt"/>
             </constraints>
+            <variation key="default">
+                <mask key="subviews">
+                    <exclude reference="7Aq-dX-F8Y"/>
+                </mask>
+            </variation>
             <point key="canvasLocation" x="702" y="-12"/>
         </view>
     </objects>
     <resources>
         <image name="back-button" width="24" height="24"/>
+        <image name="book_back" width="375" height="221"/>
         <image name="camera-move-mark" width="23" height="23"/>
+        <image name="checkmark" catalog="system" width="128" height="114"/>
         <image name="recording" width="12" height="12"/>
         <image name="start-timer" width="26" height="26"/>
         <image name="view-script" width="26" height="26"/>
+        <image name="xmark" catalog="system" width="128" height="113"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
