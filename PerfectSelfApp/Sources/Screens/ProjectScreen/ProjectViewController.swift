@@ -10,29 +10,11 @@ import Foundation
 import UIKit
 import Photos
 
-class ProjectViewController: UIViewController, PlayerViewDelegate {
-    func playerVideo(player: PlayerView, currentTime: Double) {
-        //player.pause()
-        //self.playerView.updateFocusIfNeeded()
-    }
+class ProjectViewController: UIViewController {
     
-    func playerVideo(player: PlayerView, duration: Double) {
-        //player.currentTime = duration/100
-        //player.player!.seek(to: CMTime(value: 1, timescale: 600))
-        player.play()
-    }
-    
-    func playerVideo(player: PlayerView, statusItemPlayer: AVPlayer.Status, error: Error?) {
-        
-    }
-    
-    func playerVideo(player: PlayerView, statusItemPlayer: AVPlayerItem.Status, error: Error?) {
-        
-    }
-    
-    func playerVideoDidEnd(player: PlayerView) {
-        
-    }
+    @IBOutlet weak var playerBar: UISlider!
+    @IBOutlet var startTime: UILabel!
+    @IBOutlet var endTime: UILabel!
     
     var savedFileUrl: URL? = nil
     @IBOutlet weak var playerView: PlayerView!
@@ -120,6 +102,11 @@ class ProjectViewController: UIViewController, PlayerViewDelegate {
         self.present(editReadViewController, animated: false, completion: nil)
     }
     
+    @IBAction func sliderValueChanged(_ sender: Any) {
+        playerView.currentTime = Double( playerBar.value )
+    }
+    
+    
     /*
     // MARK: - Navigation
 
@@ -130,4 +117,38 @@ class ProjectViewController: UIViewController, PlayerViewDelegate {
     }
     */
 
+}
+
+extension ProjectViewController: PlayerViewDelegate{
+    func playerVideo(player: PlayerView, currentTime: Double) {
+        //player.pause()
+        //self.playerView.updateFocusIfNeeded()
+        playerBar.value =  Float(currentTime)
+    }
+    
+    func playerVideo(player: PlayerView, duration: Double) {
+        //player.currentTime = duration/100
+        //player.player!.seek(to: CMTime(value: 1, timescale: 600))
+        
+        playerBar.minimumValue = Float(0)
+        playerBar.maximumValue =  Float(duration)
+        self.startTime.text = getCurrentTime(second:  0)
+        self.endTime.text = getCurrentTime(second: duration)
+        //player.play()
+        
+        playerBar.value = 0.0
+        playerView.currentTime = Double( 0 )
+    }
+    
+    func playerVideo(player: PlayerView, statusItemPlayer: AVPlayer.Status, error: Error?) {
+        
+    }
+    
+    func playerVideo(player: PlayerView, statusItemPlayer: AVPlayerItem.Status, error: Error?) {
+        
+    }
+    
+    func playerVideoDidEnd(player: PlayerView) {
+        
+    }
 }
