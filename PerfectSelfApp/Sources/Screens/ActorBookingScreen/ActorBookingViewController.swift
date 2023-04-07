@@ -164,16 +164,25 @@ class ActorBookingViewController: UIViewController, UICollectionViewDataSource, 
     
     @IBAction func RateWithStar1(_ sender: UITapGestureRecognizer) {
         img_star1.tintColor = UIColor(rgb: 0xFFCC00)
+        img_star2.tintColor = UIColor(rgb: 0x9498AB)
+        img_star3.tintColor = UIColor(rgb: 0x9498AB)
+        img_star4.tintColor = UIColor(rgb: 0x9498AB)
+        img_star5.tintColor = UIColor(rgb: 0x9498AB)
     }
     @IBAction func RateWithStar2(_ sender: UITapGestureRecognizer) {
         img_star1.tintColor = UIColor(rgb: 0xFFCC00)
         img_star2.tintColor = UIColor(rgb: 0xFFCC00)
+        img_star3.tintColor = UIColor(rgb: 0x9498AB)
+        img_star4.tintColor = UIColor(rgb: 0x9498AB)
+        img_star5.tintColor = UIColor(rgb: 0x9498AB)
     }
     
     @IBAction func RateWithStar3(_ sender: UITapGestureRecognizer) {
         img_star1.tintColor = UIColor(rgb: 0xFFCC00)
         img_star2.tintColor = UIColor(rgb: 0xFFCC00)
         img_star3.tintColor = UIColor(rgb: 0xFFCC00)
+        img_star4.tintColor = UIColor(rgb: 0x9498AB)
+        img_star5.tintColor = UIColor(rgb: 0x9498AB)
     }
     
     @IBAction func RateWithStar4(_ sender: UITapGestureRecognizer) {
@@ -181,6 +190,7 @@ class ActorBookingViewController: UIViewController, UICollectionViewDataSource, 
         img_star2.tintColor = UIColor(rgb: 0xFFCC00)
         img_star3.tintColor = UIColor(rgb: 0xFFCC00)
         img_star4.tintColor = UIColor(rgb: 0xFFCC00)
+        img_star5.tintColor = UIColor(rgb: 0x9498AB)
     }
     
     @IBAction func RateWithStar5(_ sender: UITapGestureRecognizer) {
