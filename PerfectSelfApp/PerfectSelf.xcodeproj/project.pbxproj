@@ -25,6 +25,7 @@
 		472F64FD29CC0868005A427D /* ReaderProfileEditAvailabilityViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 472F64FC29CC0868005A427D /* ReaderProfileEditAvailabilityViewController.xib */; };
 		4732BDD029D62A98001CBAC5 /* KeyboardManage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4732BDCF29D62A98001CBAC5 /* KeyboardManage.swift */; };
 		4744C4A629D088FD00963C92 /* DateFormat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4744C4A529D088FD00963C92 /* DateFormat.swift */; };
+		4748900829DF37C100963EA9 /* Rationale-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4748900629DF37C100963EA9 /* Rationale-Regular.ttf */; };
 		474D241F29DA9EED00FD7DF0 /* DateSelectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 474D241D29DA9EED00FD7DF0 /* DateSelectViewController.swift */; };
 		474D242029DA9EED00FD7DF0 /* DateSelectViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 474D241E29DA9EED00FD7DF0 /* DateSelectViewController.xib */; };
 		475269BB29CD0F930094C3E9 /* BookingCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 475269B929CD0F930094C3E9 /* BookingCollectionViewCell.swift */; };
@@ -234,6 +235,7 @@
 		472F64FC29CC0868005A427D /* ReaderProfileEditAvailabilityViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ReaderProfileEditAvailabilityViewController.xib; sourceTree = "<group>"; };
 		4732BDCF29D62A98001CBAC5 /* KeyboardManage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardManage.swift; sourceTree = "<group>"; };
 		4744C4A529D088FD00963C92 /* DateFormat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormat.swift; sourceTree = "<group>"; };
+		4748900629DF37C100963EA9 /* Rationale-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Rationale-Regular.ttf"; sourceTree = "<group>"; };
 		474D241D29DA9EED00FD7DF0 /* DateSelectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateSelectViewController.swift; sourceTree = "<group>"; };
 		474D241E29DA9EED00FD7DF0 /* DateSelectViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DateSelectViewController.xib; sourceTree = "<group>"; };
 		475269B929CD0F930094C3E9 /* BookingCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookingCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -485,6 +487,14 @@
 			path = ReaderBuildProfileScreen;
 			sourceTree = "<group>";
 		};
+		4748900529DF37C100963EA9 /* Rationale */ = {
+			isa = PBXGroup;
+			children = (
+				4748900629DF37C100963EA9 /* Rationale-Regular.ttf */,
+			);
+			path = Rationale;
+			sourceTree = "<group>";
+		};
 		47BC09B729C5B3E300B8F2C5 /* ActorBuildProfileScreen */ = {
 			isa = PBXGroup;
 			children = (
@@ -712,6 +722,7 @@
 		BA4714A329A79856007AABC2 /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
+				4748900529DF37C100963EA9 /* Rationale */,
 				47C9734529DC255000468E11 /* Lato */,
 				47C9731729DC1E5A00468E11 /* Raleway */,
 				47C9731229DC1DB500468E11 /* madrigal */,
@@ -1260,6 +1271,7 @@
 				BAD0B54529BA17130061FEF5 /* ActorBookingViewController.xib in Resources */,
 				4715510229CDBF00007CE524 /* TimeSlotCollectionViewCell.xib in Resources */,
 				BAD0B50129BA17130061FEF5 /* ActorBookConfirmationViewController.xib in Resources */,
+				4748900829DF37C100963EA9 /* Rationale-Regular.ttf in Resources */,
 				47843E4429CFEB2F008704CD /* ChatCardCollectionViewCell.xib in Resources */,
 				47C9735B29DC255000468E11 /* Lato-ThinItalic.ttf in Resources */,
 				475ECFF729DEF3E2004AED9A /* SortViewController.xib in Resources */,

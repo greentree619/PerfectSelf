@@ -84,7 +84,7 @@ class ActorHomeViewController: UIViewController, UICollectionViewDataSource, UIC
             + flowLayout.sectionInset.right
             + (flowLayout.minimumInteritemSpacing * CGFloat(cellsPerRow - 1))
         let size = Int((collectionView.bounds.width - totalSpace) / CGFloat(cellsPerRow))
-        return CGSize(width: size, height: 120)
+        return CGSize(width: size, height: 100)
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -95,8 +95,8 @@ class ActorHomeViewController: UIViewController, UICollectionViewDataSource, UIC
         // return card
         cell.layer.masksToBounds = false
         cell.layer.shadowOffset = CGSizeZero
-        cell.layer.shadowRadius = 8
-        cell.layer.shadowOpacity = 0.2
+        cell.layer.shadowRadius = 3
+        cell.layer.shadowOpacity = 0.15
         cell.contentView.layer.cornerRadius = 12
         cell.contentView.layer.borderWidth = 1.0
         cell.contentView.layer.borderColor = UIColor.clear.cgColor

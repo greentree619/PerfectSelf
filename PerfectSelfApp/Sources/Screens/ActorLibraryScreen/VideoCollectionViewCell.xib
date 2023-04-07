@@ -122,6 +122,11 @@
                             <constraint firstItem="sVb-Jn-7ld" firstAttribute="centerX" secondItem="fub-qf-yfX" secondAttribute="centerX" id="t9h-2l-8xE"/>
                             <constraint firstAttribute="bottom" secondItem="EtD-IZ-IeV" secondAttribute="bottom" id="y3x-Z1-2bH"/>
                         </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                <real key="value" value="10"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
                     </view>
                 </subviews>
             </view>

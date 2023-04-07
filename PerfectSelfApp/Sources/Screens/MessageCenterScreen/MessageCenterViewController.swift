@@ -53,14 +53,14 @@ class MessageCenterViewController: UIViewController, UICollectionViewDataSource,
         cell.lbl_unviewednum.text = self.items[indexPath.row];
         
         // return card
-        cell.layer.masksToBounds = false
-        cell.layer.shadowOffset = CGSize(width: 3,height: 3)
-        cell.layer.shadowRadius = 8
-        cell.layer.shadowOpacity = 0.2
-        cell.contentView.layer.cornerRadius = 12
-        cell.contentView.layer.borderWidth = 1.0
-        cell.contentView.layer.borderColor = UIColor.clear.cgColor
-        cell.contentView.layer.masksToBounds = true
+//        cell.layer.masksToBounds = false
+//        cell.layer.shadowOffset = CGSize(width: 3,height: 3)
+//        cell.layer.shadowRadius = 8
+//        cell.layer.shadowOpacity = 0.2
+//        cell.contentView.layer.cornerRadius = 12
+//        cell.contentView.layer.borderWidth = 1.0
+//        cell.contentView.layer.borderColor = UIColor.clear.cgColor
+//        cell.contentView.layer.masksToBounds = true
         
         return cell
     }
