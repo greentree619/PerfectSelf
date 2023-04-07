@@ -36,8 +36,23 @@ class LoginDetailViewController: UIViewController {
         
         let userEmail = UserDefaults.standard.string(forKey: "USER_EMAIL")
         let userPwd = UserDefaults.standard.string(forKey: "USER_PWD")
+        let typeOfUser = UserDefaults.standard.string(forKey: "USER_TYPE")
         text_email.text = userEmail
         text_password.text = userPwd
+
+        if typeOfUser == "reader" {
+            btn_reader.isSelected = true
+            btn_actor.isSelected = false
+            btn_reader.borderWidth = 3;
+            btn_actor.borderWidth = 0;
+            userType = 4;
+        }
+        else {
+            btn_actor.isSelected = true
+            btn_reader.isSelected = false
+            btn_actor.borderWidth = 3;
+            btn_reader.borderWidth = 0;
+        }
     }
     
     @IBAction func DoLogin(_ sender: UIButton) {

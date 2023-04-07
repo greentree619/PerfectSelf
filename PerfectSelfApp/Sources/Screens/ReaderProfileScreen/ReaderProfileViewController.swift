@@ -14,7 +14,7 @@ class ReaderProfileViewController: UIViewController, UICollectionViewDataSource,
     var id = ""
     var hourlyRate: Int = 0
     @IBOutlet weak var btn_edit_userinfo: UIButton!
-    @IBOutlet weak var btn_edit_highlight: UIButton!
+    @IBOutlet weak var btn_edit_experience: UIButton!
     @IBOutlet weak var btn_edit_about: UIButton!
     @IBOutlet weak var btn_edit_skills: UIButton!
     @IBOutlet weak var btn_edit_availability: UIButton!
@@ -61,7 +61,7 @@ class ReaderProfileViewController: UIViewController, UICollectionViewDataSource,
         self.view_review.frame.origin.x = self.view_container.frame.width
         
         btn_edit_userinfo.isHidden = true;
-        btn_edit_highlight.isHidden = true;
+        btn_edit_experience.isHidden = true;
         btn_edit_about.isHidden = true;
         btn_edit_skills.isHidden = true;
         btn_edit_availability.isHidden = true;
@@ -252,11 +252,17 @@ class ReaderProfileViewController: UIViewController, UICollectionViewDataSource,
         self.view.window?.layer.add(transition, forKey: kCATransition) // Add transition to window layer
         present(controller, animated: false, completion: nil)
     }
-//    @IBAction func EditHighlight(_ sender: UIButton) {
-//        let controller = ReaderProfileEditPersonalInfoViewController()
-//
-//        self.navigationController?.pushViewController(controller, animated: true)
-//    }
+    @IBAction func EditExperience(_ sender: UIButton) {
+        let controller = ReaderProfileEditSkillViewController()
+        
+        controller.modalPresentationStyle = .fullScreen
+        let transition = CATransition()
+        transition.duration = 0.5 // Set animation duration
+        transition.type = CATransitionType.push // Set transition type to push
+        transition.subtype = CATransitionSubtype.fromRight // Set transition subtype to from right
+        self.view.window?.layer.add(transition, forKey: kCATransition) // Add transition to window layer
+        present(controller, animated: false, completion: nil)
+    }
     @IBAction func EditAbout(_ sender: UIButton) {
         let controller = ReaderProfileEditAboutViewController() // Instantiate View Controller B
         controller.uid = id
@@ -309,7 +315,7 @@ class ReaderProfileViewController: UIViewController, UICollectionViewDataSource,
         if isEditingMode {
             isEditingMode = false;
             btn_edit_userinfo.isHidden = true;
-            btn_edit_highlight.isHidden = true;
+            btn_edit_experience.isHidden = true;
             btn_edit_about.isHidden = true;
             btn_edit_skills.isHidden = true;
             btn_edit_availability.isHidden = true;
@@ -318,7 +324,7 @@ class ReaderProfileViewController: UIViewController, UICollectionViewDataSource,
         else {
             isEditingMode = true;
             btn_edit_userinfo.isHidden = false;
-            btn_edit_highlight.isHidden = false;
+            btn_edit_experience.isHidden = false;
             btn_edit_about.isHidden = false;
             btn_edit_skills.isHidden = false;
             btn_edit_availability.isHidden = false;

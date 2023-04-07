@@ -28,7 +28,6 @@ class LoginViewController: UIViewController {
         if let version = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String,
            let build = Bundle.main.object(forInfoDictionaryKey: kCFBundleVersionKey as String) as? String {
             lbl_version.text = "version \(version).\(build)"
-            print("version \(version)====\(build)")
         }
 
     }
