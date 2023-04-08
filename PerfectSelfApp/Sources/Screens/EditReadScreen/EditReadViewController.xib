@@ -11,8 +11,10 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="EditReadViewController" customModule="PerfectSelf" customModuleProvider="target">
             <connections>
+                <outlet property="endTimerLabel" destination="hxI-HP-zRJ" id="qiY-8W-x5f"/>
                 <outlet property="playerView" destination="gNi-yJ-TIt" id="BeL-lB-uih"/>
                 <outlet property="slider" destination="Iiz-wc-mvQ" id="dfe-i6-O9p"/>
+                <outlet property="startTimerLabel" destination="LZb-OU-VB9" id="wNX-4n-xux"/>
                 <outlet property="view" destination="GgI-Tw-8jH" id="oQK-0P-Io0"/>
             </connections>
         </placeholder>
@@ -59,7 +61,7 @@
                             </connections>
                         </button>
                     </subviews>
-                    <color key="backgroundColor" red="0.14901960780000001" green="0.1960784314" blue="0.21960784310000001" alpha="0.93000000000000005" colorSpace="custom" customColorSpace="sRGB"/>
+                    <color key="backgroundColor" red="0.14901960780000001" green="0.1960784314" blue="0.21960784310000001" alpha="0.69999999999999996" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="87" id="DYS-Hd-doq"/>
                         <constraint firstItem="3Mw-me-A3q" firstAttribute="leading" secondItem="QmO-sV-Vye" secondAttribute="leading" constant="20" id="M5R-LX-2dt"/>
@@ -263,16 +265,32 @@
                                 <constraint firstItem="pkK-fd-vep" firstAttribute="centerX" secondItem="VCn-4g-Fio" secondAttribute="centerX" id="ikB-RN-UbV"/>
                             </constraints>
                         </view>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0:00:00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hxI-HP-zRJ" userLabel="end timer">
+                            <rect key="frame" x="298" y="-11" width="61" height="21"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0:00:00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LZb-OU-VB9" userLabel="start timer">
+                            <rect key="frame" x="34" y="-11" width="61" height="21"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <nil key="highlightedColor"/>
+                        </label>
                     </subviews>
                     <color key="backgroundColor" red="0.14901960780000001" green="0.1960784314" blue="0.21960784310000001" alpha="0.69999999999999996" colorSpace="custom" customColorSpace="calibratedRGB"/>
                     <constraints>
                         <constraint firstItem="VCn-4g-Fio" firstAttribute="leading" secondItem="GgE-0z-xA4" secondAttribute="leading" constant="34" id="2RN-xg-8rG"/>
                         <constraint firstAttribute="trailing" secondItem="VCn-4g-Fio" secondAttribute="trailing" constant="34" id="DGn-a9-ola"/>
                         <constraint firstItem="VCn-4g-Fio" firstAttribute="top" secondItem="Iiz-wc-mvQ" secondAttribute="bottom" constant="12" id="IPd-Ft-q2h"/>
+                        <constraint firstAttribute="trailing" secondItem="hxI-HP-zRJ" secondAttribute="trailing" constant="34" id="NnX-Es-Ogz"/>
                         <constraint firstItem="Iiz-wc-mvQ" firstAttribute="leading" secondItem="GgE-0z-xA4" secondAttribute="leading" constant="34" id="TgT-2I-HMC"/>
+                        <constraint firstItem="Iiz-wc-mvQ" firstAttribute="top" secondItem="LZb-OU-VB9" secondAttribute="bottom" id="Y1Y-Rh-UjT"/>
                         <constraint firstAttribute="height" constant="119" id="b2y-j8-paZ"/>
                         <constraint firstAttribute="trailing" secondItem="Iiz-wc-mvQ" secondAttribute="trailing" constant="34" id="dRP-Q1-pWd"/>
                         <constraint firstItem="Iiz-wc-mvQ" firstAttribute="top" secondItem="GgE-0z-xA4" secondAttribute="top" constant="10" id="gR7-X4-iu3"/>
+                        <constraint firstItem="LZb-OU-VB9" firstAttribute="leading" secondItem="GgE-0z-xA4" secondAttribute="leading" constant="34" id="h59-k6-8to"/>
+                        <constraint firstItem="Iiz-wc-mvQ" firstAttribute="top" secondItem="hxI-HP-zRJ" secondAttribute="bottom" id="meC-F8-Ur0"/>
                         <constraint firstAttribute="bottom" secondItem="VCn-4g-Fio" secondAttribute="bottom" constant="12" id="nZy-ad-RYK"/>
                     </constraints>
                 </view>
