@@ -87,7 +87,7 @@ class PerfectSelfWebAPI
         ]
         return executeAPI(with: "POST", apiPath: "ActorProfiles/", json: json, completionHandler:completionHandler)
     }
-    func getReaders(readerName: String?, isOnline: Bool?, availableTimeSlotType: Int?, availableFrom: String?, availableTo: String?, minPrice: Float?, maxPrice: Float?, gender: Int?, sortBy: Int?, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> Void
+    func getReaders(readerName: String?, isSponsored: Bool?, isAvailableSoon: Bool?, isTopRated: Bool?, isOnline: Bool?, availableTimeSlotType: Int?, availableFrom: String?, availableTo: String?, minPrice: Float?, maxPrice: Float?, gender: Int?, sortBy: Int?, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> Void
     {
         var params = ""
         var isParamsExist = false
@@ -95,30 +95,43 @@ class PerfectSelfWebAPI
             isParamsExist = true
             params += "readerName=\(readerName!)"
         }
+        if isSponsored ?? false {
+            params += (isParamsExist ? "&":"") + "isSponsored=\(isSponsored!)"
+            isParamsExist = true
+        }
+        if isAvailableSoon ?? false {
+            params += (isParamsExist ? "&":"") + "availableSoon=\(isAvailableSoon!)"
+            isParamsExist = true
+        }
+        if isTopRated ?? false {
+            params += (isParamsExist ? "&":"") + "topRated=4.5"
+            isParamsExist = true
+        }
         if isOnline != nil {
-            params += (isParamsExist ? "":"&") + "isOnline=\(isOnline!)"
+            params += (isParamsExist ? "&":"") + "isOnline=\(isOnline!)"
             isParamsExist = true
         }
         if availableTimeSlotType != nil {
-            params += (isParamsExist ? "":"&") + "availableTimeSlotType=\(availableTimeSlotType!)"
+            params += (isParamsExist ? "&":"") + "availableTimeSlotType=\(availableTimeSlotType!)"
             isParamsExist = true
         }
         if availableFrom != nil {
-            params += (isParamsExist ? "":"&") + "availableFrom=\(availableFrom!)&availableTo=\(availableTo!)"
+            params += (isParamsExist ? "&":"") + "availableFrom=\(availableFrom!)&availableTo=\(availableTo!)"
             isParamsExist = true
         }
         if minPrice != nil {
-            params += (isParamsExist ? "":"&") + "minPrice=\(minPrice!)&maxPrice=\(maxPrice!)"
+            params += (isParamsExist ? "&":"") + "minPrice=\(minPrice!)&maxPrice=\(maxPrice!)"
             isParamsExist = true
         }
         if gender != nil {
-            params += (isParamsExist ? "":"&") + "gender=\(gender!)"
+            params += (isParamsExist ? "&":"") + "gender=\(gender!)"
             isParamsExist = true
         }
         if sortBy != nil {
-            params += (isParamsExist ? "":"&") + "sortBy=\(sortBy!)"
+            params += (isParamsExist ? "&":"") + "sortBy=\(sortBy!)"
             isParamsExist = true
         }
+        print(params)
         return executeAPI(with: "GET", apiPath: "ReaderProfiles/ReaderList?\(params)", json: [:], completionHandler:completionHandler)
     }
     func getReaderById(id: String, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> Void

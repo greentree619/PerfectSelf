@@ -16,6 +16,10 @@ class ActorHomeViewController: UIViewController, UICollectionViewDataSource, UIC
     @IBOutlet weak var spin: UIActivityIndicatorView!
     @IBOutlet weak var readerListFlow: UICollectionViewFlowLayout!
     @IBOutlet weak var greetingLabel: UILabel!
+    
+    @IBOutlet weak var btn_sponsored: UIButton!
+    @IBOutlet weak var btn_availablesoon: UIButton!
+    @IBOutlet weak var btn_topRate: UIButton!
     let backgroundView = UIView()
     
     var isSponsored = true
@@ -42,7 +46,7 @@ class ActorHomeViewController: UIViewController, UICollectionViewDataSource, UIC
         spin.isHidden = false
         spin.startAnimating()
         // call API to fetch reader list
-        webAPI.getReaders(readerName: nil, isOnline: nil, availableTimeSlotType: nil, availableFrom: nil, availableTo: nil, minPrice: nil, maxPrice: nil, gender: nil, sortBy: nil) { data, response, error in
+        webAPI.getReaders(readerName: nil,isSponsored: isSponsored, isAvailableSoon: isAvailableSoon,isTopRated: isTopRated, isOnline: nil, availableTimeSlotType: nil, availableFrom: nil, availableTo: nil, minPrice: nil, maxPrice: nil, gender: nil, sortBy: nil) { data, response, error in
             DispatchQueue.main.async {
                 self.spin.stopAnimating()
                 self.spin.isHidden = true
@@ -90,6 +94,9 @@ class ActorHomeViewController: UIViewController, UICollectionViewDataSource, UIC
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Reader Collection View Cell", for: indexPath) as! ReaderCollectionViewCell
         cell.readerName.text = self.items[indexPath.row].userName;
         cell.salary.text = "$" + String((self.items[indexPath.row].hourlyPrice ?? 0)/4)
+        cell.score.text = String(self.items[indexPath.row].score)
+        cell.review.text = "(\(self.items[indexPath.row].reviewCount))"
+        cell.status.backgroundColor = self.items[indexPath.row].isLogin ? UIColor(rgb: 0x34C759) : UIColor(rgb: 0xAAAAAA)
         // return card
         cell.layer.masksToBounds = false
         cell.layer.shadowOffset = CGSizeZero
@@ -137,6 +144,7 @@ class ActorHomeViewController: UIViewController, UICollectionViewDataSource, UIC
             sender.backgroundColor = UIColor(rgb: 0xE5E5E5)
             sender.setTitleColor(UIColor(rgb: 0x4865FF), for: .normal)
         }
+        fetchReaderList()
     }
     
     @IBAction func SelectAvailableSoon(_ sender: UIButton) {
@@ -150,6 +158,7 @@ class ActorHomeViewController: UIViewController, UICollectionViewDataSource, UIC
             sender.backgroundColor = UIColor(rgb: 0xE5E5E5)
             sender.setTitleColor(UIColor(rgb: 0x4865FF), for: .normal)
         }
+        fetchReaderList()
     }
     @IBAction func SelectTopRated(_ sender: UIButton) {
         isTopRated = !isTopRated
@@ -162,10 +171,22 @@ class ActorHomeViewController: UIViewController, UICollectionViewDataSource, UIC
             sender.backgroundColor = UIColor(rgb: 0xE5E5E5)
             sender.setTitleColor(UIColor(rgb: 0x4865FF), for: .normal)
         }
+        fetchReaderList()
     }
     
     @IBAction func ViewAll(_ sender: UIButton) {
+        isSponsored = false
+        isAvailableSoon = false
+        isTopRated = false
         
+        btn_sponsored.backgroundColor = UIColor(rgb: 0xE5E5E5)
+        btn_sponsored.setTitleColor(UIColor(rgb: 0x4865FF), for: .normal)
+        btn_availablesoon.backgroundColor = UIColor(rgb: 0xE5E5E5)
+        btn_availablesoon.setTitleColor(UIColor(rgb: 0x4865FF), for: .normal)
+        btn_topRate.backgroundColor = UIColor(rgb: 0xE5E5E5)
+        btn_topRate.setTitleColor(UIColor(rgb: 0x4865FF), for: .normal)
+        
+        fetchReaderList()
     }
     @IBAction func GoMessageCenter(_ sender: UIButton) {
         let controller = MessageCenterViewController()

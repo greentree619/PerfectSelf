@@ -28,7 +28,7 @@ class ActorFindReaderViewController: UIViewController , UICollectionViewDataSour
         
         showIndicator(sender: nil, viewController: self)
         // call API to fetch reader list
-        webAPI.getReaders(readerName: nil, isOnline: nil, availableTimeSlotType: nil, availableFrom: nil, availableTo: nil, minPrice: nil, maxPrice: nil, gender: nil, sortBy: nil) { data, response, error in
+        webAPI.getReaders(readerName: nil,isSponsored: nil, isAvailableSoon: nil, isTopRated: nil, isOnline: nil, availableTimeSlotType: nil, availableFrom: nil, availableTo: nil, minPrice: nil, maxPrice: nil, gender: nil, sortBy: nil) { data, response, error in
             DispatchQueue.main.async {
                 hideIndicator(sender: nil)
             }

@@ -51,10 +51,14 @@ struct ReaderProfileCard: Codable {
     let title: String?
     let gender: Int
     let isLogin: Bool
+    let isSponsored: Bool
+    let reviewCount: Int
+    let score: Float
     let hourlyPrice: Int?
+    let isStandBy: Bool?
     let date: String?
-    let from: String?
-    let to: String?
+    let fromTime: String?
+    let toTime: String?
 }
 
 struct BookingCard: Codable {

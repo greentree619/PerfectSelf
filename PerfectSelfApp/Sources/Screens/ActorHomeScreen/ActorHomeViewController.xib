@@ -12,6 +12,9 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ActorHomeViewController" customModule="PerfectSelf" customModuleProvider="target">
             <connections>
+                <outlet property="btn_availablesoon" destination="Xd9-pw-db3" id="CDX-PV-C45"/>
+                <outlet property="btn_sponsored" destination="WsL-mn-f8J" id="1Wj-Cb-lg8"/>
+                <outlet property="btn_topRate" destination="jrl-C4-W5Z" id="rUl-eo-dhM"/>
                 <outlet property="greetingLabel" destination="Gjf-XO-iAc" id="XfX-dP-bag"/>
                 <outlet property="readerList" destination="JU1-QJ-Xxa" id="vCk-wb-Dww"/>
                 <outlet property="readerListFlow" destination="gkZ-Sc-3E3" id="Rsh-Vo-s8Z"/>
