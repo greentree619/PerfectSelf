@@ -87,9 +87,39 @@ class PerfectSelfWebAPI
         ]
         return executeAPI(with: "POST", apiPath: "ActorProfiles/", json: json, completionHandler:completionHandler)
     }
-    func getAllReaders(completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> Void
+    func getReaders(readerName: String?, isOnline: Bool?, availableTimeSlotType: Int?, availableFrom: String?, availableTo: String?, minPrice: Float?, maxPrice: Float?, gender: Int?, sortBy: Int?, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> Void
     {
-        return executeAPI(with: "GET", apiPath: "ReaderProfiles/ReaderList", json: [:], completionHandler:completionHandler)
+        var params = ""
+        var isParamsExist = false
+        if readerName != nil {
+            isParamsExist = true
+            params += "readerName=\(readerName!)"
+        }
+        if isOnline != nil {
+            params += (isParamsExist ? "":"&") + "isOnline=\(isOnline!)"
+            isParamsExist = true
+        }
+        if availableTimeSlotType != nil {
+            params += (isParamsExist ? "":"&") + "availableTimeSlotType=\(availableTimeSlotType!)"
+            isParamsExist = true
+        }
+        if availableFrom != nil {
+            params += (isParamsExist ? "":"&") + "availableFrom=\(availableFrom!)&availableTo=\(availableTo!)"
+            isParamsExist = true
+        }
+        if minPrice != nil {
+            params += (isParamsExist ? "":"&") + "minPrice=\(minPrice!)&maxPrice=\(maxPrice!)"
+            isParamsExist = true
+        }
+        if gender != nil {
+            params += (isParamsExist ? "":"&") + "gender=\(gender!)"
+            isParamsExist = true
+        }
+        if sortBy != nil {
+            params += (isParamsExist ? "":"&") + "sortBy=\(sortBy!)"
+            isParamsExist = true
+        }
+        return executeAPI(with: "GET", apiPath: "ReaderProfiles/ReaderList?\(params)", json: [:], completionHandler:completionHandler)
     }
     func getReaderById(id: String, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> Void
     {
