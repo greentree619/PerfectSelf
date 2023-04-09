@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21225" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21207"/>
         <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
-        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -14,7 +13,7 @@
             <connections>
                 <outlet property="btn_pricehightolow" destination="m5n-ob-5rF" id="gz4-R3-cyn"/>
                 <outlet property="btn_pricelowtohigh" destination="1En-hI-Vlz" id="Fbt-Gb-4a5"/>
-                <outlet property="btn_relevance" destination="s2k-Hd-Wsc" id="dSC-D7-t7Y"/>
+                <outlet property="btn_relevance" destination="qeA-O8-pbW" id="twz-DI-1nu"/>
                 <outlet property="btn_soonest" destination="pGf-mQ-2gk" id="tFf-7o-tQI"/>
                 <outlet property="view" destination="0gh-nP-7DD" id="djV-rD-Faj"/>
             </connections>
@@ -26,17 +25,16 @@
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9wC-h9-PHN">
                     <rect key="frame" x="0.0" y="0.0" width="393" height="818"/>
-                    <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.5" colorSpace="calibratedRGB"/>
                     <gestureRecognizers/>
                     <connections>
                         <outletCollection property="gestureRecognizers" destination="NZ6-Nd-aRJ" appends="YES" id="ctS-x5-qpR"/>
                     </connections>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QpU-yx-Nvi">
-                    <rect key="frame" x="0.0" y="508" width="393" height="310"/>
+                    <rect key="frame" x="0.0" y="508" width="393" height="344"/>
                     <subviews>
                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="a0Z-g1-S8b">
-                            <rect key="frame" x="0.0" y="0.0" width="393" height="310"/>
+                            <rect key="frame" x="0.0" y="0.0" width="393" height="344"/>
                             <subviews>
                                 <stackView opaque="NO" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" translatesAutoresizingMaskIntoConstraints="NO" id="72T-Is-voo">
                                     <rect key="frame" x="20" y="10" width="353" height="40"/>
@@ -61,16 +59,21 @@
                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="8Ql-QL-AaS">
                                     <rect key="frame" x="20" y="60" width="353" height="35"/>
                                     <subviews>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="s2k-Hd-Wsc">
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qeA-O8-pbW">
                                             <rect key="frame" x="0.0" y="0.0" width="353" height="35"/>
-                                            <fontDescription key="fontDescription" type="system" weight="medium" pointSize="14"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                            <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <inset key="contentEdgeInsets" minX="10" minY="5" maxX="10" maxY="5"/>
                                             <inset key="titleEdgeInsets" minX="20" minY="0.0" maxX="0.0" maxY="0.0"/>
                                             <state key="normal" title="Relevance">
+                                                <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <imageReference key="image" image="circle" catalog="system" symbolScale="small"/>
                                             </state>
+                                            <state key="selected">
+                                                <imageReference key="image" image="circle.inset.filled" catalog="system" symbolScale="small"/>
+                                            </state>
                                             <connections>
-                                                <action selector="SelectRelevance:" destination="-1" eventType="touchUpInside" id="BnS-Qb-AgF"/>
+                                                <action selector="SelectRelevance:" destination="-1" eventType="touchUpInside" id="3aG-Zx-U1F"/>
                                             </connections>
                                         </button>
                                     </subviews>
@@ -92,15 +95,18 @@
                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="jcb-Yh-OV8">
                                     <rect key="frame" x="20" y="105" width="353" height="35"/>
                                     <subviews>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="m5n-ob-5rF">
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="m5n-ob-5rF">
                                             <rect key="frame" x="0.0" y="0.0" width="353" height="35"/>
-                                            <fontDescription key="fontDescription" type="system" weight="medium" pointSize="14"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                             <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <inset key="contentEdgeInsets" minX="10" minY="5" maxX="10" maxY="5"/>
                                             <inset key="titleEdgeInsets" minX="20" minY="0.0" maxX="0.0" maxY="0.0"/>
                                             <state key="normal" title="Price high to low">
-                                                <color key="titleColor" systemColor="tintColor"/>
+                                                <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <imageReference key="image" image="circle" catalog="system" symbolScale="small"/>
+                                            </state>
+                                            <state key="selected">
+                                                <imageReference key="image" image="circle.inset.filled" catalog="system" symbolScale="small"/>
                                             </state>
                                             <connections>
                                                 <action selector="SelectPriceHighToLow:" destination="-1" eventType="touchUpInside" id="Lbg-WJ-q4W"/>
@@ -125,15 +131,18 @@
                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="E6Z-2G-V5K">
                                     <rect key="frame" x="20" y="150" width="353" height="35"/>
                                     <subviews>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1En-hI-Vlz">
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1En-hI-Vlz">
                                             <rect key="frame" x="0.0" y="0.0" width="353" height="35"/>
-                                            <fontDescription key="fontDescription" type="system" weight="medium" pointSize="14"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                             <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <inset key="contentEdgeInsets" minX="10" minY="5" maxX="10" maxY="5"/>
                                             <inset key="titleEdgeInsets" minX="20" minY="0.0" maxX="0.0" maxY="0.0"/>
                                             <state key="normal" title="Price low to high">
-                                                <color key="titleColor" systemColor="tintColor"/>
+                                                <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <imageReference key="image" image="circle" catalog="system" symbolScale="small"/>
+                                            </state>
+                                            <state key="selected">
+                                                <imageReference key="image" image="circle.inset.filled" catalog="system" symbolScale="small"/>
                                             </state>
                                             <connections>
                                                 <action selector="SelectPriceLowToHigh:" destination="-1" eventType="touchUpInside" id="R5N-zm-3gj"/>
@@ -158,15 +167,18 @@
                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="F8w-b1-NJJ">
                                     <rect key="frame" x="20" y="195" width="353" height="35"/>
                                     <subviews>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pGf-mQ-2gk">
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pGf-mQ-2gk">
                                             <rect key="frame" x="0.0" y="0.0" width="353" height="35"/>
-                                            <fontDescription key="fontDescription" type="system" weight="medium" pointSize="14"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                             <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <inset key="contentEdgeInsets" minX="10" minY="5" maxX="10" maxY="5"/>
                                             <inset key="titleEdgeInsets" minX="20" minY="0.0" maxX="0.0" maxY="0.0"/>
                                             <state key="normal" title="Available(soonest)">
-                                                <color key="titleColor" systemColor="tintColor"/>
+                                                <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <imageReference key="image" image="circle" catalog="system" symbolScale="small"/>
+                                            </state>
+                                            <state key="selected">
+                                                <imageReference key="image" image="circle.inset.filled" catalog="system" symbolScale="small"/>
                                             </state>
                                             <connections>
                                                 <action selector="SelectAvailableSoonest:" destination="-1" eventType="touchUpInside" id="myb-5s-2Jd"/>
@@ -228,6 +240,16 @@
                         <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                             <real key="value" value="10"/>
                         </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBound" value="NO"/>
+                        <userDefinedRuntimeAttribute type="number" keyPath="layer.shadowOpacity">
+                            <real key="value" value="0.5"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="size" keyPath="layer.shadowOffset">
+                            <size key="value" width="0.0" height="0.0"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="number" keyPath="layer.shadowRadius">
+                            <integer key="value" value="5"/>
+                        </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                 </view>
             </subviews>
@@ -236,7 +258,7 @@
             <constraints>
                 <constraint firstItem="KF2-ZV-NGt" firstAttribute="trailing" secondItem="9wC-h9-PHN" secondAttribute="trailing" id="37j-mq-aaU"/>
                 <constraint firstItem="QpU-yx-Nvi" firstAttribute="trailing" secondItem="KF2-ZV-NGt" secondAttribute="trailing" id="3KW-Mi-oDO"/>
-                <constraint firstItem="KF2-ZV-NGt" firstAttribute="bottom" secondItem="QpU-yx-Nvi" secondAttribute="bottom" id="6HI-6L-Qfh"/>
+                <constraint firstAttribute="bottom" secondItem="QpU-yx-Nvi" secondAttribute="bottom" id="6HI-6L-Qfh"/>
                 <constraint firstItem="KF2-ZV-NGt" firstAttribute="bottom" secondItem="9wC-h9-PHN" secondAttribute="bottom" id="D7J-yh-0RU"/>
                 <constraint firstItem="QpU-yx-Nvi" firstAttribute="leading" secondItem="KF2-ZV-NGt" secondAttribute="leading" id="Stn-3z-ocu"/>
                 <constraint firstItem="9wC-h9-PHN" firstAttribute="top" secondItem="0gh-nP-7DD" secondAttribute="top" id="fbg-cM-aSb"/>
@@ -252,9 +274,7 @@
     </objects>
     <resources>
         <image name="circle" catalog="system" width="128" height="123"/>
+        <image name="circle.inset.filled" catalog="system" width="128" height="123"/>
         <image name="filter_divide" width="334" height="1"/>
-        <systemColor name="tintColor">
-            <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </systemColor>
     </resources>
 </document>

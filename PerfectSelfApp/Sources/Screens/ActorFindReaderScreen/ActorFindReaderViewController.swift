@@ -8,13 +8,36 @@
 
 import UIKit
 
-class ActorFindReaderViewController: UIViewController , UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout{
+class ActorFindReaderViewController: UIViewController , UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, SortDelegate{
+    func setSortType(viewController: UIViewController, sortType: Int) {
+        self.sortType = sortType
+        fetchReaderList()
+    }
+    
 
+    var isAvailableSoon = false
+    var isOnline = false
+    var timeSlotType = -1
+    var isDateSelected = false
+    var fromDate = Date()
+    var toDate = Date()
+    var minPrice:Float = 0.0
+    var maxPrice:Float = 100.0
+    var gender = -1
+    var isCommercialRead = false
+    var isShortRead = false
+    var isExtendedRead = false
+    var isComfortableWithExplicitRead = false
+    
+    var sortType = 0
+    
     @IBOutlet weak var numberOfReader: UILabel!
     @IBOutlet weak var readerList: UICollectionView!
+    @IBOutlet weak var spin: UIActivityIndicatorView!
+    
     var items = [ReaderProfileCard]()
     let cellsPerRow = 1
-    let backgroundView = UIView()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -26,11 +49,20 @@ class ActorFindReaderViewController: UIViewController , UICollectionViewDataSour
         // Do any additional setup after loading the view.
         self.navigationItem.setHidesBackButton(true, animated: false)
         
-        showIndicator(sender: nil, viewController: self)
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true);
+        fetchReaderList()
+    }
+    func fetchReaderList() {
+        spin.isHidden = false
+        spin.startAnimating()
         // call API to fetch reader list
-        webAPI.getReaders(readerName: nil,isSponsored: nil, isAvailableSoon: nil, isTopRated: nil, isOnline: nil, availableTimeSlotType: nil, availableFrom: nil, availableTo: nil, minPrice: nil, maxPrice: nil, gender: nil, sortBy: nil) { data, response, error in
+        
+        webAPI.getReaders(readerName: nil,isSponsored: nil, isAvailableSoon: isAvailableSoon,isTopRated: nil, isOnline: isOnline, availableTimeSlotType: nil, availableFrom: isDateSelected ? Date.getDateString(date: fromDate) : nil, availableTo: isDateSelected ? Date.getDateString(date: toDate) : nil, minPrice: minPrice, maxPrice: maxPrice, gender: gender != -1 ? gender:nil, sortBy: sortType) { data, response, error in
             DispatchQueue.main.async {
-                hideIndicator(sender: nil)
+                self.spin.stopAnimating()
+                self.spin.isHidden = true
             }
             
             guard let data = data, error == nil else {
@@ -38,15 +70,13 @@ class ActorFindReaderViewController: UIViewController , UICollectionViewDataSour
                 return
             }
             do {
+               
                 let respItems = try JSONDecoder().decode([ReaderProfileCard].self, from: data)
                 //print(items)
                 DispatchQueue.main.async {
                     self.items.removeAll()
                     self.items.append(contentsOf: respItems)
-//                    for (i, reader) in items.enumerated() {
-//                    }
                     self.readerList.reloadData()
-                    self.numberOfReader.text = "\(respItems.count) Readers Listed"
                 }
 
             } catch {
@@ -57,7 +87,6 @@ class ActorFindReaderViewController: UIViewController , UICollectionViewDataSour
             }
         }
     }
-    
     // MARK: - Reader List Delegate.
     func collectionView(_ collectionView: UICollectionView,        numberOfItemsInSection section: Int) -> Int {
          // myData is the array of items
@@ -107,6 +136,8 @@ class ActorFindReaderViewController: UIViewController , UICollectionViewDataSour
     
     @IBAction func SortReaders(_ sender: UIButton) {
         let controller = SortViewController()
+        controller.sd = self
+        controller.sortType = self.sortType
         controller.modalPresentationStyle = .overFullScreen
         self.present(controller, animated: true)
     }

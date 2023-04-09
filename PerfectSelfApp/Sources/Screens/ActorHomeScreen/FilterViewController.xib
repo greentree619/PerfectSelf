@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21225" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_5" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21207"/>
         <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -11,6 +11,10 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="FilterViewController" customModule="PerfectSelf" customModuleProvider="target">
             <connections>
+                <outlet property="btn_15min" destination="gN6-78-cbK" id="51H-Pd-txp"/>
+                <outlet property="btn_30min" destination="Oqe-zK-bQH" id="6NO-ed-WLI"/>
+                <outlet property="btn_45min" destination="baB-dq-YlT" id="4Ow-iT-Rza"/>
+                <outlet property="btn_standby" destination="JXk-qf-NLh" id="bEm-73-3sG"/>
                 <outlet property="sliderView" destination="yo1-us-5hb" id="jpH-7M-fN0"/>
                 <outlet property="text_date_range" destination="2su-gN-dNx" id="x0Z-rp-dVF"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
@@ -23,7 +27,6 @@
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="To1-dm-q2i">
                     <rect key="frame" x="0.0" y="0.0" width="414" height="862"/>
-                    <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.5" colorSpace="calibratedRGB"/>
                     <connections>
                         <outletCollection property="gestureRecognizers" destination="08c-P5-OKN" appends="YES" id="Dyr-ze-vlv"/>
                     </connections>
@@ -67,7 +70,7 @@
                                     <rect key="frame" x="0.0" y="0.0" width="374" height="426"/>
                                     <subviews>
                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="a1W-4S-nZO">
-                                            <rect key="frame" x="0.0" y="0.0" width="374" height="540"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="374" height="594"/>
                                             <subviews>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="02q-yS-EOR">
                                                     <rect key="frame" x="0.0" y="0.0" width="374" height="185"/>
@@ -204,7 +207,7 @@
                                                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                                     <inset key="contentEdgeInsets" minX="10" minY="5" maxX="10" maxY="5"/>
                                                                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                                                    <state key="normal" title="30 mins+"/>
+                                                                    <state key="normal" title="45 mins+"/>
                                                                     <userDefinedRuntimeAttributes>
                                                                         <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
                                                                             <color key="value" red="0.28235294119999998" green="0.39607843139999999" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -217,7 +220,7 @@
                                                                         </userDefinedRuntimeAttribute>
                                                                     </userDefinedRuntimeAttributes>
                                                                     <connections>
-                                                                        <action selector="Select30OverTimeSlot:" destination="-1" eventType="touchUpInside" id="5Pr-Zf-2dn"/>
+                                                                        <action selector="Select45OverTimeSlot:" destination="-1" eventType="touchUpInside" id="Tbx-fn-idS"/>
                                                                     </connections>
                                                                 </button>
                                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JXk-qf-NLh">
@@ -505,6 +508,33 @@
                                                         <constraint firstAttribute="height" constant="100" id="w6o-Sh-bbc"/>
                                                     </constraints>
                                                 </stackView>
+                                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="top" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="hpi-ul-O4N">
+                                                    <rect key="frame" x="0.0" y="550" width="374" height="44"/>
+                                                    <subviews>
+                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mzS-oP-5u4">
+                                                            <rect key="frame" x="0.0" y="0.0" width="218" height="17"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                            <inset key="contentEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                                            <state key="normal" title="Comfortable with explicit read" image="icons8-unchecked-checkbox-14">
+                                                                <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            </state>
+                                                            <state key="selected" image="icons8-checked-checkbox-14"/>
+                                                            <connections>
+                                                                <action selector="SelectExplicitRead:" destination="-1" eventType="touchUpInside" id="mie-LW-34B"/>
+                                                            </connections>
+                                                        </button>
+                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7al-oS-TZk">
+                                                            <rect key="frame" x="0.0" y="27" width="208" height="17"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                            <inset key="contentEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                            <state key="normal" title="other filters that might apply" image="icons8-unchecked-checkbox-14">
+                                                                <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            </state>
+                                                            <state key="selected" image="icons8-checked-checkbox-14"/>
+                                                        </button>
+                                                    </subviews>
+                                                </stackView>
                                             </subviews>
                                         </stackView>
                                     </subviews>
@@ -561,6 +591,16 @@
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                             <real key="value" value="10"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBound" value="NO"/>
+                        <userDefinedRuntimeAttribute type="number" keyPath="layer.shadowOpacity">
+                            <real key="value" value="0.5"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="number" keyPath="layer.shadowRadius">
+                            <integer key="value" value="5"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="size" keyPath="layer.shadowOffset">
+                            <size key="value" width="0.0" height="0.0"/>
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                 </stackView>
