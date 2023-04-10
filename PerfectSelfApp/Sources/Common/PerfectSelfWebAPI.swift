@@ -23,8 +23,13 @@ class PerfectSelfWebAPI
     
     func executeAPI(with method:String, apiPath: String, json: [String: Any], completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> Void
     {
+        let urlString = "\(PERFECTSELF_WEBAPI_ROOT)\(apiPath)"
+        let encodedString = urlString.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
+
+        print(encodedString ?? "hey") // Output: "https://www.example.com/search?q=swift%20encoding"
+
         let jsonData = try? JSONSerialization.data(withJSONObject: json)
-        let url = URL(string: "\(PERFECTSELF_WEBAPI_ROOT)\(apiPath)")!
+        let url = URL(string: encodedString!)!
         var request = URLRequest(url: url)
         request.httpMethod = method
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
@@ -240,9 +245,9 @@ class PerfectSelfWebAPI
    
         return executeAPI(with: "POST", apiPath: "Books/", json: json, completionHandler:completionHandler)
     }
-    func getBookingsByUid(uid: String, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> Void
+    func getBookingsByUid(uid: String, bookType: Int, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> Void
     {
-        return executeAPI(with: "GET", apiPath: "Books/DetailList/ByUid/\(uid)", json: [:], completionHandler:completionHandler)
+        return executeAPI(with: "GET", apiPath: "Books/DetailList/ByUid/\(uid)?bookType=\(bookType)", json: [:], completionHandler:completionHandler)
     }
     func cancelBookingByRoomUid(uid: String, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> Void
     {
@@ -268,7 +273,11 @@ class PerfectSelfWebAPI
         ]
         return executeAPI(with: "POST", apiPath: "Availabilities/", json: json, completionHandler:completionHandler)
     }
-    
+    func giveFeedback(id: Int, score: Float, review: String, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> Void
+    {
+        print("Books/GiveFeedbackToUid/\(id)?score=\(score)&review=\(review)")
+        return executeAPI(with: "PUT", apiPath: "Books/GiveFeedbackToUid/\(id)?score=\(score)&review=\(review)", json: [:], completionHandler:completionHandler)
+    }
     func login() -> Void
     {
         let json: [String: Any] = ["userName": "tester",

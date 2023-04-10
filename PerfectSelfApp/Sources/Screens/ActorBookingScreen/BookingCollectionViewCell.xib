@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21225" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21207"/>
         <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -128,11 +129,11 @@
                                     </mask>
                                 </variation>
                             </stackView>
-                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" alignment="center" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="B2i-T7-jWi">
-                                <rect key="frame" x="8" y="104.66666666666667" width="280" height="32.333333333333329"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="B2i-T7-jWi">
+                                <rect key="frame" x="8" y="104.66666666666667" width="312" height="32.333333333333329"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eoR-8B-GHc">
-                                        <rect key="frame" x="0.0" y="1.6666666666666572" width="98" height="29"/>
+                                    <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eoR-8B-GHc">
+                                        <rect key="frame" x="0.0" y="0.0" width="58.333333333333336" height="32.333333333333336"/>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="filled">
                                             <attributedString key="attributedTitle">
@@ -147,14 +148,31 @@
                                             <action selector="JoinMeeting:" destination="gTV-IL-0wX" eventType="touchUpInside" id="wML-nt-Gj8"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="s5q-UL-66W">
-                                        <rect key="frame" x="103" y="2.3333333333333286" width="110.33333333333331" height="28"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yKD-r9-I2d">
+                                        <rect key="frame" x="63.333333333333329" y="0.0" width="58.333333333333329" height="32.333333333333336"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="filled">
+                                            <attributedString key="attributedTitle">
+                                                <fragment content="Reschedule">
+                                                    <attributes>
+                                                        <font key="NSFont" size="13" name="Helvetica"/>
+                                                    </attributes>
+                                                </fragment>
+                                            </attributedString>
+                                        </buttonConfiguration>
+                                        <connections>
+                                            <action selector="RescheduleBooking:" destination="gTV-IL-0wX" eventType="touchUpInside" id="ftc-4Y-jZv"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="s5q-UL-66W">
+                                        <rect key="frame" x="126.66666666666667" y="0.0" width="58.666666666666671" height="32.333333333333336"/>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="plain">
                                             <attributedString key="attributedTitle">
                                                 <fragment content="Send messsage">
                                                     <attributes>
                                                         <font key="NSFont" size="12" name="Helvetica"/>
+                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="charWrapping" baseWritingDirection="natural" lineHeightMultiple="1" tighteningFactorForTruncation="0.0"/>
                                                     </attributes>
                                                 </fragment>
                                             </attributedString>
@@ -175,8 +193,8 @@
                                             <action selector="SendMessage:" destination="gTV-IL-0wX" eventType="touchUpInside" id="6ar-Rn-d6l"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BMN-cX-vSa">
-                                        <rect key="frame" x="218.33333333333334" y="2.3333333333333286" width="61.666666666666657" height="28"/>
+                                    <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BMN-cX-vSa">
+                                        <rect key="frame" x="190.33333333333334" y="0.0" width="58.333333333333343" height="32.333333333333336"/>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="plain">
                                             <attributedString key="attributedTitle">
@@ -192,10 +210,31 @@
                                             <action selector="CancelBooking:" destination="gTV-IL-0wX" eventType="touchUpInside" id="Vm5-We-VRU"/>
                                         </connections>
                                     </button>
+                                    <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="247" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="urZ-Ba-AGZ">
+                                        <rect key="frame" x="253.66666666666671" y="0.0" width="58.333333333333343" height="32.333333333333336"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="plain">
+                                            <attributedString key="attributedTitle">
+                                                <fragment content="How’s the experience?">
+                                                    <attributes>
+                                                        <font key="NSFont" size="12" name="Helvetica"/>
+                                                    </attributes>
+                                                </fragment>
+                                            </attributedString>
+                                            <color key="baseForegroundColor" systemColor="tintColor"/>
+                                        </buttonConfiguration>
+                                        <connections>
+                                            <action selector="RateReader:" destination="gTV-IL-0wX" eventType="touchUpInside" id="Yxy-hz-v8L"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                             </stackView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="B2i-T7-jWi" secondAttribute="trailing" constant="8" id="WYs-9Q-MhZ"/>
+                            <constraint firstItem="B2i-T7-jWi" firstAttribute="leading" secondItem="gx6-C8-ndf" secondAttribute="leading" constant="8" id="vIZ-Is-yVs"/>
+                        </constraints>
                         <edgeInsets key="layoutMargins" top="8" left="8" bottom="8" right="8"/>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
@@ -220,6 +259,11 @@
             </constraints>
             <size key="customSize" width="328" height="132"/>
             <connections>
+                <outlet property="btn_cancel" destination="BMN-cX-vSa" id="gUZ-HM-U1D"/>
+                <outlet property="btn_joinmeeting" destination="eoR-8B-GHc" id="PBN-iU-v9a"/>
+                <outlet property="btn_rate" destination="urZ-Ba-AGZ" id="X0w-1X-lJ4"/>
+                <outlet property="btn_reschedule" destination="yKD-r9-I2d" id="2vJ-gG-oE5"/>
+                <outlet property="btn_sendmsg" destination="s5q-UL-66W" id="eE3-Q0-J9y"/>
                 <outlet property="lbl_date" destination="CHF-Un-J7J" id="qn4-8S-Xjt"/>
                 <outlet property="lbl_name" destination="qSS-Q1-65b" id="TXP-Vg-W3u"/>
                 <outlet property="lbl_time" destination="fF2-fh-riS" id="2mv-Ea-M45"/>
@@ -234,6 +278,9 @@
         <image name="clock" catalog="system" width="128" height="123"/>
         <systemColor name="opaqueSeparatorColor">
             <color red="0.77647058823529413" green="0.77647058823529413" blue="0.78431372549019607" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="tintColor">
+            <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

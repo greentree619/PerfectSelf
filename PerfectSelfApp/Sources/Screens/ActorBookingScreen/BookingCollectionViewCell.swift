@@ -9,22 +9,76 @@
 import UIKit
 
 class BookingCollectionViewCell: UICollectionViewCell {
-//    public var signalClient: SignalingClient?
-//    public var webRTCClient: WebRTCClient?
+
     public var navigationController: UINavigationController?
     public var parentViewController: UIViewController?
+
     public var roomUid: String?
+    public var review: String?
+    public var bookType:Int = 1
+    public var id: Int = 0
 
     @IBOutlet weak var lbl_time: UILabel!
     @IBOutlet weak var lbl_date: UILabel!
     @IBOutlet weak var lbl_name: UILabel!
+    
+    @IBOutlet weak var btn_rate: UIButton!
+    @IBOutlet weak var btn_cancel: UIButton!
+    @IBOutlet weak var btn_sendmsg: UIButton!
+    @IBOutlet weak var btn_reschedule: UIButton!
+    @IBOutlet weak var btn_joinmeeting: UIButton!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+      
         
     }
+    override func layoutSubviews() {
+        super.layoutSubviews()
+
+        if bookType == 0 {
+            btn_joinmeeting.isHidden = true
+            btn_reschedule.isHidden = true
+            btn_sendmsg.isHidden = false
+            btn_cancel.isHidden = true
+            btn_rate.isHidden = false
+            btn_rate.isEnabled = review?.isEmpty ?? true ? true:false
+        }
+        else if bookType == 1 {
+            btn_joinmeeting.isHidden = false
+            btn_reschedule.isHidden = true
+            btn_sendmsg.isHidden = false
+            btn_cancel.isHidden = false
+            btn_rate.isHidden = true
+        }
+        else if bookType == 2 {
+            btn_joinmeeting.isHidden = true
+            btn_reschedule.isHidden = false
+            btn_sendmsg.isHidden = false
+            btn_cancel.isHidden = false
+            btn_rate.isHidden = true
+        }
+        else {
+            btn_joinmeeting.isHidden = true
+            btn_reschedule.isHidden = true
+            btn_sendmsg.isHidden = true
+            btn_cancel.isHidden = true
+            btn_rate.isHidden = true
+            print("oops!")
+        }
+    }
+    override func prepareForReuse() {
+         super.prepareForReuse()
+         
+         // Reset any properties that could affect the cell's appearance
+        btn_joinmeeting.isHidden = false
+        btn_reschedule.isHidden = false
+        btn_sendmsg.isHidden = false
+        btn_cancel.isHidden = false
+        btn_rate.isHidden = false
+        btn_rate.isEnabled = true
+     }
     @IBAction func JoinMeeting(_ sender: UIButton) {
-        //print("join")
         let conferenceViewController = ConferenceViewController(roomUid: self.roomUid!)
         conferenceViewController.modalPresentationStyle = .fullScreen
         
@@ -73,4 +127,15 @@ class BookingCollectionViewCell: UICollectionViewCell {
             print("Cancel button tapped")
         }
     }
+    
+    @IBAction func RescheduleBooking(_ sender: UIButton) {
+    }
+    
+    @IBAction func RateReader(_ sender: UIButton) {
+        delegate?.setBookId(controller: self, id: self.id, name: self.lbl_name.text ?? "user")
+    }
+    var delegate: BookDelegate?
+}
+protocol BookDelegate {
+    func setBookId(controller: UICollectionViewCell, id: Int, name: String)
 }
