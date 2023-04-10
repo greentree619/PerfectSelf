@@ -122,13 +122,13 @@
                             <edgeInsets key="layoutMargins" top="0.0" left="20" bottom="0.0" right="20"/>
                         </stackView>
                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="ssd-MQ-KVe">
-                            <rect key="frame" x="0.0" y="110" width="393" height="25"/>
+                            <rect key="frame" x="0.0" y="110" width="393" height="40"/>
                             <subviews>
-                                <stackView opaque="NO" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="BE4-z8-gbS">
-                                    <rect key="frame" x="20" y="0.0" width="280" height="25"/>
+                                <stackView opaque="NO" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="BE4-z8-gbS">
+                                    <rect key="frame" x="20" y="0.0" width="280" height="40"/>
                                     <subviews>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Cfm-aO-sfV">
-                                            <rect key="frame" x="0.0" y="0.0" width="79" height="25"/>
+                                            <rect key="frame" x="0.0" y="8.3333333333333446" width="79" height="23.666666666666671"/>
                                             <color key="backgroundColor" red="0.28235294119999998" green="0.39607843139999999" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                             <inset key="contentEdgeInsets" minX="10" minY="5" maxX="10" maxY="5"/>
@@ -151,7 +151,7 @@
                                             </userDefinedRuntimeAttributes>
                                         </button>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vqk-TI-wDg">
-                                            <rect key="frame" x="89" y="0.0" width="103" height="25"/>
+                                            <rect key="frame" x="89" y="7.6666666666666572" width="103" height="25"/>
                                             <color key="backgroundColor" red="0.8980392157" green="0.8980392157" blue="0.8980392157" alpha="1" colorSpace="calibratedRGB"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                             <inset key="contentEdgeInsets" minX="10" minY="5" maxX="10" maxY="5"/>
@@ -166,7 +166,7 @@
                                             </userDefinedRuntimeAttributes>
                                         </button>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bKT-is-WQV">
-                                            <rect key="frame" x="202" y="0.0" width="78" height="25"/>
+                                            <rect key="frame" x="202" y="7.6666666666666572" width="78" height="25"/>
                                             <color key="backgroundColor" red="0.8980392157" green="0.8980392157" blue="0.8980392157" alpha="1" colorSpace="calibratedRGB"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                             <inset key="contentEdgeInsets" minX="10" minY="5" maxX="10" maxY="5"/>
@@ -184,12 +184,12 @@
                                 </stackView>
                             </subviews>
                             <constraints>
-                                <constraint firstAttribute="height" constant="25" id="16p-Sb-VlZ" customClass="AdaptiveLayoutConstraint" customModule="PerfectSelf" customModuleProvider="target"/>
+                                <constraint firstAttribute="height" constant="40" id="16p-Sb-VlZ" customClass="AdaptiveLayoutConstraint" customModule="PerfectSelf" customModuleProvider="target"/>
                             </constraints>
                             <edgeInsets key="layoutMargins" top="0.0" left="20" bottom="0.0" right="20"/>
                         </stackView>
                         <stackView opaque="NO" contentMode="scaleToFill" distribution="equalCentering" translatesAutoresizingMaskIntoConstraints="NO" id="sV2-Q3-Spv">
-                            <rect key="frame" x="0.0" y="145" width="393" height="25"/>
+                            <rect key="frame" x="0.0" y="160" width="393" height="25"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0 Readers Listed" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ydB-V6-let">
                                     <rect key="frame" x="19.999999999999993" y="0.0" width="108.33333333333331" height="25"/>
@@ -220,10 +220,10 @@
                             <edgeInsets key="layoutMargins" top="0.0" left="20" bottom="0.0" right="20"/>
                         </stackView>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tUI-TG-3Jn">
-                            <rect key="frame" x="0.0" y="180" width="393" height="613"/>
+                            <rect key="frame" x="0.0" y="195" width="393" height="598"/>
                             <subviews>
                                 <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="oiE-Ri-BNY">
-                                    <rect key="frame" x="0.0" y="0.0" width="393" height="613"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="393" height="598"/>
                                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                     <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="20" minimumInteritemSpacing="10" id="voc-V8-CmO">
                                         <size key="itemSize" width="128" height="128"/>
@@ -233,7 +233,7 @@
                                     </collectionViewFlowLayout>
                                 </collectionView>
                                 <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="424-wD-CPh">
-                                    <rect key="frame" x="0.0" y="0.0" width="393" height="613"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="393" height="598"/>
                                 </activityIndicatorView>
                             </subviews>
                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>

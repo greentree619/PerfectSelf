@@ -77,6 +77,7 @@ class ActorFindReaderViewController: UIViewController , UICollectionViewDataSour
                     self.items.removeAll()
                     self.items.append(contentsOf: respItems)
                     self.readerList.reloadData()
+                    self.numberOfReader.text = "\(self.items.count) Readers Listed"
                 }
 
             } catch {
@@ -106,6 +107,18 @@ class ActorFindReaderViewController: UIViewController , UICollectionViewDataSour
         //
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Reader Collection View Cell", for: indexPath) as! ReaderCollectionViewCell
         cell.readerName.text = self.items[indexPath.row].userName;
+        cell.salary.text = "$" + String((self.items[indexPath.row].hourlyPrice ?? 0)/4)
+        cell.score.text = String(self.items[indexPath.row].score)
+        cell.review.text = "(\(self.items[indexPath.row].reviewCount))"
+        cell.status.backgroundColor = self.items[indexPath.row].isLogin ? UIColor(rgb: 0x34C759) : UIColor(rgb: 0xAAAAAA)
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss'Z'"
+        let date = dateFormatter.date(from: self.items[indexPath.row].date ?? "1900-01-01T00:00:00Z")
+    
+        let dfforlabel = DateFormatter()
+        dfforlabel.dateFormat = "MMM dd, hh:mm a"
+        cell.availableDate.text = dfforlabel.string(from: date!)
         // return card
         cell.layer.masksToBounds = false
         cell.layer.shadowOffset = CGSizeZero

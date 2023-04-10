@@ -97,6 +97,14 @@ class ActorHomeViewController: UIViewController, UICollectionViewDataSource, UIC
         cell.score.text = String(self.items[indexPath.row].score)
         cell.review.text = "(\(self.items[indexPath.row].reviewCount))"
         cell.status.backgroundColor = self.items[indexPath.row].isLogin ? UIColor(rgb: 0x34C759) : UIColor(rgb: 0xAAAAAA)
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss'Z'"
+        let date = dateFormatter.date(from: self.items[indexPath.row].date ?? "1900-01-01T00:00:00Z")
+    
+        let dfforlabel = DateFormatter()
+        dfforlabel.dateFormat = "MMM dd, hh:mm a"
+        cell.availableDate.text = dfforlabel.string(from: date!)
         // return card
         cell.layer.masksToBounds = false
         cell.layer.shadowOffset = CGSizeZero
