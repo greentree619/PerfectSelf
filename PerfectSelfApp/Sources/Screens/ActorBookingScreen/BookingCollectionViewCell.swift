@@ -17,11 +17,13 @@ class BookingCollectionViewCell: UICollectionViewCell {
     public var review: String?
     public var bookType:Int = 1
     public var id: Int = 0
+    public var readerType:String = "" // 0
 
     @IBOutlet weak var lbl_time: UILabel!
     @IBOutlet weak var lbl_date: UILabel!
     @IBOutlet weak var lbl_name: UILabel!
     
+    @IBOutlet weak var btn_accept: UIButton!
     @IBOutlet weak var btn_rate: UIButton!
     @IBOutlet weak var btn_cancel: UIButton!
     @IBOutlet weak var btn_sendmsg: UIButton!
@@ -36,27 +38,76 @@ class BookingCollectionViewCell: UICollectionViewCell {
     override func layoutSubviews() {
         super.layoutSubviews()
 
-        if bookType == 0 {
-            btn_joinmeeting.isHidden = true
-            btn_reschedule.isHidden = true
-            btn_sendmsg.isHidden = false
-            btn_cancel.isHidden = true
-            btn_rate.isHidden = false
-            btn_rate.isEnabled = review?.isEmpty ?? true ? true:false
+        if readerType == "actor" {
+            if bookType == 0 {
+                btn_joinmeeting.isHidden = true
+                btn_reschedule.isHidden = true
+                btn_sendmsg.isHidden = false
+                btn_cancel.isHidden = true
+                btn_rate.isHidden = false
+                btn_rate.isEnabled = review?.isEmpty ?? true ? true:false
+                btn_accept.isHidden = true
+            }
+            else if bookType == 1 {
+                btn_joinmeeting.isHidden = false
+                btn_reschedule.isHidden = true
+                btn_sendmsg.isHidden = false
+                btn_cancel.isHidden = false
+                btn_rate.isHidden = true
+                btn_accept.isHidden = true
+            }
+            else if bookType == 2 {
+                btn_joinmeeting.isHidden = true
+                btn_reschedule.isHidden = false
+                btn_sendmsg.isHidden = false
+                btn_cancel.isHidden = false
+                btn_rate.isHidden = true
+                btn_accept.isHidden = true
+            }
+            else {
+                btn_joinmeeting.isHidden = true
+                btn_reschedule.isHidden = true
+                btn_sendmsg.isHidden = true
+                btn_cancel.isHidden = true
+                btn_rate.isHidden = true
+                btn_accept.isHidden = true
+                print("oops!")
+            }
         }
-        else if bookType == 1 {
-            btn_joinmeeting.isHidden = false
-            btn_reschedule.isHidden = true
-            btn_sendmsg.isHidden = false
-            btn_cancel.isHidden = false
-            btn_rate.isHidden = true
-        }
-        else if bookType == 2 {
-            btn_joinmeeting.isHidden = true
-            btn_reschedule.isHidden = false
-            btn_sendmsg.isHidden = false
-            btn_cancel.isHidden = false
-            btn_rate.isHidden = true
+        else if readerType == "reader" {
+            if bookType == 0 {//past
+                btn_joinmeeting.isHidden = true
+                btn_reschedule.isHidden = true
+                btn_sendmsg.isHidden = true
+                btn_cancel.isHidden = true
+                btn_rate.isHidden = true
+                btn_accept.isHidden = true
+            }
+            else if bookType == 1 {//upcoming
+                btn_joinmeeting.isHidden = false
+                btn_reschedule.isHidden = true
+                btn_sendmsg.isHidden = false
+                btn_cancel.isHidden = false
+                btn_rate.isHidden = true
+                btn_accept.isHidden = true
+            }
+            else if bookType == 2 {//pending
+                btn_joinmeeting.isHidden = true
+                btn_reschedule.isHidden = true
+                btn_sendmsg.isHidden = false
+                btn_cancel.isHidden = false
+                btn_rate.isHidden = true
+                btn_accept.isHidden = false
+            }
+            else {
+                btn_joinmeeting.isHidden = true
+                btn_reschedule.isHidden = true
+                btn_sendmsg.isHidden = true
+                btn_cancel.isHidden = true
+                btn_rate.isHidden = true
+                btn_accept.isHidden = true
+                print("oops!")
+            }
         }
         else {
             btn_joinmeeting.isHidden = true
@@ -64,7 +115,8 @@ class BookingCollectionViewCell: UICollectionViewCell {
             btn_sendmsg.isHidden = true
             btn_cancel.isHidden = true
             btn_rate.isHidden = true
-            print("oops!")
+            btn_accept.isHidden = true
+            print("Oops!")
         }
     }
     override func prepareForReuse() {
@@ -77,6 +129,7 @@ class BookingCollectionViewCell: UICollectionViewCell {
         btn_cancel.isHidden = false
         btn_rate.isHidden = false
         btn_rate.isEnabled = true
+        btn_accept.isHidden = false
      }
     @IBAction func JoinMeeting(_ sender: UIButton) {
         let conferenceViewController = ConferenceViewController(roomUid: self.roomUid!)
@@ -131,6 +184,11 @@ class BookingCollectionViewCell: UICollectionViewCell {
     @IBAction func RescheduleBooking(_ sender: UIButton) {
     }
     
+    @IBAction func AcceptBooking(_ sender: UIButton) {
+        // call API for accept
+        
+        
+    }
     @IBAction func RateReader(_ sender: UIButton) {
         delegate?.setBookId(controller: self, id: self.id, name: self.lbl_name.text ?? "user")
     }
