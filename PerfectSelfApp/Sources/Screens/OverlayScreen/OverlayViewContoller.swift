@@ -7,6 +7,7 @@
 //
 import UIKit
 import WebRTC
+import AVFoundation
 import Photos
 
 class OverlayViewController: UIViewController {
@@ -54,28 +55,29 @@ class OverlayViewController: UIViewController {
         self.timeSelectCtrl.delegate = self
         self.timeSelectCtrl.dataSource = self
         
-        //self.containerView.isHidden = true
+        //Omitted self.containerView.isHidden = true
         cameraView.delegate = self
         playerView.delegate = self
         guard let url = uploadVideourl else { return }
         playerView.url = url
-        //slider.minimumValue = 0
-        //btnStop.isEnabled = false
+        //Omitted slider.minimumValue = 0
+        //Omitted btnStop.isEnabled = false
         btnRecord.isEnabled = true
-        //btnTimer.isEnabled = true
+        //Omitted btnTimer.isEnabled = true
         lblTimer.isHidden = true
     }
 
-    override func viewDidAppear(_ animated: Bool) {
+    override func viewDidAppear(_ animated: Bool)
+    {
         super.viewDidAppear(animated)
-        playerView.invalidateIntrinsicContentSize()
         if cameraView.captureSession.isRunning == true {
             return
         }
         cameraView.captureSession.startRunning()
     }
     
-    @IBAction func startRecordClicked(_ sender: UIButton) {
+    @IBAction func startRecordClicked(_ sender: UIButton)
+    {
         if(!isOnRecording)
         {
             self.count = self.selectedCount
@@ -118,9 +120,9 @@ class OverlayViewController: UIViewController {
     {
         if cameraView.isVideoRecording {
             cameraView.stopVideoRecording()
-            //btnRecord.isEnabled = true
-            //btnStop.isEnabled = false
-            //btnTimer.isEnabled = true
+            //Omitted btnRecord.isEnabled = true
+            //Omitted btnStop.isEnabled = false
+            //Omitted btnTimer.isEnabled = true
         }
         playerView.stop()
     }
@@ -310,10 +312,10 @@ extension OverlayViewController: CameraPreviewDelegate {
     }
 
     func videDidEndRecording(with url: URL?, error: Error?) {
-//        guard let url = url, let uploadurl = self.uploadVideourl else {
-//            return
-//        }
-        //FIXME self.mergedVideos(recordUrl: url, uploadUrl: uploadurl)
+        guard let url = url, let uploadurl = self.uploadVideourl else {
+            return
+        }
+        self.mergedVideos(recordUrl: url, uploadUrl: uploadurl)
     }
 
 }
@@ -347,11 +349,11 @@ extension OverlayViewController: UIPickerViewDelegate, UIPickerViewDataSource  {
 
 extension OverlayViewController: PlayerViewDelegate {
     func playerVideo(player: PlayerView, currentTime: Double) {
-        //slider.value = Float(currentTime)
+        //Omitted slider.value = Float(currentTime)
     }
 
     func playerVideo(player: PlayerView, duration: Double) {
-        //slider.maximumValue = Float(duration)
+        //Omitted slider.maximumValue = Float(duration)
     }
 
     func playerVideo(player: PlayerView, statusItemPlayer: AVPlayer.Status, error: Error?) {
