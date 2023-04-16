@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ReaderProfileViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+class ReaderProfileViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout{
 
     var isEditingMode = false
     var id = ""
@@ -240,17 +240,22 @@ class ReaderProfileViewController: UIViewController, UICollectionViewDataSource,
     }
 
     @IBAction func EditUserInfo(_ sender: UIButton) {
-        let controller = ReaderProfileEditPersonalInfoViewController()
-        controller.username = readerUsername.text ?? ""
-        controller.usertitle = readerTitle.text ?? ""
-        controller.uid = id
-        controller.modalPresentationStyle = .fullScreen
-        let transition = CATransition()
-        transition.duration = 0.5 // Set animation duration
-        transition.type = CATransitionType.push // Set transition type to push
-        transition.subtype = CATransitionSubtype.fromRight // Set transition subtype to from right
-        self.view.window?.layer.add(transition, forKey: kCATransition) // Add transition to window layer
-        present(controller, animated: false, completion: nil)
+        let imagePicker = UIImagePickerController()
+                imagePicker.delegate = self
+                imagePicker.sourceType = .photoLibrary
+                present(imagePicker, animated: true, completion: nil)
+        
+//        let controller = ReaderProfileEditPersonalInfoViewController()
+//        controller.username = readerUsername.text ?? ""
+//        controller.usertitle = readerTitle.text ?? ""
+//        controller.uid = id
+//        controller.modalPresentationStyle = .fullScreen
+//        let transition = CATransition()
+//        transition.duration = 0.5 // Set animation duration
+//        transition.type = CATransitionType.push // Set transition type to push
+//        transition.subtype = CATransitionSubtype.fromRight // Set transition subtype to from right
+//        self.view.window?.layer.add(transition, forKey: kCATransition) // Add transition to window layer
+//        present(controller, animated: false, completion: nil)
     }
     @IBAction func EditExperience(_ sender: UIButton) {
         let controller = ReaderProfileEditSkillViewController()
@@ -342,4 +347,54 @@ class ReaderProfileViewController: UIViewController, UICollectionViewDataSource,
     }
     */
 
+}
+
+/// Mark:https://perfectself-avatar-bucket.s3.us-east-2.amazonaws.com/{room-id-000-00}/{647730C6-5E86-483A-859E-5FBF05767018.jpeg}
+extension ReaderProfileViewController: UIImagePickerControllerDelegate & UINavigationControllerDelegate  {
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        
+        DispatchQueue.global(qos: .userInitiated).async {
+            let awsUpload = AWSMultipartUpload()
+            DispatchQueue.main.async {
+                showIndicator(sender: nil, viewController: self, color:UIColor.white)
+                Toast.show(message: "Start to upload record files", controller: self)
+            }
+            
+            //Upload audio at first
+            guard info[.originalImage] is UIImage else {
+                //dismiss(animated: true, completion: nil)
+                return
+            }
+                    
+            // Get the URL of the selected image
+            var avatarUrl: URL? = nil
+            if let imageUrl = info[.imageURL] as? URL {
+                avatarUrl = imageUrl
+            }
+            
+            awsUpload.uploadImage(filePath: avatarUrl!, bucketName: "perfectself-avatar-bucket", prefix: "room-id-000-00") { (error: Error?) -> Void in
+                if(error == nil)
+                {//Then Upload video
+                    DispatchQueue.main.async {
+                        hideIndicator(sender: nil)
+                        Toast.show(message: "Avatar Image upload completed.", controller: self)
+                    }
+                }
+                else
+                {
+                    DispatchQueue.main.async {
+                        hideIndicator(sender: nil)
+                        Toast.show(message: "Failed to upload avatar image", controller: self)
+                    }
+                }
+            }
+        }//DispatchQueue.global
+        
+        dismiss(animated: true, completion: nil)
+    }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        dismiss(animated: true, completion: nil)
+    }
 }
