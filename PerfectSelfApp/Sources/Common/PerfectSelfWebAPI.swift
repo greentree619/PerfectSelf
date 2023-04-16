@@ -48,7 +48,7 @@ class PerfectSelfWebAPI
                                    "email": email,
                                    "password": password]
         
-        //print(email, password);
+        print(email, password, userType);
         return executeAPI(with: "POST", apiPath: "Users/Login", json: json, completionHandler:completionHandler)
     }
     
@@ -91,6 +91,30 @@ class PerfectSelfWebAPI
             "vaccinationStatus": Int(vaccination) ?? 0,
         ]
         return executeAPI(with: "POST", apiPath: "ActorProfiles/", json: json, completionHandler:completionHandler)
+    }
+    func updateUserAvatar(uid: String, bucketName: String, avatarKey: String, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> Void
+    {
+        let json: [String: Any] = [
+            "userType": -1,
+            "avatarBucketName": bucketName,
+            "avatarKey": avatarKey,
+            "userName": "",
+            "email": "",
+            "password": "",
+            "firstName": "",
+            "lastName": "",
+            "dateOfBirth": "",
+            "gender": -1,
+            "currentAddress": "",
+            "permanentAddress": "",
+            "city": "",
+            "nationality": "",
+            "phoneNumber": "",
+            "isLogin": true,
+            "token": ""
+        ]
+    
+        return executeAPI(with: "PUT", apiPath: "Users/\(uid)", json: json, completionHandler:completionHandler)
     }
     func getReaders(readerName: String?, isSponsored: Bool?, isAvailableSoon: Bool?, isTopRated: Bool?, isOnline: Bool?, availableTimeSlotType: Int?, availableFrom: String?, availableTo: String?, minPrice: Float?, maxPrice: Float?, gender: Int?, sortBy: Int?, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> Void
     {

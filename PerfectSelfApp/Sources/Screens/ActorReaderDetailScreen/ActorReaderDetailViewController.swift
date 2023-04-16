@@ -26,6 +26,7 @@ class ActorReaderDetailViewController: UIViewController , UICollectionViewDataSo
     @IBOutlet weak var view_container: UIView!
     // info
     
+    @IBOutlet weak var reader_avatar: UIImageView!
     @IBOutlet weak var reader_name: UILabel!
     @IBOutlet weak var reader_title: UILabel!
     @IBOutlet weak var reader_hourly: UILabel!
@@ -71,7 +72,10 @@ class ActorReaderDetailViewController: UIViewController , UICollectionViewDataSo
                     self.reader_about.text = item.about
                     self.reader_hourly.text = "$\(item.hourlyPrice/4) / 15 mins"
                     self.reader_skill.text = item.skills
-                    
+                    if !item.avatarBucketName.isEmpty {
+                        let url = "https://perfectself-avatar-bucket.s3.us-east-2.amazonaws.com/\(item.avatarBucketName)/\(item.avatarKey)"
+                        self.reader_avatar.imageFrom(url: URL(string: url)!)
+                    }
                     //call API for available time slots
                     
                     webAPI.getAvailabilityById(uid: self.uid) {data1, response1, error1 in

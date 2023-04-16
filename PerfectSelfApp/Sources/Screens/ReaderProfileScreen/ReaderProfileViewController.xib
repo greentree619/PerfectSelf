@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21225" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21207"/>
         <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -14,6 +14,7 @@
             <connections>
                 <outlet property="btn_edit_about" destination="HYM-dZ-ztI" id="Gu0-gg-NzD"/>
                 <outlet property="btn_edit_availability" destination="K1L-Hb-fHP" id="dlq-Wh-o44"/>
+                <outlet property="btn_edit_avatar" destination="0ou-5M-ve1" id="sWK-yc-Whx"/>
                 <outlet property="btn_edit_experience" destination="gLa-kx-Y3t" id="FPU-jw-9lf"/>
                 <outlet property="btn_edit_skills" destination="1fG-FA-2wD" id="0gA-Cb-pgy"/>
                 <outlet property="btn_edit_userinfo" destination="LR1-ip-QUs" id="zWZ-7K-mGJ"/>
@@ -25,6 +26,7 @@
                 <outlet property="line_review" destination="u1p-8g-GAe" id="kBm-B1-L7R"/>
                 <outlet property="line_videointro" destination="tdU-GU-Lx4" id="YTa-g1-uUV"/>
                 <outlet property="readerAbout" destination="eod-TK-5yy" id="RAA-n7-uBF"/>
+                <outlet property="readerAvatar" destination="5Jh-aW-lvC" id="uIb-Tg-oh4"/>
                 <outlet property="readerSkills" destination="1Xi-Uk-42C" id="hGe-Ay-EhY"/>
                 <outlet property="readerTitle" destination="Xwa-R0-mVR" id="0zu-sV-dfv"/>
                 <outlet property="readerUsername" destination="cwg-hL-kUu" id="UXq-7g-uCT"/>
@@ -92,20 +94,60 @@
                                 <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="dyJ-EA-vmt">
                                     <rect key="frame" x="20" y="20" width="353" height="60"/>
                                     <subviews>
-                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="person.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="5Jh-aW-lvC">
-                                            <rect key="frame" x="0.0" y="2" width="60" height="56.666666666666671"/>
-                                            <color key="backgroundColor" red="0.53725490200000003" green="0.54117647059999996" blue="0.55294117649999996" alpha="1" colorSpace="calibratedRGB"/>
-                                            <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="d90-aa-tZ2">
+                                            <rect key="frame" x="0.0" y="0.0" width="60" height="60"/>
+                                            <subviews>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="person.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="5Jh-aW-lvC">
+                                                    <rect key="frame" x="0.0" y="2" width="60" height="56.666666666666671"/>
+                                                    <color key="backgroundColor" red="0.53725490200000003" green="0.54117647059999996" blue="0.55294117649999996" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <gestureRecognizers/>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                            <real key="value" value="10"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                    </userDefinedRuntimeAttributes>
+                                                </imageView>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0ou-5M-ve1">
+                                                    <rect key="frame" x="42" y="42" width="18" height="18"/>
+                                                    <color key="backgroundColor" white="1" alpha="0.5" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="18" id="E44-hn-F8E"/>
+                                                        <constraint firstAttribute="height" constant="18" id="HUY-aC-tjD"/>
+                                                    </constraints>
+                                                    <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <inset key="contentEdgeInsets" minX="3" minY="3" maxX="3" maxY="3"/>
+                                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                    <state key="normal">
+                                                        <imageReference key="image" image="edit 1" symbolScale="small"/>
+                                                    </state>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                            <real key="value" value="5"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                    </userDefinedRuntimeAttributes>
+                                                    <connections>
+                                                        <action selector="EditUserAvatar:" destination="-1" eventType="touchUpInside" id="r85-Gy-rKi"/>
+                                                    </connections>
+                                                </button>
+                                            </subviews>
+                                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                             <constraints>
-                                                <constraint firstAttribute="height" constant="60" id="NNh-g3-N2b" customClass="AdaptiveLayoutConstraint" customModule="PerfectSelf" customModuleProvider="target"/>
-                                                <constraint firstAttribute="width" constant="60" id="VsI-c6-MVM" customClass="AdaptiveLayoutConstraint" customModule="PerfectSelf" customModuleProvider="target"/>
+                                                <constraint firstAttribute="bottom" secondItem="0ou-5M-ve1" secondAttribute="bottom" id="21y-2R-faq"/>
+                                                <constraint firstAttribute="height" constant="60" id="A2v-ko-keq"/>
+                                                <constraint firstItem="5Jh-aW-lvC" firstAttribute="top" secondItem="d90-aa-tZ2" secondAttribute="top" id="Cxc-UX-4ZX"/>
+                                                <constraint firstAttribute="width" constant="60" id="DJD-GM-aUN"/>
+                                                <constraint firstItem="5Jh-aW-lvC" firstAttribute="leading" secondItem="d90-aa-tZ2" secondAttribute="leading" id="U2s-7C-ldU"/>
+                                                <constraint firstAttribute="trailing" secondItem="0ou-5M-ve1" secondAttribute="trailing" id="e6m-w4-45Q"/>
+                                                <constraint firstAttribute="bottom" secondItem="5Jh-aW-lvC" secondAttribute="bottom" id="ezz-Cv-qme"/>
+                                                <constraint firstAttribute="trailing" secondItem="5Jh-aW-lvC" secondAttribute="trailing" id="iZ0-vl-0Wg"/>
                                             </constraints>
                                             <userDefinedRuntimeAttributes>
                                                 <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                                                     <real key="value" value="10"/>
                                                 </userDefinedRuntimeAttribute>
                                             </userDefinedRuntimeAttributes>
-                                        </imageView>
+                                        </view>
                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="bWG-SJ-eHR">
                                             <rect key="frame" x="70" y="0.0" width="160" height="60"/>
                                             <subviews>

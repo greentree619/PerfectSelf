@@ -94,7 +94,7 @@ class LoginDetailViewController: UIViewController {
             let responseJSON = try? JSONSerialization.jsonObject(with: data, options: [])
            
             if let responseJSON = responseJSON as? [String: Any] {
-                //print(responseJSON["result"])
+//                print(responseJSON["result"] ?? "kkk")
                 guard let result = responseJSON["result"] else {
                     DispatchQueue.main.async {
                         hideIndicator(sender: sender)

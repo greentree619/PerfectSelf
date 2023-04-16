@@ -33,6 +33,8 @@ enum MessageType {
 struct ReaderProfileDetail: Codable {
     let uid: String
     let userName: String
+    let avatarBucketName: String
+    let avatarKey: String
     let title: String
     let hourlyPrice: Int
     let others: Int

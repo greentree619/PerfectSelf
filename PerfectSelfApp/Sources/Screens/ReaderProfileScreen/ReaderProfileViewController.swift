@@ -13,6 +13,7 @@ class ReaderProfileViewController: UIViewController, UICollectionViewDataSource,
     var isEditingMode = false
     var id = ""
     var hourlyRate: Int = 0
+    @IBOutlet weak var btn_edit_avatar: UIButton!
     @IBOutlet weak var btn_edit_userinfo: UIButton!
     @IBOutlet weak var btn_edit_experience: UIButton!
     @IBOutlet weak var btn_edit_about: UIButton!
@@ -33,6 +34,7 @@ class ReaderProfileViewController: UIViewController, UICollectionViewDataSource,
     @IBOutlet weak var line_videointro: UIImageView!
     @IBOutlet weak var line_review: UIImageView!
     
+    @IBOutlet weak var readerAvatar: UIImageView!
     @IBOutlet weak var readerUsername: UILabel!
     @IBOutlet weak var readerTitle: UILabel!
     @IBOutlet weak var readerAbout: UITextView!
@@ -60,23 +62,23 @@ class ReaderProfileViewController: UIViewController, UICollectionViewDataSource,
         self.view_videointro.frame.origin.x = self.view_container.frame.width
         self.view_review.frame.origin.x = self.view_container.frame.width
         
+        btn_edit_avatar.isHidden = true;
         btn_edit_userinfo.isHidden = true;
         btn_edit_experience.isHidden = true;
         btn_edit_about.isHidden = true;
         btn_edit_skills.isHidden = true;
         btn_edit_availability.isHidden = true;
         view_edit_hourly_rate.isHidden = true;
-        id = UserDefaults.standard.string(forKey: "USER_ID") ?? ""
+        id = UserDefaults.standard.string(forKey: "USER_ID")!
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true);
         
         // call API for reader profile
-        let uid = UserDefaults.standard.string(forKey: "USER_ID")!
         showIndicator(sender: nil, viewController: self)
         
-        webAPI.getReaderById(id:uid) { data, response, error in
+        webAPI.getReaderById(id:self.id) { data, response, error in
             guard let data = data, error == nil else {
                 print(error?.localizedDescription ?? "No data")
                 DispatchQueue.main.async {
@@ -94,9 +96,14 @@ class ReaderProfileViewController: UIViewController, UICollectionViewDataSource,
                     self.hourlyPrice.text = "$\(item.hourlyPrice/4) / 15 mins"
                     self.readerSkills.text = item.skills
                     self.hourlyRate = item.hourlyPrice
+                    if !item.avatarBucketName.isEmpty {
+                        let url = "https://perfectself-avatar-bucket.s3.us-east-2.amazonaws.com/\(item.avatarBucketName)/\(item.avatarKey)"
+                        self.readerAvatar.imageFrom(url: URL(string: url)!)
+                    }
+                    
                     // call API for available time slots
                     
-                    webAPI.getAvailabilityById(uid: uid) {data1, response1, error1 in
+                    webAPI.getAvailabilityById(uid: self.id) {data1, response1, error1 in
                         DispatchQueue.main.async {
                             hideIndicator(sender: nil);
                         }
@@ -239,23 +246,25 @@ class ReaderProfileViewController: UIViewController, UICollectionViewDataSource,
         })
     }
 
-    @IBAction func EditUserInfo(_ sender: UIButton) {
+    @IBAction func EditUserAvatar(_ sender: UIButton) {
         let imagePicker = UIImagePickerController()
-                imagePicker.delegate = self
-                imagePicker.sourceType = .photoLibrary
-                present(imagePicker, animated: true, completion: nil)
-        
-//        let controller = ReaderProfileEditPersonalInfoViewController()
-//        controller.username = readerUsername.text ?? ""
-//        controller.usertitle = readerTitle.text ?? ""
-//        controller.uid = id
-//        controller.modalPresentationStyle = .fullScreen
-//        let transition = CATransition()
-//        transition.duration = 0.5 // Set animation duration
-//        transition.type = CATransitionType.push // Set transition type to push
-//        transition.subtype = CATransitionSubtype.fromRight // Set transition subtype to from right
-//        self.view.window?.layer.add(transition, forKey: kCATransition) // Add transition to window layer
-//        present(controller, animated: false, completion: nil)
+        imagePicker.delegate = self
+        imagePicker.sourceType = .photoLibrary
+        present(imagePicker, animated: true, completion: nil)
+               
+    }
+    @IBAction func EditUserInfo(_ sender: UIButton) {
+        let controller = ReaderProfileEditPersonalInfoViewController()
+        controller.username = readerUsername.text ?? ""
+        controller.usertitle = readerTitle.text ?? ""
+        controller.uid = id
+        controller.modalPresentationStyle = .fullScreen
+        let transition = CATransition()
+        transition.duration = 0.5 // Set animation duration
+        transition.type = CATransitionType.push // Set transition type to push
+        transition.subtype = CATransitionSubtype.fromRight // Set transition subtype to from right
+        self.view.window?.layer.add(transition, forKey: kCATransition) // Add transition to window layer
+        present(controller, animated: false, completion: nil)
     }
     @IBAction func EditExperience(_ sender: UIButton) {
         let controller = ReaderProfileEditSkillViewController()
@@ -319,6 +328,7 @@ class ReaderProfileViewController: UIViewController, UICollectionViewDataSource,
 
         if isEditingMode {
             isEditingMode = false;
+            btn_edit_avatar.isHidden = true;
             btn_edit_userinfo.isHidden = true;
             btn_edit_experience.isHidden = true;
             btn_edit_about.isHidden = true;
@@ -328,6 +338,7 @@ class ReaderProfileViewController: UIViewController, UICollectionViewDataSource,
         }
         else {
             isEditingMode = true;
+            btn_edit_avatar.isHidden = false;
             btn_edit_userinfo.isHidden = false;
             btn_edit_experience.isHidden = false;
             btn_edit_about.isHidden = false;
@@ -371,21 +382,32 @@ extension ReaderProfileViewController: UIImagePickerControllerDelegate & UINavig
             var avatarUrl: URL? = nil
             if let imageUrl = info[.imageURL] as? URL {
                 avatarUrl = imageUrl
-            }
-            
-            awsUpload.uploadImage(filePath: avatarUrl!, bucketName: "perfectself-avatar-bucket", prefix: "room-id-000-00") { (error: Error?) -> Void in
-                if(error == nil)
-                {//Then Upload video
-                    DispatchQueue.main.async {
-                        hideIndicator(sender: nil)
-                        Toast.show(message: "Avatar Image upload completed.", controller: self)
+                //Then Upload image
+                awsUpload.uploadImage(filePath: avatarUrl!, bucketName: "perfectself-avatar-bucket", prefix: self.id) { (error: Error?) -> Void in
+                    if(error == nil)
+                    {
+                        DispatchQueue.main.async {
+                            hideIndicator(sender: nil)
+                            Toast.show(message: "Avatar Image upload completed.", controller: self)
+                            // update avatar
+                            let url = "https://perfectself-avatar-bucket.s3.us-east-2.amazonaws.com/\(self.id)/\(String(describing: avatarUrl!.lastPathComponent))"
+                            self.readerAvatar.imageFrom(url: URL(string: url)!)
+                            //update user profile
+                            webAPI.updateUserAvatar(uid: self.id, bucketName: self.id, avatarKey: String(describing: avatarUrl!.lastPathComponent)) { data, response, error in
+                                if error == nil {
+                                    // successfully update db
+                                    print("update db completed")
+                                }
+                            }
+                            
+                        }
                     }
-                }
-                else
-                {
-                    DispatchQueue.main.async {
-                        hideIndicator(sender: nil)
-                        Toast.show(message: "Failed to upload avatar image", controller: self)
+                    else
+                    {
+                        DispatchQueue.main.async {
+                            hideIndicator(sender: nil)
+                            Toast.show(message: "Failed to upload avatar image, Try again later!", controller: self)
+                        }
                     }
                 }
             }
