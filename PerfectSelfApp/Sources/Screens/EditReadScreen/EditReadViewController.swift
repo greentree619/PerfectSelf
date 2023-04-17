@@ -13,6 +13,9 @@ class EditReadViewController: UIViewController {
     @IBOutlet weak var playerView: PlayerView!
     @IBOutlet weak var slider: UISlider!
     
+    @IBOutlet weak var startTimerLabel: UILabel!
+    @IBOutlet weak var endTimerLabel: UILabel!
+    
     init(videoRrl: URL) {
         self.videoURL = videoRrl
         super.init(nibName: String(describing: EditReadViewController.self), bundle: Bundle.main)
@@ -80,7 +83,14 @@ extension EditReadViewController: PlayerViewDelegate {
     }
     
     func playerVideo(player: PlayerView, duration: Double) {
+        slider.minimumValue = Float(0)
         slider.maximumValue =  Float(duration)
+        self.startTimerLabel.text = getCurrentTime(second:  0)
+        self.endTimerLabel.text = getCurrentTime(second: duration)
+        
+        slider.value = 0.0
+        playerView.currentTime = Double( 0 )
+        
     }
     
     func playerVideo(player: PlayerView, statusItemPlayer: AVPlayer.Status, error: Error?) {

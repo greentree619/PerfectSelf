@@ -23,7 +23,7 @@ class ProjectViewController: UIViewController {
         super.viewDidLoad()
         self.playerView.delegate = self
         
-        var downloadImageURL: NSString = "https://\(selectedTape!.bucketName).s3.us-east-2.amazonaws.com/8CF21CA9-DD2D-4A30-B81B-9B554D3B4D5A.mp4" as NSString
+        var downloadImageURL: NSString = "https://\(selectedTape!.bucketName).s3.us-east-2.amazonaws.com/\(selectedTape!.tapeKey).mp4" as NSString
         
         downloadImageURL = downloadImageURL.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)! as NSString
         

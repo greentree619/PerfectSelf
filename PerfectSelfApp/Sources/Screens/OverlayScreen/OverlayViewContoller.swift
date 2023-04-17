@@ -7,6 +7,7 @@
 //
 import UIKit
 import WebRTC
+import AVFoundation
 import Photos
 
 class OverlayViewController: UIViewController {
@@ -21,8 +22,14 @@ class OverlayViewController: UIViewController {
     @IBOutlet var btnTimer: UIButton!
     @IBOutlet var btnRecord: UIButton!
     @IBOutlet var btnStop: UIButton!
-    var count = 5
+    @IBOutlet weak var timeSelectCtrl: UIPickerView!
+    @IBOutlet weak var timeSelectPannel: UIView!
+    
+    var count = 3
     var timer: Timer!
+    var selectedCount = 3
+    
+    private var waitSecKey: String = "REC_WAIT_SEC"
     
     private var isOnRecording: Bool = false {
         didSet {
@@ -41,31 +48,39 @@ class OverlayViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        //self.containerView.isHidden = true
+        
+        let waitSec = UserDefaults.standard.integer(forKey: self.waitSecKey)
+        count = waitSec == 0 ? 3 : waitSec
+        selectedCount = count
+        self.timeSelectCtrl.delegate = self
+        self.timeSelectCtrl.dataSource = self
+        
+        //Omitted self.containerView.isHidden = true
         cameraView.delegate = self
         playerView.delegate = self
         guard let url = uploadVideourl else { return }
         playerView.url = url
-        //slider.minimumValue = 0
-        //btnStop.isEnabled = false
+        //Omitted slider.minimumValue = 0
+        //Omitted btnStop.isEnabled = false
         btnRecord.isEnabled = true
-        //btnTimer.isEnabled = true
+        //Omitted btnTimer.isEnabled = true
         lblTimer.isHidden = true
     }
 
-    override func viewDidAppear(_ animated: Bool) {
+    override func viewDidAppear(_ animated: Bool)
+    {
         super.viewDidAppear(animated)
-        playerView.invalidateIntrinsicContentSize()
         if cameraView.captureSession.isRunning == true {
             return
         }
         cameraView.captureSession.startRunning()
     }
     
-    @IBAction func startRecordClicked(_ sender: UIButton) {
+    @IBAction func startRecordClicked(_ sender: UIButton)
+    {
         if(!isOnRecording)
         {
-            self.count = 5
+            self.count = self.selectedCount
             self.lblTimer.text = "\(self.count)"
             lblTimer.isHidden = false
             if timer != nil {
@@ -105,9 +120,9 @@ class OverlayViewController: UIViewController {
     {
         if cameraView.isVideoRecording {
             cameraView.stopVideoRecording()
-            //btnRecord.isEnabled = true
-            //btnStop.isEnabled = false
-            //btnTimer.isEnabled = true
+            //Omitted btnRecord.isEnabled = true
+            //Omitted btnStop.isEnabled = false
+            //Omitted btnTimer.isEnabled = true
         }
         playerView.stop()
     }
@@ -137,6 +152,24 @@ class OverlayViewController: UIViewController {
     @IBAction func audioInputs(_ sender: UIButton) {
         self.containerView.isHidden = false
     }
+    
+    @IBAction func okDidTap(_ sender: UIButton) {
+        UserDefaults.standard.set(self.selectedCount, forKey: self.waitSecKey)
+        self.count = selectedCount
+        timeSelectPannel.isHidden = true
+    }
+    
+    
+    @IBAction func cancelDidTap(_ sender: UIButton) {
+        timeSelectPannel.isHidden = true
+    }
+    
+    
+    @IBAction func setTimerDidTap(_ sender: UIButton) {
+        timeSelectCtrl .selectRow( self.selectedCount-1, inComponent: 0, animated: true)
+        timeSelectPannel.isHidden = false
+    }
+    
 
     func mergedVideos(recordUrl:URL, uploadUrl:URL) {
         let recordAsset = AVAsset(url: recordUrl)
@@ -279,10 +312,10 @@ extension OverlayViewController: CameraPreviewDelegate {
     }
 
     func videDidEndRecording(with url: URL?, error: Error?) {
-//        guard let url = url, let uploadurl = self.uploadVideourl else {
-//            return
-//        }
-        //FIXME self.mergedVideos(recordUrl: url, uploadUrl: uploadurl)
+        guard let url = url, let uploadurl = self.uploadVideourl else {
+            return
+        }
+        self.mergedVideos(recordUrl: url, uploadUrl: uploadurl)
     }
 
 }
@@ -293,14 +326,34 @@ extension OverlayViewController: AvailableAudioInputsViewControllerDelegate {
     }
 }
 
+////MARK: UIPickerViewDelegate
+extension OverlayViewController: UIPickerViewDelegate, UIPickerViewDataSource  {
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return 10
+    }
+
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return "\(row+1)"
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+            // This method is triggered whenever the user makes a change to the picker selection.
+            // The parameter named row and component represents what was selected.
+        self.selectedCount = row+1
+    }
+}
 
 extension OverlayViewController: PlayerViewDelegate {
     func playerVideo(player: PlayerView, currentTime: Double) {
-        //slider.value = Float(currentTime)
+        //Omitted slider.value = Float(currentTime)
     }
 
     func playerVideo(player: PlayerView, duration: Double) {
-        //slider.maximumValue = Float(duration)
+        //Omitted slider.maximumValue = Float(duration)
     }
 
     func playerVideo(player: PlayerView, statusItemPlayer: AVPlayer.Status, error: Error?) {

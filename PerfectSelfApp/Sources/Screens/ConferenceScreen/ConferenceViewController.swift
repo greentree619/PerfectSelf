@@ -25,7 +25,7 @@ class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSample
     @IBOutlet weak var recordButton: UIButton!
     @IBOutlet weak var remoteCameraView: UIView!
     @IBOutlet var lblTimer: UILabel!
-        @IBOutlet weak var timeSelectCtrl: UIPickerView!
+    @IBOutlet weak var timeSelectCtrl: UIPickerView!
     @IBOutlet weak var timeSelectPannel: UIView!
     var count = 3
     var timer: Timer!

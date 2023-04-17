@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21225" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21207"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -152,7 +152,7 @@
                     <color key="tintColor" systemColor="systemBlueColor"/>
                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                     <state key="normal" title=" Start Timer" image="start-timer"/>
-                    <buttonConfiguration key="configuration" style="filled" image="start-timer" title=" Set Timer" titleAlignment="automatic">
+                    <buttonConfiguration key="configuration" style="filled" title=" Set Timer" titleAlignment="automatic">
                         <color key="baseForegroundColor" red="0.14901960780000001" green="0.1960784314" blue="0.21960784310000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <color key="baseBackgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </buttonConfiguration>
@@ -168,7 +168,7 @@
                     <color key="tintColor" systemColor="tintColor"/>
                     <inset key="imageEdgeInsets" minX="30" minY="0.0" maxX="18" maxY="0.0"/>
                     <state key="normal" title="Button"/>
-                    <buttonConfiguration key="configuration" style="filled" image="view-script" title="Start Recording">
+                    <buttonConfiguration key="configuration" style="filled" title="Start Recording">
                         <backgroundConfiguration key="background" image="book_back"/>
                         <color key="baseForegroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </buttonConfiguration>
@@ -307,7 +307,6 @@
         <image name="checkmark" catalog="system" width="128" height="114"/>
         <image name="recording" width="12" height="12"/>
         <image name="start-timer" width="26" height="26"/>
-        <image name="view-script" width="26" height="26"/>
         <image name="xmark" catalog="system" width="128" height="113"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
