@@ -59,6 +59,8 @@ class PerfectSelfWebAPI
             "userName": userName,
             "email": email,
             "password": password,
+            "avatarBucketName": "",
+            "avatarKey": "",
             "firstName": firstName,
             "lastName": lastName,
             "dateOfBirth": "",
@@ -81,6 +83,24 @@ class PerfectSelfWebAPI
             "isDeleted": false,
               "title": "",
             "actorUid": actoruid,
+            "ageRange": ageRange,
+            "height": Int(height) ?? 0,
+            "weight": Int(weight) ?? 0,
+            "country": country,
+            "state": state,
+            "city": city,
+            "agencyCountry": agency,
+            "vaccinationStatus": Int(vaccination) ?? 0,
+        ]
+        return executeAPI(with: "POST", apiPath: "ActorProfiles/", json: json, completionHandler:completionHandler)
+    }
+    
+    func createReaderProfile(readeruid: String, ageRange: String, height: String, weight: String, country: String, state: String, city: String, agency: String, vaccination: String, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> Void
+    {
+        let json: [String: Any] = [
+            "isDeleted": false,
+              "title": "",
+            "actorUid": readeruid,
             "ageRange": ageRange,
             "height": Int(height) ?? 0,
             "weight": Int(weight) ?? 0,

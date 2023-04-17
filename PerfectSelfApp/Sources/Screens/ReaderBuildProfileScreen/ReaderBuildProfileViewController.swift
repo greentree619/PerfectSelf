@@ -11,18 +11,20 @@ import DropDown
 
 class ReaderBuildProfileViewController: UIViewController {
 
+    var id = ""
     var username = ""
-    var firstname = ""
-    var lastname = ""
-    var email = ""
-    var password = ""
-    var phonenumber = ""
+//    var firstname = ""
+//    var lastname = ""
+//    var email = ""
+//    var password = ""
+//    var phonenumber = ""
     
     @IBOutlet weak var text_hourly: UITextField!
     @IBOutlet weak var text_gender: UITextField!
     @IBOutlet weak var text_title: UITextField!
     @IBOutlet weak var lbl_name: UILabel!
     
+    @IBOutlet weak var img_avatar: UIImageView!
     @IBOutlet weak var genderView: UIStackView!
     let dropDownForGender = DropDown()
     
@@ -56,44 +58,47 @@ class ReaderBuildProfileViewController: UIViewController {
         
     }
     @IBAction func Done(_ sender: UIButton) {
-        // calll API for reader signup
+        // calll API for reader profile update
+        var inputCheck: String = ""
+        var focusTextField: UITextField? = nil
+        if(text_title.text!.isEmpty){
+            inputCheck += "- Please select country .\n"
+            if(focusTextField == nil){
+                focusTextField = text_title
+            }
+        }
+        if(text_gender.text!.isEmpty){
+            inputCheck += "- Please select state .\n"
+            if(focusTextField == nil){
+                focusTextField = text_gender
+            }
+        }
+        if(text_hourly.text!.isEmpty){
+            inputCheck += "- Please select city .\n"
+            if(focusTextField == nil){
+                focusTextField = text_hourly
+            }
+        }
         
+        if(!inputCheck.isEmpty){
+            showAlert(viewController: self, title: "Confirm", message: inputCheck) { UIAlertAction in
+                focusTextField!.becomeFirstResponder()
+            }
+            return
+        }
         showIndicator(sender: sender, viewController: self)
-        webAPI.signup(userType: READER_UTYPE, userName: username, firstName: firstname, lastName: lastname, email: email, password: password, phoneNumber: phonenumber) { data, response, error in
+        webAPI.createReaderProfile(readeruid: id, ageRange: "", height: "", weight: "", country: "", state: "", city: "", agency: "", vaccination: "") { data, response, error in
             guard let data = data, error == nil else {
                 print(error?.localizedDescription ?? "No data")
-                DispatchQueue.main.async {
-                    hideIndicator(sender: sender)
-                }
                 return
             }
-            if let httpResponse = response as? HTTPURLResponse {
-                print("statusCode: \(httpResponse.statusCode)")
-            }
             let responseJSON = try? JSONSerialization.jsonObject(with: data, options: [])
-            if let responseJSON = responseJSON as? [String: Any] {
-                //print(responseJSON["result"])
-                guard responseJSON["email"] != nil else {
-                    DispatchQueue.main.async {
-                        hideIndicator(sender: sender)
-                        Toast.show(message: "Signup failed! please try again.", controller: self)
-                        //self.text_email.becomeFirstResponder()
-                    }
-                    return
-                }
+
+            if let _ = responseJSON as? [String: Any] {
+                
                 DispatchQueue.main.async {
                     hideIndicator(sender: sender)
-                    //{{REFME
-                    Toast.show(message: "Successfully signed up!", controller: self)
-                    UserDefaults.standard.set(responseJSON["uid"], forKey: "USER_ID")
-                    UserDefaults.standard.set(responseJSON["token"], forKey: "USER_TOKEN")
-                    UserDefaults.standard.set(self.username, forKey: "USER_NAME")
-                    UserDefaults.standard.set(self.email, forKey: "USER_EMAIL")
-                    UserDefaults.standard.set(self.password, forKey: "USER_PWD")
-                    UserDefaults.standard.set("reader", forKey: "USER_TYPE")
-                    //}}REFME
-                    
-                    let controller = ReaderTabBarController();
+                    let controller = ActorTabBarController()
                     controller.modalPresentationStyle = .fullScreen
                     self.present(controller, animated: false)
                 }
@@ -102,11 +107,18 @@ class ReaderBuildProfileViewController: UIViewController {
             {
                 DispatchQueue.main.async {
                     hideIndicator(sender: sender)
-                    Toast.show(message: "Signup failed! please try again.", controller: self)
+                    Toast.show(message: "Profile update failed! please try again.", controller: self)
+                    print("error3")
                 }
             }
         }
-        
+    }
+    
+    @IBAction func EditUserAvatar(_ sender: UIButton) {
+        let imagePicker = UIImagePickerController()
+        imagePicker.delegate = self
+        imagePicker.sourceType = .photoLibrary
+        present(imagePicker, animated: true, completion: nil)
     }
     @IBAction func GoBack(_ sender: UIButton) {
         self.navigationController?.popViewController(animated: true)
@@ -122,3 +134,65 @@ class ReaderBuildProfileViewController: UIViewController {
     */
 
 }
+
+/// Mark:https://perfectself-avatar-bucket.s3.us-east-2.amazonaws.com/{room-id-000-00}/{647730C6-5E86-483A-859E-5FBF05767018.jpeg}
+extension ReaderBuildProfileViewController: UIImagePickerControllerDelegate & UINavigationControllerDelegate  {
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        
+        DispatchQueue.global(qos: .userInitiated).async {
+            let awsUpload = AWSMultipartUpload()
+            DispatchQueue.main.async {
+                showIndicator(sender: nil, viewController: self, color:UIColor.white)
+                Toast.show(message: "Start to upload record files", controller: self)
+            }
+            
+            //Upload audio at first
+            guard info[.originalImage] is UIImage else {
+                //dismiss(animated: true, completion: nil)
+                return
+            }
+                    
+            // Get the URL of the selected image
+            var avatarUrl: URL? = nil
+            if let imageUrl = info[.imageURL] as? URL {
+                avatarUrl = imageUrl
+                //Then Upload image
+                awsUpload.uploadImage(filePath: avatarUrl!, bucketName: "perfectself-avatar-bucket", prefix: self.id) { (error: Error?) -> Void in
+                    if(error == nil)
+                    {
+                        DispatchQueue.main.async {
+                            hideIndicator(sender: nil)
+                            Toast.show(message: "Avatar Image upload completed.", controller: self)
+                            // update avatar
+                            let url = "https://perfectself-avatar-bucket.s3.us-east-2.amazonaws.com/\(self.id)/\(String(describing: avatarUrl!.lastPathComponent))"
+                            self.img_avatar.imageFrom(url: URL(string: url)!)
+                            //update user profile
+                            webAPI.updateUserAvatar(uid: self.id, bucketName: self.id, avatarKey: String(describing: avatarUrl!.lastPathComponent)) { data, response, error in
+                                if error == nil {
+                                    // successfully update db
+                                    print("update db completed")
+                                }
+                            }
+                            
+                        }
+                    }
+                    else
+                    {
+                        DispatchQueue.main.async {
+                            hideIndicator(sender: nil)
+                            Toast.show(message: "Failed to upload avatar image, Try again later!", controller: self)
+                        }
+                    }
+                }
+            }
+        }//DispatchQueue.global
+        
+        dismiss(animated: true, completion: nil)
+    }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        dismiss(animated: true, completion: nil)
+    }
+}
+

@@ -50,6 +50,8 @@ struct ReaderProfileCard: Codable {
     let email: String
     let firstName: String
     let lastName: String
+    let avatarBucketName: String?
+    let avatarKey: String?
     let title: String?
     let gender: Int
     let isLogin: Bool

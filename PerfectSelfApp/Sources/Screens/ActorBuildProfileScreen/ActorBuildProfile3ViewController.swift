@@ -191,7 +191,6 @@ class ActorBuildProfile3ViewController: UIViewController {
                 }
             }
         }
-
     }
     @IBAction func GoBack(_ sender: UIButton) {
         self.navigationController?.popViewController(animated: true);
