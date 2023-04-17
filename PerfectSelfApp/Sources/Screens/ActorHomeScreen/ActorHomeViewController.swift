@@ -16,6 +16,7 @@ class ActorHomeViewController: UIViewController, UICollectionViewDataSource, UIC
     @IBOutlet weak var spin: UIActivityIndicatorView!
     @IBOutlet weak var readerListFlow: UICollectionViewFlowLayout!
     @IBOutlet weak var greetingLabel: UILabel!
+    @IBOutlet weak var img_actor_avatar: UIImageView!
     
     @IBOutlet weak var btn_sponsored: UIButton!
     @IBOutlet weak var btn_availablesoon: UIButton!
@@ -27,6 +28,7 @@ class ActorHomeViewController: UIViewController, UICollectionViewDataSource, UIC
     var isTopRated = false
     
     var items = [ReaderProfileCard]()
+    
     let cellsPerRow = 1
   
     override func viewDidLoad() {
@@ -39,8 +41,40 @@ class ActorHomeViewController: UIViewController, UICollectionViewDataSource, UIC
         readerList.allowsSelection = true
         // Do any additional setup after loading the view.
         let name = UserDefaults.standard.string(forKey: "USER_NAME")
+        let uid = UserDefaults.standard.string(forKey: "USER_ID")!
         greetingLabel.text = "Hi, " + (name ?? "")
-        fetchReaderList()
+        //set avatar
+        showIndicator(sender: nil, viewController: self)
+        webAPI.getUserInfo(uid: uid) { data, response, error in
+            DispatchQueue.main.async {
+               hideIndicator(sender: nil)
+            }
+            
+            guard let data = data, error == nil else {
+                print(error?.localizedDescription ?? "No data")
+                return
+            }
+            do {
+               
+                let userinfo = try JSONDecoder().decode(UserInfo.self, from: data)
+                print(userinfo)
+                DispatchQueue.main.async {
+                    if userinfo.avatarBucketName != nil {
+                        let url = "https://perfectself-avatar-bucket.s3.us-east-2.amazonaws.com/\( userinfo.avatarBucketName!)/\( userinfo.avatarKey!)"
+                        UserDefaults.standard.setValue(url, forKey: "USER_AVATAR")
+                        self.img_actor_avatar.imageFrom(url: URL(string: url)!)
+                    }
+                    self.fetchReaderList()
+                }
+
+            } catch {
+                print(error)
+                DispatchQueue.main.async {
+                    Toast.show(message: "Fetching User info failed! please try again.", controller: self)
+                }
+            }
+        }
+        
     }
     func fetchReaderList() {
         spin.isHidden = false
