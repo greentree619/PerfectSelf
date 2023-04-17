@@ -8,7 +8,7 @@
 import UIKit
 import WebRTC
 
-class EditReadViewController: UIViewController, PlayerViewDelegate {
+class EditReadViewController: UIViewController {
     let videoURL: URL
     @IBOutlet weak var playerView: PlayerView!
     @IBOutlet weak var slider: UISlider!
@@ -31,13 +31,13 @@ class EditReadViewController: UIViewController, PlayerViewDelegate {
         
         setupPlayer()
     }
-
+    
     func setupPlayer() {
         playerView.url = videoURL
         playerView.delegate = self
         slider.minimumValue = 0
     }
-        
+    
     @IBAction func backDidTap(_ sender: UIButton) {
         self.dismiss(animated: false)
     }
@@ -47,12 +47,34 @@ class EditReadViewController: UIViewController, PlayerViewDelegate {
             playerView.pause()
             //isPlaying = false
         } else {
-           playerView.play()
-           //isPlaying = true
+            playerView.play()
+            //isPlaying = true
         }
     }
     
+    @IBAction func settingDidTap(_ sender: UIButton)
+    {
+    }
     
+    @IBAction func rotateDidTap(_ sender: UIButton)
+    {
+    }
+    @IBAction func audioEditDidTap(_ sender: UIButton)
+    {
+    }
+    
+    @IBAction func backgroundRemovalDidTap(_ sender: UIButton) {
+    }
+    
+    @IBAction func cropDidTap(_ sender: Any) {
+    }
+    
+    @IBAction func shareDidTap(_ sender: UIButton) {
+    }
+    
+}
+
+extension EditReadViewController: PlayerViewDelegate {
     func playerVideo(player: PlayerView, currentTime: Double) {
         slider.value = Float(currentTime)
     }
