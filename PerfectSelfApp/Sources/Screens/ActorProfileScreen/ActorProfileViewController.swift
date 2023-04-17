@@ -11,6 +11,9 @@ import UIKit
 class ActorProfileViewController: UIViewController {
 
     var id = ""
+    @IBOutlet weak var lbl_fullname: UILabel!
+    @IBOutlet weak var lbl_username: UILabel!
+    @IBOutlet weak var lbl_email: UILabel!
     @IBOutlet weak var img_user_avatar: UIImageView!
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,6 +24,10 @@ class ActorProfileViewController: UIViewController {
         if url != nil {
             img_user_avatar.imageFrom(url: URL(string: url!)!)
         }
+        let fullname = (UserDefaults.standard.string(forKey: "USER_FIRST_NAME") ?? "") + " " + (UserDefaults.standard.string(forKey: "USER_LAST_NAME") ?? "")
+        lbl_fullname.text = fullname.isEmpty ? "" : fullname
+        lbl_username.text = UserDefaults.standard.string(forKey: "USER_NAME")
+        lbl_email.text = UserDefaults.standard.string(forKey: "USER_EMAIL")
     }
 
     @IBAction func UploadImage(_ sender: UIButton) {

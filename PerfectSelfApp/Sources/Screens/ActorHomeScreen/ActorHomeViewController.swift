@@ -42,7 +42,7 @@ class ActorHomeViewController: UIViewController, UICollectionViewDataSource, UIC
         // Do any additional setup after loading the view.
         let name = UserDefaults.standard.string(forKey: "USER_NAME")
         let uid = UserDefaults.standard.string(forKey: "USER_ID")!
-        greetingLabel.text = "Hi, " + (name ?? "")
+        greetingLabel.text = "Hi, " + (name ?? "User")
         //set avatar
         showIndicator(sender: nil, viewController: self)
         webAPI.getUserInfo(uid: uid) { data, response, error in
@@ -57,8 +57,10 @@ class ActorHomeViewController: UIViewController, UICollectionViewDataSource, UIC
             do {
                
                 let userinfo = try JSONDecoder().decode(UserInfo.self, from: data)
-                print(userinfo)
+                
                 DispatchQueue.main.async {
+                    UserDefaults.standard.setValue(userinfo.firstName, forKey: "USER_FIRST_NAME")
+                    UserDefaults.standard.setValue(userinfo.lastName, forKey: "USER_LAST_NAME")
                     if userinfo.avatarBucketName != nil {
                         let url = "https://perfectself-avatar-bucket.s3.us-east-2.amazonaws.com/\( userinfo.avatarBucketName!)/\( userinfo.avatarKey!)"
                         UserDefaults.standard.setValue(url, forKey: "USER_AVATAR")

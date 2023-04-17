@@ -13,6 +13,9 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ActorProfileViewController" customModule="PerfectSelf" customModuleProvider="target">
             <connections>
                 <outlet property="img_user_avatar" destination="o39-ye-nP1" id="MxA-xu-diS"/>
+                <outlet property="lbl_email" destination="sfg-pd-cgF" id="AVN-G2-6iu"/>
+                <outlet property="lbl_fullname" destination="NzY-5i-ABN" id="0sW-S4-aP2"/>
+                <outlet property="lbl_username" destination="CRd-S3-vDu" id="SRv-uw-c6R"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
