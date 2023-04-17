@@ -24,9 +24,10 @@
                             <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="U3d-Tp-oS9">
                                 <rect key="frame" x="8" y="8" width="104" height="104"/>
                                 <subviews>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="reader" translatesAutoresizingMaskIntoConstraints="NO" id="xmp-kB-Xio">
-                                        <rect key="frame" x="0.0" y="0.0" width="104" height="104"/>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="person.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="xmp-kB-Xio">
+                                        <rect key="frame" x="0.0" y="2" width="104" height="100.66666666666667"/>
                                         <color key="backgroundColor" red="0.42352941179999998" green="0.52447552450000001" blue="1" alpha="0.2380952381" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                                                 <real key="value" value="10"/>
@@ -34,21 +35,21 @@
                                         </userDefinedRuntimeAttributes>
                                     </imageView>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XCm-rS-oLI">
-                                        <rect key="frame" x="92" y="92" width="12" height="12"/>
+                                        <rect key="frame" x="88" y="88" width="16" height="16"/>
                                         <color key="backgroundColor" red="0.66666666666666663" green="0.66666666666666663" blue="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="12" id="0gY-qk-YFs"/>
-                                            <constraint firstAttribute="height" constant="12" id="4T2-bW-j8N"/>
+                                            <constraint firstAttribute="width" constant="16" id="0gY-qk-YFs"/>
+                                            <constraint firstAttribute="height" constant="16" id="4T2-bW-j8N"/>
                                         </constraints>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                <real key="value" value="6"/>
+                                                <real key="value" value="8"/>
                                             </userDefinedRuntimeAttribute>
                                             <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
                                                 <color key="value" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                             </userDefinedRuntimeAttribute>
                                             <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
-                                                <real key="value" value="1"/>
+                                                <real key="value" value="2"/>
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                     </view>
@@ -201,7 +202,7 @@
     </objects>
     <resources>
         <image name="filter_divide" width="334" height="1"/>
-        <image name="reader" width="160" height="154"/>
+        <image name="person.fill" catalog="system" width="128" height="120"/>
         <image name="star.fill" catalog="system" width="128" height="116"/>
         <systemColor name="systemYellowColor">
             <color red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
