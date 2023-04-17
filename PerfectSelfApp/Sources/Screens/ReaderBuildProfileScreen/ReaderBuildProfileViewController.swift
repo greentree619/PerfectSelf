@@ -62,32 +62,38 @@ class ReaderBuildProfileViewController: UIViewController {
         var inputCheck: String = ""
         var focusTextField: UITextField? = nil
         if(text_title.text!.isEmpty){
-            inputCheck += "- Please select country .\n"
+            inputCheck += "- Please input title .\n"
             if(focusTextField == nil){
                 focusTextField = text_title
             }
         }
         if(text_gender.text!.isEmpty){
-            inputCheck += "- Please select state .\n"
+            inputCheck += "- Please select your gender .\n"
             if(focusTextField == nil){
                 focusTextField = text_gender
             }
         }
         if(text_hourly.text!.isEmpty){
-            inputCheck += "- Please select city .\n"
+            inputCheck += "- Please input hourly rate .\n"
             if(focusTextField == nil){
                 focusTextField = text_hourly
             }
         }
-        
+ 
         if(!inputCheck.isEmpty){
             showAlert(viewController: self, title: "Confirm", message: inputCheck) { UIAlertAction in
                 focusTextField!.becomeFirstResponder()
             }
             return
         }
+        guard let rate = Int(text_hourly.text!) else {
+            showAlert(viewController: self, title: "Warning", message: "Input number invalid") {_ in
+                
+            }
+            return
+        }
         showIndicator(sender: sender, viewController: self)
-        webAPI.createReaderProfile(readeruid: id, ageRange: "", height: "", weight: "", country: "", state: "", city: "", agency: "", vaccination: "") { data, response, error in
+        webAPI.createReaderProfile(uid: id, title: text_title.text!, gender: text_gender.text!, hourlyrate: rate) { data, response, error in
             guard let data = data, error == nil else {
                 print(error?.localizedDescription ?? "No data")
                 return
@@ -98,7 +104,7 @@ class ReaderBuildProfileViewController: UIViewController {
                 
                 DispatchQueue.main.async {
                     hideIndicator(sender: sender)
-                    let controller = ActorTabBarController()
+                    let controller = ReaderTabBarController()
                     controller.modalPresentationStyle = .fullScreen
                     self.present(controller, animated: false)
                 }
@@ -120,8 +126,11 @@ class ReaderBuildProfileViewController: UIViewController {
         imagePicker.sourceType = .photoLibrary
         present(imagePicker, animated: true, completion: nil)
     }
-    @IBAction func GoBack(_ sender: UIButton) {
-        self.navigationController?.popViewController(animated: true)
+    
+    @IBAction func Later(_ sender: UIButton) {
+        let controller = ReaderTabBarController()
+        controller.modalPresentationStyle = .fullScreen
+        self.present(controller, animated: false)
     }
     /*
     // MARK: - Navigation

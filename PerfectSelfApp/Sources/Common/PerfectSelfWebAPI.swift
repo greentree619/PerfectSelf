@@ -94,24 +94,7 @@ class PerfectSelfWebAPI
         ]
         return executeAPI(with: "POST", apiPath: "ActorProfiles/", json: json, completionHandler:completionHandler)
     }
-    
-    func createReaderProfile(readeruid: String, ageRange: String, height: String, weight: String, country: String, state: String, city: String, agency: String, vaccination: String, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> Void
-    {
-        let json: [String: Any] = [
-            "isDeleted": false,
-              "title": "",
-            "actorUid": readeruid,
-            "ageRange": ageRange,
-            "height": Int(height) ?? 0,
-            "weight": Int(weight) ?? 0,
-            "country": country,
-            "state": state,
-            "city": city,
-            "agencyCountry": agency,
-            "vaccinationStatus": Int(vaccination) ?? 0,
-        ]
-        return executeAPI(with: "POST", apiPath: "ActorProfiles/", json: json, completionHandler:completionHandler)
-    }
+
     func updateUserAvatar(uid: String, bucketName: String, avatarKey: String, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> Void
     {
         let json: [String: Any] = [
@@ -187,21 +170,21 @@ class PerfectSelfWebAPI
     {
         return executeAPI(with: "GET", apiPath: "ReaderProfiles/Detail/\(id)", json: [:], completionHandler:completionHandler)
     }
-    func createReaderProfile(readeruid: String, title: String, about: String, hourlyprice: String, skills: String, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> Void
+    
+    func createReaderProfile(uid: String, title: String, gender: String, hourlyrate: Int, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> Void
     {
         let json: [String: Any] = [
             "isDeleted": false,
             "title": title,
-            "readerUid": readeruid,
-            "hourlyPrice": Int(hourlyprice) ?? 0,
-            "voiceType": 0,
-            "others": 0,
-            "about": about,
-            "skills": skills,
+            "readerUid": uid,
+            "hourlyPrice": hourlyrate,
+            "voiceType": -1,
+            "others": -1,
+            "about": "",
+            "skills": "",
         ]
-        return executeAPI(with: "POST", apiPath: "ReaderProfiles/", json: json, completionHandler:completionHandler)
+        return executeAPI(with: "PUT", apiPath: "ReaderProfiles/\(uid)", json: json, completionHandler:completionHandler)
     }
-
     func editReaderProfileAbout(uid: String, about: String, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> Void
     {
         let json: [String: Any] = [
