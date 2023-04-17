@@ -129,6 +129,7 @@ class ActorBookingViewController: UIViewController, UICollectionViewDataSource, 
         dateFormatter2.dateFormat = "hh:mm a"
         
         cell.bookType = bookType
+        cell.readerType = "actor"
         cell.review = self.items[indexPath.row].readerReview
    
         cell.id = self.items[indexPath.row].id
