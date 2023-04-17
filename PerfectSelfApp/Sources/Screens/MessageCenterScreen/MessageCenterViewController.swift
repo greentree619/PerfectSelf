@@ -10,8 +10,6 @@ import UIKit
 
 class MessageCenterViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
 
-//    @IBOutlet weak var scrollView: UIScrollView!
-//    let r = UIImage(named: "reader");
     let divide = UIImage(named: "filter_divide");
     @IBOutlet weak var chatCardList: UICollectionView!
     @IBOutlet weak var btn_back: UIButton!
@@ -28,8 +26,15 @@ class MessageCenterViewController: UIViewController, UICollectionViewDataSource,
         chatCardList.allowsSelection = true
         // Do any additional setup after loading the view.
         self.navigationItem.setHidesBackButton(true, animated: false)
-        let userType = UserDefaults.standard.string(forKey: "USER_TYPE")
-        btn_back.isHidden = userType == "reader"
+        // Retrieve the saved data from UserDefaults
+        if let userInfo = UserDefaults.standard.object(forKey: "USER") as? [String:Any] {
+            // Use the saved data
+            let userType = userInfo["userType"] as? Int
+            btn_back.isHidden = userType == 4
+        } else {
+            // No data was saved
+            print("No data was saved.")
+        }
     }
     
     // MARK: - ChatCard List Delegate.

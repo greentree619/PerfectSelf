@@ -19,15 +19,29 @@ class ActorProfileViewController: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        id = UserDefaults.standard.string(forKey: "USER_ID")!
-        let url = UserDefaults.standard.string(forKey: "USER_AVATAR")
-        if url != nil {
-            img_user_avatar.imageFrom(url: URL(string: url!)!)
+        // Retrieve the saved data from UserDefaults
+        if let userInfo = UserDefaults.standard.object(forKey: "USER") as? [String:Any] {
+            // Use the saved data
+            id = userInfo["uid"] as! String
+            let name = userInfo["userName"] as? String
+            let fname = userInfo["firstName"] as? String
+            let lname = userInfo["lastName"] as? String
+            let email = userInfo["email"] as? String
+            
+            let bucketName = userInfo["avatarBucketName"] as? String
+            let avatarKey = userInfo["avatarKey"] as? String
+            
+            if (bucketName != nil && avatarKey != nil) {
+                let url = "https://perfectself-avatar-bucket.s3.us-east-2.amazonaws.com/\( bucketName!)/\(avatarKey!)"
+                img_user_avatar.imageFrom(url: URL(string: url)!)
+            }
+            lbl_fullname.text = (fname ?? "") + " " + (lname ?? "")
+            lbl_username.text = name
+            lbl_email.text = email
+        } else {
+            // No data was saved
+            print("No data was saved.")
         }
-        let fullname = (UserDefaults.standard.string(forKey: "USER_FIRST_NAME") ?? "") + " " + (UserDefaults.standard.string(forKey: "USER_LAST_NAME") ?? "")
-        lbl_fullname.text = fullname.isEmpty ? "" : fullname
-        lbl_username.text = UserDefaults.standard.string(forKey: "USER_NAME")
-        lbl_email.text = UserDefaults.standard.string(forKey: "USER_EMAIL")
     }
 
     @IBAction func UploadImage(_ sender: UIButton) {

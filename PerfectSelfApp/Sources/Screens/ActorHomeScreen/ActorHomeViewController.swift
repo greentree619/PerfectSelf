@@ -40,43 +40,24 @@ class ActorHomeViewController: UIViewController, UICollectionViewDataSource, UIC
         readerList.delegate = self
         readerList.allowsSelection = true
         // Do any additional setup after loading the view.
-        let name = UserDefaults.standard.string(forKey: "USER_NAME")
-        let uid = UserDefaults.standard.string(forKey: "USER_ID")!
-        greetingLabel.text = "Hi, " + (name ?? "User")
-        //set avatar
-        showIndicator(sender: nil, viewController: self)
-        webAPI.getUserInfo(uid: uid) { data, response, error in
-            DispatchQueue.main.async {
-               hideIndicator(sender: nil)
+        
+        // Retrieve the saved data from UserDefaults
+        if let userInfo = UserDefaults.standard.object(forKey: "USER") as? [String:Any] {
+            // Use the saved data
+            let name = userInfo["userName"] as? String
+            let bucketName = userInfo["avatarBucketName"] as? String
+            let avatarKey = userInfo["avatarKey"] as? String
+            greetingLabel.text = "Hi, " + (name ?? "User")
+            if (bucketName != nil && avatarKey != nil) {
+                let url = "https://perfectself-avatar-bucket.s3.us-east-2.amazonaws.com/\( bucketName!)/\(avatarKey!)"
+                img_actor_avatar.imageFrom(url: URL(string: url)!)
             }
-            
-            guard let data = data, error == nil else {
-                print(error?.localizedDescription ?? "No data")
-                return
-            }
-            do {
-               
-                let userinfo = try JSONDecoder().decode(UserInfo.self, from: data)
-                
-                DispatchQueue.main.async {
-                    UserDefaults.standard.setValue(userinfo.firstName, forKey: "USER_FIRST_NAME")
-                    UserDefaults.standard.setValue(userinfo.lastName, forKey: "USER_LAST_NAME")
-                    if userinfo.avatarBucketName != nil {
-                        let url = "https://perfectself-avatar-bucket.s3.us-east-2.amazonaws.com/\( userinfo.avatarBucketName!)/\( userinfo.avatarKey!)"
-                        UserDefaults.standard.setValue(url, forKey: "USER_AVATAR")
-                        self.img_actor_avatar.imageFrom(url: URL(string: url)!)
-                    }
-                    self.fetchReaderList()
-                }
-
-            } catch {
-                print(error)
-                DispatchQueue.main.async {
-                    Toast.show(message: "Fetching User info failed! please try again.", controller: self)
-                }
-            }
+        } else {
+            // No data was saved
+            print("No data was saved.")
         }
         
+        fetchReaderList()
     }
     func fetchReaderList() {
         spin.isHidden = false

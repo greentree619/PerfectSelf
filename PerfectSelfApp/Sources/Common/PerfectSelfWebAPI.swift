@@ -25,9 +25,6 @@ class PerfectSelfWebAPI
     {
         let urlString = "\(PERFECTSELF_WEBAPI_ROOT)\(apiPath)"
         let encodedString = urlString.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
-
-        print(encodedString ?? "hey") // Output: "https://www.example.com/search?q=swift%20encoding"
-
         let jsonData = try? JSONSerialization.data(withJSONObject: json)
         let url = URL(string: encodedString!)!
         var request = URLRequest(url: url)
@@ -48,7 +45,6 @@ class PerfectSelfWebAPI
                                    "email": email,
                                    "password": password]
         
-        print(email, password, userType);
         return executeAPI(with: "POST", apiPath: "Users/Login", json: json, completionHandler:completionHandler)
     }
     
@@ -166,7 +162,7 @@ class PerfectSelfWebAPI
             params += (isParamsExist ? "&":"") + "sortBy=\(sortBy!)"
             isParamsExist = true
         }
-        print(params)
+      
         return executeAPI(with: "GET", apiPath: "ReaderProfiles/ReaderList?\(params)", json: [:], completionHandler:completionHandler)
     }
     func getReaderById(id: String, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> Void

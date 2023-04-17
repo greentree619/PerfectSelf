@@ -69,7 +69,13 @@ class ReaderProfileViewController: UIViewController, UICollectionViewDataSource,
         btn_edit_skills.isHidden = true;
         btn_edit_availability.isHidden = true;
         view_edit_hourly_rate.isHidden = true;
-        id = UserDefaults.standard.string(forKey: "USER_ID")!
+        if let userInfo = UserDefaults.standard.object(forKey: "USER") as? [String:Any] {
+            // Use the saved data
+            id = userInfo["uid"] as! String
+        } else {
+            // No data was saved
+            print("No data was saved.")
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {

@@ -37,7 +37,6 @@ class ReaderProfileEditAboutViewController: UIViewController {
     @IBAction func SaveChanges(_ sender: UIButton) {
         // call API for about update
         showIndicator(sender: nil, viewController: self)
-//        let uid = UserDefaults.standard.string(forKey: "USER_ID")!
         webAPI.editReaderProfileAbout(uid: uid, about: text_about.text) { data, response, error in
             DispatchQueue.main.async {
                 hideIndicator(sender: nil);

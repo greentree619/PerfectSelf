@@ -11,7 +11,7 @@ import DropDown
 
 class ActorBuildProfile3ViewController: UIViewController {
 
-//    var userType:String = ""
+    var uid = ""
     var username:String = ""
     var gender:String = ""
     var agerange:String = ""
@@ -43,7 +43,13 @@ class ActorBuildProfile3ViewController: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        
+        if let userInfo = UserDefaults.standard.object(forKey: "USER") as? [String:Any] {
+            // Use the saved data
+            uid = userInfo["uid"] as! String
+        } else {
+            // No data was saved
+            print("No data was saved.")
+        }
         // The view to which the drop down will appear on
         dropDownForCountry.anchorView = countryview
         dropDownForCountry.dataSource = ["Not listed", "Country", "Country", "Country"]
@@ -165,8 +171,8 @@ class ActorBuildProfile3ViewController: UIViewController {
             return
         }
         showIndicator(sender: sender, viewController: self)
-        let uid = UserDefaults.standard.string(forKey: "USER_ID")
-        webAPI.createActorProfile(actoruid: uid!, ageRange: agerange, height: height, weight: weight, country: text_country.text != nil ? text_country.text!: "", state: text_state.text != nil ? text_state.text! : "", city: text_city.text != nil ? text_city.text! : "", agency: text_agency.text != nil ? text_agency.text! : "", vaccination: text_vaccination.text != nil ? text_vaccination.text! : "") { data, response, error in
+   
+        webAPI.createActorProfile(actoruid: uid, ageRange: agerange, height: height, weight: weight, country: text_country.text != nil ? text_country.text!: "", state: text_state.text != nil ? text_state.text! : "", city: text_city.text != nil ? text_city.text! : "", agency: text_agency.text != nil ? text_agency.text! : "", vaccination: text_vaccination.text != nil ? text_vaccination.text! : "") { data, response, error in
             guard let data = data, error == nil else {
                 print(error?.localizedDescription ?? "No data")
                 return
