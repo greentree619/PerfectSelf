@@ -283,6 +283,23 @@ class PerfectSelfWebAPI
     {
         return executeAPI(with: "POST", apiPath: "Books/Accept/\(id)", json: [:], completionHandler:completionHandler)
     }
+    func rescheduleBooking(id: Int, bookStartTime: String, bookEndTime: String, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> Void
+    {
+        let json: [String: Any] = [
+            "actorUid": "",
+            "readerUid": "",
+            "roomUid": "",
+            "bookStartTime": bookStartTime,
+            "bookEndTime": bookEndTime,
+            "scriptFile": "",
+            "isAccept": true,
+            "readerScore": 0,
+            "readerReview": "",
+            "readerReviewDate": ""
+        ]
+
+        return executeAPI(with: "POST", apiPath: "Books/Reschedule/\(id)", json: json, completionHandler:completionHandler)
+    }
     func getAvailabilityById(uid: String, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> Void
     {
         return executeAPI(with: "GET", apiPath: "Availabilities/UpcomingByUid/\(uid)/\(Date.getDateString(date: Date()))", json: [:], completionHandler:completionHandler)
@@ -307,6 +324,11 @@ class PerfectSelfWebAPI
     {
         print("Books/GiveFeedbackToUid/\(id)?score=\(score)&review=\(review)")
         return executeAPI(with: "PUT", apiPath: "Books/GiveFeedbackToUid/\(id)?score=\(score)&review=\(review)", json: [:], completionHandler:completionHandler)
+    }
+    
+    func getChannelHistoryByUid(uid: String, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> Void
+    {
+        return executeAPI(with: "GET", apiPath: "MessageHistory/GetChannelHistory/\(uid)", json: [:], completionHandler:completionHandler)
     }
     func login() -> Void
     {

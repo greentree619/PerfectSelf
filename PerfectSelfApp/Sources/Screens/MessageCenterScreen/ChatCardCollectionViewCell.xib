@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21225" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21207"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -29,9 +29,22 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1hO-Vs-3pg">
                                 <rect key="frame" x="8" y="8" width="54" height="54"/>
                                 <subviews>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="reader_avatar" translatesAutoresizingMaskIntoConstraints="NO" id="PD9-AD-bLi">
+                                    <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DFt-sl-Kca">
                                         <rect key="frame" x="0.0" y="0.0" width="54" height="54"/>
-                                    </imageView>
+                                        <subviews>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="person.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="PD9-AD-bLi">
+                                                <rect key="frame" x="0.0" y="0.0" width="54" height="54"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </imageView>
+                                        </subviews>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                <real key="value" value="52"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="m20-bt-xIa">
                                         <rect key="frame" x="42" y="42" width="12" height="12"/>
                                         <color key="backgroundColor" systemColor="systemGreenColor"/>
@@ -54,13 +67,13 @@
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
-                                    <constraint firstItem="PD9-AD-bLi" firstAttribute="top" secondItem="1hO-Vs-3pg" secondAttribute="top" id="7av-vj-oAo"/>
+                                    <constraint firstAttribute="bottom" secondItem="DFt-sl-Kca" secondAttribute="bottom" id="3kk-cw-mgq"/>
                                     <constraint firstAttribute="bottom" secondItem="m20-bt-xIa" secondAttribute="bottom" id="HFH-lX-1Y5"/>
-                                    <constraint firstAttribute="trailing" secondItem="PD9-AD-bLi" secondAttribute="trailing" id="QvQ-A5-eW6"/>
-                                    <constraint firstItem="PD9-AD-bLi" firstAttribute="leading" secondItem="1hO-Vs-3pg" secondAttribute="leading" id="aFn-2G-RQn"/>
+                                    <constraint firstItem="DFt-sl-Kca" firstAttribute="top" secondItem="1hO-Vs-3pg" secondAttribute="top" id="b0z-xV-dTR"/>
+                                    <constraint firstItem="DFt-sl-Kca" firstAttribute="leading" secondItem="1hO-Vs-3pg" secondAttribute="leading" id="e0B-vZ-Fmf"/>
                                     <constraint firstAttribute="width" secondItem="1hO-Vs-3pg" secondAttribute="height" multiplier="1:1" id="gEJ-Xk-6op"/>
                                     <constraint firstAttribute="trailing" secondItem="m20-bt-xIa" secondAttribute="trailing" id="uFa-oJ-vQI"/>
-                                    <constraint firstAttribute="bottom" secondItem="PD9-AD-bLi" secondAttribute="bottom" id="wNU-h8-k6Z"/>
+                                    <constraint firstAttribute="trailing" secondItem="DFt-sl-Kca" secondAttribute="trailing" id="x7q-hG-RUU"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hgf-IV-4Ye">
@@ -144,16 +157,19 @@
             </constraints>
             <size key="customSize" width="313" height="95"/>
             <connections>
+                <outlet property="img_avatar" destination="PD9-AD-bLi" id="qys-zZ-sw2"/>
                 <outlet property="lbl_message" destination="H33-60-NvC" id="Dws-oz-eyN"/>
                 <outlet property="lbl_name" destination="aEc-e4-5Pj" id="gJk-Ea-Uws"/>
                 <outlet property="lbl_time" destination="NdM-fZ-aPv" id="gVl-YC-Ckr"/>
                 <outlet property="lbl_unviewednum" destination="9sj-uG-d4W" id="rdr-mC-Pik"/>
+                <outlet property="view_status" destination="m20-bt-xIa" id="Qw7-lc-aIF"/>
+                <outlet property="view_unread" destination="LCd-YF-nAR" id="jch-es-uLp"/>
             </connections>
             <point key="canvasLocation" x="329.00763358778624" y="4.5774647887323949"/>
         </collectionViewCell>
     </objects>
     <resources>
-        <image name="reader_avatar" width="120" height="120"/>
+        <image name="person.fill" catalog="system" width="128" height="120"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

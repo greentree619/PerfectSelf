@@ -122,6 +122,24 @@ struct Availability: Codable {
     let deletedTime: String
 }
 
+struct ChatChannel: Codable {
+    let id: Int
+    let senderUid: String
+    let senderName: String
+    let receiverUid: String
+    let receiverName: String
+    let roomUid: String
+    let sendTime: String
+    let hadRead: Bool
+    let message: String
+    let senderAvatarBucket: String?
+    let senderAvatarKey: String?
+    let receiverAvatarBucket: String?
+    let receiverAvatarKey: String?
+    let senderIsOnline: Bool
+    let receiverIsOnline: Bool
+}
+
 //        showAlert(viewController: self, title: "Confirm", message: "Please input") { UIAlertAction in
 //            print("Ok button tapped")
 //        }

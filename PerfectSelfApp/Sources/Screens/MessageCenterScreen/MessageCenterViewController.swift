@@ -13,9 +13,10 @@ class MessageCenterViewController: UIViewController, UICollectionViewDataSource,
     let divide = UIImage(named: "filter_divide");
     @IBOutlet weak var chatCardList: UICollectionView!
     @IBOutlet weak var btn_back: UIButton!
-    var items = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32", "33", "34", "35", "36", "37", "38", "39", "40", "41", "42", "43", "44", "45", "46", "47", "48"]
-    let cellsPerRow = 1
     
+    var items = [ChatChannel]()
+    let cellsPerRow = 1
+    var uid = ""
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -30,13 +31,52 @@ class MessageCenterViewController: UIViewController, UICollectionViewDataSource,
         if let userInfo = UserDefaults.standard.object(forKey: "USER") as? [String:Any] {
             // Use the saved data
             let userType = userInfo["userType"] as? Int
+            uid = userInfo["uid"] as! String
             btn_back.isHidden = userType == 4
         } else {
             // No data was saved
             print("No data was saved.")
         }
     }
-    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(false)
+        
+        // call API for chat history
+        fetchChatChannels()
+    }
+    func fetchChatChannels() {
+        // call API for chat channels
+        showIndicator(sender: nil, viewController: self)
+        webAPI.getChannelHistoryByUid(uid: uid) { data, response, error in
+            DispatchQueue.main.async {
+                hideIndicator(sender: nil)
+            }
+            guard let data = data, error == nil else {
+                print(error?.localizedDescription ?? "No data")
+                DispatchQueue.main.async {
+                    Toast.show(message: "error while fetch chat history. try again later", controller: self)
+                }
+                return
+            }
+            do {
+                let respItems = try JSONDecoder().decode([ChatChannel ].self, from: data)
+                //print(items)
+                DispatchQueue.main.async {
+                    self.items.removeAll()
+                    self.items.append(contentsOf: respItems)
+ //                    for (i, reader) in items.enumerated() {
+ //                    }
+                    self.chatCardList.reloadData()
+                }
+
+            } catch {
+                print(error)
+                DispatchQueue.main.async {
+                    Toast.show(message: "Fetching chat channel history failed! please try again.", controller: self)
+                }
+            }
+        }
+    }
     // MARK: - ChatCard List Delegate.
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
          // myData is the array of items
@@ -55,7 +95,31 @@ class MessageCenterViewController: UIViewController, UICollectionViewDataSource,
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         //
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Chat Card Collection View Cell", for: indexPath) as! ChatCardCollectionViewCell
-        cell.lbl_unviewednum.text = self.items[indexPath.row];
+        let card = self.items[indexPath.row]
+        if card.senderUid == uid {
+            if card.receiverAvatarKey != nil {
+                let url = "https://perfectself-avatar-bucket.s3.us-east-2.amazonaws.com/\(card.receiverAvatarBucket!)/\(card.receiverAvatarKey!)"
+                cell.img_avatar.imageFrom(url: URL(string: url)!)
+            }
+        
+            cell.view_status.backgroundColor = card.receiverIsOnline ? UIColor(rgb: 0x34C759) : UIColor(rgb: 0xAAAAAA)
+            cell.lbl_name.text = card.receiverName
+            cell.lbl_message.text = card.message
+            cell.lbl_time.text = card.sendTime
+            // unread number
+        }
+        else {
+            if card.senderAvatarKey != nil {
+                let url = "https://perfectself-avatar-bucket.s3.us-east-2.amazonaws.com/\(card.senderAvatarBucket!)/\(card.senderAvatarKey!)"
+                cell.img_avatar.imageFrom(url: URL(string: url)!)
+            }
+        
+            cell.view_status.backgroundColor = card.senderIsOnline ? UIColor(rgb: 0x34C759) : UIColor(rgb: 0xAAAAAA)
+            cell.lbl_name.text = card.senderName
+            cell.lbl_message.text = card.message
+            cell.lbl_time.text = card.sendTime
+            // unread number
+        }
         
         // return card
 //        cell.layer.masksToBounds = false
@@ -74,7 +138,7 @@ class MessageCenterViewController: UIViewController, UICollectionViewDataSource,
         // add the code here to perform action on the cell
         print("didDeselectItemAt" + String(indexPath.row))
         
-        let roomUid = "1234567890"//self.items[indexPath.row].roomUid
+        let roomUid = self.items[indexPath.row].roomUid
         let controller = ChatViewController(roomUid: roomUid);
         controller.modalPresentationStyle = .fullScreen
         let transition = CATransition()
@@ -84,8 +148,6 @@ class MessageCenterViewController: UIViewController, UICollectionViewDataSource,
         self.view.window?.layer.add(transition, forKey: kCATransition) // Add transition to window layer
         
         self.present(controller, animated: false)
-//        self.navigationController?.pushViewController(controller, animated: true);
-//        let cell = collectionView.cellForItem(at: indexPath) as? LibraryCollectionViewCell
     }
   
     @IBAction func GoBack(_ sender: UIButton) {

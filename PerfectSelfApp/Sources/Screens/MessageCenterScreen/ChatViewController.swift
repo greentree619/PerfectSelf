@@ -15,12 +15,16 @@ struct CustomMessage {
     let type: MessageType
 }
 class ChatViewController: KUIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
-
+    private var url: String?
+    private var name: String
+    private var uid: String
+    private var roomUid: String
+    
+    @IBOutlet weak var lbl_name: UILabel!
+    @IBOutlet weak var img_avatar: UIImageView!
     @IBOutlet weak var modal_confirm_call: UIStackView!
     @IBOutlet weak var noMessage: UIStackView!
     let backgroundView = UIView()
-
-    
     @IBOutlet weak var messageCollectionView: UICollectionView!
     @IBOutlet weak var messageTextField: UITextField!
 
@@ -30,61 +34,8 @@ class ChatViewController: KUIViewController, UICollectionViewDataSource, UIColle
     private var signalClient: SignalingClient
     private var webRTCClient: WebRTCClient
     private let signalingClientStatus: SignalingClientStatus
-    private var roomUid: String
     
     //MARK: WebRTC Conference Status
-//    private var signalingConnected: Bool = false {
-//        didSet {
-////REFME
-////            DispatchQueue.main.async {
-////                if self.signalingConnected {
-////                    self.signalingStatusLabel?.text = "Connected"
-////                    self.signalingStatusLabel?.textColor = UIColor.green
-////                }
-////                else {
-////                    self.signalingStatusLabel?.text = "Not connected"
-////                    self.signalingStatusLabel?.textColor = UIColor.red
-////                }
-////            }
-//        }
-//    }
-//
-//    private var hasLocalSdp: Bool = false {
-//        didSet {
-////REFME
-////            DispatchQueue.main.async {
-////                self.localSdpStatusLabel?.text = self.hasLocalSdp ? "✅" : "❌"
-////            }
-//        }
-//    }
-//
-//    private var localCandidateCount: Int = 0 {
-//        didSet {
-////REFME
-////            DispatchQueue.main.async {
-////                self.localCandidatesLabel?.text = "\(self.localCandidateCount)"
-////            }
-//        }
-//    }
-//
-//    private var hasRemoteSdp: Bool = false {
-//        didSet {
-////REFME
-////            DispatchQueue.main.async {
-////                self.remoteSdpStatusLabel?.text = self.hasRemoteSdp ? "✅" : "❌"
-////            }
-//        }
-//    }
-//
-//    private var remoteCandidateCount: Int = 0 {
-//        didSet {
-////REFME
-////            DispatchQueue.main.async {
-////                self.remoteCandidatesLabel?.text = "\(self.remoteCandidateCount)"
-////            }
-//        }
-//    }
-    
     private var speakerOn: Bool = false {
         didSet {
 //REFME
@@ -101,23 +52,18 @@ class ChatViewController: KUIViewController, UICollectionViewDataSource, UIColle
         }
     }
     
-    init(roomUid: String) {
+    init(roomUid: String, url: String, name: String, uid: String) {
         self.signalClient = buildSignalingClient()
         self.webRTCClient = WebRTCClient(iceServers: signalingServerConfig.webRTCIceServers)
         self.signalingClientStatus = SignalingClientStatus(signalClient: &self.signalClient, webRTCClient: &self.webRTCClient)
         self.roomUid = roomUid
+        self.url = url
+        self.name = name
+        self.uid = uid
         super.init(nibName: String(describing: ChatViewController.self), bundle: Bundle.main)
-        
-//        self.signalingConnected = false
-//        self.hasLocalSdp = false
-//        self.hasRemoteSdp = false
-//        self.localCandidateCount = 0
-//        self.remoteCandidateCount = 0
         self.speakerOn = false
         
         self.webRTCClient.delegate = self
-//        self.signalClient.delegate = self
-//        self.signalClient.connect()
         uiViewContoller = self
     }
     
@@ -129,7 +75,10 @@ class ChatViewController: KUIViewController, UICollectionViewDataSource, UIColle
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-
+        if url != nil {
+            img_avatar.imageFrom(url: URL(string: url!)!)
+        }
+        lbl_name.text = name
         modal_confirm_call.isHidden = true;
         noMessage.isHidden = false;
         
@@ -140,56 +89,33 @@ class ChatViewController: KUIViewController, UICollectionViewDataSource, UIColle
         
         self.webRTCClient.speakerOn()
         self.signalClient.sendRoomId(roomId: self.roomUid)
-        
-//        self.webRTCClient.offer { (sdp) in
-//            signalingClientStatus!.hasLocalSdp = true
-//            signalingClientStatus!.roomId = self.roomUid
-//            self.signalClient.send(sdp: sdp, roomId: self.roomUid)
-//
-//        }
-        
-//        if( !signalingClientStatus!.hasLocalSdp && !signalingClientStatus!.isRemoteSdp(roomId: self.roomUid))
-//        {
-//            self.webRTCClient.offer { (sdp) in
-//                signalingClientStatus!.hasLocalSdp = true
-//                self.signalClient.send(sdp: sdp, roomId: self.roomUid)
-//            }
-//        }
-//        else if( !signalingClientStatus!.hasLocalSdp && signalingClientStatus!.isRemoteSdp(roomId: self.roomUid) )
-//        {
-//            self.webRTCClient.answer { (localSdp) in
-//                signalingClientStatus!.hasLocalSdp = true
-//                self.signalClient.send(sdp: localSdp, roomId: self.roomUid)
-//            }
-//        }
+        fetchChatHistory()
     }
-
+    func fetchChatHistory() {
+        // call API for chat history
+        
+    }
     @IBAction func SendMessage(_ sender: UIButton) {
         
         guard let text = messageTextField.text, !text.isEmpty else {
             return // Don't send empty messages
         }
-//        kkk = kkk + 1
         noMessage.isHidden = true;
         messageTextField.text = ""
         let message = CustomMessage(text: text, type: .sent)// Create a new message object
-//        let message = CustomMessage(text: text, type: kkk % 2 == 0 ? .received : .sent)// Create a new message object
         messages.append(message) // Add the new message to the messages array
 
         messageCollectionView.reloadData() // Refresh the table view to display the new message
-        //DELME
-//        for i in messages {
-//            print(i.type)
-//        }
-//        print("*****")
         // Scroll to the last item in collection view
         let lastItemIndex = messageCollectionView.numberOfItems(inSection: 0) - 1
         let lastIndexPath = IndexPath(item: lastItemIndex, section: 0)
         messageCollectionView.scrollToItem(at: lastIndexPath, at: .bottom, animated: true)
-        // TODO: Send the message to the server or save it to local storage
-        
         let recStart: Data = text.data(using: .utf8)!
         self.webRTCClient.sendData(recStart)
+        
+        // TODO: Send the message to the server or save it to local storage
+        // call API for message save
+        
     }
     // MARK: - Message List Delegate.
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
