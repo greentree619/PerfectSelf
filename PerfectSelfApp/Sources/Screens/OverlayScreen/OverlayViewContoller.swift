@@ -73,7 +73,10 @@ class OverlayViewController: UIViewController {
         if cameraView.captureSession.isRunning == true {
             return
         }
-        cameraView.captureSession.startRunning()
+        
+        DispatchQueue.main.async {
+            self.cameraView.captureSession.startRunning()
+        }
     }
     
     @IBAction func startRecordClicked(_ sender: UIButton)
@@ -278,12 +281,17 @@ class OverlayViewController: UIViewController {
         session.status == AVAssetExportSession.Status.completed,
         let outputURL = session.outputURL
         else { return }
-
-        guard let vc: VideoCompositionViewController = UIStoryboard.mainStoryboard?.instantiateVC() else {
-            return
-        }
+        
+        let vc: VideoCompositionViewController = VideoCompositionViewController()
         vc.videoUrl = outputURL
-        self.navigationController?.show(vc, sender: nil)
+        vc.modalPresentationStyle = .fullScreen
+        self.present(vc, animated: false, completion: nil)
+
+//        guard let vc: VideoCompositionViewController = UIStoryboard.mainStoryboard?.instantiateVC() else {
+//            return
+//        }
+//        vc.videoUrl = outputURL
+//        self.navigationController?.show(vc, sender: nil)
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

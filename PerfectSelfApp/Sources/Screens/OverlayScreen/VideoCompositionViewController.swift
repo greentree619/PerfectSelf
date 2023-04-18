@@ -46,7 +46,7 @@ class VideoCompositionViewController: UIViewController {
     }
 
     @IBAction func btnBackClicked(_ sender: Any?) {
-        self.navigationController?.popViewController(animated: true)
+        self.dismiss(animated: false)
     }
 
     @IBAction func btnSaveclicked(_ sender: Any?) {
