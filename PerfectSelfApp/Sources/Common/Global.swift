@@ -142,7 +142,7 @@ func showIndicator(sender: UIControl?, viewController: UIViewController, color: 
         sender!.isEnabled = false
     }
     backgroundView = UIView()
-    backgroundView!.backgroundColor = UIColor.black.withAlphaComponent(0.0)
+    backgroundView!.backgroundColor = UIColor.black.withAlphaComponent(0.5)
     backgroundView!.frame = viewController.view.bounds
     backgroundView!.autoresizingMask = [.flexibleWidth, .flexibleHeight]
     viewController.view.addSubview(backgroundView!)
