@@ -16,6 +16,7 @@ class ActorHomeViewController: UIViewController, UICollectionViewDataSource, UIC
     @IBOutlet weak var spin: UIActivityIndicatorView!
     @IBOutlet weak var readerListFlow: UICollectionViewFlowLayout!
     @IBOutlet weak var greetingLabel: UILabel!
+    @IBOutlet weak var img_actor_avatar: UIImageView!
     
     @IBOutlet weak var btn_sponsored: UIButton!
     @IBOutlet weak var btn_availablesoon: UIButton!
@@ -27,6 +28,7 @@ class ActorHomeViewController: UIViewController, UICollectionViewDataSource, UIC
     var isTopRated = false
     
     var items = [ReaderProfileCard]()
+    
     let cellsPerRow = 1
   
     override func viewDidLoad() {
@@ -38,8 +40,23 @@ class ActorHomeViewController: UIViewController, UICollectionViewDataSource, UIC
         readerList.delegate = self
         readerList.allowsSelection = true
         // Do any additional setup after loading the view.
-        let name = UserDefaults.standard.string(forKey: "USER_NAME")
-        greetingLabel.text = "Hi, " + (name ?? "")
+        
+        // Retrieve the saved data from UserDefaults
+        if let userInfo = UserDefaults.standard.object(forKey: "USER") as? [String:Any] {
+            // Use the saved data
+            let name = userInfo["userName"] as? String
+            let bucketName = userInfo["avatarBucketName"] as? String
+            let avatarKey = userInfo["avatarKey"] as? String
+            greetingLabel.text = "Hi, " + (name ?? "User")
+            if (bucketName != nil && avatarKey != nil) {
+                let url = "https://perfectself-avatar-bucket.s3.us-east-2.amazonaws.com/\( bucketName!)/\(avatarKey!)"
+                img_actor_avatar.imageFrom(url: URL(string: url)!)
+            }
+        } else {
+            // No data was saved
+            print("No data was saved.")
+        }
+        
         fetchReaderList()
     }
     func fetchReaderList() {

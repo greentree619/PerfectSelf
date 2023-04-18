@@ -12,8 +12,8 @@ import HSPopupMenu
 class ActorLibraryViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     
     @IBOutlet weak var videoList: UICollectionView!
+    var uid = ""
     var items = [VideoCard]()
-//    var items = ["1", "2", "3", "4", "5", "6", "7", "8", "9","10", "11", "12", "13"]
     let cellsPerRow = 2
     var menuArray: [HSMenu] = []
     
@@ -26,9 +26,16 @@ class ActorLibraryViewController: UIViewController, UICollectionViewDataSource, 
         videoList.delegate = self
         videoList.allowsSelection = true
         // Do any additional setup after loading the view.
-        let userUid = UserDefaults.standard.string(forKey: "USER_ID")
+        if let userInfo = UserDefaults.standard.object(forKey: "USER") as? [String:Any] {
+            // Use the saved data
+            uid = userInfo["uid"] as! String
+        } else {
+            // No data was saved
+            print("No data was saved.")
+        }
+        
         showIndicator(sender: nil, viewController: self)
-        webAPI.getLibraryByUid(uid: userUid!){ data, response, error in
+        webAPI.getLibraryByUid(uid: uid){ data, response, error in
             DispatchQueue.main.async {
                 hideIndicator(sender: nil)
             }

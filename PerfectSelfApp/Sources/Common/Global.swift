@@ -30,6 +30,28 @@ enum MessageType {
     case received
 }
 
+struct UserInfo: Codable {
+    let userName: String
+    let userType: Int
+    let avatarBucketName: String?
+    let avatarKey: String?
+    let email: String
+    let password: String?
+    let firstName: String?
+    let lastName: String?
+    let dateOfBirth: String?
+    let gender:Int?
+    let currentAddress: String?
+    let permanentAddress: String?
+    let city: String?
+    let nationality: String?
+    let phoneNumber: String?
+    let isLogin: Bool
+    let token: String?
+    let createdTime: String
+    let updatedTime: String?
+    let deletedTime: String?
+}
 struct ReaderProfileDetail: Codable {
     let uid: String
     let userName: String

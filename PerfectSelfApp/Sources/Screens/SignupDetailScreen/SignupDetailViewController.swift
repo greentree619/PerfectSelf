@@ -84,7 +84,7 @@ class SignupDetailViewController: UIViewController {
                 }
                 let responseJSON = try? JSONSerialization.jsonObject(with: data, options: [])
                 if let responseJSON = responseJSON as? [String: Any] {
-                    //print(responseJSON["result"])
+                    
                     guard responseJSON["email"] != nil else {
                         DispatchQueue.main.async {
                             hideIndicator(sender: sender)
@@ -97,12 +97,10 @@ class SignupDetailViewController: UIViewController {
                         hideIndicator(sender: sender)
                         //{{REFME
                         Toast.show(message: "Successfully signed up!", controller: self)
-                        UserDefaults.standard.set(responseJSON["uid"], forKey: "USER_ID")
-                        UserDefaults.standard.set(responseJSON["token"], forKey: "USER_TOKEN")
-                        UserDefaults.standard.set(String(self.txtUserName.text!), forKey: "USER_NAME")
+                        UserDefaults.standard.setValue(responseJSON, forKey: "USER")
                         UserDefaults.standard.set(String(self.email), forKey: "USER_EMAIL")
                         UserDefaults.standard.set(String(self.password), forKey: "USER_PWD")
-                        UserDefaults.standard.set("actor", forKey: "USER_TYPE")
+                        
                         //}}REFME
                         
                         let controller = ActorBuildProfile1ViewController()
@@ -146,12 +144,10 @@ class SignupDetailViewController: UIViewController {
                         hideIndicator(sender: sender)
                         //{{REFME
                         Toast.show(message: "Successfully signed up!", controller: self)
-                        UserDefaults.standard.set(responseJSON["uid"], forKey: "USER_ID")
-                        UserDefaults.standard.set(responseJSON["token"], forKey: "USER_TOKEN")
-                        UserDefaults.standard.set(String(self.txtUserName.text!), forKey: "USER_NAME")
+                        UserDefaults.standard.setValue(responseJSON, forKey: "USER")
                         UserDefaults.standard.set(String(self.email), forKey: "USER_EMAIL")
                         UserDefaults.standard.set(String(self.password), forKey: "USER_PWD")
-                        UserDefaults.standard.set("reader", forKey: "USER_TYPE")
+                        
                         //}}REFME
                         
                         let controller = ReaderBuildProfileViewController()

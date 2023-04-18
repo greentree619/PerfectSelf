@@ -25,9 +25,6 @@ class PerfectSelfWebAPI
     {
         let urlString = "\(PERFECTSELF_WEBAPI_ROOT)\(apiPath)"
         let encodedString = urlString.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
-
-        print(encodedString ?? "hey") // Output: "https://www.example.com/search?q=swift%20encoding"
-
         let jsonData = try? JSONSerialization.data(withJSONObject: json)
         let url = URL(string: encodedString!)!
         var request = URLRequest(url: url)
@@ -48,7 +45,6 @@ class PerfectSelfWebAPI
                                    "email": email,
                                    "password": password]
         
-        print(email, password, userType);
         return executeAPI(with: "POST", apiPath: "Users/Login", json: json, completionHandler:completionHandler)
     }
     
@@ -94,7 +90,10 @@ class PerfectSelfWebAPI
         ]
         return executeAPI(with: "POST", apiPath: "ActorProfiles/", json: json, completionHandler:completionHandler)
     }
-
+    func getUserInfo(uid: String, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> Void
+    {
+        return executeAPI(with: "GET", apiPath: "Users/\(uid)", json: [:], completionHandler:completionHandler)
+    }
     func updateUserAvatar(uid: String, bucketName: String, avatarKey: String, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> Void
     {
         let json: [String: Any] = [
@@ -163,7 +162,7 @@ class PerfectSelfWebAPI
             params += (isParamsExist ? "&":"") + "sortBy=\(sortBy!)"
             isParamsExist = true
         }
-        print(params)
+      
         return executeAPI(with: "GET", apiPath: "ReaderProfiles/ReaderList?\(params)", json: [:], completionHandler:completionHandler)
     }
     func getReaderById(id: String, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> Void
@@ -279,6 +278,10 @@ class PerfectSelfWebAPI
     func cancelBookingByRoomUid(uid: String, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> Void
     {
         return executeAPI(with: "DELETE", apiPath: "Books/ByRoomUid/\(uid)", json: [:], completionHandler:completionHandler)
+    }
+    func acceptBookingById(id: Int, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> Void
+    {
+        return executeAPI(with: "POST", apiPath: "Books/Accept/\(id)", json: [:], completionHandler:completionHandler)
     }
     func getAvailabilityById(uid: String, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> Void
     {

@@ -165,7 +165,7 @@ class BookingCollectionViewCell: UICollectionViewCell {
                 guard let _ = data, error == nil else {
                     print(error?.localizedDescription ?? "No data")
                     DispatchQueue.main.async {
-                        Toast.show(message: "error while cancelling book. try again later", controller: self.parentViewController!)
+                        Toast.show(message: "error while cancel booking. try again later", controller: self.parentViewController!)
                     }
                     return
                 }
@@ -182,12 +182,28 @@ class BookingCollectionViewCell: UICollectionViewCell {
     }
     
     @IBAction func RescheduleBooking(_ sender: UIButton) {
+        //call reschedule API
     }
     
     @IBAction func AcceptBooking(_ sender: UIButton) {
         // call API for accept
-        
-        
+        showIndicator(sender: nil, viewController: self.parentViewController!)
+        webAPI.acceptBookingById(id: self.id) { data, response, error in
+            DispatchQueue.main.async {
+                hideIndicator(sender: nil)
+            }
+            guard let _ = data, error == nil else {
+                print(error?.localizedDescription ?? "No data")
+                DispatchQueue.main.async {
+                    Toast.show(message: "error while accept booking. try again later", controller: self.parentViewController!)
+                }
+                return
+            }
+            DispatchQueue.main.async {
+                Toast.show(message: "Book accepted", controller: self.parentViewController!)
+                self.parentViewController?.viewWillAppear(false)
+            }
+        }
     }
     @IBAction func RateReader(_ sender: UIButton) {
         delegate?.setBookId(controller: self, id: self.id, name: self.lbl_name.text ?? "user")

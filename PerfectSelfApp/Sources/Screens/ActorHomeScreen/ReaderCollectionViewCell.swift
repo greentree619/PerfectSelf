@@ -22,5 +22,17 @@ class ReaderCollectionViewCell: UICollectionViewCell {
         super.awakeFromNib()
         // Initialization code
     }
+    override func prepareForReuse() {
+         super.prepareForReuse()
+         
+         // Reset any properties that could affect the cell's appearance
+        readerAvatar.image = UIImage(systemName: "person.fill")
+        readerName.text = ""
+        score.text = ""
+        salary.text = ""
+        availableDate.text = ""
+        status.backgroundColor = UIColor(rgb: 0xAAAAAA)
+        review.text = ""
+     }
 
 }

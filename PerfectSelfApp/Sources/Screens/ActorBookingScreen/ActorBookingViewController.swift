@@ -11,15 +11,13 @@ import UIKit
 class ActorBookingViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, BookDelegate {
     func setBookId(controller: UICollectionViewCell, id: Int, name:String) {
         bookId = id
-//        readerName = name
         lbl_readerName.text = "How's your experience with \(name)?"
         view_rate.isHidden = false
         backView.isHidden = false
     }
-    
+    var uid = ""
     var bookId = 0
     var score:Float = 0.0
-//    var readerName = ""
     var bookType = 1//upcoming
     @IBOutlet weak var btn_upcoming: UIButton!
     @IBOutlet weak var btn_past: UIButton!
@@ -31,7 +29,6 @@ class ActorBookingViewController: UIViewController, UICollectionViewDataSource, 
 
     @IBOutlet weak var spin: UIActivityIndicatorView!
     @IBOutlet weak var bookList: UICollectionView!
-    //    @IBOutlet weak var scrollView: UIScrollView!
 
     var items = [BookingCard]()
 
@@ -60,6 +57,13 @@ class ActorBookingViewController: UIViewController, UICollectionViewDataSource, 
         
         view_rate.isHidden = true
         backView.isHidden = true
+        if let userInfo = UserDefaults.standard.object(forKey: "USER") as? [String:Any] {
+            // Use the saved data
+            uid = userInfo["uid"] as! String
+        } else {
+            // No data was saved
+            print("No data was saved.")
+        }
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true);
@@ -69,8 +73,8 @@ class ActorBookingViewController: UIViewController, UICollectionViewDataSource, 
         //call API to fetch booking list
         spin.isHidden = false
         spin.startAnimating()
-         let id = UserDefaults.standard.string(forKey: "USER_ID")!
-         webAPI.getBookingsByUid(uid: id, bookType: self.bookType) { data, response, error in
+         
+         webAPI.getBookingsByUid(uid: uid, bookType: self.bookType) { data, response, error in
             DispatchQueue.main.async {
                 self.spin.stopAnimating()
                 self.spin.isHidden = true

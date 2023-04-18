@@ -13,7 +13,7 @@ class ReaderBookingViewController: UIViewController, UICollectionViewDataSource,
         print(String(id) + ":" + name)
     }
     
-
+    var uid = ""
     @IBOutlet weak var btn_upcoming: UIButton!
     @IBOutlet weak var btn_past: UIButton!
     @IBOutlet weak var btn_pending: UIButton!
@@ -39,6 +39,14 @@ class ReaderBookingViewController: UIViewController, UICollectionViewDataSource,
         // Do any additional setup after loading the view.
         line_pending.isHidden = true
         line_past.isHidden = true
+        // Retrieve the saved data from UserDefaults
+        if let userInfo = UserDefaults.standard.object(forKey: "USER") as? [String:Any] {
+            // Use the saved data
+            uid = userInfo["uid"] as! String
+        } else {
+            // No data was saved
+            print("No data was saved.")
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -50,8 +58,7 @@ class ReaderBookingViewController: UIViewController, UICollectionViewDataSource,
         //call API to fetch booking list
         spin.isHidden = false
         spin.startAnimating()
-         let id = UserDefaults.standard.string(forKey: "USER_ID")!
-         webAPI.getBookingsByUid(uid: id, bookType: self.bookType) { data, response, error in
+         webAPI.getBookingsByUid(uid: uid, bookType: self.bookType) { data, response, error in
             DispatchQueue.main.async {
                 self.spin.stopAnimating()
                 self.spin.isHidden = true
