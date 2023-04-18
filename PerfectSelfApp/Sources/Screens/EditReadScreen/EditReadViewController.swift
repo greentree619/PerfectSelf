@@ -55,6 +55,11 @@ class EditReadViewController: UIViewController {
         }
     }
     
+    @IBAction func playerSeekValueChanged(_ sender: UISlider) {
+        playerView.currentTime = Double( sender.value )
+    }
+    
+    
     @IBAction func settingDidTap(_ sender: UIButton)
     {
     }
@@ -85,8 +90,8 @@ extension EditReadViewController: PlayerViewDelegate {
     func playerVideo(player: PlayerView, duration: Double) {
         slider.minimumValue = Float(0)
         slider.maximumValue =  Float(duration)
-        self.startTimerLabel.text = getCurrentTime(second:  0)
-        self.endTimerLabel.text = getCurrentTime(second: duration)
+//        self.startTimerLabel.text = getCurrentTime(second:  0)
+//        self.endTimerLabel.text = getCurrentTime(second: duration)
         
         slider.value = 0.0
         playerView.currentTime = Double( 0 )
