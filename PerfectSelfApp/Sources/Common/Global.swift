@@ -98,6 +98,10 @@ struct BookingCard: Codable {
     let bookStartTime: String
     let bookEndTime: String
     let readerReview: String?
+    let actorBucketName: String?
+    let actorAvatarKey: String?
+    let readerBucketName: String?
+    let readerAvatarKey: String?
 }
 
 struct VideoCard: Codable {

@@ -1,30 +1,15 @@
-
-//  ActorBookAppointmentViewController.swift
+//
+//  ActorResheduleViewController.swift
 //  PerfectSelf
 //
-//  Created by user232392 on 3/21/23.
+//  Created by user232392 on 4/18/23.
 //  Copyright © 2023 Stas Seldin. All rights reserved.
 //
 
 import UIKit
 
-class ActorBookAppointmentViewController: UIViewController {
-//
-//    var isSelected9AM = false
-//    var isSelected10AM = false
-//    var isSelected11AM = false
-//    var isSelected2PM = false
-//    var isSelected3PM = false
-//    var isSelected4PM = false
-//
-//    @IBOutlet weak var btn_9am: UIButton!
-//    @IBOutlet weak var btn_10am: UIButton!
-//    @IBOutlet weak var btn_11am: UIButton!
-//    @IBOutlet weak var btn_2pm: UIButton!
-//    @IBOutlet weak var btn_3pm: UIButton!
-//    @IBOutlet weak var btn_4pm: UIButton!
-
-    var rUid: String = ""
+class ActorResheduleViewController: UIViewController {
+    var bookId : Int!
     let backgroundView = UIView()
     let timeFormatter = DateFormatter()
     let dateFormatter = DateFormatter()
@@ -37,12 +22,10 @@ class ActorBookAppointmentViewController: UIViewController {
     @IBOutlet weak var picker_start_time: UIDatePicker!
     @IBOutlet weak var picker_end_time: UIDatePicker!
     @IBOutlet weak var picker_date: UIDatePicker!
-    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        
         modal_time_start.isHidden = true
         modal_time_start.alpha = 0
         modal_time_end.isHidden = true
@@ -61,7 +44,6 @@ class ActorBookAppointmentViewController: UIViewController {
         modal_time_start.alpha = 1
         modal_time_start.transform = CGAffineTransform(scaleX: 0.8, y: 1.2)
 
-//        self.view.addSubview(popupView)
         UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0, options: [],  animations: {
         //use if you want to darken the background
           //self.viewDim.alpha = 0.8
@@ -140,7 +122,7 @@ class ActorBookAppointmentViewController: UIViewController {
              self.backgroundView.removeFromSuperview()
          }
     }
-    @IBAction func ContinueToUploadScript(_ sender: UIButton) {
+    @IBAction func ConfirmReschedule(_ sender: UIButton) {
         var inputCheck: String = ""
         var focusTextField: UITextField? = nil
         if(text_starttime.text!.isEmpty){
@@ -163,22 +145,39 @@ class ActorBookAppointmentViewController: UIViewController {
             }
             return
         }
-        
-        let controller = ActorBookUploadScriptViewController()
-        controller.readerUid = rUid
-        controller.bookingDate = self.dateFormatter.string(from: self.picker_date.date)
+
         let df = DateFormatter()
         df.dateFormat = "hh:mm:ss"
-        controller.bookingStartTime = df.string(from: picker_start_time.date)
-        controller.bookingEndTime = df.string(from: picker_end_time.date)
-        controller.modalPresentationStyle = .fullScreen
-  
-        let transition = CATransition()
-        transition.duration = 0.5 // Set animation duration
-        transition.type = CATransitionType.push // Set transition type to push
-        transition.subtype = CATransitionSubtype.fromRight // Set transition subtype to from right
-        self.view.window?.layer.add(transition, forKey: kCATransition) // Add transition to window layer
-        self.present(controller, animated: false)
+        let s = dateFormatter.string(from: picker_date.date) + "T" + df.string(from: picker_start_time.date) + "Z"
+        let e = dateFormatter.string(from: picker_date.date) + "T" + df.string(from: picker_end_time.date) + "Z"
+        
+        // call reschedule API and go back
+        showIndicator(sender: nil, viewController: self)
+        webAPI.rescheduleBooking(id: bookId, bookStartTime: s, bookEndTime: e) { data, response, error in
+            DispatchQueue.main.async {
+                hideIndicator(sender: nil);
+            }
+            guard let _ = data, error == nil else {
+                print(error?.localizedDescription ?? "No data")
+                DispatchQueue.main.async {
+                    Toast.show(message: "Error while rescheduling..., try again later", controller: self)
+                }
+               
+                return
+            }
+            DispatchQueue.main.async {
+                Toast.show(message: "Booking rescheduled!", controller: self)
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                        // do stuff 1 seconds later
+                    let transition = CATransition()
+                    transition.duration = 0.5 // Set animation duration
+                    transition.type = CATransitionType.push // Set transition type to push
+                    transition.subtype = CATransitionSubtype.fromLeft // Set transition subtype to from right
+                    self.view.window?.layer.add(transition, forKey: kCATransition) // Add transition to window layer
+                    self.dismiss(animated: false)
+                }
+            }
+        }
     }
 
     @IBAction func GoBack(_ sender: UIButton) {
@@ -189,6 +188,7 @@ class ActorBookAppointmentViewController: UIViewController {
         self.view.window?.layer.add(transition, forKey: kCATransition) // Add transition to window layer
         self.dismiss(animated: false)
     }
+
     /*
     // MARK: - Navigation
 

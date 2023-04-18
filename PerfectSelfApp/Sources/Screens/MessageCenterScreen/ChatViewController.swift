@@ -30,7 +30,6 @@ class ChatViewController: KUIViewController, UICollectionViewDataSource, UIColle
 
     var messages: [CustomMessage] = []
     let cellsPerRow = 1
-    var kkk = 0
     private var signalClient: SignalingClient
     private var webRTCClient: WebRTCClient
     private let signalingClientStatus: SignalingClientStatus
@@ -52,7 +51,7 @@ class ChatViewController: KUIViewController, UICollectionViewDataSource, UIColle
         }
     }
     
-    init(roomUid: String, url: String, name: String, uid: String) {
+    init(roomUid: String, url: String?, name: String, uid: String) {
         self.signalClient = buildSignalingClient()
         self.webRTCClient = WebRTCClient(iceServers: signalingServerConfig.webRTCIceServers)
         self.signalingClientStatus = SignalingClientStatus(signalClient: &self.signalClient, webRTCClient: &self.webRTCClient)

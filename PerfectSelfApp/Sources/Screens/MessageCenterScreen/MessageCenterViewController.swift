@@ -137,9 +137,26 @@ class MessageCenterViewController: UIViewController, UICollectionViewDataSource,
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         // add the code here to perform action on the cell
         print("didDeselectItemAt" + String(indexPath.row))
-        
-        let roomUid = self.items[indexPath.row].roomUid
-        let controller = ChatViewController(roomUid: roomUid);
+        let card = self.items[indexPath.row]
+        var url: String? = nil
+        var name: String!
+        var uuid: String!
+        if card.senderUid == uid {
+            if card.receiverAvatarKey != nil {
+                url = "https://perfectself-avatar-bucket.s3.us-east-2.amazonaws.com/\(card.receiverAvatarBucket!)/\(card.receiverAvatarKey!)"
+            }
+            name = card.receiverName
+            uuid = card.receiverUid
+        }
+        else {
+            if card.senderAvatarKey != nil {
+                url = "https://perfectself-avatar-bucket.s3.us-east-2.amazonaws.com/\(card.senderAvatarBucket!)/\(card.senderAvatarKey!)"
+            }
+            name = card.senderName
+            uuid = card.senderUid
+        }
+        let roomUid = card.roomUid
+        let controller = ChatViewController(roomUid: roomUid, url: url, name: name, uid: uuid);
         controller.modalPresentationStyle = .fullScreen
         let transition = CATransition()
         transition.duration = 0.5 // Set animation duration

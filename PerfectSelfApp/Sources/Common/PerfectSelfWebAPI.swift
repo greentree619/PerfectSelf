@@ -286,16 +286,16 @@ class PerfectSelfWebAPI
     func rescheduleBooking(id: Int, bookStartTime: String, bookEndTime: String, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> Void
     {
         let json: [String: Any] = [
-            "actorUid": "",
-            "readerUid": "",
-            "roomUid": "",
+            "actorUid": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+            "readerUid": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+            "roomUid": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
             "bookStartTime": bookStartTime,
             "bookEndTime": bookEndTime,
-            "scriptFile": "",
+            "scriptFile": "string",
             "isAccept": true,
             "readerScore": 0,
-            "readerReview": "",
-            "readerReviewDate": ""
+            "readerReview": "string",
+            "readerReviewDate": "2023-04-18T17:03:55.098Z"
         ]
 
         return executeAPI(with: "POST", apiPath: "Books/Reschedule/\(id)", json: json, completionHandler:completionHandler)

@@ -14,9 +14,14 @@ class BookingCollectionViewCell: UICollectionViewCell {
     public var parentViewController: UIViewController?
 
     public var roomUid: String?
+    // opposite info
+    public var url: String?
+    public var name: String!
+    public var uid: String!
+    
     public var review: String?
     public var bookType:Int = 1
-    public var id: Int = 0
+    public var id: Int!
     public var readerType:String = "" // 0
 
     @IBOutlet weak var lbl_time: UILabel!
@@ -144,7 +149,7 @@ class BookingCollectionViewCell: UICollectionViewCell {
     }
     
     @IBAction func SendMessage(_ sender: UIButton) {
-        let controller = ChatViewController(roomUid: self.roomUid!)
+        let controller = ChatViewController(roomUid: self.roomUid!, url: url, name: name, uid: uid)
         controller.modalPresentationStyle = .fullScreen
         let transition = CATransition()
         transition.duration = 0.5 // Set animation duration
@@ -182,7 +187,15 @@ class BookingCollectionViewCell: UICollectionViewCell {
     }
     
     @IBAction func RescheduleBooking(_ sender: UIButton) {
-        //call reschedule API
+        let controller = ActorResheduleViewController()
+        controller.bookId = id
+        controller.modalPresentationStyle = .fullScreen
+        let transition = CATransition()
+        transition.duration = 0.5 // Set animation duration
+        transition.type = CATransitionType.push // Set transition type to push
+        transition.subtype = CATransitionSubtype.fromRight // Set transition subtype to from right
+        self.parentViewController!.view.window?.layer.add(transition, forKey: kCATransition) // Add transition to window layer
+        self.parentViewController!.present(controller, animated: false)
     }
     
     @IBAction func AcceptBooking(_ sender: UIButton) {
