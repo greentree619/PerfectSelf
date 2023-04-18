@@ -34,9 +34,24 @@ class ActorReaderDetailViewController: UIViewController , UICollectionViewDataSo
     @IBOutlet weak var reader_about: UITextView!
     @IBOutlet weak var timeslotList: UICollectionView!
     
-//    var items = ["1", "2", "3", "3", "2", "4"]
     var items = [Availability]()
     let cellsPerRow = 1
+    var videoUrl: URL!
+    
+    @IBOutlet var btnPlayPause: UIButton!
+    @IBOutlet var slider: UISlider!
+
+    var isPlaying: Bool = false {
+        didSet {
+            if isPlaying {
+                btnPlayPause.setImage(UIImage(named: "pause"), for: .normal)
+            } else {
+                btnPlayPause.setImage(UIImage(named: "play"), for: .normal)
+            }
+        }
+    }
+
+    @IBOutlet var playerView: PlayerView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -114,6 +129,32 @@ class ActorReaderDetailViewController: UIViewController , UICollectionViewDataSo
                 }
             }
         }
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true);
+        
+        setupPlayer()
+    }
+    func setupPlayer() {
+        playerView.url = videoUrl
+        playerView.delegate = self
+        slider.minimumValue = 0
+    }
+    @IBAction func btnPlayPauseClicked(_ sender: UIButton) {
+        isPlaying = !isPlaying
+        if isPlaying {
+            playerView.play()
+        }
+        else {
+            playerView.stop()
+        }
+//        if playerView.rate > 0 {
+//            playerView.pause()
+//            isPlaying = false
+//        } else {
+//           playerView.play()
+//           isPlaying = true
+//        }
     }
     // MARK: - Time Slot List Delegate.
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -253,4 +294,26 @@ class ActorReaderDetailViewController: UIViewController , UICollectionViewDataSo
     }
     */
 
+}
+
+extension ActorReaderDetailViewController: PlayerViewDelegate {
+    func playerVideo(player: PlayerView, currentTime: Double) {
+        slider.value = Float(currentTime)
+    }
+
+    func playerVideo(player: PlayerView, duration: Double) {
+        slider.maximumValue =  Float(duration)
+    }
+
+    func playerVideo(player: PlayerView, statusItemPlayer: AVPlayer.Status, error: Error?) {
+        //
+    }
+
+    func playerVideo(player: PlayerView, statusItemPlayer: AVPlayerItem.Status, error: Error?) {
+        //
+    }
+
+    func playerVideoDidEnd(player: PlayerView) {
+        isPlaying = false
+    }
 }

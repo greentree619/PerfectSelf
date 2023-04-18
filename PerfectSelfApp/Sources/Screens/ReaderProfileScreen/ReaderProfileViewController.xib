@@ -12,6 +12,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ReaderProfileViewController" customModule="PerfectSelf" customModuleProvider="target">
             <connections>
+                <outlet property="btnPlayPause" destination="Ikf-B7-l2p" id="XFS-JU-zhP"/>
                 <outlet property="btn_edit_about" destination="HYM-dZ-ztI" id="Gu0-gg-NzD"/>
                 <outlet property="btn_edit_availability" destination="K1L-Hb-fHP" id="dlq-Wh-o44"/>
                 <outlet property="btn_edit_avatar" destination="0ou-5M-ve1" id="sWK-yc-Whx"/>
@@ -25,11 +26,13 @@
                 <outlet property="line_overview" destination="xyK-Hw-HdO" id="Kr8-5K-lOE"/>
                 <outlet property="line_review" destination="u1p-8g-GAe" id="kBm-B1-L7R"/>
                 <outlet property="line_videointro" destination="tdU-GU-Lx4" id="YTa-g1-uUV"/>
+                <outlet property="playerView" destination="4AF-kg-fpX" id="Mzl-BY-DiW"/>
                 <outlet property="readerAbout" destination="eod-TK-5yy" id="RAA-n7-uBF"/>
                 <outlet property="readerAvatar" destination="5Jh-aW-lvC" id="uIb-Tg-oh4"/>
                 <outlet property="readerSkills" destination="1Xi-Uk-42C" id="hGe-Ay-EhY"/>
                 <outlet property="readerTitle" destination="Xwa-R0-mVR" id="0zu-sV-dfv"/>
                 <outlet property="readerUsername" destination="cwg-hL-kUu" id="UXq-7g-uCT"/>
+                <outlet property="slider" destination="LxR-0M-8KG" id="LVC-Ho-7lG"/>
                 <outlet property="timeslotList" destination="rBQ-tT-sx0" id="LRE-rl-GhJ"/>
                 <outlet property="view" destination="cwf-CB-7ba" id="Uaz-3i-r2y"/>
                 <outlet property="view_container" destination="3w7-7o-icJ" id="t0A-pU-yr4"/>
@@ -491,33 +494,78 @@
                                                 </label>
                                             </subviews>
                                         </stackView>
-                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="LX3-pd-CLk">
+                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="LX3-pd-CLk">
                                             <rect key="frame" x="0.0" y="0.0" width="353" height="325"/>
                                             <subviews>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="videointro" translatesAutoresizingMaskIntoConstraints="NO" id="M60-bB-M7N">
-                                                    <rect key="frame" x="20" y="20" width="313" height="208.66666666666666"/>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4KC-xc-CKF">
+                                                    <rect key="frame" x="0.0" y="0.0" width="353" height="207.66666666666666"/>
+                                                    <subviews>
+                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4AF-kg-fpX" customClass="PlayerView" customModule="PerfectSelf" customModuleProvider="target">
+                                                            <rect key="frame" x="0.0" y="0.0" width="353" height="207.66666666666666"/>
+                                                            <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            <userDefinedRuntimeAttributes>
+                                                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                                    <real key="value" value="10"/>
+                                                                </userDefinedRuntimeAttribute>
+                                                            </userDefinedRuntimeAttributes>
+                                                        </view>
+                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ikf-B7-l2p">
+                                                            <rect key="frame" x="156.66666666666666" y="83.666666666666629" width="40" height="40"/>
+                                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="40" id="5fz-DN-3ys"/>
+                                                                <constraint firstAttribute="width" secondItem="Ikf-B7-l2p" secondAttribute="height" id="oF2-qn-PsJ"/>
+                                                            </constraints>
+                                                            <inset key="contentEdgeInsets" minX="5" minY="5" maxX="5" maxY="5"/>
+                                                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                            <state key="normal" image="play"/>
+                                                            <userDefinedRuntimeAttributes>
+                                                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                                    <real key="value" value="20"/>
+                                                                </userDefinedRuntimeAttribute>
+                                                            </userDefinedRuntimeAttributes>
+                                                            <connections>
+                                                                <action selector="btnPlayPauseClicked:" destination="-1" eventType="touchUpInside" id="72C-Pf-31L"/>
+                                                            </connections>
+                                                        </button>
+                                                        <slider opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="LxR-0M-8KG">
+                                                            <rect key="frame" x="3" y="177.66666666666663" width="347" height="31"/>
+                                                        </slider>
+                                                    </subviews>
+                                                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" secondItem="M60-bB-M7N" secondAttribute="height" multiplier="3:2" id="tka-uJ-w14"/>
+                                                        <constraint firstAttribute="width" secondItem="4KC-xc-CKF" secondAttribute="height" multiplier="1.7:1" id="0vx-ce-ONa"/>
+                                                        <constraint firstAttribute="trailing" secondItem="LxR-0M-8KG" secondAttribute="trailing" constant="5" id="79P-X9-6IA"/>
+                                                        <constraint firstAttribute="bottom" secondItem="LxR-0M-8KG" secondAttribute="bottom" id="Jj8-gy-DN8"/>
+                                                        <constraint firstItem="LxR-0M-8KG" firstAttribute="leading" secondItem="4KC-xc-CKF" secondAttribute="leading" constant="5" id="RZ6-81-G6F"/>
+                                                        <constraint firstAttribute="trailing" secondItem="4AF-kg-fpX" secondAttribute="trailing" id="YjR-ih-WZ2"/>
+                                                        <constraint firstAttribute="bottom" secondItem="4AF-kg-fpX" secondAttribute="bottom" id="kzI-4o-fZO"/>
+                                                        <constraint firstItem="Ikf-B7-l2p" firstAttribute="centerY" secondItem="4KC-xc-CKF" secondAttribute="centerY" id="oPh-kY-gtr"/>
+                                                        <constraint firstItem="4AF-kg-fpX" firstAttribute="top" secondItem="4KC-xc-CKF" secondAttribute="top" id="ox5-bB-5Ok"/>
+                                                        <constraint firstItem="4AF-kg-fpX" firstAttribute="leading" secondItem="4KC-xc-CKF" secondAttribute="leading" id="xO2-fS-Mw0"/>
+                                                        <constraint firstItem="Ikf-B7-l2p" firstAttribute="centerX" secondItem="4KC-xc-CKF" secondAttribute="centerX" id="yLD-pE-eLU"/>
                                                     </constraints>
-                                                </imageView>
+                                                </view>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="bottom" translatesAutoresizingMaskIntoConstraints="NO" id="59g-Lv-0kz">
-                                                    <rect key="frame" x="20" y="238.66666666666666" width="313" height="66.333333333333343"/>
+                                                    <rect key="frame" x="0.0" y="227.66666666666666" width="353" height="97.333333333333343"/>
                                                     <subviews>
                                                         <stackView opaque="NO" contentMode="scaleToFill" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="WkJ-hE-gWy">
-                                                            <rect key="frame" x="191" y="0.0" width="122" height="66.333333333333329"/>
+                                                            <rect key="frame" x="231" y="0.0" width="122" height="97.333333333333329"/>
                                                             <subviews>
                                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="q82-O8-xaw">
                                                                     <rect key="frame" x="0.0" y="0.0" width="122" height="29"/>
                                                                     <fontDescription key="fontDescription" type="system" weight="medium" pointSize="14"/>
                                                                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                                     <state key="normal" title="Upload New Video"/>
+                                                                    <connections>
+                                                                        <action selector="UploadVideo:" destination="-1" eventType="touchUpInside" id="Kbg-b1-ROJ"/>
+                                                                    </connections>
                                                                 </button>
                                                             </subviews>
                                                         </stackView>
                                                     </subviews>
                                                 </stackView>
                                             </subviews>
-                                            <edgeInsets key="layoutMargins" top="20" left="20" bottom="20" right="20"/>
                                         </stackView>
                                         <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="06x-mB-ZVe">
                                             <rect key="frame" x="0.0" y="0.0" width="353" height="325"/>
@@ -814,11 +862,11 @@
         <image name="filter_divide" width="334" height="1"/>
         <image name="hand.raised.fill" catalog="system" width="128" height="128"/>
         <image name="person.fill" catalog="system" width="128" height="120"/>
+        <image name="play" width="100" height="100"/>
         <image name="play.square" catalog="system" width="128" height="114"/>
         <image name="star.fill" catalog="system" width="128" height="116"/>
         <image name="tag.fill" catalog="system" width="128" height="118"/>
         <image name="underline" width="72" height="4"/>
-        <image name="videointro" width="335" height="196"/>
         <systemColor name="labelColor">
             <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>

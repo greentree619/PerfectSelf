@@ -42,8 +42,23 @@ class ReaderProfileViewController: UIViewController, UICollectionViewDataSource,
     @IBOutlet weak var hourlyPrice: UILabel!
     @IBOutlet weak var timeslotList: UICollectionView!
     var items = [Availability]()
-//    ["1", "2", "3", "3", "2", "4"]
     let cellsPerRow = 1
+    var videoUrl: URL!
+    
+    @IBOutlet var btnPlayPause: UIButton!
+    @IBOutlet var slider: UISlider!
+
+    var isPlaying: Bool = false {
+        didSet {
+            if isPlaying {
+                btnPlayPause.setImage(UIImage(named: "pause"), for: .normal)
+            } else {
+                btnPlayPause.setImage(UIImage(named: "play"), for: .normal)
+            }
+        }
+    }
+
+    @IBOutlet var playerView: PlayerView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -81,7 +96,9 @@ class ReaderProfileViewController: UIViewController, UICollectionViewDataSource,
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true);
         
+        setupPlayer()
         // call API for reader profile
+        
         showIndicator(sender: nil, viewController: self)
         
         webAPI.getReaderById(id:self.id) { data, response, error in
@@ -148,6 +165,32 @@ class ReaderProfileViewController: UIViewController, UICollectionViewDataSource,
         }
         
     }
+    func setupPlayer() {
+        playerView.url = videoUrl
+        playerView.delegate = self
+        slider.minimumValue = 0
+    }
+    
+    @IBAction func UploadVideo(_ sender: UIButton) {
+        print("upload video")
+    }
+    @IBAction func btnPlayPauseClicked(_ sender: UIButton) {
+        isPlaying = !isPlaying
+        if isPlaying {
+            playerView.play()
+        }
+        else {
+            playerView.stop()
+        }
+//        if playerView.rate > 0 {
+//            playerView.pause()
+//            isPlaying = false
+//        } else {
+//           playerView.play()
+//           isPlaying = true
+//        }
+    }
+    
     // MARK: - Time Slot List Delegate.
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
          // myData is the array of items
@@ -424,5 +467,27 @@ extension ReaderProfileViewController: UIImagePickerControllerDelegate & UINavig
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         dismiss(animated: true, completion: nil)
+    }
+}
+
+extension ReaderProfileViewController: PlayerViewDelegate {
+    func playerVideo(player: PlayerView, currentTime: Double) {
+        slider.value = Float(currentTime)
+    }
+
+    func playerVideo(player: PlayerView, duration: Double) {
+        slider.maximumValue =  Float(duration)
+    }
+
+    func playerVideo(player: PlayerView, statusItemPlayer: AVPlayer.Status, error: Error?) {
+        //
+    }
+
+    func playerVideo(player: PlayerView, statusItemPlayer: AVPlayerItem.Status, error: Error?) {
+        //
+    }
+
+    func playerVideoDidEnd(player: PlayerView) {
+        isPlaying = false
     }
 }
