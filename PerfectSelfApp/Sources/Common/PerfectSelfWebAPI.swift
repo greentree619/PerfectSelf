@@ -344,7 +344,6 @@ class PerfectSelfWebAPI
             "senderUid": sUid,
             "receiverUid": rUid,
             "roomUid": roomId,
-            "sendTime": Date.getDateString(date: Date()),
             "message": message
         ]
         
