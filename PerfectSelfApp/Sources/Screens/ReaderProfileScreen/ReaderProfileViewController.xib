@@ -32,6 +32,7 @@
                 <outlet property="readerSkills" destination="1Xi-Uk-42C" id="hGe-Ay-EhY"/>
                 <outlet property="readerTitle" destination="Xwa-R0-mVR" id="0zu-sV-dfv"/>
                 <outlet property="readerUsername" destination="cwg-hL-kUu" id="UXq-7g-uCT"/>
+                <outlet property="scoreAndReviewCount" destination="tR2-VL-9Cp" id="klf-54-KWg"/>
                 <outlet property="slider" destination="LxR-0M-8KG" id="LVC-Ho-7lG"/>
                 <outlet property="timeslotList" destination="rBQ-tT-sx0" id="LRE-rl-GhJ"/>
                 <outlet property="view" destination="cwf-CB-7ba" id="Uaz-3i-r2y"/>
@@ -154,13 +155,13 @@
                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="bWG-SJ-eHR">
                                             <rect key="frame" x="70" y="0.0" width="160" height="60"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Jonathan Walker" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cwg-hL-kUu">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Reader" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cwg-hL-kUu">
                                                     <rect key="frame" x="0.0" y="5" width="160" height="33"/>
                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Head titles Head titles" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xwa-R0-mVR">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Head Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xwa-R0-mVR">
                                                     <rect key="frame" x="0.0" y="38" width="160" height="17"/>
                                                     <fontDescription key="fontDescription" type="system" weight="medium" pointSize="14"/>
                                                     <color key="textColor" red="0.53725490200000003" green="0.54117647059999996" blue="0.55294117649999996" alpha="1" colorSpace="calibratedRGB"/>
@@ -197,11 +198,11 @@
                                                     <rect key="frame" x="0.0" y="0.0" width="85" height="40"/>
                                                     <subviews>
                                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="nNS-tb-iR8">
-                                                            <rect key="frame" x="10.000000000000002" y="11.666666666666663" width="21.666666666666671" height="16"/>
+                                                            <rect key="frame" x="10.000000000000002" y="11.666666666666663" width="17.666666666666671" height="16"/>
                                                             <imageReference key="image" image="star.fill" catalog="system" symbolScale="small"/>
                                                         </imageView>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="5.0 (13)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tR2-VL-9Cp">
-                                                            <rect key="frame" x="31.666666666666689" y="10" width="43.333333333333343" height="20"/>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tR2-VL-9Cp">
+                                                            <rect key="frame" x="27.666666666666689" y="10" width="47.333333333333343" height="20"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
@@ -511,7 +512,7 @@
                                                         </view>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ikf-B7-l2p">
                                                             <rect key="frame" x="156.66666666666666" y="83.666666666666629" width="40" height="40"/>
-                                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            <color key="backgroundColor" white="1" alpha="0.10000000000000001" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="40" id="5fz-DN-3ys"/>
                                                                 <constraint firstAttribute="width" secondItem="Ikf-B7-l2p" secondAttribute="height" id="oF2-qn-PsJ"/>

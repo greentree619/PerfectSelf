@@ -56,7 +56,7 @@ class ReaderHomeViewController: UIViewController, UICollectionViewDataSource, UI
             }
             do {
                 let respItems = try JSONDecoder().decode([BookingCard].self, from: data)
-                print(respItems)
+//                print(respItems)
                 DispatchQueue.main.async {
                     self.items.removeAll()
                     self.items.append(contentsOf: respItems)

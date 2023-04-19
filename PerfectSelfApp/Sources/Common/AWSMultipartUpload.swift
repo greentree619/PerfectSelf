@@ -169,4 +169,39 @@ class AWSMultipartUpload: NSObject, URLSessionTaskDelegate, URLSessionDataDelega
             return nil
         })
     }
+    
+    func uploadVideo(filePath: URL, bucketName: String, prefix: String, completeHandler:@escaping((Error?)->Void)) -> Void
+    {
+        let expression  = AWSS3TransferUtilityUploadExpression()
+        expression.progressBlock = { (task: AWSS3TransferUtilityTask,progress: Progress) -> Void in
+          print(progress.fractionCompleted)   //2
+          if progress.isFinished{           //3
+            print("Upload Finished...")
+            //do any task here.
+          }
+        }
+        
+        expression.setValue("public-read-write", forRequestHeader: "x-amz-acl")   //4
+        expression.setValue("public-read-write", forRequestParameter: "x-amz-acl")
+        
+        //5
+        AWSS3TransferUtility.default().uploadFile(filePath, bucket: bucketName, key: "\(prefix)/\(String(filePath.lastPathComponent))", contentType: self.contentType, expression: expression) { (task:AWSS3TransferUtilityUploadTask, err:Error?) -> Void in
+            if(err != nil){
+                print("Failure uploading file")
+                
+            }else{
+                print("Success uploading file")
+                completeHandler(nil)
+            }
+        }
+        .continueWith(block: { (task:AWSTask) -> AnyObject? in
+            if(task.error != nil){
+                print("Error uploading file: \(String(describing: task.error?.localizedDescription))")
+            }
+            if(task.result != nil){
+                print("Starting upload...")
+            }
+            return nil
+        })
+    }
 }

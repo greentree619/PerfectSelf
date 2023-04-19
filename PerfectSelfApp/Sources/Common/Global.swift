@@ -63,6 +63,10 @@ struct ReaderProfileDetail: Codable {
     let voiceType: Int
     let about: String
     let skills: String
+    let score: Float
+    let introBucketName: String
+    let introVideoKey: String
+    let bookPassCount: Int
 }
 
 struct ReaderProfileCard: Codable {

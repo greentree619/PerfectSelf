@@ -118,6 +118,27 @@ class PerfectSelfWebAPI
     
         return executeAPI(with: "PUT", apiPath: "Users/\(uid)", json: json, completionHandler:completionHandler)
     }
+    func uploadUserIntroVideo(uid: String, bucketName: String, videoKey: String, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> Void
+    {
+        let json: [String: Any] = [
+            "title": "",
+            "readerUid": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+            "hourlyPrice": -1,
+            "voiceType": -1,
+            "others": -1,
+            "about": "",
+            "reviewCount": -1,
+            "score": -1,
+            "skills": "",
+            "isSponsored": true,
+            "introBucketName": bucketName,
+            "introVideoKey": videoKey,
+            "auditionType": -1
+        ]
+    
+        return executeAPI(with: "PUT", apiPath: "ReaderProfiles/\(uid)", json: json, completionHandler:completionHandler)
+    }
+    
     func getReaders(readerName: String?, isSponsored: Bool?, isAvailableSoon: Bool?, isTopRated: Bool?, isOnline: Bool?, availableTimeSlotType: Int?, availableFrom: String?, availableTo: String?, minPrice: Float?, maxPrice: Float?, gender: Int?, sortBy: Int?, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> Void
     {
         var params = ""

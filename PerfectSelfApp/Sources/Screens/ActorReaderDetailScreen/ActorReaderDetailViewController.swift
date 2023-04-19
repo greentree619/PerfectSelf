@@ -52,7 +52,7 @@ class ActorReaderDetailViewController: UIViewController , UICollectionViewDataSo
     }
 
     @IBOutlet var playerView: PlayerView!
-    
+    @IBOutlet weak var scoreAndReviewCount: UILabel!
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -84,12 +84,55 @@ class ActorReaderDetailViewController: UIViewController , UICollectionViewDataSo
                 DispatchQueue.main.async {
                     self.reader_name.text = item.userName
                     self.reader_title.text = item.title
+                    self.scoreAndReviewCount.text = "\(item.score) (\(item.bookPassCount))"
                     self.reader_about.text = item.about
                     self.reader_hourly.text = "$\(item.hourlyPrice/4) / 15 mins"
                     self.reader_skill.text = item.skills
                     if !item.avatarBucketName.isEmpty {
                         let url = "https://perfectself-avatar-bucket.s3.us-east-2.amazonaws.com/\(item.avatarBucketName)/\(item.avatarKey)"
                         self.reader_avatar.imageFrom(url: URL(string: url)!)
+                    }
+                    if !item.introVideoKey.isEmpty {
+                        let vUrl = "https://video-client-upload-123456798.s3.us-east-2.amazonaws.com/\(item.introBucketName)/\(item.introVideoKey)"
+                        
+                        let downloadImageURL = vUrl.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)! as NSString
+                        
+                        let requestURL: NSURL = NSURL(string: downloadImageURL as String)!
+                        
+                        let request = URLRequest(url: requestURL as URL, cachePolicy: .useProtocolCachePolicy, timeoutInterval: 10.0)
+                        let config = URLSessionConfiguration.default
+                        let session = URLSession(configuration: config)
+                        let task = session.dataTask(with: request, completionHandler: {(data, response, error) in
+                            DispatchQueue.main.async {
+//                                hideIndicator(sender: nil)
+                            }
+                            
+                             if error != nil {
+                                  //print(error!.localizedDescription)
+                                 DispatchQueue.main.async {
+                                     Toast.show(message: "Faild to download video", controller: self)
+                                 }
+                             }
+                             else {
+                                 //print(response)//print(response ?? default "")
+                                 let documentsPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0];
+                                 let filePath = URL(fileURLWithPath: "\(documentsPath)/tempFile.mp4")
+                                 DispatchQueue.main.async {
+                                     do{
+                                         try data!.write(to: filePath)
+                                         self.setupPlayer(videoUrl: filePath)
+//                                         self.playerView.url = filePath
+                                     }
+                                     catch{
+                                         print("error: \(error)")
+                                     }
+                                 }
+                             }
+                         })
+                        DispatchQueue.main.async {
+//                            showIndicator(sender: nil, viewController: self, color:UIColor.white)
+                            task.resume()
+                        }
                     }
                     //call API for available time slots
                     
@@ -132,29 +175,27 @@ class ActorReaderDetailViewController: UIViewController , UICollectionViewDataSo
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true);
-        
-        setupPlayer()
     }
-    func setupPlayer() {
+    func setupPlayer(videoUrl: URL?) {
         playerView.url = videoUrl
         playerView.delegate = self
         slider.minimumValue = 0
     }
     @IBAction func btnPlayPauseClicked(_ sender: UIButton) {
-        isPlaying = !isPlaying
-        if isPlaying {
-            playerView.play()
-        }
-        else {
-            playerView.stop()
-        }
-//        if playerView.rate > 0 {
-//            playerView.pause()
-//            isPlaying = false
-//        } else {
-//           playerView.play()
-//           isPlaying = true
+//        isPlaying = !isPlaying
+//        if isPlaying {
+//            playerView.play()
 //        }
+//        else {
+//            playerView.stop()
+//        }
+        if playerView.rate > 0 {
+            playerView.pause()
+            isPlaying = false
+        } else {
+           playerView.play()
+           isPlaying = true
+        }
     }
     // MARK: - Time Slot List Delegate.
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {

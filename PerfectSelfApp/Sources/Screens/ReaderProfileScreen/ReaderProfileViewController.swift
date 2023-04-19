@@ -11,6 +11,7 @@ import UIKit
 class ReaderProfileViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout{
 
     var isEditingMode = false
+    var uploadType = "image"
     var id = ""
     var hourlyRate: Int = 0
     @IBOutlet weak var btn_edit_avatar: UIButton!
@@ -43,7 +44,6 @@ class ReaderProfileViewController: UIViewController, UICollectionViewDataSource,
     @IBOutlet weak var timeslotList: UICollectionView!
     var items = [Availability]()
     let cellsPerRow = 1
-    var videoUrl: URL!
     
     @IBOutlet var btnPlayPause: UIButton!
     @IBOutlet var slider: UISlider!
@@ -60,6 +60,7 @@ class ReaderProfileViewController: UIViewController, UICollectionViewDataSource,
 
     @IBOutlet var playerView: PlayerView!
     
+    @IBOutlet weak var scoreAndReviewCount: UILabel!
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -96,9 +97,7 @@ class ReaderProfileViewController: UIViewController, UICollectionViewDataSource,
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true);
         
-        setupPlayer()
         // call API for reader profile
-        
         showIndicator(sender: nil, viewController: self)
         
         webAPI.getReaderById(id:self.id) { data, response, error in
@@ -115,6 +114,7 @@ class ReaderProfileViewController: UIViewController, UICollectionViewDataSource,
                 DispatchQueue.main.async {
                     self.readerUsername.text = item.userName
                     self.readerTitle.text = item.title
+                    self.scoreAndReviewCount.text = "\(item.score) (\(item.bookPassCount))"
                     self.readerAbout.text = item.about
                     self.hourlyPrice.text = "$\(item.hourlyPrice/4) / 15 mins"
                     self.readerSkills.text = item.skills
@@ -123,7 +123,48 @@ class ReaderProfileViewController: UIViewController, UICollectionViewDataSource,
                         let url = "https://perfectself-avatar-bucket.s3.us-east-2.amazonaws.com/\(item.avatarBucketName)/\(item.avatarKey)"
                         self.readerAvatar.imageFrom(url: URL(string: url)!)
                     }
-                    
+                    if !item.introVideoKey.isEmpty {
+                        let vUrl = "https://video-client-upload-123456798.s3.us-east-2.amazonaws.com/\(item.introBucketName)/\(item.introVideoKey)"
+                        
+                        let downloadImageURL = vUrl.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)! as NSString
+                        
+                        let requestURL: NSURL = NSURL(string: downloadImageURL as String)!
+                        
+                        let request = URLRequest(url: requestURL as URL, cachePolicy: .useProtocolCachePolicy, timeoutInterval: 10.0)
+                        let config = URLSessionConfiguration.default
+                        let session = URLSession(configuration: config)
+                        let task = session.dataTask(with: request, completionHandler: {(data, response, error) in
+                            DispatchQueue.main.async {
+//                                hideIndicator(sender: nil)
+                            }
+                            
+                             if error != nil {
+                                  //print(error!.localizedDescription)
+                                 DispatchQueue.main.async {
+                                     Toast.show(message: "Faild to download video", controller: self)
+                                 }
+                             }
+                             else {
+                                 //print(response)//print(response ?? default "")
+                                 let documentsPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0];
+                                 let filePath = URL(fileURLWithPath: "\(documentsPath)/tempFile.mp4")
+                                 DispatchQueue.main.async {
+                                     do{
+                                         try data!.write(to: filePath)
+                                         self.setupPlayer(videoUrl: filePath)
+//                                         self.playerView.url = filePath
+                                     }
+                                     catch{
+                                         print("error: \(error)")
+                                     }
+                                 }
+                             }
+                         })
+                        DispatchQueue.main.async {
+//                            showIndicator(sender: nil, viewController: self, color:UIColor.white)
+                            task.resume()
+                        }
+                    }
                     // call API for available time slots
                     
                     webAPI.getAvailabilityById(uid: self.id) {data1, response1, error1 in
@@ -164,30 +205,27 @@ class ReaderProfileViewController: UIViewController, UICollectionViewDataSource,
         }
         
     }
-    func setupPlayer() {
+    func setupPlayer(videoUrl: URL?) {
         playerView.url = videoUrl
         playerView.delegate = self
         slider.minimumValue = 0
     }
-    
-    @IBAction func UploadVideo(_ sender: UIButton) {
-        print("upload video")
-    }
+
     @IBAction func btnPlayPauseClicked(_ sender: UIButton) {
-        isPlaying = !isPlaying
-        if isPlaying {
-            playerView.play()
-        }
-        else {
-            playerView.stop()
-        }
-//        if playerView.rate > 0 {
-//            playerView.pause()
-//            isPlaying = false
-//        } else {
-//           playerView.play()
-//           isPlaying = true
+//        isPlaying = !isPlaying
+//        if isPlaying {
+//            playerView.play()
 //        }
+//        else {
+//            playerView.stop()
+//        }
+        if playerView.rate > 0 {
+            playerView.pause()
+            isPlaying = false
+        } else {
+           playerView.play()
+           isPlaying = true
+        }
     }
     
     // MARK: - Time Slot List Delegate.
@@ -295,11 +333,22 @@ class ReaderProfileViewController: UIViewController, UICollectionViewDataSource,
     }
 
     @IBAction func EditUserAvatar(_ sender: UIButton) {
+        uploadType = "image"
         let imagePicker = UIImagePickerController()
         imagePicker.delegate = self
         imagePicker.sourceType = .photoLibrary
+        imagePicker.mediaTypes = ["public.image"]
         present(imagePicker, animated: true, completion: nil)
                
+    }
+    
+    @IBAction func UploadVideo(_ sender: UIButton) {
+        uploadType = "video"
+        let videoPicker = UIImagePickerController()
+        videoPicker.delegate = self
+        videoPicker.sourceType = .photoLibrary
+        videoPicker.mediaTypes = ["public.movie"]
+        present(videoPicker, animated: true, completion: nil)
     }
     @IBAction func EditUserInfo(_ sender: UIButton) {
         let controller = ReaderProfileEditPersonalInfoViewController()
@@ -417,48 +466,86 @@ extension ReaderProfileViewController: UIImagePickerControllerDelegate & UINavig
             let awsUpload = AWSMultipartUpload()
             DispatchQueue.main.async {
                 showIndicator(sender: nil, viewController: self, color:UIColor.white)
-                Toast.show(message: "Start to upload record files", controller: self)
+//                Toast.show(message: "Start to files", controller: self)
             }
             
-            //Upload audio at first
-            guard info[.originalImage] is UIImage else {
-                //dismiss(animated: true, completion: nil)
-                return
-            }
-                    
-            // Get the URL of the selected image
-            var avatarUrl: URL? = nil
-            if let imageUrl = info[.imageURL] as? URL {
-                avatarUrl = imageUrl
-                //Then Upload image
-                awsUpload.uploadImage(filePath: avatarUrl!, bucketName: "perfectself-avatar-bucket", prefix: self.id) { (error: Error?) -> Void in
-                    if(error == nil)
-                    {
-                        DispatchQueue.main.async {
-                            hideIndicator(sender: nil)
-                            Toast.show(message: "Avatar Image upload completed.", controller: self)
-                            // update avatar
-                            let url = "https://perfectself-avatar-bucket.s3.us-east-2.amazonaws.com/\(self.id)/\(String(describing: avatarUrl!.lastPathComponent))"
-                            self.readerAvatar.imageFrom(url: URL(string: url)!)
-                            //update user profile
-                            webAPI.updateUserAvatar(uid: self.id, bucketName: self.id, avatarKey: String(describing: avatarUrl!.lastPathComponent)) { data, response, error in
-                                if error == nil {
-                                    // successfully update db
-                                    print("update db completed")
+            if self.uploadType == "image" {
+                //Upload audio at first
+                guard info[.originalImage] is UIImage else {
+                    //dismiss(animated: true, completion: nil)
+                    return
+                }
+                        
+                // Get the URL of the selected image
+                var avatarUrl: URL? = nil
+                if let imageUrl = info[.imageURL] as? URL {
+                    avatarUrl = imageUrl
+                    //Then Upload image
+                    awsUpload.uploadImage(filePath: avatarUrl!, bucketName: "perfectself-avatar-bucket", prefix: self.id) { (error: Error?) -> Void in
+                        if(error == nil)
+                        {
+                            DispatchQueue.main.async {
+                                hideIndicator(sender: nil)
+                                Toast.show(message: "file upload completed.", controller: self)
+                                // update avatar
+                                let url = "https://perfectself-avatar-bucket.s3.us-east-2.amazonaws.com/\(self.id)/\(String(describing: avatarUrl!.lastPathComponent))"
+                                
+                                self.readerAvatar.imageFrom(url: URL(string: url)!)
+                                //update user profile
+                                webAPI.updateUserAvatar(uid: self.id, bucketName: self.id, avatarKey: String(describing: avatarUrl!.lastPathComponent)) { data, response, error in
+                                    if error == nil {
+                                        // successfully update db
+                                    }
                                 }
+                                
                             }
-                            
                         }
-                    }
-                    else
-                    {
-                        DispatchQueue.main.async {
-                            hideIndicator(sender: nil)
-                            Toast.show(message: "Failed to upload avatar image, Try again later!", controller: self)
+                        else
+                        {
+                            DispatchQueue.main.async {
+                                hideIndicator(sender: nil)
+                                Toast.show(message: "Failed to upload file, Try again later!", controller: self)
+                            }
                         }
                     }
                 }
             }
+            else if self.uploadType == "video" {
+                if let videoURL = info[.mediaURL] as? URL {
+                    //Then Upload video
+                    awsUpload.uploadVideo(filePath: videoURL, bucketName: "video-client-upload-123456798", prefix: self.id) { (error: Error?) -> Void in
+                        if(error == nil)
+                        {
+                            DispatchQueue.main.async {
+                                hideIndicator(sender: nil)
+                                Toast.show(message: "file upload completed.", controller: self)
+                                // update avatar
+                                let url = "video-client-upload-123456798.s3.us-east-2.amazonaws.com/\(self.id)/\(String(describing: videoURL.lastPathComponent))"
+                                self.setupPlayer(videoUrl: URL(string: url))
+                                //update user profile
+                                webAPI.uploadUserIntroVideo(uid: self.id, bucketName: self.id, videoKey: String(describing: videoURL.lastPathComponent)) { data, response, error in
+                                    if error == nil {
+                                        // successfully update db
+                                    }
+                                }
+                                
+                            }
+                        }
+                        else
+                        {
+                            DispatchQueue.main.async {
+                                hideIndicator(sender: nil)
+                                Toast.show(message: "Failed to upload file, Try again later!", controller: self)
+                            }
+                        }
+                    }
+                }
+            }
+            else {
+                print("Oops!, unknown upload")
+            }
+            
+               
         }//DispatchQueue.global
         
         dismiss(animated: true, completion: nil)
