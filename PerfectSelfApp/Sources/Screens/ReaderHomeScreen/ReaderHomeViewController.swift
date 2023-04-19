@@ -133,6 +133,18 @@ class ReaderHomeViewController: UIViewController, UICollectionViewDataSource, UI
 //        let cell = collectionView.cellForItem(at: indexPath) as? LibraryCollectionViewCell
     }
 
+    @IBAction func changeOnlineState(_ sender: UISwitch) {
+        print(sender.isOn)
+        //call api to update user online state
+        webAPI.updateOnlineState(uid: uid, newState: sender.isOn) { data, response, error in
+            guard let _ = data, error == nil else {
+                DispatchQueue.main.async {
+                    Toast.show(message: "Something went wrong", controller: self)
+                }
+                return
+            }
+        }
+    }
     /*
     // MARK: - Navigation
 
