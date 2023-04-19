@@ -56,12 +56,10 @@ class ReaderHomeViewController: UIViewController, UICollectionViewDataSource, UI
             }
             do {
                 let respItems = try JSONDecoder().decode([BookingCard].self, from: data)
-                //print(items)
+                print(respItems)
                 DispatchQueue.main.async {
                     self.items.removeAll()
                     self.items.append(contentsOf: respItems)
-//                    for (i, reader) in items.enumerated() {
-//                    }
                     self.bookList.reloadData()
                     if self.items.isEmpty {
                         self.bookList.isHidden = true
@@ -107,6 +105,18 @@ class ReaderHomeViewController: UIViewController, UICollectionViewDataSource, UI
         let dateFormatter2 = DateFormatter()
         dateFormatter2.dateFormat = "hh:mm a"
         
+        cell.bookType = 1
+        cell.readerType = "reader"
+        cell.name = self.items[indexPath.row].actorName
+        cell.uid = self.items[indexPath.row].actorUid
+        cell.muid = self.items[indexPath.row].readerUid
+        var url: String?
+        if self.items[indexPath.row].actorBucketName != nil {
+            url = "https://perfectself-avatar-bucket.s3.us-east-2.amazonaws.com/\(self.items[indexPath.row].actorBucketName!)/\(self.items[indexPath.row].actorAvatarKey!)"
+        }
+        cell.url = url
+   
+        cell.id = self.items[indexPath.row].id
         cell.lbl_name.text = self.items[indexPath.row].actorName;
         cell.lbl_date.text = dateFormatter1.string(from: datestart ?? Date())
         cell.lbl_time.text = dateFormatter2.string(from: datestart ?? Date()) + "-" + dateFormatter2.string(from: dateend ?? Date())

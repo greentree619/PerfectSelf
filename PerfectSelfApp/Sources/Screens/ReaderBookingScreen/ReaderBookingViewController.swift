@@ -126,7 +126,6 @@ class ReaderBookingViewController: UIViewController, UICollectionViewDataSource,
             url = "https://perfectself-avatar-bucket.s3.us-east-2.amazonaws.com/\(self.items[indexPath.row].actorBucketName!)/\(self.items[indexPath.row].actorAvatarKey!)"
         }
         cell.url = url
-        cell.review = self.items[indexPath.row].readerReview
    
         cell.id = self.items[indexPath.row].id
         cell.lbl_name.text = self.items[indexPath.row].readerName;
