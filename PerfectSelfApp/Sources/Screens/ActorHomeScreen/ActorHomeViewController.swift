@@ -16,6 +16,11 @@ class ActorHomeViewController: UIViewController, UICollectionViewDataSource, UIC
     @IBOutlet weak var spin: UIActivityIndicatorView!
     @IBOutlet weak var readerListFlow: UICollectionViewFlowLayout!
     @IBOutlet weak var greetingLabel: UILabel!
+    @IBOutlet weak var img_actor_avatar: UIImageView!
+    
+    @IBOutlet weak var btn_sponsored: UIButton!
+    @IBOutlet weak var btn_availablesoon: UIButton!
+    @IBOutlet weak var btn_topRate: UIButton!
     let backgroundView = UIView()
     
     var isSponsored = true
@@ -23,6 +28,7 @@ class ActorHomeViewController: UIViewController, UICollectionViewDataSource, UIC
     var isTopRated = false
     
     var items = [ReaderProfileCard]()
+    
     let cellsPerRow = 1
   
     override func viewDidLoad() {
@@ -34,15 +40,30 @@ class ActorHomeViewController: UIViewController, UICollectionViewDataSource, UIC
         readerList.delegate = self
         readerList.allowsSelection = true
         // Do any additional setup after loading the view.
-        let name = UserDefaults.standard.string(forKey: "USER_NAME")
-        greetingLabel.text = "Hi, " + (name ?? "")
+        
+        // Retrieve the saved data from UserDefaults
+        if let userInfo = UserDefaults.standard.object(forKey: "USER") as? [String:Any] {
+            // Use the saved data
+            let name = userInfo["userName"] as? String
+            let bucketName = userInfo["avatarBucketName"] as? String
+            let avatarKey = userInfo["avatarKey"] as? String
+            greetingLabel.text = "Hi, " + (name ?? "User")
+            if (bucketName != nil && avatarKey != nil) {
+                let url = "https://perfectself-avatar-bucket.s3.us-east-2.amazonaws.com/\( bucketName!)/\(avatarKey!)"
+                img_actor_avatar.imageFrom(url: URL(string: url)!)
+            }
+        } else {
+            // No data was saved
+            print("No data was saved.")
+        }
+        
         fetchReaderList()
     }
     func fetchReaderList() {
         spin.isHidden = false
         spin.startAnimating()
         // call API to fetch reader list
-        webAPI.getAllReaders() { data, response, error in
+        webAPI.getReaders(readerName: nil,isSponsored: isSponsored, isAvailableSoon: isAvailableSoon,isTopRated: isTopRated, isOnline: nil, availableTimeSlotType: nil, availableFrom: nil, availableTo: nil, minPrice: nil, maxPrice: nil, gender: nil, sortBy: nil) { data, response, error in
             DispatchQueue.main.async {
                 self.spin.stopAnimating()
                 self.spin.isHidden = true
@@ -59,8 +80,6 @@ class ActorHomeViewController: UIViewController, UICollectionViewDataSource, UIC
                 DispatchQueue.main.async {
                     self.items.removeAll()
                     self.items.append(contentsOf: respItems)
-//                    for (i, reader) in items.enumerated() {
-//                    }
                     self.readerList.reloadData()
                 }
 
@@ -84,19 +103,35 @@ class ActorHomeViewController: UIViewController, UICollectionViewDataSource, UIC
             + flowLayout.sectionInset.right
             + (flowLayout.minimumInteritemSpacing * CGFloat(cellsPerRow - 1))
         let size = Int((collectionView.bounds.width - totalSpace) / CGFloat(cellsPerRow))
-        return CGSize(width: size, height: 120)
+        return CGSize(width: size, height: 100)
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         //
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Reader Collection View Cell", for: indexPath) as! ReaderCollectionViewCell
+        
+        if self.items[indexPath.row].avatarBucketName != nil {
+            let url = "https://perfectself-avatar-bucket.s3.us-east-2.amazonaws.com/\( self.items[indexPath.row].avatarBucketName!)/\( self.items[indexPath.row].avatarKey!)"
+            cell.readerAvatar.imageFrom(url: URL(string: url)!)
+        }
         cell.readerName.text = self.items[indexPath.row].userName;
         cell.salary.text = "$" + String((self.items[indexPath.row].hourlyPrice ?? 0)/4)
+        cell.score.text = String(self.items[indexPath.row].score)
+        cell.review.text = "(\(self.items[indexPath.row].reviewCount))"
+        cell.status.backgroundColor = self.items[indexPath.row].isLogin ? UIColor(rgb: 0x34C759) : UIColor(rgb: 0xAAAAAA)
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss'Z'"
+        let date = dateFormatter.date(from: self.items[indexPath.row].date ?? "1900-01-01T00:00:00Z")
+    
+        let dfforlabel = DateFormatter()
+        dfforlabel.dateFormat = "MMM dd, hh:mm a"
+        cell.availableDate.text = dfforlabel.string(from: date!)
         // return card
         cell.layer.masksToBounds = false
         cell.layer.shadowOffset = CGSizeZero
-        cell.layer.shadowRadius = 8
-        cell.layer.shadowOpacity = 0.2
+        cell.layer.shadowRadius = 3
+        cell.layer.shadowOpacity = 0.15
         cell.contentView.layer.cornerRadius = 12
         cell.contentView.layer.borderWidth = 1.0
         cell.contentView.layer.borderColor = UIColor.clear.cgColor
@@ -121,47 +156,12 @@ class ActorHomeViewController: UIViewController, UICollectionViewDataSource, UIC
     }
     
     @IBAction func ShowFilterModal(_ sender: UIButton) {
-//        UIView.animate(withDuration:0.3) {
-//            self.filtermodal.alpha = 1;
-//        }
-//
-//        backgroundView.backgroundColor = UIColor.black.withAlphaComponent(0.5)
-//        backgroundView.frame = view.bounds
-//        backgroundView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-//        view.insertSubview(backgroundView, belowSubview: filtermodal)
-//        let tap = UITapGestureRecognizer(target: self, action: #selector(tapCallback))
-//        backgroundView.addGestureRecognizer(tap)
-//        backgroundView.isUserInteractionEnabled = true
         let controller = FilterViewController()
         controller.modalPresentationStyle = .overFullScreen
         controller.parentUIViewController = self
         self.present(controller, animated: true)
         
     }
-//    @objc func tapCallback() {
-//        backgroundView.removeFromSuperview()
-//        self.filtermodal.alpha = 0;
-//    }
-//    @IBAction func ApplyFilter(_ sender: UIButton) {
-//        backgroundView.removeFromSuperview()
-//        self.filtermodal.alpha = 0;
-//
-//        let controller = ActorFindReaderViewController()
-//        self.navigationController?.pushViewController(controller, animated: false)
-//
-//    }
-//    @IBAction func SelectMale(_ sender: UIButton) {
-//        sender.isSelected = !sender.isSelected
-//    }
-//    @IBAction func SelectFemale(_ sender: UIButton) {
-//        sender.isSelected = !sender.isSelected
-//    }
-//
-//    @IBAction func CloseFilterModal(_ sender: UIButton) {
-//        backgroundView.removeFromSuperview()
-//        self.filtermodal.alpha = 0;
-//    }
-//
     
     @IBAction func SelectSponsored(_ sender: UIButton) {
         isSponsored = !isSponsored
@@ -169,12 +169,12 @@ class ActorHomeViewController: UIViewController, UICollectionViewDataSource, UIC
         if isSponsored {
             sender.backgroundColor = UIColor(rgb: 0x4865FF)
             sender.setTitleColor(.white, for: .normal)
-            
         }
         else {
             sender.backgroundColor = UIColor(rgb: 0xE5E5E5)
             sender.setTitleColor(UIColor(rgb: 0x4865FF), for: .normal)
         }
+        fetchReaderList()
     }
     
     @IBAction func SelectAvailableSoon(_ sender: UIButton) {
@@ -183,12 +183,12 @@ class ActorHomeViewController: UIViewController, UICollectionViewDataSource, UIC
         if isAvailableSoon {
             sender.backgroundColor = UIColor(rgb: 0x4865FF)
             sender.setTitleColor(.white, for: .normal)
-            
         }
         else {
             sender.backgroundColor = UIColor(rgb: 0xE5E5E5)
             sender.setTitleColor(UIColor(rgb: 0x4865FF), for: .normal)
         }
+        fetchReaderList()
     }
     @IBAction func SelectTopRated(_ sender: UIButton) {
         isTopRated = !isTopRated
@@ -196,143 +196,28 @@ class ActorHomeViewController: UIViewController, UICollectionViewDataSource, UIC
         if isTopRated {
             sender.backgroundColor = UIColor(rgb: 0x4865FF)
             sender.setTitleColor(.white, for: .normal)
-            
         }
         else {
             sender.backgroundColor = UIColor(rgb: 0xE5E5E5)
             sender.setTitleColor(UIColor(rgb: 0x4865FF), for: .normal)
         }
+        fetchReaderList()
     }
-//
-//    @IBAction func SelectOnlineNow(_ sender: UIButton) {
-//        isOnline = !isOnline
-//
-//        if isOnline {
-//            sender.backgroundColor = UIColor(rgb: 0x4865FF)
-//            sender.setTitleColor(.white, for: .normal)
-//
-//        }
-//        else {
-//            sender.backgroundColor = UIColor(rgb: 0xFFFFFF)
-//            sender.setTitleColor(UIColor(rgb: 0x4865FF), for: .normal)
-//        }
-//    }
-//
-//    @IBAction func SelectAvailableSoon1(_ sender: UIButton) {
-//        isAvailableSoon = !isAvailableSoon
-//
-//        if isAvailableSoon {
-//            sender.backgroundColor = UIColor(rgb: 0x4865FF)
-//            sender.setTitleColor(.white, for: .normal)
-//
-//        }
-//        else {
-//            sender.backgroundColor = UIColor(rgb: 0xFFFFFF)
-//            sender.setTitleColor(UIColor(rgb: 0x4865FF), for: .normal)
-//        }
-//    }
-//
-//    @IBAction func Select15TimeSlot(_ sender: UIButton) {
-//        is15TimeSlot = !is15TimeSlot
-//
-//        if is15TimeSlot {
-//            sender.backgroundColor = UIColor(rgb: 0x4865FF)
-//            sender.setTitleColor(.white, for: .normal)
-//
-//        }
-//        else {
-//            sender.backgroundColor = UIColor(rgb: 0xFFFFFF)
-//            sender.setTitleColor(UIColor(rgb: 0x4865FF), for: .normal)
-//        }
-//    }
-//
-//    @IBAction func Select30TimeSlot(_ sender: UIButton) {
-//        is30TimeSlot = !is30TimeSlot
-//
-//        if is30TimeSlot {
-//            sender.backgroundColor = UIColor(rgb: 0x4865FF)
-//            sender.setTitleColor(.white, for: .normal)
-//
-//        }
-//        else {
-//            sender.backgroundColor = UIColor(rgb: 0xFFFFFF)
-//            sender.setTitleColor(UIColor(rgb: 0x4865FF), for: .normal)
-//        }
-//    }
-//
-//    @IBAction func Select30OverTimeSlot(_ sender: UIButton) {
-//        is30PlusTimeSlot = !is30PlusTimeSlot
-//
-//        if is30PlusTimeSlot {
-//            sender.backgroundColor = UIColor(rgb: 0x4865FF)
-//            sender.setTitleColor(.white, for: .normal)
-//
-//        }
-//        else {
-//            sender.backgroundColor = UIColor(rgb: 0xFFFFFF)
-//            sender.setTitleColor(UIColor(rgb: 0x4865FF), for: .normal)
-//        }
-//    }
-//
-//    @IBAction func SelectStandByTimeSlot(_ sender: UIButton) {
-//        isStandBy = !isStandBy
-//
-//        if isStandBy {
-//            sender.backgroundColor = UIColor(rgb: 0x4865FF)
-//            sender.setTitleColor(.white, for: .normal)
-//
-//        }
-//        else {
-//            sender.backgroundColor = UIColor(rgb: 0xFFFFFF)
-//            sender.setTitleColor(UIColor(rgb: 0x4865FF), for: .normal)
-//        }
-//    }
-//
-//    @IBAction func SelectCommercialRead(_ sender: UIButton) {
-//        isCommercialRead = !isCommercialRead
-//
-//        if isCommercialRead {
-//            sender.backgroundColor = UIColor(rgb: 0x4865FF)
-//            sender.setTitleColor(.white, for: .normal)
-//            sender.tintColor = .white
-//        }
-//        else {
-//            sender.backgroundColor = UIColor(rgb: 0xFFFFFF)
-//            sender.setTitleColor(UIColor(rgb: 0x4865FF), for: .normal)
-//            sender.tintColor = UIColor(rgb: 0x4865FF)
-//        }
-//    }
-//
-//    @IBAction func SelectShortRead(_ sender: UIButton) {
-//        isShortRead = !isShortRead
-//
-//        if isShortRead {
-//            sender.backgroundColor = UIColor(rgb: 0x4865FF)
-//            sender.setTitleColor(.white, for: .normal)
-//            sender.tintColor = .white
-//        }
-//        else {
-//            sender.backgroundColor = UIColor(rgb: 0xFFFFFF)
-//            sender.setTitleColor(UIColor(rgb: 0x4865FF), for: .normal)
-//            sender.tintColor = UIColor(rgb: 0x4865FF)
-//        }
-//    }
-//
-//    @IBAction func SelectExtendedRead(_ sender: UIButton) {
-//        isExtendedRead = !isExtendedRead
-//
-//        if isExtendedRead {
-//            sender.backgroundColor = UIColor(rgb: 0x4865FF)
-//            sender.setTitleColor(.white, for: .normal)
-//            sender.tintColor = .white
-//        }
-//        else {
-//            sender.backgroundColor = UIColor(rgb: 0xFFFFFF)
-//            sender.setTitleColor(UIColor(rgb: 0x4865FF), for: .normal)
-//            sender.tintColor = UIColor(rgb: 0x4865FF)
-//        }
-//    }
     
+    @IBAction func ViewAll(_ sender: UIButton) {
+        isSponsored = false
+        isAvailableSoon = false
+        isTopRated = false
+        
+        btn_sponsored.backgroundColor = UIColor(rgb: 0xE5E5E5)
+        btn_sponsored.setTitleColor(UIColor(rgb: 0x4865FF), for: .normal)
+        btn_availablesoon.backgroundColor = UIColor(rgb: 0xE5E5E5)
+        btn_availablesoon.setTitleColor(UIColor(rgb: 0x4865FF), for: .normal)
+        btn_topRate.backgroundColor = UIColor(rgb: 0xE5E5E5)
+        btn_topRate.setTitleColor(UIColor(rgb: 0x4865FF), for: .normal)
+        
+        fetchReaderList()
+    }
     @IBAction func GoMessageCenter(_ sender: UIButton) {
         let controller = MessageCenterViewController()
         self.navigationController?.pushViewController(controller, animated: true)

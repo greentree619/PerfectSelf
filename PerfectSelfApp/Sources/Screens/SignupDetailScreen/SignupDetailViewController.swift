@@ -69,11 +69,56 @@ class SignupDetailViewController: UIViewController {
             return
         }
         
-       
-//        let userType = (isActor ? ACTOR_UTYPE : READER_UTYPE)
         if isActor {
             showIndicator(sender: sender, viewController: self)
-            webAPI.signup(userType: ACTOR_UTYPE, userName: txtUserName.text!, firstName: txtFirstName.text!, lastName: txtLastName.text!, email: email, password: password, phoneNumber: phoneNumber) { data, response, error in
+            webAPI.signup(userType: 3, userName: txtUserName.text!, firstName: txtFirstName.text!, lastName: txtLastName.text!, email: email, password: password, phoneNumber: phoneNumber) { data, response, error in
+                guard let data = data, error == nil else {
+                    print(error?.localizedDescription ?? "No data")
+                    DispatchQueue.main.async {
+                        hideIndicator(sender: sender)
+                    }
+                    return
+                }
+                if let httpResponse = response as? HTTPURLResponse {
+                    print("statusCode: \(httpResponse.statusCode)")
+                }
+                let responseJSON = try? JSONSerialization.jsonObject(with: data, options: [])
+                if let responseJSON = responseJSON as? [String: Any] {
+                    
+                    guard responseJSON["email"] != nil else {
+                        DispatchQueue.main.async {
+                            hideIndicator(sender: sender)
+                            Toast.show(message: "Signup failed! please try again.", controller: self)
+                            //self.text_email.becomeFirstResponder()
+                        }
+                        return
+                    }
+                    DispatchQueue.main.async {
+                        hideIndicator(sender: sender)
+                        //{{REFME
+                        Toast.show(message: "Successfully signed up!", controller: self)
+                        UserDefaults.standard.setValue(responseJSON, forKey: "USER")
+                        UserDefaults.standard.set(String(self.email), forKey: "USER_EMAIL")
+                        UserDefaults.standard.set(String(self.password), forKey: "USER_PWD")
+                        
+                        //}}REFME
+                        
+                        let controller = ActorBuildProfile1ViewController()
+                        self.navigationController?.pushViewController(controller, animated: true);
+                    }
+                }
+                else
+                {
+                    DispatchQueue.main.async {
+                        hideIndicator(sender: sender)
+                        Toast.show(message: "Signup failed! please try again.", controller: self)
+                    }
+                }
+            }
+        }
+        else {
+            showIndicator(sender: sender, viewController: self)
+            webAPI.signup(userType: 4, userName: txtUserName.text!, firstName: txtFirstName.text!, lastName: txtLastName.text!, email: email, password: password, phoneNumber: phoneNumber) { data, response, error in
                 guard let data = data, error == nil else {
                     print(error?.localizedDescription ?? "No data")
                     DispatchQueue.main.async {
@@ -99,15 +144,15 @@ class SignupDetailViewController: UIViewController {
                         hideIndicator(sender: sender)
                         //{{REFME
                         Toast.show(message: "Successfully signed up!", controller: self)
-                        UserDefaults.standard.set(responseJSON["uid"], forKey: "USER_ID")
-                        UserDefaults.standard.set(responseJSON["token"], forKey: "USER_TOKEN")
-                        UserDefaults.standard.set(String(self.txtUserName.text!), forKey: "USER_NAME")
+                        UserDefaults.standard.setValue(responseJSON, forKey: "USER")
                         UserDefaults.standard.set(String(self.email), forKey: "USER_EMAIL")
                         UserDefaults.standard.set(String(self.password), forKey: "USER_PWD")
-                        UserDefaults.standard.set("actor", forKey: "USER_TYPE")
+                        
                         //}}REFME
                         
-                        let controller = ActorBuildProfile1ViewController()
+                        let controller = ReaderBuildProfileViewController()
+                        controller.id = responseJSON["uid"] as! String
+                        controller.username = self.txtUserName.text!
                         self.navigationController?.pushViewController(controller, animated: true);
                     }
                 }
@@ -119,16 +164,6 @@ class SignupDetailViewController: UIViewController {
                     }
                 }
             }
-        }
-        else {
-            let controller = ReaderBuildProfileViewController()
-            controller.username = self.txtUserName.text!
-            controller.firstname = self.txtFirstName.text!
-            controller.lastname = self.txtLastName.text!
-            controller.email = self.email
-            controller.password = self.password
-            controller.phonenumber = self.phoneNumber
-            self.navigationController?.pushViewController(controller, animated: true);
         }
         
     }

@@ -9,7 +9,7 @@
 import UIKit
 
 class ActorBookConfirmationViewController: UIViewController {
-
+    var uid = ""
     var readerUid: String = ""
     var bookingDate: String = ""
     var bookingStartTime: String = ""
@@ -23,7 +23,13 @@ class ActorBookConfirmationViewController: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        
+        if let userInfo = UserDefaults.standard.object(forKey: "USER") as? [String:Any] {
+            // Use the saved data
+            uid = userInfo["uid"] as! String
+        } else {
+            // No data was saved
+            print("No data was saved.")
+        }
         
     }
 
@@ -50,12 +56,11 @@ class ActorBookConfirmationViewController: UIViewController {
     }
     @IBAction func CompleteBooking(_ sender: UIButton) {
         // call book api
-        let actorUid = UserDefaults.standard.string(forKey: "USER_ID")!
-
+   
         let bookingStart = bookingDate + "T" + bookingStartTime + "Z"
         let bookingEnd = bookingDate + "T" + bookingEndTime + "Z"
         showIndicator(sender: sender, viewController: self)
-        webAPI.bookAppointment(actorUid: actorUid, readerUid: readerUid, bookStartTime:bookingStart, bookEndTime: bookingEnd, script: script) { data, response, error in
+        webAPI.bookAppointment(actorUid: uid, readerUid: readerUid, bookStartTime:bookingStart, bookEndTime: bookingEnd, script: script) { data, response, error in
             guard let data = data, error == nil else {
                 hideIndicator(sender: sender)
                 print(error?.localizedDescription ?? "No data")

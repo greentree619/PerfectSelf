@@ -11,7 +11,6 @@ import DropDown
 
 class ActorBuildProfile2ViewController: UIViewController {
 
-//    var userType: String = ""
     @IBOutlet weak var genderview: UIStackView!
     @IBOutlet weak var ageview: UIStackView!
     let dropDownForGender = DropDown()
@@ -29,7 +28,14 @@ class ActorBuildProfile2ViewController: UIViewController {
         
 
         // The view to which the drop down will appear on
-        text_username.text = UserDefaults.standard.string(forKey: "USER_NAME")
+        if let userInfo = UserDefaults.standard.object(forKey: "USER") as? [String:Any] {
+            // Use the saved data
+            let name = userInfo["userName"] as! String
+            text_username.text = name
+        } else {
+            // No data was saved
+            print("No data was saved.")
+        }
         dropDownForGender.anchorView = genderview // UIView or UIBarButtonItem
         dropDownForAgeRange.anchorView = ageview
         // The list of items to display. Can be changed dynamically

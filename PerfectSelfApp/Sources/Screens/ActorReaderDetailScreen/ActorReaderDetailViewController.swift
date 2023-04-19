@@ -22,9 +22,11 @@ class ActorReaderDetailViewController: UIViewController , UICollectionViewDataSo
     @IBOutlet weak var view_review: UIStackView!
     @IBOutlet weak var view_videointro: UIStackView!
     @IBOutlet weak var view_overview: UIStackView!
-//    @IBOutlet weak var view_reader: UIStackView!
+   
+    @IBOutlet weak var view_container: UIView!
     // info
     
+    @IBOutlet weak var reader_avatar: UIImageView!
     @IBOutlet weak var reader_name: UILabel!
     @IBOutlet weak var reader_title: UILabel!
     @IBOutlet weak var reader_hourly: UILabel!
@@ -32,9 +34,24 @@ class ActorReaderDetailViewController: UIViewController , UICollectionViewDataSo
     @IBOutlet weak var reader_about: UITextView!
     @IBOutlet weak var timeslotList: UICollectionView!
     
-//    var items = ["1", "2", "3", "3", "2", "4"]
     var items = [Availability]()
     let cellsPerRow = 1
+    var videoUrl: URL!
+    
+    @IBOutlet var btnPlayPause: UIButton!
+    @IBOutlet var slider: UISlider!
+
+    var isPlaying: Bool = false {
+        didSet {
+            if isPlaying {
+                btnPlayPause.setImage(UIImage(named: "pause"), for: .normal)
+            } else {
+                btnPlayPause.setImage(UIImage(named: "play"), for: .normal)
+            }
+        }
+    }
+
+    @IBOutlet var playerView: PlayerView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,10 +64,11 @@ class ActorReaderDetailViewController: UIViewController , UICollectionViewDataSo
         // Do any additional setup after loading the view.
         line_videointro.isHidden = true
         line_review.isHidden = true
-        view_videointro.isHidden = true
-        view_review.isHidden = true
-    
-//        view_reader.isHidden = true
+        self.view_videointro.alpha = 0
+        self.view_review.alpha = 0
+        self.view_overview.frame.origin.x = 0
+        self.view_videointro.frame.origin.x = self.view_container.frame.width
+        self.view_review.frame.origin.x = self.view_container.frame.width
         
         // call api for reader details
         showIndicator(sender: nil, viewController: self)
@@ -69,7 +87,10 @@ class ActorReaderDetailViewController: UIViewController , UICollectionViewDataSo
                     self.reader_about.text = item.about
                     self.reader_hourly.text = "$\(item.hourlyPrice/4) / 15 mins"
                     self.reader_skill.text = item.skills
-                    
+                    if !item.avatarBucketName.isEmpty {
+                        let url = "https://perfectself-avatar-bucket.s3.us-east-2.amazonaws.com/\(item.avatarBucketName)/\(item.avatarKey)"
+                        self.reader_avatar.imageFrom(url: URL(string: url)!)
+                    }
                     //call API for available time slots
                     
                     webAPI.getAvailabilityById(uid: self.uid) {data1, response1, error1 in
@@ -108,6 +129,32 @@ class ActorReaderDetailViewController: UIViewController , UICollectionViewDataSo
                 }
             }
         }
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true);
+        
+        setupPlayer()
+    }
+    func setupPlayer() {
+        playerView.url = videoUrl
+        playerView.delegate = self
+        slider.minimumValue = 0
+    }
+    @IBAction func btnPlayPauseClicked(_ sender: UIButton) {
+        isPlaying = !isPlaying
+        if isPlaying {
+            playerView.play()
+        }
+        else {
+            playerView.stop()
+        }
+//        if playerView.rate > 0 {
+//            playerView.pause()
+//            isPlaying = false
+//        } else {
+//           playerView.play()
+//           isPlaying = true
+//        }
     }
     // MARK: - Time Slot List Delegate.
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -166,9 +213,15 @@ class ActorReaderDetailViewController: UIViewController , UICollectionViewDataSo
         line_overview.isHidden = false
         line_videointro.isHidden = true
         line_review.isHidden = true
-        view_overview.isHidden = false
-        view_videointro.isHidden = true
-        view_review.isHidden = true
+        
+        UIView.animate(withDuration: 0.5, animations: {
+            self.view_overview.alpha = 1
+            self.view_videointro.alpha = 0
+            self.view_review.alpha = 0
+            self.view_overview.frame.origin.x = 0
+            self.view_videointro.frame.origin.x = self.view_container.frame.width
+            self.view_review.frame.origin.x = self.view_container.frame.width
+        })        
     }
     
     @IBAction func ShowVideoIntro(_ sender: UIButton) {
@@ -178,9 +231,15 @@ class ActorReaderDetailViewController: UIViewController , UICollectionViewDataSo
         line_overview.isHidden = true
         line_videointro.isHidden = false
         line_review.isHidden = true
-        view_overview.isHidden = true
-        view_videointro.isHidden = false
-        view_review.isHidden = true
+        
+        UIView.animate(withDuration: 0.5, animations: {
+            self.view_overview.alpha = 0
+            self.view_videointro.alpha = 1
+            self.view_review.alpha = 0
+            self.view_overview.frame.origin.x = -self.view_container.frame.width
+            self.view_videointro.frame.origin.x = 0
+            self.view_review.frame.origin.x = self.view_container.frame.width
+        })
     }
     
     @IBAction func ShowReview(_ sender: UIButton) {
@@ -190,9 +249,15 @@ class ActorReaderDetailViewController: UIViewController , UICollectionViewDataSo
         line_overview.isHidden = true
         line_videointro.isHidden = true
         line_review.isHidden = false
-        view_overview.isHidden = true
-        view_videointro.isHidden = true
-        view_review.isHidden = false
+        
+        UIView.animate(withDuration: 0.5, animations: {
+            self.view_overview.alpha = 0
+            self.view_videointro.alpha = 0
+            self.view_review.alpha = 1
+            self.view_overview.frame.origin.x = -self.view_container.frame.width
+            self.view_videointro.frame.origin.x = -self.view_container.frame.width
+            self.view_review.frame.origin.x = 0
+        })
     }
     @IBAction func BookAppointment(_ sender: UIButton) {
         let controller = ActorBookAppointmentViewController();
@@ -229,4 +294,26 @@ class ActorReaderDetailViewController: UIViewController , UICollectionViewDataSo
     }
     */
 
+}
+
+extension ActorReaderDetailViewController: PlayerViewDelegate {
+    func playerVideo(player: PlayerView, currentTime: Double) {
+        slider.value = Float(currentTime)
+    }
+
+    func playerVideo(player: PlayerView, duration: Double) {
+        slider.maximumValue =  Float(duration)
+    }
+
+    func playerVideo(player: PlayerView, statusItemPlayer: AVPlayer.Status, error: Error?) {
+        //
+    }
+
+    func playerVideo(player: PlayerView, statusItemPlayer: AVPlayerItem.Status, error: Error?) {
+        //
+    }
+
+    func playerVideoDidEnd(player: PlayerView) {
+        isPlaying = false
+    }
 }

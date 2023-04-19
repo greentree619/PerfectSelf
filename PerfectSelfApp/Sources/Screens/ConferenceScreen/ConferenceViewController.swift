@@ -25,7 +25,7 @@ class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSample
     @IBOutlet weak var recordButton: UIButton!
     @IBOutlet weak var remoteCameraView: UIView!
     @IBOutlet var lblTimer: UILabel!
-        @IBOutlet weak var timeSelectCtrl: UIPickerView!
+    @IBOutlet weak var timeSelectCtrl: UIPickerView!
     @IBOutlet weak var timeSelectPannel: UIView!
     var count = 3
     var timer: Timer!
@@ -134,7 +134,13 @@ class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSample
         
         ConferenceViewController.clearTempFolder()
         lblTimer.isHidden = true
-        self.userName = UserDefaults.standard.string(forKey: "USER_NAME")
+        if let userInfo = UserDefaults.standard.object(forKey: "USER") as? [String:Any] {
+            // Use the saved data
+            userName = userInfo["userName"] as? String
+        } else {
+            // No data was saved
+            print("No data was saved.")
+        }
         
         self.timeSelect.delegate = self
         self.timeSelect.dataSource = self
@@ -391,11 +397,18 @@ class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSample
                                         hideIndicator(sender: nil)
                                         Toast.show(message: "Completed to upload record files", controller: uiViewContoller!)
                                     }
-            
-                                    let uid = UserDefaults.standard.string(forKey: "USER_ID")
-                                    webAPI.addLibrary(uid: uid!, tapeName: "tapeName", bucketName: "video-client-upload-123456798", tapeKey: "\(prefixKey)\((uiViewContoller! as! ConferenceViewController).userName!)\((uiViewContoller! as! ConferenceViewController).uploadCount)")
-                                    ConferenceViewController.clearTempFolder()
-                                    (uiViewContoller! as! ConferenceViewController).uploadCount += 1
+                                    if let userInfo = UserDefaults.standard.object(forKey: "USER") as? [String:Any] {
+                                        // Use the saved data
+                                        let uid = userInfo["uid"] as! String
+                                        webAPI.addLibrary(uid: uid, tapeName: "tapeName", bucketName: "video-client-upload-123456798", tapeKey: "\(prefixKey)\((uiViewContoller! as! ConferenceViewController).userName!)\((uiViewContoller! as! ConferenceViewController).uploadCount)")
+                                        ConferenceViewController.clearTempFolder()
+                                        (uiViewContoller! as! ConferenceViewController).uploadCount += 1
+                                    } else {
+                                        // No data was saved
+                                        print("No data was saved.")
+                                    }
+                                    
+                                   
                                 }
                                 else
                                 {

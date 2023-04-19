@@ -8,18 +8,36 @@
 
 import UIKit
 
-class ActorFindReaderViewController: UIViewController , UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout{
+class ActorFindReaderViewController: UIViewController , UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, SortDelegate{
+    func setSortType(viewController: UIViewController, sortType: Int) {
+        self.sortType = sortType
+        fetchReaderList()
+    }
+    
 
-    @IBOutlet weak var btn_relevance: UIButton!
-    @IBOutlet weak var btn_pricehightolow: UIButton!
-    @IBOutlet weak var btn_pricelowtohigh: UIButton!
-    @IBOutlet weak var btn_soonest: UIButton!
+    var isAvailableSoon = false
+    var isOnline = false
+    var timeSlotType = -1
+    var isDateSelected = false
+    var fromDate = Date()
+    var toDate = Date()
+    var minPrice:Float = 0.0
+    var maxPrice:Float = 100.0
+    var gender = -1
+    var isCommercialRead = false
+    var isShortRead = false
+    var isExtendedRead = false
+    var isComfortableWithExplicitRead = false
+    
+    var sortType = 0
+    
     @IBOutlet weak var numberOfReader: UILabel!
-    @IBOutlet weak var modal_sort: UIView!
     @IBOutlet weak var readerList: UICollectionView!
+    @IBOutlet weak var spin: UIActivityIndicatorView!
+    
     var items = [ReaderProfileCard]()
     let cellsPerRow = 1
-    let backgroundView = UIView()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -30,14 +48,21 @@ class ActorFindReaderViewController: UIViewController , UICollectionViewDataSour
         readerList.allowsSelection = true
         // Do any additional setup after loading the view.
         self.navigationItem.setHidesBackButton(true, animated: false)
-        modal_sort.alpha = 0;
-
         
-        showIndicator(sender: nil, viewController: self)
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true);
+        fetchReaderList()
+    }
+    func fetchReaderList() {
+        spin.isHidden = false
+        spin.startAnimating()
         // call API to fetch reader list
-        webAPI.getAllReaders() { data, response, error in
+        
+        webAPI.getReaders(readerName: nil,isSponsored: nil, isAvailableSoon: isAvailableSoon,isTopRated: nil, isOnline: isOnline, availableTimeSlotType: nil, availableFrom: isDateSelected ? Date.getDateString(date: fromDate) : nil, availableTo: isDateSelected ? Date.getDateString(date: toDate) : nil, minPrice: minPrice, maxPrice: maxPrice, gender: gender != -1 ? gender:nil, sortBy: sortType) { data, response, error in
             DispatchQueue.main.async {
-                hideIndicator(sender: nil)
+                self.spin.stopAnimating()
+                self.spin.isHidden = true
             }
             
             guard let data = data, error == nil else {
@@ -45,15 +70,14 @@ class ActorFindReaderViewController: UIViewController , UICollectionViewDataSour
                 return
             }
             do {
+               
                 let respItems = try JSONDecoder().decode([ReaderProfileCard].self, from: data)
                 //print(items)
                 DispatchQueue.main.async {
                     self.items.removeAll()
                     self.items.append(contentsOf: respItems)
-//                    for (i, reader) in items.enumerated() {
-//                    }
                     self.readerList.reloadData()
-                    self.numberOfReader.text = "\(respItems.count) Readers Listed"
+                    self.numberOfReader.text = "\(self.items.count) Readers Listed"
                 }
 
             } catch {
@@ -64,7 +88,6 @@ class ActorFindReaderViewController: UIViewController , UICollectionViewDataSour
             }
         }
     }
-    
     // MARK: - Reader List Delegate.
     func collectionView(_ collectionView: UICollectionView,        numberOfItemsInSection section: Int) -> Int {
          // myData is the array of items
@@ -84,6 +107,18 @@ class ActorFindReaderViewController: UIViewController , UICollectionViewDataSour
         //
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Reader Collection View Cell", for: indexPath) as! ReaderCollectionViewCell
         cell.readerName.text = self.items[indexPath.row].userName;
+        cell.salary.text = "$" + String((self.items[indexPath.row].hourlyPrice ?? 0)/4)
+        cell.score.text = String(self.items[indexPath.row].score)
+        cell.review.text = "(\(self.items[indexPath.row].reviewCount))"
+        cell.status.backgroundColor = self.items[indexPath.row].isLogin ? UIColor(rgb: 0x34C759) : UIColor(rgb: 0xAAAAAA)
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss'Z'"
+        let date = dateFormatter.date(from: self.items[indexPath.row].date ?? "1900-01-01T00:00:00Z")
+    
+        let dfforlabel = DateFormatter()
+        dfforlabel.dateFormat = "MMM dd, hh:mm a"
+        cell.availableDate.text = dfforlabel.string(from: date!)
         // return card
         cell.layer.masksToBounds = false
         cell.layer.shadowOffset = CGSizeZero
@@ -113,57 +148,13 @@ class ActorFindReaderViewController: UIViewController , UICollectionViewDataSour
     }
     
     @IBAction func SortReaders(_ sender: UIButton) {
-        UIView.animate(withDuration: 0.3) {
-           self.modal_sort.alpha = 1;
-        };
-        backgroundView.backgroundColor = UIColor.black.withAlphaComponent(0.5)
-        backgroundView.frame = view.bounds
-        backgroundView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        view.insertSubview(backgroundView, belowSubview: modal_sort)
-        let tap = UITapGestureRecognizer(target: self, action: #selector(tapCallback))
-        backgroundView.addGestureRecognizer(tap)
-        backgroundView.isUserInteractionEnabled = true
-    }
-    @objc func tapCallback() {
-        backgroundView.removeFromSuperview()
-        self.modal_sort.alpha = 0;
-    }
-//    @IBAction func FilterReaders(_ sender: UIButton) {
-//        UIView.animate(withDuration: 0.5) {
-//            self.modal_filter.alpha = 1;
-//        };
-//    }
-    
-    @IBAction func SortApply(_ sender: UIButton) {
-        backgroundView.removeFromSuperview()
-        self.modal_sort.alpha = 0;
-    }
-
-    @IBAction func SelectRelevance(_ sender: UIButton) {
-        btn_relevance.tintColor = UIColor(rgb: 0x4383C4)
-        btn_pricehightolow.tintColor = .black
-        btn_pricelowtohigh.tintColor = .black
-        btn_soonest.tintColor = .black
+        let controller = SortViewController()
+        controller.sd = self
+        controller.sortType = self.sortType
+        controller.modalPresentationStyle = .overFullScreen
+        self.present(controller, animated: true)
     }
     
-    @IBAction func SelectPriceHighToLow(_ sender: UIButton) {
-        btn_relevance.tintColor = .black
-        btn_pricehightolow.tintColor = UIColor(rgb: 0x4383C4)
-        btn_pricelowtohigh.tintColor = .black
-        btn_soonest.tintColor = .black
-    }
-    @IBAction func SelectPriceLowToHigh(_ sender: UIButton) {
-        btn_relevance.tintColor = .black
-        btn_pricehightolow.tintColor = .black
-        btn_pricelowtohigh.tintColor = UIColor(rgb: 0x4383C4)
-        btn_soonest.tintColor = .black
-    }
-    @IBAction func SelectAvailableSoonest(_ sender: UIButton) {
-        btn_relevance.tintColor = .black
-        btn_pricehightolow.tintColor = .black
-        btn_pricelowtohigh.tintColor = .black
-        btn_soonest.tintColor = UIColor(rgb: 0x4383C4)
-    }
     @IBAction func GoBack(_ sender: UIButton) {
         self.navigationController?.popViewController(animated: true)
     }

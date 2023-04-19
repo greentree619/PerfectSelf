@@ -23,8 +23,10 @@ class PerfectSelfWebAPI
     
     func executeAPI(with method:String, apiPath: String, json: [String: Any], completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> Void
     {
+        let urlString = "\(PERFECTSELF_WEBAPI_ROOT)\(apiPath)"
+        let encodedString = urlString.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
         let jsonData = try? JSONSerialization.data(withJSONObject: json)
-        let url = URL(string: "\(PERFECTSELF_WEBAPI_ROOT)\(apiPath)")!
+        let url = URL(string: encodedString!)!
         var request = URLRequest(url: url)
         request.httpMethod = method
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
@@ -43,7 +45,6 @@ class PerfectSelfWebAPI
                                    "email": email,
                                    "password": password]
         
-        //print(email, password);
         return executeAPI(with: "POST", apiPath: "Users/Login", json: json, completionHandler:completionHandler)
     }
     
@@ -54,6 +55,8 @@ class PerfectSelfWebAPI
             "userName": userName,
             "email": email,
             "password": password,
+            "avatarBucketName": "",
+            "avatarKey": "",
             "firstName": firstName,
             "lastName": lastName,
             "dateOfBirth": "",
@@ -87,29 +90,100 @@ class PerfectSelfWebAPI
         ]
         return executeAPI(with: "POST", apiPath: "ActorProfiles/", json: json, completionHandler:completionHandler)
     }
-    func getAllReaders(completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> Void
+    func getUserInfo(uid: String, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> Void
     {
-        return executeAPI(with: "GET", apiPath: "ReaderProfiles/ReaderList", json: [:], completionHandler:completionHandler)
+        return executeAPI(with: "GET", apiPath: "Users/\(uid)", json: [:], completionHandler:completionHandler)
+    }
+    func updateUserAvatar(uid: String, bucketName: String, avatarKey: String, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> Void
+    {
+        let json: [String: Any] = [
+            "userType": -1,
+            "avatarBucketName": bucketName,
+            "avatarKey": avatarKey,
+            "userName": "",
+            "email": "",
+            "password": "",
+            "firstName": "",
+            "lastName": "",
+            "dateOfBirth": "",
+            "gender": -1,
+            "currentAddress": "",
+            "permanentAddress": "",
+            "city": "",
+            "nationality": "",
+            "phoneNumber": "",
+            "isLogin": true,
+            "token": ""
+        ]
+    
+        return executeAPI(with: "PUT", apiPath: "Users/\(uid)", json: json, completionHandler:completionHandler)
+    }
+    func getReaders(readerName: String?, isSponsored: Bool?, isAvailableSoon: Bool?, isTopRated: Bool?, isOnline: Bool?, availableTimeSlotType: Int?, availableFrom: String?, availableTo: String?, minPrice: Float?, maxPrice: Float?, gender: Int?, sortBy: Int?, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> Void
+    {
+        var params = ""
+        var isParamsExist = false
+        if readerName != nil {
+            isParamsExist = true
+            params += "readerName=\(readerName!)"
+        }
+        if isSponsored ?? false {
+            params += (isParamsExist ? "&":"") + "isSponsored=\(isSponsored!)"
+            isParamsExist = true
+        }
+        if isAvailableSoon ?? false {
+            params += (isParamsExist ? "&":"") + "availableSoon=\(isAvailableSoon!)"
+            isParamsExist = true
+        }
+        if isTopRated ?? false {
+            params += (isParamsExist ? "&":"") + "topRated=4.5"
+            isParamsExist = true
+        }
+        if isOnline != nil {
+            params += (isParamsExist ? "&":"") + "isOnline=\(isOnline!)"
+            isParamsExist = true
+        }
+        if availableTimeSlotType != nil {
+            params += (isParamsExist ? "&":"") + "availableTimeSlotType=\(availableTimeSlotType!)"
+            isParamsExist = true
+        }
+        if availableFrom != nil {
+            params += (isParamsExist ? "&":"") + "availableFrom=\(availableFrom!)&availableTo=\(availableTo!)"
+            isParamsExist = true
+        }
+        if minPrice != nil {
+            params += (isParamsExist ? "&":"") + "minPrice=\(minPrice!)&maxPrice=\(maxPrice!)"
+            isParamsExist = true
+        }
+        if gender != nil {
+            params += (isParamsExist ? "&":"") + "gender=\(gender!)"
+            isParamsExist = true
+        }
+        if sortBy != nil {
+            params += (isParamsExist ? "&":"") + "sortBy=\(sortBy!)"
+            isParamsExist = true
+        }
+      
+        return executeAPI(with: "GET", apiPath: "ReaderProfiles/ReaderList?\(params)", json: [:], completionHandler:completionHandler)
     }
     func getReaderById(id: String, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> Void
     {
         return executeAPI(with: "GET", apiPath: "ReaderProfiles/Detail/\(id)", json: [:], completionHandler:completionHandler)
     }
-    func createReaderProfile(readeruid: String, title: String, about: String, hourlyprice: String, skills: String, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> Void
+    
+    func createReaderProfile(uid: String, title: String, gender: String, hourlyrate: Int, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> Void
     {
         let json: [String: Any] = [
             "isDeleted": false,
             "title": title,
-            "readerUid": readeruid,
-            "hourlyPrice": Int(hourlyprice) ?? 0,
-            "voiceType": 0,
-            "others": 0,
-            "about": about,
-            "skills": skills,
+            "readerUid": uid,
+            "hourlyPrice": hourlyrate,
+            "voiceType": -1,
+            "others": -1,
+            "about": "",
+            "skills": "",
         ]
-        return executeAPI(with: "POST", apiPath: "ReaderProfiles/", json: json, completionHandler:completionHandler)
+        return executeAPI(with: "PUT", apiPath: "ReaderProfiles/\(uid)", json: json, completionHandler:completionHandler)
     }
-
     func editReaderProfileAbout(uid: String, about: String, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> Void
     {
         let json: [String: Any] = [
@@ -197,17 +271,38 @@ class PerfectSelfWebAPI
    
         return executeAPI(with: "POST", apiPath: "Books/", json: json, completionHandler:completionHandler)
     }
-    func getBookingsByUid(uid: String, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> Void
+    func getBookingsByUid(uid: String, bookType: Int, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> Void
     {
-        return executeAPI(with: "GET", apiPath: "Books/DetailList/ByUid/\(uid)", json: [:], completionHandler:completionHandler)
+        return executeAPI(with: "GET", apiPath: "Books/DetailList/ByUid/\(uid)?bookType=\(bookType)", json: [:], completionHandler:completionHandler)
     }
     func cancelBookingByRoomUid(uid: String, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> Void
     {
         return executeAPI(with: "DELETE", apiPath: "Books/ByRoomUid/\(uid)", json: [:], completionHandler:completionHandler)
     }
+    func acceptBookingById(id: Int, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> Void
+    {
+        return executeAPI(with: "POST", apiPath: "Books/Accept/\(id)", json: [:], completionHandler:completionHandler)
+    }
+    func rescheduleBooking(id: Int, bookStartTime: String, bookEndTime: String, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> Void
+    {
+        let json: [String: Any] = [
+            "actorUid": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+            "readerUid": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+            "roomUid": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+            "bookStartTime": bookStartTime,
+            "bookEndTime": bookEndTime,
+            "scriptFile": "string",
+            "isAccept": true,
+            "readerScore": 0,
+            "readerReview": "string",
+            "readerReviewDate": "2023-04-18T17:03:55.098Z"
+        ]
+
+        return executeAPI(with: "POST", apiPath: "Books/Reschedule/\(id)", json: json, completionHandler:completionHandler)
+    }
     func getAvailabilityById(uid: String, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> Void
     {
-        return executeAPI(with: "GET", apiPath: "Availabilities/UpcomingByUid/\(uid)/\(Date.getCurrentDate())", json: [:], completionHandler:completionHandler)
+        return executeAPI(with: "GET", apiPath: "Availabilities/UpcomingByUid/\(uid)/\(Date.getDateString(date: Date()))", json: [:], completionHandler:completionHandler)
     }
     func getLibraryByUid(uid: String, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> Void
     {
@@ -225,7 +320,36 @@ class PerfectSelfWebAPI
         ]
         return executeAPI(with: "POST", apiPath: "Availabilities/", json: json, completionHandler:completionHandler)
     }
+    func giveFeedback(id: Int, score: Float, review: String, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> Void
+    {
+        print("Books/GiveFeedbackToUid/\(id)?score=\(score)&review=\(review)")
+        return executeAPI(with: "PUT", apiPath: "Books/GiveFeedbackToUid/\(id)?score=\(score)&review=\(review)", json: [:], completionHandler:completionHandler)
+    }
     
+    func getChannelHistoryByUid(uid: String, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> Void
+    {
+        return executeAPI(with: "GET", apiPath: "MessageHistory/GetChannelHistory/\(uid)", json: [:], completionHandler:completionHandler)
+    }
+    func getMessageHistoryByRoomId(roomId: String, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> Void
+    {
+        return executeAPI(with: "GET", apiPath: "MessageHistory/GetChatHistory/\(roomId)", json: [:], completionHandler:completionHandler)
+    }
+    func getRoomIdBySendUidAndReceiverUid(sUid: String, rUid: String, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> Void
+    {
+        return executeAPI(with: "GET", apiPath: "MessageHistory/GetRoomId/\(sUid)/\(rUid)", json: [:], completionHandler:completionHandler)
+    }
+    func sendMessage(roomId: String,sUid: String, rUid: String, message: String, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> Void
+    {
+        let json: [String: Any] = [
+            "senderUid": sUid,
+            "receiverUid": rUid,
+            "roomUid": roomId,
+            "sendTime": Date.getDateString(date: Date()),
+            "message": message
+        ]
+        
+        return executeAPI(with: "POST", apiPath: "MessageHistory", json: json, completionHandler:completionHandler)
+    }
     func login() -> Void
     {
         let json: [String: Any] = ["userName": "tester",

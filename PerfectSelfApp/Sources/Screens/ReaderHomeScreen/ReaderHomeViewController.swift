@@ -11,12 +11,10 @@ import WebRTC
 
 class ReaderHomeViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
 
+    var uid = ""
     @IBOutlet weak var switch_mode: UISwitch!
-    
     @IBOutlet weak var bookList: UICollectionView!
     var items = [BookingCard]()
-    //let webRTCClient: WebRTCClient = webRTCClient// = WebRTCClient(iceServers: signalingServerConfig.webRTCIceServers)
-    //let signalClient: SignalingClient = signalClient// = buildSignalingClient()
     let cellsPerRow = 1
     
     override func viewDidLoad() {
@@ -32,6 +30,13 @@ class ReaderHomeViewController: UIViewController, UICollectionViewDataSource, UI
         if let thumb = switch_mode.subviews[0].subviews[1].subviews[2] as? UIImageView {
             thumb.transform = CGAffineTransform(scaleX:1.25, y: 1.333)
         }
+        if let userInfo = UserDefaults.standard.object(forKey: "USER") as? [String:Any] {
+            // Use the saved data
+            uid = userInfo["uid"] as! String
+        } else {
+            // No data was saved
+            print("No data was saved.")
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -39,8 +44,8 @@ class ReaderHomeViewController: UIViewController, UICollectionViewDataSource, UI
         
         //call API to fetch booking list
         showIndicator(sender: nil, viewController: self)
-        let id = UserDefaults.standard.string(forKey: "USER_ID")!
-        webAPI.getBookingsByUid(uid: id) { data, response, error in
+      
+        webAPI.getBookingsByUid(uid: uid, bookType: 1) { data, response, error in
             DispatchQueue.main.async {
                 hideIndicator(sender: nil)
             }
@@ -97,9 +102,6 @@ class ReaderHomeViewController: UIViewController, UICollectionViewDataSource, UI
         let datestart = dateFormatter.date(from: self.items[indexPath.row].bookStartTime)
         let dateend = dateFormatter.date(from: self.items[indexPath.row].bookEndTime)
         
-        print(self.items[indexPath.row].bookStartTime)
-        print(self.items[indexPath.row].bookEndTime)
-        
         let dateFormatter1 = DateFormatter()
         dateFormatter1.dateFormat = "dd MMM, yyyy"
         let dateFormatter2 = DateFormatter()
@@ -109,14 +111,14 @@ class ReaderHomeViewController: UIViewController, UICollectionViewDataSource, UI
         cell.lbl_date.text = dateFormatter1.string(from: datestart ?? Date())
         cell.lbl_time.text = dateFormatter2.string(from: datestart ?? Date()) + "-" + dateFormatter2.string(from: dateend ?? Date())
         
-        cell.layer.masksToBounds = false
-        cell.layer.shadowOffset = CGSizeZero
-        cell.layer.shadowRadius = 8
-        cell.layer.shadowOpacity = 0.2
-        cell.contentView.layer.cornerRadius = 12
-        cell.contentView.layer.borderWidth = 1.0
-        cell.contentView.layer.borderColor = UIColor.clear.cgColor
-        cell.contentView.layer.masksToBounds = true
+//        cell.layer.masksToBounds = false
+//        cell.layer.shadowOffset = CGSizeZero
+//        cell.layer.shadowRadius = 8
+//        cell.layer.shadowOpacity = 0.2
+//        cell.contentView.layer.cornerRadius = 12
+//        cell.contentView.layer.borderWidth = 1.0
+//        cell.contentView.layer.borderColor = UIColor.clear.cgColor
+//        cell.contentView.layer.masksToBounds = true
 //        cell.webRTCClient = webRTCClient
 //        cell.signalClient = signalClient
         cell.navigationController = self.navigationController

@@ -36,8 +36,29 @@ class LoginDetailViewController: UIViewController {
         
         let userEmail = UserDefaults.standard.string(forKey: "USER_EMAIL")
         let userPwd = UserDefaults.standard.string(forKey: "USER_PWD")
+        
         text_email.text = userEmail
         text_password.text = userPwd
+        if let userInfo = UserDefaults.standard.object(forKey: "USER") as? [String:Any] {
+            // Use the saved data
+            let type = userInfo["userType"] as? Int
+            if type == 4 {
+                btn_reader.isSelected = true
+                btn_actor.isSelected = false
+                btn_reader.borderWidth = 3;
+                btn_actor.borderWidth = 0;
+                userType = 4;
+            }
+            else {
+                btn_actor.isSelected = true
+                btn_reader.isSelected = false
+                btn_actor.borderWidth = 3;
+                btn_reader.borderWidth = 0;
+            }
+        } else {
+            // No data was saved
+            print("No data was saved.")
+        }
     }
     
     @IBAction func DoLogin(_ sender: UIButton) {
@@ -79,7 +100,7 @@ class LoginDetailViewController: UIViewController {
             let responseJSON = try? JSONSerialization.jsonObject(with: data, options: [])
            
             if let responseJSON = responseJSON as? [String: Any] {
-                //print(responseJSON["result"])
+//                print(responseJSON["result"] ?? "kkk")
                 guard let result = responseJSON["result"] else {
                     DispatchQueue.main.async {
                         hideIndicator(sender: sender)
@@ -90,14 +111,9 @@ class LoginDetailViewController: UIViewController {
                 }
                 
                 if result as! Bool {
-                    let user = responseJSON["user"] as? [String: Any]
-                    let token = user!["token"] as? String
-                    let uid = user!["uid"] as? String
-                    let username = user!["userName"] as? String
-                    
-//                    print(uid!+"ok")
-//                    print(token!+"test")
-                    
+                    let user = responseJSON["user"] as! [String: Any]
+
+                    UserDefaults.standard.setValue(user, forKey: "USER")
                     DispatchQueue.main.async {
                         hideIndicator(sender: sender)
                         //{{REFME
@@ -108,25 +124,17 @@ class LoginDetailViewController: UIViewController {
                         
                         UserDefaults.standard.set(String(self.text_email.text!), forKey: "USER_EMAIL")
                         UserDefaults.standard.set(String(self.text_password.text!), forKey: "USER_PWD")
-                        UserDefaults.standard.set(uid!, forKey: "USER_ID")
-                        UserDefaults.standard.set(token!, forKey: "USER_TOKEN")
-                        UserDefaults.standard.set(username!, forKey: "USER_NAME")
                         
                         //}}REFME
-                        //signalClient.connect()
                         if self.btn_actor.isSelected {
-                            UserDefaults.standard.set("actor", forKey: "USER_TYPE")
                             let controller = ActorTabBarController();
                             controller.modalPresentationStyle = .fullScreen
                             self.present(controller, animated: false)
-//                            self.navigationController?.pushViewController(controller, animated: true)
                         }
                         else {
-                            UserDefaults.standard.set("reader", forKey: "USER_TYPE")
                             let controller = ReaderTabBarController();
                             controller.modalPresentationStyle = .fullScreen
                             self.present(controller, animated: false)
-//                            self.navigationController?.pushViewController(controller, animated: true)
                         }
                     }
                 }

@@ -30,9 +30,33 @@ enum MessageType {
     case received
 }
 
+struct UserInfo: Codable {
+    let userName: String
+    let userType: Int
+    let avatarBucketName: String?
+    let avatarKey: String?
+    let email: String
+    let password: String?
+    let firstName: String?
+    let lastName: String?
+    let dateOfBirth: String?
+    let gender:Int?
+    let currentAddress: String?
+    let permanentAddress: String?
+    let city: String?
+    let nationality: String?
+    let phoneNumber: String?
+    let isLogin: Bool
+    let token: String?
+    let createdTime: String
+    let updatedTime: String?
+    let deletedTime: String?
+}
 struct ReaderProfileDetail: Codable {
     let uid: String
     let userName: String
+    let avatarBucketName: String
+    let avatarKey: String
     let title: String
     let hourlyPrice: Int
     let others: Int
@@ -48,16 +72,23 @@ struct ReaderProfileCard: Codable {
     let email: String
     let firstName: String
     let lastName: String
+    let avatarBucketName: String?
+    let avatarKey: String?
     let title: String?
     let gender: Int
     let isLogin: Bool
+    let isSponsored: Bool
+    let reviewCount: Int
+    let score: Float
     let hourlyPrice: Int?
+    let isStandBy: Bool?
     let date: String?
-    let from: String?
-    let to: String?
+    let fromTime: String?
+    let toTime: String?
 }
 
 struct BookingCard: Codable {
+    let id: Int
     let roomUid: String
     let actorUid: String
     let readerUid: String
@@ -66,6 +97,11 @@ struct BookingCard: Codable {
     let scriptFile: String
     let bookStartTime: String
     let bookEndTime: String
+    let readerReview: String?
+    let actorBucketName: String?
+    let actorAvatarKey: String?
+    let readerBucketName: String?
+    let readerAvatarKey: String?
 }
 
 struct VideoCard: Codable {
@@ -90,6 +126,36 @@ struct Availability: Codable {
     let deletedTime: String
 }
 
+struct ChatChannel: Codable {
+    let id: Int
+    let senderUid: String
+    let senderName: String
+    let receiverUid: String
+    let receiverName: String
+    let roomUid: String
+    let sendTime: String
+    let hadRead: Bool
+    let message: String
+    let senderAvatarBucket: String?
+    let senderAvatarKey: String?
+    let receiverAvatarBucket: String?
+    let receiverAvatarKey: String?
+    let senderIsOnline: Bool
+    let receiverIsOnline: Bool
+}
+
+struct PerfMessage: Codable {
+    let id: Int
+    let senderUid: String
+    let receiverUid: String
+    let roomUid: String
+    let sendTime: String
+    let hadRead: Bool
+    let message: String
+}
+struct RoomInfo: Codable {
+    let roomUid: String
+}
 //        showAlert(viewController: self, title: "Confirm", message: "Please input") { UIAlertAction in
 //            print("Ok button tapped")
 //        }
@@ -132,7 +198,7 @@ func showIndicator(sender: UIControl?, viewController: UIViewController, color: 
         sender!.isEnabled = false
     }
     backgroundView = UIView()
-    backgroundView!.backgroundColor = UIColor.black.withAlphaComponent(0.0)
+    backgroundView!.backgroundColor = UIColor.black.withAlphaComponent(0.5)
     backgroundView!.frame = viewController.view.bounds
     backgroundView!.autoresizingMask = [.flexibleWidth, .flexibleHeight]
     viewController.view.addSubview(backgroundView!)
@@ -183,4 +249,20 @@ func getDateString() -> String{
     formatter.dateFormat = "yyyy-MM-dd-HHmmss"
     let dateString = formatter.string(from: now)
     return dateString
+}
+
+func getCurrentTime(milisecond: Float64) -> String{
+    let seconds = (UInt) (milisecond / 1000) % 60
+    let  minutes = (UInt) (((UInt)(milisecond / (1000*60))) % 60)
+    let hours   = (UInt) (((UInt)(milisecond / (1000*60*60))) % 24)
+    let curTimeText: String = String.localizedStringWithFormat("%i:%02i:%02i", hours, minutes, seconds)
+    return curTimeText
+}
+
+func getCurrentTime(second: Float64) -> String{
+    let seconds = (UInt)((Int(second)) % 60)
+    let  minutes = (UInt) (((UInt)(second / (1000*60))) % 60)
+    let hours   = (UInt) (((UInt)(second / (1000*60*60))) % 24)
+    let curTimeText: String = String.localizedStringWithFormat("%i:%02i:%02i", hours, minutes, seconds)
+    return curTimeText
 }

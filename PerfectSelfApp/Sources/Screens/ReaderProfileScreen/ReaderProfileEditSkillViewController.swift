@@ -15,8 +15,13 @@ public enum TypeOfAccordianView {
 class ReaderProfileEditSkillViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout{
     var typeOfAccordianView = TypeOfAccordianView.Formal
     
+    @IBOutlet weak var btn_explicit_no: UIButton!
+    @IBOutlet weak var btn_explicit_yes: UIButton!
     @IBOutlet weak var skillView: UIStackView!
     @IBOutlet weak var selectedSkillList: UICollectionView!
+    var isCommercialRead = true
+    var isShortRead = false
+    var isExtendedRead = false
 //    @IBOutlet weak var selectedSkillView: UIStackView!
     var items = [String]()
     let cellsPerRow = 1
@@ -36,7 +41,6 @@ class ReaderProfileEditSkillViewController: UIViewController, UICollectionViewDa
         selectedSkillList.dataSource = self
         selectedSkillList.delegate = self
         selectedSkillList.allowsSelection = true
-    
         
          let accordionView = MKAccordionView(frame: CGRect(x: 0, y: 0, width: skillView.bounds.width, height: skillView.bounds.height-50))
           
@@ -64,11 +68,7 @@ class ReaderProfileEditSkillViewController: UIViewController, UICollectionViewDa
         //
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Skill Cell", for: indexPath) as! SkillCell
         cell.skillName.text = items[indexPath.row]
-        // return card
-//        cell.layer.masksToBounds = false
-//        cell.layer.shadowOffset = CGSizeZero
-//        cell.layer.shadowRadius = 8
-//        cell.layer.shadowOpacity = 0.2
+
         cell.contentView.layer.cornerRadius = 12
         cell.contentView.layer.borderWidth = 0
         cell.contentView.layer.borderColor = UIColor.gray.cgColor
@@ -81,9 +81,19 @@ class ReaderProfileEditSkillViewController: UIViewController, UICollectionViewDa
         // add the code here to perform action on the cell
         items.remove(at: indexPath.row)
         selectedSkillList.reloadData()
-//        let cell = collectionView.cellForItem(at: indexPath) as? LibraryCollectionViewCell
+        let lastItemIndex = selectedSkillList.numberOfItems(inSection: 0) - 1
+        let lastIndexPath = IndexPath(item: lastItemIndex, section: 0)
+        selectedSkillList.scrollToItem(at: lastIndexPath, at: .right, animated: true)
     }
 
+    @IBAction func SelectComfortableWithExplicitRead(_ sender: UIButton) {
+        sender.isSelected = true
+        btn_explicit_no.isSelected = false
+    }
+    @IBAction func SelectNotCamfortableWithExplicitRead(_ sender: UIButton) {
+        sender.isSelected = true
+        btn_explicit_yes.isSelected = false
+    }
     @IBAction func SaveChanges(_ sender: UIButton) {
         let transition = CATransition()
         transition.duration = 0.5 // Set animation duration
@@ -91,6 +101,50 @@ class ReaderProfileEditSkillViewController: UIViewController, UICollectionViewDa
         transition.subtype = CATransitionSubtype.fromLeft // Set transition subtype to from right
         self.view.window?.layer.add(transition, forKey: kCATransition) // Add transition to window layer
         self.dismiss(animated: false)
+    }
+    @IBAction func SelectCommercialRead(_ sender: UIButton) {
+        isCommercialRead = !isCommercialRead
+        
+        if isCommercialRead {
+            sender.backgroundColor = UIColor(rgb: 0x4865FF)
+            sender.setTitleColor(.white, for: .normal)
+            sender.tintColor = .white
+        }
+        else {
+            sender.backgroundColor = UIColor(rgb: 0xFFFFFF)
+            sender.setTitleColor(UIColor(rgb: 0x4865FF), for: .normal)
+            sender.tintColor = UIColor(rgb: 0x4865FF)
+        }
+    }
+    
+    @IBAction func SelectShortRead(_ sender: UIButton) {
+        isShortRead = !isShortRead
+        
+        if isShortRead {
+            sender.backgroundColor = UIColor(rgb: 0x4865FF)
+            sender.setTitleColor(.white, for: .normal)
+            sender.tintColor = .white
+        }
+        else {
+            sender.backgroundColor = UIColor(rgb: 0xFFFFFF)
+            sender.setTitleColor(UIColor(rgb: 0x4865FF), for: .normal)
+            sender.tintColor = UIColor(rgb: 0x4865FF)
+        }
+    }
+    
+    @IBAction func SelectExtendedRead(_ sender: UIButton) {
+        isExtendedRead = !isExtendedRead
+        
+        if isExtendedRead {
+            sender.backgroundColor = UIColor(rgb: 0x4865FF)
+            sender.setTitleColor(.white, for: .normal)
+            sender.tintColor = .white
+        }
+        else {
+            sender.backgroundColor = UIColor(rgb: 0xFFFFFF)
+            sender.setTitleColor(UIColor(rgb: 0x4865FF), for: .normal)
+            sender.tintColor = UIColor(rgb: 0x4865FF)
+        }
     }
     @IBAction func GoBack(_ sender: UIButton) {
         let transition = CATransition()
@@ -181,7 +235,6 @@ extension ReaderProfileEditSkillViewController : MKAccordionViewDelegate {
             arrowImageView.image = UIImage(named: ( sectionOpen ? "close" : "open"))!
             view.addSubview(arrowImageView)
             
-            
             // Title Label
           let titleLabel : UILabel = UILabel(frame: CGRect(x:50, y:0, width: view.bounds.width - 120, height: view.bounds.height ))
             titleLabel.text = headerLabel[section]
@@ -258,6 +311,9 @@ extension ReaderProfileEditSkillViewController : MKAccordionViewDatasource {
         
         items.append(innerLabel[indexPath.section][indexPath.item])
         selectedSkillList.reloadData()
+        let lastItemIndex = selectedSkillList.numberOfItems(inSection: 0) - 1
+        let lastIndexPath = IndexPath(item: lastItemIndex, section: 0)
+        selectedSkillList.scrollToItem(at: lastIndexPath, at: .right, animated: true)
     }
     
     

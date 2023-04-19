@@ -8,167 +8,35 @@
 
 import UIKit
 
-class ReaderProfileEditAvailabilityViewController: UIViewController {
+class ReaderProfileEditAvailabilityViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     var uid : String = ""
-    let backgroundView = UIView()
-    let dateFormatter = DateFormatter()
-    @IBOutlet weak var text_end: UITextField!
-    @IBOutlet weak var text_starttime: UITextField!
-  
-    @IBOutlet weak var modal_time_start: UIView!
-    @IBOutlet weak var modal_time_end: UIView!
     
-    @IBOutlet weak var picker_start_time: UIDatePicker!
-    @IBOutlet weak var picker_end_time: UIDatePicker!
     @IBOutlet weak var picker_date: UIDatePicker!
+    
+    @IBOutlet weak var timeslotList: UICollectionView!
+    var items = ["07:00-09:00", "07:00-09:00", "07:00-09:00", "07:00-09:00", "07:00-09:00", "07:00-09:00"]
+    let cellsPerRow = 1
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        let nib = UINib(nibName: "TempTimeSlotCollectionViewCell", bundle: nil)
+        timeslotList.register(nib, forCellWithReuseIdentifier: "Temp Time Slot Collection View Cell")
+        timeslotList.dataSource = self
+        timeslotList.delegate = self
+        timeslotList.allowsSelection = true
         // Do any additional setup after loading the view.
-        modal_time_start.isHidden = true
-        modal_time_start.alpha = 0
-        modal_time_end.isHidden = true
-        modal_time_end.alpha = 0
-        dateFormatter.dateFormat = "hh:mm a"
     }
-    @IBAction func SelectStartTime(_ sender: UIButton) {
-        
-        backgroundView.backgroundColor = UIColor.black.withAlphaComponent(0.5)
-        backgroundView.frame = view.bounds
-        backgroundView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        view.insertSubview(backgroundView, belowSubview: modal_time_start)
-       
-        modal_time_start.isHidden = false
-        modal_time_start.alpha = 1
-        modal_time_start.transform = CGAffineTransform(scaleX: 0.8, y: 1.2)
-
-//        self.view.addSubview(popupView)
-        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0, options: [],  animations: {
-        //use if you want to darken the background
-          //self.viewDim.alpha = 0.8
-          //go back to original form
-          self.modal_time_start.transform = .identity
-        })
-        
-    }
+ 
     
-    @IBAction func ApplyStartTime(_ sender: UIButton) {
-        UIView.animate(withDuration: 0.3, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0, options: [], animations: {
-         //use if you wish to darken the background
-           //self.viewDim.alpha = 0
-           self.modal_time_start.transform = CGAffineTransform(scaleX: 0.2, y: 0.2)
-
-         }) { (success) in
-             self.text_starttime.text = self.dateFormatter.string(from: self.picker_start_time.date)
-             self.modal_time_start.isHidden = true
-             self.modal_time_start.alpha = 0
-             self.backgroundView.removeFromSuperview()
-         }
+    @IBAction func AddTimeSlot(_ sender: UIButton) {
+        let controller = TimeSelectPopUpViewController()
+        controller.modalPresentationStyle = .overFullScreen
+        self.present(controller, animated: true)
     }
-    @IBAction func CloseStartTime(_ sender: UIButton) {
-        UIView.animate(withDuration: 0.3, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0, options: [], animations: {
-         //use if you wish to darken the background
-           //self.viewDim.alpha = 0
-           self.modal_time_start.transform = CGAffineTransform(scaleX: 0.2, y: 0.2)
-
-         }) { (success) in
-             self.modal_time_start.isHidden = true
-             self.modal_time_start.alpha = 0
-             self.backgroundView.removeFromSuperview()
-         }
-    }
-    @IBAction func SelectEndTime(_ sender: UIButton) {
-        
-        backgroundView.backgroundColor = UIColor.black.withAlphaComponent(0.5)
-        backgroundView.frame = view.bounds
-        backgroundView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        view.insertSubview(backgroundView, belowSubview: modal_time_end)
-       
-        modal_time_end.isHidden = false
-        modal_time_end.alpha = 1
-        modal_time_end.transform = CGAffineTransform(scaleX: 0.8, y: 1.2)
-
-//        self.view.addSubview(popupView)
-        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0, options: [],  animations: {
-        //use if you want to darken the background
-          //self.viewDim.alpha = 0.8
-          //go back to original form
-          self.modal_time_end.transform = .identity
-        })
-    }
-    @IBAction func ApplyEndTime(_ sender: UIButton) {
-        UIView.animate(withDuration: 0.3, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0, options: [], animations: {
-         //use if you wish to darken the background
-           //self.viewDim.alpha = 0
-           self.modal_time_end.transform = CGAffineTransform(scaleX: 0.2, y: 0.2)
-
-         }) { (success) in
-             self.text_end.text = self.dateFormatter.string(from: self.picker_end_time.date)
-             self.modal_time_end.isHidden = true
-             self.modal_time_end.alpha = 0
-             self.backgroundView.removeFromSuperview()
-         }
-    }
-    @IBAction func CloseEndTime(_ sender: UIButton) {
-        UIView.animate(withDuration: 0.3, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0, options: [], animations: {
-         //use if you wish to darken the background
-           //self.viewDim.alpha = 0
-           self.modal_time_end.transform = CGAffineTransform(scaleX: 0.2, y: 0.2)
-
-         }) { (success) in
-             self.modal_time_end.isHidden = true
-             self.modal_time_end.alpha = 0
-             self.backgroundView.removeFromSuperview()
-         }
-    }
+ 
     @IBAction func SaveChanges(_ sender: UIButton) {
-        // call API to add new availability
-        var inputCheck: String = ""
-        var focusTextField: UITextField? = nil
-        if(text_starttime.text!.isEmpty){
-            inputCheck += "- Please set start time.\n"
-            if(focusTextField == nil){
-                focusTextField = text_starttime
-            }
-        }
-        
-        if(text_end.text!.isEmpty){
-            inputCheck += "- Please set end time.\n"
-            if(focusTextField == nil){
-                focusTextField = text_end
-            }
-        }
-        
-        if(!inputCheck.isEmpty){
-            showAlert(viewController: self, title: "Confirm", message: inputCheck) { UIAlertAction in
-                focusTextField!.becomeFirstResponder()
-            }
-            return
-        }
-        showIndicator(sender: nil, viewController: self)
-//        let uid = UserDefaults.standard.string(forKey: "USER_ID")!
-        let df = DateFormatter()
-        df.dateFormat = "yyyy-MM-dd'T'HH:mm:ss'Z'"
-//        print(df.string(from: picker_date.date))
-        webAPI.addAvailability(uid: uid, date: df.string(from: picker_date.date), fromTime: df.string(from: picker_start_time.date), toTime: df.string(from: picker_end_time.date)) { data, response, error in
-            DispatchQueue.main.async {
-                hideIndicator(sender: nil);
-            }
-            guard let _ = data, error == nil else {
-                print(error?.localizedDescription ?? "No data")
-                return
-            }
-            DispatchQueue.main.async {
-//                Toast.show(message: "Successfully added new time slot", controller: self)
-                let transition = CATransition()
-                transition.duration = 0.5 // Set animation duration
-                transition.type = CATransitionType.push // Set transition type to push
-                transition.subtype = CATransitionSubtype.fromLeft // Set transition subtype to from right
-                self.view.window?.layer.add(transition, forKey: kCATransition) // Add transition to window layer
-                self.dismiss(animated: false)
-            }
-        }
-        
+       
         
     }
     @IBAction func GoBack(_ sender: UIButton) {
@@ -176,10 +44,47 @@ class ReaderProfileEditAvailabilityViewController: UIViewController {
         transition.duration = 0.5 // Set animation duration
         transition.type = CATransitionType.push // Set transition type to push
         transition.subtype = CATransitionSubtype.fromLeft // Set transition subtype to from right
-        self.view.window?.layer.add(transition, forKey: kCATransition) // Add transition to window layer
+        self.view.window?.layer.add(transition, forKey: kCATransition) //  Add transition to window layer
         self.dismiss(animated: true)
     }
+    // MARK: - Time Slot List Delegate.
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+         // myData is the array of items
+        return self.items.count
+    }
     
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let flowLayout = collectionViewLayout as! UICollectionViewFlowLayout
+        let totalSpace = flowLayout.sectionInset.top
+        + flowLayout.sectionInset.bottom
+        + (flowLayout.minimumLineSpacing * CGFloat(cellsPerRow - 1))
+        let size = Int((collectionView.bounds.width - totalSpace) / CGFloat(cellsPerRow))
+        return CGSize(width: size, height: 50)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        //
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Temp Time Slot Collection View Cell", for: indexPath) as! TempTimeSlotCollectionViewCell
+
+        cell.timeslot.text = items[indexPath.row]
+        // return card
+//        cell.layer.masksToBounds = false
+//        cell.layer.shadowOffset = CGSizeZero
+//        cell.layer.shadowRadius = 8
+//        cell.layer.shadowOpacity = 0.2
+//        cell.contentView.layer.cornerRadius = 12
+//        cell.contentView.layer.borderWidth = 1.0
+//        cell.contentView.layer.borderColor = UIColor.gray.cgColor
+//        cell.contentView.layer.masksToBounds = true
+        
+        return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        // add the code here to perform action on the cell
+        print("didDeselectItemAt")
+//        let cell = collectionView.cellForItem(at: indexPath) as? LibraryCollectionViewCell
+    }
     /*
     // MARK: - Navigation
 

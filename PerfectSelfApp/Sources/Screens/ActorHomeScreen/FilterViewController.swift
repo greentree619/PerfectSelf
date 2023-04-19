@@ -21,27 +21,33 @@ class FilterViewController: UIViewController, SelectDateDelegate {
     
     var isAvailableSoon = false
     var isOnline = true
-    var is15TimeSlot = true
-    var is30TimeSlot = false
-    var is30PlusTimeSlot = false
-    var isStandBy = false
+    var timeSlotType = 0
     var isCommercialRead = true
     var isShortRead = false
     var isExtendedRead = false
     var isDateSelected = false
     var fromDate = Date()
     var toDate = Date()
+    var isMaleSelected = false
+    var isFemaleSelected = false
+    var isExplicitRead = false
     
     var parentUIViewController : UIViewController?
     
+    @IBOutlet weak var btn_standby: UIButton!
+    @IBOutlet weak var btn_45min: UIButton!
+    @IBOutlet weak var btn_30min: UIButton!
+    @IBOutlet weak var btn_15min: UIButton!
     @IBOutlet weak var sliderView: UIStackView!
     @IBOutlet weak var text_date_range: UITextField!
+    
+    var rangeSlider : RangeSeekSlider = RangeSeekSlider(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
         
-        let rangeSlider = RangeSeekSlider(frame: CGRect(x: 0, y: 0, width: sliderView.frame.width, height: sliderView.frame.height))
+        rangeSlider = RangeSeekSlider(frame: CGRect(x: 0, y: 0, width: sliderView.frame.width, height: sliderView.frame.height))
         sliderView.addSubview(rangeSlider)
         rangeSlider.minValue = 0
         rangeSlider.maxValue = 100
@@ -67,20 +73,38 @@ class FilterViewController: UIViewController, SelectDateDelegate {
     }
     @IBAction func ApplyFilter(_ sender: UIButton) {
         
-//        let controller = ActorFindReaderViewController()
-//        self.navigationController?.pushViewController(controller, animated: true)
         self.dismiss(animated: true) {
-            print("ok")
             let controller = ActorFindReaderViewController()
+            
+            controller.isAvailableSoon = self.isAvailableSoon
+            controller.isOnline = self.isOnline
+            controller.timeSlotType = self.timeSlotType
+            controller.isDateSelected = self.isDateSelected
+            controller.fromDate = self.fromDate
+            controller.toDate = self.toDate
+            controller.minPrice = Float(self.rangeSlider.minValue)
+            controller.maxPrice = Float(self.rangeSlider.maxValue)
+            if (self.isMaleSelected && self.isFemaleSelected) || (!self.isMaleSelected && !self.isFemaleSelected) {
+                controller.gender = -1
+            }
+            else {
+                controller.gender = self.isMaleSelected ? 0 : 1
+            }
+            controller.isCommercialRead = self.isCommercialRead
+            controller.isShortRead = self.isShortRead
+            controller.isExtendedRead = self.isExtendedRead
+            controller.isComfortableWithExplicitRead = self.isExplicitRead
             
             self.parentUIViewController?.navigationController?.pushViewController(controller, animated: true)
         }
     }
     @IBAction func SelectMale(_ sender: UIButton) {
         sender.isSelected = !sender.isSelected
+        isMaleSelected = !isMaleSelected
     }
     @IBAction func SelectFemale(_ sender: UIButton) {
         sender.isSelected = !sender.isSelected
+        isFemaleSelected = !isFemaleSelected
     }
     
     @IBAction func CloseFilterModal(_ sender: UIButton) {
@@ -116,59 +140,55 @@ class FilterViewController: UIViewController, SelectDateDelegate {
     }
     
     @IBAction func Select15TimeSlot(_ sender: UIButton) {
-        is15TimeSlot = !is15TimeSlot
+        timeSlotType = 0
+        sender.backgroundColor = UIColor(rgb: 0x4865FF)
+        sender.setTitleColor(.white, for: .normal)
         
-        if is15TimeSlot {
-            sender.backgroundColor = UIColor(rgb: 0x4865FF)
-            sender.setTitleColor(.white, for: .normal)
-            
-        }
-        else {
-            sender.backgroundColor = UIColor(rgb: 0xFFFFFF)
-            sender.setTitleColor(UIColor(rgb: 0x4865FF), for: .normal)
-        }
+        btn_30min.backgroundColor = UIColor(rgb: 0xFFFFFF)
+        btn_30min.setTitleColor(UIColor(rgb: 0x4865FF), for: .normal)
+        btn_45min.backgroundColor = UIColor(rgb: 0xFFFFFF)
+        btn_45min.setTitleColor(UIColor(rgb: 0x4865FF), for: .normal)
+        btn_standby.backgroundColor = UIColor(rgb: 0xFFFFFF)
+        btn_standby.setTitleColor(UIColor(rgb: 0x4865FF), for: .normal)
     }
     
     @IBAction func Select30TimeSlot(_ sender: UIButton) {
-        is30TimeSlot = !is30TimeSlot
+        timeSlotType = 1
+        sender.backgroundColor = UIColor(rgb: 0x4865FF)
+        sender.setTitleColor(.white, for: .normal)
         
-        if is30TimeSlot {
-            sender.backgroundColor = UIColor(rgb: 0x4865FF)
-            sender.setTitleColor(.white, for: .normal)
-            
-        }
-        else {
-            sender.backgroundColor = UIColor(rgb: 0xFFFFFF)
-            sender.setTitleColor(UIColor(rgb: 0x4865FF), for: .normal)
-        }
+        btn_15min.backgroundColor = UIColor(rgb: 0xFFFFFF)
+        btn_15min.setTitleColor(UIColor(rgb: 0x4865FF), for: .normal)
+        btn_45min.backgroundColor = UIColor(rgb: 0xFFFFFF)
+        btn_45min.setTitleColor(UIColor(rgb: 0x4865FF), for: .normal)
+        btn_standby.backgroundColor = UIColor(rgb: 0xFFFFFF)
+        btn_standby.setTitleColor(UIColor(rgb: 0x4865FF), for: .normal)
     }
     
-    @IBAction func Select30OverTimeSlot(_ sender: UIButton) {
-        is30PlusTimeSlot = !is30PlusTimeSlot
+    @IBAction func Select45OverTimeSlot(_ sender: UIButton) {
+        timeSlotType = 2
+        sender.backgroundColor = UIColor(rgb: 0x4865FF)
+        sender.setTitleColor(.white, for: .normal)
         
-        if is30PlusTimeSlot {
-            sender.backgroundColor = UIColor(rgb: 0x4865FF)
-            sender.setTitleColor(.white, for: .normal)
-            
-        }
-        else {
-            sender.backgroundColor = UIColor(rgb: 0xFFFFFF)
-            sender.setTitleColor(UIColor(rgb: 0x4865FF), for: .normal)
-        }
+        btn_15min.backgroundColor = UIColor(rgb: 0xFFFFFF)
+        btn_15min.setTitleColor(UIColor(rgb: 0x4865FF), for: .normal)
+        btn_30min.backgroundColor = UIColor(rgb: 0xFFFFFF)
+        btn_30min.setTitleColor(UIColor(rgb: 0x4865FF), for: .normal)
+        btn_standby.backgroundColor = UIColor(rgb: 0xFFFFFF)
+        btn_standby.setTitleColor(UIColor(rgb: 0x4865FF), for: .normal)
     }
     
     @IBAction func SelectStandByTimeSlot(_ sender: UIButton) {
-        isStandBy = !isStandBy
+        timeSlotType = 3
+        sender.backgroundColor = UIColor(rgb: 0x4865FF)
+        sender.setTitleColor(.white, for: .normal)
         
-        if isStandBy {
-            sender.backgroundColor = UIColor(rgb: 0x4865FF)
-            sender.setTitleColor(.white, for: .normal)
-            
-        }
-        else {
-            sender.backgroundColor = UIColor(rgb: 0xFFFFFF)
-            sender.setTitleColor(UIColor(rgb: 0x4865FF), for: .normal)
-        }
+        btn_15min.backgroundColor = UIColor(rgb: 0xFFFFFF)
+        btn_15min.setTitleColor(UIColor(rgb: 0x4865FF), for: .normal)
+        btn_30min.backgroundColor = UIColor(rgb: 0xFFFFFF)
+        btn_30min.setTitleColor(UIColor(rgb: 0x4865FF), for: .normal)
+        btn_45min.backgroundColor = UIColor(rgb: 0xFFFFFF)
+        btn_45min.setTitleColor(UIColor(rgb: 0x4865FF), for: .normal)
     }
     
     @IBAction func SelectCommercialRead(_ sender: UIButton) {
@@ -214,6 +234,11 @@ class FilterViewController: UIViewController, SelectDateDelegate {
             sender.setTitleColor(UIColor(rgb: 0x4865FF), for: .normal)
             sender.tintColor = UIColor(rgb: 0x4865FF)
         }
+    }
+    
+    @IBAction func SelectExplicitRead(_ sender: UIButton) {
+        sender.isSelected = !sender.isSelected
+        isExplicitRead = !isExplicitRead
     }
     /*
     // MARK: - Navigation
