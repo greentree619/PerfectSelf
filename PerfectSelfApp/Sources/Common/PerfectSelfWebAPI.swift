@@ -330,6 +330,26 @@ class PerfectSelfWebAPI
     {
         return executeAPI(with: "GET", apiPath: "MessageHistory/GetChannelHistory/\(uid)", json: [:], completionHandler:completionHandler)
     }
+    func getMessageHistoryByRoomId(roomId: String, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> Void
+    {
+        return executeAPI(with: "GET", apiPath: "MessageHistory/GetChatHistory/\(roomId)", json: [:], completionHandler:completionHandler)
+    }
+    func getRoomIdBySendUidAndReceiverUid(sUid: String, rUid: String, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> Void
+    {
+        return executeAPI(with: "GET", apiPath: "MessageHistory/GetRoomId/\(sUid)/\(rUid)", json: [:], completionHandler:completionHandler)
+    }
+    func sendMessage(roomId: String,sUid: String, rUid: String, message: String, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> Void
+    {
+        let json: [String: Any] = [
+            "senderUid": sUid,
+            "receiverUid": rUid,
+            "roomUid": roomId,
+            "sendTime": Date.getDateString(date: Date()),
+            "message": message
+        ]
+        
+        return executeAPI(with: "POST", apiPath: "MessageHistory", json: json, completionHandler:completionHandler)
+    }
     func login() -> Void
     {
         let json: [String: Any] = ["userName": "tester",

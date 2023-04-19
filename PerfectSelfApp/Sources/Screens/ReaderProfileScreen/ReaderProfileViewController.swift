@@ -149,7 +149,6 @@ class ReaderProfileViewController: UIViewController, UICollectionViewDataSource,
                         catch {
                             DispatchQueue.main.async {
                                 Toast.show(message: "Something went wrong. try again later", controller: self)
-                                print("here")
                             }
                         }
                     }

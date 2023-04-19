@@ -59,13 +59,11 @@ class MessageCenterViewController: UIViewController, UICollectionViewDataSource,
                 return
             }
             do {
-                let respItems = try JSONDecoder().decode([ChatChannel ].self, from: data)
+                let respItems = try JSONDecoder().decode([ChatChannel].self, from: data)
                 //print(items)
                 DispatchQueue.main.async {
                     self.items.removeAll()
                     self.items.append(contentsOf: respItems)
- //                    for (i, reader) in items.enumerated() {
- //                    }
                     self.chatCardList.reloadData()
                 }
 
@@ -89,7 +87,7 @@ class MessageCenterViewController: UIViewController, UICollectionViewDataSource,
             + flowLayout.sectionInset.right
             + (flowLayout.minimumInteritemSpacing * CGFloat(cellsPerRow - 1))
         let size = Int((collectionView.bounds.width - totalSpace) / CGFloat(cellsPerRow))
-        return CGSize(width: size, height: 120)
+        return CGSize(width: size, height: 80)
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {

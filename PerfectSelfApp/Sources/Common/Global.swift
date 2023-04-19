@@ -144,6 +144,18 @@ struct ChatChannel: Codable {
     let receiverIsOnline: Bool
 }
 
+struct PerfMessage: Codable {
+    let id: Int
+    let senderUid: String
+    let receiverUid: String
+    let roomUid: String
+    let sendTime: String
+    let hadRead: Bool
+    let message: String
+}
+struct RoomInfo: Codable {
+    let roomUid: String
+}
 //        showAlert(viewController: self, title: "Confirm", message: "Please input") { UIAlertAction in
 //            print("Ok button tapped")
 //        }

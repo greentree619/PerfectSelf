@@ -19,6 +19,7 @@ class BookingCollectionViewCell: UICollectionViewCell {
     public var name: String!
     public var uid: String!
     
+    public var muid: String!
     public var review: String?
     public var bookType:Int = 1
     public var id: Int!
@@ -37,8 +38,6 @@ class BookingCollectionViewCell: UICollectionViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
-      
-        
     }
     override func layoutSubviews() {
         super.layoutSubviews()
@@ -149,14 +148,33 @@ class BookingCollectionViewCell: UICollectionViewCell {
     }
     
     @IBAction func SendMessage(_ sender: UIButton) {
-        let controller = ChatViewController(roomUid: self.roomUid!, url: url, name: name, uid: uid)
-        controller.modalPresentationStyle = .fullScreen
-        let transition = CATransition()
-        transition.duration = 0.5 // Set animation duration
-        transition.type = CATransitionType.push // Set transition type to push
-        transition.subtype = CATransitionSubtype.fromRight // Set transition subtype to from right
-        self.parentViewController!.view.window?.layer.add(transition, forKey: kCATransition) // Add transition to window layer
-        self.parentViewController!.present(controller, animated: false)
+        //get roomuid from uid and muid
+        showIndicator(sender: nil, viewController: self.parentViewController!)
+        webAPI.getRoomIdBySendUidAndReceiverUid(sUid: muid, rUid: uid) { data, response, error in
+            DispatchQueue.main.async {
+                hideIndicator(sender: nil)
+            }
+            guard let data = data, error == nil else {
+                print(error?.localizedDescription ?? "No data")
+                return
+            }
+            do {
+                let res = try JSONDecoder().decode(RoomInfo.self, from: data)
+                print(res.roomUid)
+                DispatchQueue.main.async {
+                    let controller = ChatViewController(roomUid: res.roomUid, url: self.url, name: self.name, uid: self.uid)
+                    controller.modalPresentationStyle = .fullScreen
+                    let transition = CATransition()
+                    transition.duration = 0.5 // Set animation duration
+                    transition.type = CATransitionType.push // Set transition type to push
+                    transition.subtype = CATransitionSubtype.fromRight // Set transition subtype to from right
+                    self.parentViewController!.view.window?.layer.add(transition, forKey: kCATransition) // Add transition to window layer
+                    self.parentViewController!.present(controller, animated: false)
+                }
+            } catch {
+                print(error)
+            }
+        }
     }
     
     @IBAction func CancelBooking(_ sender: UIButton) {

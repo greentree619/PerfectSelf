@@ -10,16 +10,14 @@ import UIKit
 import WebRTC
 import os.log
 
-struct CustomMessage {
-    let text: String
-    let type: MessageType
-}
 class ChatViewController: KUIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     private var url: String?
     private var name: String
     private var uid: String
     private var roomUid: String
     
+    var muid = ""
+    var mname = ""
     @IBOutlet weak var lbl_name: UILabel!
     @IBOutlet weak var img_avatar: UIImageView!
     @IBOutlet weak var modal_confirm_call: UIStackView!
@@ -28,7 +26,7 @@ class ChatViewController: KUIViewController, UICollectionViewDataSource, UIColle
     @IBOutlet weak var messageCollectionView: UICollectionView!
     @IBOutlet weak var messageTextField: UITextField!
 
-    var messages: [CustomMessage] = []
+    var messages: [PerfMessage] = []
     let cellsPerRow = 1
     private var signalClient: SignalingClient
     private var webRTCClient: WebRTCClient
@@ -88,11 +86,46 @@ class ChatViewController: KUIViewController, UICollectionViewDataSource, UIColle
         
         self.webRTCClient.speakerOn()
         self.signalClient.sendRoomId(roomId: self.roomUid)
+        if let userInfo = UserDefaults.standard.object(forKey: "USER") as? [String:Any] {
+            // Use the saved data
+            muid = userInfo["uid"] as! String
+            mname = userInfo["userName"] as! String
+        } else {
+            // No data was saved
+            print("No data was saved.")
+        }
         fetchChatHistory()
     }
     func fetchChatHistory() {
         // call API for chat history
-        
+        showIndicator(sender: nil, viewController: self)
+        webAPI.getMessageHistoryByRoomId(roomId: roomUid) { data, response, error in
+            DispatchQueue.main.async {
+                hideIndicator(sender: nil)
+            }
+            guard let data = data, error == nil else {
+                print(error?.localizedDescription ?? "No data")
+                DispatchQueue.main.async {
+                    Toast.show(message: "error while fetch chat history. try again later", controller: self)
+                }
+                return
+            }
+            do {
+                let items = try JSONDecoder().decode([PerfMessage].self, from: data)
+                print(items)
+                DispatchQueue.main.async {
+                    self.noMessage.isHidden = !(items.count == 0)
+                    self.messages.removeAll()
+                    self.messages.append(contentsOf: items)
+                    self.messageCollectionView.reloadData()
+                }
+            }
+            catch {
+                DispatchQueue.main.async {
+                    Toast.show(message: "Something went wrong. try again later", controller: self)
+                }
+            }
+        }
     }
     @IBAction func SendMessage(_ sender: UIButton) {
         
@@ -101,8 +134,8 @@ class ChatViewController: KUIViewController, UICollectionViewDataSource, UIColle
         }
         noMessage.isHidden = true;
         messageTextField.text = ""
-        let message = CustomMessage(text: text, type: .sent)// Create a new message object
-        messages.append(message) // Add the new message to the messages array
+        let message = PerfMessage(id: 0, senderUid: muid, receiverUid: uid, roomUid: roomUid, sendTime: Date.getDateString(date: Date()), hadRead: false, message: text)
+        messages.append(message)
 
         messageCollectionView.reloadData() // Refresh the table view to display the new message
         // Scroll to the last item in collection view
@@ -114,7 +147,15 @@ class ChatViewController: KUIViewController, UICollectionViewDataSource, UIColle
         
         // TODO: Send the message to the server or save it to local storage
         // call API for message save
-        
+        webAPI.sendMessage(roomId: roomUid, sUid: muid, rUid: uid, message: text) { data, response, error in
+            guard let _ = data, error == nil else {
+                print(error?.localizedDescription ?? "No data")
+                DispatchQueue.main.async {
+                    Toast.show(message: "error while fetch chat history. try again later", controller: self)
+                }
+                return
+            }
+        }
     }
     // MARK: - Message List Delegate.
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -129,7 +170,7 @@ class ChatViewController: KUIViewController, UICollectionViewDataSource, UIColle
             + (flowLayout.minimumInteritemSpacing * CGFloat(cellsPerRow - 1))
         let size = (collectionView.bounds.width - totalSpace) / CGFloat(cellsPerRow)
         
-        let messageText = messages[indexPath.row].text
+        let messageText = messages[indexPath.row].message
         let messageTextHeight = messageText.height(withConstrainedWidth: size-20, font: UIFont.systemFont(ofSize: 14))
         
         let totalHeight = messageTextHeight + 16 // add 56 for the height of the profile image and padding
@@ -141,8 +182,8 @@ class ChatViewController: KUIViewController, UICollectionViewDataSource, UIColle
         //
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Message Cell", for: indexPath) as! MessageCell
 //        cell.lbl_unviewednum.text = self.messages[indexPath.row];
-        cell.messageLabel.text = self.messages[indexPath.row].text
-        cell.messageType = self.messages[indexPath.row].type
+        cell.messageLabel.text = self.messages[indexPath.row].message
+        cell.messageType = self.messages[indexPath.row].senderUid == uid ? .received : .sent
         // return card
 //        cell.layer.masksToBounds = false
 //        cell.layer.shadowOffset = CGSizeZero
@@ -323,7 +364,7 @@ extension ChatViewController: WebRTCClientDelegate {
     func webRTCClient(_ client: WebRTCClient, didReceiveData data: Data) {
         DispatchQueue.main.async {
             let message = String(data: data, encoding: .utf8) ?? "(Binary: \(data.count) bytes)"
-            let messageWrap = CustomMessage(text: message, type: .received)// Create a new message object
+            let messageWrap = PerfMessage(id: 0, senderUid: self.uid, receiverUid: self.muid, roomUid: self.roomUid, sendTime: Date.getDateString(date: Date()), hadRead: false, message: message)
             self.messages.append(messageWrap) // Add the new message to the messages array
             self.messageCollectionView.reloadData() // Refresh the table view to display the new message
         }

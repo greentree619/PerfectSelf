@@ -118,6 +118,14 @@ class ReaderBookingViewController: UIViewController, UICollectionViewDataSource,
         
         cell.bookType = bookType
         cell.readerType = "reader"
+        cell.name = self.items[indexPath.row].actorName
+        cell.uid = self.items[indexPath.row].actorUid
+        cell.muid = self.items[indexPath.row].readerUid
+        var url: String?
+        if self.items[indexPath.row].actorBucketName != nil {
+            url = "https://perfectself-avatar-bucket.s3.us-east-2.amazonaws.com/\(self.items[indexPath.row].actorBucketName!)/\(self.items[indexPath.row].actorAvatarKey!)"
+        }
+        cell.url = url
         cell.review = self.items[indexPath.row].readerReview
    
         cell.id = self.items[indexPath.row].id
