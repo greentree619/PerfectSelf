@@ -14,7 +14,6 @@ class ActorFindReaderViewController: UIViewController , UICollectionViewDataSour
         fetchReaderList()
     }
     
-
     var isAvailableSoon = false
     var isOnline = false
     var timeSlotType = -1
@@ -106,6 +105,11 @@ class ActorFindReaderViewController: UIViewController , UICollectionViewDataSour
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         //
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Reader Collection View Cell", for: indexPath) as! ReaderCollectionViewCell
+        
+        if self.items[indexPath.row].avatarBucketName != nil {
+            let url = "https://perfectself-avatar-bucket.s3.us-east-2.amazonaws.com/\( self.items[indexPath.row].avatarBucketName!)/\( self.items[indexPath.row].avatarKey!)"
+            cell.readerAvatar.imageFrom(url: URL(string: url)!)
+        }
         cell.readerName.text = self.items[indexPath.row].userName;
         cell.salary.text = "$" + String((self.items[indexPath.row].hourlyPrice ?? 0)/4)
         cell.score.text = String(self.items[indexPath.row].score)
