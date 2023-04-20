@@ -9,8 +9,9 @@
 import UIKit
 import RangeSeekSlider
 
-class ActorHomeViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout
+class ActorHomeViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UITextFieldDelegate
 {
+    @IBOutlet weak var searchField: UITextField!
     @IBOutlet weak var readerList: UICollectionView!
     
     @IBOutlet weak var spin: UIActivityIndicatorView!
@@ -26,6 +27,7 @@ class ActorHomeViewController: UIViewController, UICollectionViewDataSource, UIC
     var isSponsored = true
     var isAvailableSoon = false
     var isTopRated = false
+    var searchString = ""
     
     var items = [ReaderProfileCard]()
     
@@ -56,14 +58,24 @@ class ActorHomeViewController: UIViewController, UICollectionViewDataSource, UIC
             // No data was saved
             print("No data was saved.")
         }
+      
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
         
+        fetchReaderList()
+        //call API for badge appear
+    }
+    
+    @IBAction func didSearchStringChanged(_ sender: UITextField) {
+        searchString = sender.text ?? ""
         fetchReaderList()
     }
     func fetchReaderList() {
         spin.isHidden = false
         spin.startAnimating()
         // call API to fetch reader list
-        webAPI.getReaders(readerName: nil,isSponsored: isSponsored, isAvailableSoon: isAvailableSoon,isTopRated: isTopRated, isOnline: nil, availableTimeSlotType: nil, availableFrom: nil, availableTo: nil, minPrice: nil, maxPrice: nil, gender: nil, sortBy: nil) { data, response, error in
+        webAPI.getReaders(readerName: searchString,isSponsored: isSponsored, isAvailableSoon: isAvailableSoon,isTopRated: isTopRated, isOnline: nil, availableTimeSlotType: nil, availableFrom: nil, availableTo: nil, minPrice: nil, maxPrice: nil, gender: nil, sortBy: nil) { data, response, error in
             DispatchQueue.main.async {
                 self.spin.stopAnimating()
                 self.spin.isHidden = true
@@ -91,6 +103,8 @@ class ActorHomeViewController: UIViewController, UICollectionViewDataSource, UIC
             }
         }
     }
+    
+
     // MARK: - Reader List Delegate.
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
          // myData is the array of items

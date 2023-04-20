@@ -29,7 +29,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="eHX-7G-XvN">
-                    <rect key="frame" x="0.0" y="59" width="393" height="759"/>
+                    <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                     <subviews>
                         <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="WNG-1o-qq0">
                             <rect key="frame" x="0.0" y="0.0" width="393" height="50"/>
@@ -194,6 +194,9 @@
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                             <textInputTraits key="textInputTraits"/>
+                                            <connections>
+                                                <action selector="didSearchStringChanged:" destination="-1" eventType="editingChanged" id="eYo-v7-FW2"/>
+                                            </connections>
                                         </textField>
                                         <button opaque="NO" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2vX-sL-E8T">
                                             <rect key="frame" x="309" y="0.0" width="44" height="40"/>
@@ -347,10 +350,10 @@
                             <edgeInsets key="layoutMargins" top="0.0" left="20" bottom="0.0" right="20"/>
                         </stackView>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kaT-Gz-mPy">
-                            <rect key="frame" x="0.0" y="265" width="393" height="494"/>
+                            <rect key="frame" x="0.0" y="265" width="393" height="587"/>
                             <subviews>
                                 <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="JU1-QJ-Xxa">
-                                    <rect key="frame" x="0.0" y="0.0" width="393" height="494"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="393" height="587"/>
                                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                     <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="20" minimumInteritemSpacing="10" id="gkZ-Sc-3E3">
                                         <size key="itemSize" width="128" height="128"/>
@@ -360,7 +363,7 @@
                                     </collectionViewFlowLayout>
                                 </collectionView>
                                 <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="TvA-8H-NFz">
-                                    <rect key="frame" x="0.0" y="0.0" width="393" height="494"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="393" height="587"/>
                                 </activityIndicatorView>
                             </subviews>
                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>

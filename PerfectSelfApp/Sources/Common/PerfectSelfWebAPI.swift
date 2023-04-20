@@ -344,11 +344,14 @@ class PerfectSelfWebAPI
             "senderUid": sUid,
             "receiverUid": rUid,
             "roomUid": roomId,
-            "sendTime": Date.getDateString(date: Date()),
             "message": message
         ]
         
         return executeAPI(with: "POST", apiPath: "MessageHistory", json: json, completionHandler:completionHandler)
+    }
+    func updateOnlineState(uid: String, newState: Bool, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> Void
+    {
+        return executeAPI(with: "PUT", apiPath: "Users/ChangeOnline/\(uid)?state=\(newState)", json: [:], completionHandler:completionHandler)
     }
     func login() -> Void
     {
