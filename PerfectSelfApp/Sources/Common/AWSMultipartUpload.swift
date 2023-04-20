@@ -185,7 +185,7 @@ class AWSMultipartUpload: NSObject, URLSessionTaskDelegate, URLSessionDataDelega
         expression.setValue("public-read-write", forRequestParameter: "x-amz-acl")
         
         //5
-        AWSS3TransferUtility.default().uploadFile(filePath, bucket: bucketName, key: "\(prefix)/\(String(filePath.lastPathComponent))", contentType: self.contentType, expression: expression) { (task:AWSS3TransferUtilityUploadTask, err:Error?) -> Void in
+        AWSS3TransferUtility.default().uploadFile(filePath, bucket: bucketName, key: "intro-video/\(prefix)/\(String(filePath.lastPathComponent))", contentType: self.contentType, expression: expression) { (task:AWSS3TransferUtilityUploadTask, err:Error?) -> Void in
             if(err != nil){
                 print("Failure uploading file")
                 

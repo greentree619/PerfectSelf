@@ -60,6 +60,8 @@
 		47BC09BF29C5B44700B8F2C5 /* ActorBuildProfile2ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 47BC09BD29C5B44700B8F2C5 /* ActorBuildProfile2ViewController.xib */; };
 		47BC09C229C5B46800B8F2C5 /* ActorBuildProfile3ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47BC09C029C5B46800B8F2C5 /* ActorBuildProfile3ViewController.swift */; };
 		47BC09C329C5B46800B8F2C5 /* ActorBuildProfile3ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 47BC09C129C5B46800B8F2C5 /* ActorBuildProfile3ViewController.xib */; };
+		47C58E9B29F0C2D10047C074 /* ReviewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47C58E9929F0C2D10047C074 /* ReviewCell.swift */; };
+		47C58E9C29F0C2D10047C074 /* ReviewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 47C58E9A29F0C2D10047C074 /* ReviewCell.xib */; };
 		47C9731529DC1DB500468E11 /* Madrigal.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 47C9731329DC1DB500468E11 /* Madrigal.ttf */; };
 		47C9731629DC1DB500468E11 /* Licencia de uso gratuito.txt in Resources */ = {isa = PBXBuildFile; fileRef = 47C9731429DC1DB500468E11 /* Licencia de uso gratuito.txt */; };
 		47C9732F29DC1E5A00468E11 /* Raleway-Italic-VariableFont_wght.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 47C9731829DC1E5A00468E11 /* Raleway-Italic-VariableFont_wght.ttf */; };
@@ -276,6 +278,8 @@
 		47BC09BD29C5B44700B8F2C5 /* ActorBuildProfile2ViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ActorBuildProfile2ViewController.xib; sourceTree = "<group>"; };
 		47BC09C029C5B46800B8F2C5 /* ActorBuildProfile3ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActorBuildProfile3ViewController.swift; sourceTree = "<group>"; };
 		47BC09C129C5B46800B8F2C5 /* ActorBuildProfile3ViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ActorBuildProfile3ViewController.xib; sourceTree = "<group>"; };
+		47C58E9929F0C2D10047C074 /* ReviewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewCell.swift; sourceTree = "<group>"; };
+		47C58E9A29F0C2D10047C074 /* ReviewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ReviewCell.xib; sourceTree = "<group>"; };
 		47C9731329DC1DB500468E11 /* Madrigal.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Madrigal.ttf; sourceTree = "<group>"; };
 		47C9731429DC1DB500468E11 /* Licencia de uso gratuito.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Licencia de uso gratuito.txt"; sourceTree = "<group>"; };
 		47C9731829DC1E5A00468E11 /* Raleway-Italic-VariableFont_wght.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Raleway-Italic-VariableFont_wght.ttf"; sourceTree = "<group>"; };
@@ -1034,6 +1038,8 @@
 				47A62C1629E0B0B0005B55ED /* TimeSelectPopUpViewController.xib */,
 				47D776F929E198B4003C4B64 /* TempTimeSlotCollectionViewCell.swift */,
 				47D776FA29E198B4003C4B64 /* TempTimeSlotCollectionViewCell.xib */,
+				47C58E9929F0C2D10047C074 /* ReviewCell.swift */,
+				47C58E9A29F0C2D10047C074 /* ReviewCell.xib */,
 			);
 			path = ReaderProfileScreen;
 			sourceTree = "<group>";
@@ -1273,6 +1279,7 @@
 				BA4714BB29A79856007AABC2 /* ABeeZee-Regular.ttf in Resources */,
 				BA4714BF29A79856007AABC2 /* ProximaNova-Semibold.otf in Resources */,
 				47C9733529DC1E5A00468E11 /* Raleway-SemiBold.ttf in Resources */,
+				47C58E9C29F0C2D10047C074 /* ReviewCell.xib in Resources */,
 				47D776FC29E198B4003C4B64 /* TempTimeSlotCollectionViewCell.xib in Resources */,
 				BA4714C029A79856007AABC2 /* ProximaNova-Bold.otf in Resources */,
 				BAD0B51929BA17130061FEF5 /* OverlayViewController.xib in Resources */,
@@ -1430,6 +1437,7 @@
 				47BC09BE29C5B44700B8F2C5 /* ActorBuildProfile2ViewController.swift in Sources */,
 				BAD0B50929BA17130061FEF5 /* ConferenceViewController.swift in Sources */,
 				47F9BA8729D7006600050403 /* ReaderProfileEditHourlyRateViewController.swift in Sources */,
+				47C58E9B29F0C2D10047C074 /* ReviewCell.swift in Sources */,
 				47843E4329CFEB2F008704CD /* ChatCardCollectionViewCell.swift in Sources */,
 				47A62C1729E0B0B0005B55ED /* TimeSelectPopUpViewController.swift in Sources */,
 				2F7EBC3622DCC6430015B46E /* WebSocketProvider.swift in Sources */,

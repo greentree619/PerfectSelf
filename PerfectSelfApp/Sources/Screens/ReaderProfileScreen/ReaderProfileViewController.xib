@@ -23,6 +23,7 @@
                 <outlet property="btn_review" destination="Man-FI-Kt9" id="bc5-ia-IV6"/>
                 <outlet property="btn_videointro" destination="sWm-O9-Not" id="nMS-ud-aVO"/>
                 <outlet property="hourlyPrice" destination="FDv-W4-fTn" id="ySG-Mn-dLt"/>
+                <outlet property="lbl_noreview" destination="6yc-Hp-CeL" id="tX1-8q-g59"/>
                 <outlet property="line_overview" destination="xyK-Hw-HdO" id="Kr8-5K-lOE"/>
                 <outlet property="line_review" destination="u1p-8g-GAe" id="kBm-B1-L7R"/>
                 <outlet property="line_videointro" destination="tdU-GU-Lx4" id="YTa-g1-uUV"/>
@@ -32,6 +33,7 @@
                 <outlet property="readerSkills" destination="1Xi-Uk-42C" id="hGe-Ay-EhY"/>
                 <outlet property="readerTitle" destination="Xwa-R0-mVR" id="0zu-sV-dfv"/>
                 <outlet property="readerUsername" destination="cwg-hL-kUu" id="UXq-7g-uCT"/>
+                <outlet property="reviewList" destination="v4T-c7-dzU" id="OmJ-mW-DaQ"/>
                 <outlet property="scoreAndReviewCount" destination="tR2-VL-9Cp" id="klf-54-KWg"/>
                 <outlet property="slider" destination="LxR-0M-8KG" id="LVC-Ho-7lG"/>
                 <outlet property="timeslotList" destination="rBQ-tT-sx0" id="LRE-rl-GhJ"/>
@@ -39,7 +41,7 @@
                 <outlet property="view_container" destination="3w7-7o-icJ" id="t0A-pU-yr4"/>
                 <outlet property="view_edit_hourly_rate" destination="txw-9U-idw" id="eNM-CE-Uf4"/>
                 <outlet property="view_overview" destination="06x-mB-ZVe" id="sgO-gL-e8N"/>
-                <outlet property="view_review" destination="fWY-2o-BYp" id="uLw-pA-wHd"/>
+                <outlet property="view_review" destination="Eii-yE-T3y" id="2EM-ub-dfg"/>
                 <outlet property="view_videointro" destination="LX3-pd-CLk" id="Vvh-O2-8gM"/>
             </connections>
         </placeholder>
@@ -484,9 +486,19 @@
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3w7-7o-icJ">
                                     <rect key="frame" x="20" y="334" width="353" height="325"/>
                                     <subviews>
-                                        <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fWY-2o-BYp">
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Eii-yE-T3y">
                                             <rect key="frame" x="0.0" y="0.0" width="353" height="325"/>
                                             <subviews>
+                                                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="v4T-c7-dzU">
+                                                    <rect key="frame" x="0.0" y="0.0" width="353" height="325"/>
+                                                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                    <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="20" minimumInteritemSpacing="10" id="x02-MJ-TfQ">
+                                                        <size key="itemSize" width="128" height="128"/>
+                                                        <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                                        <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                                        <inset key="sectionInset" minX="0.0" minY="3" maxX="0.0" maxY="3"/>
+                                                    </collectionViewFlowLayout>
+                                                </collectionView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="you have no review yet" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6yc-Hp-CeL">
                                                     <rect key="frame" x="0.0" y="0.0" width="353" height="325"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -494,7 +506,18 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
-                                        </stackView>
+                                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                            <constraints>
+                                                <constraint firstAttribute="bottom" secondItem="v4T-c7-dzU" secondAttribute="bottom" id="1pj-hz-lig"/>
+                                                <constraint firstItem="v4T-c7-dzU" firstAttribute="leading" secondItem="Eii-yE-T3y" secondAttribute="leading" id="9iP-BB-1Sx"/>
+                                                <constraint firstAttribute="bottom" secondItem="6yc-Hp-CeL" secondAttribute="bottom" id="DVY-Jm-iIH"/>
+                                                <constraint firstItem="v4T-c7-dzU" firstAttribute="top" secondItem="Eii-yE-T3y" secondAttribute="top" id="GYo-3m-AGT"/>
+                                                <constraint firstItem="6yc-Hp-CeL" firstAttribute="leading" secondItem="Eii-yE-T3y" secondAttribute="leading" id="Lk0-d1-dlm"/>
+                                                <constraint firstAttribute="trailing" secondItem="6yc-Hp-CeL" secondAttribute="trailing" id="TTU-xO-Qnd"/>
+                                                <constraint firstAttribute="trailing" secondItem="v4T-c7-dzU" secondAttribute="trailing" id="fA1-4Q-4Wh"/>
+                                                <constraint firstItem="6yc-Hp-CeL" firstAttribute="top" secondItem="Eii-yE-T3y" secondAttribute="top" id="uhO-WY-AdE"/>
+                                            </constraints>
+                                        </view>
                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="LX3-pd-CLk">
                                             <rect key="frame" x="0.0" y="0.0" width="353" height="325"/>
                                             <subviews>
@@ -814,20 +837,16 @@
                                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                     <constraints>
                                         <constraint firstItem="LX3-pd-CLk" firstAttribute="top" secondItem="3w7-7o-icJ" secondAttribute="top" id="3PU-Dq-J2Y"/>
-                                        <constraint firstAttribute="trailing" secondItem="fWY-2o-BYp" secondAttribute="trailing" id="6OD-fP-9qx"/>
                                         <constraint firstAttribute="bottom" secondItem="LX3-pd-CLk" secondAttribute="bottom" id="Avl-QV-rON"/>
                                         <constraint firstAttribute="trailing" secondItem="06x-mB-ZVe" secondAttribute="trailing" id="Ijh-fB-Yxq"/>
+                                        <constraint firstAttribute="trailing" secondItem="Eii-yE-T3y" secondAttribute="trailing" id="LMf-1H-h1h"/>
                                         <constraint firstItem="LX3-pd-CLk" firstAttribute="leading" secondItem="3w7-7o-icJ" secondAttribute="leading" id="NBK-10-yFf"/>
-                                        <constraint firstItem="fWY-2o-BYp" firstAttribute="leading" secondItem="3w7-7o-icJ" secondAttribute="leading" id="Nam-xN-WYN"/>
-                                        <constraint firstAttribute="bottom" secondItem="fWY-2o-BYp" secondAttribute="bottom" id="PYS-nw-itU"/>
-                                        <constraint firstItem="fWY-2o-BYp" firstAttribute="top" secondItem="3w7-7o-icJ" secondAttribute="top" id="RMv-i0-mpQ"/>
+                                        <constraint firstItem="Eii-yE-T3y" firstAttribute="leading" secondItem="3w7-7o-icJ" secondAttribute="leading" id="OCI-bv-mow"/>
                                         <constraint firstAttribute="bottom" secondItem="06x-mB-ZVe" secondAttribute="bottom" id="YJW-tq-td5"/>
                                         <constraint firstItem="06x-mB-ZVe" firstAttribute="leading" secondItem="3w7-7o-icJ" secondAttribute="leading" id="bWR-Sy-H8i"/>
                                         <constraint firstAttribute="trailing" secondItem="LX3-pd-CLk" secondAttribute="trailing" id="cwA-lP-qcs"/>
-                                        <constraint firstItem="fWY-2o-BYp" firstAttribute="leading" secondItem="3w7-7o-icJ" secondAttribute="leading" id="dMe-qu-eUm"/>
-                                        <constraint firstAttribute="trailing" secondItem="fWY-2o-BYp" secondAttribute="trailing" id="grt-jp-3aR"/>
-                                        <constraint firstAttribute="bottom" secondItem="fWY-2o-BYp" secondAttribute="bottom" id="lww-9B-E6N"/>
-                                        <constraint firstItem="fWY-2o-BYp" firstAttribute="top" secondItem="3w7-7o-icJ" secondAttribute="top" id="uAJ-qG-dAr"/>
+                                        <constraint firstItem="Eii-yE-T3y" firstAttribute="top" secondItem="3w7-7o-icJ" secondAttribute="top" id="r7Z-XJ-bfs"/>
+                                        <constraint firstAttribute="bottom" secondItem="Eii-yE-T3y" secondAttribute="bottom" id="xmc-37-0PF"/>
                                         <constraint firstItem="06x-mB-ZVe" firstAttribute="top" secondItem="3w7-7o-icJ" secondAttribute="top" id="zIu-my-q5I"/>
                                     </constraints>
                                 </view>

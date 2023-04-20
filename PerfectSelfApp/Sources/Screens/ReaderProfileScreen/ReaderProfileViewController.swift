@@ -22,7 +22,7 @@ class ReaderProfileViewController: UIViewController, UICollectionViewDataSource,
     @IBOutlet weak var btn_edit_availability: UIButton!
     @IBOutlet weak var view_edit_hourly_rate: UIStackView!
     
-    @IBOutlet weak var view_review: UIStackView!
+    @IBOutlet weak var view_review: UIView!
     @IBOutlet weak var view_videointro: UIStackView!
     @IBOutlet weak var view_overview: UIStackView!
     @IBOutlet weak var view_container: UIView!
@@ -45,6 +45,10 @@ class ReaderProfileViewController: UIViewController, UICollectionViewDataSource,
     var items = [Availability]()
     let cellsPerRow = 1
     
+    @IBOutlet weak var reviewList: UICollectionView!
+    var reviews = [Review]()
+    
+    @IBOutlet weak var lbl_noreview: UILabel!
     @IBOutlet var btnPlayPause: UIButton!
     @IBOutlet var slider: UISlider!
 
@@ -69,6 +73,12 @@ class ReaderProfileViewController: UIViewController, UICollectionViewDataSource,
         timeslotList.dataSource = self
         timeslotList.delegate = self
         timeslotList.allowsSelection = true
+        
+        let nib1 = UINib(nibName: "ReviewCell", bundle: nil)
+        reviewList.register(nib1, forCellWithReuseIdentifier: "Review Cell")
+        reviewList.dataSource = self
+        reviewList.delegate = self
+        reviewList.allowsSelection = true
         // Do any additional setup after loading the view.
         line_videointro.isHidden = true
         line_review.isHidden = true
@@ -101,11 +111,11 @@ class ReaderProfileViewController: UIViewController, UICollectionViewDataSource,
         showIndicator(sender: nil, viewController: self)
         
         webAPI.getReaderById(id:self.id) { data, response, error in
+            DispatchQueue.main.async {
+                hideIndicator(sender: nil)
+            }
             guard let data = data, error == nil else {
                 print(error?.localizedDescription ?? "No data")
-                DispatchQueue.main.async {
-                    hideIndicator(sender: nil);
-                }
                 return
             }
             do {
@@ -119,12 +129,20 @@ class ReaderProfileViewController: UIViewController, UICollectionViewDataSource,
                     self.hourlyPrice.text = "$\(item.hourlyPrice/4) / 15 mins"
                     self.readerSkills.text = item.skills
                     self.hourlyRate = item.hourlyPrice
+                    
+                    self.items.removeAll()
+                    self.items.append(contentsOf: item.allAvailability)
+                    self.timeslotList.reloadData()
+                    self.reviews.removeAll()
+                    self.reviews.append(contentsOf: item.reviewLists)
+                    self.reviewList.reloadData()
+                    self.lbl_noreview.isHidden = !(item.reviewLists.count == 0)
                     if !item.avatarBucketName.isEmpty {
                         let url = "https://perfectself-avatar-bucket.s3.us-east-2.amazonaws.com/\(item.avatarBucketName)/\(item.avatarKey)"
                         self.readerAvatar.imageFrom(url: URL(string: url)!)
                     }
                     if !item.introVideoKey.isEmpty {
-                        let vUrl = "https://video-client-upload-123456798.s3.us-east-2.amazonaws.com/\(item.introBucketName)/\(item.introVideoKey)"
+                        let vUrl = "https://video-client-upload-123456798.s3.us-east-2.amazonaws.com/intro-video/\(item.introBucketName)/\(item.introVideoKey)"
                         
                         let downloadImageURL = vUrl.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)! as NSString
                         
@@ -161,36 +179,7 @@ class ReaderProfileViewController: UIViewController, UICollectionViewDataSource,
                              }
                          })
                         DispatchQueue.main.async {
-//                            showIndicator(sender: nil, viewController: self, color:UIColor.white)
                             task.resume()
-                        }
-                    }
-                    // call API for available time slots
-                    
-                    webAPI.getAvailabilityById(uid: self.id) {data1, response1, error1 in
-                        DispatchQueue.main.async {
-                            hideIndicator(sender: nil);
-                        }
-                        guard let data1 = data1, error1 == nil else {
-                            print(error1?.localizedDescription ?? "No data")
-                            return
-                        }
-                        do {
-                            let respItems = try JSONDecoder().decode([Availability].self, from: data1)
-                            print(respItems)
-                            DispatchQueue.main.async {
-                                //update availability time slots
-                                self.items.removeAll()
-                                self.items.append(contentsOf: respItems)
-            //                    for (i, reader) in items.enumerated() {
-            //                    }
-                                self.timeslotList.reloadData()
-                            }
-                        }
-                        catch {
-                            DispatchQueue.main.async {
-                                Toast.show(message: "Something went wrong. try again later", controller: self)
-                            }
                         }
                     }
                 }
@@ -230,53 +219,83 @@ class ReaderProfileViewController: UIViewController, UICollectionViewDataSource,
     
     // MARK: - Time Slot List Delegate.
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-         // myData is the array of items
-        return self.items.count
+        if collectionView == timeslotList {
+            return self.items.count
+        }
+        else {
+            return self.reviews.count
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-//        let flowLayout = collectionViewLayout as! UICollectionViewFlowLayout
-//        let totalSpace = flowLayout.sectionInset.top
-//        + flowLayout.sectionInset.bottom
-//        + (flowLayout.minimumLineSpacing * CGFloat(cellsPerRow - 1))
-//        let size = Int((collectionView.bounds.width - totalSpace) / CGFloat(cellsPerRow))
-        return CGSize(width: 80, height: 74)
+        let flowLayout = collectionViewLayout as! UICollectionViewFlowLayout
+        let totalSpace = flowLayout.sectionInset.top
+        + flowLayout.sectionInset.bottom
+        + (flowLayout.minimumLineSpacing * CGFloat(cellsPerRow - 1))
+        let size = Int((collectionView.bounds.width - totalSpace) / CGFloat(cellsPerRow))
+        if collectionView == timeslotList {
+            return CGSize(width: 80, height: 74)
+        }
+        else {
+            return CGSize(width: size, height: 100)
+        }
+        
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        //
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Time Slot Collection View Cell", for: indexPath) as! TimeSlotCollectionViewCell
+        
+        if collectionView == timeslotList {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Time Slot Collection View Cell", for: indexPath) as! TimeSlotCollectionViewCell
 
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss'Z'"
-        let date = dateFormatter.date(from: self.items[indexPath.row].date)
-    
-        dateFormatter.dateFormat = "EEE"
-        let weekDay = dateFormatter.string(from: date ?? Date())
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss'Z'"
+            let date = dateFormatter.date(from: self.items[indexPath.row].date)
         
-        dateFormatter.dateFormat = "dd MMM"
-        let dayMonth = dateFormatter.string(from: date ?? Date())
+            dateFormatter.dateFormat = "EEE"
+            let weekDay = dateFormatter.string(from: date ?? Date())
+            
+            dateFormatter.dateFormat = "dd MMM"
+            let dayMonth = dateFormatter.string(from: date ?? Date())
+            
+            cell.lbl_num_slot.text = "1 slot";
+            cell.lbl_weekday.text = weekDay
+            cell.lbl_date_month.text = dayMonth
+            // return card
+            cell.layer.masksToBounds = false
+            cell.layer.shadowOffset = CGSizeZero
+            cell.layer.shadowRadius = 8
+            cell.layer.shadowOpacity = 0.2
+            cell.contentView.layer.cornerRadius = 5
+            cell.contentView.layer.borderWidth = 1.0
+            cell.contentView.layer.borderColor = UIColor.gray.cgColor
+            cell.contentView.layer.masksToBounds = true
+            
+            return cell
+        }
+        else {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Review Cell", for: indexPath) as! ReviewCell
+
+            cell.lbl_name.text = self.reviews[indexPath.row].actorUid
+            cell.lbl_reviewDate.text = self.reviews[indexPath.row].readerReviewDate
+            cell.lbl_score.text = String(self.reviews[indexPath.row].readerScore)
+            cell.text_review.text = self.reviews[indexPath.row].readerReview
+    //        cell.layer.masksToBounds = false
+    //        cell.layer.shadowOffset = CGSizeZero
+    //        cell.layer.shadowRadius = 8
+    //        cell.layer.shadowOpacity = 0.2
+            cell.contentView.layer.cornerRadius = 10
+            cell.contentView.layer.borderWidth = 1.0
+            cell.contentView.layer.borderColor = UIColor.gray.cgColor
+            cell.contentView.layer.masksToBounds = true
+            
+            return cell
+        }
         
-        cell.lbl_num_slot.text = "1 slot";
-        cell.lbl_weekday.text = weekDay
-        cell.lbl_date_month.text = dayMonth
-        // return card
-//        cell.layer.masksToBounds = false
-//        cell.layer.shadowOffset = CGSizeZero
-//        cell.layer.shadowRadius = 8
-//        cell.layer.shadowOpacity = 0.2
-        cell.contentView.layer.cornerRadius = 12
-        cell.contentView.layer.borderWidth = 1.0
-        cell.contentView.layer.borderColor = UIColor.gray.cgColor
-        cell.contentView.layer.masksToBounds = true
-        
-        return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         // add the code here to perform action on the cell
         print("didDeselectItemAt")
-//        let cell = collectionView.cellForItem(at: indexPath) as? LibraryCollectionViewCell
     }
     @IBAction func ShowOverview(_ sender: UIButton) {
         sender.tintColor = UIColor(rgb: 0x4063FF)
@@ -520,8 +539,44 @@ extension ReaderProfileViewController: UIImagePickerControllerDelegate & UINavig
                                 hideIndicator(sender: nil)
                                 Toast.show(message: "file upload completed.", controller: self)
                                 // update avatar
-                                let url = "video-client-upload-123456798.s3.us-east-2.amazonaws.com/\(self.id)/\(String(describing: videoURL.lastPathComponent))"
-                                self.setupPlayer(videoUrl: URL(string: url))
+                                let url = "video-client-upload-123456798.s3.us-east-2.amazonaws.com/intro-video/\(self.id)/\(String(describing: videoURL.lastPathComponent))"
+                                
+                                let downloadImageURL = url.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)! as NSString
+                                
+                                let requestURL: NSURL = NSURL(string: downloadImageURL as String)!
+                                
+                                let request = URLRequest(url: requestURL as URL, cachePolicy: .useProtocolCachePolicy, timeoutInterval: 10.0)
+                                let config = URLSessionConfiguration.default
+                                let session = URLSession(configuration: config)
+                                let task = session.dataTask(with: request, completionHandler: {(data, response, error) in
+                                    DispatchQueue.main.async {
+        //                                hideIndicator(sender: nil)
+                                    }
+                                    
+                                     if error != nil {
+                                          //print(error!.localizedDescription)
+                                         DispatchQueue.main.async {
+                                             Toast.show(message: "Faild to download video", controller: self)
+                                         }
+                                     }
+                                     else {
+                                         //print(response)//print(response ?? default "")
+                                         let documentsPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0];
+                                         let filePath = URL(fileURLWithPath: "\(documentsPath)/tempFile.mp4")
+                                         DispatchQueue.main.async {
+                                             do{
+                                                 try data!.write(to: filePath)
+                                                 self.setupPlayer(videoUrl: filePath)
+                                             }
+                                             catch{
+                                                 print("error: \(error)")
+                                             }
+                                         }
+                                     }
+                                 })
+                                DispatchQueue.main.async {
+                                    task.resume()
+                                }
                                 //update user profile
                                 webAPI.uploadUserIntroVideo(uid: self.id, bucketName: self.id, videoKey: String(describing: videoURL.lastPathComponent)) { data, response, error in
                                     if error == nil {

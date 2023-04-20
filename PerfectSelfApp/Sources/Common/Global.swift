@@ -67,8 +67,20 @@ struct ReaderProfileDetail: Codable {
     let introBucketName: String
     let introVideoKey: String
     let bookPassCount: Int
+    let allAvailability: [Availability]
+    let reviewLists: [Review]
 }
-
+struct Review: Codable {
+    let actorUid: String
+    let readerUid: String
+    let roomUid: String
+    let bookStartTime: String
+    let bookEndTime: String
+    let scriptFile: String
+    let readerScore: Int
+    let readerReview: String
+    let readerReviewDate: String
+}
 struct ReaderProfileCard: Codable {
     let uid: String
     let userName: String
@@ -125,9 +137,10 @@ struct Availability: Codable {
     let date: String
     let fromTime: String
     let toTime: String
+    let isStandBy: Bool
     let createdTime: String
     let updatedTime: String
-    let deletedTime: String
+    let deletedTime: String?
 }
 
 struct ChatChannel: Codable {
