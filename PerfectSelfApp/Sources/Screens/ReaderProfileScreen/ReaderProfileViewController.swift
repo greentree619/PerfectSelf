@@ -232,12 +232,17 @@ class ReaderProfileViewController: UIViewController, UICollectionViewDataSource,
         let totalSpace = flowLayout.sectionInset.top
         + flowLayout.sectionInset.bottom
         + (flowLayout.minimumLineSpacing * CGFloat(cellsPerRow - 1))
-        let size = Int((collectionView.bounds.width - totalSpace) / CGFloat(cellsPerRow))
+        let size = (collectionView.bounds.width - totalSpace) / CGFloat(cellsPerRow)
         if collectionView == timeslotList {
             return CGSize(width: 80, height: 74)
         }
         else {
-            return CGSize(width: size, height: 100)
+            let reviewText = self.reviews[indexPath.row].readerReview
+            let reviewTextHeight = reviewText.height(withConstrainedWidth: size-16, font: UIFont.systemFont(ofSize: 12))
+            
+            let totalHeight = reviewTextHeight + 75 // add 56 for the height of the profile image and padding
+
+            return CGSize(width: size, height: totalHeight)
         }
         
     }
@@ -275,10 +280,18 @@ class ReaderProfileViewController: UIViewController, UICollectionViewDataSource,
         else {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Review Cell", for: indexPath) as! ReviewCell
 
-            cell.lbl_name.text = self.reviews[indexPath.row].actorUid
-            cell.lbl_reviewDate.text = self.reviews[indexPath.row].readerReviewDate
+            cell.lbl_name.text = self.reviews[indexPath.row].actorName
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss'Z'"
+            let date = dateFormatter.date(from: self.reviews[indexPath.row].bookStartTime)
+            dateFormatter.dateFormat = "MMM dd, yyyy"
+            cell.lbl_reviewDate.text = dateFormatter.string(from: date ?? Date())
             cell.lbl_score.text = String(self.reviews[indexPath.row].readerScore)
             cell.text_review.text = self.reviews[indexPath.row].readerReview
+            if self.reviews[indexPath.row].actorAvatarKey != nil{
+                let url = "https://perfectself-avatar-bucket.s3.us-east-2.amazonaws.com/\(self.reviews[indexPath.row].actorBucketName!)/\(self.reviews[indexPath.row].actorAvatarKey!)"
+                cell.img_avatar.imageFrom(url: URL(string: url)!)
+            }
     //        cell.layer.masksToBounds = false
     //        cell.layer.shadowOffset = CGSizeZero
     //        cell.layer.shadowRadius = 8

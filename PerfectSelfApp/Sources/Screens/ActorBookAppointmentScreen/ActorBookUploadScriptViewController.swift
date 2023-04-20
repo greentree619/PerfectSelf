@@ -11,22 +11,38 @@ import UIKit
 class ActorBookUploadScriptViewController: UIViewController {
 
     var readerUid: String = ""
+    var readerName: String = ""
     var bookingStartTime: String = ""
     var bookingEndTime: String = ""
     var bookingDate: String = ""
     
+    @IBOutlet weak var lbl_readerName: UILabel!
+    @IBOutlet weak var lbl_date: UILabel!
     @IBOutlet weak var text_script: UITextView!
+    @IBOutlet weak var lbl_time: UILabel!
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-
+        lbl_readerName.text = "Reading with \(readerName)"
+        print(bookingDate, bookingStartTime)
+        let df = DateFormatter()
+        df.dateFormat = "yyyy-MM-dd hh:mm:ss"
+        df.timeZone = TimeZone(abbreviation: "EST")
+        let estDate = df.date(from: bookingDate + " " + bookingStartTime) ?? Date()
+        df.dateFormat = "hh:mm"
+        let t = df.string(from: estDate)
+        df.dateFormat = "MMMM dd, yyyy"
+        let d = df.string(from: estDate)
+        lbl_time.text = "Time: \(t) EST"
+        lbl_date.text = "Date: \(d)"
     }
 
     @IBAction func GotoCheckout(_ sender: UIButton) {
         let controller = ActorSetPaymentViewController();
 
         controller.readerUid = readerUid
+        controller.readerName = readerName
         controller.bookingStartTime = bookingStartTime
         controller.bookingEndTime = bookingEndTime
         controller.bookingDate = bookingDate

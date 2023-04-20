@@ -9,22 +9,8 @@
 import UIKit
 
 class ActorBookAppointmentViewController: UIViewController {
-//
-//    var isSelected9AM = false
-//    var isSelected10AM = false
-//    var isSelected11AM = false
-//    var isSelected2PM = false
-//    var isSelected3PM = false
-//    var isSelected4PM = false
-//
-//    @IBOutlet weak var btn_9am: UIButton!
-//    @IBOutlet weak var btn_10am: UIButton!
-//    @IBOutlet weak var btn_11am: UIButton!
-//    @IBOutlet weak var btn_2pm: UIButton!
-//    @IBOutlet weak var btn_3pm: UIButton!
-//    @IBOutlet weak var btn_4pm: UIButton!
-
     var rUid: String = ""
+    var rName: String = ""
     let backgroundView = UIView()
     let timeFormatter = DateFormatter()
     let dateFormatter = DateFormatter()
@@ -38,11 +24,12 @@ class ActorBookAppointmentViewController: UIViewController {
     @IBOutlet weak var picker_end_time: UIDatePicker!
     @IBOutlet weak var picker_date: UIDatePicker!
     
+    @IBOutlet weak var view_main: UIStackView!
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        
+        view_main.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
         modal_time_start.isHidden = true
         modal_time_start.alpha = 0
         modal_time_end.isHidden = true
@@ -166,6 +153,7 @@ class ActorBookAppointmentViewController: UIViewController {
         
         let controller = ActorBookUploadScriptViewController()
         controller.readerUid = rUid
+        controller.readerName = rName
         controller.bookingDate = self.dateFormatter.string(from: self.picker_date.date)
         let df = DateFormatter()
         df.dateFormat = "hh:mm:ss"

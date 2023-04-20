@@ -11,6 +11,7 @@ import UIKit
 class ActorSetPaymentViewController: UIViewController {
 
     var readerUid: String = ""
+    var readerName: String = ""
     var bookingStartTime: String = ""
     var bookingEndTime: String = ""
     var bookingDate: String = ""
@@ -44,6 +45,7 @@ class ActorSetPaymentViewController: UIViewController {
         let controller = ActorBookConfirmationViewController();
 
         controller.readerUid = readerUid
+        controller.readerName = readerName
         controller.bookingStartTime = bookingStartTime
         controller.bookingEndTime = bookingEndTime
         controller.bookingDate = bookingDate

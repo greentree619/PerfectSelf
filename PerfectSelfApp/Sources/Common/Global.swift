@@ -74,12 +74,15 @@ struct Review: Codable {
     let actorUid: String
     let readerUid: String
     let roomUid: String
+    let actorName: String
+    let actorBucketName: String?
+    let actorAvatarKey: String?
     let bookStartTime: String
     let bookEndTime: String
     let scriptFile: String
     let readerScore: Int
     let readerReview: String
-    let readerReviewDate: String
+    
 }
 struct ReaderProfileCard: Codable {
     let uid: String

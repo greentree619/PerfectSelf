@@ -11,6 +11,7 @@ import UIKit
 class ActorBookConfirmationViewController: UIViewController {
     var uid = ""
     var readerUid: String = ""
+    var readerName: String = ""
     var bookingDate: String = ""
     var bookingStartTime: String = ""
     var bookingEndTime: String = ""
@@ -19,10 +20,19 @@ class ActorBookConfirmationViewController: UIViewController {
     @IBOutlet weak var add_to_calendar: UIStackView!
     @IBOutlet weak var add_to_google_calendar: UIStackView!
     
+    @IBOutlet weak var lbl_datetime: UILabel!
+    @IBOutlet weak var lbl_readerName: UILabel!
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        lbl_readerName.text = "Reading with \(readerName)"
+        let df = DateFormatter()
+        df.dateFormat = "yyyy-MM-dd hh:mm:ss"
+        df.timeZone = TimeZone(abbreviation: "EST")
+        let estDate = df.date(from: bookingDate + " " + bookingStartTime) ?? Date()
+        df.dateFormat = "MMM dd, yyyy  HH:mm a"
+        lbl_datetime.text = "Time:  \(df.string(from: estDate))  EST"
         if let userInfo = UserDefaults.standard.object(forKey: "USER") as? [String:Any] {
             // Use the saved data
             uid = userInfo["uid"] as! String
