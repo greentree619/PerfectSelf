@@ -67,7 +67,7 @@ struct ReaderProfileDetail: Codable {
     let introBucketName: String
     let introVideoKey: String
     let bookPassCount: Int
-    let allAvailability: [Availability]
+    let allAvailability: [TimeSlot]
     let reviewLists: [Review]
 }
 struct Review: Codable {

@@ -42,7 +42,7 @@ class ReaderProfileViewController: UIViewController, UICollectionViewDataSource,
     @IBOutlet weak var readerSkills: UILabel!
     @IBOutlet weak var hourlyPrice: UILabel!
     @IBOutlet weak var timeslotList: UICollectionView!
-    var items = [Availability]()
+    var items = [TimeSlot]()
     let cellsPerRow = 1
     
     @IBOutlet weak var reviewList: UICollectionView!
@@ -433,6 +433,7 @@ class ReaderProfileViewController: UIViewController, UICollectionViewDataSource,
     @IBAction func EditAvailability(_ sender: UIButton) {
         let controller = ReaderProfileEditAvailabilityViewController()
         controller.uid = id
+        controller.timeSlotItems = self.items
         controller.modalPresentationStyle = .fullScreen
         let transition = CATransition()
         transition.duration = 0.5 // Set animation duration

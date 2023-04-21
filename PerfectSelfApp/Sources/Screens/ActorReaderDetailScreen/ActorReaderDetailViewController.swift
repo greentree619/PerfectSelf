@@ -34,7 +34,7 @@ class ActorReaderDetailViewController: UIViewController , UICollectionViewDataSo
     @IBOutlet weak var reader_about: UITextView!
     @IBOutlet weak var timeslotList: UICollectionView!
     
-    var items = [Availability]()
+    var items = [TimeSlot]()
     let cellsPerRow = 1
     var videoUrl: URL!
     @IBOutlet weak var reviewList: UICollectionView!

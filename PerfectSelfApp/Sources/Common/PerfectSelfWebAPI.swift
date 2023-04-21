@@ -341,6 +341,28 @@ class PerfectSelfWebAPI
         ]
         return executeAPI(with: "POST", apiPath: "Availabilities/", json: json, completionHandler:completionHandler)
     }
+    func updateAvailability(uid: String, timeSlotList: [TimeSlot], completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> Void
+    {
+        var batchData: [[String: Any]] = [[:]]
+        batchData.removeAll()
+        for list in timeSlotList {
+            let p: [String:Any] = [
+                "isStandBy": list.isStandBy,
+                "repeatFlag": list.repeatFlag,
+                "date": list.date,
+                "fromTime": list.fromTime,
+                "toTime": list.toTime
+            ]
+            batchData.append(p)
+        }
+        
+        let json: [String: Any] = [
+            "readerUid": uid,
+            "batchTimeSlot": batchData
+        ]
+        print(json)
+        return executeAPI(with: "POST", apiPath: "Availabilities/AddBatch", json: json, completionHandler:completionHandler)
+    }
     func giveFeedback(id: Int, score: Float, review: String, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> Void
     {
         print("Books/GiveFeedbackToUid/\(id)?score=\(score)&review=\(review)")

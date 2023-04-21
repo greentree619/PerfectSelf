@@ -50,6 +50,7 @@ class ReaderProfileEditAvailabilityViewController: UIViewController, UICollectio
         confirmModal.isHidden = true
         dateFormatter.dateFormat = "yyyy-MM-dd"
         timeFormatter.dateFormat = "hh:mm"
+        print(timeSlotItems)
     }
  
     @IBAction func RemoveThisSlot(_ sender: UIButton) {
@@ -94,8 +95,10 @@ class ReaderProfileEditAvailabilityViewController: UIViewController, UICollectio
         confirmModal.isHidden = true
     }
     @IBAction func SelectedDateChanged(_ sender: UIDatePicker) {
-        print(sender.date)
-        items = timeSlotItems.filter { $0.date == dateFormatter.string(from: sender.date) }
+        let df = DateFormatter()
+        df.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
+        
+        items = timeSlotItems.filter { dateFormatter.string(from: df.date(from: $0.date)!) == dateFormatter.string(from: sender.date) }
         timeslotList.reloadData()
     }
     @IBAction func AddTimeSlot(_ sender: UIButton) {
@@ -106,7 +109,18 @@ class ReaderProfileEditAvailabilityViewController: UIViewController, UICollectio
     }
  
     @IBAction func SaveChanges(_ sender: UIButton) {
-       
+       // call API for save changes
+        webAPI.updateAvailability(uid: uid, timeSlotList: timeSlotItems) { data, response, error in
+            guard let _ = data, error == nil else {
+                DispatchQueue.main.async {
+                    Toast.show(message: "Something went wrong!, try agian later.", controller: self)
+                }
+                return
+            }
+            DispatchQueue.main.async {
+                Toast.show(message: "Availability Updated!", controller: self)
+            }
+        }
         
     }
     @IBAction func GoBack(_ sender: UIButton) {
@@ -139,7 +153,11 @@ class ReaderProfileEditAvailabilityViewController: UIViewController, UICollectio
         cell.delegate = self
         cell.index = indexPath.row
         cell.repeatFlag = items[indexPath.row].repeatFlag
-        cell.timeslot.text = items[indexPath.row].fromTime + " - " + items[indexPath.row].toTime
+        let df = DateFormatter()
+        df.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
+        let fromT = df.date(from: items[indexPath.row].fromTime)!
+        let toT = df.date(from: items[indexPath.row].toTime)!
+        cell.timeslot.text = timeFormatter.string(from: fromT) + " - " + timeFormatter.string(from: toT)
         // return card
 //        cell.layer.masksToBounds = false
 //        cell.layer.shadowOffset = CGSizeZero
@@ -171,7 +189,7 @@ class ReaderProfileEditAvailabilityViewController: UIViewController, UICollectio
 }
 extension ReaderProfileEditAvailabilityViewController: MyDelegate {
     func didUpdateTimeSlot(fromTime: Date, toTime: Date, repeatFlag: Int, isStandBy: Bool) {
-        timeSlotItems.append(TimeSlot(date: dateFormatter.string(from: picker_date.date), fromTime: timeFormatter.string(from: fromTime), toTime: timeFormatter.string(from: toTime), repeatFlag: repeatFlag, isStandBy: isStandBy))
+        timeSlotItems.append(TimeSlot(date: Date.getDateString(date: picker_date.date), fromTime: Date.getDateString(date: fromTime), toTime: Date.getDateString(date: toTime), repeatFlag: repeatFlag, isStandBy: isStandBy))
         SelectedDateChanged(picker_date)
     }
 }
