@@ -105,7 +105,10 @@ struct ReaderProfileCard: Codable {
     let fromTime: String?
     let toTime: String?
 }
-
+struct UnreadState: Codable {
+    let uid: String
+    let unreadCount: Int
+}
 struct BookingCard: Codable {
     let id: Int
     let roomUid: String
@@ -145,7 +148,13 @@ struct Availability: Codable {
     let updatedTime: String
     let deletedTime: String?
 }
-
+struct TimeSlot: Codable {
+    var date: String
+    let fromTime: String
+    let toTime: String
+    let repeatFlag: Int
+    let isStandBy: Bool
+}
 struct ChatChannel: Codable {
     let id: Int
     let senderUid: String

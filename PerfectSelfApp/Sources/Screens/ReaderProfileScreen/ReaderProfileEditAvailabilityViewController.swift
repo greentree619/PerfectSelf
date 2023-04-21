@@ -8,15 +8,35 @@
 
 import UIKit
 
-class ReaderProfileEditAvailabilityViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+class ReaderProfileEditAvailabilityViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, RemoveDelegate {
+    func didRemoveTimeSlot(index: Int, repeatFlag: Int) {
+        if repeatFlag == 0 {
+            if let indexOf = timeSlotItems.firstIndex(where: { $0.date == items[index].date && $0.fromTime == items[index].fromTime && $0.toTime == items[index].toTime }) {
+                timeSlotItems.remove(at: indexOf)
+                SelectedDateChanged(picker_date)
+            }
+        }
+        else {
+            currentIndex = index
+            currentRepeatFlag = repeatFlag
+            backView.isHidden = false
+            confirmModal.isHidden = false
+        }
+    }
+    
     var uid : String = ""
-    
     @IBOutlet weak var picker_date: UIDatePicker!
-    
     @IBOutlet weak var timeslotList: UICollectionView!
-    var items = ["07:00-09:00", "07:00-09:00", "07:00-09:00", "07:00-09:00", "07:00-09:00", "07:00-09:00"]
+    var timeSlotItems = [TimeSlot]()
+    var items = [TimeSlot]()
     let cellsPerRow = 1
-
+    var currentIndex = 0
+    var currentRepeatFlag = 0
+    let dateFormatter = DateFormatter()
+    let timeFormatter = DateFormatter()
+    
+    @IBOutlet weak var confirmModal: UIStackView!
+    @IBOutlet weak var backView: UIView!
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -26,11 +46,61 @@ class ReaderProfileEditAvailabilityViewController: UIViewController, UICollectio
         timeslotList.delegate = self
         timeslotList.allowsSelection = true
         // Do any additional setup after loading the view.
+        backView.isHidden = true
+        confirmModal.isHidden = true
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        timeFormatter.dateFormat = "hh:mm"
     }
  
-    
+    @IBAction func RemoveThisSlot(_ sender: UIButton) {
+        if let indexOf = timeSlotItems.firstIndex(where: { $0.date == items[currentIndex].date && $0.fromTime == items[currentIndex].fromTime && $0.toTime == items[currentIndex].toTime }) {
+            let currentDate = dateFormatter.date(from: items[currentIndex].date)
+            let calendar = Calendar.current
+            // Edit date
+            if currentRepeatFlag == 1 {
+                // Add 1 day to the current date
+                let nextDay = calendar.date(byAdding: .day, value: 1, to: currentDate ?? Date())
+                timeSlotItems[indexOf].date = dateFormatter.string(from: nextDay!)
+            }
+            else if currentRepeatFlag == 2 {
+                // Add 1 week1 to the current date
+                let nextWeek = calendar.date(byAdding: .weekOfMonth, value: 1, to: currentDate ?? Date())
+                timeSlotItems[indexOf].date = dateFormatter.string(from: nextWeek!)
+            }
+            else if currentRepeatFlag == 3 {
+                // Add 1 months to the current date
+                let nextMonth = calendar.date(byAdding: .month, value: 1, to: currentDate ?? Date())
+                timeSlotItems[indexOf].date = dateFormatter.string(from: nextMonth!)
+            }
+            else {
+                print("oops!")
+            }
+            
+            SelectedDateChanged(picker_date)
+        }
+        backView.isHidden = true
+        confirmModal.isHidden = true
+    }
+    @IBAction func RemoveAllTimeSlot(_ sender: UIButton) {
+        if let indexOf = timeSlotItems.firstIndex(where: { $0.date == items[currentIndex].date && $0.fromTime == items[currentIndex].fromTime && $0.toTime == items[currentIndex].toTime }) {
+            timeSlotItems.remove(at: indexOf)
+            SelectedDateChanged(picker_date)
+        }
+        backView.isHidden = true
+        confirmModal.isHidden = true
+    }
+    @IBAction func CancelRemove(_ sender: UIButton) {
+        backView.isHidden = true
+        confirmModal.isHidden = true
+    }
+    @IBAction func SelectedDateChanged(_ sender: UIDatePicker) {
+        print(sender.date)
+        items = timeSlotItems.filter { $0.date == dateFormatter.string(from: sender.date) }
+        timeslotList.reloadData()
+    }
     @IBAction func AddTimeSlot(_ sender: UIButton) {
         let controller = TimeSelectPopUpViewController()
+        controller.delegate = self
         controller.modalPresentationStyle = .overFullScreen
         self.present(controller, animated: true)
     }
@@ -66,7 +136,10 @@ class ReaderProfileEditAvailabilityViewController: UIViewController, UICollectio
         //
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Temp Time Slot Collection View Cell", for: indexPath) as! TempTimeSlotCollectionViewCell
 
-        cell.timeslot.text = items[indexPath.row]
+        cell.delegate = self
+        cell.index = indexPath.row
+        cell.repeatFlag = items[indexPath.row].repeatFlag
+        cell.timeslot.text = items[indexPath.row].fromTime + " - " + items[indexPath.row].toTime
         // return card
 //        cell.layer.masksToBounds = false
 //        cell.layer.shadowOffset = CGSizeZero
@@ -95,4 +168,10 @@ class ReaderProfileEditAvailabilityViewController: UIViewController, UICollectio
     }
     */
 
+}
+extension ReaderProfileEditAvailabilityViewController: MyDelegate {
+    func didUpdateTimeSlot(fromTime: Date, toTime: Date, repeatFlag: Int, isStandBy: Bool) {
+        timeSlotItems.append(TimeSlot(date: dateFormatter.string(from: picker_date.date), fromTime: timeFormatter.string(from: fromTime), toTime: timeFormatter.string(from: toTime), repeatFlag: repeatFlag, isStandBy: isStandBy))
+        SelectedDateChanged(picker_date)
+    }
 }

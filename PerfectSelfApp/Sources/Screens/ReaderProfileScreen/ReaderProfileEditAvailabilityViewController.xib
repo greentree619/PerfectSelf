@@ -9,9 +9,16 @@
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <array key="Lato-Bold.ttf">
+            <string>Lato-Bold</string>
+        </array>
+    </customFonts>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ReaderProfileEditAvailabilityViewController" customModule="PerfectSelf" customModuleProvider="target">
             <connections>
+                <outlet property="backView" destination="5OE-KL-KER" id="M26-X3-3yr"/>
+                <outlet property="confirmModal" destination="wP8-33-h7Z" id="ncS-lf-88B"/>
                 <outlet property="picker_date" destination="mXS-5a-ats" id="8eP-sD-Opb"/>
                 <outlet property="timeslotList" destination="8k8-2p-HGg" id="wRC-1L-jMc"/>
                 <outlet property="view" destination="Naz-ET-dRL" id="Rg9-Fl-fx1"/>
@@ -93,6 +100,9 @@
                                     <subviews>
                                         <datePicker contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" style="inline" translatesAutoresizingMaskIntoConstraints="NO" id="mXS-5a-ats">
                                             <rect key="frame" x="8" y="8" width="317" height="360"/>
+                                            <connections>
+                                                <action selector="SelectedDateChanged:" destination="-1" eventType="valueChanged" id="Dj0-tB-mVs"/>
+                                            </connections>
                                         </datePicker>
                                     </subviews>
                                     <edgeInsets key="layoutMargins" top="8" left="8" bottom="8" right="8"/>
@@ -156,7 +166,7 @@
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wSb-fo-RtF">
                                     <rect key="frame" x="0.0" y="0.0" width="353" height="40"/>
                                     <state key="normal" title="Button"/>
-                                    <buttonConfiguration key="configuration" style="filled" title="Save" cornerStyle="dynamic">
+                                    <buttonConfiguration key="configuration" style="filled" title="Save Availability" cornerStyle="dynamic">
                                         <backgroundConfiguration key="background" cornerRadius="5"/>
                                     </buttonConfiguration>
                                     <connections>
@@ -171,11 +181,96 @@
                     </subviews>
                     <edgeInsets key="layoutMargins" top="0.0" left="20" bottom="20" right="20"/>
                 </stackView>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5OE-KL-KER">
+                    <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                    <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.10000000000000001" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                            <real key="value" value="0.0"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </view>
+                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="wP8-33-h7Z">
+                    <rect key="frame" x="46.666666666666657" y="276" width="300" height="300"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You’ve set the time slot as a repeating event" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0lz-3k-iCz">
+                            <rect key="frame" x="30" y="30.000000000000004" width="240" height="43.333333333333343"/>
+                            <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="18"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OJf-vb-jip">
+                            <rect key="frame" x="30" y="83.333333333333314" width="240" height="46.666666666666657"/>
+                        </stackView>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LHJ-Jz-SpQ">
+                            <rect key="frame" x="30" y="140" width="240" height="40"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="40" id="oeZ-h0-vL2"/>
+                            </constraints>
+                            <state key="normal" title="Button"/>
+                            <buttonConfiguration key="configuration" style="filled" title="Remove this slot only"/>
+                            <connections>
+                                <action selector="RemoveThisSlot:" destination="-1" eventType="touchUpInside" id="g10-ya-i2X"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ODd-dt-o3I">
+                            <rect key="frame" x="30" y="190" width="240" height="40"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="40" id="TO0-0a-563"/>
+                            </constraints>
+                            <state key="normal" title="Button"/>
+                            <buttonConfiguration key="configuration" style="plain" title="Remove all repeating slots"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                    <color key="value" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </userDefinedRuntimeAttribute>
+                                <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                    <real key="value" value="1"/>
+                                </userDefinedRuntimeAttribute>
+                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                    <real key="value" value="5"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
+                            <connections>
+                                <action selector="RemoveAllTimeSlot:" destination="-1" eventType="touchUpInside" id="HLp-iy-VJ9"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pW1-mC-04Q">
+                            <rect key="frame" x="30" y="240" width="240" height="40"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="40" id="Bu9-M2-QJ9"/>
+                            </constraints>
+                            <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <state key="normal" title="Button"/>
+                            <buttonConfiguration key="configuration" style="plain" title="Cancel"/>
+                            <connections>
+                                <action selector="CancelRemove:" destination="-1" eventType="touchUpInside" id="cBm-OA-1Nb"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="300" id="Nxo-2u-EbB"/>
+                        <constraint firstAttribute="width" constant="300" id="nHN-J5-0aK"/>
+                    </constraints>
+                    <edgeInsets key="layoutMargins" top="30" left="30" bottom="20" right="30"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                            <real key="value" value="10"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </stackView>
             </subviews>
             <viewLayoutGuide key="safeArea" id="Ez9-sv-9RZ"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
+                <constraint firstItem="5OE-KL-KER" firstAttribute="leading" secondItem="Ez9-sv-9RZ" secondAttribute="leading" id="DO3-fu-NbN"/>
                 <constraint firstItem="Ez9-sv-9RZ" firstAttribute="bottom" secondItem="hz9-rm-mfY" secondAttribute="bottom" id="HMD-2m-agv"/>
+                <constraint firstAttribute="bottom" secondItem="5OE-KL-KER" secondAttribute="bottom" id="J14-Ts-mN5"/>
+                <constraint firstItem="Ez9-sv-9RZ" firstAttribute="trailing" secondItem="5OE-KL-KER" secondAttribute="trailing" id="Ovy-8Z-oAQ"/>
+                <constraint firstItem="wP8-33-h7Z" firstAttribute="centerY" secondItem="Naz-ET-dRL" secondAttribute="centerY" id="QPH-wo-dRh"/>
+                <constraint firstItem="5OE-KL-KER" firstAttribute="top" secondItem="Naz-ET-dRL" secondAttribute="top" id="qcN-ME-lTS"/>
+                <constraint firstItem="wP8-33-h7Z" firstAttribute="centerX" secondItem="Naz-ET-dRL" secondAttribute="centerX" id="rh6-jV-o8W"/>
                 <constraint firstItem="hz9-rm-mfY" firstAttribute="top" secondItem="Ez9-sv-9RZ" secondAttribute="top" id="sHx-O8-9pU"/>
                 <constraint firstItem="Ez9-sv-9RZ" firstAttribute="trailing" secondItem="hz9-rm-mfY" secondAttribute="trailing" id="spL-KB-VLm"/>
                 <constraint firstItem="hz9-rm-mfY" firstAttribute="leading" secondItem="Ez9-sv-9RZ" secondAttribute="leading" id="tOL-Jf-c4P"/>

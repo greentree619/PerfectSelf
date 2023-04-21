@@ -17,13 +17,15 @@ class ActorHomeViewController: UIViewController, UICollectionViewDataSource, UIC
     @IBOutlet weak var spin: UIActivityIndicatorView!
     @IBOutlet weak var readerListFlow: UICollectionViewFlowLayout!
     @IBOutlet weak var greetingLabel: UILabel!
+    
+    @IBOutlet weak var unread_badge: UIView!
     @IBOutlet weak var img_actor_avatar: UIImageView!
     
     @IBOutlet weak var btn_sponsored: UIButton!
     @IBOutlet weak var btn_availablesoon: UIButton!
     @IBOutlet weak var btn_topRate: UIButton!
     let backgroundView = UIView()
-    
+    var uid: String!
     var isSponsored = true
     var isAvailableSoon = false
     var isTopRated = false
@@ -47,6 +49,7 @@ class ActorHomeViewController: UIViewController, UICollectionViewDataSource, UIC
         if let userInfo = UserDefaults.standard.object(forKey: "USER") as? [String:Any] {
             // Use the saved data
             let name = userInfo["userName"] as? String
+            uid = userInfo["uid"] as? String
             let bucketName = userInfo["avatarBucketName"] as? String
             let avatarKey = userInfo["avatarKey"] as? String
             greetingLabel.text = "Hi, " + (name ?? "User")
@@ -65,11 +68,34 @@ class ActorHomeViewController: UIViewController, UICollectionViewDataSource, UIC
         
         fetchReaderList()
         //call API for badge appear
+        fetchUnreadState()
     }
     
     @IBAction func didSearchStringChanged(_ sender: UITextField) {
         searchString = sender.text ?? ""
         fetchReaderList()
+    }
+    func fetchUnreadState() {
+        //call API for badge appear
+        webAPI.getUnreadCountByUid(uid: uid) { data, response, error in
+            guard let data = data, error == nil else {
+                print(error?.localizedDescription ?? "No data")
+                return
+            }
+            do {
+                let res = try JSONDecoder().decode(UnreadState.self, from: data)
+                //print(items)
+                DispatchQueue.main.async {
+                    self.unread_badge.isHidden = res.unreadCount == 0
+                }
+            }
+            catch {
+                print(error)
+                DispatchQueue.main.async {
+                    Toast.show(message: "Fetching badge state failed! please try again.", controller: self)
+                }
+            }
+        }
     }
     func fetchReaderList() {
         spin.isHidden = false
