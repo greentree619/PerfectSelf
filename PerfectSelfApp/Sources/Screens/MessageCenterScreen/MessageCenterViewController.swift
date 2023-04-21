@@ -103,47 +103,6 @@ class MessageCenterViewController: UIViewController, UICollectionViewDataSource,
             cell.view_status.backgroundColor = card.receiverIsOnline ? UIColor(rgb: 0x34C759) : UIColor(rgb: 0xAAAAAA)
             cell.lbl_name.text = card.receiverName
             cell.lbl_message.text = card.message
-            
-            let formatter = DateComponentsFormatter()
-            formatter.unitsStyle = .full
-            formatter.maximumUnitCount = 1
-            formatter.allowedUnits = [.day]
-
-            let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "MMM dd"
-
-//            let currentDate = Date()
-            let df = DateFormatter()
-            df.dateFormat =  "yyyy-MM-dd'T'HH:mm:ss.SSSSSSS"
-            let someDate = df.date(from: card.sendTime) ?? Date()
-           
-            let currentDateComponents = Calendar.current.dateComponents([.yearForWeekOfYear, .weekOfYear], from: Date())
-            let thisWeekStart = Calendar.current.date(from: currentDateComponents)!
-            let thisWeekEnd = Calendar.current.date(byAdding: .day, value: 6, to: thisWeekStart)!
-
-            if Calendar.current.isDateInToday(someDate) {
-                // Display the time only
-                dateFormatter.dateFormat = "h:mm a"
-                let timeString = dateFormatter.string(from: someDate)
-                print(timeString)
-                cell.lbl_time.text = timeString
-
-            } else if Calendar.current.isDateInYesterday(someDate) {
-                cell.lbl_time.text = "Yesterday"
-            } else if someDate >= thisWeekStart && someDate <= thisWeekEnd {
-                let daysAgoString = formatter.string(from: someDate, to: Date())!
-                let daysAgo = daysAgoString.replacingOccurrences(of: ",", with: "")
-                let dateString = "\(daysAgo) ago"
-                print(dateString)
-                cell.lbl_time.text = dateString
-            }
-            else {
-                // Display the month and day
-                let dateString = dateFormatter.string(from: someDate)
-                print(dateString)
-                cell.lbl_time.text = dateString
-            }
-
             // unread number
         }
         else {
@@ -155,10 +114,49 @@ class MessageCenterViewController: UIViewController, UICollectionViewDataSource,
             cell.view_status.backgroundColor = card.senderIsOnline ? UIColor(rgb: 0x34C759) : UIColor(rgb: 0xAAAAAA)
             cell.lbl_name.text = card.senderName
             cell.lbl_message.text = card.message
-            cell.lbl_time.text = card.sendTime
             // unread number
         }
         
+        let formatter = DateComponentsFormatter()
+        formatter.unitsStyle = .full
+        formatter.maximumUnitCount = 1
+        formatter.allowedUnits = [.day]
+
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MMM dd"
+
+//            let currentDate = Date()
+        let df = DateFormatter()
+        df.dateFormat =  "yyyy-MM-dd'T'HH:mm:ss.SSSSSSS"
+        let someDate = df.date(from: card.sendTime) ?? Date()
+       
+        let currentDateComponents = Calendar.current.dateComponents([.yearForWeekOfYear, .weekOfYear], from: Date())
+        let thisWeekStart = Calendar.current.date(from: currentDateComponents)!
+        let thisWeekEnd = Calendar.current.date(byAdding: .day, value: 6, to: thisWeekStart)!
+
+        if Calendar.current.isDateInToday(someDate) {
+            // Display the time only
+            dateFormatter.dateFormat = "h:mm a"
+            let timeString = dateFormatter.string(from: someDate)
+            print(timeString)
+            cell.lbl_time.text = timeString
+
+        } else if Calendar.current.isDateInYesterday(someDate) {
+            cell.lbl_time.text = "Yesterday"
+        } else if someDate >= thisWeekStart && someDate <= thisWeekEnd {
+            let daysAgoString = formatter.string(from: someDate, to: Date())!
+            let daysAgo = daysAgoString.replacingOccurrences(of: ",", with: "")
+            let dateString = "\(daysAgo) ago"
+            print(dateString)
+            cell.lbl_time.text = dateString
+        }
+        else {
+            // Display the month and day
+            let dateString = dateFormatter.string(from: someDate)
+            print(dateString)
+            cell.lbl_time.text = dateString
+        }
+
         // return card
 //        cell.layer.masksToBounds = false
 //        cell.layer.shadowOffset = CGSize(width: 3,height: 3)

@@ -79,7 +79,7 @@
                             </constraints>
                         </stackView>
                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="snN-yd-zv7">
-                            <rect key="frame" x="20" y="90" width="353" height="599"/>
+                            <rect key="frame" x="20" y="90" width="353" height="594"/>
                             <subviews>
                                 <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dQu-1r-z2u">
                                     <rect key="frame" x="10" y="10" width="333" height="25"/>
@@ -119,10 +119,10 @@
                                     </userDefinedRuntimeAttributes>
                                 </stackView>
                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="bottom" translatesAutoresizingMaskIntoConstraints="NO" id="A56-t5-pix">
-                                    <rect key="frame" x="10" y="431" width="333" height="40"/>
+                                    <rect key="frame" x="10" y="431" width="333" height="35"/>
                                     <subviews>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="keN-Cg-Yxc">
-                                            <rect key="frame" x="152.66666666666663" y="0.0" width="180.33333333333337" height="40"/>
+                                            <rect key="frame" x="152.66666666666663" y="0.0" width="180.33333333333337" height="35"/>
                                             <state key="normal" title="Button"/>
                                             <buttonConfiguration key="configuration" style="plain" title="Add available time">
                                                 <imageReference key="image" image="plus" catalog="system" symbolScale="medium"/>
@@ -134,7 +134,7 @@
                                     </subviews>
                                 </stackView>
                                 <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rlA-cH-z32">
-                                    <rect key="frame" x="10" y="481" width="333" height="25"/>
+                                    <rect key="frame" x="10" y="476" width="333" height="25"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Selected time slot(s)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2id-83-Qj3">
                                             <rect key="frame" x="0.0" y="0.0" width="333" height="25"/>
@@ -148,7 +148,7 @@
                                     </constraints>
                                 </stackView>
                                 <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="8k8-2p-HGg">
-                                    <rect key="frame" x="10" y="516" width="333" height="73"/>
+                                    <rect key="frame" x="10" y="511" width="333" height="73"/>
                                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                     <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="mYS-pu-xKZ">
                                         <size key="itemSize" width="128" height="128"/>
@@ -160,26 +160,40 @@
                             </subviews>
                             <edgeInsets key="layoutMargins" top="10" left="10" bottom="10" right="10"/>
                         </stackView>
-                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="o80-WU-gVi">
-                            <rect key="frame" x="20" y="699" width="353" height="40"/>
-                            <subviews>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wSb-fo-RtF">
-                                    <rect key="frame" x="0.0" y="0.0" width="353" height="40"/>
-                                    <state key="normal" title="Button"/>
-                                    <buttonConfiguration key="configuration" style="filled" title="Save Availability" cornerStyle="dynamic">
-                                        <backgroundConfiguration key="background" cornerRadius="5"/>
-                                    </buttonConfiguration>
-                                    <connections>
-                                        <action selector="SaveChanges:" destination="-1" eventType="touchUpInside" id="gB8-50-rsr"/>
-                                    </connections>
-                                </button>
-                            </subviews>
-                            <constraints>
-                                <constraint firstAttribute="height" constant="40" id="TDu-Ds-idR" customClass="AdaptiveLayoutConstraint" customModule="PerfectSelf" customModuleProvider="target"/>
-                            </constraints>
-                        </stackView>
                     </subviews>
-                    <edgeInsets key="layoutMargins" top="0.0" left="20" bottom="20" right="20"/>
+                    <edgeInsets key="layoutMargins" top="0.0" left="20" bottom="75" right="20"/>
+                </stackView>
+                <stackView opaque="NO" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="o80-WU-gVi">
+                    <rect key="frame" x="0.0" y="743" width="393" height="109"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wSb-fo-RtF">
+                            <rect key="frame" x="20" y="15" width="353" height="40"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="40" id="sXa-P4-fX2"/>
+                            </constraints>
+                            <state key="normal" title="Button"/>
+                            <buttonConfiguration key="configuration" style="filled" title="Save Availability" cornerStyle="dynamic">
+                                <backgroundConfiguration key="background" cornerRadius="5"/>
+                            </buttonConfiguration>
+                            <connections>
+                                <action selector="SaveChanges:" destination="-1" eventType="touchUpInside" id="gB8-50-rsr"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <edgeInsets key="layoutMargins" top="15" left="20" bottom="20" right="20"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBound" value="NO"/>
+                        <userDefinedRuntimeAttribute type="size" keyPath="layer.shadowOffset">
+                            <size key="value" width="0.0" height="0.0"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="number" keyPath="layer.shadowRadius">
+                            <integer key="value" value="5"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="number" keyPath="layer.shadowOpacity">
+                            <real key="value" value="0.29999999999999999"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
                 </stackView>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5OE-KL-KER">
                     <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
@@ -264,7 +278,10 @@
             <viewLayoutGuide key="safeArea" id="Ez9-sv-9RZ"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
+                <constraint firstItem="Ez9-sv-9RZ" firstAttribute="trailing" secondItem="o80-WU-gVi" secondAttribute="trailing" id="BXf-Ce-AGy"/>
+                <constraint firstItem="o80-WU-gVi" firstAttribute="leading" secondItem="Ez9-sv-9RZ" secondAttribute="leading" id="BfV-fK-dOk"/>
                 <constraint firstItem="5OE-KL-KER" firstAttribute="leading" secondItem="Ez9-sv-9RZ" secondAttribute="leading" id="DO3-fu-NbN"/>
+                <constraint firstAttribute="bottom" secondItem="o80-WU-gVi" secondAttribute="bottom" id="Gc7-96-JtV"/>
                 <constraint firstItem="Ez9-sv-9RZ" firstAttribute="bottom" secondItem="hz9-rm-mfY" secondAttribute="bottom" id="HMD-2m-agv"/>
                 <constraint firstAttribute="bottom" secondItem="5OE-KL-KER" secondAttribute="bottom" id="J14-Ts-mN5"/>
                 <constraint firstItem="Ez9-sv-9RZ" firstAttribute="trailing" secondItem="5OE-KL-KER" secondAttribute="trailing" id="Ovy-8Z-oAQ"/>

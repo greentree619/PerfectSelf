@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21225" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21207"/>
         <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -110,37 +110,54 @@ brief self introduction brief self introduction brief self introduction brief se
                             </userDefinedRuntimeAttributes>
                         </stackView>
                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="y18-e4-Eof">
-                            <rect key="frame" x="20" y="380" width="353" height="319"/>
+                            <rect key="frame" x="20" y="380" width="353" height="359"/>
                             <edgeInsets key="layoutMargins" top="10" left="10" bottom="10" right="10"/>
-                        </stackView>
-                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="AjX-Fr-aFE">
-                            <rect key="frame" x="20" y="699" width="353" height="40"/>
-                            <subviews>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qZs-Uh-5EC">
-                                    <rect key="frame" x="0.0" y="0.0" width="353" height="40"/>
-                                    <state key="normal" title="Button"/>
-                                    <buttonConfiguration key="configuration" style="filled" title="Save Changes" cornerStyle="dynamic">
-                                        <backgroundConfiguration key="background" cornerRadius="5"/>
-                                    </buttonConfiguration>
-                                    <connections>
-                                        <action selector="SaveChanges:" destination="-1" eventType="touchUpInside" id="ftO-br-7WG"/>
-                                    </connections>
-                                </button>
-                            </subviews>
-                            <constraints>
-                                <constraint firstAttribute="height" constant="40" id="PBa-hF-t40" customClass="AdaptiveLayoutConstraint" customModule="PerfectSelf" customModuleProvider="target"/>
-                            </constraints>
                         </stackView>
                     </subviews>
                     <edgeInsets key="layoutMargins" top="0.0" left="20" bottom="20" right="20"/>
+                </stackView>
+                <stackView opaque="NO" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="AjX-Fr-aFE">
+                    <rect key="frame" x="0.0" y="743" width="393" height="109"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qZs-Uh-5EC">
+                            <rect key="frame" x="20" y="15" width="353" height="40"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="40" id="Tyg-j1-xyM"/>
+                            </constraints>
+                            <state key="normal" title="Button"/>
+                            <buttonConfiguration key="configuration" style="filled" title="Save Changes" cornerStyle="dynamic">
+                                <backgroundConfiguration key="background" cornerRadius="5"/>
+                            </buttonConfiguration>
+                            <connections>
+                                <action selector="SaveChanges:" destination="-1" eventType="touchUpInside" id="ftO-br-7WG"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <edgeInsets key="layoutMargins" top="15" left="20" bottom="20" right="20"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBound" value="YES"/>
+                        <userDefinedRuntimeAttribute type="size" keyPath="layer.shadowOffset">
+                            <size key="value" width="0.0" height="0.0"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="number" keyPath="layer.shadowOpacity">
+                            <real key="value" value="0.29999999999999999"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="number" keyPath="layer.shadowRadius">
+                            <integer key="value" value="5"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
                 </stackView>
             </subviews>
             <viewLayoutGuide key="safeArea" id="40t-XJ-V2y"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
                 <constraint firstItem="wXU-rh-amf" firstAttribute="leading" secondItem="40t-XJ-V2y" secondAttribute="leading" id="WfQ-bW-dgi"/>
+                <constraint firstItem="AjX-Fr-aFE" firstAttribute="leading" secondItem="40t-XJ-V2y" secondAttribute="leading" id="e6W-bU-M9g"/>
                 <constraint firstItem="wXU-rh-amf" firstAttribute="top" secondItem="40t-XJ-V2y" secondAttribute="top" id="euT-GC-DPY"/>
                 <constraint firstItem="wXU-rh-amf" firstAttribute="trailing" secondItem="40t-XJ-V2y" secondAttribute="trailing" id="lRm-Au-jZM"/>
+                <constraint firstAttribute="bottom" secondItem="AjX-Fr-aFE" secondAttribute="bottom" id="lhc-Wi-O6A"/>
+                <constraint firstItem="40t-XJ-V2y" firstAttribute="trailing" secondItem="AjX-Fr-aFE" secondAttribute="trailing" id="v4U-r9-INS"/>
                 <constraint firstItem="40t-XJ-V2y" firstAttribute="bottom" secondItem="wXU-rh-amf" secondAttribute="bottom" id="yTQ-eb-jPh"/>
             </constraints>
             <point key="canvasLocation" x="138" y="-627"/>
