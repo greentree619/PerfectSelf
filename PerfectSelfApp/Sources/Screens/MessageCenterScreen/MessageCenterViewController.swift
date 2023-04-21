@@ -103,7 +103,6 @@ class MessageCenterViewController: UIViewController, UICollectionViewDataSource,
             cell.view_status.backgroundColor = card.receiverIsOnline ? UIColor(rgb: 0x34C759) : UIColor(rgb: 0xAAAAAA)
             cell.lbl_name.text = card.receiverName
             cell.lbl_message.text = card.message
-            // unread number
         }
         else {
             if card.senderAvatarKey != nil {
@@ -114,7 +113,6 @@ class MessageCenterViewController: UIViewController, UICollectionViewDataSource,
             cell.view_status.backgroundColor = card.senderIsOnline ? UIColor(rgb: 0x34C759) : UIColor(rgb: 0xAAAAAA)
             cell.lbl_name.text = card.senderName
             cell.lbl_message.text = card.message
-            // unread number
         }
         
         let formatter = DateComponentsFormatter()
@@ -125,7 +123,6 @@ class MessageCenterViewController: UIViewController, UICollectionViewDataSource,
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "MMM dd"
 
-//            let currentDate = Date()
         let df = DateFormatter()
         df.dateFormat =  "yyyy-MM-dd'T'HH:mm:ss.SSSSSSS"
         let someDate = df.date(from: card.sendTime) ?? Date()
@@ -156,7 +153,9 @@ class MessageCenterViewController: UIViewController, UICollectionViewDataSource,
             print(dateString)
             cell.lbl_time.text = dateString
         }
-
+        // unread number
+        cell.view_unread.isHidden = self.items[indexPath.row].unreadCount == 0
+        cell.lbl_unviewednum.text = String(self.items[indexPath.row].unreadCount)
         // return card
 //        cell.layer.masksToBounds = false
 //        cell.layer.shadowOffset = CGSize(width: 3,height: 3)

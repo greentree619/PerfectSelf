@@ -171,6 +171,7 @@ struct ChatChannel: Codable {
     let receiverAvatarKey: String?
     let senderIsOnline: Bool
     let receiverIsOnline: Bool
+    let unreadCount: Int
 }
 
 struct PerfMessage: Codable {
