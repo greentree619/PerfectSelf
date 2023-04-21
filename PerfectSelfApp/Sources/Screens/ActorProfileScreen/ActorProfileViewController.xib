@@ -156,14 +156,15 @@
                                                     <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                     <state key="normal" image="chevron.right" catalog="system"/>
-                                                    <connections>
-                                                        <action selector="EditProfile:" destination="-1" eventType="touchUpInside" id="NmQ-5g-MN7"/>
-                                                    </connections>
                                                 </button>
                                             </subviews>
+                                            <gestureRecognizers/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="25" id="kIf-Ct-nw9"/>
                                             </constraints>
+                                            <connections>
+                                                <outletCollection property="gestureRecognizers" destination="43i-3C-lLr" appends="YES" id="gUF-af-Uii"/>
+                                            </connections>
                                         </stackView>
                                         <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="89Q-3t-ceO">
                                             <rect key="frame" x="0.0" y="66" width="350" height="25"/>
@@ -189,14 +190,15 @@
                                                     <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                     <state key="normal" image="chevron.right" catalog="system"/>
-                                                    <connections>
-                                                        <action selector="ChangePassword:" destination="-1" eventType="touchUpInside" id="Mt8-S5-fPX"/>
-                                                    </connections>
                                                 </button>
                                             </subviews>
+                                            <gestureRecognizers/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="25" id="sYg-gW-Mdy"/>
                                             </constraints>
+                                            <connections>
+                                                <outletCollection property="gestureRecognizers" destination="j6g-GG-WwP" appends="YES" id="IqH-dy-0wE"/>
+                                            </connections>
                                         </stackView>
                                     </subviews>
                                 </stackView>
@@ -254,14 +256,15 @@
                                                     <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                     <state key="normal" image="chevron.right" catalog="system"/>
-                                                    <connections>
-                                                        <action selector="LogOut:" destination="-1" eventType="touchUpInside" id="MgB-ug-Eig"/>
-                                                    </connections>
                                                 </button>
                                             </subviews>
+                                            <gestureRecognizers/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="25" id="JKU-W4-rHM"/>
                                             </constraints>
+                                            <connections>
+                                                <outletCollection property="gestureRecognizers" destination="8R7-ew-R6C" appends="YES" id="wSs-rW-oIf"/>
+                                            </connections>
                                         </stackView>
                                     </subviews>
                                 </stackView>
@@ -284,6 +287,21 @@
             </constraints>
             <point key="canvasLocation" x="138" y="21"/>
         </view>
+        <tapGestureRecognizer id="43i-3C-lLr">
+            <connections>
+                <action selector="EditProfile:" destination="-1" id="EkN-ws-PC4"/>
+            </connections>
+        </tapGestureRecognizer>
+        <tapGestureRecognizer id="j6g-GG-WwP">
+            <connections>
+                <action selector="ChangePassword:" destination="-1" id="dB3-l7-NTT"/>
+            </connections>
+        </tapGestureRecognizer>
+        <tapGestureRecognizer id="8R7-ew-R6C">
+            <connections>
+                <action selector="LogOut:" destination="-1" id="Xqk-fV-os1"/>
+            </connections>
+        </tapGestureRecognizer>
     </objects>
     <resources>
         <image name="camera" catalog="system" width="128" height="93"/>

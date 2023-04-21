@@ -50,7 +50,8 @@ class ActorProfileViewController: UIViewController {
         imagePicker.sourceType = .photoLibrary
         present(imagePicker, animated: true, completion: nil)
     }
-    @IBAction func EditProfile(_ sender: UIButton) {
+    
+    @IBAction func EditProfile(_ sender: UITapGestureRecognizer) {
         let controller = ActorProfileEditViewController()
         controller.modalPresentationStyle = .fullScreen
        
@@ -62,7 +63,7 @@ class ActorProfileViewController: UIViewController {
         self.present(controller, animated: false)
     }
     
-    @IBAction func ChangePassword(_ sender: UIButton) {
+    @IBAction func ChangePassword(_ sender: UITapGestureRecognizer) {
         let controller = ActorProfileChangePasswordViewController()
         controller.modalPresentationStyle = .fullScreen
         let transition = CATransition()
@@ -74,8 +75,11 @@ class ActorProfileViewController: UIViewController {
         
     }
     
-    @IBAction func LogOut(_ sender: UIButton) {
+    @IBAction func LogOut(_ sender: UITapGestureRecognizer) {
         // Optional: Dismiss the tab bar controller
+        // Delete localstorage
+        UserDefaults.standard.removeObject(forKey: "USER")
+        // Delete localstorage
         let transition = CATransition()
         transition.duration = 0.5 // Set animation duration
         transition.type = CATransitionType.push // Set transition type to push
