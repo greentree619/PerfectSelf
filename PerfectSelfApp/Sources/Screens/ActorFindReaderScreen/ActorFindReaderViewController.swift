@@ -107,7 +107,7 @@ class ActorFindReaderViewController: UIViewController , UICollectionViewDataSour
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Reader Collection View Cell", for: indexPath) as! ReaderCollectionViewCell
         
         if self.items[indexPath.row].avatarBucketName != nil {
-            let url = "https://perfectself-avatar-bucket.s3.us-east-2.amazonaws.com/\( self.items[indexPath.row].avatarBucketName!)/\( self.items[indexPath.row].avatarKey!)"
+            let url = "https://\( self.items[indexPath.row].avatarBucketName!).s3.us-east-2.amazonaws.com/\( self.items[indexPath.row].avatarKey!)"
             cell.readerAvatar.imageFrom(url: URL(string: url)!)
         }
         cell.readerName.text = self.items[indexPath.row].userName;

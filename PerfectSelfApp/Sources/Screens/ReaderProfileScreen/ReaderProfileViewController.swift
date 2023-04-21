@@ -138,11 +138,11 @@ class ReaderProfileViewController: UIViewController, UICollectionViewDataSource,
                     self.reviewList.reloadData()
                     self.lbl_noreview.isHidden = !(item.reviewLists.count == 0)
                     if !item.avatarBucketName.isEmpty {
-                        let url = "https://perfectself-avatar-bucket.s3.us-east-2.amazonaws.com/\(item.avatarBucketName)/\(item.avatarKey)"
+                        let url = "https://\(item.avatarBucketName).s3.us-east-2.amazonaws.com/\(item.avatarKey)"
                         self.readerAvatar.imageFrom(url: URL(string: url)!)
                     }
                     if !item.introVideoKey.isEmpty {
-                        let vUrl = "https://video-client-upload-123456798.s3.us-east-2.amazonaws.com/intro-video/\(item.introBucketName)/\(item.introVideoKey)"
+                        let vUrl = "https://\(item.introBucketName).s3.us-east-2.amazonaws.com/intro-video/\(item.introVideoKey)"
                         
                         let downloadImageURL = vUrl.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)! as NSString
                         
@@ -289,7 +289,7 @@ class ReaderProfileViewController: UIViewController, UICollectionViewDataSource,
             cell.lbl_score.text = String(self.reviews[indexPath.row].readerScore)
             cell.text_review.text = self.reviews[indexPath.row].readerReview
             if self.reviews[indexPath.row].actorAvatarKey != nil{
-                let url = "https://perfectself-avatar-bucket.s3.us-east-2.amazonaws.com/\(self.reviews[indexPath.row].actorBucketName!)/\(self.reviews[indexPath.row].actorAvatarKey!)"
+                let url = "https://\(self.reviews[indexPath.row].actorBucketName!).s3.us-east-2.amazonaws.com/\(self.reviews[indexPath.row].actorAvatarKey!)"
                 cell.img_avatar.imageFrom(url: URL(string: url)!)
             }
     //        cell.layer.masksToBounds = false
@@ -524,7 +524,7 @@ extension ReaderProfileViewController: UIImagePickerControllerDelegate & UINavig
                                 
                                 self.readerAvatar.imageFrom(url: URL(string: url)!)
                                 //update user profile
-                                webAPI.updateUserAvatar(uid: self.id, bucketName: self.id, avatarKey: String(describing: avatarUrl!.lastPathComponent)) { data, response, error in
+                                webAPI.updateUserAvatar(uid: self.id, bucketName: "perfectself-avatar-bucket", avatarKey: "\(self.id)/\(avatarUrl!.lastPathComponent)") { data, response, error in
                                     if error == nil {
                                         // successfully update db
                                     }
@@ -591,7 +591,7 @@ extension ReaderProfileViewController: UIImagePickerControllerDelegate & UINavig
                                     task.resume()
                                 }
                                 //update user profile
-                                webAPI.uploadUserIntroVideo(uid: self.id, bucketName: self.id, videoKey: String(describing: videoURL.lastPathComponent)) { data, response, error in
+                                webAPI.uploadUserIntroVideo(uid: self.id, bucketName: "video-client-upload-123456798", videoKey: "intro-video/\(self.id)/\(videoURL.lastPathComponent)") { data, response, error in
                                     if error == nil {
                                         // successfully update db
                                     }

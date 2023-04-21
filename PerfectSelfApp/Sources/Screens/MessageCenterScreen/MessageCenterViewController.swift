@@ -96,7 +96,7 @@ class MessageCenterViewController: UIViewController, UICollectionViewDataSource,
         let card = self.items[indexPath.row]
         if card.senderUid == uid {
             if card.receiverAvatarKey != nil {
-                let url = "https://perfectself-avatar-bucket.s3.us-east-2.amazonaws.com/\(card.receiverAvatarBucket!)/\(card.receiverAvatarKey!)"
+                let url = "https://\(card.receiverAvatarBucket!).s3.us-east-2.amazonaws.com/\(card.receiverAvatarKey!)"
                 cell.img_avatar.imageFrom(url: URL(string: url)!)
             }
         
@@ -108,7 +108,7 @@ class MessageCenterViewController: UIViewController, UICollectionViewDataSource,
         }
         else {
             if card.senderAvatarKey != nil {
-                let url = "https://perfectself-avatar-bucket.s3.us-east-2.amazonaws.com/\(card.senderAvatarBucket!)/\(card.senderAvatarKey!)"
+                let url = "https://\(card.senderAvatarBucket!).s3.us-east-2.amazonaws.com/\(card.senderAvatarKey!)"
                 cell.img_avatar.imageFrom(url: URL(string: url)!)
             }
         
@@ -141,14 +141,14 @@ class MessageCenterViewController: UIViewController, UICollectionViewDataSource,
         var uuid: String!
         if card.senderUid == uid {
             if card.receiverAvatarKey != nil {
-                url = "https://perfectself-avatar-bucket.s3.us-east-2.amazonaws.com/\(card.receiverAvatarBucket!)/\(card.receiverAvatarKey!)"
+                url = "https://\(card.receiverAvatarBucket!).s3.us-east-2.amazonaws.com/\(card.receiverAvatarKey!)"
             }
             name = card.receiverName
             uuid = card.receiverUid
         }
         else {
             if card.senderAvatarKey != nil {
-                url = "https://perfectself-avatar-bucket.s3.us-east-2.amazonaws.com/\(card.senderAvatarBucket!)/\(card.senderAvatarKey!)"
+                url = "https://\(card.senderAvatarBucket!).s3.us-east-2.amazonaws.com/\(card.senderAvatarKey!)"
             }
             name = card.senderName
             uuid = card.senderUid

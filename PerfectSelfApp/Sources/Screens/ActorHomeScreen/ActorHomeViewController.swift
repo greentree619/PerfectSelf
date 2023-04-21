@@ -51,7 +51,7 @@ class ActorHomeViewController: UIViewController, UICollectionViewDataSource, UIC
             let avatarKey = userInfo["avatarKey"] as? String
             greetingLabel.text = "Hi, " + (name ?? "User")
             if (bucketName != nil && avatarKey != nil) {
-                let url = "https://perfectself-avatar-bucket.s3.us-east-2.amazonaws.com/\( bucketName!)/\(avatarKey!)"
+                let url = "https://\( bucketName!).s3.us-east-2.amazonaws.com/\(avatarKey!)"
                 img_actor_avatar.imageFrom(url: URL(string: url)!)
             }
         } else {
@@ -125,7 +125,7 @@ class ActorHomeViewController: UIViewController, UICollectionViewDataSource, UIC
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Reader Collection View Cell", for: indexPath) as! ReaderCollectionViewCell
         
         if self.items[indexPath.row].avatarBucketName != nil {
-            let url = "https://perfectself-avatar-bucket.s3.us-east-2.amazonaws.com/\( self.items[indexPath.row].avatarBucketName!)/\( self.items[indexPath.row].avatarKey!)"
+            let url = "https://\( self.items[indexPath.row].avatarBucketName!).s3.us-east-2.amazonaws.com/\( self.items[indexPath.row].avatarKey!)"
             cell.readerAvatar.imageFrom(url: URL(string: url)!)
         }
         cell.readerName.text = self.items[indexPath.row].userName;

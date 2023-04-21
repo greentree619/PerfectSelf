@@ -139,7 +139,7 @@ class ActorBookingViewController: UIViewController, UICollectionViewDataSource, 
         cell.muid = self.items[indexPath.row].actorUid
         var url: String?
         if self.items[indexPath.row].readerBucketName != nil {
-            url = "https://perfectself-avatar-bucket.s3.us-east-2.amazonaws.com/\(self.items[indexPath.row].readerBucketName!)/\(self.items[indexPath.row].readerAvatarKey!)"
+            url = "https://\(self.items[indexPath.row].readerBucketName!).s3.us-east-2.amazonaws.com/\(self.items[indexPath.row].readerAvatarKey!)"
         }
         cell.url = url
         cell.review = self.items[indexPath.row].readerReview

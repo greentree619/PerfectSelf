@@ -32,7 +32,7 @@ class ActorProfileViewController: UIViewController {
             let avatarKey = userInfo["avatarKey"] as? String
             
             if (bucketName != nil && avatarKey != nil) {
-                let url = "https://perfectself-avatar-bucket.s3.us-east-2.amazonaws.com/\( bucketName!)/\(avatarKey!)"
+                let url = "https://\( bucketName!).s3.us-east-2.amazonaws.com/\(avatarKey!)"
                 img_user_avatar.imageFrom(url: URL(string: url)!)
             }
             lbl_fullname.text = (fname ?? "") + " " + (lname ?? "")
@@ -128,7 +128,7 @@ extension ActorProfileViewController: UIImagePickerControllerDelegate & UINaviga
                             let url = "https://perfectself-avatar-bucket.s3.us-east-2.amazonaws.com/\(self.id)/\(String(describing: avatarUrl!.lastPathComponent))"
                             self.img_user_avatar.imageFrom(url: URL(string: url)!)
                             //update user profile
-                            webAPI.updateUserAvatar(uid: self.id, bucketName: self.id, avatarKey: String(describing: avatarUrl!.lastPathComponent)) { data, response, error in
+                            webAPI.updateUserAvatar(uid: self.id, bucketName: "perfectself-avatar-bucket", avatarKey: "\(self.id)/\(avatarUrl!.lastPathComponent)") { data, response, error in
                                 if error == nil {
                                     // successfully update db
                                     print("update db completed")

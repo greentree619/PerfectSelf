@@ -112,7 +112,7 @@ class ReaderHomeViewController: UIViewController, UICollectionViewDataSource, UI
         cell.muid = self.items[indexPath.row].readerUid
         var url: String?
         if self.items[indexPath.row].actorBucketName != nil {
-            url = "https://perfectself-avatar-bucket.s3.us-east-2.amazonaws.com/\(self.items[indexPath.row].actorBucketName!)/\(self.items[indexPath.row].actorAvatarKey!)"
+            url = "https://\(self.items[indexPath.row].actorBucketName!).s3.us-east-2.amazonaws.com/\(self.items[indexPath.row].actorAvatarKey!)"
         }
         cell.url = url
    

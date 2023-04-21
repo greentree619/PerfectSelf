@@ -177,7 +177,7 @@ extension ReaderBuildProfileViewController: UIImagePickerControllerDelegate & UI
                             let url = "https://perfectself-avatar-bucket.s3.us-east-2.amazonaws.com/\(self.id)/\(String(describing: avatarUrl!.lastPathComponent))"
                             self.img_avatar.imageFrom(url: URL(string: url)!)
                             //update user profile
-                            webAPI.updateUserAvatar(uid: self.id, bucketName: self.id, avatarKey: String(describing: avatarUrl!.lastPathComponent)) { data, response, error in
+                            webAPI.updateUserAvatar(uid: self.id, bucketName: "perfectself-avatar-bucket", avatarKey: "\(self.id)/\(avatarUrl!.lastPathComponent)") { data, response, error in
                                 if error == nil {
                                     // successfully update db
                                     print("update db completed")
