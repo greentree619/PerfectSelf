@@ -114,7 +114,7 @@ class ActorReaderDetailViewController: UIViewController , UICollectionViewDataSo
                         self.reader_avatar.imageFrom(url: URL(string: url)!)
                     }
                     if !item.introVideoKey.isEmpty {
-                        let vUrl = "https://\(item.introBucketName).s3.us-east-2.amazonaws.com/intro-video/\(item.introVideoKey)"
+                        let vUrl = "https://\(item.introBucketName).s3.us-east-2.amazonaws.com/\(item.introVideoKey)"
                         
                         let downloadImageURL = vUrl.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)! as NSString
                         
