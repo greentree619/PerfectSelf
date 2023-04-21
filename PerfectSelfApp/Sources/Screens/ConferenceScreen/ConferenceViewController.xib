@@ -85,9 +85,8 @@
                     <rect key="frame" x="197" y="438" width="20" height="20"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 </activityIndicatorView>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="5" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KCc-F3-IiK">
-                    <rect key="frame" x="175" y="388" width="62.5" height="119.5"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="5" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KCc-F3-IiK">
+                    <rect key="frame" x="165.33333333333334" y="366.33333333333331" width="62.666666666666657" height="119.66666666666669"/>
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="100"/>
                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <nil key="highlightedColor"/>
@@ -280,6 +279,7 @@
                 <constraint firstItem="vdA-kj-hut" firstAttribute="leading" secondItem="ojN-TJ-Aoy" secondAttribute="trailing" constant="6" id="Lzq-zn-5o1"/>
                 <constraint firstItem="hdh-dU-uYV" firstAttribute="trailing" secondItem="zO4-6W-k28" secondAttribute="trailing" id="MWp-S0-Opc"/>
                 <constraint firstItem="VYL-z9-Smz" firstAttribute="leading" secondItem="hdh-dU-uYV" secondAttribute="leading" id="RIU-2d-cyU"/>
+                <constraint firstItem="KCc-F3-IiK" firstAttribute="centerX" secondItem="T4X-m9-Uf7" secondAttribute="centerX" id="Sfd-0d-Kcq"/>
                 <constraint firstItem="zO4-6W-k28" firstAttribute="leading" secondItem="hdh-dU-uYV" secondAttribute="leading" id="UTs-wz-ruK"/>
                 <constraint firstItem="VYL-z9-Smz" firstAttribute="top" secondItem="T4X-m9-Uf7" secondAttribute="top" id="UYo-MG-Zs0"/>
                 <constraint firstItem="oVe-mG-07t" firstAttribute="leading" secondItem="hdh-dU-uYV" secondAttribute="leading" constant="20" id="aqF-JH-Umu"/>
@@ -291,6 +291,7 @@
                 <constraint firstItem="VYL-z9-Smz" firstAttribute="trailing" secondItem="hdh-dU-uYV" secondAttribute="trailing" id="sbh-ie-wTU"/>
                 <constraint firstAttribute="bottom" secondItem="zO4-6W-k28" secondAttribute="bottom" id="tZx-EL-Rei"/>
                 <constraint firstItem="ZDA-HM-us0" firstAttribute="leading" secondItem="hdh-dU-uYV" secondAttribute="leading" id="uus-zw-qZt"/>
+                <constraint firstItem="KCc-F3-IiK" firstAttribute="centerY" secondItem="T4X-m9-Uf7" secondAttribute="centerY" id="z7h-WJ-GU1"/>
             </constraints>
             <variation key="default">
                 <mask key="subviews">

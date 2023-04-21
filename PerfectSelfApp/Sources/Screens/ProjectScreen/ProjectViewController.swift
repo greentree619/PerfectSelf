@@ -16,26 +16,27 @@ class ProjectViewController: UIViewController {
     @IBOutlet var startTime: UILabel!
     @IBOutlet var endTime: UILabel!
     
-    var savedFileUrl: URL? = nil
+    var savedVideoUrl: URL? = nil
+    var savedAudioUrl: URL? = nil
     @IBOutlet weak var playerView: PlayerView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.playerView.delegate = self
-        
-        var downloadImageURL: NSString = "https://\(selectedTape!.bucketName).s3.us-east-2.amazonaws.com/\(selectedTape!.tapeKey).mp4" as NSString
-        
-        downloadImageURL = downloadImageURL.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)! as NSString
-        
-        let requestURL: NSURL = NSURL(string: downloadImageURL as String)!
-        
-        let request = URLRequest(url: requestURL as URL, cachePolicy: .useProtocolCachePolicy, timeoutInterval: 10.0)
         let config = URLSessionConfiguration.default
         let session = URLSession(configuration: config)
+        
+        var downloadVideoURL: NSString = "https://\(selectedTape!.bucketName).s3.us-east-2.amazonaws.com/\(selectedTape!.tapeKey).mp4" as NSString
+        let downloadAudioURL: NSString = "https://\(selectedTape!.bucketName).s3.us-east-2.amazonaws.com/\(selectedTape!.tapeKey).m4a" as NSString
+        
+        downloadVideoURL = downloadVideoURL.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)! as NSString
+        var requestURL = NSURL(string: downloadVideoURL as String)!
+        var request = URLRequest(url: requestURL as URL, cachePolicy: .useProtocolCachePolicy, timeoutInterval: 10.0)
         let task = session.dataTask(with: request, completionHandler: {(data, response, error) in
-            DispatchQueue.main.async {
-                hideIndicator(sender: nil)
-            }
+//Omitted
+//            DispatchQueue.main.async {
+//                hideIndicator(sender: nil)
+//            }
             
              if error != nil {
                   //print(error!.localizedDescription)
@@ -44,25 +45,43 @@ class ProjectViewController: UIViewController {
                  }
              }
              else {
-                 //print(response)//print(response ?? default "")
                  let documentsPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0];
                  let filePath = URL(fileURLWithPath: "\(documentsPath)/tempFile.mp4")
                  DispatchQueue.main.async {
                      do{
                          try data!.write(to: filePath)
-                         self.savedFileUrl = filePath
+                         self.savedVideoUrl = filePath
                          self.playerView.url = filePath
                          
-//                         PHPhotoLibrary.shared().performChanges({
-//                             PHAssetChangeRequest.creationRequestForAssetFromVideo(atFileURL: filePath)
-//                         }) { completed, error in
-//                             if completed {
-//                                 //print("Video is saved!")
-//                                 DispatchQueue.main.async {
-//                                     Toast.show(message: "Video is saved!", controller: self)
-//                                 }
-//                             }
-//                         }
+                         //Download audio file
+                         requestURL =  NSURL(string: downloadAudioURL as String)!
+                         request = URLRequest(url: requestURL as URL, cachePolicy: .useProtocolCachePolicy, timeoutInterval: 10.0)
+                         let taskAudio = session.dataTask(with: request, completionHandler: {(data, response, error) in
+                             DispatchQueue.main.async {
+                                 hideIndicator(sender: nil)
+                             }
+                             
+                              if error != nil {
+                                  //error
+                              }
+                             else {
+                                 let filePath = URL(fileURLWithPath: "\(documentsPath)/tempFile.m4a")
+                                 DispatchQueue.main.async {
+                                     do{
+                                         try data!.write(to: filePath)
+                                         self.savedAudioUrl = filePath
+                                     }
+                                     catch{
+                                         print("error: \(error)")
+                                     }
+                                 }
+                             }
+                         })
+                         
+                         DispatchQueue.main.async {
+                             //Omitted showIndicator(sender: nil, viewController: self, color:UIColor.white)
+                             taskAudio.resume()
+                         }
                      }
                      catch{
                          print("error: \(error)")
@@ -82,22 +101,23 @@ class ProjectViewController: UIViewController {
     }
     
     @IBAction func recordNewTakeDidTapped(_ sender: UIButton) {
-        guard self.savedFileUrl != nil else{
+        guard self.savedVideoUrl != nil else{
             return
         }
         
         let overlayViewController = OverlayViewController()
-        overlayViewController.uploadVideourl = self.savedFileUrl
+        overlayViewController.uploadVideourl = self.savedVideoUrl
+        overlayViewController.uploadAudiourl = self.savedAudioUrl
         overlayViewController.modalPresentationStyle = .fullScreen
         self.present(overlayViewController, animated: false, completion: nil)
     }
     
     @IBAction func editDidTapped(_ sender: UIButton) {
-        guard self.savedFileUrl != nil else{
+        guard self.savedVideoUrl != nil else{
             return
         }
         
-        let editReadViewController = EditReadViewController(videoRrl: self.savedFileUrl!)
+        let editReadViewController = EditReadViewController(videoRrl: self.savedVideoUrl!)
         editReadViewController.modalPresentationStyle = .fullScreen
         self.present(editReadViewController, animated: false, completion: nil)
     }
