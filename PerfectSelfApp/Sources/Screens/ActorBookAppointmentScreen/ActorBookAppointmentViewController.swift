@@ -131,14 +131,14 @@ class ActorBookAppointmentViewController: UIViewController {
         var inputCheck: String = ""
         var focusTextField: UITextField? = nil
         if(text_starttime.text!.isEmpty){
-            inputCheck += "- Please input user email.\n"
+            inputCheck += "- Please input start time.\n"
             if(focusTextField == nil){
                 focusTextField = text_starttime
             }
         }
         
         if(text_end.text!.isEmpty){
-            inputCheck += "- Please input user password.\n"
+            inputCheck += "- Please input end time.\n"
             if(focusTextField == nil){
                 focusTextField = text_end
             }
