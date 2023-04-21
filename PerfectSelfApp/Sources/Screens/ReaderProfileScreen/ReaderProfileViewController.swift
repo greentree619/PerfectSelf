@@ -142,7 +142,7 @@ class ReaderProfileViewController: UIViewController, UICollectionViewDataSource,
                         self.readerAvatar.imageFrom(url: URL(string: url)!)
                     }
                     if !item.introVideoKey.isEmpty {
-                        let vUrl = "https://\(item.introBucketName).s3.us-east-2.amazonaws.com/intro-video/\(item.introVideoKey)"
+                        let vUrl = "https://\(item.introBucketName).s3.us-east-2.amazonaws.com/\(item.introVideoKey)"
                         
                         let downloadImageURL = vUrl.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)! as NSString
                         
@@ -553,7 +553,7 @@ extension ReaderProfileViewController: UIImagePickerControllerDelegate & UINavig
                                 hideIndicator(sender: nil)
                                 Toast.show(message: "file upload completed.", controller: self)
                                 // update avatar
-                                let url = "video-client-upload-123456798.s3.us-east-2.amazonaws.com/intro-video/\(self.id)/\(String(describing: videoURL.lastPathComponent))"
+                                let url = "https://video-client-upload-123456798.s3.us-east-2.amazonaws.com/intro-video/\(self.id)/\(String(describing: videoURL.lastPathComponent))"
                                 
                                 let downloadImageURL = url.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)! as NSString
                                 
