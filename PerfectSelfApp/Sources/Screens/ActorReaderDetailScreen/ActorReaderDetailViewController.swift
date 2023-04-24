@@ -94,6 +94,7 @@ class ActorReaderDetailViewController: UIViewController , UICollectionViewDataSo
                 let item = try JSONDecoder().decode(ReaderProfileDetail.self, from: data)
                 print(item)
                 DispatchQueue.main.async {
+                    self.lbl_noreview.text = "\(item.userName) has no review yet"
                     self.reader_name.text = item.userName
                     self.reader_title.text = item.title
                     self.scoreAndReviewCount.text = "\(item.score) (\(item.bookPassCount))"
@@ -224,7 +225,7 @@ class ActorReaderDetailViewController: UIViewController , UICollectionViewDataSo
             dateFormatter.dateFormat = "EEE"
             let weekDay = dateFormatter.string(from: date ?? Date())
             
-            dateFormatter.dateFormat = "dd MMM"
+            dateFormatter.dateFormat = "MMM dd"
             let dayMonth = dateFormatter.string(from: date ?? Date())
             
             cell.lbl_num_slot.text = "1 slot";

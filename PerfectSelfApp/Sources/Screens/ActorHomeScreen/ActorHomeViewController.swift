@@ -48,7 +48,7 @@ class ActorHomeViewController: UIViewController, UICollectionViewDataSource, UIC
         // Retrieve the saved data from UserDefaults
         if let userInfo = UserDefaults.standard.object(forKey: "USER") as? [String:Any] {
             // Use the saved data
-            let name = userInfo["userName"] as? String
+            let name = userInfo["firstName"] as? String
             uid = userInfo["uid"] as? String
             let bucketName = userInfo["avatarBucketName"] as? String
             let avatarKey = userInfo["avatarKey"] as? String
@@ -163,16 +163,16 @@ class ActorHomeViewController: UIViewController, UICollectionViewDataSource, UIC
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss'Z'"
         let date = dateFormatter.date(from: self.items[indexPath.row].date ?? "1900-01-01T00:00:00Z")
-    
+        
         let dfforlabel = DateFormatter()
         dfforlabel.dateFormat = "MMM dd, hh:mm a"
-        cell.availableDate.text = dfforlabel.string(from: date!)
+        cell.availableDate.text = dfforlabel.string(from: date ?? Date())
         // return card
         cell.layer.masksToBounds = false
         cell.layer.shadowOffset = CGSizeZero
-        cell.layer.shadowRadius = 3
-        cell.layer.shadowOpacity = 0.15
-        cell.contentView.layer.cornerRadius = 12
+        cell.layer.shadowRadius = 5
+        cell.layer.shadowOpacity = 0.3
+        cell.contentView.layer.cornerRadius = 10
         cell.contentView.layer.borderWidth = 1.0
         cell.contentView.layer.borderColor = UIColor.clear.cgColor
         cell.contentView.layer.masksToBounds = true

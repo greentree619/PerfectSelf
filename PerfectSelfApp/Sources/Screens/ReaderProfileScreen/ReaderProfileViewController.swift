@@ -259,7 +259,7 @@ class ReaderProfileViewController: UIViewController, UICollectionViewDataSource,
             dateFormatter.dateFormat = "EEE"
             let weekDay = dateFormatter.string(from: date ?? Date())
             
-            dateFormatter.dateFormat = "dd MMM"
+            dateFormatter.dateFormat = "MMM dd"
             let dayMonth = dateFormatter.string(from: date ?? Date())
             
             cell.lbl_num_slot.text = "1 slot";

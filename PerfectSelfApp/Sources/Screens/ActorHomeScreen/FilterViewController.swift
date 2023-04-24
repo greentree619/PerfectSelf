@@ -12,7 +12,7 @@ import RangeSeekSlider
 class FilterViewController: UIViewController, SelectDateDelegate {
     func didPassData(fromDate: Date, toDate: Date) {
         let df = DateFormatter()
-        df.dateFormat = "dd/MM/yyyy"
+        df.dateFormat = "MM/dd/yyyy"
         text_date_range.text = df.string(from: fromDate) + "-" + df.string(from: toDate)
         isDateSelected = true
         self.fromDate = fromDate

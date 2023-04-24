@@ -81,7 +81,7 @@ class ActorBookConfirmationViewController: UIViewController {
             if let _ = responseJSON as? [String: Any] {
                 DispatchQueue.main.async {
                     hideIndicator(sender: sender)
-                    Toast.show(message: "success!", controller: self)
+//                    Toast.show(message: "success!", controller: self)
                     DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
                             // do stuff 1 seconds later
                         self.presentingViewController?.presentingViewController?.presentingViewController?.presentingViewController?.presentingViewController?.dismiss(animated: false, completion: nil)
