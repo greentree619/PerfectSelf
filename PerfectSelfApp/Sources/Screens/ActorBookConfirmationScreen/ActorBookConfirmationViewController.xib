@@ -28,6 +28,7 @@
             <connections>
                 <outlet property="add_to_calendar" destination="cy6-cM-FRw" id="liI-06-vit"/>
                 <outlet property="add_to_google_calendar" destination="DCh-cO-rrw" id="0Hj-oa-hwU"/>
+                <outlet property="img_book_animation" destination="9MS-ti-pqt" id="2Ho-nl-mru"/>
                 <outlet property="lbl_datetime" destination="uaE-s9-c8I" id="LSQ-vR-uD2"/>
                 <outlet property="lbl_readerName" destination="ZD7-xC-dTf" id="zVs-Yl-uWk"/>
                 <outlet property="view" destination="AmB-bw-epL" id="VD1-cR-kLu"/>
@@ -81,8 +82,14 @@
                                 <constraint firstAttribute="height" constant="34" id="NPe-LJ-A0b" customClass="AdaptiveLayoutConstraint" customModule="PerfectSelf" customModuleProvider="target"/>
                             </constraints>
                         </stackView>
-                        <stackView opaque="NO" contentMode="scaleToFill" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="QTu-l6-kJe">
+                        <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QTu-l6-kJe">
                             <rect key="frame" x="20" y="34" width="353" height="284"/>
+                            <subviews>
+                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="9MS-ti-pqt">
+                                    <rect key="frame" x="20" y="20" width="313" height="244"/>
+                                </imageView>
+                            </subviews>
+                            <edgeInsets key="layoutMargins" top="20" left="20" bottom="20" right="20"/>
                         </stackView>
                         <stackView opaque="NO" contentMode="scaleToFill" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="C20-Iy-fpz">
                             <rect key="frame" x="20" y="318" width="353" height="40"/>

@@ -122,13 +122,13 @@ class ActorFindReaderViewController: UIViewController , UICollectionViewDataSour
     
         let dfforlabel = DateFormatter()
         dfforlabel.dateFormat = "MMM dd, hh:mm a"
-        cell.availableDate.text = dfforlabel.string(from: date!)
+        cell.availableDate.text = dfforlabel.string(from: date ?? Date())
         // return card
         cell.layer.masksToBounds = false
         cell.layer.shadowOffset = CGSizeZero
-        cell.layer.shadowRadius = 8
-        cell.layer.shadowOpacity = 0.2
-        cell.contentView.layer.cornerRadius = 12
+        cell.layer.shadowRadius = 5
+        cell.layer.shadowOpacity = 0.3
+        cell.contentView.layer.cornerRadius = 10
         cell.contentView.layer.borderWidth = 1.0
         cell.contentView.layer.borderColor = UIColor.clear.cgColor
         cell.contentView.layer.masksToBounds = true

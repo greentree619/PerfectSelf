@@ -7,10 +7,12 @@
 //
 
 import UIKit
+import Photos
 
-class ActorProfileViewController: UIViewController {
+class ActorProfileViewController: UIViewController, PhotoDelegate {
 
     var id = ""
+    var photoType = 0//0: from lib, 1: from camera
     @IBOutlet weak var lbl_fullname: UILabel!
     @IBOutlet weak var lbl_username: UILabel!
     @IBOutlet weak var lbl_email: UILabel!
@@ -19,6 +21,10 @@ class ActorProfileViewController: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
         // Retrieve the saved data from UserDefaults
         if let userInfo = UserDefaults.standard.object(forKey: "USER") as? [String:Any] {
             // Use the saved data
@@ -43,14 +49,55 @@ class ActorProfileViewController: UIViewController {
             print("No data was saved.")
         }
     }
-
     @IBAction func UploadImage(_ sender: UIButton) {
-        let imagePicker = UIImagePickerController()
-        imagePicker.delegate = self
-        imagePicker.sourceType = .photoLibrary
-        present(imagePicker, animated: true, completion: nil)
+        let controller = TakePhotoViewController()
+        controller.modalPresentationStyle = .overFullScreen
+        controller.delegate = self
+        self.present(controller, animated: true)
     }
-    
+    func chooseFromLibrary() {
+        photoType = 0
+        DispatchQueue.main.async {
+            let imagePicker = UIImagePickerController()
+            imagePicker.delegate = self
+            imagePicker.sourceType = .photoLibrary
+            self.present(imagePicker, animated: true, completion: nil)
+        }
+    }
+    func takePhoto() {
+        photoType = 1
+        DispatchQueue.main.async {
+            let imagePicker = UIImagePickerController()
+            imagePicker.delegate = self
+            imagePicker.sourceType = .camera
+            self.present(imagePicker, animated: true, completion: nil)
+        }
+    }
+    func removeCurrentPicture() {
+        // call API for remove picture
+        //update user profile
+        webAPI.updateUserAvatar(uid: self.id, bucketName: "", avatarKey: "") { data, response, error in
+            if error == nil {
+                // update local
+                // Retrieve the saved data from UserDefaults
+                if var userInfo = UserDefaults.standard.object(forKey: "USER") as? [String:Any] {
+                    // Use the saved data
+                    userInfo["avatarBucketName"] = ""
+                    userInfo["avatarKey"] = ""
+                    UserDefaults.standard.removeObject(forKey: "USER")
+                    UserDefaults.standard.set(userInfo, forKey: "USER")
+                    print(userInfo)
+                    DispatchQueue.main.async {
+                        self.img_user_avatar.image = UIImage(systemName: "person.fill")
+                    }
+                    
+                } else {
+                    // No data was saved
+                    print("No data was saved.")
+                }
+            }
+        }
+    }
     @IBAction func EditProfile(_ sender: UITapGestureRecognizer) {
         let controller = ActorProfileEditViewController()
         controller.modalPresentationStyle = .fullScreen
@@ -108,19 +155,35 @@ extension ActorProfileViewController: UIImagePickerControllerDelegate & UINaviga
             let awsUpload = AWSMultipartUpload()
             DispatchQueue.main.async {
                 showIndicator(sender: nil, viewController: self, color:UIColor.white)
-                Toast.show(message: "Start to upload record files", controller: self)
+//                Toast.show(message: "Start to upload record files", controller: self)
             }
-            
+            // Get the URL of the selected image
+            var avatarUrl: URL? = nil
             //Upload audio at first
-            guard info[.originalImage] is UIImage else {
+            guard let image = info[.originalImage] as? UIImage else {
                 //dismiss(animated: true, completion: nil)
                 return
             }
-                    
-            // Get the URL of the selected image
-            var avatarUrl: URL? = nil
-            if let imageUrl = info[.imageURL] as? URL {
-                avatarUrl = imageUrl
+            // save to local and get URL
+            if self.photoType == 1 {
+                // Save the image to the photo library
+                UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil)
+                // Get the file path of the saved image
+                guard let asset = info[UIImagePickerController.InfoKey.phAsset] as? PHAsset else {
+                    return
+                }
+                let options = PHContentEditingInputRequestOptions()
+                options.canHandleAdjustmentData = {(adjustmentData: PHAdjustmentData) -> Bool in
+                    return true
+                }
+                asset.requestContentEditingInput(with: options) { (contentEditingInput, _) in
+                    avatarUrl = contentEditingInput?.fullSizeImageURL
+                }
+            }
+            else {
+                avatarUrl = info[.imageURL] as? URL
+            }
+            if avatarUrl != nil {
                 //Then Upload image
                 awsUpload.uploadImage(filePath: avatarUrl!, bucketName: "perfectself-avatar-bucket", prefix: self.id) { (error: Error?) -> Void in
                     if(error == nil)

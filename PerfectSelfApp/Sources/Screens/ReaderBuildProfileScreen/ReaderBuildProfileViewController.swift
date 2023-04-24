@@ -9,15 +9,11 @@
 import UIKit
 import DropDown
 
-class ReaderBuildProfileViewController: UIViewController {
+class ReaderBuildProfileViewController: UIViewController, PhotoDelegate {
 
     var id = ""
     var username = ""
-//    var firstname = ""
-//    var lastname = ""
-//    var email = ""
-//    var password = ""
-//    var phonenumber = ""
+    var photoType = 0//0: from lib, 1: from camera
     
     @IBOutlet weak var text_hourly: UITextField!
     @IBOutlet weak var text_gender: UITextField!
@@ -93,7 +89,7 @@ class ReaderBuildProfileViewController: UIViewController {
             return
         }
         showIndicator(sender: sender, viewController: self)
-        webAPI.createReaderProfile(uid: id, title: text_title.text!, gender: text_gender.text!, hourlyrate: rate) { data, response, error in
+        webAPI.updateReaderProfile(uid: id, title: text_title.text!, gender: text_gender.text!, hourlyrate: rate) { data, response, error in
             guard let data = data, error == nil else {
                 print(error?.localizedDescription ?? "No data")
                 return
@@ -121,12 +117,54 @@ class ReaderBuildProfileViewController: UIViewController {
     }
     
     @IBAction func EditUserAvatar(_ sender: UIButton) {
-        let imagePicker = UIImagePickerController()
-        imagePicker.delegate = self
-        imagePicker.sourceType = .photoLibrary
-        present(imagePicker, animated: true, completion: nil)
+        let controller = TakePhotoViewController()
+        controller.modalPresentationStyle = .overFullScreen
+        controller.delegate = self
+        self.present(controller, animated: true)
     }
-    
+    func chooseFromLibrary() {
+        photoType = 0
+        DispatchQueue.main.async {
+            let imagePicker = UIImagePickerController()
+            imagePicker.delegate = self
+            imagePicker.sourceType = .photoLibrary
+            self.present(imagePicker, animated: true, completion: nil)
+        }
+    }
+    func takePhoto() {
+        photoType = 1
+        DispatchQueue.main.async {
+            let imagePicker = UIImagePickerController()
+            imagePicker.delegate = self
+            imagePicker.sourceType = .camera
+            self.present(imagePicker, animated: true, completion: nil)
+        }
+    }
+    func removeCurrentPicture() {
+        // call API for remove picture
+        //update user profile
+        webAPI.updateUserAvatar(uid: self.id, bucketName: "", avatarKey: "") { data, response, error in
+            if error == nil {
+                // update local
+                // Retrieve the saved data from UserDefaults
+                if var userInfo = UserDefaults.standard.object(forKey: "USER") as? [String:Any] {
+                    // Use the saved data
+                    userInfo["avatarBucketName"] = ""
+                    userInfo["avatarKey"] = ""
+                    UserDefaults.standard.removeObject(forKey: "USER")
+                    UserDefaults.standard.set(userInfo, forKey: "USER")
+                    print(userInfo)
+                    DispatchQueue.main.async {
+                        self.img_avatar.image = UIImage(systemName: "person.circle.fill")
+                    }
+                    
+                } else {
+                    // No data was saved
+                    print("No data was saved.")
+                }
+            }
+        }
+    }
     @IBAction func Later(_ sender: UIButton) {
         let controller = ReaderTabBarController()
         controller.modalPresentationStyle = .fullScreen
@@ -153,7 +191,7 @@ extension ReaderBuildProfileViewController: UIImagePickerControllerDelegate & UI
             let awsUpload = AWSMultipartUpload()
             DispatchQueue.main.async {
                 showIndicator(sender: nil, viewController: self, color:UIColor.white)
-                Toast.show(message: "Start to upload record files", controller: self)
+//                Toast.show(message: "Start to upload record files", controller: self)
             }
             
             //Upload audio at first

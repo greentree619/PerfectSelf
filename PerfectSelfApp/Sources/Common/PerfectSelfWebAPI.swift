@@ -73,11 +73,10 @@ class PerfectSelfWebAPI
         return executeAPI(with: "POST", apiPath: "Users", json: json, completionHandler:completionHandler)
     }
 
-    func createActorProfile(actoruid: String, ageRange: String, height: String, weight: String, country: String, state: String, city: String, agency: String, vaccination: String, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> Void
+    func updateActorProfile(actoruid: String, ageRange: String, height: String, weight: String, country: String, state: String, city: String, agency: String, vaccination: String, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> Void
     {
         let json: [String: Any] = [
-            "isDeleted": false,
-              "title": "",
+            "title": "",
             "actorUid": actoruid,
             "ageRange": ageRange,
             "height": Int(height) ?? 0,
@@ -88,7 +87,7 @@ class PerfectSelfWebAPI
             "agencyCountry": agency,
             "vaccinationStatus": Int(vaccination) ?? 0,
         ]
-        return executeAPI(with: "POST", apiPath: "ActorProfiles/", json: json, completionHandler:completionHandler)
+        return executeAPI(with: "PUT", apiPath: "ActorProfiles/ByUid/\(actoruid)", json: json, completionHandler:completionHandler)
     }
     func getUserInfo(uid: String, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> Void
     {
@@ -191,7 +190,7 @@ class PerfectSelfWebAPI
         return executeAPI(with: "GET", apiPath: "ReaderProfiles/Detail/\(id)", json: [:], completionHandler:completionHandler)
     }
     
-    func createReaderProfile(uid: String, title: String, gender: String, hourlyrate: Int, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> Void
+    func updateReaderProfile(uid: String, title: String, gender: String, hourlyrate: Int, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> Void
     {
         let json: [String: Any] = [
             "isDeleted": false,

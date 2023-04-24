@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SwiftGifOrigin
 
 class ActorBookConfirmationViewController: UIViewController {
     var uid = ""
@@ -17,6 +18,7 @@ class ActorBookConfirmationViewController: UIViewController {
     var bookingEndTime: String = ""
     var script: String = ""
     
+    @IBOutlet weak var img_book_animation: UIImageView!
     @IBOutlet weak var add_to_calendar: UIStackView!
     @IBOutlet weak var add_to_google_calendar: UIStackView!
     
@@ -26,6 +28,7 @@ class ActorBookConfirmationViewController: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        img_book_animation.loadGif(asset: "book-animation")
         lbl_readerName.text = "Reading with \(readerName)"
         let df = DateFormatter()
         df.dateFormat = "yyyy-MM-dd hh:mm:ss"
@@ -81,7 +84,7 @@ class ActorBookConfirmationViewController: UIViewController {
             if let _ = responseJSON as? [String: Any] {
                 DispatchQueue.main.async {
                     hideIndicator(sender: sender)
-                    Toast.show(message: "success!", controller: self)
+//                    Toast.show(message: "success!", controller: self)
                     DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
                             // do stuff 1 seconds later
                         self.presentingViewController?.presentingViewController?.presentingViewController?.presentingViewController?.presentingViewController?.dismiss(animated: false, completion: nil)
