@@ -329,7 +329,7 @@ extension OverlayViewController: CameraPreviewDelegate {
         guard let url = url, let uploadurl = self.uploadVideourl else {
             return
         }
-        self.mergedVideos(recordUrl: url, uploadUrl: uploadurl, uploadAudioUrl: uploadAudiourl!)
+        self.mergedVideos(recordUrl: url, uploadUrl: uploadurl, uploadAudioUrl: uploadAudiourl)
     }
 
 }

@@ -19,6 +19,7 @@ class ProjectViewController: UIViewController {
     var savedVideoUrl: URL? = nil
     var savedAudioUrl: URL? = nil
     @IBOutlet weak var playerView: PlayerView!
+    let awsUpload = AWSMultipartUpload()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -78,9 +79,20 @@ class ProjectViewController: UIViewController {
                              }
                          })
                          
-                         DispatchQueue.main.async {
-                             //Omitted showIndicator(sender: nil, viewController: self, color:UIColor.white)
-                             taskAudio.resume()
+                         self.awsUpload.checkDownloadPossibility(bucket: selectedTape!.bucketName, key: "\(selectedTape!.tapeKey).m4a") { (isDownloadPossible) in
+                             if isDownloadPossible {
+                                 // Download the file
+                                 DispatchQueue.main.async {
+                                     //Omitted showIndicator(sender: nil, viewController: self, color:UIColor.white)
+                                     taskAudio.resume()
+                                 }
+                             } else {
+                                 // Handle error
+                                 self.savedAudioUrl = nil
+                                 DispatchQueue.main.async {
+                                     hideIndicator(sender: nil)
+                                 }
+                             }
                          }
                      }
                      catch{

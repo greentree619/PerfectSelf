@@ -58,6 +58,31 @@ class AWSMultipartUpload: NSObject, URLSessionTaskDelegate, URLSessionDataDelega
         super.init()
     }
     
+    //Check if downloadable.
+    func checkDownloadPossibility(bucket: String, key: String, completion: @escaping (Bool) -> Void) {
+        let s3 = AWSS3.default()
+        
+        let getObjectRequest = AWSS3GetObjectRequest()
+        getObjectRequest?.bucket = bucket
+        getObjectRequest?.key = key
+        
+        s3.getObject(getObjectRequest!).continueWith { (task: AWSTask<AWSS3GetObjectOutput>) -> AnyObject? in
+            if let error = task.error as NSError? {
+                if error.domain == AWSS3ErrorDomain && AWSS3ErrorType(rawValue: error.code) == .noSuchKey {
+                    print("File not found in S3 bucket")
+                    completion(false)
+                } else {
+                    print("Error checking for file: \(error)")
+                    completion(false)
+                }
+            } else {
+                print("File found in S3 bucket")
+                completion(true)
+            }
+            return nil
+        }
+    }
+    
     func multipartUpload(filePath: URL, prefixKey: String, completeHandler:@escaping((Error?)->Void)) -> Void
     {
         let expression = AWSS3TransferUtilityMultiPartUploadExpression()
