@@ -93,7 +93,7 @@ class ReaderBuildProfileViewController: UIViewController {
             return
         }
         showIndicator(sender: sender, viewController: self)
-        webAPI.createReaderProfile(uid: id, title: text_title.text!, gender: text_gender.text!, hourlyrate: rate) { data, response, error in
+        webAPI.updateReaderProfile(uid: id, title: text_title.text!, gender: text_gender.text!, hourlyrate: rate) { data, response, error in
             guard let data = data, error == nil else {
                 print(error?.localizedDescription ?? "No data")
                 return

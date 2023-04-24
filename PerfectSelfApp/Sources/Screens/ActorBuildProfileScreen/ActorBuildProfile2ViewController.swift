@@ -10,7 +10,7 @@ import UIKit
 import DropDown
 
 class ActorBuildProfile2ViewController: UIViewController {
-
+    var id = ""
     @IBOutlet weak var genderview: UIStackView!
     @IBOutlet weak var ageview: UIStackView!
     let dropDownForGender = DropDown()
@@ -20,7 +20,7 @@ class ActorBuildProfile2ViewController: UIViewController {
     @IBOutlet weak var text_username: UITextField!
     @IBOutlet weak var text_weight: UITextField!
     @IBOutlet weak var text_height: UITextField!
-    
+    @IBOutlet weak var img_avatar: UIImageView!
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -31,6 +31,7 @@ class ActorBuildProfile2ViewController: UIViewController {
         if let userInfo = UserDefaults.standard.object(forKey: "USER") as? [String:Any] {
             // Use the saved data
             let name = userInfo["userName"] as! String
+            id = userInfo["uid"] as! String
             text_username.text = name
         } else {
             // No data was saved
@@ -68,6 +69,12 @@ class ActorBuildProfile2ViewController: UIViewController {
         
     }
 
+    @IBAction func SelectAvatar(_ sender: UIButton) {
+        let imagePicker = UIImagePickerController()
+        imagePicker.delegate = self
+        imagePicker.sourceType = .photoLibrary
+        present(imagePicker, animated: true, completion: nil)
+    }
     @IBAction func ShowDropDownForAge(_ sender: UIButton) {
         dropDownForAgeRange.show()
     }
@@ -138,3 +145,65 @@ class ActorBuildProfile2ViewController: UIViewController {
     */
 
 }
+
+/// Mark:https://perfectself-avatar-bucket.s3.us-east-2.amazonaws.com/{room-id-000-00}/{647730C6-5E86-483A-859E-5FBF05767018.jpeg}
+extension ActorBuildProfile2ViewController: UIImagePickerControllerDelegate & UINavigationControllerDelegate  {
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        
+        DispatchQueue.global(qos: .userInitiated).async {
+            let awsUpload = AWSMultipartUpload()
+            DispatchQueue.main.async {
+                showIndicator(sender: nil, viewController: self, color:UIColor.white)
+                Toast.show(message: "Start to upload record files", controller: self)
+            }
+            
+            //Upload audio at first
+            guard info[.originalImage] is UIImage else {
+                //dismiss(animated: true, completion: nil)
+                return
+            }
+                    
+            // Get the URL of the selected image
+            var avatarUrl: URL? = nil
+            if let imageUrl = info[.imageURL] as? URL {
+                avatarUrl = imageUrl
+                //Then Upload image
+                awsUpload.uploadImage(filePath: avatarUrl!, bucketName: "perfectself-avatar-bucket", prefix: self.id) { (error: Error?) -> Void in
+                    if(error == nil)
+                    {
+                        DispatchQueue.main.async {
+                            hideIndicator(sender: nil)
+                            Toast.show(message: "Avatar Image upload completed.", controller: self)
+                            // update avatar
+                            let url = "https://perfectself-avatar-bucket.s3.us-east-2.amazonaws.com/\(self.id)/\(String(describing: avatarUrl!.lastPathComponent))"
+                            self.img_avatar.imageFrom(url: URL(string: url)!)
+                            //update user profile
+                            webAPI.updateUserAvatar(uid: self.id, bucketName: "perfectself-avatar-bucket", avatarKey: "\(self.id)/\(avatarUrl!.lastPathComponent)") { data, response, error in
+                                if error == nil {
+                                    // successfully update db
+                                    print("update db completed")
+                                }
+                            }
+                            
+                        }
+                    }
+                    else
+                    {
+                        DispatchQueue.main.async {
+                            hideIndicator(sender: nil)
+                            Toast.show(message: "Failed to upload avatar image, Try again later!", controller: self)
+                        }
+                    }
+                }
+            }
+        }//DispatchQueue.global
+        
+        dismiss(animated: true, completion: nil)
+    }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        dismiss(animated: true, completion: nil)
+    }
+}
+
