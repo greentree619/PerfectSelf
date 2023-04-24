@@ -13,6 +13,7 @@
 		2F7EBC3622DCC6430015B46E /* WebSocketProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F7EBC3522DCC6430015B46E /* WebSocketProvider.swift */; };
 		2F7EBC3822DCCB4E0015B46E /* StarscreamProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F7EBC3722DCCB4E0015B46E /* StarscreamProvider.swift */; };
 		2F7EBC3A22DCCE240015B46E /* NativeWebSocket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F7EBC3922DCCE240015B46E /* NativeWebSocket.swift */; };
+		34A2F28F29F390CD00B2CE2E /* FSCalendar in Frameworks */ = {isa = PBXBuildFile; productRef = 34A2F28E29F390CD00B2CE2E /* FSCalendar */; };
 		47007BE929C2B0C000F83CFD /* ActorSetPaymentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47007BE729C2B0BF00F83CFD /* ActorSetPaymentViewController.swift */; };
 		47007BEA29C2B0C000F83CFD /* ActorSetPaymentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 47007BE829C2B0C000F83CFD /* ActorSetPaymentViewController.xib */; };
 		470AEBCA29D1ACE200AD3848 /* StringHeight.swift in Sources */ = {isa = PBXBuildFile; fileRef = 470AEBC929D1ACE200AD3848 /* StringHeight.swift */; };
@@ -465,6 +466,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2F0D643D26FC644100CB9A47 /* WebRTC in Frameworks */,
+				34A2F28F29F390CD00B2CE2E /* FSCalendar in Frameworks */,
 				2F2E228828E81A080026A8B5 /* Starscream in Frameworks */,
 				11BE6AC424EB0A17D662A6FE /* Pods_PerfectSelf.framework in Frameworks */,
 			);
@@ -1145,6 +1147,7 @@
 			packageProductDependencies = (
 				2F0D643C26FC644100CB9A47 /* WebRTC */,
 				2F2E228728E81A080026A8B5 /* Starscream */,
+				34A2F28E29F390CD00B2CE2E /* FSCalendar */,
 			);
 			productName = WebRTC;
 			productReference = 79262EE320B0D6F600D576C1 /* PerfectSelf.app */;
@@ -1178,6 +1181,7 @@
 			packageReferences = (
 				2F0D643B26FC644100CB9A47 /* XCRemoteSwiftPackageReference "WebRTC" */,
 				2F2E228628E81A080026A8B5 /* XCRemoteSwiftPackageReference "Starscream" */,
+				34A2F28D29F390CD00B2CE2E /* XCRemoteSwiftPackageReference "FSCalendar" */,
 			);
 			productRefGroup = 79262EE420B0D6F600D576C1 /* Products */;
 			projectDirPath = "";
@@ -1688,6 +1692,14 @@
 				minimumVersion = 4.0.0;
 			};
 		};
+		34A2F28D29F390CD00B2CE2E /* XCRemoteSwiftPackageReference "FSCalendar" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/WenchaoD/FSCalendar";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -1700,6 +1712,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 2F2E228628E81A080026A8B5 /* XCRemoteSwiftPackageReference "Starscream" */;
 			productName = Starscream;
+		};
+		34A2F28E29F390CD00B2CE2E /* FSCalendar */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 34A2F28D29F390CD00B2CE2E /* XCRemoteSwiftPackageReference "FSCalendar" */;
+			productName = FSCalendar;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

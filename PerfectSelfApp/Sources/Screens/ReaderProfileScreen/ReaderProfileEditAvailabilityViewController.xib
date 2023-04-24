@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21225" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina6_12" orientation="portrait" appearance="light"/>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_72" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21207"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
         <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -18,6 +18,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ReaderProfileEditAvailabilityViewController" customModule="PerfectSelf" customModuleProvider="target">
             <connections>
                 <outlet property="backView" destination="5OE-KL-KER" id="M26-X3-3yr"/>
+                <outlet property="calendar" destination="b8x-ru-JUI" id="SQU-qw-5b0"/>
                 <outlet property="confirmModal" destination="wP8-33-h7Z" id="ncS-lf-88B"/>
                 <outlet property="picker_date" destination="mXS-5a-ats" id="8eP-sD-Opb"/>
                 <outlet property="timeslotList" destination="8k8-2p-HGg" id="wRC-1L-jMc"/>
@@ -26,14 +27,14 @@
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" id="Naz-ET-dRL">
-            <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+            <rect key="frame" x="0.0" y="0.0" width="430" height="932"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <stackView opaque="NO" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="hz9-rm-mfY">
-                    <rect key="frame" x="0.0" y="59" width="393" height="759"/>
+                    <rect key="frame" x="0.0" y="59" width="430" height="839"/>
                     <subviews>
                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="vzJ-jp-K1f">
-                            <rect key="frame" x="20" y="0.0" width="353" height="80"/>
+                            <rect key="frame" x="20" y="0.0" width="390" height="80"/>
                             <subviews>
                                 <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="j5l-l2-gZ8">
                                     <rect key="frame" x="0.0" y="0.0" width="179" height="80"/>
@@ -79,13 +80,13 @@
                             </constraints>
                         </stackView>
                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="snN-yd-zv7">
-                            <rect key="frame" x="20" y="90" width="353" height="594"/>
+                            <rect key="frame" x="20" y="90" width="390" height="674"/>
                             <subviews>
                                 <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dQu-1r-z2u">
-                                    <rect key="frame" x="10" y="10" width="333" height="25"/>
+                                    <rect key="frame" x="10" y="10" width="370" height="25"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select Date(s) Available" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PYK-Y0-V0q">
-                                            <rect key="frame" x="0.0" y="0.0" width="333" height="25"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="370" height="25"/>
                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
@@ -95,15 +96,20 @@
                                         <constraint firstAttribute="height" constant="25" id="m01-YR-ESN" customClass="AdaptiveLayoutConstraint" customModule="PerfectSelf" customModuleProvider="target"/>
                                     </constraints>
                                 </stackView>
-                                <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Gyq-Gb-d4R">
-                                    <rect key="frame" x="10" y="45" width="333" height="376"/>
+                                <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Gyq-Gb-d4R">
+                                    <rect key="frame" x="10" y="45" width="370" height="514"/>
                                     <subviews>
                                         <datePicker contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" style="inline" translatesAutoresizingMaskIntoConstraints="NO" id="mXS-5a-ats">
-                                            <rect key="frame" x="8" y="8" width="317" height="360"/>
+                                            <rect key="frame" x="8" y="8" width="354" height="331"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <connections>
                                                 <action selector="SelectedDateChanged:" destination="-1" eventType="valueChanged" id="Dj0-tB-mVs"/>
                                             </connections>
                                         </datePicker>
+                                        <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="b8x-ru-JUI" customClass="FSCalendar">
+                                            <rect key="frame" x="8" y="8" width="354" height="498"/>
+                                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        </view>
                                     </subviews>
                                     <edgeInsets key="layoutMargins" top="8" left="8" bottom="8" right="8"/>
                                     <userDefinedRuntimeAttributes>
@@ -117,12 +123,17 @@
                                             <real key="value" value="1"/>
                                         </userDefinedRuntimeAttribute>
                                     </userDefinedRuntimeAttributes>
+                                    <variation key="default">
+                                        <mask key="subviews">
+                                            <exclude reference="mXS-5a-ats"/>
+                                        </mask>
+                                    </variation>
                                 </stackView>
-                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="bottom" translatesAutoresizingMaskIntoConstraints="NO" id="A56-t5-pix">
-                                    <rect key="frame" x="10" y="431" width="333" height="35"/>
+                                <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" axis="vertical" alignment="bottom" translatesAutoresizingMaskIntoConstraints="NO" id="A56-t5-pix">
+                                    <rect key="frame" x="10" y="569" width="370" height="0.0"/>
                                     <subviews>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="keN-Cg-Yxc">
-                                            <rect key="frame" x="152.66666666666663" y="0.0" width="180.33333333333337" height="35"/>
+                                            <rect key="frame" x="189.66666666666663" y="0.0" width="180.33333333333337" height="0.0"/>
                                             <state key="normal" title="Button"/>
                                             <buttonConfiguration key="configuration" style="plain" title="Add available time">
                                                 <imageReference key="image" image="plus" catalog="system" symbolScale="medium"/>
@@ -133,11 +144,11 @@
                                         </button>
                                     </subviews>
                                 </stackView>
-                                <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rlA-cH-z32">
-                                    <rect key="frame" x="10" y="476" width="333" height="25"/>
+                                <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rlA-cH-z32">
+                                    <rect key="frame" x="10" y="579" width="370" height="25"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Selected time slot(s)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2id-83-Qj3">
-                                            <rect key="frame" x="0.0" y="0.0" width="333" height="25"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="370" height="25"/>
                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
@@ -147,8 +158,8 @@
                                         <constraint firstAttribute="height" constant="25" id="G5G-Be-FLc" customClass="AdaptiveLayoutConstraint" customModule="PerfectSelf" customModuleProvider="target"/>
                                     </constraints>
                                 </stackView>
-                                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="8k8-2p-HGg">
-                                    <rect key="frame" x="10" y="511" width="333" height="73"/>
+                                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="8k8-2p-HGg">
+                                    <rect key="frame" x="10" y="614" width="370" height="50"/>
                                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                     <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="mYS-pu-xKZ">
                                         <size key="itemSize" width="128" height="128"/>
@@ -164,10 +175,10 @@
                     <edgeInsets key="layoutMargins" top="0.0" left="20" bottom="75" right="20"/>
                 </stackView>
                 <stackView opaque="NO" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="o80-WU-gVi">
-                    <rect key="frame" x="0.0" y="743" width="393" height="109"/>
+                    <rect key="frame" x="0.0" y="823" width="430" height="109"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wSb-fo-RtF">
-                            <rect key="frame" x="20" y="15" width="353" height="40"/>
+                            <rect key="frame" x="20" y="15" width="390" height="40"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="40" id="sXa-P4-fX2"/>
                             </constraints>
@@ -196,7 +207,7 @@
                     </userDefinedRuntimeAttributes>
                 </stackView>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5OE-KL-KER">
-                    <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                    <rect key="frame" x="0.0" y="0.0" width="430" height="932"/>
                     <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.10000000000000001" colorSpace="custom" customColorSpace="calibratedRGB"/>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
@@ -205,16 +216,16 @@
                     </userDefinedRuntimeAttributes>
                 </view>
                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="wP8-33-h7Z">
-                    <rect key="frame" x="46.666666666666657" y="276" width="300" height="300"/>
+                    <rect key="frame" x="65" y="316" width="300" height="300"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You’ve set the time slot as a repeating event" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0lz-3k-iCz">
-                            <rect key="frame" x="30" y="30.000000000000004" width="240" height="43.333333333333343"/>
+                            <rect key="frame" x="30" y="30" width="240" height="42"/>
                             <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="18"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OJf-vb-jip">
-                            <rect key="frame" x="30" y="83.333333333333314" width="240" height="46.666666666666657"/>
+                            <rect key="frame" x="30" y="82" width="240" height="48"/>
                         </stackView>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LHJ-Jz-SpQ">
                             <rect key="frame" x="30" y="140" width="240" height="40"/>

@@ -7,8 +7,9 @@
 //
 
 import UIKit
+import FSCalendar
 
-class ReaderProfileEditAvailabilityViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, RemoveDelegate {
+class ReaderProfileEditAvailabilityViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, RemoveDelegate{
     func didRemoveTimeSlot(index: Int, repeatFlag: Int) {
         if repeatFlag == 0 {
             if let indexOf = timeSlotItems.firstIndex(where: { $0.date == items[index].date && $0.fromTime == items[index].fromTime && $0.toTime == items[index].toTime }) {
@@ -27,6 +28,7 @@ class ReaderProfileEditAvailabilityViewController: UIViewController, UICollectio
     var uid : String = ""
     @IBOutlet weak var picker_date: UIDatePicker!
     @IBOutlet weak var timeslotList: UICollectionView!
+    @IBOutlet weak var calendar: FSCalendar!
     var timeSlotItems = [TimeSlot]()
     var items = [TimeSlot]()
     let cellsPerRow = 1
@@ -51,6 +53,9 @@ class ReaderProfileEditAvailabilityViewController: UIViewController, UICollectio
         dateFormatter.dateFormat = "yyyy-MM-dd"
         timeFormatter.dateFormat = "hh:mm"
         print(timeSlotItems)
+        
+        calendar.dataSource = self
+        calendar.delegate = self
     }
  
     @IBAction func RemoveThisSlot(_ sender: UIButton) {
@@ -192,4 +197,8 @@ extension ReaderProfileEditAvailabilityViewController: MyDelegate {
         timeSlotItems.append(TimeSlot(date: Date.getDateString(date: picker_date.date), fromTime: Date.getDateString(date: fromTime), toTime: Date.getDateString(date: toTime), repeatFlag: repeatFlag, isStandBy: isStandBy))
         SelectedDateChanged(picker_date)
     }
+}
+
+extension ReaderProfileEditAvailabilityViewController: FSCalendarDataSource, FSCalendarDelegate {
+    
 }
