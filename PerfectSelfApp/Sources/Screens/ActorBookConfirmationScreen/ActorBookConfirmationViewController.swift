@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SwiftGifOrigin
 
 class ActorBookConfirmationViewController: UIViewController {
     var uid = ""
@@ -17,6 +18,7 @@ class ActorBookConfirmationViewController: UIViewController {
     var bookingEndTime: String = ""
     var script: String = ""
     
+    @IBOutlet weak var img_book_animation: UIImageView!
     @IBOutlet weak var add_to_calendar: UIStackView!
     @IBOutlet weak var add_to_google_calendar: UIStackView!
     
@@ -26,6 +28,7 @@ class ActorBookConfirmationViewController: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        img_book_animation.loadGif(asset: "book-animation")
         lbl_readerName.text = "Reading with \(readerName)"
         let df = DateFormatter()
         df.dateFormat = "yyyy-MM-dd hh:mm:ss"
