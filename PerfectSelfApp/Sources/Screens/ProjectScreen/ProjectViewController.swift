@@ -46,89 +46,57 @@ class ProjectViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.playerView.delegate = self
-        let config = URLSessionConfiguration.default
-        let session = URLSession(configuration: config)
         
-        var downloadVideoURL: NSString = "https://\(selectedTape!.bucketName).s3.us-east-2.amazonaws.com/\(selectedTape!.tapeKey).mp4" as NSString
-        let downloadAudioURL: NSString = "https://\(selectedTape!.bucketName).s3.us-east-2.amazonaws.com/\(selectedTape!.tapeKey).m4a" as NSString
+        let documentsPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0];
+        let filePath = URL(fileURLWithPath: "\(documentsPath)/tempFile.mp4")
+        do {
+            try FileManager.default.removeItem(at: filePath)
+            //print("File deleted successfully")
+        } catch {
+            //print("Error deleting file: \(error.localizedDescription)")
+        }
         
-        downloadVideoURL = downloadVideoURL.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)! as NSString
-        var requestURL = NSURL(string: downloadVideoURL as String)!
-        var request = URLRequest(url: requestURL as URL, cachePolicy: .useProtocolCachePolicy, timeoutInterval: 10.0)
-        let task = session.dataTask(with: request, completionHandler: {(data, response, error) in
-//Omitted
-//            DispatchQueue.main.async {
-//                hideIndicator(sender: nil)
-//            }
-            
-             if error != nil {
-                  //print(error!.localizedDescription)
-                 DispatchQueue.main.async {
-                     Toast.show(message: "Faild to download tape from library", controller: self)
-                 }
-             }
-             else {
-                 let documentsPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0];
-                 let filePath = URL(fileURLWithPath: "\(documentsPath)/tempFile.mp4")
-                 DispatchQueue.main.async {
-                     do{
-                         try data!.write(to: filePath)
-                         self.savedVideoUrl = filePath
-                         self.playerView.url = filePath
-                         
-                         //Download audio file
-                         requestURL =  NSURL(string: downloadAudioURL as String)!
-                         request = URLRequest(url: requestURL as URL, cachePolicy: .useProtocolCachePolicy, timeoutInterval: 10.0)
-                         let taskAudio = session.dataTask(with: request, completionHandler: {(data, response, error) in
-                             DispatchQueue.main.async {
-                                 hideIndicator(sender: nil)
-                                 self.playerView.play()
-                             }
-                             
-                              if error != nil {
-                                  //error
-                              }
-                             else {
-                                 let filePath = URL(fileURLWithPath: "\(documentsPath)/tempFile.m4a")
-                                 DispatchQueue.main.async {
-                                     do{
-                                         try data!.write(to: filePath)
-                                         self.savedAudioUrl = filePath
-                                     }
-                                     catch{
-                                         print("error: \(error)")
-                                     }
-                                 }
-                             }
-                         })
-                         
-                         self.awsUpload.checkDownloadPossibility(bucket: selectedTape!.bucketName, key: "\(selectedTape!.tapeKey).m4a") { (isDownloadPossible) in
-                             if isDownloadPossible {
-                                 // Download the file
-                                 DispatchQueue.main.async {
-                                     //Omitted showIndicator(sender: nil, viewController: self, color:UIColor.white)
-                                     taskAudio.resume()
-                                 }
-                             } else {
-                                 // Handle error
-                                 self.savedAudioUrl = nil
-                                 DispatchQueue.main.async {
-                                     hideIndicator(sender: nil)
-                                     self.playerView.play()
-                                 }
-                             }
-                         }
-                     }
-                     catch{
-                         print("error: \(error)")
-                     }
-                 }
-             }
-         })
-        
-        DispatchQueue.main.async {
-            showIndicator(sender: nil, viewController: self, color:UIColor.white)
-            task.resume()
+        showIndicator(sender: nil, viewController: self, color:UIColor.white)
+        awsUpload.download(filePath: filePath, bucketName: selectedTape!.bucketName, key: "\(selectedTape!.tapeKey).mp4") { (error) -> Void in
+            if error != nil {
+                 //print(error!.localizedDescription)
+                self.savedVideoUrl = nil
+                DispatchQueue.main.async {
+                    hideIndicator(sender: nil)
+                    Toast.show(message: "Faild to download video from library", controller: self)
+                }
+            }
+            else{
+                self.savedVideoUrl = filePath
+                self.playerView.url = filePath
+                
+                //Download audio file
+                let filePath = URL(fileURLWithPath: "\(documentsPath)/tempFile.m4a")
+                do {
+                    try FileManager.default.removeItem(at: filePath)
+                    //print("File deleted successfully")
+                } catch {
+                    //print("Error deleting file: \(error.localizedDescription)")
+                }
+                
+                self.awsUpload.download(filePath: filePath, bucketName: selectedTape!.bucketName, key: "\(selectedTape!.tapeKey).m4a") { (error) -> Void in
+                    DispatchQueue.main.async {
+                        hideIndicator(sender: nil)
+                        self.playerView.play()
+                    }
+                    
+                    if error != nil {
+                         //print(error!.localizedDescription)
+                        self.savedAudioUrl = nil
+                        DispatchQueue.main.async {
+                            Toast.show(message: "Faild to download audio from library", controller: self)
+                        }
+                    }
+                    else{
+                        self.savedAudioUrl = filePath
+                    }
+                }
+            }
         }
     }
     

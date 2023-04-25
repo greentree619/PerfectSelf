@@ -34,7 +34,6 @@ class AWSMultipartUpload: NSObject, URLSessionTaskDelegate, URLSessionDataDelega
         //this way any time the AWS frameworks needs to get credential
         //information, it will get those from the credential provider we just created
         AWSServiceManager.default().defaultServiceConfiguration = configuration
-        
         let tuConf = AWSS3TransferUtilityConfiguration()
         tuConf.isAccelerateModeEnabled = true
         tuConf.retryLimit = 5
@@ -228,5 +227,43 @@ class AWSMultipartUpload: NSObject, URLSessionTaskDelegate, URLSessionDataDelega
             }
             return nil
         })
+    }
+    
+    func download(filePath: URL, bucketName: String,  key: String, completeHandler:@escaping((Error?)->Void)) -> Void
+    {
+        let expression = AWSS3TransferUtilityDownloadExpression()
+        expression.progressBlock = {(task, progress) in
+            DispatchQueue.main.async(execute: {
+                // Do something e.g. Update a progress bar.
+            })
+            print(progress.fractionCompleted)   //2
+            if progress.isFinished {           //3
+                print("Download Finished...")
+                //do any task here.
+            }
+        }
+        
+        var completionHandler: AWSS3TransferUtilityDownloadCompletionHandlerBlock
+        completionHandler = { (task, location,  data,  error) -> Void in
+           DispatchQueue.main.async(execute: {
+              // Do something e.g. Alert a user for transfer completion.
+              // On failed download, `error` contains the error object.
+               completeHandler(error)
+           })
+        }
+
+        let transferUtility = AWSS3TransferUtility.default()
+        transferUtility.download(to: filePath, bucket: bucketName, key: key, expression: expression, completionHandler: completionHandler).continueWith {
+               (task) -> AnyObject? in
+                       if let error = task.error {
+                           print("Error: \(error.localizedDescription)")
+                           //completeHandler(error)
+                       }
+
+                       if let _ = task.result {
+                          // Do something with uploadTask.
+                       }
+                       return nil;
+               }
     }
 }
