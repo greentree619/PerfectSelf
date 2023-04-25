@@ -15,11 +15,33 @@ class ProjectViewController: UIViewController {
     @IBOutlet weak var playerBar: UISlider!
     @IBOutlet var startTime: UILabel!
     @IBOutlet var endTime: UILabel!
-    
+    @IBOutlet weak var playButton: UIButton!
+        
     var savedVideoUrl: URL? = nil
     var savedAudioUrl: URL? = nil
     @IBOutlet weak var playerView: PlayerView!
     let awsUpload = AWSMultipartUpload()
+    
+    private var isOnPlay: Bool = true {
+        didSet {
+            DispatchQueue.main.async {
+                if self.isOnPlay
+                {
+                    self.playButton.setBackgroundImage( UIImage(named: "pause.circle")!.withRenderingMode(.alwaysTemplate), for: UIControl.State.normal)
+                    self.playButton.tintColor = UIColor.white
+                    self.playButton.imageView?.tintColor = UIColor.white
+                    self.playerView.play()
+                }
+                else
+                {
+                    self.playButton.setBackgroundImage( UIImage(named: "play.circle")!.withRenderingMode(.alwaysTemplate), for: UIControl.State.normal)
+                    self.playButton.tintColor = UIColor.white
+                    self.playButton.imageView?.tintColor = UIColor.white
+                    self.playerView.pause()
+                }
+            }
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -60,6 +82,7 @@ class ProjectViewController: UIViewController {
                          let taskAudio = session.dataTask(with: request, completionHandler: {(data, response, error) in
                              DispatchQueue.main.async {
                                  hideIndicator(sender: nil)
+                                 self.playerView.play()
                              }
                              
                               if error != nil {
@@ -91,6 +114,7 @@ class ProjectViewController: UIViewController {
                                  self.savedAudioUrl = nil
                                  DispatchQueue.main.async {
                                      hideIndicator(sender: nil)
+                                     self.playerView.play()
                                  }
                              }
                          }
@@ -136,6 +160,10 @@ class ProjectViewController: UIViewController {
     
     @IBAction func sliderValueChanged(_ sender: Any) {
         playerView.currentTime = Double( playerBar.value )
+    }
+    
+    @IBAction func playDidTapped(_ sender: UIButton) {
+        self.isOnPlay = !self.isOnPlay
     }
     
     
