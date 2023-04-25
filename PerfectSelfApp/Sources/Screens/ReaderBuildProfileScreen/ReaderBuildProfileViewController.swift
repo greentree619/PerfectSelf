@@ -137,6 +137,7 @@ class ReaderBuildProfileViewController: UIViewController, PhotoDelegate {
             let imagePicker = UIImagePickerController()
             imagePicker.delegate = self
             imagePicker.sourceType = .camera
+            imagePicker.allowsEditing = true
             self.present(imagePicker, animated: true, completion: nil)
         }
     }
@@ -194,16 +195,31 @@ extension ReaderBuildProfileViewController: UIImagePickerControllerDelegate & UI
 //                Toast.show(message: "Start to upload record files", controller: self)
             }
             
-            //Upload audio at first
-            guard info[.originalImage] is UIImage else {
-                //dismiss(animated: true, completion: nil)
-                return
-            }
-                    
             // Get the URL of the selected image
             var avatarUrl: URL? = nil
-            if let imageUrl = info[.imageURL] as? URL {
-                avatarUrl = imageUrl
+            //Upload audio at first
+            guard let image = (self.photoType == 0 ? info[.originalImage] : info[.editedImage]) as? UIImage else {
+                //dismiss(animated: true, completion: nil)
+                DispatchQueue.main.async {
+                    hideIndicator(sender: nil)
+                }
+                return
+            }
+            // save to local and get URL
+            if self.photoType == 1 {
+                let imgName = UUID().uuidString
+                let documentDirectory = NSTemporaryDirectory()
+                let localPath = documentDirectory.appending(imgName)
+
+                let data = image.jpegData(compressionQuality: 0.3)! as NSData
+                data.write(toFile: localPath, atomically: true)
+                avatarUrl = URL.init(fileURLWithPath: localPath)
+            }
+            else {
+                avatarUrl = info[.imageURL] as? URL
+            }
+            
+            if avatarUrl != nil {
                 //Then Upload image
                 awsUpload.uploadImage(filePath: avatarUrl!, bucketName: "perfectself-avatar-bucket", prefix: self.id) { (error: Error?) -> Void in
                     if(error == nil)

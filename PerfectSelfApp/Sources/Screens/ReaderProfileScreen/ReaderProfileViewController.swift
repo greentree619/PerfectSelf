@@ -110,12 +110,7 @@ class ReaderProfileViewController: UIViewController, UICollectionViewDataSource,
         super.viewWillAppear(true);
         
         // call API for reader profile
-        showIndicator(sender: nil, viewController: self)
-        
         webAPI.getReaderById(id:self.id) { data, response, error in
-            DispatchQueue.main.async {
-                hideIndicator(sender: nil)
-            }
             guard let data = data, error == nil else {
                 print(error?.localizedDescription ?? "No data")
                 return
@@ -388,6 +383,7 @@ class ReaderProfileViewController: UIViewController, UICollectionViewDataSource,
             let imagePicker = UIImagePickerController()
             imagePicker.delegate = self
             imagePicker.sourceType = .camera
+            imagePicker.allowsEditing = true
             self.present(imagePicker, animated: true, completion: nil)
         }
     }
@@ -541,52 +537,54 @@ extension ReaderProfileViewController: UIImagePickerControllerDelegate & UINavig
             let awsUpload = AWSMultipartUpload()
             DispatchQueue.main.async {
                 showIndicator(sender: nil, viewController: self, color:UIColor.white)
+                print("show1")
 //                Toast.show(message: "Start to files", controller: self)
             }
-            
+         
             if self.uploadType == "image" {
                 // Get the URL of the selected image
                 var avatarUrl: URL? = nil
                 //Upload audio at first
-                guard let image = info[.originalImage] as? UIImage else {
+                guard let image = (self.photoType == 0 ? info[.originalImage] : info[.editedImage]) as? UIImage else {
                     //dismiss(animated: true, completion: nil)
+                    DispatchQueue.main.async {
+                        hideIndicator(sender: nil)
+                    }
                     return
                 }
                 // save to local and get URL
                 if self.photoType == 1 {
-                    // Save the image to the photo library
-                    UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil)
-                    // Get the file path of the saved image
-                    guard let asset = info[UIImagePickerController.InfoKey.phAsset] as? PHAsset else {
-                        return
-                    }
-                    let options = PHContentEditingInputRequestOptions()
-                    options.canHandleAdjustmentData = {(adjustmentData: PHAdjustmentData) -> Bool in
-                        return true
-                    }
-                    asset.requestContentEditingInput(with: options) { (contentEditingInput, _) in
-                        avatarUrl = contentEditingInput?.fullSizeImageURL
-                    }
+                    let imgName = UUID().uuidString
+                    let documentDirectory = NSTemporaryDirectory()
+                    let localPath = documentDirectory.appending(imgName)
+
+                    let data = image.jpegData(compressionQuality: 0.3)! as NSData
+                    data.write(toFile: localPath, atomically: true)
+                    avatarUrl = URL.init(fileURLWithPath: localPath)
                 }
                 else {
                     avatarUrl = info[.imageURL] as? URL
                 }
+                
                 if avatarUrl != nil {
                     //Then Upload image
                     awsUpload.uploadImage(filePath: avatarUrl!, bucketName: "perfectself-avatar-bucket", prefix: self.id) { (error: Error?) -> Void in
+                        DispatchQueue.main.async {
+                            hideIndicator(sender: nil)
+                            print("hide1")
+                        }
                         if(error == nil)
                         {
                             DispatchQueue.main.async {
-                                hideIndicator(sender: nil)
-                                Toast.show(message: "file upload completed.", controller: self)
+                                Toast.show(message: "Avatar Image upload completed.", controller: self)
                                 // update avatar
                                 let url = "https://perfectself-avatar-bucket.s3.us-east-2.amazonaws.com/\(self.id)/\(String(describing: avatarUrl!.lastPathComponent))"
-                                
                                 self.readerAvatar.imageFrom(url: URL(string: url)!)
                                 //update user profile
                                 webAPI.updateUserAvatar(uid: self.id, bucketName: "perfectself-avatar-bucket", avatarKey: "\(self.id)/\(avatarUrl!.lastPathComponent)") { data, response, error in
                                     if error == nil {
                                         // successfully update db
+                                        print("update db completed")
                                     }
                                 }
                                 
@@ -595,10 +593,14 @@ extension ReaderProfileViewController: UIImagePickerControllerDelegate & UINavig
                         else
                         {
                             DispatchQueue.main.async {
-                                hideIndicator(sender: nil)
-                                Toast.show(message: "Failed to upload file, Try again later!", controller: self)
+                                Toast.show(message: "Failed to upload avatar image, Try again later!", controller: self)
                             }
                         }
+                    }
+                }
+                else {
+                    DispatchQueue.main.async {
+                        hideIndicator(sender: nil)
                     }
                 }
             }

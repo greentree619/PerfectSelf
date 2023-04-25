@@ -92,6 +92,7 @@ class ActorBuildProfile2ViewController: UIViewController, PhotoDelegate {
             let imagePicker = UIImagePickerController()
             imagePicker.delegate = self
             imagePicker.sourceType = .camera
+            imagePicker.allowsEditing = true
             self.present(imagePicker, animated: true, completion: nil)
         }
     }
@@ -205,29 +206,27 @@ extension ActorBuildProfile2ViewController: UIImagePickerControllerDelegate & UI
             // Get the URL of the selected image
             var avatarUrl: URL? = nil
             //Upload audio at first
-            guard let image = info[.originalImage] as? UIImage else {
+            guard let image = (self.photoType == 0 ? info[.originalImage] : info[.editedImage]) as? UIImage else {
                 //dismiss(animated: true, completion: nil)
+                DispatchQueue.main.async {
+                    hideIndicator(sender: nil)
+                }
                 return
             }
             // save to local and get URL
             if self.photoType == 1 {
-                // Save the image to the photo library
-                UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil)
-                // Get the file path of the saved image
-                guard let asset = info[UIImagePickerController.InfoKey.phAsset] as? PHAsset else {
-                    return
-                }
-                let options = PHContentEditingInputRequestOptions()
-                options.canHandleAdjustmentData = {(adjustmentData: PHAdjustmentData) -> Bool in
-                    return true
-                }
-                asset.requestContentEditingInput(with: options) { (contentEditingInput, _) in
-                    avatarUrl = contentEditingInput?.fullSizeImageURL
-                }
+                let imgName = UUID().uuidString
+                let documentDirectory = NSTemporaryDirectory()
+                let localPath = documentDirectory.appending(imgName)
+
+                let data = image.jpegData(compressionQuality: 0.3)! as NSData
+                data.write(toFile: localPath, atomically: true)
+                avatarUrl = URL.init(fileURLWithPath: localPath)
             }
             else {
                 avatarUrl = info[.imageURL] as? URL
             }
+            
             if avatarUrl != nil {
                 //Then Upload image
                 awsUpload.uploadImage(filePath: avatarUrl!, bucketName: "perfectself-avatar-bucket", prefix: self.id) { (error: Error?) -> Void in
