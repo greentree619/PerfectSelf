@@ -6,6 +6,7 @@
 //  Copyright © 2023 Stas Seldin. All rights reserved.
 //
 import UIKit
+import GoogleSignIn
 
 class LoginDetailViewController: UIViewController {
     let checkedImage = UIImage(named: "icons8-checked-checkbox-14")! as UIImage
@@ -26,6 +27,9 @@ class LoginDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        GIDSignIn.sharedInstance().delegate = self
+        //Omitted GIDSignIn.sharedInstance().presentingViewController = self
+        GIDSignIn.sharedInstance().clientID = GoogleAuthClientID
         
         btn_actor.isSelected = true;
         btn_reader.isSelected = false;
@@ -213,5 +217,20 @@ class LoginDetailViewController: UIViewController {
      // Pass the selected object to the new view controller.
      }
      */
-    
+}
+
+extension LoginDetailViewController: GIDSignInDelegate {
+    func signIn() {
+        GIDSignIn.sharedInstance()?.signIn()
+    }
+        
+    func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
+        if error == nil {
+            guard user.authentication.idToken != nil else { return }
+            guard user.authentication.accessToken != nil else { return }
+            // Use the ID token and access token to authenticate the user
+        } else {
+            print("Error signing in with Google: \(error.localizedDescription)")
+        }
+    }
 }

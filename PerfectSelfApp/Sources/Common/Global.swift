@@ -13,6 +13,7 @@ let signalingServerConfig = Config.default
 let webAPI = PerfectSelfWebAPI()
 let ACTOR_UTYPE = 3
 let READER_UTYPE = 4
+let GoogleAuthClientID = "748779750759-rro4ghi58k38gm9j7dabofkoq7glb4i7.apps.googleusercontent.com"
 var backgroundView: UIView? = nil
 var activityIndicatorView: UIActivityIndicatorView? = nil
 var uiViewContoller: UIViewController? = nil

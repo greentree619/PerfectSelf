@@ -16,4 +16,5 @@ target 'PerfectSelf' do
   pod 'IQKeyboardManagerSwift'
   pod "Koyomi"
   pod "SwiftGifOrigin"
+  pod 'GoogleSignIn', '~> 4.4.0'
 end
