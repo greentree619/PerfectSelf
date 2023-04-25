@@ -471,7 +471,7 @@ class ReaderProfileViewController: UIViewController, UICollectionViewDataSource,
     @IBAction func EditAvailability(_ sender: UIButton) {
         let controller = ReaderProfileEditAvailabilityViewController()
         controller.uid = id
-        controller.timeSlotItems = self.items
+//        controller.timeSlotItems = self.items
         controller.modalPresentationStyle = .fullScreen
         let transition = CATransition()
         transition.duration = 0.5 // Set animation duration
