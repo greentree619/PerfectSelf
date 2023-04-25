@@ -382,7 +382,7 @@ class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSample
                     let prefixKey = "\(getDateString())/\((uiViewContoller! as! ConferenceViewController).roomUid)/"
                     let awsUpload = AWSMultipartUpload()
                     DispatchQueue.main.async {
-                        showIndicator(sender: nil, viewController: uiViewContoller!, color:UIColor.white)
+                        //Omitted showIndicator(sender: nil, viewController: uiViewContoller!, color:UIColor.white)
                         Toast.show(message: "Start to upload record files", controller: uiViewContoller!)
                     }
                     
@@ -394,7 +394,7 @@ class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSample
                                 if(error == nil)
                                 {
                                     DispatchQueue.main.async {
-                                        hideIndicator(sender: nil)
+                                        //Omitted hideIndicator(sender: nil)
                                         Toast.show(message: "Completed to upload record files", controller: uiViewContoller!)
                                     }
                                     if let userInfo = UserDefaults.standard.object(forKey: "USER") as? [String:Any] {
@@ -413,7 +413,7 @@ class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSample
                                 else
                                 {
                                     DispatchQueue.main.async {
-                                        hideIndicator(sender: nil)
+                                        //Omitted hideIndicator(sender: nil)
                                         Toast.show(message: "Failed to upload record files", controller: uiViewContoller!)
                                     }
                                 }
@@ -422,7 +422,7 @@ class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSample
                         else
                         {
                             DispatchQueue.main.async {
-                                hideIndicator(sender: nil)
+                                //Omitted hideIndicator(sender: nil)
                                 Toast.show(message: "Failed to upload record files", controller: uiViewContoller!)
                             }
                         }
