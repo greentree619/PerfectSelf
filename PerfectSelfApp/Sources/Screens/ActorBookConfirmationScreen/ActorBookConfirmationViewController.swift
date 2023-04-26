@@ -31,9 +31,9 @@ class ActorBookConfirmationViewController: UIViewController {
         img_book_animation.loadGif(asset: "book-animation")
         lbl_readerName.text = "Reading with \(readerName)"
         let df = DateFormatter()
-        df.dateFormat = "yyyy-MM-dd hh:mm:ss"
+        df.dateFormat = "yyyy-MM-dd'T'hh:mm:ss"
         df.timeZone = TimeZone(abbreviation: "EST")
-        let estDate = df.date(from: bookingDate + " " + bookingStartTime) ?? Date()
+        let estDate = df.date(from: bookingDate + bookingStartTime) ?? Date()
         df.dateFormat = "MMM dd, yyyy  HH:mm a"
         lbl_datetime.text = "Time:  \(df.string(from: estDate))  EST"
         if let userInfo = UserDefaults.standard.object(forKey: "USER") as? [String:Any] {
@@ -70,8 +70,8 @@ class ActorBookConfirmationViewController: UIViewController {
     @IBAction func CompleteBooking(_ sender: UIButton) {
         // call book api
    
-        let bookingStart = bookingDate + "T" + bookingStartTime + "Z"
-        let bookingEnd = bookingDate + "T" + bookingEndTime + "Z"
+        let bookingStart = bookingDate + bookingStartTime
+        let bookingEnd = bookingDate + bookingEndTime
         showIndicator(sender: sender, viewController: self)
         webAPI.bookAppointment(actorUid: uid, readerUid: readerUid, bookStartTime:bookingStart, bookEndTime: bookingEnd, script: script) { data, response, error in
             guard let data = data, error == nil else {
@@ -80,7 +80,7 @@ class ActorBookConfirmationViewController: UIViewController {
                 return
             }
             let responseJSON = try? JSONSerialization.jsonObject(with: data, options: [])
-            print(responseJSON ?? "here")
+            
             if let _ = responseJSON as? [String: Any] {
                 DispatchQueue.main.async {
                     hideIndicator(sender: sender)

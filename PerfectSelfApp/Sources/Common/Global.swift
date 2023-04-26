@@ -68,8 +68,17 @@ struct ReaderProfileDetail: Codable {
     let introBucketName: String
     let introVideoKey: String
     let bookPassCount: Int
-    let allAvailability: [TimeSlot]
+    let allAvailability: [Availability]
     let reviewLists: [Review]
+}
+struct Availability: Codable {
+    let readerUid: String
+    let isStandBy: Bool
+    let repeatFlag: Int
+    let date: String
+    let fromTime: String
+    let toTime: String
+    let id: Int
 }
 struct Review: Codable {
     let actorUid: String
@@ -83,7 +92,6 @@ struct Review: Codable {
     let scriptFile: String
     let readerScore: Int
     let readerReview: String
-    
 }
 struct ReaderProfileCard: Codable {
     let uid: String
@@ -138,23 +146,17 @@ struct VideoCard: Codable {
     let deletedTime: String
 }
 
-struct Availability: Codable {
-    let id: Int
-    let readerUid: String
-    let date: String
-    let fromTime: String
-    let toTime: String
-    let isStandBy: Bool
-    let createdTime: String
-    let updatedTime: String
-    let deletedTime: String?
-}
 struct TimeSlot: Codable {
     var date: String
-    let fromTime: String
-    let toTime: String
-    let repeatFlag: Int
-    let isStandBy: Bool
+    var time: [Slot]
+    var repeatFlag: Int
+    var isStandBy: Bool
+}
+struct Slot: Codable {
+    var id: Int
+    var slot: Int
+    var duration: Int
+    var isDeleted: Bool
 }
 struct ChatChannel: Codable {
     let id: Int

@@ -103,7 +103,40 @@ class ActorReaderDetailViewController: UIViewController , UICollectionViewDataSo
                     self.reader_skill.text = item.skills
                     
                     self.items.removeAll()
-                    self.items.append(contentsOf: item.allAvailability)
+//                    self.items.append(contentsOf: item.allAvailability)
+                    for availibility in item.allAvailability {
+                        let df = DateFormatter()
+                        df.dateFormat = "yyyy-MM-dd"
+                        let tf = DateFormatter()
+                        tf.dateFormat = "hh"
+                        
+                        let index = self.items.firstIndex(where: { df.string(from: Date.getDateFromString(date: $0.date)!) == df.string(from: Date.getDateFromString(date: availibility.date)!) })
+                        if index == nil {
+                            self.items.append(TimeSlot(date: availibility.date, time: [Slot](), repeatFlag: 0, isStandBy: false))
+                        }
+                        let idx = index ?? self.items.count - 1
+                        
+                        let t = tf.string(from: Date.getDateFromString(date: availibility.fromTime)!)
+                        var slot = 0
+                        switch t {
+                        case "09":
+                            slot = 1
+                        case "10":
+                            slot = 2
+                        case "11":
+                            slot = 3
+                        case "02":
+                            slot = 4
+                        case "03":
+                            slot = 5
+                        case "04":
+                            slot = 6
+                        default:
+                            slot = 0
+                        }
+                        self.items[idx].time.append(Slot(id: 0, slot: slot, duration: 0, isDeleted: false))
+                    }
+                    self.items = self.items.sorted(by: { Date.getDateFromString(date: $0.date)! < Date.getDateFromString(date: $1.date)! })
                     self.timeslotList.reloadData()
                     self.reviews.removeAll()
                     self.reviews.append(contentsOf: item.reviewLists)
@@ -218,17 +251,15 @@ class ActorReaderDetailViewController: UIViewController , UICollectionViewDataSo
         if collectionView == timeslotList {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Time Slot Collection View Cell", for: indexPath) as! TimeSlotCollectionViewCell
 
+            let date = Date.getDateFromString(date: self.items[indexPath.row].date)
             let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss'Z'"
-            let date = dateFormatter.date(from: self.items[indexPath.row].date)
-        
             dateFormatter.dateFormat = "EEE"
             let weekDay = dateFormatter.string(from: date ?? Date())
             
             dateFormatter.dateFormat = "MMM dd"
             let dayMonth = dateFormatter.string(from: date ?? Date())
             
-            cell.lbl_num_slot.text = "1 slot";
+            cell.lbl_num_slot.text = "\(self.items[indexPath.row].time.count) slots";
             cell.lbl_weekday.text = weekDay
             cell.lbl_date_month.text = dayMonth
             // return card
@@ -274,7 +305,19 @@ class ActorReaderDetailViewController: UIViewController , UICollectionViewDataSo
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         // add the code here to perform action on the cell
-        print("didDeselectItemAt")
+        let controller = ActorBookAppointmentViewController();
+        controller.rUid = uid
+        controller.rName = self.reader_name.text ?? "Reader"
+        controller.selectedDate = self.items[indexPath.row].date
+        controller.timeSlotList = self.items
+        controller.modalPresentationStyle = .fullScreen
+     
+        let transition = CATransition()
+        transition.duration = 0.5 // Set animation duration
+        transition.type = CATransitionType.push // Set transition type to push
+        transition.subtype = CATransitionSubtype.fromRight // Set transition subtype to from right
+        self.view.window?.layer.add(transition, forKey: kCATransition) // Add transition to window layer
+        self.present(controller, animated: false)
     }
     @IBAction func ShowOverview(_ sender: UIButton) {
         sender.tintColor = UIColor(rgb: 0x4063FF)
@@ -333,6 +376,7 @@ class ActorReaderDetailViewController: UIViewController , UICollectionViewDataSo
         let controller = ActorBookAppointmentViewController();
         controller.rUid = uid
         controller.rName = self.reader_name.text ?? "Reader"
+        controller.timeSlotList = self.items
         controller.modalPresentationStyle = .fullScreen
      
         let transition = CATransition()

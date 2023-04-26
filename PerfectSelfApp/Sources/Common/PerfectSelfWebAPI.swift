@@ -322,7 +322,7 @@ class PerfectSelfWebAPI
     }
     func getAvailabilityById(uid: String, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> Void
     {
-        return executeAPI(with: "GET", apiPath: "Availabilities/UpcomingByUid/\(uid)/\(Date.getDateString(date: Date()))", json: [:], completionHandler:completionHandler)
+        return executeAPI(with: "GET", apiPath: "Availabilities/UpcomingByUid/\(uid)/\(Date.getStringFromDate(date: Date()))", json: [:], completionHandler:completionHandler)
     }
     func getLibraryByUid(uid: String, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> Void
     {
@@ -344,15 +344,43 @@ class PerfectSelfWebAPI
     {
         var batchData: [[String: Any]] = [[:]]
         batchData.removeAll()
-        for list in timeSlotList {
-            let p: [String:Any] = [
-                "isStandBy": list.isStandBy,
-                "repeatFlag": list.repeatFlag,
-                "date": list.date,
-                "fromTime": list.fromTime,
-                "toTime": list.toTime
-            ]
-            batchData.append(p)
+        let df = DateFormatter()
+        df.dateFormat = "yyyy-MM-dd"
+        for item in timeSlotList {
+            for slot in item.time {
+                var fromTime = df.string(from: Date.getDateFromString(date: item.date)!)
+                var toTime = fromTime
+                if slot.slot == 1 {
+                    fromTime += "T09:00:00"
+                    toTime += "T10:00:00"
+                } else if slot.slot == 2 {
+                    fromTime += "T10:00:00"
+                    toTime += "T11:00:00"
+                } else if slot.slot == 3 {
+                    fromTime += "T11:00:00"
+                    toTime += "T12:00:00"
+                } else if slot.slot == 4 {
+                    fromTime += "T14:00:00"
+                    toTime += "T15:00:00"
+                } else if slot.slot == 5 {
+                    fromTime += "T15:00:00"
+                    toTime += "T16:00:00"
+                } else if slot.slot == 6 {
+                    fromTime += "T16:00:00"
+                    toTime += "T17:00:00"
+                } else {
+                    fromTime += "T00:00:00"
+                    toTime += "T00:00:00"
+                }
+                let p: [String:Any] = [
+                    "isStandBy": item.isStandBy,
+                    "repeatFlag": item.repeatFlag,
+                    "date": item.date,
+                    "fromTime": fromTime,
+                    "toTime": toTime
+                ]
+                batchData.append(p)
+            }
         }
         
         let json: [String: Any] = [

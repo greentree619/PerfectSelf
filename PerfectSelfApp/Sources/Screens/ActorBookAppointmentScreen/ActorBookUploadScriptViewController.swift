@@ -27,9 +27,9 @@ class ActorBookUploadScriptViewController: UIViewController {
         lbl_readerName.text = "Reading with \(readerName)"
         print(bookingDate, bookingStartTime)
         let df = DateFormatter()
-        df.dateFormat = "yyyy-MM-dd hh:mm:ss"
+        df.dateFormat = "yyyy-MM-dd'T'hh:mm:ss"
         df.timeZone = TimeZone(abbreviation: "EST")
-        let estDate = df.date(from: bookingDate + " " + bookingStartTime) ?? Date()
+        let estDate = df.date(from: bookingDate + bookingStartTime) ?? Date()
         df.dateFormat = "hh:mm"
         let t = df.string(from: estDate)
         df.dateFormat = "MMMM dd, yyyy"

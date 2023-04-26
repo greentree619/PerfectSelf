@@ -117,7 +117,7 @@ class ReaderProfileViewController: UIViewController, UICollectionViewDataSource,
             }
             do {
                 let item = try JSONDecoder().decode(ReaderProfileDetail.self, from: data)
-                print(item)
+//                print(item)
                 DispatchQueue.main.async {
                     self.readerUsername.text = item.userName
                     self.readerTitle.text = item.title
@@ -128,7 +128,42 @@ class ReaderProfileViewController: UIViewController, UICollectionViewDataSource,
                     self.hourlyRate = item.hourlyPrice
                     
                     self.items.removeAll()
-                    self.items.append(contentsOf: item.allAvailability)
+//                    self.items.append(contentsOf: item.allAvailability)
+                    for availibility in item.allAvailability {
+                        let df = DateFormatter()
+                        df.dateFormat = "yyyy-MM-dd"
+                        let tf = DateFormatter()
+                        tf.dateFormat = "hh"
+                        
+                        let index = self.items.firstIndex(where: { df.string(from: Date.getDateFromString(date: $0.date)!) == df.string(from: Date.getDateFromString(date: availibility.date)!) })
+                        if index == nil {
+                            self.items.append(TimeSlot(date: availibility.date, time: [Slot](), repeatFlag: 0, isStandBy: false))
+                        }
+                        let idx = index ?? self.items.count - 1
+                        
+                        let t = tf.string(from: Date.getDateFromString(date: availibility.fromTime)!)
+         
+                        var slot = 0
+                        switch t {
+                        case "09":
+                            slot = 1
+                        case "10":
+                            slot = 2
+                        case "11":
+                            slot = 3
+                        case "02":
+                            slot = 4
+                        case "03":
+                            slot = 5
+                        case "04":
+                            slot = 6
+                        default:
+                            slot = 0
+                        }
+                        self.items[idx].time.append(Slot(id: 0, slot: slot, duration: 0, isDeleted: false))
+                    }
+                    self.items = self.items.sorted(by: { Date.getDateFromString(date: $0.date)! < Date.getDateFromString(date: $1.date)! })
+
                     self.timeslotList.reloadData()
                     self.reviews.removeAll()
                     self.reviews.append(contentsOf: item.reviewLists)
@@ -249,17 +284,15 @@ class ReaderProfileViewController: UIViewController, UICollectionViewDataSource,
         if collectionView == timeslotList {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Time Slot Collection View Cell", for: indexPath) as! TimeSlotCollectionViewCell
 
+            let date = Date.getDateFromString(date: self.items[indexPath.row].date)
             let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss'Z'"
-            let date = dateFormatter.date(from: self.items[indexPath.row].date)
-        
             dateFormatter.dateFormat = "EEE"
             let weekDay = dateFormatter.string(from: date ?? Date())
             
             dateFormatter.dateFormat = "MMM dd"
             let dayMonth = dateFormatter.string(from: date ?? Date())
             
-            cell.lbl_num_slot.text = "1 slot";
+            cell.lbl_num_slot.text = "\(self.items[indexPath.row].time.count) slots";
             cell.lbl_weekday.text = weekDay
             cell.lbl_date_month.text = dayMonth
             // return card
@@ -471,7 +504,7 @@ class ReaderProfileViewController: UIViewController, UICollectionViewDataSource,
     @IBAction func EditAvailability(_ sender: UIButton) {
         let controller = ReaderProfileEditAvailabilityViewController()
         controller.uid = id
-        controller.timeSlotItems = self.items
+        controller.timeSlotList = self.items
         controller.modalPresentationStyle = .fullScreen
         let transition = CATransition()
         transition.duration = 0.5 // Set animation duration

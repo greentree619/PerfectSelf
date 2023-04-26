@@ -134,7 +134,7 @@ class ChatViewController: KUIViewController, UICollectionViewDataSource, UIColle
         }
         noMessage.isHidden = true;
         messageTextField.text = ""
-        let message = PerfMessage(id: 0, senderUid: muid, receiverUid: uid, roomUid: roomUid, sendTime: Date.getDateString(date: Date()), hadRead: false, message: text)
+        let message = PerfMessage(id: 0, senderUid: muid, receiverUid: uid, roomUid: roomUid, sendTime: Date.getStringFromDate(date: Date()), hadRead: false, message: text)
         messages.append(message)
 
         messageCollectionView.reloadData() // Refresh the table view to display the new message
@@ -364,7 +364,7 @@ extension ChatViewController: WebRTCClientDelegate {
     func webRTCClient(_ client: WebRTCClient, didReceiveData data: Data) {
         DispatchQueue.main.async {
             let message = String(data: data, encoding: .utf8) ?? "(Binary: \(data.count) bytes)"
-            let messageWrap = PerfMessage(id: 0, senderUid: self.uid, receiverUid: self.muid, roomUid: self.roomUid, sendTime: Date.getDateString(date: Date()), hadRead: false, message: message)
+            let messageWrap = PerfMessage(id: 0, senderUid: self.uid, receiverUid: self.muid, roomUid: self.roomUid, sendTime: Date.getStringFromDate(date: Date()), hadRead: false, message: message)
             self.messages.append(messageWrap) // Add the new message to the messages array
             self.messageCollectionView.reloadData() // Refresh the table view to display the new message
         }
