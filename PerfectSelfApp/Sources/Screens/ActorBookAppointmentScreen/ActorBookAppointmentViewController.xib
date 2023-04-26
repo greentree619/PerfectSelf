@@ -111,6 +111,9 @@
                                             <subviews>
                                                 <datePicker contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" style="inline" translatesAutoresizingMaskIntoConstraints="NO" id="KJ6-t1-Sza">
                                                     <rect key="frame" x="8" y="8" width="294" height="264"/>
+                                                    <connections>
+                                                        <action selector="ChangeSelectedDate:" destination="-1" eventType="valueChanged" id="Xop-7h-JNO"/>
+                                                    </connections>
                                                 </datePicker>
                                             </subviews>
                                             <edgeInsets key="layoutMargins" top="8" left="8" bottom="8" right="8"/>

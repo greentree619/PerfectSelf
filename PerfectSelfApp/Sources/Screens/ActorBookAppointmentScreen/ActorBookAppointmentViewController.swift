@@ -11,12 +11,13 @@ import UIKit
 class ActorBookAppointmentViewController: UIViewController {
     var rUid: String = ""
     var rName: String = ""
+    var selectedDate: String = ""
+    var timeSlotList = [TimeSlot]()
     let backgroundView = UIView()
     let timeFormatter = DateFormatter()
     let dateFormatter = DateFormatter()
 
     @IBOutlet weak var picker_date: UIDatePicker!
-    
     @IBOutlet weak var view_main: UIStackView!
     
     @IBOutlet weak var btn_15min: UIButton!
@@ -35,12 +36,77 @@ class ActorBookAppointmentViewController: UIViewController {
 
         // Do any additional setup after loading the view.
         view_main.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
-//        btn_9am.isHighlighted = true
-//        btn_9am.isEnabled = false
+
         timeFormatter.dateFormat = "hh:mm a"
         dateFormatter.dateFormat = "yyyy-MM-dd"
+        print(timeSlotList)
+        if !selectedDate.isEmpty {
+            picker_date.setDate(Date.getDateFromString(date: selectedDate)!, animated: true)
+            displayTimeSlotsForDate(d: Date.getDateFromString(date: selectedDate)!)
+        }
+        else {
+            displayTimeSlotsForDate(d: picker_date.date)
+        }
     }
-   
+    
+    @IBAction func ChangeSelectedDate(_ sender: UIDatePicker) {
+        print(sender.date)
+        displayTimeSlotsForDate(d: sender.date)
+    }
+    func displayTimeSlotsForDate(d: Date) {
+        initTimeSlotState(isEnabled: false)
+        let idx = getTimeSlotObjectIndex(d: d)
+        if idx < 0 {
+            return
+        }
+        let item = timeSlotList[idx]
+        if item.isStandBy {
+            initTimeSlotState(isEnabled: true)
+        }
+        for t in item.time {
+            if t.slot == 1 {
+                btn_9am.isHighlighted = false
+                btn_9am.isEnabled = true
+            } else if t.slot == 2 {
+                btn_10am.isHighlighted = false
+                btn_10am.isEnabled = true
+            } else if t.slot == 3 {
+                btn_11am.isHighlighted = false
+                btn_11am.isEnabled = true
+            } else if t.slot == 4 {
+                btn_2pm.isHighlighted = false
+                btn_2pm.isEnabled = true
+            } else if t.slot == 5 {
+                btn_3pm.isHighlighted = false
+                btn_3pm.isEnabled = true
+            } else if t.slot == 6 {
+                btn_4pm.isHighlighted = false
+                btn_4pm.isEnabled = true
+            } else {
+                print("oops!")
+            }
+        }
+    }
+    func getTimeSlotObjectIndex(d: Date) -> Int {
+        
+        let index = timeSlotList.firstIndex(where: { dateFormatter.string(from: Date.getDateFromString(date: $0.date)!) == dateFormatter.string(from: d) })
+
+        return index ?? -1
+    }
+    func initTimeSlotState(isEnabled: Bool) {
+        btn_9am.isHighlighted = !isEnabled
+        btn_9am.isEnabled = isEnabled
+        btn_10am.isHighlighted = !isEnabled
+        btn_10am.isEnabled = isEnabled
+        btn_11am.isHighlighted = !isEnabled
+        btn_11am.isEnabled = isEnabled
+        btn_2pm.isHighlighted = !isEnabled
+        btn_2pm.isEnabled = isEnabled
+        btn_3pm.isHighlighted = !isEnabled
+        btn_3pm.isEnabled = isEnabled
+        btn_4pm.isHighlighted = !isEnabled
+        btn_4pm.isEnabled = isEnabled
+    }
     @IBAction func Select15Min(_ sender: UIButton) {
         sender.isSelected = !sender.isSelected
         btn_30min.isSelected = false
@@ -234,6 +300,71 @@ class ActorBookAppointmentViewController: UIViewController {
         let controller = ActorBookUploadScriptViewController()
         controller.readerUid = rUid
         controller.readerName = rName
+        controller.bookingDate = dateFormatter.string(from: picker_date.date)
+        var fromTime = ""
+        var toTime = ""
+        if startTime == 1 {
+            fromTime += "T09:00:00"
+            if sessionDuration == 1 {
+                toTime += "T09:15:00"
+            } else if sessionDuration == 2 {
+                toTime += "T09:30:00"
+            } else if sessionDuration == 3 {
+                toTime += "T10:00:00"
+            }
+        } else if startTime == 2 {
+            fromTime += "T10:00:00"
+            if sessionDuration == 1 {
+                toTime += "T10:15:00"
+            } else if sessionDuration == 2 {
+                toTime += "T10:30:00"
+            } else if sessionDuration == 3 {
+                toTime += "T11:00:00"
+            }
+        } else if startTime == 3 {
+            fromTime += "T11:00:00"
+            if sessionDuration == 1 {
+                toTime += "T11:15:00"
+            } else if sessionDuration == 2 {
+                toTime += "T11:30:00"
+            } else if sessionDuration == 3 {
+                toTime += "T12:00:00"
+            }
+        } else if startTime == 4 {
+            fromTime += "T14:00:00"
+            if sessionDuration == 1 {
+                toTime += "T14:15:00"
+            } else if sessionDuration == 2 {
+                toTime += "T14:30:00"
+            } else if sessionDuration == 3 {
+                toTime += "T15:00:00"
+            }
+        } else if startTime == 5 {
+            fromTime += "T15:00:00"
+            if sessionDuration == 1 {
+                toTime += "T15:15:00"
+            } else if sessionDuration == 2 {
+                toTime += "T15:30:00"
+            } else if sessionDuration == 3 {
+                toTime += "T16:00:00"
+            }
+        } else if startTime == 6 {
+            fromTime += "T16:00:00"
+            if sessionDuration == 1 {
+                toTime += "T16:15:00"
+            } else if sessionDuration == 2 {
+                toTime += "T16:30:00"
+            } else if sessionDuration == 3 {
+                toTime += "T17:00:00"
+            }
+        } else {
+            print("oops!")
+            fromTime += "T00:00:00"
+            toTime += "T00:00:00"
+        }
+        controller.bookingStartTime = fromTime
+        controller.bookingEndTime = toTime
+//        print(fromTime, toTime)
         controller.modalPresentationStyle = .fullScreen
         self.present(controller, animated: false)
     }

@@ -58,7 +58,7 @@ class ActorFindReaderViewController: UIViewController , UICollectionViewDataSour
         spin.startAnimating()
         // call API to fetch reader list
         
-        webAPI.getReaders(readerName: nil,isSponsored: nil, isAvailableSoon: isAvailableSoon,isTopRated: nil, isOnline: isOnline, availableTimeSlotType: nil, availableFrom: isDateSelected ? Date.getDateString(date: fromDate) : nil, availableTo: isDateSelected ? Date.getDateString(date: toDate) : nil, minPrice: minPrice, maxPrice: maxPrice, gender: gender != -1 ? gender:nil, sortBy: sortType) { data, response, error in
+        webAPI.getReaders(readerName: nil,isSponsored: nil, isAvailableSoon: isAvailableSoon,isTopRated: nil, isOnline: isOnline, availableTimeSlotType: nil, availableFrom: isDateSelected ? Date.getStringFromDate(date: fromDate) : nil, availableTo: isDateSelected ? Date.getStringFromDate(date: toDate) : nil, minPrice: minPrice, maxPrice: maxPrice, gender: gender != -1 ? gender:nil, sortBy: sortType) { data, response, error in
             DispatchQueue.main.async {
                 self.spin.stopAnimating()
                 self.spin.isHidden = true
