@@ -395,6 +395,9 @@
                                             <rect key="frame" x="0.0" y="8" width="162.5" height="52"/>
                                             <state key="normal" title="Button"/>
                                             <buttonConfiguration key="configuration" style="gray" image="login_google" title="Google"/>
+                                            <connections>
+                                                <action selector="googleSignInDidTap:" destination="-1" eventType="touchUpInside" id="17j-h6-hVk"/>
+                                            </connections>
                                         </button>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7Z4-7y-JDC">
                                             <rect key="frame" x="172.5" y="8" width="162.5" height="52"/>

@@ -28,6 +28,7 @@ class LoginDetailViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         GIDSignIn.sharedInstance().delegate = self
+        GIDSignIn.sharedInstance().pr?.presentingViewController = self
         //Omitted GIDSignIn.sharedInstance().presentingViewController = self
         GIDSignIn.sharedInstance().clientID = GoogleAuthClientID
         
@@ -203,6 +204,11 @@ class LoginDetailViewController: UIViewController {
             sender.setImage(hide, for: UIControl.State.normal);
         }
     }
+    
+    @IBAction func googleSignInDidTap(_ sender: UIButton) {
+        signIn()
+    }
+    
     
     @IBAction func GoBack(_ sender: UIButton) {
         self.navigationController?.popViewController(animated: true)
