@@ -44,6 +44,8 @@
 		4776C12C29D3F3330008A915 /* CreditCardCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4776C12A29D3F3330008A915 /* CreditCardCell.xib */; };
 		47843E4329CFEB2F008704CD /* ChatCardCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47843E4129CFEB2F008704CD /* ChatCardCollectionViewCell.swift */; };
 		47843E4429CFEB2F008704CD /* ChatCardCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 47843E4229CFEB2F008704CD /* ChatCardCollectionViewCell.xib */; };
+		478AD18429F9A9D8008550F2 /* ScriptViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 478AD18229F9A9D8008550F2 /* ScriptViewController.swift */; };
+		478AD18529F9A9D8008550F2 /* ScriptViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 478AD18329F9A9D8008550F2 /* ScriptViewController.xib */; };
 		47B025A529D3361100DFECE7 /* MKAccordionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47B025A429D3361100DFECE7 /* MKAccordionView.swift */; };
 		47B025C629D3477900DFECE7 /* grayBar.png in Resources */ = {isa = PBXBuildFile; fileRef = 47B025C129D3477800DFECE7 /* grayBar.png */; };
 		47B025C729D3477900DFECE7 /* grayBarSelected.png in Resources */ = {isa = PBXBuildFile; fileRef = 47B025C229D3477800DFECE7 /* grayBarSelected.png */; };
@@ -260,6 +262,8 @@
 		4776C12A29D3F3330008A915 /* CreditCardCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CreditCardCell.xib; sourceTree = "<group>"; };
 		47843E4129CFEB2F008704CD /* ChatCardCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatCardCollectionViewCell.swift; sourceTree = "<group>"; };
 		47843E4229CFEB2F008704CD /* ChatCardCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChatCardCollectionViewCell.xib; sourceTree = "<group>"; };
+		478AD18229F9A9D8008550F2 /* ScriptViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScriptViewController.swift; sourceTree = "<group>"; };
+		478AD18329F9A9D8008550F2 /* ScriptViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ScriptViewController.xib; sourceTree = "<group>"; };
 		47B025A429D3361100DFECE7 /* MKAccordionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MKAccordionView.swift; sourceTree = "<group>"; };
 		47B025C129D3477800DFECE7 /* grayBar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = grayBar.png; sourceTree = "<group>"; };
 		47B025C229D3477800DFECE7 /* grayBarSelected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = grayBarSelected.png; sourceTree = "<group>"; };
@@ -505,6 +509,15 @@
 				4748900629DF37C100963EA9 /* Rationale-Regular.ttf */,
 			);
 			path = Rationale;
+			sourceTree = "<group>";
+		};
+		478AD18129F9A9B5008550F2 /* ScriptScreen */ = {
+			isa = PBXGroup;
+			children = (
+				478AD18229F9A9D8008550F2 /* ScriptViewController.swift */,
+				478AD18329F9A9D8008550F2 /* ScriptViewController.xib */,
+			);
+			path = ScriptScreen;
 			sourceTree = "<group>";
 		};
 		47BC09B729C5B3E300B8F2C5 /* ActorBuildProfileScreen */ = {
@@ -837,6 +850,7 @@
 		BAD0B49A29BA17120061FEF5 /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				478AD18129F9A9B5008550F2 /* ScriptScreen */,
 				471D260929D76828003DAF0A /* ReaderBuildProfileScreen */,
 				47D4F80629CBD89800AFC4BA /* ReaderBookingScreen */,
 				47CEBDD729C7C21F006CE9DA /* ActorProfileScreen */,
@@ -1237,6 +1251,7 @@
 				BAD0B51329BA17130061FEF5 /* SignupViewController.xib in Resources */,
 				47007BEA29C2B0C000F83CFD /* ActorSetPaymentViewController.xib in Resources */,
 				BAD0B53A29BA17130061FEF5 /* ActorFindReaderViewController.xib in Resources */,
+				478AD18529F9A9D8008550F2 /* ScriptViewController.xib in Resources */,
 				47B025CA29D3477900DFECE7 /* close.png in Resources */,
 				4747685429EEF68D00D647F8 /* ActorResheduleViewController.xib in Resources */,
 				BAD0B51729BA17130061FEF5 /* AvaliableAudioInputsViewController.xib in Resources */,
@@ -1379,6 +1394,7 @@
 				474D241F29DA9EED00FD7DF0 /* DateSelectViewController.swift in Sources */,
 				BAD0B52429BA17130061FEF5 /* EditReadViewController.swift in Sources */,
 				BA00A54529CA1AD100C90922 /* Toast.swift in Sources */,
+				478AD18429F9A9D8008550F2 /* ScriptViewController.swift in Sources */,
 				792198A222011A450051F03F /* Config.swift in Sources */,
 				BAC11B8529A8B37100580143 /* IDCaptureSessionMovieFileOutputCoordinator.m in Sources */,
 				79262EE720B0D6F600D576C1 /* AppDelegate.swift in Sources */,

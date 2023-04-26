@@ -106,10 +106,9 @@ class ReaderBookingViewController: UIViewController, UICollectionViewDataSource,
         //
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Booking Collection View Cell", for: indexPath) as! BookingCollectionViewCell
         let roomUid = self.items[indexPath.row].roomUid
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
-        let datestart = dateFormatter.date(from: self.items[indexPath.row].bookStartTime)
-        let dateend = dateFormatter.date(from: self.items[indexPath.row].bookEndTime)
+   
+        let datestart = Date.getDateFromString(date: self.items[indexPath.row].bookStartTime)
+        let dateend = Date.getDateFromString(date: self.items[indexPath.row].bookEndTime)
         
         let dateFormatter1 = DateFormatter()
         dateFormatter1.dateFormat = "dd MMM, yyyy"
@@ -121,6 +120,7 @@ class ReaderBookingViewController: UIViewController, UICollectionViewDataSource,
         cell.name = self.items[indexPath.row].actorName
         cell.uid = self.items[indexPath.row].actorUid
         cell.muid = self.items[indexPath.row].readerUid
+        cell.script = self.items[indexPath.row].scriptFile
         var url: String?
         if self.items[indexPath.row].actorBucketName != nil {
             url = "https://\(self.items[indexPath.row].actorBucketName!).s3.us-east-2.amazonaws.com/\(self.items[indexPath.row].actorAvatarKey!)"

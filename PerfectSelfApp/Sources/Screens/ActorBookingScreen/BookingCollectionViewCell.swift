@@ -21,6 +21,7 @@ class BookingCollectionViewCell: UICollectionViewCell {
     
     public var muid: String!
     public var review: String?
+    public var script: String = ""
     public var bookType:Int = 1
     public var id: Int!
     public var readerType:String = "" // 0
@@ -135,6 +136,18 @@ class BookingCollectionViewCell: UICollectionViewCell {
         btn_rate.isEnabled = true
         btn_accept.isHidden = false
      }
+    @IBAction func ViewScript(_ sender: UIButton) {
+        let controller = ScriptViewController()
+        controller.modalPresentationStyle = .fullScreen
+        controller.script = script
+        
+        let transition = CATransition()
+        transition.duration = 0.5 // Set animation duration
+        transition.type = CATransitionType.push // Set transition type to push
+        transition.subtype = CATransitionSubtype.fromRight // Set transition subtype to from right
+        self.parentViewController!.view.window?.layer.add(transition, forKey: kCATransition) // Add transition to window layer
+        self.parentViewController!.present(controller, animated: false)
+    }
     @IBAction func JoinMeeting(_ sender: UIButton) {
         let conferenceViewController = ConferenceViewController(roomUid: self.roomUid!)
         conferenceViewController.modalPresentationStyle = .fullScreen

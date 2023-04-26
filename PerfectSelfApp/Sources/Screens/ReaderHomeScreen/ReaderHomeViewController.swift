@@ -110,6 +110,7 @@ class ReaderHomeViewController: UIViewController, UICollectionViewDataSource, UI
         cell.name = self.items[indexPath.row].actorName
         cell.uid = self.items[indexPath.row].actorUid
         cell.muid = self.items[indexPath.row].readerUid
+        cell.script = self.items[indexPath.row].scriptFile
         var url: String?
         if self.items[indexPath.row].actorBucketName != nil {
             url = "https://\(self.items[indexPath.row].actorBucketName!).s3.us-east-2.amazonaws.com/\(self.items[indexPath.row].actorAvatarKey!)"
