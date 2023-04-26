@@ -20,7 +20,7 @@ class ProjectViewController: UIViewController {
     var savedVideoUrl: URL? = nil
     var savedAudioUrl: URL? = nil
     @IBOutlet weak var playerView: PlayerView!
-    let awsUpload = AWSMultipartUpload()
+    //Omitted let awsUpload = AWSMultipartUpload()
     
     private var isOnPlay: Bool = true {
         didSet {
@@ -43,6 +43,9 @@ class ProjectViewController: UIViewController {
         }
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.playerView.delegate = self
@@ -56,7 +59,7 @@ class ProjectViewController: UIViewController {
             //print("Error deleting file: \(error.localizedDescription)")
         }
         
-        showIndicator(sender: nil, viewController: self, color:UIColor.white)
+        //Omitted showIndicator(sender: nil, viewController: self, color:UIColor.white)
         awsUpload.download(filePath: filePath, bucketName: selectedTape!.bucketName, key: "\(selectedTape!.tapeKey).mp4") { (error) -> Void in
             if error != nil {
                  //print(error!.localizedDescription)
@@ -79,7 +82,7 @@ class ProjectViewController: UIViewController {
                     //print("Error deleting file: \(error.localizedDescription)")
                 }
                 
-                self.awsUpload.download(filePath: filePath, bucketName: selectedTape!.bucketName, key: "\(selectedTape!.tapeKey).m4a") { (error) -> Void in
+                awsUpload.download(filePath: filePath, bucketName: selectedTape!.bucketName, key: "\(selectedTape!.tapeKey).m4a") { (error) -> Void in
                     DispatchQueue.main.async {
                         hideIndicator(sender: nil)
                         self.playerView.play()
@@ -98,6 +101,10 @@ class ProjectViewController: UIViewController {
                 }
             }
         }
+        
+        DispatchQueue.main.async {
+            showIndicator(sender: nil, viewController: self, color:UIColor.white)
+        }
     }
     
     @IBAction func backDidTapped(_ sender: UIButton) {
@@ -108,6 +115,7 @@ class ProjectViewController: UIViewController {
         guard self.savedVideoUrl != nil else{
             return
         }
+        isOnPlay = false
         
         let overlayViewController = OverlayViewController()
         overlayViewController.uploadVideourl = self.savedVideoUrl
@@ -177,6 +185,6 @@ extension ProjectViewController: PlayerViewDelegate{
     }
     
     func playerVideoDidEnd(player: PlayerView) {
-        
+        isOnPlay = false
     }
 }

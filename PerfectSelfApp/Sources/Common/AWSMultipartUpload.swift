@@ -20,6 +20,7 @@ class AWSMultipartUpload: NSObject, URLSessionTaskDelegate, URLSessionDataDelega
     var contentType: String =  "video/MP4"
     var session: URLSession?
     var chunkUrls: [URL] = [URL]()
+    let transferUtility: AWSS3TransferUtility
     
     override init()
     {
@@ -37,7 +38,7 @@ class AWSMultipartUpload: NSObject, URLSessionTaskDelegate, URLSessionDataDelega
         let tuConf = AWSS3TransferUtilityConfiguration()
         tuConf.isAccelerateModeEnabled = true
         tuConf.retryLimit = 5
-        tuConf.multiPartConcurrencyLimit = 3
+        tuConf.multiPartConcurrencyLimit = 5
         tuConf.timeoutIntervalForResource = 15*60 //15 minutes
 
         //Register a transfer utility object asynchronously
@@ -50,6 +51,8 @@ class AWSMultipartUpload: NSObject, URLSessionTaskDelegate, URLSessionDataDelega
                  //Handle registration error.
              }
         }
+        
+        self.transferUtility = AWSS3TransferUtility.s3TransferUtility(forKey: "transfer-utility-with-advanced-options")!
 
 //        //Look up the transfer utility object from the registry to use for your transfers.
 //        let _:(AWSS3TransferUtility?) = AWSS3TransferUtility.s3TransferUtility(forKey: "transfer-utility-with-advanced-options")
@@ -107,7 +110,7 @@ class AWSMultipartUpload: NSObject, URLSessionTaskDelegate, URLSessionDataDelega
               })
            }
 
-           let transferUtility = AWSS3TransferUtility.default()
+        let transferUtility = self.transferUtility//AWSS3TransferUtility.default()
 
         transferUtility.uploadUsingMultiPart(fileURL: filePath, bucket: self.bucketName, key: String("\(prefixKey)\(filePath.lastPathComponent)"), contentType: self.contentType,
                 expression: expression,
@@ -235,6 +238,7 @@ class AWSMultipartUpload: NSObject, URLSessionTaskDelegate, URLSessionDataDelega
         expression.progressBlock = {(task, progress) in
             DispatchQueue.main.async(execute: {
                 // Do something e.g. Update a progress bar.
+                print("progress \(progress)")
             })
             print(progress.fractionCompleted)   //2
             if progress.isFinished {           //3
@@ -252,12 +256,12 @@ class AWSMultipartUpload: NSObject, URLSessionTaskDelegate, URLSessionDataDelega
            })
         }
 
-        let transferUtility = AWSS3TransferUtility.default()
+        let transferUtility = self.transferUtility//AWSS3TransferUtility.default()
         transferUtility.download(to: filePath, bucket: bucketName, key: key, expression: expression, completionHandler: completionHandler).continueWith {
                (task) -> AnyObject? in
                        if let error = task.error {
                            print("Error: \(error.localizedDescription)")
-                           //completeHandler(error)
+                           completeHandler(error)
                        }
 
                        if let _ = task.result {
@@ -265,5 +269,28 @@ class AWSMultipartUpload: NSObject, URLSessionTaskDelegate, URLSessionDataDelega
                        }
                        return nil;
                }
+    }
+    
+    func downloadEx(filePath: URL, bucketName: String,  key: String, completeHandler:@escaping((Error?)->Void)) -> Void
+    {
+//        let downloadRequest = AWSS3TransferUtilityDownloadRequest()
+//        downloadRequest.bucket = bucketName
+//        downloadRequest.key = key
+//       let fileURL = filePath//URL(fileURLWithPath: filePath)
+
+        // Configure the transfer options to maximize download speed
+        let transferOptions = AWSS3TransferUtilityDownloadExpression()
+        transferOptions.setValue("bytes=0-1024", forRequestHeader: "Range")
+        //downloadRequest.expression = transferOptions
+
+        // Start the download task
+        transferUtility.download(to: filePath, bucket: bucketName, key: key, expression: transferOptions) { (task, url, data, error) in
+            completeHandler(error)
+//            if let error = error {
+//                print("Error downloading file: \(error.localizedDescription)")
+//            } else {
+//                print("Downloaded file successfully!")
+//            }
+        }
     }
 }

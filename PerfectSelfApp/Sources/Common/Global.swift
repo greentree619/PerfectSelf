@@ -17,6 +17,7 @@ var backgroundView: UIView? = nil
 var activityIndicatorView: UIActivityIndicatorView? = nil
 var uiViewContoller: UIViewController? = nil
 var selectedTape: VideoCard?
+let awsUpload = AWSMultipartUpload()
 //var webRTCClient: WebRTCClient?
 //var signalClient: SignalingClient?
 //var signalingClientStatus: SignalingClientStatus?

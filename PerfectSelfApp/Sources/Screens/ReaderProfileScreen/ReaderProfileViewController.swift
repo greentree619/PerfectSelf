@@ -534,7 +534,7 @@ extension ReaderProfileViewController: UIImagePickerControllerDelegate & UINavig
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         
         DispatchQueue.global(qos: .userInitiated).async {
-            let awsUpload = AWSMultipartUpload()
+            //Omitted let awsUpload = AWSMultipartUpload()
             DispatchQueue.main.async {
                 showIndicator(sender: nil, viewController: self, color:UIColor.white)
                 print("show1")

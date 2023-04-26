@@ -380,7 +380,7 @@ class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSample
         //                    self?.present(activity, animated: true, completion: nil)
                     
                     let prefixKey = "\(getDateString())/\((uiViewContoller! as! ConferenceViewController).roomUid)/"
-                    let awsUpload = AWSMultipartUpload()
+                    //Omitted let awsUpload = AWSMultipartUpload()
                     DispatchQueue.main.async {
                         //Omitted showIndicator(sender: nil, viewController: uiViewContoller!, color:UIColor.white)
                         Toast.show(message: "Start to upload record files", controller: uiViewContoller!)
