@@ -95,6 +95,16 @@ class ChatViewController: KUIViewController, UICollectionViewDataSource, UIColle
             print("No data was saved.")
         }
         fetchChatHistory()
+        updateMessageReadState()
+    }
+    func updateMessageReadState() {
+        // call API for update message read state
+        webAPI.updateAllMessageReadState(suid: uid, ruid: muid) { data, response, error in
+            guard let _ = data, error == nil else {
+                print(error?.localizedDescription ?? "No data")
+                return
+            }
+        }
     }
     func fetchChatHistory() {
         // call API for chat history

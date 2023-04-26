@@ -422,6 +422,10 @@ class PerfectSelfWebAPI
         
         return executeAPI(with: "POST", apiPath: "MessageHistory", json: json, completionHandler:completionHandler)
     }
+    func updateAllMessageReadState(suid: String, ruid: String, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> Void
+    {
+        return executeAPI(with: "PUT", apiPath: "MessageHistory/SetAllReadMessage/\(ruid)/\(suid)", json: [:], completionHandler:completionHandler)
+    }
     func updateOnlineState(uid: String, newState: Bool, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> Void
     {
         return executeAPI(with: "PUT", apiPath: "Users/ChangeOnline/\(uid)?state=\(newState)", json: [:], completionHandler:completionHandler)
