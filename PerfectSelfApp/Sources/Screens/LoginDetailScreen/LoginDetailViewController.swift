@@ -27,10 +27,6 @@ class LoginDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        GIDSignIn.sharedInstance().delegate = self
-        GIDSignIn.sharedInstance().pr?.presentingViewController = self
-        //Omitted GIDSignIn.sharedInstance().presentingViewController = self
-        GIDSignIn.sharedInstance().clientID = GoogleAuthClientID
         
         btn_actor.isSelected = true;
         btn_reader.isSelected = false;
@@ -64,6 +60,8 @@ class LoginDetailViewController: UIViewController {
             // No data was saved
             print("No data was saved.")
         }
+        
+        GIDSignIn.sharedInstance()?.uiDelegate = self
     }
     
     @IBAction func DoLogin(_ sender: UIButton) {
@@ -206,7 +204,23 @@ class LoginDetailViewController: UIViewController {
     }
     
     @IBAction func googleSignInDidTap(_ sender: UIButton) {
-        signIn()
+        //signIn()
+        let gidSignIn = GIDSignIn.sharedInstance()
+        gidSignIn!.signIn()
+//        { (user, error) in
+//            if let user = user {
+//                GIDSignIn.sharedInstance().getAuthToken(user) { (token, error) in
+//                    if let token = token {
+//                        // Use token to make authenticated requests to Google API
+//                    } else if let error = error {
+//                        print("Error fetching auth token: \(error.localizedDescription)")
+//                    }
+//                }
+//            } else if let error = error {
+//                print("Error signing in: \(error.localizedDescription)")
+//            }
+//        }
+        
     }
     
     
@@ -225,18 +239,20 @@ class LoginDetailViewController: UIViewController {
      */
 }
 
-extension LoginDetailViewController: GIDSignInDelegate {
-    func signIn() {
-        GIDSignIn.sharedInstance()?.signIn()
-    }
-        
-    func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
-        if error == nil {
-            guard user.authentication.idToken != nil else { return }
-            guard user.authentication.accessToken != nil else { return }
-            // Use the ID token and access token to authenticate the user
-        } else {
-            print("Error signing in with Google: \(error.localizedDescription)")
-        }
-    }
+extension LoginDetailViewController: GIDSignInUIDelegate{
+
+//    // The sign-in flow has finished selecting how to proceed, and the UI should no longer display
+//    // a spinner or other "please wait" element.
+//    - (void)signInWillDispatch:(GIDSignIn *)signIn error:(NSError *)error;
+//
+//    // If implemented, this method will be invoked when sign in needs to display a view controller.
+//    // The view controller should be displayed modally (via UIViewController's |presentViewController|
+//    // method, and not pushed unto a navigation controller's stack.
+//    - (void)signIn:(GIDSignIn *)signIn presentViewController:(UIViewController *)viewController;
+//
+//    // If implemented, this method will be invoked when sign in needs to dismiss a view controller.
+//    // Typically, this should be implemented by calling |dismissViewController| on the passed
+//    // view controller.
+//    - (void)signIn:(GIDSignIn *)signIn dismissViewController:(UIViewController *)viewController;
 }
+

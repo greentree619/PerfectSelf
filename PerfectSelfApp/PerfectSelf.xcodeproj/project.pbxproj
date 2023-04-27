@@ -458,6 +458,7 @@
 		BAD0B4FC29BA17130061FEF5 /* ReaderProfileEditPersonalInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReaderProfileEditPersonalInfoViewController.swift; sourceTree = "<group>"; };
 		BAD0B4FE29BA17130061FEF5 /* ActorBookingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActorBookingViewController.swift; sourceTree = "<group>"; };
 		BAD0B4FF29BA17130061FEF5 /* ActorBookingViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ActorBookingViewController.xib; sourceTree = "<group>"; };
+		BAD2E09829FA3DD700B83635 /* GoogleSignUpProject-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GoogleSignUpProject-Bridging-Header.h"; sourceTree = "<group>"; };
 		BAD5C84C29AEDF0E00A2F109 /* PlayerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerView.swift; sourceTree = "<group>"; };
 		BAD5C84D29AEDF0E00A2F109 /* CameraPreviewView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraPreviewView.swift; sourceTree = "<group>"; };
 		BAD5C85029AEE09F00A2F109 /* VideoHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoHelper.swift; sourceTree = "<group>"; };
@@ -715,6 +716,7 @@
 				79177CA420B1C39700BCD399 /* Extensions */,
 				79262EE620B0D6F600D576C1 /* AppDelegate.swift */,
 				792198A122011A450051F03F /* Config.swift */,
+				BAD2E09829FA3DD700B83635 /* GoogleSignUpProject-Bridging-Header.h */,
 				BAC11B8829A8B43500580143 /* PerfectSelf-Bridging-Header.h */,
 			);
 			path = Sources;
@@ -1636,6 +1638,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 2.1;
+				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.kayan.perfectself;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Sources/PerfectSelf-Bridging-Header.h";
@@ -1666,6 +1669,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 2.1;
+				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.kayan.perfectself;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Sources/PerfectSelf-Bridging-Header.h";

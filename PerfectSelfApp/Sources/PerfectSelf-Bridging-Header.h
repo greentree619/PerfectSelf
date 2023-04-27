@@ -14,4 +14,6 @@
 #import "IDCaptureSessionAssetWriterCoordinator.h"
 #import "IDCaptureSessionMovieFileOutputCoordinator.h"
 
+#import <Google/SignIn.h>
+
 #endif /* PerfectSelf_Bridging_Header_h */
