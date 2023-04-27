@@ -95,7 +95,7 @@
                             <rect key="frame" x="20" y="70" width="350" height="593"/>
                             <subviews>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="J5G-pG-Zdp" customClass="PDFView">
-                                    <rect key="frame" x="0.0" y="0.0" width="350" height="593"/>
+                                    <rect key="frame" x="10" y="10" width="330" height="573"/>
                                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 </view>
                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="eke-ff-Fkh">
@@ -110,30 +110,30 @@
                                         </textView>
                                     </subviews>
                                     <edgeInsets key="layoutMargins" top="10" left="10" bottom="10" right="10"/>
-                                    <userDefinedRuntimeAttributes>
-                                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                            <real key="value" value="10"/>
-                                        </userDefinedRuntimeAttribute>
-                                        <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                            <color key="value" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        </userDefinedRuntimeAttribute>
-                                        <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
-                                            <real key="value" value="1"/>
-                                        </userDefinedRuntimeAttribute>
-                                    </userDefinedRuntimeAttributes>
                                 </stackView>
                             </subviews>
                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             <constraints>
                                 <constraint firstAttribute="bottom" secondItem="eke-ff-Fkh" secondAttribute="bottom" id="94p-m6-2MN"/>
                                 <constraint firstItem="eke-ff-Fkh" firstAttribute="top" secondItem="4xa-26-beI" secondAttribute="top" id="A9l-nl-7r3"/>
-                                <constraint firstAttribute="bottom" secondItem="J5G-pG-Zdp" secondAttribute="bottom" id="Kh5-ry-hzP"/>
-                                <constraint firstItem="J5G-pG-Zdp" firstAttribute="leading" secondItem="4xa-26-beI" secondAttribute="leading" id="N4j-qI-b3k"/>
-                                <constraint firstItem="J5G-pG-Zdp" firstAttribute="top" secondItem="4xa-26-beI" secondAttribute="top" id="SKl-VD-x2Y"/>
-                                <constraint firstAttribute="trailing" secondItem="J5G-pG-Zdp" secondAttribute="trailing" id="UEV-3p-Fan"/>
+                                <constraint firstAttribute="trailing" secondItem="J5G-pG-Zdp" secondAttribute="trailing" constant="10" id="NFq-4X-DEo"/>
+                                <constraint firstAttribute="bottom" secondItem="J5G-pG-Zdp" secondAttribute="bottom" constant="10" id="T8D-Zz-tYB"/>
                                 <constraint firstItem="eke-ff-Fkh" firstAttribute="leading" secondItem="4xa-26-beI" secondAttribute="leading" id="Y4v-eN-R9l"/>
+                                <constraint firstItem="J5G-pG-Zdp" firstAttribute="leading" secondItem="4xa-26-beI" secondAttribute="leading" constant="10" id="YVF-6B-kVH"/>
                                 <constraint firstAttribute="trailing" secondItem="eke-ff-Fkh" secondAttribute="trailing" id="gQC-oo-9EW"/>
+                                <constraint firstItem="J5G-pG-Zdp" firstAttribute="top" secondItem="4xa-26-beI" secondAttribute="top" constant="10" id="nbS-FN-n7a"/>
                             </constraints>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                    <real key="value" value="10"/>
+                                </userDefinedRuntimeAttribute>
+                                <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                    <color key="value" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </userDefinedRuntimeAttribute>
+                                <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                    <real key="value" value="1"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
                         </view>
                         <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="k9W-H4-5S9">
                             <rect key="frame" x="20" y="683" width="350" height="80"/>
