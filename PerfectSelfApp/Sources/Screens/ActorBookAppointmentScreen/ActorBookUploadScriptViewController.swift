@@ -76,11 +76,11 @@ class ActorBookUploadScriptViewController: UIViewController, UIDocumentPickerDel
         controller.scriptKey = self.scriptKey
         controller.modalPresentationStyle = .fullScreen
 //        self.navigationController?.pushViewController(controller, animated: true)
-        let transition = CATransition()
-        transition.duration = 0.5 // Set animation duration
-        transition.type = CATransitionType.push // Set transition type to push
-        transition.subtype = CATransitionSubtype.fromRight // Set transition subtype to from right
-        self.view.window?.layer.add(transition, forKey: kCATransition) // Add transition to window layer
+//        let transition = CATransition()
+//        transition.duration = 0.5 // Set animation duration
+//        transition.type = CATransitionType.push // Set transition type to push
+//        transition.subtype = CATransitionSubtype.fromRight // Set transition subtype to from right
+//        self.view.window?.layer.add(transition, forKey: kCATransition) // Add transition to window layer
         self.present(controller, animated: false)
     }
     @IBAction func GoBack(_ sender: UIButton) {

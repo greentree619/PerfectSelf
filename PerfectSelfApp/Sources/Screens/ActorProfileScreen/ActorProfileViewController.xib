@@ -4,7 +4,6 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21207"/>
-        <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -39,6 +38,11 @@
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="person.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="o39-ye-nP1">
                                                     <rect key="frame" x="0.0" y="2" width="84" height="80.666666666666671"/>
                                                     <color key="backgroundColor" systemColor="systemGray5Color"/>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                            <real key="value" value="40.5"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                    </userDefinedRuntimeAttributes>
                                                 </imageView>
                                             </subviews>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -49,46 +53,12 @@
                                                 <constraint firstItem="o39-ye-nP1" firstAttribute="top" secondItem="JYm-J3-fD0" secondAttribute="top" id="grw-C0-jxU"/>
                                                 <constraint firstItem="o39-ye-nP1" firstAttribute="leading" secondItem="JYm-J3-fD0" secondAttribute="leading" id="ok8-z7-yXU"/>
                                             </constraints>
-                                            <userDefinedRuntimeAttributes>
-                                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                    <real key="value" value="12"/>
-                                                </userDefinedRuntimeAttribute>
-                                            </userDefinedRuntimeAttributes>
                                         </view>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zcT-Yc-xGq">
-                                            <rect key="frame" x="83" y="75" width="25" height="25"/>
-                                            <constraints>
-                                                <constraint firstAttribute="width" constant="25" id="4rp-P8-R6J" customClass="AdaptiveLayoutConstraint" customModule="PerfectSelf" customModuleProvider="target"/>
-                                                <constraint firstAttribute="height" constant="25" id="86g-xL-GOJ" customClass="AdaptiveLayoutConstraint" customModule="PerfectSelf" customModuleProvider="target"/>
-                                            </constraints>
-                                            <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                            <inset key="contentEdgeInsets" minX="5" minY="5" maxX="5" maxY="5"/>
-                                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                            <state key="normal">
-                                                <imageReference key="image" image="camera" catalog="system" symbolScale="small"/>
-                                            </state>
-                                            <userDefinedRuntimeAttributes>
-                                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                    <real key="value" value="15"/>
-                                                </userDefinedRuntimeAttribute>
-                                                <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                                    <color key="value" red="0.77647058820000003" green="0.77647058820000003" blue="0.77647058820000003" alpha="1" colorSpace="calibratedRGB"/>
-                                                </userDefinedRuntimeAttribute>
-                                                <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
-                                                    <real key="value" value="1"/>
-                                                </userDefinedRuntimeAttribute>
-                                            </userDefinedRuntimeAttributes>
-                                            <connections>
-                                                <action selector="UploadImage:" destination="-1" eventType="touchUpInside" id="kdL-7d-ytJ"/>
-                                            </connections>
-                                        </button>
                                     </subviews>
                                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                     <constraints>
-                                        <constraint firstAttribute="bottom" secondItem="zcT-Yc-xGq" secondAttribute="bottom" id="55A-wZ-a4H"/>
                                         <constraint firstAttribute="width" constant="108" id="L3g-i3-vxb" customClass="AdaptiveLayoutConstraint" customModule="PerfectSelf" customModuleProvider="target"/>
                                         <constraint firstAttribute="bottom" secondItem="JYm-J3-fD0" secondAttribute="bottom" constant="8" id="PKQ-Ig-z5s"/>
-                                        <constraint firstAttribute="trailing" secondItem="zcT-Yc-xGq" secondAttribute="trailing" id="Riu-lv-ewX"/>
                                         <constraint firstItem="JYm-J3-fD0" firstAttribute="top" secondItem="CCK-6E-bAv" secondAttribute="top" constant="8" id="VEz-98-dbe"/>
                                         <constraint firstItem="JYm-J3-fD0" firstAttribute="leading" secondItem="CCK-6E-bAv" secondAttribute="leading" constant="12" id="f8a-Xj-LV2"/>
                                         <constraint firstAttribute="trailing" secondItem="JYm-J3-fD0" secondAttribute="trailing" constant="12" id="mgu-dA-GXv"/>
@@ -304,7 +274,6 @@
         </tapGestureRecognizer>
     </objects>
     <resources>
-        <image name="camera" catalog="system" width="128" height="93"/>
         <image name="chevron.right" catalog="system" width="97" height="128"/>
         <image name="filter_divide" width="334" height="1"/>
         <image name="lock" catalog="system" width="125" height="128"/>

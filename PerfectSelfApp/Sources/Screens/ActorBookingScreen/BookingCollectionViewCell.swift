@@ -144,23 +144,23 @@ class BookingCollectionViewCell: UICollectionViewCell {
         controller.script = script
         controller.scriptBucketName = scriptBucketName
         controller.scriptKey = scriptKey
-        
-        let transition = CATransition()
-        transition.duration = 0.5 // Set animation duration
-        transition.type = CATransitionType.push // Set transition type to push
-        transition.subtype = CATransitionSubtype.fromRight // Set transition subtype to from right
-        self.parentViewController!.view.window?.layer.add(transition, forKey: kCATransition) // Add transition to window layer
+//
+//        let transition = CATransition()
+//        transition.duration = 0.5 // Set animation duration
+//        transition.type = CATransitionType.push // Set transition type to push
+//        transition.subtype = CATransitionSubtype.fromRight // Set transition subtype to from right
+//        self.parentViewController!.view.window?.layer.add(transition, forKey: kCATransition) // Add transition to window layer
         self.parentViewController!.present(controller, animated: false)
     }
     @IBAction func JoinMeeting(_ sender: UIButton) {
         let conferenceViewController = ConferenceViewController(roomUid: self.roomUid!)
         conferenceViewController.modalPresentationStyle = .fullScreen
         
-        let transition = CATransition()
-        transition.duration = 0.5 // Set animation duration
-        transition.type = CATransitionType.push // Set transition type to push
-        transition.subtype = CATransitionSubtype.fromRight // Set transition subtype to from right
-        self.parentViewController!.view.window?.layer.add(transition, forKey: kCATransition) // Add transition to window layer
+//        let transition = CATransition()
+//        transition.duration = 0.5 // Set animation duration
+//        transition.type = CATransitionType.push // Set transition type to push
+//        transition.subtype = CATransitionSubtype.fromRight // Set transition subtype to from right
+//        self.parentViewController!.view.window?.layer.add(transition, forKey: kCATransition) // Add transition to window layer
         self.parentViewController!.present(conferenceViewController, animated: false)
     }
     
@@ -181,11 +181,11 @@ class BookingCollectionViewCell: UICollectionViewCell {
                 DispatchQueue.main.async {
                     let controller = ChatViewController(roomUid: res.roomUid, url: self.url, name: self.name, uid: self.uid)
                     controller.modalPresentationStyle = .fullScreen
-                    let transition = CATransition()
-                    transition.duration = 0.5 // Set animation duration
-                    transition.type = CATransitionType.push // Set transition type to push
-                    transition.subtype = CATransitionSubtype.fromRight // Set transition subtype to from right
-                    self.parentViewController!.view.window?.layer.add(transition, forKey: kCATransition) // Add transition to window layer
+//                    let transition = CATransition()
+//                    transition.duration = 0.5 // Set animation duration
+//                    transition.type = CATransitionType.push // Set transition type to push
+//                    transition.subtype = CATransitionSubtype.fromRight // Set transition subtype to from right
+//                    self.parentViewController!.view.window?.layer.add(transition, forKey: kCATransition) // Add transition to window layer
                     self.parentViewController!.present(controller, animated: false)
                 }
             } catch {
@@ -225,11 +225,11 @@ class BookingCollectionViewCell: UICollectionViewCell {
         let controller = ActorResheduleViewController()
         controller.bookId = id
         controller.modalPresentationStyle = .fullScreen
-        let transition = CATransition()
-        transition.duration = 0.5 // Set animation duration
-        transition.type = CATransitionType.push // Set transition type to push
-        transition.subtype = CATransitionSubtype.fromRight // Set transition subtype to from right
-        self.parentViewController!.view.window?.layer.add(transition, forKey: kCATransition) // Add transition to window layer
+//        let transition = CATransition()
+//        transition.duration = 0.5 // Set animation duration
+//        transition.type = CATransitionType.push // Set transition type to push
+//        transition.subtype = CATransitionSubtype.fromRight // Set transition subtype to from right
+//        self.parentViewController!.view.window?.layer.add(transition, forKey: kCATransition) // Add transition to window layer
         self.parentViewController!.present(controller, animated: false)
     }
     
