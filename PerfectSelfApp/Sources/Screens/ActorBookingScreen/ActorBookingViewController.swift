@@ -143,7 +143,9 @@ class ActorBookingViewController: UIViewController, UICollectionViewDataSource, 
         }
         cell.url = url
         cell.review = self.items[indexPath.row].readerReview
-        cell.script = self.items[indexPath.row].scriptFile
+        cell.script = self.items[indexPath.row].scriptFile ?? ""
+        cell.scriptBucketName = self.items[indexPath.row].scriptBucket ?? ""
+        cell.scriptKey = self.items[indexPath.row].scriptKey ?? ""
         cell.id = self.items[indexPath.row].id
         cell.lbl_name.text = self.items[indexPath.row].readerName;
         cell.lbl_date.text = dateFormatter1.string(from: datestart ?? Date())

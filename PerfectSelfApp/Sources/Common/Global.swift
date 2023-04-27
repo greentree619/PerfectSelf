@@ -125,7 +125,9 @@ struct BookingCard: Codable {
     let readerUid: String
     let readerName: String
     let actorName: String
-    let scriptFile: String
+    let scriptFile: String?
+    let scriptBucket: String?
+    let scriptKey: String?
     let bookStartTime: String
     let bookEndTime: String
     let readerReview: String?

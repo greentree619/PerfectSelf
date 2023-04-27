@@ -22,6 +22,8 @@ class BookingCollectionViewCell: UICollectionViewCell {
     public var muid: String!
     public var review: String?
     public var script: String = ""
+    public var scriptBucketName: String = ""
+    public var scriptKey: String = ""
     public var bookType:Int = 1
     public var id: Int!
     public var readerType:String = "" // 0
@@ -140,6 +142,8 @@ class BookingCollectionViewCell: UICollectionViewCell {
         let controller = ScriptViewController()
         controller.modalPresentationStyle = .fullScreen
         controller.script = script
+        controller.scriptBucketName = scriptBucketName
+        controller.scriptKey = scriptKey
         
         let transition = CATransition()
         transition.duration = 0.5 // Set animation duration
