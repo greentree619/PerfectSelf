@@ -154,8 +154,15 @@ class MessageCenterViewController: UIViewController, UICollectionViewDataSource,
             cell.lbl_time.text = dateString
         }
         // unread number
-        cell.view_unread.isHidden = self.items[indexPath.row].unreadCount == 0
-        cell.lbl_unviewednum.text = String(self.items[indexPath.row].unreadCount)
+        if self.items[indexPath.row].senderUid == uid {
+            cell.view_unread.isHidden = true
+            cell.lbl_unviewednum.text = String(self.items[indexPath.row].unreadCount)
+        }
+        else {
+            cell.view_unread.isHidden = self.items[indexPath.row].unreadCount == 0
+            cell.lbl_unviewednum.text = String(self.items[indexPath.row].unreadCount)
+        }
+        
         // return card
 //        cell.layer.masksToBounds = false
 //        cell.layer.shadowOffset = CGSize(width: 3,height: 3)

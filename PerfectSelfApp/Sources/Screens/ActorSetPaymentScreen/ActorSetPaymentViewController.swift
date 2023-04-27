@@ -16,6 +16,8 @@ class ActorSetPaymentViewController: UIViewController {
     var bookingEndTime: String = ""
     var bookingDate: String = ""
     var script: String = ""
+    var scriptBucket: String = ""
+    var scriptKey: String = ""
     
     @IBOutlet weak var paymentMethodView: UIStackView!
     let headerLabel = ["Credit & Debit Cards", "Skill Set 2", "Skill Set 3"]
@@ -50,6 +52,8 @@ class ActorSetPaymentViewController: UIViewController {
         controller.bookingEndTime = bookingEndTime
         controller.bookingDate = bookingDate
         controller.script = script
+        controller.scriptBucket = self.scriptBucket
+        controller.scriptKey = self.scriptKey
         controller.modalPresentationStyle = .fullScreen
         
         let transition = CATransition()

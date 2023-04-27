@@ -118,6 +118,9 @@
                                             <fontDescription key="titleFontDescription" name=".SFNS-Regular" family=".SF NS" pointSize="18"/>
                                             <directionalEdgeInsets key="contentInsets" top="5" leading="5" bottom="5" trailing="5"/>
                                         </buttonConfiguration>
+                                        <connections>
+                                            <action selector="ViewScript:" destination="gTV-IL-0wX" eventType="touchUpInside" id="dRn-bd-dUD"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <constraints>

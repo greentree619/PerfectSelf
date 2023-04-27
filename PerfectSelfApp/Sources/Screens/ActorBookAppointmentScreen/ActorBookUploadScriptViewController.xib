@@ -187,6 +187,9 @@
                                                 </attributedString>
                                                 <color key="baseForegroundColor" red="0.45882352939999999" green="0.52941176469999995" blue="0.85098039219999999" alpha="1" colorSpace="calibratedRGB"/>
                                             </buttonConfiguration>
+                                            <connections>
+                                                <action selector="UploadScriptFile:" destination="-1" eventType="touchUpInside" id="Ti7-JQ-qfi"/>
+                                            </connections>
                                         </button>
                                     </subviews>
                                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
