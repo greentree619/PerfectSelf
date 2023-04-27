@@ -47,20 +47,19 @@ class ActorBookUploadScriptViewController: UIViewController, UIDocumentPickerDel
         self.present(documentPicker, animated: true)
     }
     func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
-        // upload file print(urls[0])
-        //let url = "https://\( bucketName!).s3.us-east-2.amazonaws.com/scripts/\(uuid!)/\(String(filePath.lastPathComponent))"
+        print(urls[0])
         let uuid = UUID().uuidString
-        showIndicator(sender: nil, viewController: self)
-        awsUpload.uploadScript(filePath: urls[0], bucketName: "perfectself-script-bucket", prefix: uuid) { (error: Error?) -> Void in
+        showIndicator(sender: nil, viewController: self, color: UIColor.white)
+        awsUpload.uploadScript(filePath: urls[0], bucketName: "perfect-reader-video-bucket", prefix: "actor-script/\(uuid)") { (error: Error?) -> Void in
             DispatchQueue.main.async {
                 hideIndicator(sender: nil)
             }
             if error == nil {
                 // do something with url
-//                let url = "https://perfectself-script-bucket.s3.us-east-2.amazonaws.com/\(uuid)/\(String(urls[0].lastPathComponent))"
-//                print(url)
-                self.scriptBucket = "perfectself-script-bucket"
-                self.scriptKey = "\(uuid)/\(String(urls[0].lastPathComponent))"
+                let url = "https://perfect-reader-video-bucket.s3.us-east-2.amazonaws.com/actor-script/\(uuid)/\(String(urls[0].lastPathComponent))"
+                print(url)
+                self.scriptBucket = "perfect-reader-video-bucket"
+                self.scriptKey = "actor-script/\(uuid)/\(String(urls[0].lastPathComponent))"
             }
         }
     }

@@ -120,7 +120,9 @@ class ReaderBookingViewController: UIViewController, UICollectionViewDataSource,
         cell.name = self.items[indexPath.row].actorName
         cell.uid = self.items[indexPath.row].actorUid
         cell.muid = self.items[indexPath.row].readerUid
-        cell.script = self.items[indexPath.row].scriptFile
+        cell.script = self.items[indexPath.row].scriptFile ?? ""
+        cell.scriptBucketName = self.items[indexPath.row].scriptBucket ?? ""
+        cell.scriptKey = self.items[indexPath.row].scriptKey ?? ""
         var url: String?
         if self.items[indexPath.row].actorBucketName != nil {
             url = "https://\(self.items[indexPath.row].actorBucketName!).s3.us-east-2.amazonaws.com/\(self.items[indexPath.row].actorAvatarKey!)"

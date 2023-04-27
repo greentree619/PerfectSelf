@@ -7,18 +7,70 @@
 //
 
 import UIKit
+import PDFKit
 
-class ScriptViewController: UIViewController {
+class ScriptViewController: UIViewController{
 
     var script: String = ""
+    var scriptBucketName = ""
+    var scriptKey = ""
+    
+    @IBOutlet weak var pdfView: PDFView!
+    @IBOutlet weak var scriptView: UIStackView!
+    @IBOutlet weak var btn_download: UIButton!
     @IBOutlet weak var text_script: UITextView!
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        pdfView.autoScales = true
+        pdfView.displayMode = .singlePageContinuous
         text_script.text = script
+        if scriptKey.isEmpty {
+            pdfView.isHidden = true
+            btn_download.isEnabled = false
+        }
+        else {
+            scriptView.isHidden = true
+            print(scriptBucketName, scriptKey)
+            let filePath = URL(string: "https://\(scriptBucketName).s3.us-east-2.amazonaws.com/\(scriptKey)")!
+        
+            if let document = PDFDocument(url: filePath) {
+                pdfView.document = document
+            }
+        }
     }
-
+ 
+    @IBAction func DownloadScript(_ sender: UIButton) {
+        //download script
+        let documentsPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0];
+        let filePath = URL(fileURLWithPath: "\(documentsPath)/\(scriptKey)")
+        do {
+            try FileManager.default.removeItem(at: filePath)
+            //print("File deleted successfully")
+        } catch {
+            //print("Error deleting file: \(error.localizedDescription)")
+        }
+         
+        print(scriptBucketName, scriptKey)
+        awsUpload.download(filePath: filePath, bucketName: scriptBucketName, key: scriptKey) { (error) -> Void in
+            DispatchQueue.main.async {
+                hideIndicator(sender: nil)
+            }
+            
+            if error != nil {
+                 print(error!.localizedDescription)
+                DispatchQueue.main.async {
+                    Toast.show(message: "Faild to download script", controller: self)
+                }
+            }
+            else{
+                DispatchQueue.main.async {
+                    Toast.show(message: "Script downloaded!", controller: self)
+                }
+            }
+        }
+    }
     @IBAction func GoBack(_ sender: UIButton) {
         let transition = CATransition()
         transition.duration = 0.5 // Set animation duration
