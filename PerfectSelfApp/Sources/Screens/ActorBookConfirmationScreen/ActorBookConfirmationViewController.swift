@@ -17,6 +17,8 @@ class ActorBookConfirmationViewController: UIViewController {
     var bookingStartTime: String = ""
     var bookingEndTime: String = ""
     var script: String = ""
+    var scriptBucket: String = ""
+    var scriptKey: String = ""
     
     @IBOutlet weak var img_book_animation: UIImageView!
     @IBOutlet weak var add_to_calendar: UIStackView!
@@ -73,7 +75,7 @@ class ActorBookConfirmationViewController: UIViewController {
         let bookingStart = bookingDate + bookingStartTime
         let bookingEnd = bookingDate + bookingEndTime
         showIndicator(sender: sender, viewController: self)
-        webAPI.bookAppointment(actorUid: uid, readerUid: readerUid, bookStartTime:bookingStart, bookEndTime: bookingEnd, script: script) { data, response, error in
+        webAPI.bookAppointment(actorUid: uid, readerUid: readerUid, bookStartTime:bookingStart, bookEndTime: bookingEnd, script: script, scriptBucket: scriptBucket, scriptKey: scriptKey) { data, response, error in
             guard let data = data, error == nil else {
                 hideIndicator(sender: sender)
                 print(error?.localizedDescription ?? "No data")
