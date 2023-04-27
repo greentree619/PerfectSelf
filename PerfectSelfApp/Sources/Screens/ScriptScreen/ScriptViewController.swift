@@ -44,7 +44,7 @@ class ScriptViewController: UIViewController{
     @IBAction func DownloadScript(_ sender: UIButton) {
         //download script
         let documentsPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0];
-        let filePath = URL(fileURLWithPath: "\(documentsPath)/\(scriptKey)")
+        let filePath = URL(fileURLWithPath: "\(documentsPath)/tmpScript.pdf")
         do {
             try FileManager.default.removeItem(at: filePath)
             //print("File deleted successfully")

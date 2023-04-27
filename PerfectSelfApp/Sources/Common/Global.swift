@@ -13,11 +13,13 @@ let signalingServerConfig = Config.default
 let webAPI = PerfectSelfWebAPI()
 let ACTOR_UTYPE = 3
 let READER_UTYPE = 4
+let SCRIPT_BUCKET = "perfectself-script-bucket"
 var backgroundView: UIView? = nil
 var activityIndicatorView: UIActivityIndicatorView? = nil
 var uiViewContoller: UIViewController? = nil
 var selectedTape: VideoCard?
 let awsUpload = AWSMultipartUpload()
+
 //var webRTCClient: WebRTCClient?
 //var signalClient: SignalingClient?
 //var signalingClientStatus: SignalingClientStatus?

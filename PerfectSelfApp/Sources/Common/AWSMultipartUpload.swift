@@ -289,7 +289,8 @@ class AWSMultipartUpload: NSObject, URLSessionTaskDelegate, URLSessionDataDelega
            })
         }
 
-        let transferUtility = self.transferUtility//AWSS3TransferUtility.default()
+        //let transferUtility = self.transferUtility
+        let transferUtility = AWSS3TransferUtility.default()
         transferUtility.download(to: filePath, bucket: bucketName, key: key, expression: expression, completionHandler: completionHandler).continueWith {
                (task) -> AnyObject? in
                        if let error = task.error {
