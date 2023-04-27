@@ -44,7 +44,10 @@ class ActorHomeViewController: UIViewController, UICollectionViewDataSource, UIC
         readerList.delegate = self
         readerList.allowsSelection = true
         // Do any additional setup after loading the view.
-        
+      
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
         // Retrieve the saved data from UserDefaults
         if let userInfo = UserDefaults.standard.object(forKey: "USER") as? [String:Any] {
             // Use the saved data
@@ -61,11 +64,6 @@ class ActorHomeViewController: UIViewController, UICollectionViewDataSource, UIC
             // No data was saved
             print("No data was saved.")
         }
-      
-    }
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(true)
-        
         fetchReaderList()
         //call API for badge appear
         fetchUnreadState()
@@ -187,11 +185,11 @@ class ActorHomeViewController: UIViewController, UICollectionViewDataSource, UIC
         controller.modalPresentationStyle = .fullScreen
         controller.uid = self.items[indexPath.row].uid
 
-        let transition = CATransition()
-        transition.duration = 0.5 // Set animation duration
-        transition.type = CATransitionType.push // Set transition type to push
-        transition.subtype = CATransitionSubtype.fromRight // Set transition subtype to from right
-        self.view.window?.layer.add(transition, forKey: kCATransition) // Add transition to window layer
+//        let transition = CATransition()
+//        transition.duration = 0.5 // Set animation duration
+//        transition.type = CATransitionType.push // Set transition type to push
+//        transition.subtype = CATransitionSubtype.fromRight // Set transition subtype to from right
+//        self.view.window?.layer.add(transition, forKey: kCATransition) // Add transition to window layer
         self.present(controller, animated: false)
     }
     
@@ -260,7 +258,8 @@ class ActorHomeViewController: UIViewController, UICollectionViewDataSource, UIC
     }
     @IBAction func GoMessageCenter(_ sender: UIButton) {
         let controller = MessageCenterViewController()
-        self.navigationController?.pushViewController(controller, animated: true)
+        controller.modalPresentationStyle = .fullScreen
+        self.present(controller, animated: false)
     }
     /*
      // MARK: - Navigation
