@@ -71,7 +71,7 @@
                     <edgeInsets key="layoutMargins" top="0.0" left="0.0" bottom="0.0" right="0.0"/>
                 </stackView>
                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="1Av-vP-k9N" userLabel="Edit Bar">
-                    <rect key="frame" x="20" y="434" width="36" height="220"/>
+                    <rect key="frame" x="337" y="434" width="36" height="220"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rOR-8W-LFo" userLabel="Rotate">
                             <rect key="frame" x="0.0" y="0.0" width="36" height="36"/>
@@ -456,6 +456,7 @@
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
                 <constraint firstItem="Ftp-Uh-WKq" firstAttribute="top" secondItem="GgI-Tw-8jH" secondAttribute="top" id="0mf-dj-nmb"/>
+                <constraint firstItem="27J-jm-KbH" firstAttribute="trailing" secondItem="1Av-vP-k9N" secondAttribute="trailing" constant="20" id="7cm-rk-tIu"/>
                 <constraint firstAttribute="bottom" secondItem="I1D-RU-UgR" secondAttribute="bottom" id="8cB-RO-zwI"/>
                 <constraint firstItem="I1D-RU-UgR" firstAttribute="trailing" secondItem="27J-jm-KbH" secondAttribute="trailing" id="B1K-tR-fXU"/>
                 <constraint firstItem="27J-jm-KbH" firstAttribute="trailing" secondItem="c0h-XZ-ZGT" secondAttribute="trailing" constant="19" id="DBe-hw-HuI"/>
@@ -474,6 +475,9 @@
             <variation key="default">
                 <mask key="subviews">
                     <exclude reference="v8z-TB-Zc4"/>
+                </mask>
+                <mask key="constraints">
+                    <exclude reference="Ntt-YM-Baa"/>
                 </mask>
             </variation>
             <point key="canvasLocation" x="-1" y="-12"/>

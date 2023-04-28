@@ -129,7 +129,7 @@ class ProjectViewController: UIViewController {
             return
         }
         
-        let editReadViewController = EditReadViewController(videoRrl: self.savedVideoUrl!)
+        let editReadViewController = EditReadViewController(videoUrl: self.savedVideoUrl!, audioUrl: self.savedAudioUrl!)
         editReadViewController.modalPresentationStyle = .fullScreen
         self.present(editReadViewController, animated: false, completion: nil)
     }

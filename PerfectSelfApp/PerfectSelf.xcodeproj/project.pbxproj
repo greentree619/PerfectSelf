@@ -109,6 +109,7 @@
 		47DC851429C3815500D86E5A /* MessageCenterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47DC851229C3815500D86E5A /* MessageCenterViewController.swift */; };
 		47DC851529C3815500D86E5A /* MessageCenterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 47DC851329C3815500D86E5A /* MessageCenterViewController.xib */; };
 		47E0B9F629C141C400C82255 /* ReaderTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47E0B9F529C141C400C82255 /* ReaderTabBarController.swift */; };
+		47F84E7229FB5B5F003636A9 /* AudioEnhancementAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47F84E7129FB5B5F003636A9 /* AudioEnhancementAPI.swift */; };
 		47F9BA8729D7006600050403 /* ReaderProfileEditHourlyRateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47F9BA8529D7006600050403 /* ReaderProfileEditHourlyRateViewController.swift */; };
 		47F9BA8829D7006600050403 /* ReaderProfileEditHourlyRateViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 47F9BA8629D7006600050403 /* ReaderProfileEditHourlyRateViewController.xib */; };
 		79177C9720B0DE7A00BCD399 /* WebRTCClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79177C9620B0DE7A00BCD399 /* WebRTCClient.swift */; };
@@ -327,6 +328,7 @@
 		47DC851229C3815500D86E5A /* MessageCenterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageCenterViewController.swift; sourceTree = "<group>"; };
 		47DC851329C3815500D86E5A /* MessageCenterViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MessageCenterViewController.xib; sourceTree = "<group>"; };
 		47E0B9F529C141C400C82255 /* ReaderTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReaderTabBarController.swift; sourceTree = "<group>"; };
+		47F84E7129FB5B5F003636A9 /* AudioEnhancementAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioEnhancementAPI.swift; sourceTree = "<group>"; };
 		47F9BA8529D7006600050403 /* ReaderProfileEditHourlyRateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReaderProfileEditHourlyRateViewController.swift; sourceTree = "<group>"; };
 		47F9BA8629D7006600050403 /* ReaderProfileEditHourlyRateViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ReaderProfileEditHourlyRateViewController.xib; sourceTree = "<group>"; };
 		79177C9620B0DE7A00BCD399 /* WebRTCClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebRTCClient.swift; sourceTree = "<group>"; };
@@ -815,6 +817,7 @@
 				4732BDCF29D62A98001CBAC5 /* KeyboardManage.swift */,
 				BAB7379B29B40B7500F3D663 /* AWSMultipartUpload.swift */,
 				BA3F909929C457C200ABE966 /* PerfectSelfWebAPI.swift */,
+				47F84E7129FB5B5F003636A9 /* AudioEnhancementAPI.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -1426,6 +1429,7 @@
 				BAD5C84F29AEDF0E00A2F109 /* CameraPreviewView.swift in Sources */,
 				4772156129CE700C00319CBC /* VideoCollectionViewCell.swift in Sources */,
 				BAB7379C29B40B7500F3D663 /* AWSMultipartUpload.swift in Sources */,
+				47F84E7229FB5B5F003636A9 /* AudioEnhancementAPI.swift in Sources */,
 				BAD0B52929BA17130061FEF5 /* ActorHomeViewController.swift in Sources */,
 				47CEBDDA29C7C24C006CE9DA /* ActorProfileViewController.swift in Sources */,
 				BAD0B51829BA17130061FEF5 /* OverlayViewContoller.swift in Sources */,

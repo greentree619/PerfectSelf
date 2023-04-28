@@ -11,6 +11,7 @@ import UIKit
 
 let signalingServerConfig = Config.default
 let webAPI = PerfectSelfWebAPI()
+let audoAPI = AudioEnhancementAPI()
 let ACTOR_UTYPE = 3
 let READER_UTYPE = 4
 let SCRIPT_BUCKET = "perfectself-script-bucket"
