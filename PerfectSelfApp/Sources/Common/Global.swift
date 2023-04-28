@@ -107,6 +107,8 @@ struct ReaderProfileCard: Codable {
     let avatarKey: String?
     let title: String?
     let gender: Int
+    let fcmDeviceToken: String?
+    let deviceKind: Int
     let isLogin: Bool
     let isSponsored: Bool
     let reviewCount: Int

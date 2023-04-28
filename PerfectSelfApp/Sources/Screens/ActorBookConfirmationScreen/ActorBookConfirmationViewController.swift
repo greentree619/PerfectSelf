@@ -19,6 +19,7 @@ class ActorBookConfirmationViewController: UIViewController {
     var script: String = ""
     var scriptBucket: String = ""
     var scriptKey: String = ""
+    static var fcmDeviceToken: String = ""
     
     @IBOutlet weak var img_book_animation: UIImageView!
     @IBOutlet weak var add_to_calendar: UIStackView!
@@ -28,7 +29,7 @@ class ActorBookConfirmationViewController: UIViewController {
     @IBOutlet weak var lbl_readerName: UILabel!
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         // Do any additional setup after loading the view.
         img_book_animation.loadGif(asset: "book-animation")
         lbl_readerName.text = "Reading with \(readerName)"
@@ -87,6 +88,14 @@ class ActorBookConfirmationViewController: UIViewController {
                 DispatchQueue.main.async {
                     hideIndicator(sender: sender)
 //                    Toast.show(message: "success!", controller: self)
+                    
+                    //Send push notification to reader.
+                    webAPI.sendPushNotifiction(toFCMToken: ActorBookConfirmationViewController.fcmDeviceToken, title: "Invite Booking", body: "You received booking from actor."){ data, response, error in
+                        if error == nil {
+                            // successfully send notification.
+                        }
+                    }
+                    
                     DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
                             // do stuff 1 seconds later
                         self.presentingViewController?.presentingViewController?.presentingViewController?.presentingViewController?.presentingViewController?.dismiss(animated: false, completion: nil)
