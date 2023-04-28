@@ -17,5 +17,5 @@ target 'PerfectSelf' do
   pod "Koyomi"
   pod "SwiftGifOrigin"
   pod "Firebase/Analytics"
-  pod 'FirebaseMessaging'
+  pod 'Firebase/Messaging'
 end

@@ -13,6 +13,7 @@ let signalingServerConfig = Config.default
 let webAPI = PerfectSelfWebAPI()
 let ACTOR_UTYPE = 3
 let READER_UTYPE = 4
+var fcmDeviceToken: String = ""
 var backgroundView: UIView? = nil
 var activityIndicatorView: UIActivityIndicatorView? = nil
 var uiViewContoller: UIViewController? = nil
@@ -49,6 +50,8 @@ struct UserInfo: Codable {
     let phoneNumber: String?
     let isLogin: Bool
     let token: String?
+    let fCMDeviceToken: String?
+    let deviceKind: Int
     let createdTime: String
     let updatedTime: String?
     let deletedTime: String?

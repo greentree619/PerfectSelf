@@ -112,6 +112,14 @@ class LoginDetailViewController: UIViewController {
                 
                 if result as! Bool {
                     let user = responseJSON["user"] as! [String: Any]
+                    let fCMDeviceToken = user["fcmDeviceToken"] as! String
+                    let deviceKind = user["deviceKind"] as! Int
+                    
+                    if( fcmDeviceToken.count > 0 &&
+                       fcmDeviceToken != fCMDeviceToken )
+                    {
+                        print(fcmDeviceToken, deviceKind)
+                    }
 
                     UserDefaults.standard.setValue(user, forKey: "USER")
                     DispatchQueue.main.async {
