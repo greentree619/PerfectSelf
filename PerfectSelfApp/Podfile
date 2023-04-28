@@ -16,4 +16,6 @@ target 'PerfectSelf' do
   pod 'IQKeyboardManagerSwift'
   pod "Koyomi"
   pod "SwiftGifOrigin"
+  pod "Firebase/Analytics"
+  pod 'FirebaseMessaging'
 end

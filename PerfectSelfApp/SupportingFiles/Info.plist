@@ -33,6 +33,7 @@
 	<string>saves</string>
 	<key>UIBackgroundModes</key>
 	<array>
+		<string>remote-notification</string>
 		<string>voip</string>
 	</array>
 	<key>UILaunchStoryboardName</key>
