@@ -15,6 +15,7 @@ let audoAPI = AudioEnhancementAPI()
 let ACTOR_UTYPE = 3
 let READER_UTYPE = 4
 let SCRIPT_BUCKET = "perfectself-script-bucket"
+var fcmDeviceToken: String = ""
 var backgroundView: UIView? = nil
 var activityIndicatorView: UIActivityIndicatorView? = nil
 var uiViewContoller: UIViewController? = nil
@@ -52,6 +53,8 @@ struct UserInfo: Codable {
     let phoneNumber: String?
     let isLogin: Bool
     let token: String?
+    let fCMDeviceToken: String?
+    let deviceKind: Int
     let createdTime: String
     let updatedTime: String?
     let deletedTime: String?
@@ -107,6 +110,8 @@ struct ReaderProfileCard: Codable {
     let avatarKey: String?
     let title: String?
     let gender: Int
+    let fcmDeviceToken: String?
+    let deviceKind: Int
     let isLogin: Bool
     let isSponsored: Bool
     let reviewCount: Int
@@ -303,4 +308,18 @@ func getCurrentTime(second: Float64) -> String{
     let hours   = (UInt) ((UInt)(second / (60*60)))
     let curTimeText: String = String.localizedStringWithFormat("%i:%02i:%02i", hours, minutes, seconds)
     return curTimeText
+}
+
+func requestPushAuthorization() {
+    UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { success, error in
+        if success {
+            print("Push notifications allowed")
+        } else if let error = error {
+            print(error.localizedDescription)
+        }
+    }
+}
+
+func registerForNotifications() {
+    UIApplication.shared.registerForRemoteNotifications()
 }

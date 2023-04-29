@@ -112,6 +112,21 @@ class LoginDetailViewController: UIViewController {
                 
                 if result as! Bool {
                     let user = responseJSON["user"] as! [String: Any]
+                    let fCMDeviceToken = user["fcmDeviceToken"] as! String
+                    let uid = user["uid"] as! String
+                    //let deviceKind = user["deviceKind"] as! Int
+                    
+                   if( fcmDeviceToken.count > 0 &&
+                       fcmDeviceToken != fCMDeviceToken )
+                    {
+                       webAPI.updateUserInfo(uid: uid, bucketName: "", avatarKey: "", fcmDeviceToken: fcmDeviceToken)  { data, response, error in
+                           if error == nil {
+                               // successfully update db
+                               print("update db completed")
+                           }
+                       }
+                       //print(fcmDeviceToken, deviceKind)
+                    }
 
                     UserDefaults.standard.setValue(user, forKey: "USER")
                     DispatchQueue.main.async {

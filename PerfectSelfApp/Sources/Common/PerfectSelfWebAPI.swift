@@ -93,6 +93,7 @@ class PerfectSelfWebAPI
     {
         return executeAPI(with: "GET", apiPath: "Users/\(uid)", json: [:], completionHandler:completionHandler)
     }
+    
     func updateUserAvatar(uid: String, bucketName: String, avatarKey: String, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> Void
     {
         let json: [String: Any] = [
@@ -117,6 +118,53 @@ class PerfectSelfWebAPI
     
         return executeAPI(with: "PUT", apiPath: "Users/\(uid)", json: json, completionHandler:completionHandler)
     }
+    
+    func updateUserInfo(uid: String
+                        , bucketName: String
+                        , avatarKey: String
+                        , fcmDeviceToken: String
+                        , completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> Void
+    {
+        let json: [String: Any] = [
+            "userType": -1,
+            "avatarBucketName": bucketName,
+            "avatarKey": avatarKey,
+            "userName": "",
+            "email": "",
+            "password": "",
+            "firstName": "",
+            "lastName": "",
+            "dateOfBirth": "",
+            "gender": -1,
+            "currentAddress": "",
+            "permanentAddress": "",
+            "city": "",
+            "nationality": "",
+            "phoneNumber": "",
+            "isLogin": true,
+            "token": "",
+            "fcmDeviceToken":  fcmDeviceToken,
+            "deviceKind":  0
+        ]
+    
+        return executeAPI(with: "PUT", apiPath: "Users/\(uid)", json: json, completionHandler:completionHandler)
+    }
+    
+    func sendPushNotifiction(toFCMToken: String
+                        , title: String
+                        , body: String
+                        , completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> Void
+    {
+        let json: [String: Any] = [
+            "deviceId":  toFCMToken,
+            "deviceKind": 0,
+            "title": title,
+            "body": body
+        ]
+    
+        return executeAPI(with: "POST", apiPath: "Notification/send", json: json, completionHandler:completionHandler)
+    }
+    
     func uploadUserIntroVideo(uid: String, bucketName: String, videoKey: String, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> Void
     {
         let json: [String: Any] = [

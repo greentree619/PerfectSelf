@@ -112,7 +112,7 @@ class ActorHomeViewController: UIViewController, UICollectionViewDataSource, UIC
             do {
                
                 let respItems = try JSONDecoder().decode([ReaderProfileCard].self, from: data)
-                //print(items)
+//                print(respItems)
                 DispatchQueue.main.async {
                     self.items.removeAll()
                     self.items.append(contentsOf: respItems)
@@ -181,15 +181,19 @@ class ActorHomeViewController: UIViewController, UICollectionViewDataSource, UIC
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         // add the code here to perform action on the cell
         print("didDeselectItemAt" + String(indexPath.row))
+        //print( self.items[indexPath.row].fcmDeviceToken ?? "kkk")
         let controller = ActorReaderDetailViewController()
         controller.modalPresentationStyle = .fullScreen
         controller.uid = self.items[indexPath.row].uid
+       
+        ActorBookConfirmationViewController.fcmDeviceToken = self.items[indexPath.row].fcmDeviceToken ?? ""
+      
+        //let transition = CATransition()
+        //transition.duration = 0.5 // Set animation duration
+        //transition.type = CATransitionType.push // Set transition type to push
+        //transition.subtype = CATransitionSubtype.fromRight // Set transition subtype to from right
+        //self.view.window?.layer.add(transition, forKey: kCATransition) // Add transition to window layer
 
-//        let transition = CATransition()
-//        transition.duration = 0.5 // Set animation duration
-//        transition.type = CATransitionType.push // Set transition type to push
-//        transition.subtype = CATransitionSubtype.fromRight // Set transition subtype to from right
-//        self.view.window?.layer.add(transition, forKey: kCATransition) // Add transition to window layer
         self.present(controller, animated: false)
     }
     
