@@ -13,7 +13,6 @@
 		2F7EBC3622DCC6430015B46E /* WebSocketProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F7EBC3522DCC6430015B46E /* WebSocketProvider.swift */; };
 		2F7EBC3822DCCB4E0015B46E /* StarscreamProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F7EBC3722DCCB4E0015B46E /* StarscreamProvider.swift */; };
 		2F7EBC3A22DCCE240015B46E /* NativeWebSocket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F7EBC3922DCCE240015B46E /* NativeWebSocket.swift */; };
-		34FFA13229FB542800BB0E14 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 34FFA13129FB542800BB0E14 /* GoogleService-Info.plist */; };
 		47007BE929C2B0C000F83CFD /* ActorSetPaymentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47007BE729C2B0BF00F83CFD /* ActorSetPaymentViewController.swift */; };
 		47007BEA29C2B0C000F83CFD /* ActorSetPaymentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 47007BE829C2B0C000F83CFD /* ActorSetPaymentViewController.xib */; };
 		470AEBCA29D1ACE200AD3848 /* StringHeight.swift in Sources */ = {isa = PBXBuildFile; fileRef = 470AEBC929D1ACE200AD3848 /* StringHeight.swift */; };
@@ -233,7 +232,6 @@
 		2F7EBC3722DCCB4E0015B46E /* StarscreamProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarscreamProvider.swift; sourceTree = "<group>"; };
 		2F7EBC3922DCCE240015B46E /* NativeWebSocket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeWebSocket.swift; sourceTree = "<group>"; };
 		34FFA12E29FB31EF00BB0E14 /* PerfectSelf.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PerfectSelf.entitlements; sourceTree = "<group>"; };
-		34FFA13129FB542800BB0E14 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		47007BE729C2B0BF00F83CFD /* ActorSetPaymentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActorSetPaymentViewController.swift; sourceTree = "<group>"; };
 		47007BE829C2B0C000F83CFD /* ActorSetPaymentViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ActorSetPaymentViewController.xib; sourceTree = "<group>"; };
 		470AEBC929D1ACE200AD3848 /* StringHeight.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringHeight.swift; sourceTree = "<group>"; };
@@ -717,7 +715,6 @@
 		798FBA422200F3B1009F525E /* Sources */ = {
 			isa = PBXGroup;
 			children = (
-				34FFA13129FB542800BB0E14 /* GoogleService-Info.plist */,
 				BAD0B49A29BA17120061FEF5 /* Screens */,
 				BAB32E4129B064280000F082 /* Common */,
 				BAC11B7529A8B37100580143 /* Camera */,
@@ -1190,7 +1187,7 @@
 			mainGroup = 79262EDA20B0D6F500D576C1;
 			packageReferences = (
 				2F0D643B26FC644100CB9A47 /* XCRemoteSwiftPackageReference "WebRTC" */,
-				2F2E228628E81A080026A8B5 /* XCRemoteSwiftPackageReference "Starscream" */,
+				2F2E228628E81A080026A8B5 /* XCRemoteSwiftPackageReference "Starscream.git" */,
 			);
 			productRefGroup = 79262EE420B0D6F600D576C1 /* Products */;
 			projectDirPath = "";
@@ -1223,7 +1220,6 @@
 				47C9733829DC1E5A00468E11 /* Raleway-Regular.ttf in Resources */,
 				47C9733629DC1E5A00468E11 /* Raleway-ExtraBold.ttf in Resources */,
 				47C9733F29DC1E5A00468E11 /* Raleway-Thin.ttf in Resources */,
-				34FFA13229FB542800BB0E14 /* GoogleService-Info.plist in Resources */,
 				47C9733129DC1E5A00468E11 /* Raleway-MediumItalic.ttf in Resources */,
 				79262EEE20B0D6F800D576C1 /* Assets.xcassets in Resources */,
 				47C9733029DC1E5A00468E11 /* Raleway-BoldItalic.ttf in Resources */,
@@ -1696,7 +1692,7 @@
 				minimumVersion = 110.0.0;
 			};
 		};
-		2F2E228628E81A080026A8B5 /* XCRemoteSwiftPackageReference "Starscream" */ = {
+		2F2E228628E81A080026A8B5 /* XCRemoteSwiftPackageReference "Starscream.git" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/daltoniam/Starscream.git";
 			requirement = {
@@ -1714,7 +1710,7 @@
 		};
 		2F2E228728E81A080026A8B5 /* Starscream */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 2F2E228628E81A080026A8B5 /* XCRemoteSwiftPackageReference "Starscream" */;
+			package = 2F2E228628E81A080026A8B5 /* XCRemoteSwiftPackageReference "Starscream.git" */;
 			productName = Starscream;
 		};
 /* End XCSwiftPackageProductDependency section */

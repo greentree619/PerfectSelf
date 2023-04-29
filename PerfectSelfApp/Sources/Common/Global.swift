@@ -304,3 +304,17 @@ func getCurrentTime(second: Float64) -> String{
     let curTimeText: String = String.localizedStringWithFormat("%i:%02i:%02i", hours, minutes, seconds)
     return curTimeText
 }
+
+func requestPushAuthorization() {
+    UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { success, error in
+        if success {
+            print("Push notifications allowed")
+        } else if let error = error {
+            print(error.localizedDescription)
+        }
+    }
+}
+
+func registerForNotifications() {
+    UIApplication.shared.registerForRemoteNotifications()
+}
