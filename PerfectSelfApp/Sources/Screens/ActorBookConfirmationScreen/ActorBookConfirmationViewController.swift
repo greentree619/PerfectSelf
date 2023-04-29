@@ -8,8 +8,9 @@
 
 import UIKit
 import SwiftGifOrigin
-//import GoogleSignIn
-//import GTMSessionFetcher
+import GoogleAPIClientForREST
+import GoogleSignIn
+import GTMSessionFetcher
 import EventKit
 import EventKitUI
 
@@ -24,6 +25,9 @@ class ActorBookConfirmationViewController: UIViewController, EKEventEditViewDele
     var scriptBucket: String = ""
     var scriptKey: String = ""
     static var fcmDeviceToken: String = ""
+    
+    private let scopes = [kGTLRAuthScopeCalendar]
+    private let service = GTLRCalendarService()
     
     @IBOutlet weak var img_book_animation: UIImageView!
     @IBOutlet weak var add_to_calendar: UIStackView!
@@ -50,55 +54,18 @@ class ActorBookConfirmationViewController: UIViewController, EKEventEditViewDele
             // No data was saved
             print("No data was saved.")
         }
+        
+        GIDSignIn.sharedInstance().clientID = "669216550945-mgc5slqbok7j5ubp8255loi7hkoe7mj3.apps.googleusercontent.com"
+        GIDSignIn.sharedInstance().delegate = self
+        GIDSignIn.sharedInstance().scopes = scopes
+        GIDSignIn.sharedInstance()?.presentingViewController = self
     }
 
     @IBAction func AddToGoogleCalendar(_ sender: UITapGestureRecognizer) {
         add_to_google_calendar.layer.borderColor = CGColor(red: 0.46, green: 0.53, blue: 0.85, alpha: 1.0)
         add_to_calendar.layer.borderColor = CGColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
         
-//        //Declares the new event
-//        var newEvent: GTLRCalendar_Event = GTLRCalendar_Event()
-//
-//        //this is setting the parameters of the new event
-//        newEvent.summary = ("Google I/O 2015")
-//        newEvent.location = ("800 Howard St., San Francisco, CA 94103")
-//
-//        //I ran into some problems with the date formatting and this is what I ended with.
-//
-//        //Start Date. The offset adds time to the current time so if you run the         program at 12:00 then it will record a time of 12:05 because of the 5 minute offset
-//
-//        let startDateTime: GTLRDateTime = GTLRDateTime(date: Date(), offsetMinutes: 5)
-//        let startEventDateTime: GTLRCalendar_EventDateTime = GTLRCalendar_EventDateTime()
-//        startEventDateTime.dateTime = startDateTime
-//        newEvent.start = startEventDateTime
-//        print(newEvent.start!)
-//
-//        //Same as start date, but for the end date
-//        let endDateTime: GTLRDateTime = GTLRDateTime(date: Date(), offsetMinutes: 50)
-//        let endEventDateTime: GTLRCalendar_EventDateTime = GTLRCalendar_EventDateTime()
-//        endEventDateTime.dateTime = endDateTime
-//        newEvent.end = endEventDateTime
-//        print(newEvent.end!)
-//
-//
-//        let service: GTLRCalendarService = GTLRCalendarService()
-//
-//        //The query
-//        let query =
-//        GTLRCalendarQuery_EventsInsert.query(withObject: newEvent, calendarId:"Past your calendar ID here this is specific to the calendar you want to edit and can be found under the google calendar settings")
-//
-//        //This is the part that I forgot. Specify your fields! I think this will change when you add other perimeters, but I need to review how this works more.
-//        query.fields = "id";
-//
-//        //This is actually running the query you just built
-//        self.service.executeQuery(
-//               query,
-//               completionHandler: {(_ callbackTicket:GTLRServiceTicket,
-//                                    _  event:GTLRCalendar_Event,
-//                                    _ callbackError: Error?) -> Void in}
-//                                   as? GTLRServiceCompletionHandler
-//                   )
-//              }
+        GIDSignIn.sharedInstance().signIn()
     }
     
     @IBAction func AddToCalendar(_ sender: UITapGestureRecognizer) {
@@ -193,6 +160,63 @@ class ActorBookConfirmationViewController: UIViewController, EKEventEditViewDele
         controller.dismiss(animated: true, completion: nil)
     }
     
+    // Create an event to the Google Calendar's user
+    func addEventoToGoogleCalendar(summary : String, description :String, startTime : String, endTime : String) {
+        let calendarEvent = GTLRCalendar_Event()
+        
+        calendarEvent.summary = "\(summary)"
+        calendarEvent.descriptionProperty = "\(description)"
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy'-'MM'-'dd'T'HH':'mm':'ss"
+        let startDate = dateFormatter.date(from: startTime)
+        let endDate = dateFormatter.date(from: endTime)
+        
+        guard let toBuildDateStart = startDate else {
+            print("Error getting start date")
+            return
+        }
+        guard let toBuildDateEnd = endDate else {
+            print("Error getting end date")
+            return
+        }
+        calendarEvent.start = buildDate(date: toBuildDateStart)
+        calendarEvent.end = buildDate(date: toBuildDateEnd)
+        
+        let insertQuery = GTLRCalendarQuery_EventsInsert.query(withObject: calendarEvent, calendarId: "primary")
+        
+        service.executeQuery(insertQuery) { (ticket, object, error) in
+            if error == nil {
+                print("Event inserted")
+            } else {
+                print(error!)
+            }
+        }
+    }
+    
+    // Helper to build date
+    func buildDate(date: Date) -> GTLRCalendar_EventDateTime {
+        let datetime = GTLRDateTime(date: date)
+        let dateObject = GTLRCalendar_EventDateTime()
+        dateObject.dateTime = datetime
+        return dateObject
+    }
+    // Helper for showing an alert
+    func showAlert(title : String, message: String) {
+        let alert = UIAlertController(
+            title: title,
+            message: message,
+            preferredStyle: UIAlertController.Style.alert
+        )
+        let ok = UIAlertAction(
+            title: "OK",
+            style: UIAlertAction.Style.default,
+            handler: nil
+        )
+        alert.addAction(ok)
+        present(alert, animated: true, completion: nil)
+    }
+    
     /*
     // MARK: - Navigation
 
@@ -203,4 +227,37 @@ class ActorBookConfirmationViewController: UIViewController, EKEventEditViewDele
     }
     */
 
+}
+
+extension ActorBookConfirmationViewController:GIDSignInDelegate{
+    //MARK:Google SignIn Delegate
+    func sign(inWillDispatch signIn: GIDSignIn!, error: Error!) {
+        // myActivityIndicator.stopAnimating()
+    }
+    // Present a view that prompts the user to sign in with Google
+    func sign(_ signIn: GIDSignIn!,
+              present viewController: UIViewController!) {
+        self.present(viewController, animated: true, completion: nil)
+    }
+    
+    // Dismiss the "Sign in with Google" view
+    func sign(_ signIn: GIDSignIn!,
+              dismiss viewController: UIViewController!) {
+        self.dismiss(animated: true, completion: nil)
+    }
+    ////Google_signIn
+    func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!,
+              withError error: Error!) {
+        if let error = error {
+            showAlert(title: "Authentication Error", message: error.localizedDescription)
+            self.service.authorizer = nil
+        } else {
+            self.service.authorizer = user.authentication.fetcherAuthorizer()
+//            addEventoToGoogleCalendar(summary: "summary9", description: "description", startTime: "25/02/2020 09:00", endTime: "25/02/2020 10:00")
+            
+            let strDate: String = "\(bookingDate)\(bookingStartTime)"
+            let strDate2: String = "\(bookingDate)\(bookingEndTime)"
+            addEventoToGoogleCalendar(summary: "Booking Reserved", description: "Booked", startTime: strDate, endTime:  strDate2)
+        }
+    }
 }
