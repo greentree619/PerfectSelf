@@ -84,7 +84,7 @@ class ActorBookConfirmationViewController: UIViewController, EKEventEditViewDele
             DispatchQueue.main.async {
                 if (granted) && (error == nil) {
                     let event = EKEvent(eventStore: eventStore)
-                    event.title = "Booking Date"
+                    event.title = "PerfectSelf: Booking Reserved"
                     event.startDate = startDate
                     event.url = URL(string: "")
                     event.endDate = endDate
@@ -257,7 +257,7 @@ extension ActorBookConfirmationViewController:GIDSignInDelegate{
             
             let strDate: String = "\(bookingDate)\(bookingStartTime)"
             let strDate2: String = "\(bookingDate)\(bookingEndTime)"
-            addEventoToGoogleCalendar(summary: "Booking Reserved", description: "Booked", startTime: strDate, endTime:  strDate2)
+            addEventoToGoogleCalendar(summary: "PerfectSelf", description: "Booking Reserved", startTime: strDate, endTime:  strDate2)
         }
     }
 }
