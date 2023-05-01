@@ -1,19 +1,20 @@
 //
-//  AudioEnhancementAPI.swift
+//  BackgroundRemovalAPI.swift
 //  PerfectSelf
 //
-//  Created by user232392 on 4/27/23.
+//  Created by user232392 on 4/30/23.
 //  Copyright © 2023 Stas Seldin. All rights reserved.
 //
 
 import Foundation
-class AudioEnhancementAPI
+
+class BackgroundRemovalAPI
 {
-    let API_ROOT_URL:String = "https://api.audo.ai/v1"
-    let AUIDO_AI_APIKEY: String = "a5587cd5a567a3fba8a8093c85fc0ade"
+    let API_ROOT_URL:String = "https://api.unscreen.com/v1.0"
+    let UNSCREEN_APIKEY: String = "a5587cd5a567a3fba8a8093c85fc0ade"
     
-    func getFileId(filePath: URL, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> Void {
-        guard let url = URL(string: "\(API_ROOT_URL)/upload") else { return }
+    func uploadFile(filePath: URL, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> Void {
+        guard let url = URL(string: "\(API_ROOT_URL)/videos") else { return }
 
         let fileUrl = filePath
 
@@ -23,11 +24,11 @@ class AudioEnhancementAPI
         let boundary = "Boundary-\(UUID().uuidString)"
         let contentType = "multipart/form-data; boundary=\(boundary)"
         request.setValue(contentType, forHTTPHeaderField: "Content-Type")
-        request.setValue(AUIDO_AI_APIKEY, forHTTPHeaderField: "x-api-key")
+        request.setValue(UNSCREEN_APIKEY, forHTTPHeaderField: "X-Api-Key")
         
         let body = NSMutableData()
         body.append("--\(boundary)\r\n".data(using: .utf8)!)
-        body.append("Content-Disposition: form-data; name=\"file\"; filename=\"\(fileUrl.lastPathComponent)\"\r\n".data(using: .utf8)!)
+        body.append("Content-Disposition: form-data; name=\"video_file\"; filename=\"\(fileUrl.lastPathComponent)\"\r\n".data(using: .utf8)!)
         
         body.append("Content-Type: application/octet-stream\r\n\r\n".data(using: .utf8)!)
         do {
@@ -49,36 +50,21 @@ class AudioEnhancementAPI
         task.resume()
 
     }
-    func removeNoise(fileId: String, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> Void {
-        let json: [String: Any] = [
-            "input": fileId,
-            "outputExtension": "mp3"
-        ]
-        let jsonData = try? JSONSerialization.data(withJSONObject: json)
-        let url = URL(string: "\(API_ROOT_URL)/remove-noise")!
-        var request = URLRequest(url: url)
-        request.httpMethod = "POST"
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.setValue(AUIDO_AI_APIKEY, forHTTPHeaderField: "x-api-key")
-        
-        request.httpBody = jsonData
-        request.setValue("\(String(describing: jsonData?.count))", forHTTPHeaderField: "Content-Length")
-        let task = URLSession.shared.dataTask(with: request, completionHandler:completionHandler)
-        task.resume()
-    }
-    func getJobStatus(jobId: String, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> Void {
-        let url = URL(string: "\(API_ROOT_URL)/remove-noise/\(jobId)/status")!
+    
+    func getFileStatus(videoId: String, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> Void {
+        let url = URL(string: "\(API_ROOT_URL)/videos/\(videoId)")!
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.setValue(AUIDO_AI_APIKEY, forHTTPHeaderField: "x-api-key")
+        request.setValue(UNSCREEN_APIKEY, forHTTPHeaderField: "X-Api-Key")
         
         let task = URLSession.shared.dataTask(with: request, completionHandler:completionHandler)
         task.resume()
     }
+
     func getResultFile(downloadPath: String, completionHandler: @escaping @Sendable (URL?, URLResponse?, Error?) -> Void) -> Void {
         
-        let url = URL(string: "\(API_ROOT_URL)\(downloadPath)")!
+        let url = URL(string: downloadPath)!
         let request = URLRequest(url: url)
         let sessionConfig = URLSessionConfiguration.default
         let session = URLSession(configuration: sessionConfig)

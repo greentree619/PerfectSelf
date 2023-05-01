@@ -37,6 +37,7 @@
 		475269BC29CD0F930094C3E9 /* BookingCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 475269BA29CD0F930094C3E9 /* BookingCollectionViewCell.xib */; };
 		475ECFF629DEF3E2004AED9A /* SortViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 475ECFF429DEF3E2004AED9A /* SortViewController.swift */; };
 		475ECFF729DEF3E2004AED9A /* SortViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 475ECFF529DEF3E2004AED9A /* SortViewController.xib */; };
+		4765AEFF29FEB6400053A9C2 /* BackgroundRemovalAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4765AEFE29FEB6400053A9C2 /* BackgroundRemovalAPI.swift */; };
 		4770CE5329D7C904009C2284 /* FilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4770CE5129D7C904009C2284 /* FilterViewController.swift */; };
 		4770CE5429D7C904009C2284 /* FilterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4770CE5229D7C904009C2284 /* FilterViewController.xib */; };
 		4772156129CE700C00319CBC /* VideoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4772155F29CE700C00319CBC /* VideoCollectionViewCell.swift */; };
@@ -258,6 +259,7 @@
 		475269BA29CD0F930094C3E9 /* BookingCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BookingCollectionViewCell.xib; sourceTree = "<group>"; };
 		475ECFF429DEF3E2004AED9A /* SortViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortViewController.swift; sourceTree = "<group>"; };
 		475ECFF529DEF3E2004AED9A /* SortViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SortViewController.xib; sourceTree = "<group>"; };
+		4765AEFE29FEB6400053A9C2 /* BackgroundRemovalAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundRemovalAPI.swift; sourceTree = "<group>"; };
 		4770CE5129D7C904009C2284 /* FilterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterViewController.swift; sourceTree = "<group>"; };
 		4770CE5229D7C904009C2284 /* FilterViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FilterViewController.xib; sourceTree = "<group>"; };
 		4772155F29CE700C00319CBC /* VideoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -823,6 +825,7 @@
 				BAB7379B29B40B7500F3D663 /* AWSMultipartUpload.swift */,
 				BA3F909929C457C200ABE966 /* PerfectSelfWebAPI.swift */,
 				47F84E7129FB5B5F003636A9 /* AudioEnhancementAPI.swift */,
+				4765AEFE29FEB6400053A9C2 /* BackgroundRemovalAPI.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -1451,6 +1454,7 @@
 				47CEBDDE29C7C272006CE9DA /* ActorProfileEditViewController.swift in Sources */,
 				4715510129CDBF00007CE524 /* TimeSlotCollectionViewCell.swift in Sources */,
 				BAD5C84F29AEDF0E00A2F109 /* CameraPreviewView.swift in Sources */,
+				4765AEFF29FEB6400053A9C2 /* BackgroundRemovalAPI.swift in Sources */,
 				4772156129CE700C00319CBC /* VideoCollectionViewCell.swift in Sources */,
 				BAB7379C29B40B7500F3D663 /* AWSMultipartUpload.swift in Sources */,
 				47F84E7229FB5B5F003636A9 /* AudioEnhancementAPI.swift in Sources */,
@@ -1678,7 +1682,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 2.1;
-				ONLY_ACTIVE_ARCH = YES;
+				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.kayan.perfectself;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Sources/PerfectSelf-Bridging-Header.h";

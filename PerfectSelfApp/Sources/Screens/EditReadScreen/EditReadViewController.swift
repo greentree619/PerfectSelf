@@ -168,7 +168,7 @@ class EditReadViewController: UIViewController {
                             print("Error deleting file: \(error.localizedDescription)")
                         }
                         print(res.downloadPath)
-                        audoAPI.getResultFile(downloadPath: res.downloadPath, saveFilePath: saveFilePath) { (tempLocalUrl, response, error) in
+                        audoAPI.getResultFile(downloadPath: res.downloadPath) { (tempLocalUrl, response, error) in
                             
                             if let tempLocalUrl = tempLocalUrl, error == nil {
                                 // Success
