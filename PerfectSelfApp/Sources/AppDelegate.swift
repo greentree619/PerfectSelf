@@ -39,18 +39,25 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     
     private func buildMainViewController() -> UIViewController {
         
-//        let webRTCClient = WebRTCClient(iceServers: self.config.webRTCIceServers)
-//        let signalClient = self.buildSignalingClient()
-//        //{{
-////        let mainViewController = MainViewController(signalClient: signalClient, webRTCClient: webRTCClient)
-//        //==
-//        let mainViewController = MeetingListViewController(signalClient: signalClient, webRTCClient: webRTCClient)
-//        //}}
-        let mainViewController = LoginViewController()
-        let navViewController = UINavigationController(rootViewController: mainViewController)
-        navViewController.navigationBar.prefersLargeTitles = true
-        navViewController.isNavigationBarHidden = true
-        return navViewController
+        if let userInfo = UserDefaults.standard.object(forKey: "USER") as? [String:Any] {
+            // Use the saved data
+            
+            let userType = userInfo["userType"] as? Int
+            let controller = userType == 3 ? ActorTabBarController(): ReaderTabBarController()
+            controller.modalPresentationStyle = .fullScreen
+            
+            return controller
+            
+        } else {
+            // No data was saved
+            print("No data was saved.")
+            let mainViewController = LoginViewController()
+//            let navViewController = UINavigationController(rootViewController: mainViewController)
+//            navViewController.navigationBar.prefersLargeTitles = true
+//            navViewController.isNavigationBarHidden = true
+//            return navViewController
+            return mainViewController
+        }
     }
     
     func application(_ application: UIApplication,

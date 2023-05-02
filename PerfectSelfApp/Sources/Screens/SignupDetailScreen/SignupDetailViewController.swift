@@ -101,8 +101,6 @@ class SignupDetailViewController: UIViewController {
                         UserDefaults.standard.set(String(self.email), forKey: "USER_EMAIL")
                         UserDefaults.standard.set(String(self.password), forKey: "USER_PWD")
                         
-                        //}}REFME
-                        
                         let controller = ActorBuildProfile1ViewController()
                         self.navigationController?.pushViewController(controller, animated: true);
                     }

@@ -60,7 +60,7 @@
                                     <rect key="frame" x="30" y="0.0" width="343" height="40"/>
                                     <subviews>
                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="Cxf-It-YYg">
-                                            <rect key="frame" x="0.0" y="0.0" width="308" height="40"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="260" height="40"/>
                                             <subviews>
                                                 <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1YH-0w-xFc">
                                                     <rect key="frame" x="0.0" y="0.0" width="133.66666666666666" height="40"/>
@@ -97,20 +97,33 @@
                                             </subviews>
                                         </stackView>
                                         <stackView opaque="NO" contentMode="scaleToFill" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="I0l-L3-qSy">
-                                            <rect key="frame" x="318" y="0.0" width="25" height="40"/>
+                                            <rect key="frame" x="270" y="0.0" width="73" height="40"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6WQ-QW-odc">
-                                                    <rect key="frame" x="0.0" y="7.6666666666666714" width="25" height="25"/>
+                                                    <rect key="frame" x="0.0" y="4.6666666666666643" width="73" height="31"/>
+                                                    <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" secondItem="6WQ-QW-odc" secondAttribute="height" multiplier="1:1" id="UYw-tF-hVg"/>
                                                         <constraint firstAttribute="height" constant="25" id="cUe-v0-3Ji"/>
                                                     </constraints>
-                                                    <color key="tintColor" systemColor="systemRedColor"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <inset key="contentEdgeInsets" minX="3" minY="3" maxX="3" maxY="3"/>
                                                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                                    <state key="normal">
-                                                        <imageReference key="image" image="rectangle.portrait.and.arrow.right" catalog="system" symbolScale="large"/>
-                                                    </state>
+                                                    <state key="normal" title="Log out"/>
+                                                    <buttonConfiguration key="configuration" style="plain" title="Log out">
+                                                        <fontDescription key="titleFontDescription" type="system" pointSize="14"/>
+                                                    </buttonConfiguration>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                            <real key="value" value="8"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                    </userDefinedRuntimeAttributes>
+                                                    <variation key="default">
+                                                        <mask key="constraints">
+                                                            <exclude reference="cUe-v0-3Ji"/>
+                                                            <exclude reference="UYw-tF-hVg"/>
+                                                        </mask>
+                                                    </variation>
                                                     <connections>
                                                         <action selector="SignOut:" destination="-1" eventType="touchUpInside" id="XbD-BX-A5D"/>
                                                     </connections>
@@ -920,7 +933,6 @@
         <image name="person.fill" catalog="system" width="128" height="120"/>
         <image name="play" width="100" height="100"/>
         <image name="play.square" catalog="system" width="128" height="114"/>
-        <image name="rectangle.portrait.and.arrow.right" catalog="system" width="128" height="109"/>
         <image name="star.fill" catalog="system" width="128" height="116"/>
         <image name="tag.fill" catalog="system" width="128" height="118"/>
         <image name="underline" width="72" height="4"/>
@@ -929,9 +941,6 @@
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
-        <systemColor name="systemRedColor">
-            <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="tintColor">
             <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
