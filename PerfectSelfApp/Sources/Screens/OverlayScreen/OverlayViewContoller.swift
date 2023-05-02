@@ -80,6 +80,9 @@ class OverlayViewController: UIViewController {
         }
     }
     
+    override func viewWillDisappear(_ animated: Bool){
+    }
+    
     @IBAction func startRecordClicked(_ sender: UIButton)
     {
         if(!isOnRecording)
@@ -132,6 +135,7 @@ class OverlayViewController: UIViewController {
     }
     
     @IBAction func backDidTap(_ sender: UIButton) {
+        stopRecordAction()
         self.dismiss(animated: false)
     }
     

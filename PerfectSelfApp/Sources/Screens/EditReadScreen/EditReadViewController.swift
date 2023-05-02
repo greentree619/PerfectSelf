@@ -48,6 +48,7 @@ class EditReadViewController: UIViewController {
     }
     
     @IBAction func backDidTap(_ sender: UIButton) {
+        playerView.pause()
         self.dismiss(animated: false)
     }
     
@@ -68,13 +69,18 @@ class EditReadViewController: UIViewController {
     
     @IBAction func settingDidTap(_ sender: UIButton)
     {
+        playerView.pause()
     }
     
     @IBAction func rotateDidTap(_ sender: UIButton)
     {
+        playerView.pause()
     }
+    
     @IBAction func audioEditDidTap(_ sender: UIButton)
     {
+        playerView.pause()
+        
         // do audio enhancement
         showIndicator(sender: nil, viewController: self, color: UIColor.white)
         audoAPI.getFileId(filePath: audioURL) { data, response, error in
@@ -228,14 +234,18 @@ class EditReadViewController: UIViewController {
     }
     @IBAction func backgroundRemovalDidTap(_ sender: UIButton) {
         print("Edit Read Backgournd Removal func")
+        playerView.pause()
         
     }
     
     @IBAction func cropDidTap(_ sender: Any) {
+        playerView.pause()
     }
     
     @IBAction func shareDidTap(_ sender: UIButton) {
+        playerView.pause()
     }
+    
     func mergeAudioWithVideo(videoUrl: URL, audioUrl: URL) {
         let videoAsset = AVAsset(url: videoUrl)
         let audioAsset = AVAsset(url: audioUrl)

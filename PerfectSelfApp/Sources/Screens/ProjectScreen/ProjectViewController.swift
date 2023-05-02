@@ -46,6 +46,10 @@ class ProjectViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
     }
     
+    override func viewWillDisappear(_ animated: Bool){
+        isOnPlay = false
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.playerView.delegate = self
@@ -108,6 +112,7 @@ class ProjectViewController: UIViewController {
     }
     
     @IBAction func backDidTapped(_ sender: UIButton) {
+        isOnPlay = false
         self.dismiss(animated: false)
     }
     
@@ -129,6 +134,7 @@ class ProjectViewController: UIViewController {
             return
         }
         
+        isOnPlay = false
         let editReadViewController = EditReadViewController(videoUrl: self.savedVideoUrl!, audioUrl: self.savedAudioUrl!)
         editReadViewController.modalPresentationStyle = .fullScreen
         self.present(editReadViewController, animated: false, completion: nil)
