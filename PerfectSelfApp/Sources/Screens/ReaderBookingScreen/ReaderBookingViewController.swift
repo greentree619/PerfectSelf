@@ -28,6 +28,7 @@ class ReaderBookingViewController: UIViewController, UICollectionViewDataSource,
     
     let cellsPerRow = 1
     var bookType = 1 //for upcomming
+    var searchText = ""
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -54,11 +55,16 @@ class ReaderBookingViewController: UIViewController, UICollectionViewDataSource,
         
         fetchBookList()
     }
+    
+    @IBAction func changeSearchText(_ sender: UITextField) {
+        searchText = sender.text ?? ""
+        fetchBookList()
+    }
     func fetchBookList() {
         //call API to fetch booking list
         spin.isHidden = false
         spin.startAnimating()
-         webAPI.getBookingsByUid(uid: uid, bookType: self.bookType) { data, response, error in
+        webAPI.getBookingsByUid(uid: uid, bookType: self.bookType, name: searchText) { data, response, error in
             DispatchQueue.main.async {
                 self.spin.stopAnimating()
                 self.spin.isHidden = true
