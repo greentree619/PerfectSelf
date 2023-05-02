@@ -60,7 +60,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         fcmDeviceToken = token
         print("Device Token: \(token)")
         //Toast.show(message: "register: \(token)", controller: uiViewContoller!)
-    };
+    }
     
     func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
         print(error.localizedDescription)
