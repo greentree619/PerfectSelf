@@ -45,7 +45,7 @@ class ReaderHomeViewController: UIViewController, UICollectionViewDataSource, UI
         //call API to fetch booking list
         showIndicator(sender: nil, viewController: self)
       
-        webAPI.getBookingsByUid(uid: uid, bookType: 1) { data, response, error in
+        webAPI.getBookingsByUid(uid: uid, bookType: 1, name: "") { data, response, error in
             DispatchQueue.main.async {
                 hideIndicator(sender: nil)
             }

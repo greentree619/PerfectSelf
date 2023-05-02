@@ -33,7 +33,14 @@ class ActorLibraryViewController: UIViewController, UICollectionViewDataSource, 
             // No data was saved
             print("No data was saved.")
         }
-        
+        fetchVideos()
+        //
+        let menu1 = HSMenu(icon: nil, title: "Create Folder")
+        let menu2 = HSMenu(icon: nil, title: "Edit")
+
+        menuArray = [menu1, menu2]
+    }
+    func fetchVideos() {
         showIndicator(sender: nil, viewController: self)
         webAPI.getLibraryByUid(uid: uid){ data, response, error in
             DispatchQueue.main.async {
@@ -62,13 +69,7 @@ class ActorLibraryViewController: UIViewController, UICollectionViewDataSource, 
                 }
             }
         }
-        //
-        let menu1 = HSMenu(icon: nil, title: "Create Folder")
-        let menu2 = HSMenu(icon: nil, title: "Edit")
-
-        menuArray = [menu1, menu2]
     }
- 
     @IBAction func ShowFolderMenu(_ sender: UIButton) {
         let originInWindow = sender.convert(CGPoint.zero, to: nil)
         

@@ -19,6 +19,7 @@ class ActorBookingViewController: UIViewController, UICollectionViewDataSource, 
     var bookId = 0
     var score:Float = 0.0
     var bookType = 1//upcoming
+    var searchText = ""
     @IBOutlet weak var btn_upcoming: UIButton!
     @IBOutlet weak var btn_past: UIButton!
     @IBOutlet weak var btn_pending: UIButton!
@@ -69,12 +70,17 @@ class ActorBookingViewController: UIViewController, UICollectionViewDataSource, 
         super.viewWillAppear(true);
         fetchBookList()
     }
+    
+    @IBAction func Search(_ sender: UITextField) {
+        self.searchText = sender.text ?? ""
+        fetchBookList()
+    }
     func fetchBookList() {
         //call API to fetch booking list
         spin.isHidden = false
         spin.startAnimating()
          
-         webAPI.getBookingsByUid(uid: uid, bookType: self.bookType) { data, response, error in
+        webAPI.getBookingsByUid(uid: uid, bookType: self.bookType, name: self.searchText) { data, response, error in
             DispatchQueue.main.async {
                 self.spin.stopAnimating()
                 self.spin.isHidden = true
