@@ -227,6 +227,8 @@ class EditReadViewController: UIViewController {
         }
     }
     @IBAction func backgroundRemovalDidTap(_ sender: UIButton) {
+        print("Edit Read Backgournd Removal func")
+        
     }
     
     @IBAction func cropDidTap(_ sender: Any) {
