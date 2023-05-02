@@ -31,6 +31,7 @@ class EditReadViewController: UIViewController {
     }
     var timer = Timer()
     var jobId = ""
+    var videoId = ""
     override func viewDidLoad() {
         print(audioURL, videoURL)
     }
@@ -138,7 +139,6 @@ class EditReadViewController: UIViewController {
     }
     //new function
     @objc func timerAction(){
-        print("timer fired!")
         audoAPI.getJobStatus(jobId: self.jobId) { data, response, error in
             guard let data = data, error == nil else {
                 DispatchQueue.main.async {
@@ -173,7 +173,7 @@ class EditReadViewController: UIViewController {
                         } catch {
                             print("Error deleting file: \(error.localizedDescription)")
                         }
-                        print(res.downloadPath)
+                        
                         audoAPI.getResultFile(downloadPath: res.downloadPath) { (tempLocalUrl, response, error) in
                             
                             if let tempLocalUrl = tempLocalUrl, error == nil {
@@ -235,9 +235,106 @@ class EditReadViewController: UIViewController {
     @IBAction func backgroundRemovalDidTap(_ sender: UIButton) {
         print("Edit Read Backgournd Removal func")
         playerView.pause()
-        
+        showIndicator(sender: nil, viewController: self, color: UIColor.white)
+        backgroundAPI.uploadFile(filePath: videoURL) { data, response, error in
+            guard let data = data, error == nil else {
+                DispatchQueue.main.async {
+                    hideIndicator(sender: nil)
+                    Toast.show(message: "Audio Enhancement failed. Unable to upload file.", controller: self)
+                }
+                return
+            }
+            if let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 {
+                print("statusCode: \(httpResponse.statusCode)")
+                // parse data
+                do {
+                    let res = try JSONDecoder().decode(BackRemoveResult.self, from: data)
+                    DispatchQueue.main.async {
+                        self.videoId = res.data.id
+                        self.timer = Timer.scheduledTimer(timeInterval: 2.0, target: self, selector: #selector(self.timerActionForBackRemove), userInfo: nil, repeats: true)
+                    }
+                }
+                catch {
+                    DispatchQueue.main.async {
+                        hideIndicator(sender: nil)
+                        Toast.show(message: "Background Removal API response parse error!", controller: self)
+                    }
+                }
+            }
+        }
     }
-    
+    @objc func timerActionForBackRemove() {
+        backgroundAPI.getFileStatus(videoId: self.videoId) { data, response, error in
+            guard let data = data, error == nil else {
+                DispatchQueue.main.async {
+                    hideIndicator(sender: nil)
+                    Toast.show(message: "Audio Enhancement failed. Unable to upload file.", controller: self)
+                }
+                return
+            }
+            if let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 {
+                print("statusCode: \(httpResponse.statusCode)")
+                // parse data
+                do {
+                    let res = try JSONDecoder().decode(BackRemoveResult.self, from: data)
+                    DispatchQueue.main.async {
+                        if res.data.attributes.status == "done" {
+//                            hideIndicator(sender: nil)
+                            self.timer.invalidate()
+                            // download file
+                            let documentsPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0];
+                            let saveFilePath = URL(fileURLWithPath: "\(documentsPath)/tmpVideo.mp4")
+                            do {
+                                try FileManager.default.removeItem(at: saveFilePath)
+                                print("File deleted successfully")
+                            } catch {
+                                print("Error deleting file: \(error.localizedDescription)")
+                            }
+                            
+                            audoAPI.getResultFile(downloadPath: res.data.attributes.result_url) { (tempLocalUrl, response, error) in
+                                
+                                if let tempLocalUrl = tempLocalUrl, error == nil {
+                                    // Success
+                                    if let statusCode = (response as? HTTPURLResponse)?.statusCode {
+                                        DispatchQueue.main.async {
+//                                            hideIndicator(sender: nil)
+//                                            Toast.show(message: "Audio Enhancement completed", controller: self)
+                                            self.videoURL = saveFilePath
+                                            self.mergeAudioWithVideo(videoUrl: self.videoURL, audioUrl: self.audioURL)
+                                        }
+                                        print("Successfully downloaded. Status code: \(statusCode)")
+                                    }
+                                    
+                                    do {
+                                        try FileManager.default.copyItem(at: tempLocalUrl, to: saveFilePath)
+                                    } catch (let writeError) {
+                                        DispatchQueue.main.async {
+                                            hideIndicator(sender: nil)
+                                            Toast.show(message: "Audio Enhancement failed while copying file to save.", controller: self)
+                                        }
+                                        print("Error creating a file \(saveFilePath) : \(writeError)")
+                                    }
+                                    
+                                } else {
+                                    DispatchQueue.main.async {
+                                        hideIndicator(sender: nil)
+                                        Toast.show(message: "Audio Enhancement failed while downloading.", controller: self)
+                                    }
+                                    print("Error took place while downloading a file. Error description:", error?.localizedDescription as Any);
+                                }
+                            }
+                        }
+                    }
+                }
+                catch {
+                    DispatchQueue.main.async {
+                        hideIndicator(sender: nil)
+                        Toast.show(message: "Background Removal file status API response parse error!", controller: self)
+                    }
+                }
+            }
+        }
+    }
     @IBAction func cropDidTap(_ sender: Any) {
         playerView.pause()
     }
