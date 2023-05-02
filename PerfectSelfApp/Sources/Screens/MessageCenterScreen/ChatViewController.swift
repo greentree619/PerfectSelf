@@ -377,6 +377,10 @@ extension ChatViewController: WebRTCClientDelegate {
             let messageWrap = PerfMessage(id: 0, senderUid: self.uid, receiverUid: self.muid, roomUid: self.roomUid, sendTime: Date.getStringFromDate(date: Date()), hadRead: false, message: message)
             self.messages.append(messageWrap) // Add the new message to the messages array
             self.messageCollectionView.reloadData() // Refresh the table view to display the new message
+            // Scroll to the last item in collection view
+            let lastItemIndex = self.messageCollectionView.numberOfItems(inSection: 0) - 1
+            let lastIndexPath = IndexPath(item: lastItemIndex, section: 0)
+            self.messageCollectionView.scrollToItem(at: lastIndexPath, at: .bottom, animated: true)
         }
     }
 }
