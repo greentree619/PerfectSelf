@@ -63,7 +63,6 @@ class BackgroundRemovalAPI
     }
 
     func getResultFile(downloadPath: String, completionHandler: @escaping @Sendable (URL?, URLResponse?, Error?) -> Void) -> Void {
-        
         let url = URL(string: downloadPath)!
         let request = URLRequest(url: url)
         let sessionConfig = URLSessionConfiguration.default

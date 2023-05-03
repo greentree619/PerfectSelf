@@ -121,7 +121,8 @@ class ActorBookingViewController: UIViewController, UICollectionViewDataSource, 
             + flowLayout.sectionInset.right
             + (flowLayout.minimumInteritemSpacing * CGFloat(cellsPerRow - 1))
         let size = Int((collectionView.bounds.width - totalSpace) / CGFloat(cellsPerRow))
-        return CGSize(width: size, height: size*145/328)
+        let height = Int(Double(size) * 0.45)
+        return CGSize(width: size, height: height)
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {

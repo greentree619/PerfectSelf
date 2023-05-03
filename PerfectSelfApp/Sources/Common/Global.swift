@@ -12,6 +12,7 @@ import UIKit
 let signalingServerConfig = Config.default
 let webAPI = PerfectSelfWebAPI()
 let audoAPI = AudioEnhancementAPI()
+let backgroundAPI = BackgroundRemovalAPI()
 let ACTOR_UTYPE = 3
 let READER_UTYPE = 4
 let SCRIPT_BUCKET = "perfectself-script-bucket"
@@ -196,6 +197,26 @@ struct PerfMessage: Codable {
     let hadRead: Bool
     let message: String
 }
+struct BackRemoveResult: Codable {
+    let data: BackRemoveData
+}
+struct BackRemoveData: Codable {
+    let id: String
+    let type: String
+    let attributes: BackRemoveAttribute
+    let links: BackLinks
+}
+struct BackRemoveAttribute: Codable {
+    let status: String
+    let progress: String
+    let result_url: String
+    let error_code: String
+    let error_detail: String
+}
+struct BackLinks: Codable {
+    let `self`: String
+}
+
 struct RoomInfo: Codable {
     let roomUid: String
 }

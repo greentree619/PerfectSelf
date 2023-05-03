@@ -11,7 +11,7 @@ import RangeSeekSlider
 
 class ActorHomeViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UITextFieldDelegate
 {
-    @IBOutlet weak var searchField: UITextField!
+//    @IBOutlet weak var searchField: UITextField!
     @IBOutlet weak var readerList: UICollectionView!
     
     @IBOutlet weak var spin: UIActivityIndicatorView!
@@ -69,10 +69,10 @@ class ActorHomeViewController: UIViewController, UICollectionViewDataSource, UIC
         fetchUnreadState()
     }
     
-    @IBAction func didSearchStringChanged(_ sender: UITextField) {
-        searchString = sender.text ?? ""
-        fetchReaderList()
-    }
+//    @IBAction func didSearchStringChanged(_ sender: UITextField) {
+//        searchString = sender.text ?? ""
+//        fetchReaderList()
+//    }
     func fetchUnreadState() {
         //call API for badge appear
         webAPI.getUnreadCountByUid(uid: uid) { data, response, error in
@@ -199,6 +199,7 @@ class ActorHomeViewController: UIViewController, UICollectionViewDataSource, UIC
     
     @IBAction func ShowFilterModal(_ sender: UIButton) {
         let controller = FilterViewController()
+        controller.originType = 0
         controller.modalPresentationStyle = .overFullScreen
         controller.parentUIViewController = self
         self.present(controller, animated: true)

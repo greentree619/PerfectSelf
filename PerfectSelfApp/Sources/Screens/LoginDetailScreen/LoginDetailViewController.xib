@@ -26,6 +26,7 @@
                 <outlet property="btn_actor" destination="Rf6-yp-tpa" id="c08-fS-pKA"/>
                 <outlet property="btn_forgotpassword" destination="5gs-TK-Gx8" id="mNr-oe-n5w"/>
                 <outlet property="btn_reader" destination="sOi-JV-SP6" id="Sq6-xY-6qC"/>
+                <outlet property="btn_rememberme" destination="otN-Yw-J12" id="oW6-vb-2o5"/>
                 <outlet property="btn_showpassword" destination="8SV-9a-FPz" id="qeb-8K-AU6"/>
                 <outlet property="text_email" destination="lAF-Dz-sLc" id="wuf-ao-aWq"/>
                 <outlet property="text_password" destination="aN2-Tq-mc3" id="MTA-uU-RzO"/>
@@ -276,7 +277,7 @@
                                                                 <directionalEdgeInsets key="contentInsets" top="2" leading="2" bottom="2" trailing="2"/>
                                                             </buttonConfiguration>
                                                             <connections>
-                                                                <action selector="ChangeForgotPassword:" destination="-1" eventType="touchUpInside" id="8Ej-N2-CJa"/>
+                                                                <action selector="ChangeRememberMe:" destination="-1" eventType="touchUpInside" id="XCy-9M-ksW"/>
                                                             </connections>
                                                         </button>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Remember Me" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JDH-gQ-xGG">

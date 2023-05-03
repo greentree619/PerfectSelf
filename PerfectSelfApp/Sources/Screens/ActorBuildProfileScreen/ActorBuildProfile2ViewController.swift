@@ -177,8 +177,14 @@ class ActorBuildProfile2ViewController: UIViewController, PhotoDelegate {
         controller.agerange = text_age.text != nil ? text_age.text! : ""
         controller.height = text_height.text != nil ? text_height.text! : ""
         controller.weight = text_weight.text != nil ? text_weight.text! : ""
-//        controller.userType = userType
-        self.navigationController?.pushViewController(controller, animated: true)
+        controller.modalPresentationStyle = .fullScreen
+        
+        let transition = CATransition()
+        transition.duration = 0.5 // Set animation duration
+        transition.type = CATransitionType.push // Set transition type to push
+        transition.subtype = CATransitionSubtype.fromRight // Set transition subtype to from right
+        self.view.window?.layer.add(transition, forKey: kCATransition) // Add transition to window layer
+        self.present(controller, animated: false)
     }
     /*
     // MARK: - Navigation

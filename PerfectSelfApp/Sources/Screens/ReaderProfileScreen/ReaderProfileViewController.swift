@@ -549,6 +549,17 @@ class ReaderProfileViewController: UIViewController, UICollectionViewDataSource,
         }
     }
     
+    @IBAction func SignOut(_ sender: UIButton) {
+        // Optional: Dismiss the tab bar controller
+        // Delete localstorage
+        UserDefaults.standard.removeObject(forKey: "USER")
+        UserDefaults.standard.removeObject(forKey: "USER_EMAIL")
+        UserDefaults.standard.removeObject(forKey: "USER_PWD")
+
+        let controller = LoginViewController()
+        controller.modalPresentationStyle = .fullScreen
+        self.present(controller, animated: false)
+    }
     /*
     // MARK: - Navigation
 

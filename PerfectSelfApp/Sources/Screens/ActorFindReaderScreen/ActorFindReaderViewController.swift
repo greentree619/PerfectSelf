@@ -8,7 +8,25 @@
 
 import UIKit
 
-class ActorFindReaderViewController: UIViewController , UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, SortDelegate{
+class ActorFindReaderViewController: UIViewController , UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, SortDelegate, FilterDelegate{
+    func setFilterParams(isAvailableSoon: Bool, isOnline: Bool, timeSlotType: Int, isCommercialRead: Bool, isShortRead: Bool, isExtendedRead: Bool, isDateSelected: Bool, fromDate: Date, toDate: Date, minPrice: Float, maxPrice: Float, gender: Int, isExplicitRead: Bool) {
+        self.isAvailableSoon = isAvailableSoon
+        self.isOnline = isOnline
+        self.timeSlotType = timeSlotType
+        self.isDateSelected = isDateSelected
+        self.fromDate = fromDate
+        self.toDate = toDate
+        self.minPrice = minPrice
+        self.maxPrice = maxPrice
+        self.gender = gender
+        self.isCommercialRead = isCommercialRead
+        self.isShortRead = isShortRead
+        self.isExtendedRead = isExtendedRead
+        self.isComfortableWithExplicitRead = isExplicitRead
+        fetchReaderList()
+        
+    }
+    
     func setSortType(viewController: UIViewController, sortType: Int) {
         self.sortType = sortType
         fetchReaderList()
@@ -149,6 +167,14 @@ class ActorFindReaderViewController: UIViewController , UICollectionViewDataSour
 //        transition.subtype = CATransitionSubtype.fromRight // Set transition subtype to from right
 //        self.view.window?.layer.add(transition, forKey: kCATransition) // Add transition to window layer
         self.present(controller, animated: false)
+    }
+    @IBAction func ShowFilterModal(_ sender: UIButton) {
+        let controller = FilterViewController()
+        controller.originType = 1
+        controller.modalPresentationStyle = .overFullScreen
+        controller.delegate = self
+        self.present(controller, animated: true)
+        
     }
     
     @IBAction func SortReaders(_ sender: UIButton) {
