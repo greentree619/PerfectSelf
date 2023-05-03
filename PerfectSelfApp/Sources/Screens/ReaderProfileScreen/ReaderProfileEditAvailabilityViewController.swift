@@ -7,37 +7,238 @@
 //
 
 import UIKit
+import DropDown
 
-class ReaderProfileEditAvailabilityViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+class ReaderProfileEditAvailabilityViewController: UIViewController {
+    
     var uid : String = ""
-    
     @IBOutlet weak var picker_date: UIDatePicker!
-    
-    @IBOutlet weak var timeslotList: UICollectionView!
-    var items = ["07:00-09:00", "07:00-09:00", "07:00-09:00", "07:00-09:00", "07:00-09:00", "07:00-09:00"]
-    let cellsPerRow = 1
 
+    let dateFormatter = DateFormatter()
+    let timeFormatter = DateFormatter()
+    @IBOutlet weak var btn_9am: UIButton!
+    @IBOutlet weak var btn_10am: UIButton!
+    @IBOutlet weak var btn_11am: UIButton!
+    @IBOutlet weak var btn_2pm: UIButton!
+    @IBOutlet weak var btn_3pm: UIButton!
+    @IBOutlet weak var btn_4pm: UIButton!
+    
+    @IBOutlet weak var btn_standby_yes: UIButton!
+    @IBOutlet weak var btn_standby_no: UIButton!
+    @IBOutlet weak var text_repeat: UITextField!
+    @IBOutlet weak var repeatView: UIStackView!
+    var repeatFlag = 0
+    var startTime = -1
+    let dropDownForRepeat = DropDown()
+    var timeSlotList = [TimeSlot]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        let nib = UINib(nibName: "TempTimeSlotCollectionViewCell", bundle: nil)
-        timeslotList.register(nib, forCellWithReuseIdentifier: "Temp Time Slot Collection View Cell")
-        timeslotList.dataSource = self
-        timeslotList.delegate = self
-        timeslotList.allowsSelection = true
         // Do any additional setup after loading the view.
-    }
- 
-    
-    @IBAction func AddTimeSlot(_ sender: UIButton) {
-        let controller = TimeSelectPopUpViewController()
-        controller.modalPresentationStyle = .overFullScreen
-        self.present(controller, animated: true)
-    }
- 
-    @IBAction func SaveChanges(_ sender: UIButton) {
-       
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        timeFormatter.dateFormat = "hh:mm"
+        dropDownForRepeat.anchorView = repeatView
+        dropDownForRepeat.dataSource = ["No", "Every Day", "Every Week", "Every Month"]
+        dropDownForRepeat.selectionAction = { [unowned self] (index: Int, item: String) in
+            text_repeat.text = item
+            repeatFlag = index
+            let id = getTimeSlotObjectIndex(d: picker_date.date)
+            timeSlotList[id].repeatFlag = index
+        }
+        // Top of drop down will be below the anchorView
+        dropDownForRepeat.bottomOffset = CGPoint(x: 0, y:(dropDownForRepeat.anchorView?.plainView.bounds.height)!)
         
+        dropDownForRepeat.dismissMode = .onTap
+        
+        DropDown.startListeningToKeyboard()
+        DropDown.appearance().textColor = UIColor.black
+        DropDown.appearance().selectedTextColor = UIColor.link
+        DropDown.appearance().textFont = UIFont.systemFont(ofSize: 15)
+        DropDown.appearance().backgroundColor = UIColor.white
+        DropDown.appearance().selectionBackgroundColor = UIColor.lightGray
+        DropDown.appearance().cellHeight = 40
+        DropDown.appearance().setupCornerRadius(5) // available since v2.3.6
+        print(timeSlotList)
+        displayTimeSlotsForDate(d: Date())
+    }
+    @IBAction func showDropDown(_ sender: UITapGestureRecognizer) {
+        dropDownForRepeat.show()
+    }
+    @IBAction func SelectedDateChanged(_ sender: UIDatePicker) {
+        displayTimeSlotsForDate(d: sender.date)
+    }
+    func displayTimeSlotsForDate(d: Date) {
+        let item = timeSlotList[getTimeSlotObjectIndex(d: d)]
+        initTimeSlotState()
+        if item.isStandBy {
+            btn_standby_no.isSelected = false
+            btn_standby_yes.isSelected = true
+        }
+        dropDownForRepeat.selectRow(item.repeatFlag)
+        
+        for t in item.time {
+            if t.slot == 1 {
+                btn_9am.isSelected = true
+                btn_9am.backgroundColor = UIColor.black
+            } else if t.slot == 2 {
+                btn_10am.isSelected = true
+                btn_10am.backgroundColor = UIColor.black
+            } else if t.slot == 3 {
+                btn_11am.isSelected = true
+                btn_11am.backgroundColor = UIColor.black
+            } else if t.slot == 4 {
+                btn_2pm.isSelected = true
+                btn_2pm.backgroundColor = UIColor.black
+            } else if t.slot == 5 {
+                btn_3pm.isSelected = true
+                btn_3pm.backgroundColor = UIColor.black
+            } else if t.slot == 6 {
+                btn_4pm.isSelected = true
+                btn_4pm.backgroundColor = UIColor.black
+            } else {
+                print("oops!")
+            }
+        }
+    }
+    func getTimeSlotObjectIndex(d: Date) -> Int {
+        
+        let index = timeSlotList.firstIndex(where: { dateFormatter.string(from: Date.getDateFromString(date: $0.date)!) == dateFormatter.string(from: d) })
+        if index == nil {
+            timeSlotList.append(TimeSlot(date: Date.getStringFromDate(date: picker_date.date), time: [], repeatFlag: 0, isStandBy: false))
+        }
+        return index ?? timeSlotList.count - 1
+    }
+    func initTimeSlotState() {
+        dropDownForRepeat.selectRow(0)
+        repeatFlag = 0
+        text_repeat.text = "No"
+        
+        btn_standby_no.isSelected = true
+        btn_standby_yes.isSelected = false
+        btn_9am.isSelected = false
+        btn_10am.isSelected = false
+        btn_11am.isSelected = false
+        btn_2pm.isSelected = false
+        btn_3pm.isSelected = false
+        btn_4pm.isSelected = false
+        
+        btn_9am.backgroundColor = UIColor.white
+        btn_10am.backgroundColor = UIColor.white
+        btn_11am.backgroundColor = UIColor.white
+        btn_2pm.backgroundColor = UIColor.white
+        btn_3pm.backgroundColor = UIColor.white
+        btn_4pm.backgroundColor = UIColor.white
+    }
+    @IBAction func SaveChanges(_ sender: UIButton) {
+       // call API for save changes
+        webAPI.updateAvailability(uid: uid, timeSlotList: timeSlotList) { data, response, error in
+            guard let _ = data, error == nil else {
+                DispatchQueue.main.async {
+                    Toast.show(message: "Something went wrong!, try agian later.", controller: self)
+                }
+                return
+            }
+            DispatchQueue.main.async {
+                Toast.show(message: "Availability Updated!", controller: self)
+                self.GoBack(self.btn_4pm)
+            }
+        }
+    }
+    
+    @IBAction func SelectStandByYes(_ sender: UIButton) {
+        let index = getTimeSlotObjectIndex(d: picker_date.date)
+        timeSlotList[index].isStandBy = true
+        btn_standby_no.isSelected = false
+        btn_standby_yes.isSelected = true
+        print(timeSlotList)
+    }
+    
+    @IBAction func SelectStandByNo(_ sender: UIButton) {
+        let index = getTimeSlotObjectIndex(d: picker_date.date)
+        timeSlotList[index].isStandBy = false
+        btn_standby_no.isSelected = true
+        btn_standby_yes.isSelected = false
+    }
+    @IBAction func Select9Am(_ sender: UIButton) {
+        sender.isSelected = !sender.isSelected
+        let index = getTimeSlotObjectIndex(d: picker_date.date)
+        
+        if sender.isSelected {
+            timeSlotList[index].time.append(Slot(id: -1, slot: 1, duration: 0, isDeleted: false))
+            sender.backgroundColor = UIColor.black
+        }
+        else {
+            timeSlotList[index].time.removeAll(where: { $0.slot == 1 })
+            sender.backgroundColor = UIColor.white
+        }
+    }
+    @IBAction func Select10Am(_ sender: UIButton) {
+        sender.isSelected = !sender.isSelected
+        let index = getTimeSlotObjectIndex(d: picker_date.date)
+        
+        if sender.isSelected {
+            timeSlotList[index].time.append(Slot(id: -1, slot: 2, duration: 0, isDeleted: false))
+            sender.backgroundColor = UIColor.black
+        }
+        else {
+            timeSlotList[index].time.removeAll(where: { $0.slot == 2 })
+            sender.backgroundColor = UIColor.white
+        }
+    }
+    @IBAction func Select11Am(_ sender: UIButton) {
+        sender.isSelected = !sender.isSelected
+        let index = getTimeSlotObjectIndex(d: picker_date.date)
+        
+        if sender.isSelected {
+            timeSlotList[index].time.append(Slot(id: -1, slot: 3, duration: 0, isDeleted: false))
+            sender.backgroundColor = UIColor.black
+        }
+        else {
+            timeSlotList[index].time.removeAll(where: { $0.slot == 3 })
+            sender.backgroundColor = UIColor.white
+        }
+    }
+    @IBAction func Select2Pm(_ sender: UIButton) {
+        sender.isSelected = !sender.isSelected
+        let index = getTimeSlotObjectIndex(d: picker_date.date)
+        
+        if sender.isSelected {
+            timeSlotList[index].time.append(Slot(id: -1, slot: 4, duration: 0, isDeleted: false))
+            sender.backgroundColor = UIColor.black
+        }
+        else {
+            timeSlotList[index].time.removeAll(where: { $0.slot == 4 })
+            sender.backgroundColor = UIColor.white
+        }
+    }
+    @IBAction func Select3Pm(_ sender: UIButton) {
+        sender.isSelected = !sender.isSelected
+        let index = getTimeSlotObjectIndex(d: picker_date.date)
+        
+        if sender.isSelected {
+            timeSlotList[index].time.append(Slot(id: -1, slot: 5, duration: 0, isDeleted: false))
+            sender.backgroundColor = UIColor.black
+        }
+        else {
+            timeSlotList[index].time.removeAll(where: { $0.slot == 5 })
+            sender.backgroundColor = UIColor.white
+        }
+        print(timeSlotList)
+    }
+    @IBAction func Select4Pm(_ sender: UIButton) {
+        sender.isSelected = !sender.isSelected
+        let index = getTimeSlotObjectIndex(d: picker_date.date)
+        
+        if sender.isSelected {
+            timeSlotList[index].time.append(Slot(id: -1, slot: 6, duration: 0, isDeleted: false))
+            sender.backgroundColor = UIColor.black
+        }
+        else {
+            timeSlotList[index].time.removeAll(where: { $0.slot == 6 })
+            sender.backgroundColor = UIColor.white
+        }
+        print(timeSlotList)
     }
     @IBAction func GoBack(_ sender: UIButton) {
         let transition = CATransition()
@@ -47,44 +248,7 @@ class ReaderProfileEditAvailabilityViewController: UIViewController, UICollectio
         self.view.window?.layer.add(transition, forKey: kCATransition) //  Add transition to window layer
         self.dismiss(animated: true)
     }
-    // MARK: - Time Slot List Delegate.
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-         // myData is the array of items
-        return self.items.count
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let flowLayout = collectionViewLayout as! UICollectionViewFlowLayout
-        let totalSpace = flowLayout.sectionInset.top
-        + flowLayout.sectionInset.bottom
-        + (flowLayout.minimumLineSpacing * CGFloat(cellsPerRow - 1))
-        let size = Int((collectionView.bounds.width - totalSpace) / CGFloat(cellsPerRow))
-        return CGSize(width: size, height: 50)
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        //
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Temp Time Slot Collection View Cell", for: indexPath) as! TempTimeSlotCollectionViewCell
-
-        cell.timeslot.text = items[indexPath.row]
-        // return card
-//        cell.layer.masksToBounds = false
-//        cell.layer.shadowOffset = CGSizeZero
-//        cell.layer.shadowRadius = 8
-//        cell.layer.shadowOpacity = 0.2
-//        cell.contentView.layer.cornerRadius = 12
-//        cell.contentView.layer.borderWidth = 1.0
-//        cell.contentView.layer.borderColor = UIColor.gray.cgColor
-//        cell.contentView.layer.masksToBounds = true
-        
-        return cell
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        // add the code here to perform action on the cell
-        print("didDeselectItemAt")
-//        let cell = collectionView.cellForItem(at: indexPath) as? LibraryCollectionViewCell
-    }
+  
     /*
     // MARK: - Navigation
 

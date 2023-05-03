@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21225" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21207"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
         <capability name="Image references" minToolsVersion="12.0"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -20,6 +21,7 @@
                 <outlet property="readerList" destination="JU1-QJ-Xxa" id="vCk-wb-Dww"/>
                 <outlet property="readerListFlow" destination="gkZ-Sc-3E3" id="Rsh-Vo-s8Z"/>
                 <outlet property="spin" destination="TvA-8H-NFz" id="L5c-yJ-00N"/>
+                <outlet property="unread_badge" destination="SYJ-ky-cq1" id="XBv-2C-M9S"/>
                 <outlet property="view" destination="aZf-Jp-goY" id="Pcc-s1-1bQ"/>
             </connections>
         </placeholder>
@@ -29,7 +31,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="eHX-7G-XvN">
-                    <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                    <rect key="frame" x="0.0" y="59" width="393" height="759"/>
                     <subviews>
                         <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="WNG-1o-qq0">
                             <rect key="frame" x="0.0" y="0.0" width="393" height="50"/>
@@ -85,7 +87,7 @@
                                                     <color key="backgroundColor" red="0.45882352941176469" green="0.52941176470588236" blue="0.85098039215686272" alpha="0.14999999999999999" colorSpace="calibratedRGB"/>
                                                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                     <state key="normal">
-                                                        <imageReference key="image" image="bell" catalog="system" symbolScale="large"/>
+                                                        <imageReference key="image" image="ellipsis.message.fill" catalog="system" symbolScale="large"/>
                                                     </state>
                                                     <userDefinedRuntimeAttributes>
                                                         <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
@@ -138,29 +140,60 @@
                         <stackView opaque="NO" contentMode="top" semanticContentAttribute="playback" axis="vertical" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="evI-VH-gXE">
                             <rect key="frame" x="0.0" y="70" width="393" height="30"/>
                             <subviews>
-                                <stackView opaque="NO" clipsSubviews="YES" contentMode="top" preservesSuperviewLayoutMargins="YES" distribution="fillProportionally" translatesAutoresizingMaskIntoConstraints="NO" id="jnF-dJ-9VN">
-                                    <rect key="frame" x="20" y="0.0" width="203.66666666666666" height="30"/>
+                                <stackView opaque="NO" contentMode="top" distribution="fillProportionally" translatesAutoresizingMaskIntoConstraints="NO" id="jnF-dJ-9VN">
+                                    <rect key="frame" x="20" y="0.0" width="190.66666666666666" height="30"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="  Next meeting in 5 min  " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qeB-aG-UUW">
-                                            <rect key="frame" x="0.0" y="0.0" width="137" height="30"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="  Next session in 5 min  " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qeB-aG-UUW">
+                                            <rect key="frame" x="0.0" y="0.0" width="128.33333333333334" height="30"/>
+                                            <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="12"/>
                                             <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <nil key="highlightedColor"/>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                    <color key="value" white="1" alpha="0.5" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </userDefinedRuntimeAttribute>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                    <real key="value" value="1"/>
+                                                </userDefinedRuntimeAttribute>
+                                            </userDefinedRuntimeAttributes>
                                         </label>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zeE-05-O1t">
-                                            <rect key="frame" x="137" y="0.0" width="66.666666666666686" height="30"/>
-                                            <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <rect key="frame" x="128.33333333333334" y="0.0" width="62.333333333333343" height="30"/>
+                                            <color key="backgroundColor" name="AccentColor"/>
                                             <state key="normal" title="Button"/>
-                                            <buttonConfiguration key="configuration" style="plain" title="join">
+                                            <buttonConfiguration key="configuration" style="plain">
+                                                <attributedString key="attributedTitle">
+                                                    <fragment content="Join">
+                                                        <attributes>
+                                                            <font key="NSFont" size="12" name="Helvetica"/>
+                                                            <font key="NSOriginalFont" size="12" name="Helvetica"/>
+                                                        </attributes>
+                                                    </fragment>
+                                                </attributedString>
                                                 <directionalEdgeInsets key="contentInsets" top="5" leading="20" bottom="5" trailing="20"/>
                                                 <color key="baseForegroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             </buttonConfiguration>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                    <integer key="value" value="3"/>
+                                                </userDefinedRuntimeAttribute>
+                                            </userDefinedRuntimeAttributes>
                                         </button>
                                     </subviews>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <gestureRecognizers/>
                                     <userDefinedRuntimeAttributes>
                                         <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                            <integer key="value" value="3"/>
+                                        </userDefinedRuntimeAttribute>
+                                        <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBound" value="NO"/>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.shadowOpacity">
+                                            <real key="value" value="0.29999999999999999"/>
+                                        </userDefinedRuntimeAttribute>
+                                        <userDefinedRuntimeAttribute type="size" keyPath="layer.shadowOffset">
+                                            <size key="value" width="0.0" height="0.0"/>
+                                        </userDefinedRuntimeAttribute>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.shadowRadius">
                                             <integer key="value" value="5"/>
                                         </userDefinedRuntimeAttribute>
                                     </userDefinedRuntimeAttributes>
@@ -212,13 +245,13 @@
                                     <userDefinedRuntimeAttributes>
                                         <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBound" value="NO"/>
                                         <userDefinedRuntimeAttribute type="number" keyPath="layer.shadowRadius">
-                                            <integer key="value" value="3"/>
+                                            <integer key="value" value="5"/>
                                         </userDefinedRuntimeAttribute>
                                         <userDefinedRuntimeAttribute type="size" keyPath="layer.shadowOffset">
                                             <size key="value" width="0.0" height="0.0"/>
                                         </userDefinedRuntimeAttribute>
                                         <userDefinedRuntimeAttribute type="number" keyPath="layer.shadowOpacity">
-                                            <real key="value" value="0.14999999999999999"/>
+                                            <real key="value" value="0.29999999999999999"/>
                                         </userDefinedRuntimeAttribute>
                                         <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                                             <integer key="value" value="5"/>
@@ -232,7 +265,7 @@
                             <edgeInsets key="layoutMargins" top="0.0" left="20" bottom="0.0" right="20"/>
                         </stackView>
                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="b8b-ri-unN">
-                            <rect key="frame" x="0.0" y="180" width="393" height="25"/>
+                            <rect key="frame" x="0.0" y="120" width="393" height="25"/>
                             <subviews>
                                 <stackView opaque="NO" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="aev-Rm-9fE">
                                     <rect key="frame" x="20" y="0.0" width="280" height="25"/>
@@ -308,19 +341,32 @@
                             <edgeInsets key="layoutMargins" top="0.0" left="20" bottom="0.0" right="20"/>
                         </stackView>
                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="c6B-TB-VRO">
-                            <rect key="frame" x="0.0" y="225" width="393" height="20"/>
+                            <rect key="frame" x="0.0" y="165" width="393" height="30"/>
                             <subviews>
                                 <stackView opaque="NO" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HZY-GF-HmF">
-                                    <rect key="frame" x="20" y="0.0" width="353" height="20"/>
+                                    <rect key="frame" x="20" y="0.0" width="353" height="30"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Readers on PerfectSelf" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6dY-ib-JUh">
-                                            <rect key="frame" x="0.0" y="0.0" width="303" height="20"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="174" height="30"/>
                                             <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="16"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FEe-D0-8eL">
+                                            <rect key="frame" x="174" y="0.0" width="47.333333333333343" height="30"/>
+                                        </stackView>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="clQ-2B-QJx">
+                                            <rect key="frame" x="221.33333333333334" y="0.0" width="81.666666666666657" height="30"/>
+                                            <state key="normal" title="Button"/>
+                                            <buttonConfiguration key="configuration" style="tinted" title="Filter">
+                                                <imageReference key="image" image="line.3.horizontal.decrease.circle" catalog="system" symbolScale="medium"/>
+                                            </buttonConfiguration>
+                                            <connections>
+                                                <action selector="ShowFilterModal:" destination="-1" eventType="touchUpInside" id="CL9-yZ-ree"/>
+                                            </connections>
+                                        </button>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rmi-DZ-0TZ">
-                                            <rect key="frame" x="303" y="0.0" width="50" height="20"/>
+                                            <rect key="frame" x="303" y="0.0" width="50" height="30"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="50" id="ms6-Bm-R8w"/>
                                             </constraints>
@@ -328,10 +374,17 @@
                                             <buttonConfiguration key="configuration" style="plain" cornerStyle="dynamic">
                                                 <backgroundConfiguration key="background"/>
                                                 <attributedString key="attributedTitle">
-                                                    <fragment content="view all">
+                                                    <fragment content="V">
+                                                        <attributes>
+                                                            <font key="NSFont" size="12" name="Helvetica"/>
+                                                            <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                        </attributes>
+                                                    </fragment>
+                                                    <fragment content="iew all">
                                                         <attributes>
                                                             <font key="NSFont" metaFont="system"/>
                                                             <font key="NSOriginalFont" size="12" name="Helvetica"/>
+                                                            <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                                         </attributes>
                                                     </fragment>
                                                 </attributedString>
@@ -345,15 +398,15 @@
                                 </stackView>
                             </subviews>
                             <constraints>
-                                <constraint firstAttribute="height" constant="20" id="JEi-fV-5RC" customClass="AdaptiveLayoutConstraint" customModule="PerfectSelf" customModuleProvider="target"/>
+                                <constraint firstAttribute="height" constant="30" id="JEi-fV-5RC" customClass="AdaptiveLayoutConstraint" customModule="PerfectSelf" customModuleProvider="target"/>
                             </constraints>
                             <edgeInsets key="layoutMargins" top="0.0" left="20" bottom="0.0" right="20"/>
                         </stackView>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kaT-Gz-mPy">
-                            <rect key="frame" x="0.0" y="265" width="393" height="587"/>
+                            <rect key="frame" x="0.0" y="215" width="393" height="544"/>
                             <subviews>
                                 <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="JU1-QJ-Xxa">
-                                    <rect key="frame" x="0.0" y="0.0" width="393" height="587"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="393" height="544"/>
                                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                     <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="20" minimumInteritemSpacing="10" id="gkZ-Sc-3E3">
                                         <size key="itemSize" width="128" height="128"/>
@@ -363,7 +416,7 @@
                                     </collectionViewFlowLayout>
                                 </collectionView>
                                 <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="TvA-8H-NFz">
-                                    <rect key="frame" x="0.0" y="0.0" width="393" height="587"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="393" height="544"/>
                                 </activityIndicatorView>
                             </subviews>
                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -381,6 +434,11 @@
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <gestureRecognizers/>
+                    <variation key="default">
+                        <mask key="subviews">
+                            <exclude reference="6sl-m5-TQy"/>
+                        </mask>
+                    </variation>
                 </stackView>
             </subviews>
             <viewLayoutGuide key="safeArea" id="lxL-ZG-ziF"/>
@@ -395,10 +453,14 @@
         </view>
     </objects>
     <resources>
-        <image name="bell" catalog="system" width="125" height="128"/>
+        <image name="ellipsis.message.fill" catalog="system" width="128" height="114"/>
         <image name="home_filter" width="44" height="44"/>
+        <image name="line.3.horizontal.decrease.circle" catalog="system" width="128" height="123"/>
         <image name="magnifyingglass" catalog="system" width="128" height="117"/>
         <image name="person.fill" catalog="system" width="128" height="120"/>
+        <namedColor name="AccentColor">
+            <color red="0.0" green="0.46000000000000002" blue="0.89000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

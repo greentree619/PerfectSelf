@@ -9,15 +9,11 @@
 import UIKit
 import DropDown
 
-class ReaderBuildProfileViewController: UIViewController {
+class ReaderBuildProfileViewController: UIViewController, PhotoDelegate {
 
     var id = ""
     var username = ""
-//    var firstname = ""
-//    var lastname = ""
-//    var email = ""
-//    var password = ""
-//    var phonenumber = ""
+    var photoType = 0//0: from lib, 1: from camera
     
     @IBOutlet weak var text_hourly: UITextField!
     @IBOutlet weak var text_gender: UITextField!
@@ -93,7 +89,7 @@ class ReaderBuildProfileViewController: UIViewController {
             return
         }
         showIndicator(sender: sender, viewController: self)
-        webAPI.createReaderProfile(uid: id, title: text_title.text!, gender: text_gender.text!, hourlyrate: rate) { data, response, error in
+        webAPI.updateReaderProfile(uid: id, title: text_title.text!, gender: text_gender.text!, hourlyrate: rate) { data, response, error in
             guard let data = data, error == nil else {
                 print(error?.localizedDescription ?? "No data")
                 return
@@ -121,12 +117,55 @@ class ReaderBuildProfileViewController: UIViewController {
     }
     
     @IBAction func EditUserAvatar(_ sender: UIButton) {
-        let imagePicker = UIImagePickerController()
-        imagePicker.delegate = self
-        imagePicker.sourceType = .photoLibrary
-        present(imagePicker, animated: true, completion: nil)
+        let controller = TakePhotoViewController()
+        controller.modalPresentationStyle = .overFullScreen
+        controller.delegate = self
+        self.present(controller, animated: true)
     }
-    
+    func chooseFromLibrary() {
+        photoType = 0
+        DispatchQueue.main.async {
+            let imagePicker = UIImagePickerController()
+            imagePicker.delegate = self
+            imagePicker.sourceType = .photoLibrary
+            self.present(imagePicker, animated: true, completion: nil)
+        }
+    }
+    func takePhoto() {
+        photoType = 1
+        DispatchQueue.main.async {
+            let imagePicker = UIImagePickerController()
+            imagePicker.delegate = self
+            imagePicker.sourceType = .camera
+            imagePicker.allowsEditing = true
+            self.present(imagePicker, animated: true, completion: nil)
+        }
+    }
+    func removeCurrentPicture() {
+        // call API for remove picture
+        //update user profile
+        webAPI.updateUserAvatar(uid: self.id, bucketName: "", avatarKey: "") { data, response, error in
+            if error == nil {
+                // update local
+                // Retrieve the saved data from UserDefaults
+                if var userInfo = UserDefaults.standard.object(forKey: "USER") as? [String:Any] {
+                    // Use the saved data
+                    userInfo["avatarBucketName"] = ""
+                    userInfo["avatarKey"] = ""
+                    UserDefaults.standard.removeObject(forKey: "USER")
+                    UserDefaults.standard.set(userInfo, forKey: "USER")
+                    print(userInfo)
+                    DispatchQueue.main.async {
+                        self.img_avatar.image = UIImage(systemName: "person.circle.fill")
+                    }
+                    
+                } else {
+                    // No data was saved
+                    print("No data was saved.")
+                }
+            }
+        }
+    }
     @IBAction func Later(_ sender: UIButton) {
         let controller = ReaderTabBarController()
         controller.modalPresentationStyle = .fullScreen
@@ -150,22 +189,37 @@ extension ReaderBuildProfileViewController: UIImagePickerControllerDelegate & UI
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         
         DispatchQueue.global(qos: .userInitiated).async {
-            let awsUpload = AWSMultipartUpload()
+            //Omitted let awsUpload = AWSMultipartUpload()
             DispatchQueue.main.async {
                 showIndicator(sender: nil, viewController: self, color:UIColor.white)
-                Toast.show(message: "Start to upload record files", controller: self)
+//                Toast.show(message: "Start to upload record files", controller: self)
             }
             
-            //Upload audio at first
-            guard info[.originalImage] is UIImage else {
-                //dismiss(animated: true, completion: nil)
-                return
-            }
-                    
             // Get the URL of the selected image
             var avatarUrl: URL? = nil
-            if let imageUrl = info[.imageURL] as? URL {
-                avatarUrl = imageUrl
+            //Upload audio at first
+            guard let image = (self.photoType == 0 ? info[.originalImage] : info[.editedImage]) as? UIImage else {
+                //dismiss(animated: true, completion: nil)
+                DispatchQueue.main.async {
+                    hideIndicator(sender: nil)
+                }
+                return
+            }
+            // save to local and get URL
+            if self.photoType == 1 {
+                let imgName = UUID().uuidString
+                let documentDirectory = NSTemporaryDirectory()
+                let localPath = documentDirectory.appending(imgName)
+
+                let data = image.jpegData(compressionQuality: 0.3)! as NSData
+                data.write(toFile: localPath, atomically: true)
+                avatarUrl = URL.init(fileURLWithPath: localPath)
+            }
+            else {
+                avatarUrl = info[.imageURL] as? URL
+            }
+            
+            if avatarUrl != nil {
                 //Then Upload image
                 awsUpload.uploadImage(filePath: avatarUrl!, bucketName: "perfectself-avatar-bucket", prefix: self.id) { (error: Error?) -> Void in
                     if(error == nil)
@@ -177,7 +231,7 @@ extension ReaderBuildProfileViewController: UIImagePickerControllerDelegate & UI
                             let url = "https://perfectself-avatar-bucket.s3.us-east-2.amazonaws.com/\(self.id)/\(String(describing: avatarUrl!.lastPathComponent))"
                             self.img_avatar.imageFrom(url: URL(string: url)!)
                             //update user profile
-                            webAPI.updateUserAvatar(uid: self.id, bucketName: self.id, avatarKey: String(describing: avatarUrl!.lastPathComponent)) { data, response, error in
+                            webAPI.updateUserAvatar(uid: self.id, bucketName: "perfectself-avatar-bucket", avatarKey: "\(self.id)/\(avatarUrl!.lastPathComponent)") { data, response, error in
                                 if error == nil {
                                     // successfully update db
                                     print("update db completed")

@@ -11,6 +11,7 @@ import UIKit
 class ActorProfileViewController: UIViewController {
 
     var id = ""
+
     @IBOutlet weak var lbl_fullname: UILabel!
     @IBOutlet weak var lbl_username: UILabel!
     @IBOutlet weak var lbl_email: UILabel!
@@ -19,6 +20,10 @@ class ActorProfileViewController: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
         // Retrieve the saved data from UserDefaults
         if let userInfo = UserDefaults.standard.object(forKey: "USER") as? [String:Any] {
             // Use the saved data
@@ -32,7 +37,7 @@ class ActorProfileViewController: UIViewController {
             let avatarKey = userInfo["avatarKey"] as? String
             
             if (bucketName != nil && avatarKey != nil) {
-                let url = "https://perfectself-avatar-bucket.s3.us-east-2.amazonaws.com/\( bucketName!)/\(avatarKey!)"
+                let url = "https://\( bucketName!).s3.us-east-2.amazonaws.com/\(avatarKey!)"
                 img_user_avatar.imageFrom(url: URL(string: url)!)
             }
             lbl_fullname.text = (fname ?? "") + " " + (lname ?? "")
@@ -43,26 +48,21 @@ class ActorProfileViewController: UIViewController {
             print("No data was saved.")
         }
     }
-
-    @IBAction func UploadImage(_ sender: UIButton) {
-        let imagePicker = UIImagePickerController()
-        imagePicker.delegate = self
-        imagePicker.sourceType = .photoLibrary
-        present(imagePicker, animated: true, completion: nil)
-    }
-    @IBAction func EditProfile(_ sender: UIButton) {
+   
+    @IBAction func EditProfile(_ sender: UITapGestureRecognizer) {
         let controller = ActorProfileEditViewController()
+        controller.id = id
         controller.modalPresentationStyle = .fullScreen
        
-        let transition = CATransition()
-        transition.duration = 0.5 // Set animation duration
-        transition.type = CATransitionType.push // Set transition type to push
-        transition.subtype = CATransitionSubtype.fromRight // Set transition subtype to from right
-        self.view.window?.layer.add(transition, forKey: kCATransition) // Add transition to window layer
+//        let transition = CATransition()
+//        transition.duration = 0.5 // Set animation duration
+//        transition.type = CATransitionType.push // Set transition type to push
+//        transition.subtype = CATransitionSubtype.fromRight // Set transition subtype to from right
+//        self.view.window?.layer.add(transition, forKey: kCATransition) // Add transition to window layer
         self.present(controller, animated: false)
     }
     
-    @IBAction func ChangePassword(_ sender: UIButton) {
+    @IBAction func ChangePassword(_ sender: UITapGestureRecognizer) {
         let controller = ActorProfileChangePasswordViewController()
         controller.modalPresentationStyle = .fullScreen
         let transition = CATransition()
@@ -74,14 +74,16 @@ class ActorProfileViewController: UIViewController {
         
     }
     
-    @IBAction func LogOut(_ sender: UIButton) {
+    @IBAction func LogOut(_ sender: UITapGestureRecognizer) {
         // Optional: Dismiss the tab bar controller
-        let transition = CATransition()
-        transition.duration = 0.5 // Set animation duration
-        transition.type = CATransitionType.push // Set transition type to push
-        transition.subtype = CATransitionSubtype.fromLeft // Set transition subtype to from right
-        self.view.window?.layer.add(transition, forKey: kCATransition) // Add transition to window layer
-        self.dismiss(animated: false, completion: nil)
+        // Delete localstorage
+        UserDefaults.standard.removeObject(forKey: "USER")
+        UserDefaults.standard.removeObject(forKey: "USER_EMAIL")
+        UserDefaults.standard.removeObject(forKey: "USER_PWD")
+        
+        let controller = LoginViewController()
+        controller.modalPresentationStyle = .fullScreen
+        self.present(controller, animated: false)
     }
     /*
     // MARK: - Navigation
@@ -95,63 +97,4 @@ class ActorProfileViewController: UIViewController {
 
 }
 
-/// Mark:https://perfectself-avatar-bucket.s3.us-east-2.amazonaws.com/{room-id-000-00}/{647730C6-5E86-483A-859E-5FBF05767018.jpeg}
-extension ActorProfileViewController: UIImagePickerControllerDelegate & UINavigationControllerDelegate  {
-    
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        
-        DispatchQueue.global(qos: .userInitiated).async {
-            let awsUpload = AWSMultipartUpload()
-            DispatchQueue.main.async {
-                showIndicator(sender: nil, viewController: self, color:UIColor.white)
-                Toast.show(message: "Start to upload record files", controller: self)
-            }
-            
-            //Upload audio at first
-            guard info[.originalImage] is UIImage else {
-                //dismiss(animated: true, completion: nil)
-                return
-            }
-                    
-            // Get the URL of the selected image
-            var avatarUrl: URL? = nil
-            if let imageUrl = info[.imageURL] as? URL {
-                avatarUrl = imageUrl
-                //Then Upload image
-                awsUpload.uploadImage(filePath: avatarUrl!, bucketName: "perfectself-avatar-bucket", prefix: self.id) { (error: Error?) -> Void in
-                    if(error == nil)
-                    {
-                        DispatchQueue.main.async {
-                            hideIndicator(sender: nil)
-                            Toast.show(message: "Avatar Image upload completed.", controller: self)
-                            // update avatar
-                            let url = "https://perfectself-avatar-bucket.s3.us-east-2.amazonaws.com/\(self.id)/\(String(describing: avatarUrl!.lastPathComponent))"
-                            self.img_user_avatar.imageFrom(url: URL(string: url)!)
-                            //update user profile
-                            webAPI.updateUserAvatar(uid: self.id, bucketName: self.id, avatarKey: String(describing: avatarUrl!.lastPathComponent)) { data, response, error in
-                                if error == nil {
-                                    // successfully update db
-                                    print("update db completed")
-                                }
-                            }
-                            
-                        }
-                    }
-                    else
-                    {
-                        DispatchQueue.main.async {
-                            hideIndicator(sender: nil)
-                            Toast.show(message: "Failed to upload avatar image, Try again later!", controller: self)
-                        }
-                    }
-                }
-            }
-        }//DispatchQueue.global
-        
-        dismiss(animated: true, completion: nil)
-    }
-    
-    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-        dismiss(animated: true, completion: nil)
-    }
-}
+

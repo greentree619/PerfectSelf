@@ -21,6 +21,9 @@ class BookingCollectionViewCell: UICollectionViewCell {
     
     public var muid: String!
     public var review: String?
+    public var script: String = ""
+    public var scriptBucketName: String = ""
+    public var scriptKey: String = ""
     public var bookType:Int = 1
     public var id: Int!
     public var readerType:String = "" // 0
@@ -35,6 +38,8 @@ class BookingCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var btn_sendmsg: UIButton!
     @IBOutlet weak var btn_reschedule: UIButton!
     @IBOutlet weak var btn_joinmeeting: UIButton!
+    
+    @IBOutlet weak var view_btngroup: UIStackView!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -80,14 +85,16 @@ class BookingCollectionViewCell: UICollectionViewCell {
         }
         else if readerType == "reader" {
             if bookType == 0 {//past
-                btn_joinmeeting.isHidden = true
-                btn_reschedule.isHidden = true
-                btn_sendmsg.isHidden = true
-                btn_cancel.isHidden = true
-                btn_rate.isHidden = true
-                btn_accept.isHidden = true
+//                btn_joinmeeting.isHidden = true
+//                btn_reschedule.isHidden = true
+//                btn_sendmsg.isHidden = true
+//                btn_cancel.isHidden = true
+//                btn_rate.isHidden = true
+//                btn_accept.isHidden = true
+                view_btngroup.isHidden = true
             }
             else if bookType == 1 {//upcoming
+                view_btngroup.isHidden = false
                 btn_joinmeeting.isHidden = false
                 btn_reschedule.isHidden = true
                 btn_sendmsg.isHidden = false
@@ -96,6 +103,7 @@ class BookingCollectionViewCell: UICollectionViewCell {
                 btn_accept.isHidden = true
             }
             else if bookType == 2 {//pending
+                view_btngroup.isHidden = false
                 btn_joinmeeting.isHidden = true
                 btn_reschedule.isHidden = true
                 btn_sendmsg.isHidden = false
@@ -134,16 +142,31 @@ class BookingCollectionViewCell: UICollectionViewCell {
         btn_rate.isHidden = false
         btn_rate.isEnabled = true
         btn_accept.isHidden = false
+        view_btngroup.isHidden = false
      }
+    @IBAction func ViewScript(_ sender: UIButton) {
+        let controller = ScriptViewController()
+        controller.modalPresentationStyle = .fullScreen
+        controller.script = script
+        controller.scriptBucketName = scriptBucketName
+        controller.scriptKey = scriptKey
+//
+//        let transition = CATransition()
+//        transition.duration = 0.5 // Set animation duration
+//        transition.type = CATransitionType.push // Set transition type to push
+//        transition.subtype = CATransitionSubtype.fromRight // Set transition subtype to from right
+//        self.parentViewController!.view.window?.layer.add(transition, forKey: kCATransition) // Add transition to window layer
+        self.parentViewController!.present(controller, animated: false)
+    }
     @IBAction func JoinMeeting(_ sender: UIButton) {
         let conferenceViewController = ConferenceViewController(roomUid: self.roomUid!)
         conferenceViewController.modalPresentationStyle = .fullScreen
         
-        let transition = CATransition()
-        transition.duration = 0.5 // Set animation duration
-        transition.type = CATransitionType.push // Set transition type to push
-        transition.subtype = CATransitionSubtype.fromRight // Set transition subtype to from right
-        self.parentViewController!.view.window?.layer.add(transition, forKey: kCATransition) // Add transition to window layer
+//        let transition = CATransition()
+//        transition.duration = 0.5 // Set animation duration
+//        transition.type = CATransitionType.push // Set transition type to push
+//        transition.subtype = CATransitionSubtype.fromRight // Set transition subtype to from right
+//        self.parentViewController!.view.window?.layer.add(transition, forKey: kCATransition) // Add transition to window layer
         self.parentViewController!.present(conferenceViewController, animated: false)
     }
     
@@ -164,11 +187,11 @@ class BookingCollectionViewCell: UICollectionViewCell {
                 DispatchQueue.main.async {
                     let controller = ChatViewController(roomUid: res.roomUid, url: self.url, name: self.name, uid: self.uid)
                     controller.modalPresentationStyle = .fullScreen
-                    let transition = CATransition()
-                    transition.duration = 0.5 // Set animation duration
-                    transition.type = CATransitionType.push // Set transition type to push
-                    transition.subtype = CATransitionSubtype.fromRight // Set transition subtype to from right
-                    self.parentViewController!.view.window?.layer.add(transition, forKey: kCATransition) // Add transition to window layer
+//                    let transition = CATransition()
+//                    transition.duration = 0.5 // Set animation duration
+//                    transition.type = CATransitionType.push // Set transition type to push
+//                    transition.subtype = CATransitionSubtype.fromRight // Set transition subtype to from right
+//                    self.parentViewController!.view.window?.layer.add(transition, forKey: kCATransition) // Add transition to window layer
                     self.parentViewController!.present(controller, animated: false)
                 }
             } catch {
@@ -208,11 +231,11 @@ class BookingCollectionViewCell: UICollectionViewCell {
         let controller = ActorResheduleViewController()
         controller.bookId = id
         controller.modalPresentationStyle = .fullScreen
-        let transition = CATransition()
-        transition.duration = 0.5 // Set animation duration
-        transition.type = CATransitionType.push // Set transition type to push
-        transition.subtype = CATransitionSubtype.fromRight // Set transition subtype to from right
-        self.parentViewController!.view.window?.layer.add(transition, forKey: kCATransition) // Add transition to window layer
+//        let transition = CATransition()
+//        transition.duration = 0.5 // Set animation duration
+//        transition.type = CATransitionType.push // Set transition type to push
+//        transition.subtype = CATransitionSubtype.fromRight // Set transition subtype to from right
+//        self.parentViewController!.view.window?.layer.add(transition, forKey: kCATransition) // Add transition to window layer
         self.parentViewController!.present(controller, animated: false)
     }
     

@@ -114,20 +114,31 @@ class SignupViewController: UIViewController {
         }
         
         let controller = SignupDetailViewController();
+        controller.modalPresentationStyle = .fullScreen
         controller.email = text_email.text!
         controller.phoneNumber = text_phonenumber.text!
         controller.password = text_password.text!
         
-        self.navigationController?.pushViewController(controller, animated: true);
+        let transition = CATransition()
+        transition.duration = 0.5 // Set animation duration
+        transition.type = CATransitionType.push // Set transition type to push
+        transition.subtype = CATransitionSubtype.fromRight // Set transition subtype to from right
+        self.view.window?.layer.add(transition, forKey: kCATransition) // Add transition to window layer
+        self.present(controller, animated: false)
     }
     
     @IBAction func SignIn(_ sender: UIButton) {
         let controller = LoginDetailViewController();
-        
-        self.navigationController?.pushViewController(controller, animated: true);
+        controller.modalPresentationStyle = .fullScreen
+        self.present(controller, animated: false)
     }
     @IBAction func GoBack(_ sender: UIButton) {
-        self.navigationController?.popViewController(animated: true)
+        let transition = CATransition()
+        transition.duration = 0.5 // Set animation duration
+        transition.type = CATransitionType.push // Set transition type to push
+        transition.subtype = CATransitionSubtype.fromLeft // Set transition subtype to from right
+        self.view.window?.layer.add(transition, forKey: kCATransition) // Add transition to window layer
+        self.dismiss(animated: false)
     }
     /*
     // MARK: - Navigation

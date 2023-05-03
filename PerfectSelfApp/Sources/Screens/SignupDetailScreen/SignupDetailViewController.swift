@@ -101,10 +101,14 @@ class SignupDetailViewController: UIViewController {
                         UserDefaults.standard.set(String(self.email), forKey: "USER_EMAIL")
                         UserDefaults.standard.set(String(self.password), forKey: "USER_PWD")
                         
-                        //}}REFME
-                        
                         let controller = ActorBuildProfile1ViewController()
-                        self.navigationController?.pushViewController(controller, animated: true);
+                        controller.modalPresentationStyle = .fullScreen
+                        let transition = CATransition()
+                        transition.duration = 0.5 // Set animation duration
+                        transition.type = CATransitionType.push // Set transition type to push
+                        transition.subtype = CATransitionSubtype.fromRight // Set transition subtype to from right
+                        self.view.window?.layer.add(transition, forKey: kCATransition) // Add transition to window layer
+                        self.present(controller, animated: false)
                     }
                 }
                 else
@@ -151,9 +155,16 @@ class SignupDetailViewController: UIViewController {
                         //}}REFME
                         
                         let controller = ReaderBuildProfileViewController()
+                        controller.modalPresentationStyle = .fullScreen
                         controller.id = responseJSON["uid"] as! String
                         controller.username = self.txtUserName.text!
-                        self.navigationController?.pushViewController(controller, animated: true);
+                        
+                        let transition = CATransition()
+                        transition.duration = 0.5 // Set animation duration
+                        transition.type = CATransitionType.push // Set transition type to push
+                        transition.subtype = CATransitionSubtype.fromRight // Set transition subtype to from right
+                        self.view.window?.layer.add(transition, forKey: kCATransition) // Add transition to window layer
+                        self.present(controller, animated: false)
                     }
                 }
                 else

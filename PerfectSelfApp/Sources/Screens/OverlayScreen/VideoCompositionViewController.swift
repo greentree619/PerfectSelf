@@ -46,6 +46,7 @@ class VideoCompositionViewController: UIViewController {
     }
 
     @IBAction func btnBackClicked(_ sender: Any?) {
+        isPlaying = false
         self.dismiss(animated: false)
     }
 

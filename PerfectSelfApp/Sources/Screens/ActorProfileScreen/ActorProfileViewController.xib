@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21225" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_0" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21207"/>
-        <capability name="Image references" minToolsVersion="12.0"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -36,9 +35,14 @@
                                         <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JYm-J3-fD0">
                                             <rect key="frame" x="12" y="8" width="84" height="84"/>
                                             <subviews>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="person.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="o39-ye-nP1">
-                                                    <rect key="frame" x="0.0" y="2" width="84" height="80.666666666666671"/>
-                                                    <color key="backgroundColor" red="0.66666666669999997" green="0.66666666669999997" blue="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="person.circle.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="o39-ye-nP1">
+                                                    <rect key="frame" x="0.0" y="1" width="84" height="82.666666666666671"/>
+                                                    <color key="backgroundColor" systemColor="systemGray5Color"/>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                            <real key="value" value="40.5"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                    </userDefinedRuntimeAttributes>
                                                 </imageView>
                                             </subviews>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -49,46 +53,12 @@
                                                 <constraint firstItem="o39-ye-nP1" firstAttribute="top" secondItem="JYm-J3-fD0" secondAttribute="top" id="grw-C0-jxU"/>
                                                 <constraint firstItem="o39-ye-nP1" firstAttribute="leading" secondItem="JYm-J3-fD0" secondAttribute="leading" id="ok8-z7-yXU"/>
                                             </constraints>
-                                            <userDefinedRuntimeAttributes>
-                                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                    <real key="value" value="12"/>
-                                                </userDefinedRuntimeAttribute>
-                                            </userDefinedRuntimeAttributes>
                                         </view>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zcT-Yc-xGq">
-                                            <rect key="frame" x="83" y="75" width="25" height="25"/>
-                                            <constraints>
-                                                <constraint firstAttribute="width" constant="25" id="4rp-P8-R6J" customClass="AdaptiveLayoutConstraint" customModule="PerfectSelf" customModuleProvider="target"/>
-                                                <constraint firstAttribute="height" constant="25" id="86g-xL-GOJ" customClass="AdaptiveLayoutConstraint" customModule="PerfectSelf" customModuleProvider="target"/>
-                                            </constraints>
-                                            <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                            <inset key="contentEdgeInsets" minX="5" minY="5" maxX="5" maxY="5"/>
-                                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                            <state key="normal">
-                                                <imageReference key="image" image="camera" catalog="system" symbolScale="small"/>
-                                            </state>
-                                            <userDefinedRuntimeAttributes>
-                                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                    <real key="value" value="15"/>
-                                                </userDefinedRuntimeAttribute>
-                                                <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                                    <color key="value" red="0.77647058820000003" green="0.77647058820000003" blue="0.77647058820000003" alpha="1" colorSpace="calibratedRGB"/>
-                                                </userDefinedRuntimeAttribute>
-                                                <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
-                                                    <real key="value" value="1"/>
-                                                </userDefinedRuntimeAttribute>
-                                            </userDefinedRuntimeAttributes>
-                                            <connections>
-                                                <action selector="UploadImage:" destination="-1" eventType="touchUpInside" id="kdL-7d-ytJ"/>
-                                            </connections>
-                                        </button>
                                     </subviews>
                                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                     <constraints>
-                                        <constraint firstAttribute="bottom" secondItem="zcT-Yc-xGq" secondAttribute="bottom" id="55A-wZ-a4H"/>
                                         <constraint firstAttribute="width" constant="108" id="L3g-i3-vxb" customClass="AdaptiveLayoutConstraint" customModule="PerfectSelf" customModuleProvider="target"/>
                                         <constraint firstAttribute="bottom" secondItem="JYm-J3-fD0" secondAttribute="bottom" constant="8" id="PKQ-Ig-z5s"/>
-                                        <constraint firstAttribute="trailing" secondItem="zcT-Yc-xGq" secondAttribute="trailing" id="Riu-lv-ewX"/>
                                         <constraint firstItem="JYm-J3-fD0" firstAttribute="top" secondItem="CCK-6E-bAv" secondAttribute="top" constant="8" id="VEz-98-dbe"/>
                                         <constraint firstItem="JYm-J3-fD0" firstAttribute="leading" secondItem="CCK-6E-bAv" secondAttribute="leading" constant="12" id="f8a-Xj-LV2"/>
                                         <constraint firstAttribute="trailing" secondItem="JYm-J3-fD0" secondAttribute="trailing" constant="12" id="mgu-dA-GXv"/>
@@ -156,14 +126,15 @@
                                                     <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                     <state key="normal" image="chevron.right" catalog="system"/>
-                                                    <connections>
-                                                        <action selector="EditProfile:" destination="-1" eventType="touchUpInside" id="NmQ-5g-MN7"/>
-                                                    </connections>
                                                 </button>
                                             </subviews>
+                                            <gestureRecognizers/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="25" id="kIf-Ct-nw9"/>
                                             </constraints>
+                                            <connections>
+                                                <outletCollection property="gestureRecognizers" destination="43i-3C-lLr" appends="YES" id="gUF-af-Uii"/>
+                                            </connections>
                                         </stackView>
                                         <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="89Q-3t-ceO">
                                             <rect key="frame" x="0.0" y="66" width="350" height="25"/>
@@ -189,14 +160,15 @@
                                                     <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                     <state key="normal" image="chevron.right" catalog="system"/>
-                                                    <connections>
-                                                        <action selector="ChangePassword:" destination="-1" eventType="touchUpInside" id="Mt8-S5-fPX"/>
-                                                    </connections>
                                                 </button>
                                             </subviews>
+                                            <gestureRecognizers/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="25" id="sYg-gW-Mdy"/>
                                             </constraints>
+                                            <connections>
+                                                <outletCollection property="gestureRecognizers" destination="j6g-GG-WwP" appends="YES" id="IqH-dy-0wE"/>
+                                            </connections>
                                         </stackView>
                                     </subviews>
                                 </stackView>
@@ -254,14 +226,15 @@
                                                     <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                     <state key="normal" image="chevron.right" catalog="system"/>
-                                                    <connections>
-                                                        <action selector="LogOut:" destination="-1" eventType="touchUpInside" id="MgB-ug-Eig"/>
-                                                    </connections>
                                                 </button>
                                             </subviews>
+                                            <gestureRecognizers/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="25" id="JKU-W4-rHM"/>
                                             </constraints>
+                                            <connections>
+                                                <outletCollection property="gestureRecognizers" destination="8R7-ew-R6C" appends="YES" id="wSs-rW-oIf"/>
+                                            </connections>
                                         </stackView>
                                     </subviews>
                                 </stackView>
@@ -284,21 +257,38 @@
             </constraints>
             <point key="canvasLocation" x="138" y="21"/>
         </view>
+        <tapGestureRecognizer id="43i-3C-lLr">
+            <connections>
+                <action selector="EditProfile:" destination="-1" id="EkN-ws-PC4"/>
+            </connections>
+        </tapGestureRecognizer>
+        <tapGestureRecognizer id="j6g-GG-WwP">
+            <connections>
+                <action selector="ChangePassword:" destination="-1" id="dB3-l7-NTT"/>
+            </connections>
+        </tapGestureRecognizer>
+        <tapGestureRecognizer id="8R7-ew-R6C">
+            <connections>
+                <action selector="LogOut:" destination="-1" id="Xqk-fV-os1"/>
+            </connections>
+        </tapGestureRecognizer>
     </objects>
     <resources>
-        <image name="camera" catalog="system" width="128" height="93"/>
         <image name="chevron.right" catalog="system" width="97" height="128"/>
         <image name="filter_divide" width="334" height="1"/>
         <image name="lock" catalog="system" width="125" height="128"/>
         <image name="notify" width="17" height="21"/>
         <image name="person.and.arrow.left.and.arrow.right" catalog="system" width="128" height="89"/>
-        <image name="person.fill" catalog="system" width="128" height="120"/>
+        <image name="person.circle.fill" catalog="system" width="128" height="123"/>
         <image name="rectangle.portrait.and.arrow.right" catalog="system" width="128" height="109"/>
         <systemColor name="labelColor">
             <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemGray5Color">
+            <color red="0.89803921568627454" green="0.89803921568627454" blue="0.91764705882352937" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemRedColor">
             <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

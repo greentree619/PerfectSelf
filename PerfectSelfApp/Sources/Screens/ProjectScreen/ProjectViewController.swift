@@ -15,95 +15,137 @@ class ProjectViewController: UIViewController {
     @IBOutlet weak var playerBar: UISlider!
     @IBOutlet var startTime: UILabel!
     @IBOutlet var endTime: UILabel!
-    
-    var savedFileUrl: URL? = nil
+    @IBOutlet weak var playButton: UIButton!
+        
+    var savedVideoUrl: URL? = nil
+    var savedAudioUrl: URL? = nil
     @IBOutlet weak var playerView: PlayerView!
+    //Omitted let awsUpload = AWSMultipartUpload()
+    
+    private var isOnPlay: Bool = true {
+        didSet {
+            DispatchQueue.main.async {
+                if self.isOnPlay
+                {
+                    self.playButton.setBackgroundImage( UIImage(named: "pause.circle")!.withRenderingMode(.alwaysTemplate), for: UIControl.State.normal)
+                    self.playButton.tintColor = UIColor.white
+                    self.playButton.imageView?.tintColor = UIColor.white
+                    self.playerView.play()
+                }
+                else
+                {
+                    self.playButton.setBackgroundImage( UIImage(named: "play.circle")!.withRenderingMode(.alwaysTemplate), for: UIControl.State.normal)
+                    self.playButton.tintColor = UIColor.white
+                    self.playButton.imageView?.tintColor = UIColor.white
+                    self.playerView.pause()
+                }
+            }
+        }
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+    }
+    
+    override func viewWillDisappear(_ animated: Bool){
+        isOnPlay = false
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.playerView.delegate = self
         
-        var downloadImageURL: NSString = "https://\(selectedTape!.bucketName).s3.us-east-2.amazonaws.com/\(selectedTape!.tapeKey).mp4" as NSString
+        let documentsPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0];
+        let filePath = URL(fileURLWithPath: "\(documentsPath)/tempFile.mp4")
+        do {
+            try FileManager.default.removeItem(at: filePath)
+            //print("File deleted successfully")
+        } catch {
+            //print("Error deleting file: \(error.localizedDescription)")
+        }
         
-        downloadImageURL = downloadImageURL.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)! as NSString
-        
-        let requestURL: NSURL = NSURL(string: downloadImageURL as String)!
-        
-        let request = URLRequest(url: requestURL as URL, cachePolicy: .useProtocolCachePolicy, timeoutInterval: 10.0)
-        let config = URLSessionConfiguration.default
-        let session = URLSession(configuration: config)
-        let task = session.dataTask(with: request, completionHandler: {(data, response, error) in
-            DispatchQueue.main.async {
-                hideIndicator(sender: nil)
+        //Omitted showIndicator(sender: nil, viewController: self, color:UIColor.white)
+        awsUpload.download(filePath: filePath, bucketName: selectedTape!.bucketName, key: "\(selectedTape!.tapeKey).mp4") { (error) -> Void in
+            if error != nil {
+                 //print(error!.localizedDescription)
+                self.savedVideoUrl = nil
+                DispatchQueue.main.async {
+                    hideIndicator(sender: nil)
+                    Toast.show(message: "Faild to download video from library", controller: self)
+                }
             }
-            
-             if error != nil {
-                  //print(error!.localizedDescription)
-                 DispatchQueue.main.async {
-                     Toast.show(message: "Faild to download tape from library", controller: self)
-                 }
-             }
-             else {
-                 //print(response)//print(response ?? default "")
-                 let documentsPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0];
-                 let filePath = URL(fileURLWithPath: "\(documentsPath)/tempFile.mp4")
-                 DispatchQueue.main.async {
-                     do{
-                         try data!.write(to: filePath)
-                         self.savedFileUrl = filePath
-                         self.playerView.url = filePath
-                         
-//                         PHPhotoLibrary.shared().performChanges({
-//                             PHAssetChangeRequest.creationRequestForAssetFromVideo(atFileURL: filePath)
-//                         }) { completed, error in
-//                             if completed {
-//                                 //print("Video is saved!")
-//                                 DispatchQueue.main.async {
-//                                     Toast.show(message: "Video is saved!", controller: self)
-//                                 }
-//                             }
-//                         }
-                     }
-                     catch{
-                         print("error: \(error)")
-                     }
-                 }
-             }
-         })
+            else{
+                self.savedVideoUrl = filePath
+                self.playerView.url = filePath
+                
+                //Download audio file
+                let filePath = URL(fileURLWithPath: "\(documentsPath)/tempFile.m4a")
+                do {
+                    try FileManager.default.removeItem(at: filePath)
+                    //print("File deleted successfully")
+                } catch {
+                    //print("Error deleting file: \(error.localizedDescription)")
+                }
+                
+                awsUpload.download(filePath: filePath, bucketName: selectedTape!.bucketName, key: "\(selectedTape!.tapeKey).m4a") { (error) -> Void in
+                    DispatchQueue.main.async {
+                        hideIndicator(sender: nil)
+                        self.playerView.play()
+                    }
+                    
+                    if error != nil {
+                         //print(error!.localizedDescription)
+                        self.savedAudioUrl = nil
+                        DispatchQueue.main.async {
+                            Toast.show(message: "Faild to download audio from library", controller: self)
+                        }
+                    }
+                    else{
+                        self.savedAudioUrl = filePath
+                    }
+                }
+            }
+        }
         
         DispatchQueue.main.async {
             showIndicator(sender: nil, viewController: self, color:UIColor.white)
-            task.resume()
         }
     }
     
     @IBAction func backDidTapped(_ sender: UIButton) {
+        isOnPlay = false
         self.dismiss(animated: false)
     }
     
     @IBAction func recordNewTakeDidTapped(_ sender: UIButton) {
-        guard self.savedFileUrl != nil else{
+        guard self.savedVideoUrl != nil else{
             return
         }
+        isOnPlay = false
         
         let overlayViewController = OverlayViewController()
-        overlayViewController.uploadVideourl = self.savedFileUrl
+        overlayViewController.uploadVideourl = self.savedVideoUrl
+        overlayViewController.uploadAudiourl = self.savedAudioUrl
         overlayViewController.modalPresentationStyle = .fullScreen
         self.present(overlayViewController, animated: false, completion: nil)
     }
     
     @IBAction func editDidTapped(_ sender: UIButton) {
-        guard self.savedFileUrl != nil else{
+        guard self.savedVideoUrl != nil else{
             return
         }
         
-        let editReadViewController = EditReadViewController(videoRrl: self.savedFileUrl!)
+        isOnPlay = false
+        let editReadViewController = EditReadViewController(videoUrl: self.savedVideoUrl!, audioUrl: self.savedAudioUrl!)
         editReadViewController.modalPresentationStyle = .fullScreen
         self.present(editReadViewController, animated: false, completion: nil)
     }
     
     @IBAction func sliderValueChanged(_ sender: Any) {
         playerView.currentTime = Double( playerBar.value )
+    }
+    
+    @IBAction func playDidTapped(_ sender: UIButton) {
+        self.isOnPlay = !self.isOnPlay
     }
     
     
@@ -149,6 +191,6 @@ extension ProjectViewController: PlayerViewDelegate{
     }
     
     func playerVideoDidEnd(player: PlayerView) {
-        
+        isOnPlay = false
     }
 }

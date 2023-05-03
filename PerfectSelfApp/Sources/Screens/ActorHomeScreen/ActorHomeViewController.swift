@@ -11,19 +11,21 @@ import RangeSeekSlider
 
 class ActorHomeViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UITextFieldDelegate
 {
-    @IBOutlet weak var searchField: UITextField!
+//    @IBOutlet weak var searchField: UITextField!
     @IBOutlet weak var readerList: UICollectionView!
     
     @IBOutlet weak var spin: UIActivityIndicatorView!
     @IBOutlet weak var readerListFlow: UICollectionViewFlowLayout!
     @IBOutlet weak var greetingLabel: UILabel!
+    
+    @IBOutlet weak var unread_badge: UIView!
     @IBOutlet weak var img_actor_avatar: UIImageView!
     
     @IBOutlet weak var btn_sponsored: UIButton!
     @IBOutlet weak var btn_availablesoon: UIButton!
     @IBOutlet weak var btn_topRate: UIButton!
     let backgroundView = UIView()
-    
+    var uid: String!
     var isSponsored = true
     var isAvailableSoon = false
     var isTopRated = false
@@ -42,34 +44,56 @@ class ActorHomeViewController: UIViewController, UICollectionViewDataSource, UIC
         readerList.delegate = self
         readerList.allowsSelection = true
         // Do any additional setup after loading the view.
-        
+      
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
         // Retrieve the saved data from UserDefaults
         if let userInfo = UserDefaults.standard.object(forKey: "USER") as? [String:Any] {
             // Use the saved data
-            let name = userInfo["userName"] as? String
+            let name = userInfo["firstName"] as? String
+            uid = userInfo["uid"] as? String
             let bucketName = userInfo["avatarBucketName"] as? String
             let avatarKey = userInfo["avatarKey"] as? String
             greetingLabel.text = "Hi, " + (name ?? "User")
             if (bucketName != nil && avatarKey != nil) {
-                let url = "https://perfectself-avatar-bucket.s3.us-east-2.amazonaws.com/\( bucketName!)/\(avatarKey!)"
+                let url = "https://\( bucketName!).s3.us-east-2.amazonaws.com/\(avatarKey!)"
                 img_actor_avatar.imageFrom(url: URL(string: url)!)
             }
         } else {
             // No data was saved
             print("No data was saved.")
         }
-      
-    }
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(true)
-        
         fetchReaderList()
         //call API for badge appear
+        fetchUnreadState()
     }
     
-    @IBAction func didSearchStringChanged(_ sender: UITextField) {
-        searchString = sender.text ?? ""
-        fetchReaderList()
+//    @IBAction func didSearchStringChanged(_ sender: UITextField) {
+//        searchString = sender.text ?? ""
+//        fetchReaderList()
+//    }
+    func fetchUnreadState() {
+        //call API for badge appear
+        webAPI.getUnreadCountByUid(uid: uid) { data, response, error in
+            guard let data = data, error == nil else {
+                print(error?.localizedDescription ?? "No data")
+                return
+            }
+            do {
+                let res = try JSONDecoder().decode(UnreadState.self, from: data)
+                //print(items)
+                DispatchQueue.main.async {
+                    self.unread_badge.isHidden = res.unreadCount == 0
+                }
+            }
+            catch {
+                print(error)
+                DispatchQueue.main.async {
+                    Toast.show(message: "Fetching badge state failed! please try again.", controller: self)
+                }
+            }
+        }
     }
     func fetchReaderList() {
         spin.isHidden = false
@@ -88,7 +112,7 @@ class ActorHomeViewController: UIViewController, UICollectionViewDataSource, UIC
             do {
                
                 let respItems = try JSONDecoder().decode([ReaderProfileCard].self, from: data)
-                //print(items)
+//                print(respItems)
                 DispatchQueue.main.async {
                     self.items.removeAll()
                     self.items.append(contentsOf: respItems)
@@ -125,7 +149,7 @@ class ActorHomeViewController: UIViewController, UICollectionViewDataSource, UIC
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Reader Collection View Cell", for: indexPath) as! ReaderCollectionViewCell
         
         if self.items[indexPath.row].avatarBucketName != nil {
-            let url = "https://perfectself-avatar-bucket.s3.us-east-2.amazonaws.com/\( self.items[indexPath.row].avatarBucketName!)/\( self.items[indexPath.row].avatarKey!)"
+            let url = "https://\( self.items[indexPath.row].avatarBucketName!).s3.us-east-2.amazonaws.com/\( self.items[indexPath.row].avatarKey!)"
             cell.readerAvatar.imageFrom(url: URL(string: url)!)
         }
         cell.readerName.text = self.items[indexPath.row].userName;
@@ -137,16 +161,16 @@ class ActorHomeViewController: UIViewController, UICollectionViewDataSource, UIC
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss'Z'"
         let date = dateFormatter.date(from: self.items[indexPath.row].date ?? "1900-01-01T00:00:00Z")
-    
+        
         let dfforlabel = DateFormatter()
         dfforlabel.dateFormat = "MMM dd, hh:mm a"
-        cell.availableDate.text = dfforlabel.string(from: date!)
+        cell.availableDate.text = dfforlabel.string(from: date ?? Date())
         // return card
         cell.layer.masksToBounds = false
         cell.layer.shadowOffset = CGSizeZero
-        cell.layer.shadowRadius = 3
-        cell.layer.shadowOpacity = 0.15
-        cell.contentView.layer.cornerRadius = 12
+        cell.layer.shadowRadius = 5
+        cell.layer.shadowOpacity = 0.3
+        cell.contentView.layer.cornerRadius = 10
         cell.contentView.layer.borderWidth = 1.0
         cell.contentView.layer.borderColor = UIColor.clear.cgColor
         cell.contentView.layer.masksToBounds = true
@@ -157,20 +181,25 @@ class ActorHomeViewController: UIViewController, UICollectionViewDataSource, UIC
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         // add the code here to perform action on the cell
         print("didDeselectItemAt" + String(indexPath.row))
+        //print( self.items[indexPath.row].fcmDeviceToken ?? "kkk")
         let controller = ActorReaderDetailViewController()
         controller.modalPresentationStyle = .fullScreen
         controller.uid = self.items[indexPath.row].uid
+       
+        ActorBookConfirmationViewController.fcmDeviceToken = self.items[indexPath.row].fcmDeviceToken ?? ""
+      
+        //let transition = CATransition()
+        //transition.duration = 0.5 // Set animation duration
+        //transition.type = CATransitionType.push // Set transition type to push
+        //transition.subtype = CATransitionSubtype.fromRight // Set transition subtype to from right
+        //self.view.window?.layer.add(transition, forKey: kCATransition) // Add transition to window layer
 
-        let transition = CATransition()
-        transition.duration = 0.5 // Set animation duration
-        transition.type = CATransitionType.push // Set transition type to push
-        transition.subtype = CATransitionSubtype.fromRight // Set transition subtype to from right
-        self.view.window?.layer.add(transition, forKey: kCATransition) // Add transition to window layer
         self.present(controller, animated: false)
     }
     
     @IBAction func ShowFilterModal(_ sender: UIButton) {
         let controller = FilterViewController()
+        controller.originType = 0
         controller.modalPresentationStyle = .overFullScreen
         controller.parentUIViewController = self
         self.present(controller, animated: true)
@@ -234,7 +263,8 @@ class ActorHomeViewController: UIViewController, UICollectionViewDataSource, UIC
     }
     @IBAction func GoMessageCenter(_ sender: UIButton) {
         let controller = MessageCenterViewController()
-        self.navigationController?.pushViewController(controller, animated: true)
+        controller.modalPresentationStyle = .fullScreen
+        self.present(controller, animated: false)
     }
     /*
      // MARK: - Navigation

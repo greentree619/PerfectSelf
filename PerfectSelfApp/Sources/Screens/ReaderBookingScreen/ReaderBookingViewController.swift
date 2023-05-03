@@ -28,6 +28,7 @@ class ReaderBookingViewController: UIViewController, UICollectionViewDataSource,
     
     let cellsPerRow = 1
     var bookType = 1 //for upcomming
+    var searchText = ""
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -54,11 +55,16 @@ class ReaderBookingViewController: UIViewController, UICollectionViewDataSource,
         
         fetchBookList()
     }
+    
+    @IBAction func changeSearchText(_ sender: UITextField) {
+        searchText = sender.text ?? ""
+        fetchBookList()
+    }
     func fetchBookList() {
         //call API to fetch booking list
         spin.isHidden = false
         spin.startAnimating()
-         webAPI.getBookingsByUid(uid: uid, bookType: self.bookType) { data, response, error in
+        webAPI.getBookingsByUid(uid: uid, bookType: self.bookType, name: searchText) { data, response, error in
             DispatchQueue.main.async {
                 self.spin.stopAnimating()
                 self.spin.isHidden = true
@@ -99,17 +105,18 @@ class ReaderBookingViewController: UIViewController, UICollectionViewDataSource,
             + flowLayout.sectionInset.right
             + (flowLayout.minimumInteritemSpacing * CGFloat(cellsPerRow - 1))
         let size = Int((collectionView.bounds.width - totalSpace) / CGFloat(cellsPerRow))
-        return CGSize(width: size, height: size*145/328)
+        let height = Int(Double(size) * 0.45)
+        
+        return CGSize(width: size, height: height)
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         //
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Booking Collection View Cell", for: indexPath) as! BookingCollectionViewCell
         let roomUid = self.items[indexPath.row].roomUid
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
-        let datestart = dateFormatter.date(from: self.items[indexPath.row].bookStartTime)
-        let dateend = dateFormatter.date(from: self.items[indexPath.row].bookEndTime)
+   
+        let datestart = Date.getDateFromString(date: self.items[indexPath.row].bookStartTime)
+        let dateend = Date.getDateFromString(date: self.items[indexPath.row].bookEndTime)
         
         let dateFormatter1 = DateFormatter()
         dateFormatter1.dateFormat = "dd MMM, yyyy"
@@ -121,15 +128,17 @@ class ReaderBookingViewController: UIViewController, UICollectionViewDataSource,
         cell.name = self.items[indexPath.row].actorName
         cell.uid = self.items[indexPath.row].actorUid
         cell.muid = self.items[indexPath.row].readerUid
+        cell.script = self.items[indexPath.row].scriptFile ?? ""
+        cell.scriptBucketName = self.items[indexPath.row].scriptBucket ?? ""
+        cell.scriptKey = self.items[indexPath.row].scriptKey ?? ""
         var url: String?
         if self.items[indexPath.row].actorBucketName != nil {
-            url = "https://perfectself-avatar-bucket.s3.us-east-2.amazonaws.com/\(self.items[indexPath.row].actorBucketName!)/\(self.items[indexPath.row].actorAvatarKey!)"
+            url = "https://\(self.items[indexPath.row].actorBucketName!).s3.us-east-2.amazonaws.com/\(self.items[indexPath.row].actorAvatarKey!)"
         }
         cell.url = url
-        cell.review = self.items[indexPath.row].readerReview
    
         cell.id = self.items[indexPath.row].id
-        cell.lbl_name.text = self.items[indexPath.row].readerName;
+        cell.lbl_name.text = self.items[indexPath.row].actorName;
         cell.lbl_date.text = dateFormatter1.string(from: datestart ?? Date())
         cell.lbl_time.text = dateFormatter2.string(from: datestart ?? Date()) + "-" + dateFormatter2.string(from: dateend ?? Date())
         

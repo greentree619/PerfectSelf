@@ -11,10 +11,13 @@ import UIKit
 class ActorSetPaymentViewController: UIViewController {
 
     var readerUid: String = ""
+    var readerName: String = ""
     var bookingStartTime: String = ""
     var bookingEndTime: String = ""
     var bookingDate: String = ""
     var script: String = ""
+    var scriptBucket: String = ""
+    var scriptKey: String = ""
     
     @IBOutlet weak var paymentMethodView: UIStackView!
     let headerLabel = ["Credit & Debit Cards", "Skill Set 2", "Skill Set 3"]
@@ -44,17 +47,20 @@ class ActorSetPaymentViewController: UIViewController {
         let controller = ActorBookConfirmationViewController();
 
         controller.readerUid = readerUid
+        controller.readerName = readerName
         controller.bookingStartTime = bookingStartTime
         controller.bookingEndTime = bookingEndTime
         controller.bookingDate = bookingDate
         controller.script = script
+        controller.scriptBucket = self.scriptBucket
+        controller.scriptKey = self.scriptKey
         controller.modalPresentationStyle = .fullScreen
         
-        let transition = CATransition()
-        transition.duration = 0.5 // Set animation duration
-        transition.type = CATransitionType.push // Set transition type to push
-        transition.subtype = CATransitionSubtype.fromRight // Set transition subtype to from right
-        self.view.window?.layer.add(transition, forKey: kCATransition) // Add transition to window layer
+//        let transition = CATransition()
+//        transition.duration = 0.5 // Set animation duration
+//        transition.type = CATransitionType.push // Set transition type to push
+//        transition.subtype = CATransitionSubtype.fromRight // Set transition subtype to from right
+//        self.view.window?.layer.add(transition, forKey: kCATransition) // Add transition to window layer
         self.present(controller, animated: false)
     }
     

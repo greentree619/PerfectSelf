@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21225" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21207"/>
         <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -28,6 +28,9 @@
             <connections>
                 <outlet property="add_to_calendar" destination="cy6-cM-FRw" id="liI-06-vit"/>
                 <outlet property="add_to_google_calendar" destination="DCh-cO-rrw" id="0Hj-oa-hwU"/>
+                <outlet property="img_book_animation" destination="9MS-ti-pqt" id="2Ho-nl-mru"/>
+                <outlet property="lbl_datetime" destination="uaE-s9-c8I" id="LSQ-vR-uD2"/>
+                <outlet property="lbl_readerName" destination="ZD7-xC-dTf" id="zVs-Yl-uWk"/>
                 <outlet property="view" destination="AmB-bw-epL" id="VD1-cR-kLu"/>
             </connections>
         </placeholder>
@@ -79,11 +82,17 @@
                                 <constraint firstAttribute="height" constant="34" id="NPe-LJ-A0b" customClass="AdaptiveLayoutConstraint" customModule="PerfectSelf" customModuleProvider="target"/>
                             </constraints>
                         </stackView>
-                        <stackView opaque="NO" contentMode="scaleToFill" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="QTu-l6-kJe">
-                            <rect key="frame" x="20" y="34" width="353" height="246"/>
+                        <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QTu-l6-kJe">
+                            <rect key="frame" x="20" y="34" width="353" height="284"/>
+                            <subviews>
+                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="9MS-ti-pqt">
+                                    <rect key="frame" x="20" y="20" width="313" height="244"/>
+                                </imageView>
+                            </subviews>
+                            <edgeInsets key="layoutMargins" top="20" left="20" bottom="20" right="20"/>
                         </stackView>
                         <stackView opaque="NO" contentMode="scaleToFill" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="C20-Iy-fpz">
-                            <rect key="frame" x="20" y="280" width="353" height="40"/>
+                            <rect key="frame" x="20" y="318" width="353" height="40"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Booking confirmation" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2Xd-Mh-e7T">
                                     <rect key="frame" x="0.0" y="8" width="353" height="24"/>
@@ -97,7 +106,7 @@
                             </constraints>
                         </stackView>
                         <stackView opaque="NO" contentMode="scaleToFill" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="MDJ-zU-Phw">
-                            <rect key="frame" x="20" y="320" width="353" height="40"/>
+                            <rect key="frame" x="20" y="358" width="353" height="40"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Reading with  Alan Walker" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZD7-xC-dTf">
                                     <rect key="frame" x="8" y="8.6666666666666856" width="337" height="15.666666666666664"/>
@@ -112,7 +121,7 @@
                             <edgeInsets key="layoutMargins" top="8" left="8" bottom="15" right="8"/>
                         </stackView>
                         <stackView opaque="NO" contentMode="scaleToFill" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="Qjw-zN-07m">
-                            <rect key="frame" x="20" y="360" width="353" height="3"/>
+                            <rect key="frame" x="20" y="398" width="353" height="3"/>
                             <subviews>
                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="filter_divide" translatesAutoresizingMaskIntoConstraints="NO" id="S7U-zh-Z6U">
                                     <rect key="frame" x="0.0" y="1" width="353" height="1"/>
@@ -123,7 +132,7 @@
                             </constraints>
                         </stackView>
                         <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="Guk-w7-39A">
-                            <rect key="frame" x="20" y="363" width="353" height="50"/>
+                            <rect key="frame" x="20" y="401" width="353" height="50"/>
                             <subviews>
                                 <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qba-7k-glD">
                                     <rect key="frame" x="0.0" y="0.0" width="353" height="50"/>
@@ -142,7 +151,7 @@
                             </constraints>
                         </stackView>
                         <stackView opaque="NO" contentMode="scaleToFill" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="dXw-4r-f5s">
-                            <rect key="frame" x="20" y="413" width="353" height="3"/>
+                            <rect key="frame" x="20" y="451" width="353" height="3"/>
                             <subviews>
                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="filter_divide" translatesAutoresizingMaskIntoConstraints="NO" id="IOG-2u-fOM">
                                     <rect key="frame" x="0.0" y="1" width="353" height="1"/>
@@ -153,7 +162,7 @@
                             </constraints>
                         </stackView>
                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="V0v-nQ-Sa4">
-                            <rect key="frame" x="20" y="416" width="353" height="185"/>
+                            <rect key="frame" x="20" y="454" width="353" height="185"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add a reminder" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DYk-hB-xis">
                                     <rect key="frame" x="0.0" y="7.9999999999999982" width="96.333333333333329" height="16.333333333333329"/>
@@ -162,20 +171,20 @@
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="lHb-e6-DAT">
-                                    <rect key="frame" x="0.0" y="24.333333333333314" width="353" height="152.66666666666666"/>
+                                    <rect key="frame" x="0.0" y="24.333333333333371" width="353" height="152.66666666666666"/>
                                     <subviews>
                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="DCh-cO-rrw">
                                             <rect key="frame" x="20" y="8" width="141.66666666666666" height="136.66666666666666"/>
                                             <subviews>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icons8-google-calendar-25" translatesAutoresizingMaskIntoConstraints="NO" id="lsK-km-eRj">
-                                                    <rect key="frame" x="52.666666666666671" y="30.000000000000057" width="36" height="36"/>
+                                                    <rect key="frame" x="52.666666666666671" y="30" width="36" height="36"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="36" id="AX7-w4-rcZ"/>
                                                         <constraint firstAttribute="width" constant="36" id="k07-0T-OlD"/>
                                                     </constraints>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add to Google calendar" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vZi-QS-c4C">
-                                                    <rect key="frame" x="24.666666666666679" y="86.000000000000057" width="92.333333333333314" height="30.666666666666671"/>
+                                                    <rect key="frame" x="24.666666666666679" y="86" width="92.333333333333314" height="30.666666666666671"/>
                                                     <fontDescription key="fontDescription" name="Raleway-SemiBold" family="Raleway" pointSize="13"/>
                                                     <color key="textColor" red="0.45882352939999999" green="0.52941176469999995" blue="0.85098039219999999" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -203,14 +212,14 @@
                                             <rect key="frame" x="191.66666666666663" y="8" width="141.33333333333337" height="136.66666666666666"/>
                                             <subviews>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" image="calendar" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="nrK-MG-MRl">
-                                                    <rect key="frame" x="52.666666666666657" y="31.666666666666721" width="36" height="32.999999999999993"/>
+                                                    <rect key="frame" x="52.666666666666657" y="31.666666666666664" width="36" height="32.999999999999993"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="36" id="TJ6-Aw-BU1"/>
                                                         <constraint firstAttribute="height" constant="36" id="yGu-2e-Pe0"/>
                                                     </constraints>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add to calendar" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LVu-OS-amu">
-                                                    <rect key="frame" x="21.33333333333335" y="86.000000000000057" width="98.666666666666686" height="30.666666666666671"/>
+                                                    <rect key="frame" x="21.33333333333335" y="86" width="98.666666666666686" height="30.666666666666671"/>
                                                     <fontDescription key="fontDescription" name="Raleway-SemiBold" family="Raleway" pointSize="13"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -246,49 +255,65 @@
                             <edgeInsets key="layoutMargins" top="8" left="0.0" bottom="8" right="0.0"/>
                         </stackView>
                         <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="sKF-zY-6hf">
-                            <rect key="frame" x="20" y="601" width="353" height="100"/>
+                            <rect key="frame" x="20" y="639" width="353" height="100"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="100" id="PGW-bh-yzJ" customClass="AdaptiveLayoutConstraint" customModule="PerfectSelf" customModuleProvider="target"/>
-                            </constraints>
-                        </stackView>
-                        <stackView opaque="NO" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" translatesAutoresizingMaskIntoConstraints="NO" id="iSi-Wl-Tgw">
-                            <rect key="frame" x="20" y="701" width="353" height="50"/>
-                            <subviews>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rFf-lq-h4n">
-                                    <rect key="frame" x="0.0" y="0.0" width="353" height="50"/>
-                                    <state key="normal" title="Button"/>
-                                    <buttonConfiguration key="configuration" style="filled" title="Done" cornerStyle="dynamic">
-                                        <backgroundConfiguration key="background" cornerRadius="12"/>
-                                        <fontDescription key="titleFontDescription" type="system" pointSize="16"/>
-                                    </buttonConfiguration>
-                                    <connections>
-                                        <action selector="CompleteBooking:" destination="-1" eventType="touchUpInside" id="poA-XO-njH"/>
-                                    </connections>
-                                </button>
-                            </subviews>
-                            <constraints>
-                                <constraint firstAttribute="height" constant="50" id="G7a-zK-XiI"/>
                             </constraints>
                         </stackView>
                     </subviews>
                     <constraints>
                         <constraint firstAttribute="height" constant="759" id="j8C-fw-atO" customClass="AdaptiveLayoutConstraint" customModule="PerfectSelf" customModuleProvider="target"/>
                     </constraints>
-                    <edgeInsets key="layoutMargins" top="0.0" left="20" bottom="8" right="20"/>
+                    <edgeInsets key="layoutMargins" top="0.0" left="20" bottom="20" right="20"/>
                     <variation key="default">
                         <mask key="constraints">
                             <exclude reference="j8C-fw-atO"/>
                         </mask>
                     </variation>
                 </stackView>
+                <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iSi-Wl-Tgw">
+                    <rect key="frame" x="0.0" y="742" width="393" height="110"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rFf-lq-h4n">
+                            <rect key="frame" x="20" y="15" width="353" height="41"/>
+                            <state key="normal" title="Button"/>
+                            <buttonConfiguration key="configuration" style="filled" title="Done" cornerStyle="dynamic">
+                                <fontDescription key="titleFontDescription" type="system" pointSize="16"/>
+                            </buttonConfiguration>
+                            <connections>
+                                <action selector="CompleteBooking:" destination="-1" eventType="touchUpInside" id="poA-XO-njH"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="110" id="G7a-zK-XiI"/>
+                    </constraints>
+                    <edgeInsets key="layoutMargins" top="15" left="20" bottom="20" right="20"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBound" value="NO"/>
+                        <userDefinedRuntimeAttribute type="number" keyPath="layer.shadowOpacity">
+                            <real key="value" value="0.29999999999999999"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="number" keyPath="layer.shadowRadius">
+                            <integer key="value" value="5"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="size" keyPath="layer.shadowOffset">
+                            <size key="value" width="0.0" height="0.0"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </stackView>
             </subviews>
             <viewLayoutGuide key="safeArea" id="wvk-bL-wtl"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
+                <constraint firstAttribute="bottom" secondItem="iSi-Wl-Tgw" secondAttribute="bottom" id="4wq-F9-raW"/>
                 <constraint firstItem="OSz-ID-ksE" firstAttribute="leading" secondItem="wvk-bL-wtl" secondAttribute="leading" id="JhS-SC-hBQ"/>
+                <constraint firstItem="iSi-Wl-Tgw" firstAttribute="leading" secondItem="wvk-bL-wtl" secondAttribute="leading" id="NaG-WJ-F50"/>
                 <constraint firstItem="wvk-bL-wtl" firstAttribute="bottom" secondItem="OSz-ID-ksE" secondAttribute="bottom" id="SoX-8g-kLA"/>
                 <constraint firstItem="OSz-ID-ksE" firstAttribute="top" secondItem="wvk-bL-wtl" secondAttribute="top" id="eTS-G7-amz"/>
                 <constraint firstItem="wvk-bL-wtl" firstAttribute="trailing" secondItem="OSz-ID-ksE" secondAttribute="trailing" id="kjc-ue-Fer"/>
+                <constraint firstItem="wvk-bL-wtl" firstAttribute="trailing" secondItem="iSi-Wl-Tgw" secondAttribute="trailing" id="l41-B9-8S1"/>
             </constraints>
             <point key="canvasLocation" x="140" y="-627"/>
         </view>

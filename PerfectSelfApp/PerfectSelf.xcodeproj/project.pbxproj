@@ -13,6 +13,7 @@
 		2F7EBC3622DCC6430015B46E /* WebSocketProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F7EBC3522DCC6430015B46E /* WebSocketProvider.swift */; };
 		2F7EBC3822DCCB4E0015B46E /* StarscreamProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F7EBC3722DCCB4E0015B46E /* StarscreamProvider.swift */; };
 		2F7EBC3A22DCCE240015B46E /* NativeWebSocket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F7EBC3922DCCE240015B46E /* NativeWebSocket.swift */; };
+		342B0AC729FD813C00494020 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 342B0AC629FD813C00494020 /* GoogleService-Info.plist */; };
 		47007BE929C2B0C000F83CFD /* ActorSetPaymentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47007BE729C2B0BF00F83CFD /* ActorSetPaymentViewController.swift */; };
 		47007BEA29C2B0C000F83CFD /* ActorSetPaymentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 47007BE829C2B0C000F83CFD /* ActorSetPaymentViewController.xib */; };
 		470AEBCA29D1ACE200AD3848 /* StringHeight.swift in Sources */ = {isa = PBXBuildFile; fileRef = 470AEBC929D1ACE200AD3848 /* StringHeight.swift */; };
@@ -22,6 +23,8 @@
 		4715EAF129CA59C600437576 /* ActorBookAppointmentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4715EAEF29CA59C600437576 /* ActorBookAppointmentViewController.xib */; };
 		471D260C29D76869003DAF0A /* ReaderBuildProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 471D260A29D76869003DAF0A /* ReaderBuildProfileViewController.swift */; };
 		471D260D29D76869003DAF0A /* ReaderBuildProfileViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 471D260B29D76869003DAF0A /* ReaderBuildProfileViewController.xib */; };
+		472AC4D329F6F133009796FB /* TakePhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 472AC4D129F6F133009796FB /* TakePhotoViewController.swift */; };
+		472AC4D429F6F133009796FB /* TakePhotoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 472AC4D229F6F133009796FB /* TakePhotoViewController.xib */; };
 		472F64FD29CC0868005A427D /* ReaderProfileEditAvailabilityViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 472F64FC29CC0868005A427D /* ReaderProfileEditAvailabilityViewController.xib */; };
 		4732BDD029D62A98001CBAC5 /* KeyboardManage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4732BDCF29D62A98001CBAC5 /* KeyboardManage.swift */; };
 		4744C4A629D088FD00963C92 /* DateFormat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4744C4A529D088FD00963C92 /* DateFormat.swift */; };
@@ -34,6 +37,7 @@
 		475269BC29CD0F930094C3E9 /* BookingCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 475269BA29CD0F930094C3E9 /* BookingCollectionViewCell.xib */; };
 		475ECFF629DEF3E2004AED9A /* SortViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 475ECFF429DEF3E2004AED9A /* SortViewController.swift */; };
 		475ECFF729DEF3E2004AED9A /* SortViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 475ECFF529DEF3E2004AED9A /* SortViewController.xib */; };
+		4765AEFF29FEB6400053A9C2 /* BackgroundRemovalAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4765AEFE29FEB6400053A9C2 /* BackgroundRemovalAPI.swift */; };
 		4770CE5329D7C904009C2284 /* FilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4770CE5129D7C904009C2284 /* FilterViewController.swift */; };
 		4770CE5429D7C904009C2284 /* FilterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4770CE5229D7C904009C2284 /* FilterViewController.xib */; };
 		4772156129CE700C00319CBC /* VideoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4772155F29CE700C00319CBC /* VideoCollectionViewCell.swift */; };
@@ -42,8 +46,8 @@
 		4776C12C29D3F3330008A915 /* CreditCardCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4776C12A29D3F3330008A915 /* CreditCardCell.xib */; };
 		47843E4329CFEB2F008704CD /* ChatCardCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47843E4129CFEB2F008704CD /* ChatCardCollectionViewCell.swift */; };
 		47843E4429CFEB2F008704CD /* ChatCardCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 47843E4229CFEB2F008704CD /* ChatCardCollectionViewCell.xib */; };
-		47A62C1729E0B0B0005B55ED /* TimeSelectPopUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47A62C1529E0B0B0005B55ED /* TimeSelectPopUpViewController.swift */; };
-		47A62C1829E0B0B0005B55ED /* TimeSelectPopUpViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 47A62C1629E0B0B0005B55ED /* TimeSelectPopUpViewController.xib */; };
+		478AD18429F9A9D8008550F2 /* ScriptViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 478AD18229F9A9D8008550F2 /* ScriptViewController.swift */; };
+		478AD18529F9A9D8008550F2 /* ScriptViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 478AD18329F9A9D8008550F2 /* ScriptViewController.xib */; };
 		47B025A529D3361100DFECE7 /* MKAccordionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47B025A429D3361100DFECE7 /* MKAccordionView.swift */; };
 		47B025C629D3477900DFECE7 /* grayBar.png in Resources */ = {isa = PBXBuildFile; fileRef = 47B025C129D3477800DFECE7 /* grayBar.png */; };
 		47B025C729D3477900DFECE7 /* grayBarSelected.png in Resources */ = {isa = PBXBuildFile; fileRef = 47B025C229D3477800DFECE7 /* grayBarSelected.png */; };
@@ -60,6 +64,8 @@
 		47BC09BF29C5B44700B8F2C5 /* ActorBuildProfile2ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 47BC09BD29C5B44700B8F2C5 /* ActorBuildProfile2ViewController.xib */; };
 		47BC09C229C5B46800B8F2C5 /* ActorBuildProfile3ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47BC09C029C5B46800B8F2C5 /* ActorBuildProfile3ViewController.swift */; };
 		47BC09C329C5B46800B8F2C5 /* ActorBuildProfile3ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 47BC09C129C5B46800B8F2C5 /* ActorBuildProfile3ViewController.xib */; };
+		47C58E9B29F0C2D10047C074 /* ReviewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47C58E9929F0C2D10047C074 /* ReviewCell.swift */; };
+		47C58E9C29F0C2D10047C074 /* ReviewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 47C58E9A29F0C2D10047C074 /* ReviewCell.xib */; };
 		47C9731529DC1DB500468E11 /* Madrigal.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 47C9731329DC1DB500468E11 /* Madrigal.ttf */; };
 		47C9731629DC1DB500468E11 /* Licencia de uso gratuito.txt in Resources */ = {isa = PBXBuildFile; fileRef = 47C9731429DC1DB500468E11 /* Licencia de uso gratuito.txt */; };
 		47C9732F29DC1E5A00468E11 /* Raleway-Italic-VariableFont_wght.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 47C9731829DC1E5A00468E11 /* Raleway-Italic-VariableFont_wght.ttf */; };
@@ -102,11 +108,10 @@
 		47CEBDE329C7C293006CE9DA /* ActorProfileChangePasswordViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 47CEBDE129C7C293006CE9DA /* ActorProfileChangePasswordViewController.xib */; };
 		47D4F80929CBD8B600AFC4BA /* ReaderBookingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47D4F80729CBD8B600AFC4BA /* ReaderBookingViewController.swift */; };
 		47D4F80A29CBD8B600AFC4BA /* ReaderBookingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 47D4F80829CBD8B600AFC4BA /* ReaderBookingViewController.xib */; };
-		47D776FB29E198B4003C4B64 /* TempTimeSlotCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47D776F929E198B4003C4B64 /* TempTimeSlotCollectionViewCell.swift */; };
-		47D776FC29E198B4003C4B64 /* TempTimeSlotCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 47D776FA29E198B4003C4B64 /* TempTimeSlotCollectionViewCell.xib */; };
 		47DC851429C3815500D86E5A /* MessageCenterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47DC851229C3815500D86E5A /* MessageCenterViewController.swift */; };
 		47DC851529C3815500D86E5A /* MessageCenterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 47DC851329C3815500D86E5A /* MessageCenterViewController.xib */; };
 		47E0B9F629C141C400C82255 /* ReaderTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47E0B9F529C141C400C82255 /* ReaderTabBarController.swift */; };
+		47F84E7229FB5B5F003636A9 /* AudioEnhancementAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47F84E7129FB5B5F003636A9 /* AudioEnhancementAPI.swift */; };
 		47F9BA8729D7006600050403 /* ReaderProfileEditHourlyRateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47F9BA8529D7006600050403 /* ReaderProfileEditHourlyRateViewController.swift */; };
 		47F9BA8829D7006600050403 /* ReaderProfileEditHourlyRateViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 47F9BA8629D7006600050403 /* ReaderProfileEditHourlyRateViewController.xib */; };
 		79177C9720B0DE7A00BCD399 /* WebRTCClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79177C9620B0DE7A00BCD399 /* WebRTCClient.swift */; };
@@ -229,6 +234,8 @@
 		2F7EBC3522DCC6430015B46E /* WebSocketProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebSocketProvider.swift; sourceTree = "<group>"; };
 		2F7EBC3722DCCB4E0015B46E /* StarscreamProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarscreamProvider.swift; sourceTree = "<group>"; };
 		2F7EBC3922DCCE240015B46E /* NativeWebSocket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeWebSocket.swift; sourceTree = "<group>"; };
+		342B0AC629FD813C00494020 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		34FFA12E29FB31EF00BB0E14 /* PerfectSelf.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PerfectSelf.entitlements; sourceTree = "<group>"; };
 		47007BE729C2B0BF00F83CFD /* ActorSetPaymentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActorSetPaymentViewController.swift; sourceTree = "<group>"; };
 		47007BE829C2B0C000F83CFD /* ActorSetPaymentViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ActorSetPaymentViewController.xib; sourceTree = "<group>"; };
 		470AEBC929D1ACE200AD3848 /* StringHeight.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringHeight.swift; sourceTree = "<group>"; };
@@ -238,6 +245,8 @@
 		4715EAEF29CA59C600437576 /* ActorBookAppointmentViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ActorBookAppointmentViewController.xib; sourceTree = "<group>"; };
 		471D260A29D76869003DAF0A /* ReaderBuildProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReaderBuildProfileViewController.swift; sourceTree = "<group>"; };
 		471D260B29D76869003DAF0A /* ReaderBuildProfileViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ReaderBuildProfileViewController.xib; sourceTree = "<group>"; };
+		472AC4D129F6F133009796FB /* TakePhotoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TakePhotoViewController.swift; sourceTree = "<group>"; };
+		472AC4D229F6F133009796FB /* TakePhotoViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TakePhotoViewController.xib; sourceTree = "<group>"; };
 		472F64FC29CC0868005A427D /* ReaderProfileEditAvailabilityViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ReaderProfileEditAvailabilityViewController.xib; sourceTree = "<group>"; };
 		4732BDCF29D62A98001CBAC5 /* KeyboardManage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardManage.swift; sourceTree = "<group>"; };
 		4744C4A529D088FD00963C92 /* DateFormat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormat.swift; sourceTree = "<group>"; };
@@ -250,6 +259,7 @@
 		475269BA29CD0F930094C3E9 /* BookingCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BookingCollectionViewCell.xib; sourceTree = "<group>"; };
 		475ECFF429DEF3E2004AED9A /* SortViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortViewController.swift; sourceTree = "<group>"; };
 		475ECFF529DEF3E2004AED9A /* SortViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SortViewController.xib; sourceTree = "<group>"; };
+		4765AEFE29FEB6400053A9C2 /* BackgroundRemovalAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundRemovalAPI.swift; sourceTree = "<group>"; };
 		4770CE5129D7C904009C2284 /* FilterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterViewController.swift; sourceTree = "<group>"; };
 		4770CE5229D7C904009C2284 /* FilterViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FilterViewController.xib; sourceTree = "<group>"; };
 		4772155F29CE700C00319CBC /* VideoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -258,8 +268,8 @@
 		4776C12A29D3F3330008A915 /* CreditCardCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CreditCardCell.xib; sourceTree = "<group>"; };
 		47843E4129CFEB2F008704CD /* ChatCardCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatCardCollectionViewCell.swift; sourceTree = "<group>"; };
 		47843E4229CFEB2F008704CD /* ChatCardCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChatCardCollectionViewCell.xib; sourceTree = "<group>"; };
-		47A62C1529E0B0B0005B55ED /* TimeSelectPopUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeSelectPopUpViewController.swift; sourceTree = "<group>"; };
-		47A62C1629E0B0B0005B55ED /* TimeSelectPopUpViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TimeSelectPopUpViewController.xib; sourceTree = "<group>"; };
+		478AD18229F9A9D8008550F2 /* ScriptViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScriptViewController.swift; sourceTree = "<group>"; };
+		478AD18329F9A9D8008550F2 /* ScriptViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ScriptViewController.xib; sourceTree = "<group>"; };
 		47B025A429D3361100DFECE7 /* MKAccordionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MKAccordionView.swift; sourceTree = "<group>"; };
 		47B025C129D3477800DFECE7 /* grayBar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = grayBar.png; sourceTree = "<group>"; };
 		47B025C229D3477800DFECE7 /* grayBarSelected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = grayBarSelected.png; sourceTree = "<group>"; };
@@ -276,6 +286,8 @@
 		47BC09BD29C5B44700B8F2C5 /* ActorBuildProfile2ViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ActorBuildProfile2ViewController.xib; sourceTree = "<group>"; };
 		47BC09C029C5B46800B8F2C5 /* ActorBuildProfile3ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActorBuildProfile3ViewController.swift; sourceTree = "<group>"; };
 		47BC09C129C5B46800B8F2C5 /* ActorBuildProfile3ViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ActorBuildProfile3ViewController.xib; sourceTree = "<group>"; };
+		47C58E9929F0C2D10047C074 /* ReviewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewCell.swift; sourceTree = "<group>"; };
+		47C58E9A29F0C2D10047C074 /* ReviewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ReviewCell.xib; sourceTree = "<group>"; };
 		47C9731329DC1DB500468E11 /* Madrigal.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Madrigal.ttf; sourceTree = "<group>"; };
 		47C9731429DC1DB500468E11 /* Licencia de uso gratuito.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Licencia de uso gratuito.txt"; sourceTree = "<group>"; };
 		47C9731829DC1E5A00468E11 /* Raleway-Italic-VariableFont_wght.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Raleway-Italic-VariableFont_wght.ttf"; sourceTree = "<group>"; };
@@ -318,11 +330,10 @@
 		47CEBDE129C7C293006CE9DA /* ActorProfileChangePasswordViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ActorProfileChangePasswordViewController.xib; sourceTree = "<group>"; };
 		47D4F80729CBD8B600AFC4BA /* ReaderBookingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReaderBookingViewController.swift; sourceTree = "<group>"; };
 		47D4F80829CBD8B600AFC4BA /* ReaderBookingViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ReaderBookingViewController.xib; sourceTree = "<group>"; };
-		47D776F929E198B4003C4B64 /* TempTimeSlotCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TempTimeSlotCollectionViewCell.swift; sourceTree = "<group>"; };
-		47D776FA29E198B4003C4B64 /* TempTimeSlotCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TempTimeSlotCollectionViewCell.xib; sourceTree = "<group>"; };
 		47DC851229C3815500D86E5A /* MessageCenterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageCenterViewController.swift; sourceTree = "<group>"; };
 		47DC851329C3815500D86E5A /* MessageCenterViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MessageCenterViewController.xib; sourceTree = "<group>"; };
 		47E0B9F529C141C400C82255 /* ReaderTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReaderTabBarController.swift; sourceTree = "<group>"; };
+		47F84E7129FB5B5F003636A9 /* AudioEnhancementAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioEnhancementAPI.swift; sourceTree = "<group>"; };
 		47F9BA8529D7006600050403 /* ReaderProfileEditHourlyRateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReaderProfileEditHourlyRateViewController.swift; sourceTree = "<group>"; };
 		47F9BA8629D7006600050403 /* ReaderProfileEditHourlyRateViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ReaderProfileEditHourlyRateViewController.xib; sourceTree = "<group>"; };
 		79177C9620B0DE7A00BCD399 /* WebRTCClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebRTCClient.swift; sourceTree = "<group>"; };
@@ -507,6 +518,15 @@
 			path = Rationale;
 			sourceTree = "<group>";
 		};
+		478AD18129F9A9B5008550F2 /* ScriptScreen */ = {
+			isa = PBXGroup;
+			children = (
+				478AD18229F9A9D8008550F2 /* ScriptViewController.swift */,
+				478AD18329F9A9D8008550F2 /* ScriptViewController.xib */,
+			);
+			path = ScriptScreen;
+			sourceTree = "<group>";
+		};
 		47BC09B729C5B3E300B8F2C5 /* ActorBuildProfileScreen */ = {
 			isa = PBXGroup;
 			children = (
@@ -592,6 +612,8 @@
 				47CEBDDD29C7C272006CE9DA /* ActorProfileEditViewController.xib */,
 				47CEBDE029C7C293006CE9DA /* ActorProfileChangePasswordViewController.swift */,
 				47CEBDE129C7C293006CE9DA /* ActorProfileChangePasswordViewController.xib */,
+				472AC4D129F6F133009796FB /* TakePhotoViewController.swift */,
+				472AC4D229F6F133009796FB /* TakePhotoViewController.xib */,
 			);
 			path = ActorProfileScreen;
 			sourceTree = "<group>";
@@ -677,6 +699,7 @@
 		79262EDA20B0D6F500D576C1 = {
 			isa = PBXGroup;
 			children = (
+				34FFA12E29FB31EF00BB0E14 /* PerfectSelf.entitlements */,
 				BA4714A329A79856007AABC2 /* Fonts */,
 				798FBA422200F3B1009F525E /* Sources */,
 				79177C9B20B0E84600BCD399 /* Resources */,
@@ -698,6 +721,7 @@
 		798FBA422200F3B1009F525E /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				342B0AC629FD813C00494020 /* GoogleService-Info.plist */,
 				BAD0B49A29BA17120061FEF5 /* Screens */,
 				BAB32E4129B064280000F082 /* Common */,
 				BAC11B7529A8B37100580143 /* Camera */,
@@ -800,6 +824,8 @@
 				4732BDCF29D62A98001CBAC5 /* KeyboardManage.swift */,
 				BAB7379B29B40B7500F3D663 /* AWSMultipartUpload.swift */,
 				BA3F909929C457C200ABE966 /* PerfectSelfWebAPI.swift */,
+				47F84E7129FB5B5F003636A9 /* AudioEnhancementAPI.swift */,
+				4765AEFE29FEB6400053A9C2 /* BackgroundRemovalAPI.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -835,36 +861,37 @@
 		BAD0B49A29BA17120061FEF5 /* Screens */ = {
 			isa = PBXGroup;
 			children = (
-				471D260929D76828003DAF0A /* ReaderBuildProfileScreen */,
-				47D4F80629CBD89800AFC4BA /* ReaderBookingScreen */,
-				47CEBDD729C7C21F006CE9DA /* ActorProfileScreen */,
-				47BC09B729C5B3E300B8F2C5 /* ActorBuildProfileScreen */,
-				47DC851129C3813000D86E5A /* MessageCenterScreen */,
-				47007BE229C2AF2B00F83CFD /* ActorSetPaymentScreen */,
-				47E0B9F429C1419900C82255 /* ReaderTabBarController */,
-				BABBD2E229BF9DC3000A7120 /* ActorTabBarController */,
-				BAD0B49B29BA17120061FEF5 /* ActorBookConfirmationScreen */,
-				BAD0B49E29BA17120061FEF5 /* LoginDetailScreen */,
-				BAD0B4A129BA17120061FEF5 /* VideoScreen */,
-				BAD0B4A429BA17120061FEF5 /* MainScreen */,
-				BAD0B4A729BA17120061FEF5 /* ConferenceScreen */,
-				BAD0B4AA29BA17120061FEF5 /* MeetingListScreen */,
-				BAD0B4AD29BA17120061FEF5 /* ProjectScreen */,
-				BAD0B4B629BA17130061FEF5 /* SignupScreen */,
-				BAD0B4BC29BA17130061FEF5 /* OverlayScreen */,
-				BAD0B4CB29BA17130061FEF5 /* HomeScreen */,
-				BAD0B4CE29BA17130061FEF5 /* EditReadScreen */,
 				BAD0B4D129BA17130061FEF5 /* ActorBookAppointmentScreen */,
+				BAD0B49B29BA17120061FEF5 /* ActorBookConfirmationScreen */,
+				BAD0B4FD29BA17130061FEF5 /* ActorBookingScreen */,
+				47BC09B729C5B3E300B8F2C5 /* ActorBuildProfileScreen */,
+				BAD0B4EE29BA17130061FEF5 /* ActorFindReaderScreen */,
 				BAD0B4D429BA17130061FEF5 /* ActorHomeScreen */,
 				BAD0B4DA29BA17130061FEF5 /* ActorLibraryScreen */,
-				BAD0B4DD29BA17130061FEF5 /* ReaderProfileScreen */,
+				47CEBDD729C7C21F006CE9DA /* ActorProfileScreen */,
 				BAD0B4E029BA17130061FEF5 /* ActorReaderDetailScreen */,
-				BAD0B4E629BA17130061FEF5 /* SignupDetailScreen */,
+				47007BE229C2AF2B00F83CFD /* ActorSetPaymentScreen */,
+				BABBD2E229BF9DC3000A7120 /* ActorTabBarController */,
+				BAD0B4A729BA17120061FEF5 /* ConferenceScreen */,
+				BAD0B4CE29BA17130061FEF5 /* EditReadScreen */,
+				BAD0B4CB29BA17130061FEF5 /* HomeScreen */,
 				BAD0B4E929BA17130061FEF5 /* LibraryScreen */,
-				BAD0B4EE29BA17130061FEF5 /* ActorFindReaderScreen */,
-				BAD0B4F429BA17130061FEF5 /* ReaderHomeScreen */,
+				BAD0B49E29BA17120061FEF5 /* LoginDetailScreen */,
 				BAD0B4F729BA17130061FEF5 /* LoginScreen */,
-				BAD0B4FD29BA17130061FEF5 /* ActorBookingScreen */,
+				BAD0B4A429BA17120061FEF5 /* MainScreen */,
+				BAD0B4AA29BA17120061FEF5 /* MeetingListScreen */,
+				47DC851129C3813000D86E5A /* MessageCenterScreen */,
+				BAD0B4BC29BA17130061FEF5 /* OverlayScreen */,
+				BAD0B4AD29BA17120061FEF5 /* ProjectScreen */,
+				47D4F80629CBD89800AFC4BA /* ReaderBookingScreen */,
+				471D260929D76828003DAF0A /* ReaderBuildProfileScreen */,
+				BAD0B4F429BA17130061FEF5 /* ReaderHomeScreen */,
+				BAD0B4DD29BA17130061FEF5 /* ReaderProfileScreen */,
+				47E0B9F429C1419900C82255 /* ReaderTabBarController */,
+				478AD18129F9A9B5008550F2 /* ScriptScreen */,
+				BAD0B4E629BA17130061FEF5 /* SignupDetailScreen */,
+				BAD0B4B629BA17130061FEF5 /* SignupScreen */,
+				BAD0B4A129BA17120061FEF5 /* VideoScreen */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -1030,10 +1057,8 @@
 				47B025CC29D34D8300DFECE7 /* SkillCell.xib */,
 				47F9BA8529D7006600050403 /* ReaderProfileEditHourlyRateViewController.swift */,
 				47F9BA8629D7006600050403 /* ReaderProfileEditHourlyRateViewController.xib */,
-				47A62C1529E0B0B0005B55ED /* TimeSelectPopUpViewController.swift */,
-				47A62C1629E0B0B0005B55ED /* TimeSelectPopUpViewController.xib */,
-				47D776F929E198B4003C4B64 /* TempTimeSlotCollectionViewCell.swift */,
-				47D776FA29E198B4003C4B64 /* TempTimeSlotCollectionViewCell.xib */,
+				47C58E9929F0C2D10047C074 /* ReviewCell.swift */,
+				47C58E9A29F0C2D10047C074 /* ReviewCell.xib */,
 			);
 			path = ReaderProfileScreen;
 			sourceTree = "<group>";
@@ -1130,6 +1155,7 @@
 				79262EE020B0D6F600D576C1 /* Frameworks */,
 				79262EE120B0D6F600D576C1 /* Resources */,
 				B9BA7F71CF61E6EE0CD8271D /* [CP] Embed Pods Frameworks */,
+				40A75228404BED79634993E4 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -1189,6 +1215,7 @@
 			files = (
 				47C9734429DC1E5A00468E11 /* README.txt in Resources */,
 				47DC851529C3815500D86E5A /* MessageCenterViewController.xib in Resources */,
+				472AC4D429F6F133009796FB /* TakePhotoViewController.xib in Resources */,
 				BAD0B50429BA17130061FEF5 /* VideoViewController.xib in Resources */,
 				47BC09BB29C5B42700B8F2C5 /* ActorBuildProfile1ViewController.xib in Resources */,
 				BAD0B53329BA17130061FEF5 /* ReaderProfileEditAboutViewController.xib in Resources */,
@@ -1203,6 +1230,7 @@
 				47C9733829DC1E5A00468E11 /* Raleway-Regular.ttf in Resources */,
 				47C9733629DC1E5A00468E11 /* Raleway-ExtraBold.ttf in Resources */,
 				47C9733F29DC1E5A00468E11 /* Raleway-Thin.ttf in Resources */,
+				342B0AC729FD813C00494020 /* GoogleService-Info.plist in Resources */,
 				47C9733129DC1E5A00468E11 /* Raleway-MediumItalic.ttf in Resources */,
 				79262EEE20B0D6F800D576C1 /* Assets.xcassets in Resources */,
 				47C9733029DC1E5A00468E11 /* Raleway-BoldItalic.ttf in Resources */,
@@ -1236,6 +1264,7 @@
 				BAD0B51329BA17130061FEF5 /* SignupViewController.xib in Resources */,
 				47007BEA29C2B0C000F83CFD /* ActorSetPaymentViewController.xib in Resources */,
 				BAD0B53A29BA17130061FEF5 /* ActorFindReaderViewController.xib in Resources */,
+				478AD18529F9A9D8008550F2 /* ScriptViewController.xib in Resources */,
 				47B025CA29D3477900DFECE7 /* close.png in Resources */,
 				4747685429EEF68D00D647F8 /* ActorResheduleViewController.xib in Resources */,
 				BAD0B51729BA17130061FEF5 /* AvaliableAudioInputsViewController.xib in Resources */,
@@ -1273,11 +1302,10 @@
 				BA4714BB29A79856007AABC2 /* ABeeZee-Regular.ttf in Resources */,
 				BA4714BF29A79856007AABC2 /* ProximaNova-Semibold.otf in Resources */,
 				47C9733529DC1E5A00468E11 /* Raleway-SemiBold.ttf in Resources */,
-				47D776FC29E198B4003C4B64 /* TempTimeSlotCollectionViewCell.xib in Resources */,
+				47C58E9C29F0C2D10047C074 /* ReviewCell.xib in Resources */,
 				BA4714C029A79856007AABC2 /* ProximaNova-Bold.otf in Resources */,
 				BAD0B51929BA17130061FEF5 /* OverlayViewController.xib in Resources */,
 				BAD0B51929BA17130061FEF5 /* OverlayViewController.xib in Resources */,
-				47A62C1829E0B0B0005B55ED /* TimeSelectPopUpViewController.xib in Resources */,
 				47B65BDF29D173F700B3FD20 /* MessageCell.xib in Resources */,
 				47C9733E29DC1E5A00468E11 /* Raleway-LightItalic.ttf in Resources */,
 				47D4F80A29CBD8B600AFC4BA /* ReaderBookingViewController.xib in Resources */,
@@ -1311,6 +1339,23 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		40A75228404BED79634993E4 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-PerfectSelf/Pods-PerfectSelf-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-PerfectSelf/Pods-PerfectSelf-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-PerfectSelf/Pods-PerfectSelf-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		856FCE3825BA42BAEADCBF5D /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1358,7 +1403,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				BAD0B53829BA17130061FEF5 /* LibraryCell.swift in Sources */,
-				47D776FB29E198B4003C4B64 /* TempTimeSlotCollectionViewCell.swift in Sources */,
 				BAD0B53729BA17130061FEF5 /* LibraryViewController.swift in Sources */,
 				BAD0B51A29BA17130061FEF5 /* AvailableAudioInputsViewController.swift in Sources */,
 				BAD0B53129BA17130061FEF5 /* ActorReaderDetailViewController.swift in Sources */,
@@ -1380,6 +1424,7 @@
 				474D241F29DA9EED00FD7DF0 /* DateSelectViewController.swift in Sources */,
 				BAD0B52429BA17130061FEF5 /* EditReadViewController.swift in Sources */,
 				BA00A54529CA1AD100C90922 /* Toast.swift in Sources */,
+				478AD18429F9A9D8008550F2 /* ScriptViewController.swift in Sources */,
 				792198A222011A450051F03F /* Config.swift in Sources */,
 				BAC11B8529A8B37100580143 /* IDCaptureSessionMovieFileOutputCoordinator.m in Sources */,
 				79262EE720B0D6F600D576C1 /* AppDelegate.swift in Sources */,
@@ -1397,6 +1442,7 @@
 				BAD0B52E29BA17130061FEF5 /* ReaderProfileViewController.swift in Sources */,
 				79177CA620B1F76E00BCD399 /* RTCStates.swift in Sources */,
 				BAD0B53D29BA17130061FEF5 /* ChatViewController.swift in Sources */,
+				472AC4D329F6F133009796FB /* TakePhotoViewController.swift in Sources */,
 				BAD0B53B29BA17130061FEF5 /* ActorFindReaderViewController.swift in Sources */,
 				79177C9920B0DF2700BCD399 /* SignalingClient.swift in Sources */,
 				BAD0B54429BA17130061FEF5 /* ActorBookingViewController.swift in Sources */,
@@ -1408,8 +1454,10 @@
 				47CEBDDE29C7C272006CE9DA /* ActorProfileEditViewController.swift in Sources */,
 				4715510129CDBF00007CE524 /* TimeSlotCollectionViewCell.swift in Sources */,
 				BAD5C84F29AEDF0E00A2F109 /* CameraPreviewView.swift in Sources */,
+				4765AEFF29FEB6400053A9C2 /* BackgroundRemovalAPI.swift in Sources */,
 				4772156129CE700C00319CBC /* VideoCollectionViewCell.swift in Sources */,
 				BAB7379C29B40B7500F3D663 /* AWSMultipartUpload.swift in Sources */,
+				47F84E7229FB5B5F003636A9 /* AudioEnhancementAPI.swift in Sources */,
 				BAD0B52929BA17130061FEF5 /* ActorHomeViewController.swift in Sources */,
 				47CEBDDA29C7C24C006CE9DA /* ActorProfileViewController.swift in Sources */,
 				BAD0B51829BA17130061FEF5 /* OverlayViewContoller.swift in Sources */,
@@ -1430,8 +1478,8 @@
 				47BC09BE29C5B44700B8F2C5 /* ActorBuildProfile2ViewController.swift in Sources */,
 				BAD0B50929BA17130061FEF5 /* ConferenceViewController.swift in Sources */,
 				47F9BA8729D7006600050403 /* ReaderProfileEditHourlyRateViewController.swift in Sources */,
+				47C58E9B29F0C2D10047C074 /* ReviewCell.swift in Sources */,
 				47843E4329CFEB2F008704CD /* ChatCardCollectionViewCell.swift in Sources */,
-				47A62C1729E0B0B0005B55ED /* TimeSelectPopUpViewController.swift in Sources */,
 				2F7EBC3622DCC6430015B46E /* WebSocketProvider.swift in Sources */,
 				BAD0B54129BA17130061FEF5 /* LoginViewController.swift in Sources */,
 				475ECFF629DEF3E2004AED9A /* SortViewController.swift in Sources */,
@@ -1587,8 +1635,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = PerfectSelf.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 37;
+				CURRENT_PROJECT_VERSION = 910;
 				DEVELOPMENT_TEAM = 9WURFUCGR3;
 				INFOPLIST_FILE = "$(SRCROOT)/SupportingFiles/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = PerfectSelf;
@@ -1617,8 +1666,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = PerfectSelf.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 37;
+				CURRENT_PROJECT_VERSION = 910;
 				DEVELOPMENT_TEAM = 9WURFUCGR3;
 				INFOPLIST_FILE = "$(SRCROOT)/SupportingFiles/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = PerfectSelf;
@@ -1632,6 +1682,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 2.1;
+				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.kayan.perfectself;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Sources/PerfectSelf-Bridging-Header.h";

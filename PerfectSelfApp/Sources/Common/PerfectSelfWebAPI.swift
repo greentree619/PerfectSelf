@@ -73,11 +73,10 @@ class PerfectSelfWebAPI
         return executeAPI(with: "POST", apiPath: "Users", json: json, completionHandler:completionHandler)
     }
 
-    func createActorProfile(actoruid: String, ageRange: String, height: String, weight: String, country: String, state: String, city: String, agency: String, vaccination: String, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> Void
+    func updateActorProfile(actoruid: String, ageRange: String, height: String, weight: String, country: String, state: String, city: String, agency: String, vaccination: String, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> Void
     {
         let json: [String: Any] = [
-            "isDeleted": false,
-              "title": "",
+            "title": "",
             "actorUid": actoruid,
             "ageRange": ageRange,
             "height": Int(height) ?? 0,
@@ -88,12 +87,13 @@ class PerfectSelfWebAPI
             "agencyCountry": agency,
             "vaccinationStatus": Int(vaccination) ?? 0,
         ]
-        return executeAPI(with: "POST", apiPath: "ActorProfiles/", json: json, completionHandler:completionHandler)
+        return executeAPI(with: "PUT", apiPath: "ActorProfiles/ByUid/\(actoruid)", json: json, completionHandler:completionHandler)
     }
     func getUserInfo(uid: String, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> Void
     {
         return executeAPI(with: "GET", apiPath: "Users/\(uid)", json: [:], completionHandler:completionHandler)
     }
+    
     func updateUserAvatar(uid: String, bucketName: String, avatarKey: String, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> Void
     {
         let json: [String: Any] = [
@@ -118,6 +118,74 @@ class PerfectSelfWebAPI
     
         return executeAPI(with: "PUT", apiPath: "Users/\(uid)", json: json, completionHandler:completionHandler)
     }
+    
+    func updateUserInfo(uid: String
+                        , bucketName: String
+                        , avatarKey: String
+                        , fcmDeviceToken: String
+                        , completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> Void
+    {
+        let json: [String: Any] = [
+            "userType": -1,
+            "avatarBucketName": bucketName,
+            "avatarKey": avatarKey,
+            "userName": "",
+            "email": "",
+            "password": "",
+            "firstName": "",
+            "lastName": "",
+            "dateOfBirth": "",
+            "gender": -1,
+            "currentAddress": "",
+            "permanentAddress": "",
+            "city": "",
+            "nationality": "",
+            "phoneNumber": "",
+            "isLogin": true,
+            "token": "",
+            "fcmDeviceToken":  fcmDeviceToken,
+            "deviceKind":  0
+        ]
+    
+        return executeAPI(with: "PUT", apiPath: "Users/\(uid)", json: json, completionHandler:completionHandler)
+    }
+    
+    func sendPushNotifiction(toFCMToken: String
+                        , title: String
+                        , body: String
+                        , completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> Void
+    {
+        let json: [String: Any] = [
+            "deviceId":  toFCMToken,
+            "deviceKind": 0,
+            "title": title,
+            "body": body
+        ]
+    
+        return executeAPI(with: "POST", apiPath: "Notification/send", json: json, completionHandler:completionHandler)
+    }
+    
+    func uploadUserIntroVideo(uid: String, bucketName: String, videoKey: String, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> Void
+    {
+        let json: [String: Any] = [
+            "title": "",
+            "readerUid": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+            "hourlyPrice": -1,
+            "voiceType": -1,
+            "others": -1,
+            "about": "",
+            "reviewCount": -1,
+            "score": -1,
+            "skills": "",
+            "isSponsored": true,
+            "introBucketName": bucketName,
+            "introVideoKey": videoKey,
+            "auditionType": -1
+        ]
+    
+        return executeAPI(with: "PUT", apiPath: "ReaderProfiles/\(uid)", json: json, completionHandler:completionHandler)
+    }
+    
     func getReaders(readerName: String?, isSponsored: Bool?, isAvailableSoon: Bool?, isTopRated: Bool?, isOnline: Bool?, availableTimeSlotType: Int?, availableFrom: String?, availableTo: String?, minPrice: Float?, maxPrice: Float?, gender: Int?, sortBy: Int?, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> Void
     {
         var params = ""
@@ -170,7 +238,7 @@ class PerfectSelfWebAPI
         return executeAPI(with: "GET", apiPath: "ReaderProfiles/Detail/\(id)", json: [:], completionHandler:completionHandler)
     }
     
-    func createReaderProfile(uid: String, title: String, gender: String, hourlyrate: Int, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> Void
+    func updateReaderProfile(uid: String, title: String, gender: String, hourlyrate: Int, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> Void
     {
         let json: [String: Any] = [
             "isDeleted": false,
@@ -257,23 +325,24 @@ class PerfectSelfWebAPI
         
         return executeAPI(with: "PUT", apiPath: "Users/\(uid)", json: json, completionHandler:completionHandler)
     }
-    func bookAppointment(actorUid: String, readerUid: String, bookStartTime: String,bookEndTime: String, script: String, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> Void
+    func bookAppointment(actorUid: String, readerUid: String, bookStartTime: String,bookEndTime: String, script: String,scriptBucket: String, scriptKey: String, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> Void
     {
                 
         let json: [String: Any] = [
-  
             "actorUid": actorUid,
             "readerUid": readerUid,
             "bookStartTime": bookStartTime,
             "bookEndTime": bookEndTime,
             "scriptFile": script,
+            "scriptBucket": scriptBucket,
+            "scriptKey": scriptKey
         ]
    
         return executeAPI(with: "POST", apiPath: "Books/", json: json, completionHandler:completionHandler)
     }
-    func getBookingsByUid(uid: String, bookType: Int, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> Void
+    func getBookingsByUid(uid: String, bookType: Int, name: String, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> Void
     {
-        return executeAPI(with: "GET", apiPath: "Books/DetailList/ByUid/\(uid)?bookType=\(bookType)", json: [:], completionHandler:completionHandler)
+        return executeAPI(with: "GET", apiPath: "Books/DetailList/ByUid/\(uid)?bookType=\(bookType)&name=\(name)", json: [:], completionHandler:completionHandler)
     }
     func cancelBookingByRoomUid(uid: String, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> Void
     {
@@ -302,7 +371,7 @@ class PerfectSelfWebAPI
     }
     func getAvailabilityById(uid: String, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> Void
     {
-        return executeAPI(with: "GET", apiPath: "Availabilities/UpcomingByUid/\(uid)/\(Date.getDateString(date: Date()))", json: [:], completionHandler:completionHandler)
+        return executeAPI(with: "GET", apiPath: "Availabilities/UpcomingByUid/\(uid)/\(Date.getStringFromDate(date: Date()))", json: [:], completionHandler:completionHandler)
     }
     func getLibraryByUid(uid: String, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> Void
     {
@@ -320,12 +389,65 @@ class PerfectSelfWebAPI
         ]
         return executeAPI(with: "POST", apiPath: "Availabilities/", json: json, completionHandler:completionHandler)
     }
+    func updateAvailability(uid: String, timeSlotList: [TimeSlot], completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> Void
+    {
+        var batchData: [[String: Any]] = [[:]]
+        batchData.removeAll()
+        let df = DateFormatter()
+        df.dateFormat = "yyyy-MM-dd"
+        for item in timeSlotList {
+            for slot in item.time {
+                var fromTime = df.string(from: Date.getDateFromString(date: item.date)!)
+                var toTime = fromTime
+                if slot.slot == 1 {
+                    fromTime += "T09:00:00"
+                    toTime += "T10:00:00"
+                } else if slot.slot == 2 {
+                    fromTime += "T10:00:00"
+                    toTime += "T11:00:00"
+                } else if slot.slot == 3 {
+                    fromTime += "T11:00:00"
+                    toTime += "T12:00:00"
+                } else if slot.slot == 4 {
+                    fromTime += "T14:00:00"
+                    toTime += "T15:00:00"
+                } else if slot.slot == 5 {
+                    fromTime += "T15:00:00"
+                    toTime += "T16:00:00"
+                } else if slot.slot == 6 {
+                    fromTime += "T16:00:00"
+                    toTime += "T17:00:00"
+                } else {
+                    fromTime += "T00:00:00"
+                    toTime += "T00:00:00"
+                }
+                let p: [String:Any] = [
+                    "isStandBy": item.isStandBy,
+                    "repeatFlag": item.repeatFlag,
+                    "date": item.date,
+                    "fromTime": fromTime,
+                    "toTime": toTime
+                ]
+                batchData.append(p)
+            }
+        }
+        
+        let json: [String: Any] = [
+            "readerUid": uid,
+            "batchTimeSlot": batchData
+        ]
+        print(json)
+        return executeAPI(with: "POST", apiPath: "Availabilities/AddBatch", json: json, completionHandler:completionHandler)
+    }
     func giveFeedback(id: Int, score: Float, review: String, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> Void
     {
         print("Books/GiveFeedbackToUid/\(id)?score=\(score)&review=\(review)")
         return executeAPI(with: "PUT", apiPath: "Books/GiveFeedbackToUid/\(id)?score=\(score)&review=\(review)", json: [:], completionHandler:completionHandler)
     }
-    
+    func getUnreadCountByUid(uid: String, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> Void
+    {
+        return executeAPI(with: "GET", apiPath: "MessageHistory/GetUnreadCountEx/\(uid)", json: [:], completionHandler:completionHandler)
+    }
     func getChannelHistoryByUid(uid: String, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> Void
     {
         return executeAPI(with: "GET", apiPath: "MessageHistory/GetChannelHistory/\(uid)", json: [:], completionHandler:completionHandler)
@@ -348,6 +470,10 @@ class PerfectSelfWebAPI
         ]
         
         return executeAPI(with: "POST", apiPath: "MessageHistory", json: json, completionHandler:completionHandler)
+    }
+    func updateAllMessageReadState(suid: String, ruid: String, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> Void
+    {
+        return executeAPI(with: "PUT", apiPath: "MessageHistory/SetAllReadMessage/\(ruid)/\(suid)", json: [:], completionHandler:completionHandler)
     }
     func updateOnlineState(uid: String, newState: Bool, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> Void
     {

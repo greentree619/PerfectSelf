@@ -15,4 +15,7 @@ target 'PerfectSelf' do
   pod 'RangeSeekSlider'
   pod 'IQKeyboardManagerSwift'
   pod "Koyomi"
+  pod "SwiftGifOrigin"
+  pod 'GoogleAPIClientForREST/Calendar'
+  pod 'GoogleSignIn', '~> 5.0.2'
 end

@@ -96,27 +96,71 @@ class MessageCenterViewController: UIViewController, UICollectionViewDataSource,
         let card = self.items[indexPath.row]
         if card.senderUid == uid {
             if card.receiverAvatarKey != nil {
-                let url = "https://perfectself-avatar-bucket.s3.us-east-2.amazonaws.com/\(card.receiverAvatarBucket!)/\(card.receiverAvatarKey!)"
+                let url = "https://\(card.receiverAvatarBucket!).s3.us-east-2.amazonaws.com/\(card.receiverAvatarKey!)"
                 cell.img_avatar.imageFrom(url: URL(string: url)!)
             }
         
             cell.view_status.backgroundColor = card.receiverIsOnline ? UIColor(rgb: 0x34C759) : UIColor(rgb: 0xAAAAAA)
             cell.lbl_name.text = card.receiverName
             cell.lbl_message.text = card.message
-            cell.lbl_time.text = card.sendTime
-            // unread number
         }
         else {
             if card.senderAvatarKey != nil {
-                let url = "https://perfectself-avatar-bucket.s3.us-east-2.amazonaws.com/\(card.senderAvatarBucket!)/\(card.senderAvatarKey!)"
+                let url = "https://\(card.senderAvatarBucket!).s3.us-east-2.amazonaws.com/\(card.senderAvatarKey!)"
                 cell.img_avatar.imageFrom(url: URL(string: url)!)
             }
         
             cell.view_status.backgroundColor = card.senderIsOnline ? UIColor(rgb: 0x34C759) : UIColor(rgb: 0xAAAAAA)
             cell.lbl_name.text = card.senderName
             cell.lbl_message.text = card.message
-            cell.lbl_time.text = card.sendTime
-            // unread number
+        }
+        
+        let formatter = DateComponentsFormatter()
+        formatter.unitsStyle = .full
+        formatter.maximumUnitCount = 1
+        formatter.allowedUnits = [.day]
+
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MMM dd"
+
+        let df = DateFormatter()
+        df.dateFormat =  "yyyy-MM-dd'T'HH:mm:ss.SSSSSSS"
+        let someDate = df.date(from: card.sendTime) ?? Date()
+       
+        let currentDateComponents = Calendar.current.dateComponents([.yearForWeekOfYear, .weekOfYear], from: Date())
+        let thisWeekStart = Calendar.current.date(from: currentDateComponents)!
+        let thisWeekEnd = Calendar.current.date(byAdding: .day, value: 6, to: thisWeekStart)!
+
+        if Calendar.current.isDateInToday(someDate) {
+            // Display the time only
+            dateFormatter.dateFormat = "h:mm a"
+            let timeString = dateFormatter.string(from: someDate)
+            print(timeString)
+            cell.lbl_time.text = timeString
+
+        } else if Calendar.current.isDateInYesterday(someDate) {
+            cell.lbl_time.text = "Yesterday"
+        } else if someDate >= thisWeekStart && someDate <= thisWeekEnd {
+            let daysAgoString = formatter.string(from: someDate, to: Date())!
+            let daysAgo = daysAgoString.replacingOccurrences(of: ",", with: "")
+            let dateString = "\(daysAgo) ago"
+            print(dateString)
+            cell.lbl_time.text = dateString
+        }
+        else {
+            // Display the month and day
+            let dateString = dateFormatter.string(from: someDate)
+            print(dateString)
+            cell.lbl_time.text = dateString
+        }
+        // unread number
+        if self.items[indexPath.row].senderUid == uid {
+            cell.view_unread.isHidden = true
+            cell.lbl_unviewednum.text = String(self.items[indexPath.row].unreadCount)
+        }
+        else {
+            cell.view_unread.isHidden = self.items[indexPath.row].unreadCount == 0
+            cell.lbl_unviewednum.text = String(self.items[indexPath.row].unreadCount)
         }
         
         // return card
@@ -141,14 +185,14 @@ class MessageCenterViewController: UIViewController, UICollectionViewDataSource,
         var uuid: String!
         if card.senderUid == uid {
             if card.receiverAvatarKey != nil {
-                url = "https://perfectself-avatar-bucket.s3.us-east-2.amazonaws.com/\(card.receiverAvatarBucket!)/\(card.receiverAvatarKey!)"
+                url = "https://\(card.receiverAvatarBucket!).s3.us-east-2.amazonaws.com/\(card.receiverAvatarKey!)"
             }
             name = card.receiverName
             uuid = card.receiverUid
         }
         else {
             if card.senderAvatarKey != nil {
-                url = "https://perfectself-avatar-bucket.s3.us-east-2.amazonaws.com/\(card.senderAvatarBucket!)/\(card.senderAvatarKey!)"
+                url = "https://\(card.senderAvatarBucket!).s3.us-east-2.amazonaws.com/\(card.senderAvatarKey!)"
             }
             name = card.senderName
             uuid = card.senderUid
@@ -166,7 +210,13 @@ class MessageCenterViewController: UIViewController, UICollectionViewDataSource,
     }
   
     @IBAction func GoBack(_ sender: UIButton) {
-        self.navigationController?.popViewController(animated: true)
+//        self.navigationController?.popViewController(animated: true)
+        let transition = CATransition()
+        transition.duration = 0.5 // Set animation duration
+        transition.type = CATransitionType.push // Set transition type to push
+        transition.subtype = CATransitionSubtype.fromLeft // Set transition subtype to from right
+        self.view.window?.layer.add(transition, forKey: kCATransition) // Add transition to window layer
+        self.dismiss(animated: false)
     }
     
     /*

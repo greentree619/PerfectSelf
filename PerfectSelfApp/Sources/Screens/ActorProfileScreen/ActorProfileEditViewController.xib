@@ -17,6 +17,7 @@
                 <outlet property="cityview" destination="tRp-x8-Bu7" id="ZxN-S7-Kr1"/>
                 <outlet property="countryview" destination="bdv-Ki-MQq" id="8ni-j7-lx7"/>
                 <outlet property="genderview" destination="Omm-Z8-qAQ" id="Vdi-7G-x3C"/>
+                <outlet property="img_user_avatar" destination="ZLB-9g-myf" id="3ey-QS-SYY"/>
                 <outlet property="stateview" destination="wEX-zo-chA" id="42K-Ii-IVP"/>
                 <outlet property="text_age" destination="Yxb-yN-xYq" id="bRY-qA-BJw"/>
                 <outlet property="text_agency" destination="ZbQ-lm-4wb" id="Xa8-SW-opM"/>
@@ -96,17 +97,23 @@
                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="h6s-hz-T4R">
                             <rect key="frame" x="20" y="50" width="350" height="140"/>
                             <subviews>
-                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ViX-Rq-ZkM">
+                                <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ViX-Rq-ZkM">
                                     <rect key="frame" x="121" y="20" width="108" height="100"/>
                                     <subviews>
-                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Jae-cR-Nsk">
+                                        <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Jae-cR-Nsk">
                                             <rect key="frame" x="12" y="8" width="84" height="84"/>
                                             <subviews>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="person.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="ZLB-9g-myf">
-                                                    <rect key="frame" x="0.0" y="2" width="84" height="80.666666666666671"/>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="person.circle.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="ZLB-9g-myf">
+                                                    <rect key="frame" x="0.0" y="1" width="84" height="82.666666666666671"/>
+                                                    <color key="backgroundColor" systemColor="systemGray5Color"/>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                            <real key="value" value="42"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                    </userDefinedRuntimeAttributes>
                                                 </imageView>
                                             </subviews>
-                                            <color key="backgroundColor" red="0.45882352939999999" green="0.52941176469999995" blue="0.85098039219999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <color key="tintColor" systemColor="labelColor"/>
                                             <constraints>
                                                 <constraint firstAttribute="bottom" secondItem="ZLB-9g-myf" secondAttribute="bottom" id="LlW-Pw-Vk1"/>
@@ -114,17 +121,12 @@
                                                 <constraint firstItem="ZLB-9g-myf" firstAttribute="leading" secondItem="Jae-cR-Nsk" secondAttribute="leading" id="ozx-kA-6A2"/>
                                                 <constraint firstItem="ZLB-9g-myf" firstAttribute="top" secondItem="Jae-cR-Nsk" secondAttribute="top" id="yik-AW-H52"/>
                                             </constraints>
-                                            <userDefinedRuntimeAttributes>
-                                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                    <real key="value" value="10"/>
-                                                </userDefinedRuntimeAttribute>
-                                            </userDefinedRuntimeAttributes>
                                         </view>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ezc-eF-oJ6">
-                                            <rect key="frame" x="78" y="70" width="30" height="30"/>
+                                            <rect key="frame" x="73" y="65" width="25" height="25"/>
                                             <constraints>
-                                                <constraint firstAttribute="width" constant="30" id="6LT-aH-U8j" customClass="AdaptiveLayoutConstraint" customModule="PerfectSelf" customModuleProvider="target"/>
-                                                <constraint firstAttribute="height" constant="30" id="Fis-UC-vd8" customClass="AdaptiveLayoutConstraint" customModule="PerfectSelf" customModuleProvider="target"/>
+                                                <constraint firstAttribute="width" constant="25" id="6LT-aH-U8j" customClass="AdaptiveLayoutConstraint" customModule="PerfectSelf" customModuleProvider="target"/>
+                                                <constraint firstAttribute="height" constant="25" id="Fis-UC-vd8" customClass="AdaptiveLayoutConstraint" customModule="PerfectSelf" customModuleProvider="target"/>
                                             </constraints>
                                             <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <inset key="contentEdgeInsets" minX="5" minY="5" maxX="5" maxY="5"/>
@@ -143,6 +145,9 @@
                                                     <real key="value" value="1"/>
                                                 </userDefinedRuntimeAttribute>
                                             </userDefinedRuntimeAttributes>
+                                            <connections>
+                                                <action selector="UploadImage:" destination="-1" eventType="touchUpInside" id="9l1-UV-g7h"/>
+                                            </connections>
                                         </button>
                                     </subviews>
                                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -150,10 +155,10 @@
                                         <constraint firstItem="Jae-cR-Nsk" firstAttribute="leading" secondItem="ViX-Rq-ZkM" secondAttribute="leading" constant="12" id="Bdr-a7-F2W"/>
                                         <constraint firstAttribute="bottom" secondItem="Jae-cR-Nsk" secondAttribute="bottom" constant="8" id="Dvm-CA-z4L"/>
                                         <constraint firstAttribute="trailing" secondItem="Jae-cR-Nsk" secondAttribute="trailing" constant="12" id="GBy-uo-cdk"/>
-                                        <constraint firstAttribute="bottom" secondItem="ezc-eF-oJ6" secondAttribute="bottom" id="PMv-Lx-OgQ"/>
+                                        <constraint firstAttribute="bottom" secondItem="ezc-eF-oJ6" secondAttribute="bottom" constant="10" id="PMv-Lx-OgQ"/>
                                         <constraint firstItem="Jae-cR-Nsk" firstAttribute="top" secondItem="ViX-Rq-ZkM" secondAttribute="top" constant="8" id="Psv-Vh-h1l"/>
                                         <constraint firstAttribute="width" constant="108" id="t3P-5E-N2f" customClass="AdaptiveLayoutConstraint" customModule="PerfectSelf" customModuleProvider="target"/>
-                                        <constraint firstAttribute="trailing" secondItem="ezc-eF-oJ6" secondAttribute="trailing" id="yFP-F1-OYx"/>
+                                        <constraint firstAttribute="trailing" secondItem="ezc-eF-oJ6" secondAttribute="trailing" constant="10" id="yFP-F1-OYx"/>
                                     </constraints>
                                 </view>
                             </subviews>
@@ -704,12 +709,15 @@
         <image name="arrow.left" catalog="system" width="128" height="95"/>
         <image name="camera" catalog="system" width="128" height="93"/>
         <image name="dropdown" width="14" height="9"/>
-        <image name="person.fill" catalog="system" width="128" height="120"/>
+        <image name="person.circle.fill" catalog="system" width="128" height="123"/>
         <systemColor name="labelColor">
             <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemGray5Color">
+            <color red="0.89803921568627454" green="0.89803921568627454" blue="0.91764705882352937" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

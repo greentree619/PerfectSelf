@@ -82,13 +82,12 @@
                     <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 </containerView>
-                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" hidesWhenStopped="YES" animating="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="qwG-Hk-o2t">
+                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="qwG-Hk-o2t">
                     <rect key="frame" x="197" y="438" width="20" height="20"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 </activityIndicatorView>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="5" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NK0-KA-cNI">
-                    <rect key="frame" x="175" y="388" width="62.5" height="119.5"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="5" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NK0-KA-cNI">
+                    <rect key="frame" x="165.33333333333334" y="366.33333333333331" width="62.666666666666657" height="119.66666666666669"/>
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="100"/>
                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <nil key="highlightedColor"/>
@@ -272,9 +271,11 @@
             <viewLayoutGuide key="safeArea" id="sTU-ws-N6E"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
+                <constraint firstItem="NK0-KA-cNI" firstAttribute="centerX" secondItem="9iQ-U3-AXN" secondAttribute="centerX" id="0g3-8c-ERk"/>
                 <constraint firstAttribute="bottom" secondItem="hgi-yo-jYB" secondAttribute="bottom" id="2ar-qI-s8u"/>
                 <constraint firstItem="hgi-yo-jYB" firstAttribute="leading" secondItem="sTU-ws-N6E" secondAttribute="leading" id="BVv-Uo-f28"/>
                 <constraint firstItem="jkb-fE-oc3" firstAttribute="leading" secondItem="sTU-ws-N6E" secondAttribute="leading" constant="20" id="HtL-Q6-0Nv"/>
+                <constraint firstItem="NK0-KA-cNI" firstAttribute="centerY" secondItem="9iQ-U3-AXN" secondAttribute="centerY" id="N7t-wC-Brg"/>
                 <constraint firstItem="hgi-yo-jYB" firstAttribute="top" secondItem="9iQ-U3-AXN" secondAttribute="top" id="Ry7-WQ-JHk"/>
                 <constraint firstItem="E2h-6m-Ewa" firstAttribute="leading" secondItem="sTU-ws-N6E" secondAttribute="leading" id="Uzu-IB-8gK"/>
                 <constraint firstItem="sTU-ws-N6E" firstAttribute="bottom" secondItem="uQk-2e-edp" secondAttribute="bottom" constant="27" id="Wap-Bz-oWT"/>
@@ -295,6 +296,7 @@
             </constraints>
             <variation key="default">
                 <mask key="subviews">
+                    <exclude reference="qwG-Hk-o2t"/>
                     <exclude reference="RLo-gp-mGa"/>
                 </mask>
             </variation>

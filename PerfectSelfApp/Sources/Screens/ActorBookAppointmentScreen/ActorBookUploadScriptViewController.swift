@@ -7,37 +7,80 @@
 //
 
 import UIKit
+import MobileCoreServices
 
-class ActorBookUploadScriptViewController: UIViewController {
+class ActorBookUploadScriptViewController: UIViewController, UIDocumentPickerDelegate {
 
     var readerUid: String = ""
+    var readerName: String = ""
     var bookingStartTime: String = ""
     var bookingEndTime: String = ""
     var bookingDate: String = ""
+    var scriptBucket = ""
+    var scriptKey = ""
     
+    @IBOutlet weak var lbl_readerName: UILabel!
+    @IBOutlet weak var lbl_date: UILabel!
     @IBOutlet weak var text_script: UITextView!
+    @IBOutlet weak var lbl_time: UILabel!
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-
+        lbl_readerName.text = "Reading with \(readerName)"
+        print(bookingDate, bookingStartTime)
+        let df = DateFormatter()
+        df.dateFormat = "yyyy-MM-dd'T'hh:mm:ss"
+        df.timeZone = TimeZone(abbreviation: "EST")
+        let estDate = df.date(from: bookingDate + bookingStartTime) ?? Date()
+        df.dateFormat = "hh:mm"
+        let t = df.string(from: estDate)
+        df.dateFormat = "MMMM dd, yyyy"
+        let d = df.string(from: estDate)
+        lbl_time.text = "Time: \(t) EST"
+        lbl_date.text = "Date: \(d)"
     }
 
+    @IBAction func UploadScriptFile(_ sender: UIButton) {
+        let documentPicker = UIDocumentPickerViewController(documentTypes: [String(kUTTypePDF)], in: .import)
+        documentPicker.delegate = self
+        self.present(documentPicker, animated: true)
+    }
+    func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
+        print(urls[0])
+        let uuid = UUID().uuidString
+        showIndicator(sender: nil, viewController: self, color: UIColor.white)
+        awsUpload.uploadScript(filePath: urls[0], bucketName: SCRIPT_BUCKET, prefix: "\(uuid)") { (error: Error?) -> Void in
+            DispatchQueue.main.async {
+                hideIndicator(sender: nil)
+            }
+            if error == nil {
+                // do something with url
+                //Omitted let url = "https://perfect-reader-video-bucket.s3.us-east-2.amazonaws.com/actor-script/\(uuid)/\(String(urls[0].lastPathComponent))"
+                //Omitted print(url)
+                self.scriptBucket = SCRIPT_BUCKET
+                self.scriptKey = "\(uuid)/\(String(urls[0].lastPathComponent))"
+            }
+        }
+    }
     @IBAction func GotoCheckout(_ sender: UIButton) {
         let controller = ActorSetPaymentViewController();
 
         controller.readerUid = readerUid
+        controller.readerName = readerName
         controller.bookingStartTime = bookingStartTime
         controller.bookingEndTime = bookingEndTime
         controller.bookingDate = bookingDate
         controller.script = text_script.text
+        controller.scriptBucket = self.scriptBucket
+        controller.scriptKey = self.scriptKey
         controller.modalPresentationStyle = .fullScreen
 //        self.navigationController?.pushViewController(controller, animated: true)
-        let transition = CATransition()
-        transition.duration = 0.5 // Set animation duration
-        transition.type = CATransitionType.push // Set transition type to push
-        transition.subtype = CATransitionSubtype.fromRight // Set transition subtype to from right
-        self.view.window?.layer.add(transition, forKey: kCATransition) // Add transition to window layer
+//        let transition = CATransition()
+//        transition.duration = 0.5 // Set animation duration
+//        transition.type = CATransitionType.push // Set transition type to push
+//        transition.subtype = CATransitionSubtype.fromRight // Set transition subtype to from right
+//        self.view.window?.layer.add(transition, forKey: kCATransition) // Add transition to window layer
         self.present(controller, animated: false)
     }
     @IBAction func GoBack(_ sender: UIButton) {

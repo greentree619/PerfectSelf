@@ -19,6 +19,7 @@ class ActorBookingViewController: UIViewController, UICollectionViewDataSource, 
     var bookId = 0
     var score:Float = 0.0
     var bookType = 1//upcoming
+    var searchText = ""
     @IBOutlet weak var btn_upcoming: UIButton!
     @IBOutlet weak var btn_past: UIButton!
     @IBOutlet weak var btn_pending: UIButton!
@@ -69,12 +70,17 @@ class ActorBookingViewController: UIViewController, UICollectionViewDataSource, 
         super.viewWillAppear(true);
         fetchBookList()
     }
+    
+    @IBAction func Search(_ sender: UITextField) {
+        self.searchText = sender.text ?? ""
+        fetchBookList()
+    }
     func fetchBookList() {
         //call API to fetch booking list
         spin.isHidden = false
         spin.startAnimating()
          
-         webAPI.getBookingsByUid(uid: uid, bookType: self.bookType) { data, response, error in
+        webAPI.getBookingsByUid(uid: uid, bookType: self.bookType, name: self.searchText) { data, response, error in
             DispatchQueue.main.async {
                 self.spin.stopAnimating()
                 self.spin.isHidden = true
@@ -115,7 +121,8 @@ class ActorBookingViewController: UIViewController, UICollectionViewDataSource, 
             + flowLayout.sectionInset.right
             + (flowLayout.minimumInteritemSpacing * CGFloat(cellsPerRow - 1))
         let size = Int((collectionView.bounds.width - totalSpace) / CGFloat(cellsPerRow))
-        return CGSize(width: size, height: size*145/328)
+        let height = Int(Double(size) * 0.45)
+        return CGSize(width: size, height: height)
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -139,11 +146,13 @@ class ActorBookingViewController: UIViewController, UICollectionViewDataSource, 
         cell.muid = self.items[indexPath.row].actorUid
         var url: String?
         if self.items[indexPath.row].readerBucketName != nil {
-            url = "https://perfectself-avatar-bucket.s3.us-east-2.amazonaws.com/\(self.items[indexPath.row].readerBucketName!)/\(self.items[indexPath.row].readerAvatarKey!)"
+            url = "https://\(self.items[indexPath.row].readerBucketName!).s3.us-east-2.amazonaws.com/\(self.items[indexPath.row].readerAvatarKey!)"
         }
         cell.url = url
         cell.review = self.items[indexPath.row].readerReview
-   
+        cell.script = self.items[indexPath.row].scriptFile ?? ""
+        cell.scriptBucketName = self.items[indexPath.row].scriptBucket ?? ""
+        cell.scriptKey = self.items[indexPath.row].scriptKey ?? ""
         cell.id = self.items[indexPath.row].id
         cell.lbl_name.text = self.items[indexPath.row].readerName;
         cell.lbl_date.text = dateFormatter1.string(from: datestart ?? Date())

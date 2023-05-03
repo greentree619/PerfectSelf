@@ -23,12 +23,12 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2RM-Re-bgC" customClass="PlayerView" customModule="PerfectSelf" customModuleProvider="target">
-                    <rect key="frame" x="0.0" y="111" width="393" height="707"/>
+                    <rect key="frame" x="0.0" y="59" width="393" height="759"/>
                     <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </view>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZJd-mf-cDp">
-                    <rect key="frame" x="156.66666666666666" y="424.66666666666669" width="80" height="80"/>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <rect key="frame" x="156.66666666666666" y="398.66666666666669" width="80" height="80"/>
+                    <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="80" id="jrN-XI-ACc"/>
                         <constraint firstAttribute="width" secondItem="ZJd-mf-cDp" secondAttribute="height" id="t1p-5d-V5P"/>
@@ -49,18 +49,23 @@
                     <rect key="frame" x="-2" y="788" width="397" height="31"/>
                 </slider>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eSS-DO-nks">
-                    <rect key="frame" x="0.0" y="59" width="393" height="44"/>
+                    <rect key="frame" x="0.0" y="59" width="393" height="87"/>
                     <subviews>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vuB-Ja-Tg4">
-                            <rect key="frame" x="10" y="4.6666666666666643" width="76.666666666666671" height="35"/>
-                            <state key="normal" title="Button"/>
-                            <buttonConfiguration key="configuration" style="plain" title="&lt; Back"/>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vuB-Ja-Tg4" userLabel="Back">
+                            <rect key="frame" x="20" y="28.666666666666671" width="30" height="30"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="30" id="lqV-5G-dDC"/>
+                                <constraint firstAttribute="height" constant="30" id="vQV-7w-CBk"/>
+                            </constraints>
+                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                            <state key="normal" backgroundImage="back-button"/>
                             <connections>
                                 <action selector="btnBackClicked:" destination="-1" eventType="touchUpInside" id="y4A-XJ-dqa"/>
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oaV-nv-6Se">
-                            <rect key="frame" x="322" y="4.6666666666666643" width="61" height="35"/>
+                            <rect key="frame" x="312" y="26" width="61" height="35"/>
+                            <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             <state key="normal" title="Button"/>
                             <buttonConfiguration key="configuration" style="plain" title="Save"/>
                             <connections>
@@ -68,12 +73,12 @@
                             </connections>
                         </button>
                     </subviews>
-                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    <color key="backgroundColor" red="0.14901960784313725" green="0.19607843137254902" blue="0.2196078431372549" alpha="0.69999999999999996" colorSpace="custom" customColorSpace="calibratedRGB"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="44" id="BRY-xj-yBi"/>
+                        <constraint firstAttribute="height" constant="87" id="BRY-xj-yBi"/>
                         <constraint firstItem="oaV-nv-6Se" firstAttribute="centerY" secondItem="eSS-DO-nks" secondAttribute="centerY" id="Q2Q-8M-DSh"/>
-                        <constraint firstItem="vuB-Ja-Tg4" firstAttribute="leading" secondItem="eSS-DO-nks" secondAttribute="leading" constant="10" id="aQX-e3-S3n"/>
-                        <constraint firstAttribute="trailing" secondItem="oaV-nv-6Se" secondAttribute="trailing" constant="10" id="ahe-0b-QAe"/>
+                        <constraint firstItem="vuB-Ja-Tg4" firstAttribute="leading" secondItem="eSS-DO-nks" secondAttribute="leading" constant="20" id="aQX-e3-S3n"/>
+                        <constraint firstAttribute="trailing" secondItem="oaV-nv-6Se" secondAttribute="trailing" constant="20" id="ahe-0b-QAe"/>
                         <constraint firstItem="vuB-Ja-Tg4" firstAttribute="centerY" secondItem="eSS-DO-nks" secondAttribute="centerY" id="qN8-8s-ID2"/>
                         <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="vuB-Ja-Tg4" secondAttribute="trailing" constant="20" symbolic="YES" id="qc4-Oj-LH6"/>
                     </constraints>
@@ -90,7 +95,7 @@
                 <constraint firstItem="AgH-Og-MP0" firstAttribute="leading" secondItem="2RM-Re-bgC" secondAttribute="leading" id="LqK-wo-R84"/>
                 <constraint firstItem="dxV-zO-wCG" firstAttribute="trailing" secondItem="2RM-Re-bgC" secondAttribute="trailing" id="O4T-bt-7yY"/>
                 <constraint firstItem="ZJd-mf-cDp" firstAttribute="centerY" secondItem="2RM-Re-bgC" secondAttribute="centerY" id="R3O-EC-Wyi"/>
-                <constraint firstItem="2RM-Re-bgC" firstAttribute="top" secondItem="eSS-DO-nks" secondAttribute="bottom" constant="8" symbolic="YES" id="eH0-uE-SLV"/>
+                <constraint firstItem="2RM-Re-bgC" firstAttribute="top" secondItem="dxV-zO-wCG" secondAttribute="top" id="eH0-uE-SLV"/>
                 <constraint firstItem="eSS-DO-nks" firstAttribute="leading" secondItem="dxV-zO-wCG" secondAttribute="leading" id="gaA-Ri-5v9"/>
                 <constraint firstItem="AgH-Og-MP0" firstAttribute="trailing" secondItem="2RM-Re-bgC" secondAttribute="trailing" id="xTS-Jc-qws"/>
                 <constraint firstItem="AgH-Og-MP0" firstAttribute="bottom" secondItem="2RM-Re-bgC" secondAttribute="bottom" id="xlO-zP-wN1"/>
@@ -99,6 +104,7 @@
         </view>
     </objects>
     <resources>
+        <image name="back-button" width="24" height="24"/>
         <image name="play" width="100" height="100"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

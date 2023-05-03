@@ -172,34 +172,29 @@ class ActorBuildProfile3ViewController: UIViewController {
         }
         showIndicator(sender: sender, viewController: self)
    
-        webAPI.createActorProfile(actoruid: uid, ageRange: agerange, height: height, weight: weight, country: text_country.text != nil ? text_country.text!: "", state: text_state.text != nil ? text_state.text! : "", city: text_city.text != nil ? text_city.text! : "", agency: text_agency.text != nil ? text_agency.text! : "", vaccination: text_vaccination.text != nil ? text_vaccination.text! : "") { data, response, error in
-            guard let data = data, error == nil else {
+        webAPI.updateActorProfile(actoruid: uid, ageRange: agerange, height: height, weight: weight, country: text_country.text ?? "", state: text_state.text ?? "", city: text_city.text ?? "", agency: text_agency.text ?? "", vaccination: text_vaccination.text ?? "") { data, response, error in
+            guard let _ = data, error == nil else {
                 print(error?.localizedDescription ?? "No data")
+                DispatchQueue.main.async {
+                    Toast.show(message: "Profile update failed! please try again.", controller: self)
+                }
                 return
             }
-            let responseJSON = try? JSONSerialization.jsonObject(with: data, options: [])
-
-            if let _ = responseJSON as? [String: Any] {
-                
-                DispatchQueue.main.async {
-                    hideIndicator(sender: sender)
-                    let controller = ActorTabBarController() 
-                    controller.modalPresentationStyle = .fullScreen
-                    self.present(controller, animated: false)
-                }
-            }
-            else
-            {
-                DispatchQueue.main.async {
-                    hideIndicator(sender: sender)
-                    Toast.show(message: "Profile update failed! please try again.", controller: self)
-                    print("error3")
-                }
+            DispatchQueue.main.async {
+                hideIndicator(sender: sender)
+                let controller = ActorTabBarController()
+                controller.modalPresentationStyle = .fullScreen
+                self.present(controller, animated: false)
             }
         }
     }
     @IBAction func GoBack(_ sender: UIButton) {
-        self.navigationController?.popViewController(animated: true);
+        let transition = CATransition()
+        transition.duration = 0.5 // Set animation duration
+        transition.type = CATransitionType.push // Set transition type to push
+        transition.subtype = CATransitionSubtype.fromLeft // Set transition subtype to from right
+        self.view.window?.layer.add(transition, forKey: kCATransition) // Add transition to window layer
+        self.dismiss(animated: false)
     }
     /*
     // MARK: - Navigation

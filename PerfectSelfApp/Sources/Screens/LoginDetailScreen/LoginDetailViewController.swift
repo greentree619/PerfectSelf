@@ -16,6 +16,7 @@ class LoginDetailViewController: UIViewController {
     @IBOutlet weak var btn_actor: UIButton!
     @IBOutlet weak var btn_reader: UIButton!
     @IBOutlet weak var btn_forgotpassword: UIButton!
+    @IBOutlet weak var btn_rememberme: UIButton!
     @IBOutlet weak var text_email: UITextField!
     @IBOutlet weak var text_password: UITextField!
     @IBOutlet weak var btn_showpassword: UIButton!
@@ -26,9 +27,7 @@ class LoginDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        
-        btn_actor.isSelected = true;
-        btn_reader.isSelected = false;
+
         btn_forgotpassword.isSelected = false;
         text_password.isSecureTextEntry = true;
         
@@ -41,13 +40,12 @@ class LoginDetailViewController: UIViewController {
         text_password.text = userPwd
         if let userInfo = UserDefaults.standard.object(forKey: "USER") as? [String:Any] {
             // Use the saved data
-            let type = userInfo["userType"] as? Int
-            if type == 4 {
+            self.userType = userInfo["userType"] as? Int ?? 3
+            if userType == 4 {
                 btn_reader.isSelected = true
                 btn_actor.isSelected = false
                 btn_reader.borderWidth = 3;
                 btn_actor.borderWidth = 0;
-                userType = 4;
             }
             else {
                 btn_actor.isSelected = true
@@ -100,7 +98,6 @@ class LoginDetailViewController: UIViewController {
             let responseJSON = try? JSONSerialization.jsonObject(with: data, options: [])
            
             if let responseJSON = responseJSON as? [String: Any] {
-//                print(responseJSON["result"] ?? "kkk")
                 guard let result = responseJSON["result"] else {
                     DispatchQueue.main.async {
                         hideIndicator(sender: sender)
@@ -112,21 +109,35 @@ class LoginDetailViewController: UIViewController {
                 
                 if result as! Bool {
                     let user = responseJSON["user"] as! [String: Any]
+                    
+                    let fCMDeviceToken = user["fcmDeviceToken"] as! String
+                    let uid = user["uid"] as! String
+                    
+                   if( fcmDeviceToken.count > 0 &&
+                       fcmDeviceToken != fCMDeviceToken )
+                    {
+                       webAPI.updateUserInfo(uid: uid, bucketName: "", avatarKey: "", fcmDeviceToken: fcmDeviceToken)  { data, response, error in
+                           if error == nil {
+                               // successfully update db
+                               print("update db completed")
+                           }
+                       }
+                       //print(fcmDeviceToken, deviceKind)
+                    }
 
                     UserDefaults.standard.setValue(user, forKey: "USER")
                     DispatchQueue.main.async {
                         hideIndicator(sender: sender)
                         //{{REFME
-                        var rememberMeFlag: Bool = UserDefaults.standard.bool(forKey: "REMEMBER_USER")
-                        UserDefaults.standard.set(true, forKey: "REMEMBER_USER")
-                        rememberMeFlag = UserDefaults.standard.bool(forKey: "REMEMBER_USER")
-                        rememberMeFlag = rememberMeFlag
+//                        var rememberMeFlag: Bool = UserDefaults.standard.bool(forKey: "REMEMBER_USER")
+                        let rememberMeFlag: Bool = self.btn_rememberme.isSelected
+                        UserDefaults.standard.set(rememberMeFlag, forKey: "REMEMBER_USER")
                         
                         UserDefaults.standard.set(String(self.text_email.text!), forKey: "USER_EMAIL")
                         UserDefaults.standard.set(String(self.text_password.text!), forKey: "USER_PWD")
                         
                         //}}REFME
-                        if self.btn_actor.isSelected {
+                        if self.userType == 3 {
                             let controller = ActorTabBarController();
                             controller.modalPresentationStyle = .fullScreen
                             self.present(controller, animated: false)
@@ -174,6 +185,17 @@ class LoginDetailViewController: UIViewController {
         userType = 4;
     }
     
+    @IBAction func ChangeRememberMe(_ sender: UIButton) {
+        sender.isSelected.toggle();
+        
+        if sender.isSelected {
+            sender.setImage(checkedImage, for: UIControl.State.normal);
+            sender.tintColor = UIColor(red:255,green: 255, blue: 255,  alpha: 1);
+        }
+        else {
+            sender.setImage(uncheckedImage, for: UIControl.State.normal)
+        }
+    }
     @IBAction func ChangeForgotPassword(_ sender: UIButton) {
         sender.isSelected.toggle();
         
@@ -201,7 +223,13 @@ class LoginDetailViewController: UIViewController {
     }
     
     @IBAction func GoBack(_ sender: UIButton) {
-        self.navigationController?.popViewController(animated: true)
+//        self.navigationController?.popViewController(animated: true)
+        let transition = CATransition()
+        transition.duration = 0.5 // Set animation duration
+        transition.type = CATransitionType.push // Set transition type to push
+        transition.subtype = CATransitionSubtype.fromLeft // Set transition subtype to from right
+        self.view.window?.layer.add(transition, forKey: kCATransition) // Add transition to window layer
+        self.dismiss(animated: false)
     }
     
     /*

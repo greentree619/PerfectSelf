@@ -8,7 +8,25 @@
 
 import UIKit
 
-class ActorFindReaderViewController: UIViewController , UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, SortDelegate{
+class ActorFindReaderViewController: UIViewController , UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, SortDelegate, FilterDelegate{
+    func setFilterParams(isAvailableSoon: Bool, isOnline: Bool, timeSlotType: Int, isCommercialRead: Bool, isShortRead: Bool, isExtendedRead: Bool, isDateSelected: Bool, fromDate: Date, toDate: Date, minPrice: Float, maxPrice: Float, gender: Int, isExplicitRead: Bool) {
+        self.isAvailableSoon = isAvailableSoon
+        self.isOnline = isOnline
+        self.timeSlotType = timeSlotType
+        self.isDateSelected = isDateSelected
+        self.fromDate = fromDate
+        self.toDate = toDate
+        self.minPrice = minPrice
+        self.maxPrice = maxPrice
+        self.gender = gender
+        self.isCommercialRead = isCommercialRead
+        self.isShortRead = isShortRead
+        self.isExtendedRead = isExtendedRead
+        self.isComfortableWithExplicitRead = isExplicitRead
+        fetchReaderList()
+        
+    }
+    
     func setSortType(viewController: UIViewController, sortType: Int) {
         self.sortType = sortType
         fetchReaderList()
@@ -58,7 +76,7 @@ class ActorFindReaderViewController: UIViewController , UICollectionViewDataSour
         spin.startAnimating()
         // call API to fetch reader list
         
-        webAPI.getReaders(readerName: nil,isSponsored: nil, isAvailableSoon: isAvailableSoon,isTopRated: nil, isOnline: isOnline, availableTimeSlotType: nil, availableFrom: isDateSelected ? Date.getDateString(date: fromDate) : nil, availableTo: isDateSelected ? Date.getDateString(date: toDate) : nil, minPrice: minPrice, maxPrice: maxPrice, gender: gender != -1 ? gender:nil, sortBy: sortType) { data, response, error in
+        webAPI.getReaders(readerName: nil,isSponsored: nil, isAvailableSoon: isAvailableSoon,isTopRated: nil, isOnline: isOnline, availableTimeSlotType: nil, availableFrom: isDateSelected ? Date.getStringFromDate(date: fromDate) : nil, availableTo: isDateSelected ? Date.getStringFromDate(date: toDate) : nil, minPrice: minPrice, maxPrice: maxPrice, gender: gender != -1 ? gender:nil, sortBy: sortType) { data, response, error in
             DispatchQueue.main.async {
                 self.spin.stopAnimating()
                 self.spin.isHidden = true
@@ -107,7 +125,7 @@ class ActorFindReaderViewController: UIViewController , UICollectionViewDataSour
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Reader Collection View Cell", for: indexPath) as! ReaderCollectionViewCell
         
         if self.items[indexPath.row].avatarBucketName != nil {
-            let url = "https://perfectself-avatar-bucket.s3.us-east-2.amazonaws.com/\( self.items[indexPath.row].avatarBucketName!)/\( self.items[indexPath.row].avatarKey!)"
+            let url = "https://\( self.items[indexPath.row].avatarBucketName!).s3.us-east-2.amazonaws.com/\( self.items[indexPath.row].avatarKey!)"
             cell.readerAvatar.imageFrom(url: URL(string: url)!)
         }
         cell.readerName.text = self.items[indexPath.row].userName;
@@ -122,13 +140,13 @@ class ActorFindReaderViewController: UIViewController , UICollectionViewDataSour
     
         let dfforlabel = DateFormatter()
         dfforlabel.dateFormat = "MMM dd, hh:mm a"
-        cell.availableDate.text = dfforlabel.string(from: date!)
+        cell.availableDate.text = dfforlabel.string(from: date ?? Date())
         // return card
         cell.layer.masksToBounds = false
         cell.layer.shadowOffset = CGSizeZero
-        cell.layer.shadowRadius = 8
-        cell.layer.shadowOpacity = 0.2
-        cell.contentView.layer.cornerRadius = 12
+        cell.layer.shadowRadius = 5
+        cell.layer.shadowOpacity = 0.3
+        cell.contentView.layer.cornerRadius = 10
         cell.contentView.layer.borderWidth = 1.0
         cell.contentView.layer.borderColor = UIColor.clear.cgColor
         cell.contentView.layer.masksToBounds = true
@@ -143,12 +161,20 @@ class ActorFindReaderViewController: UIViewController , UICollectionViewDataSour
         controller.uid = self.items[indexPath.row].uid
         controller.modalPresentationStyle = .fullScreen
  
-        let transition = CATransition()
-        transition.duration = 0.5 // Set animation duration
-        transition.type = CATransitionType.push // Set transition type to push
-        transition.subtype = CATransitionSubtype.fromRight // Set transition subtype to from right
-        self.view.window?.layer.add(transition, forKey: kCATransition) // Add transition to window layer
+//        let transition = CATransition()
+//        transition.duration = 0.5 // Set animation duration
+//        transition.type = CATransitionType.push // Set transition type to push
+//        transition.subtype = CATransitionSubtype.fromRight // Set transition subtype to from right
+//        self.view.window?.layer.add(transition, forKey: kCATransition) // Add transition to window layer
         self.present(controller, animated: false)
+    }
+    @IBAction func ShowFilterModal(_ sender: UIButton) {
+        let controller = FilterViewController()
+        controller.originType = 1
+        controller.modalPresentationStyle = .overFullScreen
+        controller.delegate = self
+        self.present(controller, animated: true)
+        
     }
     
     @IBAction func SortReaders(_ sender: UIButton) {

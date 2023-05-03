@@ -11,12 +11,18 @@ import UIKit
 
 let signalingServerConfig = Config.default
 let webAPI = PerfectSelfWebAPI()
+let audoAPI = AudioEnhancementAPI()
+let backgroundAPI = BackgroundRemovalAPI()
 let ACTOR_UTYPE = 3
 let READER_UTYPE = 4
+let SCRIPT_BUCKET = "perfectself-script-bucket"
+var fcmDeviceToken: String = ""
 var backgroundView: UIView? = nil
 var activityIndicatorView: UIActivityIndicatorView? = nil
 var uiViewContoller: UIViewController? = nil
 var selectedTape: VideoCard?
+let awsUpload = AWSMultipartUpload()
+
 //var webRTCClient: WebRTCClient?
 //var signalClient: SignalingClient?
 //var signalingClientStatus: SignalingClientStatus?
@@ -48,6 +54,8 @@ struct UserInfo: Codable {
     let phoneNumber: String?
     let isLogin: Bool
     let token: String?
+    let fCMDeviceToken: String?
+    let deviceKind: Int
     let createdTime: String
     let updatedTime: String?
     let deletedTime: String?
@@ -63,8 +71,35 @@ struct ReaderProfileDetail: Codable {
     let voiceType: Int
     let about: String
     let skills: String
+    let score: Float
+    let introBucketName: String
+    let introVideoKey: String
+    let bookPassCount: Int
+    let allAvailability: [Availability]
+    let reviewLists: [Review]
 }
-
+struct Availability: Codable {
+    let readerUid: String
+    let isStandBy: Bool
+    let repeatFlag: Int
+    let date: String
+    let fromTime: String
+    let toTime: String
+    let id: Int
+}
+struct Review: Codable {
+    let actorUid: String
+    let readerUid: String
+    let roomUid: String
+    let actorName: String
+    let actorBucketName: String?
+    let actorAvatarKey: String?
+    let bookStartTime: String
+    let bookEndTime: String
+    let scriptFile: String
+    let readerScore: Int
+    let readerReview: String
+}
 struct ReaderProfileCard: Codable {
     let uid: String
     let userName: String
@@ -76,6 +111,8 @@ struct ReaderProfileCard: Codable {
     let avatarKey: String?
     let title: String?
     let gender: Int
+    let fcmDeviceToken: String?
+    let deviceKind: Int
     let isLogin: Bool
     let isSponsored: Bool
     let reviewCount: Int
@@ -86,7 +123,10 @@ struct ReaderProfileCard: Codable {
     let fromTime: String?
     let toTime: String?
 }
-
+struct UnreadState: Codable {
+    let uid: String
+    let unreadCount: Int
+}
 struct BookingCard: Codable {
     let id: Int
     let roomUid: String
@@ -94,7 +134,9 @@ struct BookingCard: Codable {
     let readerUid: String
     let readerName: String
     let actorName: String
-    let scriptFile: String
+    let scriptFile: String?
+    let scriptBucket: String?
+    let scriptKey: String?
     let bookStartTime: String
     let bookEndTime: String
     let readerReview: String?
@@ -115,17 +157,18 @@ struct VideoCard: Codable {
     let deletedTime: String
 }
 
-struct Availability: Codable {
-    let id: Int
-    let readerUid: String
-    let date: String
-    let fromTime: String
-    let toTime: String
-    let createdTime: String
-    let updatedTime: String
-    let deletedTime: String
+struct TimeSlot: Codable {
+    var date: String
+    var time: [Slot]
+    var repeatFlag: Int
+    var isStandBy: Bool
 }
-
+struct Slot: Codable {
+    var id: Int
+    var slot: Int
+    var duration: Int
+    var isDeleted: Bool
+}
 struct ChatChannel: Codable {
     let id: Int
     let senderUid: String
@@ -142,6 +185,7 @@ struct ChatChannel: Codable {
     let receiverAvatarKey: String?
     let senderIsOnline: Bool
     let receiverIsOnline: Bool
+    let unreadCount: Int
 }
 
 struct PerfMessage: Codable {
@@ -153,6 +197,26 @@ struct PerfMessage: Codable {
     let hadRead: Bool
     let message: String
 }
+struct BackRemoveResult: Codable {
+    let data: BackRemoveData
+}
+struct BackRemoveData: Codable {
+    let id: String
+    let type: String
+    let attributes: BackRemoveAttribute
+    let links: BackLinks
+}
+struct BackRemoveAttribute: Codable {
+    let status: String
+    let progress: String
+    let result_url: String
+    let error_code: String
+    let error_detail: String
+}
+struct BackLinks: Codable {
+    let `self`: String
+}
+
 struct RoomInfo: Codable {
     let roomUid: String
 }
@@ -254,15 +318,29 @@ func getDateString() -> String{
 func getCurrentTime(milisecond: Float64) -> String{
     let seconds = (UInt) (milisecond / 1000) % 60
     let  minutes = (UInt) (((UInt)(milisecond / (1000*60))) % 60)
-    let hours   = (UInt) (((UInt)(milisecond / (1000*60*60))) % 24)
+    let hours   = (UInt) ((UInt)(milisecond / (1000*60*60)))
     let curTimeText: String = String.localizedStringWithFormat("%i:%02i:%02i", hours, minutes, seconds)
     return curTimeText
 }
 
 func getCurrentTime(second: Float64) -> String{
     let seconds = (UInt)((Int(second)) % 60)
-    let  minutes = (UInt) (((UInt)(second / (1000*60))) % 60)
-    let hours   = (UInt) (((UInt)(second / (1000*60*60))) % 24)
+    let  minutes = (UInt) (((UInt)(second / (60))) % 60)
+    let hours   = (UInt) ((UInt)(second / (60*60)))
     let curTimeText: String = String.localizedStringWithFormat("%i:%02i:%02i", hours, minutes, seconds)
     return curTimeText
+}
+
+func requestPushAuthorization() {
+    UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { success, error in
+        if success {
+            print("Push notifications allowed")
+        } else if let error = error {
+            print(error.localizedDescription)
+        }
+    }
+}
+
+func registerForNotifications() {
+    UIApplication.shared.registerForRemoteNotifications()
 }

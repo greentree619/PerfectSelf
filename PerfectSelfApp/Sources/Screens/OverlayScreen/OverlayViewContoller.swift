@@ -15,6 +15,7 @@ class OverlayViewController: UIViewController {
     @IBOutlet var cameraView: CameraPreviewView!
     @IBOutlet var playerView: PlayerView!
     var uploadVideourl: URL?
+    var uploadAudiourl: URL?
     @IBOutlet var activityMonitor: UIActivityIndicatorView!
     @IBOutlet var containerView: UIView!
     @IBOutlet var slider: UISlider!
@@ -79,6 +80,9 @@ class OverlayViewController: UIViewController {
         }
     }
     
+    override func viewWillDisappear(_ animated: Bool){
+    }
+    
     @IBAction func startRecordClicked(_ sender: UIButton)
     {
         if(!isOnRecording)
@@ -131,6 +135,7 @@ class OverlayViewController: UIViewController {
     }
     
     @IBAction func backDidTap(_ sender: UIButton) {
+        stopRecordAction()
         self.dismiss(animated: false)
     }
     
@@ -174,11 +179,16 @@ class OverlayViewController: UIViewController {
     }
     
 
-    func mergedVideos(recordUrl:URL, uploadUrl:URL) {
+    func mergedVideos(recordUrl:URL, uploadUrl:URL, uploadAudioUrl: URL?) {
         let recordAsset = AVAsset(url: recordUrl)
-        let uploadAsset = AVAsset(url: uploadUrl)
+        var uploadAsset = AVAsset(url: uploadUrl)
         
-        activityMonitor.startAnimating()
+        if (uploadAudioUrl != nil) {
+            uploadAsset = AVAsset(url: uploadAudioUrl!)
+        }
+        
+        
+        //Omitted activityMonitor.startAnimating()
 
         let mixComposition = AVMutableComposition()
 
@@ -323,7 +333,7 @@ extension OverlayViewController: CameraPreviewDelegate {
         guard let url = url, let uploadurl = self.uploadVideourl else {
             return
         }
-        self.mergedVideos(recordUrl: url, uploadUrl: uploadurl)
+        self.mergedVideos(recordUrl: url, uploadUrl: uploadurl, uploadAudioUrl: uploadAudiourl)
     }
 
 }
