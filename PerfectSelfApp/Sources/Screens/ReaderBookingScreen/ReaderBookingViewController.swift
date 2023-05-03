@@ -105,7 +105,9 @@ class ReaderBookingViewController: UIViewController, UICollectionViewDataSource,
             + flowLayout.sectionInset.right
             + (flowLayout.minimumInteritemSpacing * CGFloat(cellsPerRow - 1))
         let size = Int((collectionView.bounds.width - totalSpace) / CGFloat(cellsPerRow))
-        return CGSize(width: size, height: size*145/328)
+        let height = Int(Double(size) * 0.45)
+        
+        return CGSize(width: size, height: height)
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -136,7 +138,7 @@ class ReaderBookingViewController: UIViewController, UICollectionViewDataSource,
         cell.url = url
    
         cell.id = self.items[indexPath.row].id
-        cell.lbl_name.text = self.items[indexPath.row].readerName;
+        cell.lbl_name.text = self.items[indexPath.row].actorName;
         cell.lbl_date.text = dateFormatter1.string(from: datestart ?? Date())
         cell.lbl_time.text = dateFormatter2.string(from: datestart ?? Date()) + "-" + dateFormatter2.string(from: dateend ?? Date())
         

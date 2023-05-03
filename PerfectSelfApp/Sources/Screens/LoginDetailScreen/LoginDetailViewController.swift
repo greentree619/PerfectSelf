@@ -98,7 +98,6 @@ class LoginDetailViewController: UIViewController {
             let responseJSON = try? JSONSerialization.jsonObject(with: data, options: [])
            
             if let responseJSON = responseJSON as? [String: Any] {
-//                print(responseJSON["result"] ?? "kkk")
                 guard let result = responseJSON["result"] else {
                     DispatchQueue.main.async {
                         hideIndicator(sender: sender)
@@ -113,7 +112,6 @@ class LoginDetailViewController: UIViewController {
                     
                     let fCMDeviceToken = user["fcmDeviceToken"] as! String
                     let uid = user["uid"] as! String
-                    //let deviceKind = user["deviceKind"] as! Int
                     
                    if( fcmDeviceToken.count > 0 &&
                        fcmDeviceToken != fCMDeviceToken )
@@ -139,7 +137,7 @@ class LoginDetailViewController: UIViewController {
                         UserDefaults.standard.set(String(self.text_password.text!), forKey: "USER_PWD")
                         
                         //}}REFME
-                        if self.btn_actor.isSelected {
+                        if self.userType == 3 {
                             let controller = ActorTabBarController();
                             controller.modalPresentationStyle = .fullScreen
                             self.present(controller, animated: false)

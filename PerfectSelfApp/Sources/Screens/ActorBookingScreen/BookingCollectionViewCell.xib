@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21225" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21207"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
         <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -70,7 +70,7 @@
                                                     </mask>
                                                 </variation>
                                             </imageView>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="16, Mar 2023" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CHF-Un-J7J">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="16, Mar 2023" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CHF-Un-J7J">
                                                 <rect key="frame" x="23" y="0.0" width="0.0" height="32.333333333333336"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <nil key="textColor"/>
@@ -93,7 +93,7 @@
                                                     </mask>
                                                 </variation>
                                             </imageView>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="3:00 aM ~ 4:00 AM" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fF2-fh-riS">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="3:00 aM ~ 4:00 AM" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fF2-fh-riS">
                                                 <rect key="frame" x="23" y="0.0" width="0.0" height="32.333333333333336"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <nil key="textColor"/>
@@ -104,10 +104,10 @@
                                 </subviews>
                             </stackView>
                             <stackView opaque="NO" contentMode="scaleToFill" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="95c-cL-0nL">
-                                <rect key="frame" x="8" y="72.666666666666671" width="104.33333333333333" height="32"/>
+                                <rect key="frame" x="7.9999999999999929" y="72.666666666666671" width="113.33333333333331" height="32"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nwv-Eu-J9U">
-                                        <rect key="frame" x="0.0" y="0.66666666666665719" width="104.33333333333333" height="30.333333333333332"/>
+                                        <rect key="frame" x="0.0" y="0.3333333333333286" width="113.33333333333333" height="31.333333333333332"/>
                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                         <state key="normal" title="view script">
                                             <imageReference key="image" image="arrowshape.right" catalog="system" symbolScale="small"/>
@@ -115,7 +115,7 @@
                                         <buttonConfiguration key="configuration" style="plain" imagePlacement="trailing" title="view script" imagePadding="5" cornerStyle="dynamic">
                                             <imageReference key="image" image="chevron.right" catalog="system" symbolScale="small"/>
                                             <backgroundConfiguration key="background"/>
-                                            <fontDescription key="titleFontDescription" name=".SFNS-Regular" family=".SF NS" pointSize="18"/>
+                                            <fontDescription key="titleFontDescription" name="Raleway-Regular" family="Raleway" pointSize="18"/>
                                             <directionalEdgeInsets key="contentInsets" top="5" leading="5" bottom="5" trailing="5"/>
                                         </buttonConfiguration>
                                         <connections>
@@ -287,6 +287,7 @@
                 <outlet property="lbl_date" destination="CHF-Un-J7J" id="qn4-8S-Xjt"/>
                 <outlet property="lbl_name" destination="qSS-Q1-65b" id="TXP-Vg-W3u"/>
                 <outlet property="lbl_time" destination="fF2-fh-riS" id="2mv-Ea-M45"/>
+                <outlet property="view_btngroup" destination="B2i-T7-jWi" id="hm2-dH-CLa"/>
             </connections>
             <point key="canvasLocation" x="336" y="-31"/>
         </collectionViewCell>

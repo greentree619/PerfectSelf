@@ -38,6 +38,8 @@ class BookingCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var btn_sendmsg: UIButton!
     @IBOutlet weak var btn_reschedule: UIButton!
     @IBOutlet weak var btn_joinmeeting: UIButton!
+    
+    @IBOutlet weak var view_btngroup: UIStackView!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -83,14 +85,16 @@ class BookingCollectionViewCell: UICollectionViewCell {
         }
         else if readerType == "reader" {
             if bookType == 0 {//past
-                btn_joinmeeting.isHidden = true
-                btn_reschedule.isHidden = true
-                btn_sendmsg.isHidden = true
-                btn_cancel.isHidden = true
-                btn_rate.isHidden = true
-                btn_accept.isHidden = true
+//                btn_joinmeeting.isHidden = true
+//                btn_reschedule.isHidden = true
+//                btn_sendmsg.isHidden = true
+//                btn_cancel.isHidden = true
+//                btn_rate.isHidden = true
+//                btn_accept.isHidden = true
+                view_btngroup.isHidden = true
             }
             else if bookType == 1 {//upcoming
+                view_btngroup.isHidden = false
                 btn_joinmeeting.isHidden = false
                 btn_reschedule.isHidden = true
                 btn_sendmsg.isHidden = false
@@ -99,6 +103,7 @@ class BookingCollectionViewCell: UICollectionViewCell {
                 btn_accept.isHidden = true
             }
             else if bookType == 2 {//pending
+                view_btngroup.isHidden = false
                 btn_joinmeeting.isHidden = true
                 btn_reschedule.isHidden = true
                 btn_sendmsg.isHidden = false
@@ -137,6 +142,7 @@ class BookingCollectionViewCell: UICollectionViewCell {
         btn_rate.isHidden = false
         btn_rate.isEnabled = true
         btn_accept.isHidden = false
+        view_btngroup.isHidden = false
      }
     @IBAction func ViewScript(_ sender: UIButton) {
         let controller = ScriptViewController()
