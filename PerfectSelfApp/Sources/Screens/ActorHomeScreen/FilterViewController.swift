@@ -8,6 +8,11 @@
 
 import UIKit
 import RangeSeekSlider
+protocol FilterDelegate {
+    func setFilterParams(isAvailableSoon: Bool,isOnline: Bool,timeSlotType: Int,
+                         isCommercialRead: Bool,isShortRead: Bool,isExtendedRead: Bool
+                         ,isDateSelected: Bool,fromDate: Date,toDate: Date, minPrice: Float, maxPrice: Float,gender: Int, isExplicitRead: Bool)
+}
 
 class FilterViewController: UIViewController, SelectDateDelegate {
     func didPassData(fromDate: Date, toDate: Date) {
@@ -18,6 +23,8 @@ class FilterViewController: UIViewController, SelectDateDelegate {
         self.fromDate = fromDate
         self.toDate = toDate
     }
+    var delegate: FilterDelegate?
+    var originType = 0
     
     var isAvailableSoon = false
     var isOnline = true
@@ -72,30 +79,43 @@ class FilterViewController: UIViewController, SelectDateDelegate {
         self.present(controller, animated: false, completion: nil)
     }
     @IBAction func ApplyFilter(_ sender: UIButton) {
-        
         self.dismiss(animated: true) {
-            let controller = ActorFindReaderViewController()
-            
-            controller.isAvailableSoon = self.isAvailableSoon
-            controller.isOnline = self.isOnline
-            controller.timeSlotType = self.timeSlotType
-            controller.isDateSelected = self.isDateSelected
-            controller.fromDate = self.fromDate
-            controller.toDate = self.toDate
-            controller.minPrice = Float(self.rangeSlider.minValue)
-            controller.maxPrice = Float(self.rangeSlider.maxValue)
-            if (self.isMaleSelected && self.isFemaleSelected) || (!self.isMaleSelected && !self.isFemaleSelected) {
-                controller.gender = -1
+            if self.originType == 0 {
+                let controller = ActorFindReaderViewController()
+                
+                controller.isAvailableSoon = self.isAvailableSoon
+                controller.isOnline = self.isOnline
+                controller.timeSlotType = self.timeSlotType
+                controller.isDateSelected = self.isDateSelected
+                controller.fromDate = self.fromDate
+                controller.toDate = self.toDate
+                controller.minPrice = Float(self.rangeSlider.selectedMinValue)
+                controller.maxPrice = Float(self.rangeSlider.selectedMaxValue)
+                if (self.isMaleSelected && self.isFemaleSelected) || (!self.isMaleSelected && !self.isFemaleSelected) {
+                    controller.gender = -1
+                }
+                else {
+                    controller.gender = self.isMaleSelected ? 0 : 1
+                }
+                controller.isCommercialRead = self.isCommercialRead
+                controller.isShortRead = self.isShortRead
+                controller.isExtendedRead = self.isExtendedRead
+                controller.isComfortableWithExplicitRead = self.isExplicitRead
+                
+                self.parentUIViewController?.navigationController?.pushViewController(controller, animated: true)
             }
             else {
-                controller.gender = self.isMaleSelected ? 0 : 1
+                // call delegate
+                var mg = -1
+                if (self.isMaleSelected && self.isFemaleSelected) || (!self.isMaleSelected && !self.isFemaleSelected) {
+                    mg = -1
+                }
+                else {
+                    mg = self.isMaleSelected ? 0 : 1
+                }
+                self.delegate?.setFilterParams(isAvailableSoon: self.isAvailableSoon, isOnline: self.isOnline, timeSlotType: self.timeSlotType, isCommercialRead: self.isCommercialRead, isShortRead: self.isShortRead, isExtendedRead: self.isExplicitRead, isDateSelected: self.isDateSelected, fromDate: self.fromDate, toDate: self.toDate, minPrice: Float(self.rangeSlider.selectedMinValue), maxPrice: Float(self.rangeSlider.selectedMaxValue), gender: mg, isExplicitRead: self.isExplicitRead)
             }
-            controller.isCommercialRead = self.isCommercialRead
-            controller.isShortRead = self.isShortRead
-            controller.isExtendedRead = self.isExtendedRead
-            controller.isComfortableWithExplicitRead = self.isExplicitRead
-            
-            self.parentUIViewController?.navigationController?.pushViewController(controller, animated: true)
+          
         }
     }
     @IBAction func SelectMale(_ sender: UIButton) {
