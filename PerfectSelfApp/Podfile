@@ -19,4 +19,5 @@ target 'PerfectSelf' do
   pod 'GoogleAPIClientForREST/Calendar'
   pod 'GoogleSignIn', '~> 5.0.2'
   pod 'Stripe'
+  pod 'PayPal-iOS-SDK'
 end

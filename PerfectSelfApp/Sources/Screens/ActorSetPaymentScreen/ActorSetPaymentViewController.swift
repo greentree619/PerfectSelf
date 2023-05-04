@@ -68,11 +68,11 @@ class ActorSetPaymentViewController: UIViewController {
         }
         else if( btn_applepay.isSelected )
         {
-            
+            payByApplePay()
         }
         else if( btn_paypal.isSelected )
         {
-            
+            payByPaypal()
         }
         
         let controller = ActorBookConfirmationViewController();
@@ -169,6 +169,17 @@ class ActorSetPaymentViewController: UIViewController {
 //            }
 //        }
     }
+    
+    func payByApplePay()
+    {
+        
+    }
+    
+    func payByPaypal()
+    {
+        
+    }
+    
     /*
     // MARK: - Navigation
 
