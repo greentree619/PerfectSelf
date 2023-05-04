@@ -21,7 +21,7 @@ class PerfectSelfWebAPI
     {
     }
     
-    func executeAPI(with method:String, apiPath: String, json: [String: Any], completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> Void
+    func executeAPI(with method:String, apiPath: String, json: [String: Any?], completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> Void
     {
         let urlString = "\(PERFECTSELF_WEBAPI_ROOT)\(apiPath)"
         let encodedString = urlString.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
@@ -238,65 +238,27 @@ class PerfectSelfWebAPI
         return executeAPI(with: "GET", apiPath: "ReaderProfiles/Detail/\(id)", json: [:], completionHandler:completionHandler)
     }
     
-    func updateReaderProfile(uid: String, title: String, gender: String, hourlyrate: Int, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> Void
-    {
-        let json: [String: Any] = [
-            "isDeleted": false,
-            "title": title,
-            "readerUid": uid,
-            "hourlyPrice": hourlyrate,
-            "voiceType": -1,
-            "others": -1,
-            "about": "",
-            "skills": "",
-        ]
-        return executeAPI(with: "PUT", apiPath: "ReaderProfiles/\(uid)", json: json, completionHandler:completionHandler)
-    }
-    func editReaderProfileAbout(uid: String, about: String, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> Void
-    {
-        let json: [String: Any] = [
-            "isDeleted": false,
-            "title": "",
-            "readerUid": uid,
-            "hourlyPrice": -1,
-            "voiceType": -1,
-            "others": -1,
-            "about": about,
-            "skills": "",
-        ]
-        return executeAPI(with: "PUT", apiPath: "ReaderProfiles/\(uid)", json: json, completionHandler:completionHandler)
-    }
     
-    func editReaderProfileTitle(uid: String, title: String, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> Void
+    func editReaderProfile(uid: String,title: String,hourlyPrice: Int, about: String, introBucketName: String, introVideokey: String, skills: String, auditionType: Int, isExplicitRead: Bool?, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> Void
     {
-        let json: [String: Any] = [
-            "isDeleted": false,
-            "title": title,
-            "readerUid": uid,
-            "hourlyPrice": -1,
-            "voiceType": -1,
-            "others": -1,
-            "about": "",
-            "skills": "",
+        let json: [String: Any?] = [
+            "id": 0,// no effect
+            "title": title, //no update
+            "readerUid": uid,// no effect
+            "hourlyPrice": hourlyPrice, //no update
+            "voiceType": -1, //no update
+            "others": -1, // no update
+            "about": about, //no update
+            "skills": skills,
+            "isSponsored": true,//no effect
+            "isExplicitRead": isExplicitRead,
+            "introBucketName": introBucketName, // no update
+            "introVideoKey": introVideokey, // no update
+            "auditionType": auditionType
         ]
+     
         return executeAPI(with: "PUT", apiPath: "ReaderProfiles/\(uid)", json: json, completionHandler:completionHandler)
     }
-    
-    func editReaderHourlyRate(uid: String, hourlyRate: Int, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> Void
-    {
-        let json: [String: Any] = [
-            "isDeleted": false,
-            "title": "",
-            "readerUid": uid,
-            "hourlyPrice": hourlyRate,
-            "voiceType": -1,
-            "others": -1,
-            "about": "",
-            "skills": "",
-        ]
-        return executeAPI(with: "PUT", apiPath: "ReaderProfiles/\(uid)", json: json, completionHandler:completionHandler)
-    }
-    
     func editReaderProfileName(uid: String, username: String, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> Void
     {
         let json: [String: Any] = [

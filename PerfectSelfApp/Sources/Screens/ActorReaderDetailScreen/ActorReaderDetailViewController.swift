@@ -30,15 +30,19 @@ class ActorReaderDetailViewController: UIViewController , UICollectionViewDataSo
     @IBOutlet weak var reader_name: UILabel!
     @IBOutlet weak var reader_title: UILabel!
     @IBOutlet weak var reader_hourly: UILabel!
-    @IBOutlet weak var reader_skill: UILabel!
     @IBOutlet weak var reader_about: UITextView!
     @IBOutlet weak var timeslotList: UICollectionView!
     
     var items = [TimeSlot]()
     let cellsPerRow = 1
     var videoUrl: URL!
+    
     @IBOutlet weak var reviewList: UICollectionView!
     var reviews = [Review]()
+    
+    @IBOutlet weak var skillList: UICollectionView!
+    var skills = [String]()
+    
     @IBOutlet weak var lbl_noreview: UILabel!
     @IBOutlet var btnPlayPause: UIButton!
     @IBOutlet var slider: UISlider!
@@ -69,6 +73,12 @@ class ActorReaderDetailViewController: UIViewController , UICollectionViewDataSo
         reviewList.dataSource = self
         reviewList.delegate = self
         reviewList.allowsSelection = true
+        
+        let nib2 = UINib(nibName: "SkillCell", bundle: nil)
+        skillList.register(nib2, forCellWithReuseIdentifier: "Skill Cell")
+        skillList.dataSource = self
+        skillList.delegate = self
+        skillList.allowsSelection = true
         // Do any additional setup after loading the view.        view_main.layer.cornerRadius = 25
         view_main.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
         line_videointro.isHidden = true
@@ -92,7 +102,6 @@ class ActorReaderDetailViewController: UIViewController , UICollectionViewDataSo
             }
             do {
                 let item = try JSONDecoder().decode(ReaderProfileDetail.self, from: data)
-                print(item)
                 DispatchQueue.main.async {
                     self.lbl_noreview.text = "\(item.userName) has no review yet"
                     self.reader_name.text = item.userName
@@ -100,7 +109,8 @@ class ActorReaderDetailViewController: UIViewController , UICollectionViewDataSo
                     self.scoreAndReviewCount.text = "\(item.score) (\(item.bookPassCount))"
                     self.reader_about.text = item.about
                     self.reader_hourly.text = "$\(item.hourlyPrice/4) / 15 mins"
-                    self.reader_skill.text = item.skills
+                    self.skills = item.skills.components(separatedBy: ",")
+                    self.skillList.reloadData()
                     
                     self.items.removeAll()
 //                    self.items.append(contentsOf: item.allAvailability)
@@ -221,8 +231,11 @@ class ActorReaderDetailViewController: UIViewController , UICollectionViewDataSo
         if collectionView == timeslotList {
             return self.items.count
         }
-        else {
+        else if collectionView == reviewList {
             return self.reviews.count
+        }
+        else {
+            return self.skills.count
         }
     }
     
@@ -235,13 +248,19 @@ class ActorReaderDetailViewController: UIViewController , UICollectionViewDataSo
         if collectionView == timeslotList {
             return CGSize(width: 80, height: 74)
         }
-        else {
+        else if collectionView == reviewList {
             let reviewText = self.reviews[indexPath.row].readerReview
             let reviewTextHeight = reviewText.height(withConstrainedWidth: size-16, font: UIFont.systemFont(ofSize: 12))
             
             let totalHeight = reviewTextHeight + 75 // add 56 for the height of the profile image and padding
 
             return CGSize(width: size, height: totalHeight)
+        }
+        else {
+            let skill = self.skills[indexPath.row]
+            let font = UIFont.systemFont(ofSize: 12)
+            let size = (skill as NSString).size(withAttributes: [.font: font])
+            return CGSize(width: size.width + 20, height: 30)
         }
         
     }
@@ -274,7 +293,7 @@ class ActorReaderDetailViewController: UIViewController , UICollectionViewDataSo
             
             return cell
         }
-        else {
+        else if collectionView == reviewList {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Review Cell", for: indexPath) as! ReviewCell
 
             cell.lbl_name.text = self.reviews[indexPath.row].actorName
@@ -300,7 +319,22 @@ class ActorReaderDetailViewController: UIViewController , UICollectionViewDataSo
             
             return cell
         }
-        
+        else {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Skill Cell", for: indexPath) as! SkillCell
+
+            cell.skillName.text = self.skills[indexPath.row]
+            cell.btn_disselect.isHidden = true
+    //        cell.layer.masksToBounds = false
+    //        cell.layer.shadowOffset = CGSizeZero
+    //        cell.layer.shadowRadius = 8
+    //        cell.layer.shadowOpacity = 0.2
+            cell.contentView.layer.cornerRadius = 10
+            cell.contentView.layer.borderWidth = 1.0
+            cell.contentView.layer.borderColor = UIColor.gray.cgColor
+            cell.contentView.layer.masksToBounds = true
+            
+            return cell
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
