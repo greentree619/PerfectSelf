@@ -73,6 +73,23 @@ class EditReadViewController: UIViewController {
         playerView.pause()
     }
     
+    @IBAction func addTimePause(_ sender: UIButton) {
+        let controller = TimePauseViewController()
+        controller.isAdding = true
+        controller.modalPresentationStyle = .overFullScreen
+        
+        self.present(controller, animated: true)
+    }
+    
+    
+    @IBAction func removeTimePause(_ sender: UIButton) {
+        let controller = TimePauseViewController()
+        controller.isAdding = false
+        controller.modalPresentationStyle = .overFullScreen
+        
+        self.present(controller, animated: true)
+    }
+    
     @IBAction func rotateDidTap(_ sender: UIButton)
     {
         playerView.pause()
