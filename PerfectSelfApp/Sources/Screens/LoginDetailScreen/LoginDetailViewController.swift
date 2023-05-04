@@ -62,20 +62,21 @@ class LoginDetailViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        DoLogin(UIButton())
+        //DoLogin(UIButton())//AUTOLOGIN
     }
     
     @IBAction func DoLogin(_ sender: UIButton) {
         var inputCheck: String = ""
         var focusTextField: UITextField? = nil
-        
-        /*
-         Test Code
-         */
-        //{{
-        text_email.text = "tester001@gmail.com"
-        text_password.text = "123456"
-        //}}
+  
+//AUTOLOGIN
+//        /*
+//         Test Code
+//         */
+//        //{{
+//        text_email.text = "tester001@gmail.com"
+//        text_password.text = "123456"
+//        //}}
         
         if(text_email.text!.isEmpty){
             inputCheck += "- Please input user email.\n"
