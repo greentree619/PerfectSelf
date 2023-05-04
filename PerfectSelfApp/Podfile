@@ -18,4 +18,5 @@ target 'PerfectSelf' do
   pod "SwiftGifOrigin"
   pod 'GoogleAPIClientForREST/Calendar'
   pod 'GoogleSignIn', '~> 5.0.2'
+  pod 'Stripe'
 end

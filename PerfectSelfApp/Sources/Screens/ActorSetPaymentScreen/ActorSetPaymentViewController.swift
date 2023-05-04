@@ -8,9 +8,9 @@
 
 import UIKit
 import AnimatedCardInput
+import Stripe
 
 class ActorSetPaymentViewController: UIViewController {
-
     var readerUid: String = ""
     var readerName: String = ""
     var bookingStartTime: String = ""
@@ -19,6 +19,7 @@ class ActorSetPaymentViewController: UIViewController {
     var script: String = ""
     var scriptBucket: String = ""
     var scriptKey: String = ""
+    var myCardView: CardView?
     
     @IBOutlet weak var cardView: UIStackView!
     @IBOutlet weak var btn_credit: UIButton!
@@ -29,16 +30,16 @@ class ActorSetPaymentViewController: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        let myCardView = CardView(
+        myCardView = CardView(
             cardNumberDigitsLimit: 16,
             cardNumberChunkLengths: [4, 4, 4, 4],
             CVVNumberDigitsLimit: 3
         )
-        cardView.addSubview(myCardView)
+        cardView.addSubview(myCardView!)
         NSLayoutConstraint.activate([
-            myCardView.topAnchor.constraint(equalTo: cardView.topAnchor, constant: 10),
-            myCardView.leadingAnchor.constraint(equalTo: cardView.leadingAnchor, constant: 20),
-            myCardView.trailingAnchor.constraint(equalTo: cardView.trailingAnchor, constant: -20)
+            myCardView!.topAnchor.constraint(equalTo: cardView.topAnchor, constant: 10),
+            myCardView!.leadingAnchor.constraint(equalTo: cardView.leadingAnchor, constant: 20),
+            myCardView!.trailingAnchor.constraint(equalTo: cardView.trailingAnchor, constant: -20)
         ])
     }
 
@@ -60,8 +61,21 @@ class ActorSetPaymentViewController: UIViewController {
         btn_paypal.isSelected = true
     }
     @IBAction func DoCheckout(_ sender: UIButton) {
+        if( btn_credit.isSelected )
+        {
+            //print(myCardView!.creditCardData.cardNumber)
+            payByCreditCard()
+        }
+        else if( btn_applepay.isSelected )
+        {
+            
+        }
+        else if( btn_paypal.isSelected )
+        {
+            
+        }
+        
         let controller = ActorBookConfirmationViewController();
-
         controller.readerUid = readerUid
         controller.readerName = readerName
         controller.bookingStartTime = bookingStartTime
@@ -89,6 +103,72 @@ class ActorSetPaymentViewController: UIViewController {
         
         self.dismiss(animated: false)
     }
+    
+    func payByCreditCard()
+    {
+        StripeAPI.defaultPublishableKey = "pk_test_51HvalAIfcqentEpOgDCqVQt4P3E88TyEt1nLEByzKCCDbxtTLcuwx089AHqlRvVpRvPZljWZTNC1OFm9X2PhmxXE00tr5qm63c"
+        let paymentIntentClientSecret: String = "sk_test_51HvalAIfcqentEpOEIb4H5XbZ8Hd7fGHCU7jgVWlwBttuNAi8XGDSmklvPaZdsSY2ADFhlSPi7FUhgziJ2BqKAhv00svNrGOE7"
+        
+        let cardParams = STPPaymentMethodCardParams()
+        cardParams.number = "4242424242424242" // Replace with actual card number
+        cardParams.expMonth = 12
+        cardParams.expYear = 2034
+        cardParams.cvc = "567" // Replace with actual CVC code
+        let paymentMethodParams = STPPaymentMethodParams(card: cardParams, billingDetails: nil, metadata: nil)
+        let paymentIntentParams = STPPaymentIntentParams(clientSecret: paymentIntentClientSecret)
+        paymentIntentParams.paymentMethodParams = paymentMethodParams
+                
+        // Submit the payment
+        let paymentHandler = STPPaymentHandler.shared()
+        paymentHandler.confirmPayment(paymentIntentParams, with: self) {(status, paymentIntent, error) in
+            switch (status) {
+            case .failed:
+                print("Payment failed")
+                print(error as Any)
+                
+                break
+            case .canceled:
+                print("Payment canceled")
+                
+                break
+            case .succeeded:
+                print("Payment succeeded")
+                
+                break
+            @unknown default:
+                fatalError()
+                break
+            }
+        }
+        
+//
+//        STPAPIClient.shared.createPaymentMethod(with: paymentMethodParams) { (paymentMethod, error) in
+//            if let error = error {
+//                // Handle error
+//                print("Error creating payment method: \(error.localizedDescription)")
+//                return
+//            }
+//
+//            guard let paymentMethodId = paymentMethod?.stripeId else {
+//                // Handle error
+//                return
+//            }
+//
+//            // Charge the payment using the Stripe API
+//            let paymentIntentParams = STPPaymentIntentParams(clientSecret: "pk_test_51HvalAIfcqentEpOgDCqVQt4P3E88TyEt1nLEByzKCCDbxtTLcuwx089AHqlRvVpRvPZljWZTNC1OFm9X2PhmxXE00tr5qm63c")
+//            paymentIntentParams.paymentMethodId = paymentMethodId
+//            STPPaymentHandler.shared().confirmPayment( paymentIntentParams, with:  self) { (status, paymentIntent, error) in
+//                if let error = error {
+//                    // Handle error
+//                    print("Error processing payment: \(error.localizedDescription)")
+//                    return
+//                }
+//
+//                // Payment successful
+//                print("Payment successful!")
+//            }
+//        }
+    }
     /*
     // MARK: - Navigation
 
@@ -99,4 +179,16 @@ class ActorSetPaymentViewController: UIViewController {
     }
     */
 
+}
+
+extension ActorSetPaymentViewController: STPAuthenticationContext{
+    func authenticationPresentingViewController() -> UIViewController {
+        // Replace with your actual authentication view controller
+            let authenticationVC = AuthenticationViewController()
+            
+            // Customize the presentation style if desired
+            authenticationVC.modalPresentationStyle = .fullScreen
+            
+            return authenticationVC
+    }
 }
