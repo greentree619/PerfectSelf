@@ -44,8 +44,7 @@ class ReaderProfileEditHourlyRateViewController: UIViewController {
         }
         // call API for about update
         showIndicator(sender: nil, viewController: self)
-
-        webAPI.editReaderHourlyRate(uid: uid, hourlyRate: newRate ) { data, response, error in
+        webAPI.editReaderProfile(uid: uid, title: "", hourlyPrice: newRate, about: "", introBucketName: "", introVideokey: "", skills: "", auditionType: -1, isExplicitRead: nil) { data, response, error in
             
             guard let _ = data, error == nil else {
                 print(error?.localizedDescription ?? "No data")

@@ -41,7 +41,6 @@ class ReaderProfileViewController: UIViewController, UICollectionViewDataSource,
     @IBOutlet weak var readerUsername: UILabel!
     @IBOutlet weak var readerTitle: UILabel!
     @IBOutlet weak var readerAbout: UITextView!
-    @IBOutlet weak var readerSkills: UILabel!
     @IBOutlet weak var hourlyPrice: UILabel!
     @IBOutlet weak var timeslotList: UICollectionView!
     var items = [TimeSlot]()
@@ -49,6 +48,8 @@ class ReaderProfileViewController: UIViewController, UICollectionViewDataSource,
     
     @IBOutlet weak var reviewList: UICollectionView!
     var reviews = [Review]()
+    @IBOutlet weak var skillList: UICollectionView!
+    var skills = [String]()
     
     @IBOutlet weak var lbl_noreview: UILabel!
     @IBOutlet var btnPlayPause: UIButton!
@@ -81,6 +82,12 @@ class ReaderProfileViewController: UIViewController, UICollectionViewDataSource,
         reviewList.dataSource = self
         reviewList.delegate = self
         reviewList.allowsSelection = true
+        
+        let nib2 = UINib(nibName: "SkillCell", bundle: nil)
+        skillList.register(nib2, forCellWithReuseIdentifier: "Skill Cell")
+        skillList.dataSource = self
+        skillList.delegate = self
+        skillList.allowsSelection = true
         // Do any additional setup after loading the view.
         line_videointro.isHidden = true
         line_review.isHidden = true
@@ -124,7 +131,8 @@ class ReaderProfileViewController: UIViewController, UICollectionViewDataSource,
                     self.scoreAndReviewCount.text = "\(item.score) (\(item.bookPassCount))"
                     self.readerAbout.text = item.about
                     self.hourlyPrice.text = "$\(item.hourlyPrice/4) / 15 mins"
-                    self.readerSkills.text = item.skills
+                    self.skills = item.skills.components(separatedBy: ",")
+                    self.skillList.reloadData()
                     self.hourlyRate = item.hourlyPrice
                     
                     self.items.removeAll()
@@ -233,13 +241,6 @@ class ReaderProfileViewController: UIViewController, UICollectionViewDataSource,
     }
 
     @IBAction func btnPlayPauseClicked(_ sender: UIButton) {
-//        isPlaying = !isPlaying
-//        if isPlaying {
-//            playerView.play()
-//        }
-//        else {
-//            playerView.stop()
-//        }
         if playerView.rate > 0 {
             playerView.pause()
             isPlaying = false
@@ -254,8 +255,11 @@ class ReaderProfileViewController: UIViewController, UICollectionViewDataSource,
         if collectionView == timeslotList {
             return self.items.count
         }
-        else {
+        else if collectionView == reviewList {
             return self.reviews.count
+        }
+        else {
+            return self.skills.count
         }
     }
     
@@ -268,13 +272,19 @@ class ReaderProfileViewController: UIViewController, UICollectionViewDataSource,
         if collectionView == timeslotList {
             return CGSize(width: 80, height: 74)
         }
-        else {
+        else if collectionView == reviewList {
             let reviewText = self.reviews[indexPath.row].readerReview
             let reviewTextHeight = reviewText.height(withConstrainedWidth: size-16, font: UIFont.systemFont(ofSize: 12))
             
             let totalHeight = reviewTextHeight + 75 // add 56 for the height of the profile image and padding
 
             return CGSize(width: size, height: totalHeight)
+        }
+        else {
+            let skill = self.skills[indexPath.row]
+            let font = UIFont.systemFont(ofSize: 12)
+            let size = (skill as NSString).size(withAttributes: [.font: font])
+            return CGSize(width: size.width + 20, height: 30)
         }
         
     }
@@ -307,7 +317,7 @@ class ReaderProfileViewController: UIViewController, UICollectionViewDataSource,
             
             return cell
         }
-        else {
+        else if collectionView == reviewList {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Review Cell", for: indexPath) as! ReviewCell
 
             cell.lbl_name.text = self.reviews[indexPath.row].actorName
@@ -322,6 +332,22 @@ class ReaderProfileViewController: UIViewController, UICollectionViewDataSource,
                 let url = "https://\(self.reviews[indexPath.row].actorBucketName!).s3.us-east-2.amazonaws.com/\(self.reviews[indexPath.row].actorAvatarKey!)"
                 cell.img_avatar.imageFrom(url: URL(string: url)!)
             }
+    //        cell.layer.masksToBounds = false
+    //        cell.layer.shadowOffset = CGSizeZero
+    //        cell.layer.shadowRadius = 8
+    //        cell.layer.shadowOpacity = 0.2
+            cell.contentView.layer.cornerRadius = 10
+            cell.contentView.layer.borderWidth = 1.0
+            cell.contentView.layer.borderColor = UIColor.gray.cgColor
+            cell.contentView.layer.masksToBounds = true
+            
+            return cell
+        }
+        else {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Skill Cell", for: indexPath) as! SkillCell
+
+            cell.skillName.text = self.skills[indexPath.row]
+            cell.btn_disselect.isHidden = true
     //        cell.layer.masksToBounds = false
     //        cell.layer.shadowOffset = CGSizeZero
     //        cell.layer.shadowRadius = 8
@@ -494,6 +520,8 @@ class ReaderProfileViewController: UIViewController, UICollectionViewDataSource,
         let controller = ReaderProfileEditSkillViewController()
         
         controller.modalPresentationStyle = .fullScreen
+        controller.items = self.skills
+        controller.uid = self.id
 //        let transition = CATransition()
 //        transition.duration = 0.5 // Set animation duration
 //        transition.type = CATransitionType.push // Set transition type to push

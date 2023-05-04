@@ -15,6 +15,7 @@ public enum TypeOfAccordianView {
 class ReaderProfileEditSkillViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout{
     var typeOfAccordianView = TypeOfAccordianView.Formal
     
+    var uid = ""
     @IBOutlet weak var btn_explicit_no: UIButton!
     @IBOutlet weak var btn_explicit_yes: UIButton!
     @IBOutlet weak var skillView: UIStackView!
@@ -95,12 +96,30 @@ class ReaderProfileEditSkillViewController: UIViewController, UICollectionViewDa
         btn_explicit_yes.isSelected = false
     }
     @IBAction func SaveChanges(_ sender: UIButton) {
-        let transition = CATransition()
-        transition.duration = 0.5 // Set animation duration
-        transition.type = CATransitionType.push // Set transition type to push
-        transition.subtype = CATransitionSubtype.fromLeft // Set transition subtype to from right
-        self.view.window?.layer.add(transition, forKey: kCATransition) // Add transition to window layer
-        self.dismiss(animated: false)
+        //call API for update reader's skill
+        let skills = self.items.joined(separator: ",")
+        let aType = (self.isExtendedRead ? 4:0) + (self.isShortRead ? 2 : 0) + (self.isCommercialRead ? 1:0)
+        showIndicator(sender: nil, viewController: self)
+        webAPI.editReaderProfile(uid: uid, title: "", hourlyPrice: -1, about: "", introBucketName: "", introVideokey: "", skills: skills, auditionType: aType, isExplicitRead: btn_explicit_yes.isSelected) { data, response, error in
+            DispatchQueue.main.async {
+                hideIndicator(sender: nil);
+            }
+           
+            guard let _ = data, error == nil else {
+                print(error?.localizedDescription ?? "No data")
+                return
+            }
+            DispatchQueue.main.async {
+                let transition = CATransition()
+                transition.duration = 0.5 // Set animation duration
+                transition.type = CATransitionType.push // Set transition type to push
+                transition.subtype = CATransitionSubtype.fromLeft // Set transition subtype to from right
+                self.view.window?.layer.add(transition, forKey: kCATransition) // Add transition to window layer
+                self.dismiss(animated: false)
+            }
+        }
+        
+ 
     }
     @IBAction func SelectCommercialRead(_ sender: UIButton) {
         isCommercialRead = !isCommercialRead

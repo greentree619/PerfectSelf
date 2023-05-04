@@ -30,11 +30,11 @@
                 <outlet property="playerView" destination="4AF-kg-fpX" id="Mzl-BY-DiW"/>
                 <outlet property="readerAbout" destination="eod-TK-5yy" id="RAA-n7-uBF"/>
                 <outlet property="readerAvatar" destination="5Jh-aW-lvC" id="uIb-Tg-oh4"/>
-                <outlet property="readerSkills" destination="1Xi-Uk-42C" id="hGe-Ay-EhY"/>
                 <outlet property="readerTitle" destination="Xwa-R0-mVR" id="0zu-sV-dfv"/>
                 <outlet property="readerUsername" destination="cwg-hL-kUu" id="UXq-7g-uCT"/>
                 <outlet property="reviewList" destination="v4T-c7-dzU" id="OmJ-mW-DaQ"/>
                 <outlet property="scoreAndReviewCount" destination="tR2-VL-9Cp" id="klf-54-KWg"/>
+                <outlet property="skillList" destination="ZTN-24-XfV" id="2q2-NT-MnY"/>
                 <outlet property="slider" destination="LxR-0M-8KG" id="LVC-Ho-7lG"/>
                 <outlet property="timeslotList" destination="rBQ-tT-sx0" id="LRE-rl-GhJ"/>
                 <outlet property="view" destination="cwf-CB-7ba" id="Uaz-3i-r2y"/>
@@ -616,7 +616,7 @@
                                                     <rect key="frame" x="0.0" y="20" width="353" height="285"/>
                                                     <subviews>
                                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="EkQ-HO-TiN">
-                                                            <rect key="frame" x="0.0" y="0.0" width="353" height="325.33333333333331"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="353" height="365"/>
                                                             <subviews>
                                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="DVy-V7-Fy5">
                                                                     <rect key="frame" x="0.0" y="0.0" width="353" height="100"/>
@@ -778,7 +778,7 @@
                                                                     </constraints>
                                                                 </stackView>
                                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="bdB-FL-MuV">
-                                                                    <rect key="frame" x="0.0" y="262" width="353" height="63.333333333333314"/>
+                                                                    <rect key="frame" x="0.0" y="262" width="353" height="103"/>
                                                                     <subviews>
                                                                         <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CX6-jd-nd7">
                                                                             <rect key="frame" x="0.0" y="0.0" width="353" height="38"/>
@@ -809,15 +809,22 @@
                                                                             <edgeInsets key="layoutMargins" top="10" left="0.0" bottom="10" right="0.0"/>
                                                                         </stackView>
                                                                         <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="YKl-dT-0Iz">
-                                                                            <rect key="frame" x="0.0" y="43" width="353" height="20.333333333333329"/>
+                                                                            <rect key="frame" x="0.0" y="43" width="353" height="60"/>
                                                                             <subviews>
-                                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1Xi-Uk-42C">
-                                                                                    <rect key="frame" x="0.0" y="0.0" width="353" height="20.333333333333332"/>
-                                                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                                                    <nil key="textColor"/>
-                                                                                    <nil key="highlightedColor"/>
-                                                                                </label>
+                                                                                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="ZTN-24-XfV">
+                                                                                    <rect key="frame" x="0.0" y="0.0" width="353" height="60"/>
+                                                                                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                                                    <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="Gi1-xP-epP">
+                                                                                        <size key="itemSize" width="128" height="128"/>
+                                                                                        <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                                                                        <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                                                                        <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                                                                    </collectionViewFlowLayout>
+                                                                                </collectionView>
                                                                             </subviews>
+                                                                            <constraints>
+                                                                                <constraint firstAttribute="height" constant="60" id="GRl-fk-B4r"/>
+                                                                            </constraints>
                                                                         </stackView>
                                                                     </subviews>
                                                                     <constraints>
