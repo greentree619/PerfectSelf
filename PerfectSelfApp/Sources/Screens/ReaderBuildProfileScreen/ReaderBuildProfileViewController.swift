@@ -89,7 +89,7 @@ class ReaderBuildProfileViewController: UIViewController, PhotoDelegate {
             return
         }
         showIndicator(sender: sender, viewController: self)
-        webAPI.updateReaderProfile(uid: id, title: text_title.text!, gender: text_gender.text!, hourlyrate: rate) { data, response, error in
+        webAPI.editReaderProfile(uid: id, title: text_title.text!, hourlyPrice: rate, about: "", introBucketName: "", introVideokey: "", skills: "", auditionType: -1, isExplicitRead: nil) { data, response, error in
             guard let data = data, error == nil else {
                 print(error?.localizedDescription ?? "No data")
                 return
