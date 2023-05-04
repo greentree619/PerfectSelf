@@ -42,8 +42,6 @@
 		4770CE5429D7C904009C2284 /* FilterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4770CE5229D7C904009C2284 /* FilterViewController.xib */; };
 		4772156129CE700C00319CBC /* VideoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4772155F29CE700C00319CBC /* VideoCollectionViewCell.swift */; };
 		4772156229CE700C00319CBC /* VideoCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4772156029CE700C00319CBC /* VideoCollectionViewCell.xib */; };
-		4776C12B29D3F3330008A915 /* CreditCardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4776C12929D3F3330008A915 /* CreditCardCell.swift */; };
-		4776C12C29D3F3330008A915 /* CreditCardCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4776C12A29D3F3330008A915 /* CreditCardCell.xib */; };
 		47843E4329CFEB2F008704CD /* ChatCardCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47843E4129CFEB2F008704CD /* ChatCardCollectionViewCell.swift */; };
 		47843E4429CFEB2F008704CD /* ChatCardCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 47843E4229CFEB2F008704CD /* ChatCardCollectionViewCell.xib */; };
 		478AD18429F9A9D8008550F2 /* ScriptViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 478AD18229F9A9D8008550F2 /* ScriptViewController.swift */; };
@@ -264,8 +262,6 @@
 		4770CE5229D7C904009C2284 /* FilterViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FilterViewController.xib; sourceTree = "<group>"; };
 		4772155F29CE700C00319CBC /* VideoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoCollectionViewCell.swift; sourceTree = "<group>"; };
 		4772156029CE700C00319CBC /* VideoCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = VideoCollectionViewCell.xib; sourceTree = "<group>"; };
-		4776C12929D3F3330008A915 /* CreditCardCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreditCardCell.swift; sourceTree = "<group>"; };
-		4776C12A29D3F3330008A915 /* CreditCardCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CreditCardCell.xib; sourceTree = "<group>"; };
 		47843E4129CFEB2F008704CD /* ChatCardCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatCardCollectionViewCell.swift; sourceTree = "<group>"; };
 		47843E4229CFEB2F008704CD /* ChatCardCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChatCardCollectionViewCell.xib; sourceTree = "<group>"; };
 		478AD18229F9A9D8008550F2 /* ScriptViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScriptViewController.swift; sourceTree = "<group>"; };
@@ -495,8 +491,6 @@
 			children = (
 				47007BE729C2B0BF00F83CFD /* ActorSetPaymentViewController.swift */,
 				47007BE829C2B0C000F83CFD /* ActorSetPaymentViewController.xib */,
-				4776C12929D3F3330008A915 /* CreditCardCell.swift */,
-				4776C12A29D3F3330008A915 /* CreditCardCell.xib */,
 			);
 			path = ActorSetPaymentScreen;
 			sourceTree = "<group>";
@@ -1252,7 +1246,6 @@
 				BA4714C729A79856007AABC2 /* SF-Pro-Display-Bold.otf in Resources */,
 				47C9733729DC1E5A00468E11 /* Raleway-ExtraBoldItalic.ttf in Resources */,
 				47B025C829D3477900DFECE7 /* open.png in Resources */,
-				4776C12C29D3F3330008A915 /* CreditCardCell.xib in Resources */,
 				47C9733329DC1E5A00468E11 /* Raleway-ExtraLight.ttf in Resources */,
 				47CEBDDF29C7C272006CE9DA /* ActorProfileEditViewController.xib in Resources */,
 				47C9733929DC1E5A00468E11 /* Raleway-ExtraLightItalic.ttf in Resources */,
@@ -1406,7 +1399,6 @@
 				BAD0B53729BA17130061FEF5 /* LibraryViewController.swift in Sources */,
 				BAD0B51A29BA17130061FEF5 /* AvailableAudioInputsViewController.swift in Sources */,
 				BAD0B53129BA17130061FEF5 /* ActorReaderDetailViewController.swift in Sources */,
-				4776C12B29D3F3330008A915 /* CreditCardCell.swift in Sources */,
 				BAC11B8429A8B37100580143 /* IDFileManager.m in Sources */,
 				BA3F909A29C457C200ABE966 /* PerfectSelfWebAPI.swift in Sources */,
 				4770CE5329D7C904009C2284 /* FilterViewController.swift in Sources */,
