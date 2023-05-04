@@ -10,11 +10,11 @@ target 'PerfectSelf' do
   pod 'JJFloatingActionButton'
   pod 'FSCalendar'
   pod 'DropDown'
-  pod 'AnimatedCardInput'
   pod 'HSPopupMenu'
   pod 'RangeSeekSlider'
   pod 'IQKeyboardManagerSwift'
   pod "Koyomi"
+  pod 'AnimatedCardInput'
   pod "SwiftGifOrigin"
   pod 'GoogleAPIClientForREST/Calendar'
   pod 'GoogleSignIn', '~> 5.0.2'
