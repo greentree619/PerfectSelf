@@ -122,6 +122,8 @@
 		795A4A28221E0A1B00F8BB03 /* IceCandidate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 795A4A27221E0A1B00F8BB03 /* IceCandidate.swift */; };
 		795A4A2A221E0FB100F8BB03 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 795A4A29221E0FB100F8BB03 /* Message.swift */; };
 		798FBA492200F9A9009F525E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 798FBA482200F9A9009F525E /* LaunchScreen.storyboard */; };
+		945CCDD32A044A2B0011310B /* TimePauseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 945CCDD12A044A2B0011310B /* TimePauseViewController.swift */; };
+		945CCDD42A044A2B0011310B /* TimePauseViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 945CCDD22A044A2B0011310B /* TimePauseViewController.xib */; };
 		BA00A54529CA1AD100C90922 /* Toast.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA00A54429CA1AD100C90922 /* Toast.swift */; };
 		BA0E353A29BF8C2800ED838A /* StackViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA0E353629BF8C2800ED838A /* StackViewExtension.swift */; };
 		BA0E353B29BF8C2800ED838A /* CGFloatExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA0E353729BF8C2800ED838A /* CGFloatExtension.swift */; };
@@ -345,6 +347,8 @@
 		795A4A29221E0FB100F8BB03 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		798FBA482200F9A9009F525E /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		869D21314A3A21C4B3BFA98D /* Pods-PerfectSelf.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PerfectSelf.release.xcconfig"; path = "Target Support Files/Pods-PerfectSelf/Pods-PerfectSelf.release.xcconfig"; sourceTree = "<group>"; };
+		945CCDD12A044A2B0011310B /* TimePauseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimePauseViewController.swift; sourceTree = "<group>"; };
+		945CCDD22A044A2B0011310B /* TimePauseViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TimePauseViewController.xib; sourceTree = "<group>"; };
 		9B2028BF3D141AFCF2791F2E /* Pods-PerfectSelf.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PerfectSelf.debug.xcconfig"; path = "Target Support Files/Pods-PerfectSelf/Pods-PerfectSelf.debug.xcconfig"; sourceTree = "<group>"; };
 		9F05824DD001DE2D746EF6D8 /* Pods_PerfectSelf.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PerfectSelf.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BA00A54429CA1AD100C90922 /* Toast.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Toast.swift; sourceTree = "<group>"; };
@@ -990,6 +994,8 @@
 			children = (
 				BAD0B4CF29BA17130061FEF5 /* EditReadViewController.swift */,
 				BAD0B4D029BA17130061FEF5 /* EditReadViewController.xib */,
+				945CCDD12A044A2B0011310B /* TimePauseViewController.swift */,
+				945CCDD22A044A2B0011310B /* TimePauseViewController.xib */,
 			);
 			path = EditReadScreen;
 			sourceTree = "<group>";
@@ -1311,6 +1317,7 @@
 				BAD0B50829BA17130061FEF5 /* ConferenceViewController.xib in Resources */,
 				BAD0B50629BA17130061FEF5 /* MainViewController.xib in Resources */,
 				BAD0B54529BA17130061FEF5 /* ActorBookingViewController.xib in Resources */,
+				945CCDD42A044A2B0011310B /* TimePauseViewController.xib in Resources */,
 				4715510229CDBF00007CE524 /* TimeSlotCollectionViewCell.xib in Resources */,
 				BAD0B50129BA17130061FEF5 /* ActorBookConfirmationViewController.xib in Resources */,
 				4748900829DF37C100963EA9 /* Rationale-Regular.ttf in Resources */,
@@ -1421,6 +1428,7 @@
 				BAC11B8529A8B37100580143 /* IDCaptureSessionMovieFileOutputCoordinator.m in Sources */,
 				79262EE720B0D6F600D576C1 /* AppDelegate.swift in Sources */,
 				BA0E353C29BF8C2800ED838A /* AdaptiveLayoutConstraint.swift in Sources */,
+				945CCDD32A044A2B0011310B /* TimePauseViewController.swift in Sources */,
 				795A4A26221E081A00F8BB03 /* SessionDescription.swift in Sources */,
 				47D4F80929CBD8B600AFC4BA /* ReaderBookingViewController.swift in Sources */,
 				47CEBDE229C7C293006CE9DA /* ActorProfileChangePasswordViewController.swift in Sources */,
