@@ -156,11 +156,21 @@ class LoginDetailViewController: UIViewController {
                         if self.userType == 3 {
                             let controller = ActorTabBarController();
                             controller.modalPresentationStyle = .fullScreen
+                            let transition = CATransition()
+                            transition.duration = 0.5 // Set animation duration
+                            transition.type = CATransitionType.push // Set transition type to push
+                            transition.subtype = CATransitionSubtype.fromRight // Set transition subtype to from right
+                            self.view.window?.layer.add(transition, forKey: kCATransition) // Add transition to window layer
                             self.present(controller, animated: false)
                         }
                         else {
                             let controller = ReaderTabBarController();
                             controller.modalPresentationStyle = .fullScreen
+                            let transition = CATransition()
+                            transition.duration = 0.5 // Set animation duration
+                            transition.type = CATransitionType.push // Set transition type to push
+                            transition.subtype = CATransitionSubtype.fromRight // Set transition subtype to from right
+                            self.view.window?.layer.add(transition, forKey: kCATransition) // Add transition to window layer
                             self.present(controller, animated: false)
                         }
                     }
