@@ -11,6 +11,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="EditReadViewController" customModule="PerfectSelf" customModuleProvider="target">
             <connections>
+                <outlet property="playButton" destination="QMg-ah-O3j" id="xOu-w1-xFh"/>
                 <outlet property="playerView" destination="gNi-yJ-TIt" id="BeL-lB-uih"/>
                 <outlet property="slider" destination="Iiz-wc-mvQ" id="dfe-i6-O9p"/>
                 <outlet property="view" destination="GgI-Tw-8jH" id="oQK-0P-Io0"/>
@@ -239,7 +240,7 @@
                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="control-bg" translatesAutoresizingMaskIntoConstraints="NO" id="xIp-wb-XR5">
                                             <rect key="frame" x="0.0" y="0.0" width="56" height="56"/>
                                         </imageView>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QMg-ah-O3j">
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QMg-ah-O3j" userLabel="Play">
                                             <rect key="frame" x="0.0" y="0.0" width="56" height="56"/>
                                             <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>

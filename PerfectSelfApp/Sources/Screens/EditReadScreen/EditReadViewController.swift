@@ -13,16 +13,20 @@ import AVFoundation
 class EditReadViewController: UIViewController {
     
     var videoURL: URL
-    var audioURL: URL
+    var audioURL: URL?
     let movie = AVMutableComposition()
+    var audioTrack: AVMutableCompositionTrack?
+    var editRange: CMTimeRange?
+    var  editAudioTrack: AVAssetTrack?
     
     @IBOutlet weak var playerView: PlayerView!
     @IBOutlet weak var slider: UISlider!
     
+    @IBOutlet weak var playButton: UIButton!
     @IBOutlet weak var startTimerLabel: UILabel!
     @IBOutlet weak var endTimerLabel: UILabel!
    
-    init(videoUrl: URL, audioUrl: URL) {
+    init(videoUrl: URL, audioUrl: URL?) {
         self.videoURL = videoUrl
         self.audioURL = audioUrl
         super.init(nibName: String(describing: EditReadViewController.self), bundle: Bundle.main)
@@ -36,7 +40,7 @@ class EditReadViewController: UIViewController {
     var jobId = ""
     var videoId = ""
     override func viewDidLoad() {
-        print(audioURL, videoURL)
+        //print(audioURL, videoURL)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -47,17 +51,27 @@ class EditReadViewController: UIViewController {
     
     func setupPlayer() {
         let videoTrack = movie.addMutableTrack(withMediaType: .video, preferredTrackID: kCMPersistentTrackID_Invalid)
-        let audioTrack = movie.addMutableTrack(withMediaType: .audio, preferredTrackID: kCMPersistentTrackID_Invalid)
+        audioTrack = movie.addMutableTrack(withMediaType: .audio, preferredTrackID: kCMPersistentTrackID_Invalid)
         
         let editMovie = AVURLAsset(url: videoURL) //1
-          
-          let editAudioTrack = editMovie.tracks(withMediaType: .audio).first! //2
-          let editVideoTrack = editMovie.tracks(withMediaType: .video).first!
-          let editRange = CMTimeRangeMake(start: CMTime.zero, duration: editMovie.duration) //3
-     
+        editRange = CMTimeRangeMake(start: CMTime.zero, duration: editMovie.duration) //3
+        
+        //var audioDur: CMTimeRange?
+        if( audioURL != nil )
+        {
+            let editAudio = AVAsset(url: audioURL!)
+            editAudioTrack = editAudio.tracks(withMediaType: .audio).first! //2
+        }
+        else
+        {
+            //audioDur = editRange
+            editAudioTrack = editMovie.tracks(withMediaType: .audio).first!
+        }
+        
+        let editVideoTrack = editMovie.tracks(withMediaType: .video).first!
         do{
-            try videoTrack?.insertTimeRange(editRange, of: editAudioTrack, at: CMTime.zero) //4
-            try audioTrack?.insertTimeRange(editRange, of: editVideoTrack, at: CMTime.zero)
+            try videoTrack?.insertTimeRange(editRange!, of: editVideoTrack, at: CMTime.zero) //4
+            try audioTrack?.insertTimeRange(editRange!, of: editAudioTrack!, at: CMTime.zero)
         } catch {
             //handle error
             print(error)
@@ -69,7 +83,7 @@ class EditReadViewController: UIViewController {
     }
     
     @IBAction func backDidTap(_ sender: UIButton) {
-        playerView.pause()
+        playerView.stop()
         self.dismiss(animated: false)
     }
     
@@ -77,9 +91,11 @@ class EditReadViewController: UIViewController {
         if playerView.rate > 0 {
             playerView.pause()
             //isPlaying = false
+            playButton.setImage( UIImage(named: "play2")!, for: UIControl.State.normal)
         } else {
             playerView.play()
             //isPlaying = true
+            playButton.setImage( UIImage(named: "pause.circle")!, for: UIControl.State.normal)
         }
     }
     
@@ -121,9 +137,13 @@ class EditReadViewController: UIViewController {
     {
         playerView.pause()
         
+        guard let _ = audioURL else {
+            return
+        }
+        
         // do audio enhancement
         showIndicator(sender: nil, viewController: self, color: UIColor.white)
-        audoAPI.getFileId(filePath: audioURL) { data, response, error in
+        audoAPI.getFileId(filePath: audioURL!) { data, response, error in
             guard let data = data, error == nil else {
                 DispatchQueue.main.async {
                     hideIndicator(sender: nil)
@@ -272,6 +292,7 @@ class EditReadViewController: UIViewController {
             }
         }
     }
+    
     @IBAction func backgroundRemovalDidTap(_ sender: UIButton) {
         print("Edit Read Backgournd Removal func")
         playerView.pause()
@@ -303,6 +324,7 @@ class EditReadViewController: UIViewController {
             }
         }
     }
+    
     @objc func timerActionForBackRemove() {
         backgroundAPI.getFileStatus(videoId: self.videoId) { data, response, error in
             guard let data = data, error == nil else {
@@ -340,7 +362,7 @@ class EditReadViewController: UIViewController {
 //                                            hideIndicator(sender: nil)
 //                                            Toast.show(message: "Audio Enhancement completed", controller: self)
                                             self.videoURL = saveFilePath
-                                            self.mergeAudioWithVideo(videoUrl: self.videoURL, audioUrl: self.audioURL)
+                                            self.mergeAudioWithVideo(videoUrl: self.videoURL, audioUrl: self.audioURL!)
                                         }
                                         print("Successfully downloaded. Status code: \(statusCode)")
                                     }
@@ -477,11 +499,18 @@ extension EditReadViewController: PlayerViewDelegate {
 extension EditReadViewController: TimeSpanSelectDelegate{
     func addTimePause(timeSpan: Int) {
         print("addTimePause span=\(timeSpan)")
+        
+        do{
+            let atTime: CMTime = CMTimeMakeWithSeconds( Float64(timeSpan), preferredTimescale: 1 )
+            audioTrack?.removeTimeRange(editRange!)
+            try audioTrack?.insertTimeRange(editRange!, of: editAudioTrack!, at: atTime)
+        } catch {
+            //handle error
+            print(error)
+        }
     }
     
     func substractimePause(timeSpan: Int) {
         
     }
-    
-    
 }

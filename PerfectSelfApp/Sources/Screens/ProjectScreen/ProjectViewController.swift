@@ -135,7 +135,7 @@ class ProjectViewController: UIViewController {
         }
         
         isOnPlay = false
-        let editReadViewController = EditReadViewController(videoUrl: self.savedVideoUrl!, audioUrl: self.savedAudioUrl!)
+        let editReadViewController = EditReadViewController(videoUrl: self.savedVideoUrl!, audioUrl: self.savedAudioUrl)
         editReadViewController.modalPresentationStyle = .fullScreen
         self.present(editReadViewController, animated: false, completion: nil)
     }
