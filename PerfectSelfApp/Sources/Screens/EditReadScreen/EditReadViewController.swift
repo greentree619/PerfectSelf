@@ -49,18 +49,20 @@ class EditReadViewController: UIViewController {
         let videoTrack = movie.addMutableTrack(withMediaType: .video, preferredTrackID: kCMPersistentTrackID_Invalid)
         let audioTrack = movie.addMutableTrack(withMediaType: .audio, preferredTrackID: kCMPersistentTrackID_Invalid)
         
-        let editMovie = AVURLAsset(url: videoURL) //1
-          
-          let editAudioTrack = editMovie.tracks(withMediaType: .audio).first! //2
-          let editVideoTrack = editMovie.tracks(withMediaType: .video).first!
-          let editRange = CMTimeRangeMake(start: CMTime.zero, duration: editMovie.duration) //3
-     
-        do{
-            try videoTrack?.insertTimeRange(editRange, of: editAudioTrack, at: CMTime.zero) //4
-            try audioTrack?.insertTimeRange(editRange, of: editVideoTrack, at: CMTime.zero)
+        let videoAsset = AVURLAsset(url: videoURL) //1
+        let audioAsset = AVURLAsset(url: audioURL)
+        
+        do {
+            let editAudioTrack = audioAsset.tracks(withMediaType: .audio).first! //2
+            let editVideoTrack = videoAsset.tracks(withMediaType: .video).first!
+            let editRange = CMTimeRangeMake(start: CMTime.zero, duration: videoAsset.duration) //3
+            
+            try videoTrack?.insertTimeRange(editRange, of: editVideoTrack, at: CMTime.zero) //4
+            try audioTrack?.insertTimeRange(editRange, of: editAudioTrack, at: CMTime.zero)
+         
         } catch {
-            //handle error
-            print(error)
+            Toast.show(message: "Error while play result video", controller: self)
+            return
         }
         
         playerView.mainavComposition = movie//playerView.url = videoURL
@@ -217,10 +219,11 @@ class EditReadViewController: UIViewController {
                                 // Success
                                 if let statusCode = (response as? HTTPURLResponse)?.statusCode {
                                     DispatchQueue.main.async {
-//                                        hideIndicator(sender: nil)
-//                                        Toast.show(message: "Audio Enhancement completed", controller: self)
+                                        hideIndicator(sender: nil)
+                                        Toast.show(message: "Audio Enhancement completed", controller: self)
                                         self.audioURL = saveFilePath
-                                        self.mergeAudioWithVideo(videoUrl: self.videoURL, audioUrl: self.audioURL)
+//                                        self.mergeAudioWithVideo(videoUrl: self.videoURL, audioUrl: self.audioURL)
+                                        self.setupPlayer()
                                     }
                                     print("Successfully downloaded. Status code: \(statusCode)")
                                 }
