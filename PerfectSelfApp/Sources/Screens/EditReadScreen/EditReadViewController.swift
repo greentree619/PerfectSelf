@@ -11,8 +11,11 @@ import WebRTC
 import AVFoundation
 
 class EditReadViewController: UIViewController {
+    
     var videoURL: URL
     var audioURL: URL
+    let movie = AVMutableComposition()
+    
     @IBOutlet weak var playerView: PlayerView!
     @IBOutlet weak var slider: UISlider!
     
@@ -43,7 +46,24 @@ class EditReadViewController: UIViewController {
     }
     
     func setupPlayer() {
-        playerView.url = videoURL
+        let videoTrack = movie.addMutableTrack(withMediaType: .video, preferredTrackID: kCMPersistentTrackID_Invalid)
+        let audioTrack = movie.addMutableTrack(withMediaType: .audio, preferredTrackID: kCMPersistentTrackID_Invalid)
+        
+        let editMovie = AVURLAsset(url: videoURL) //1
+          
+          let editAudioTrack = editMovie.tracks(withMediaType: .audio).first! //2
+          let editVideoTrack = editMovie.tracks(withMediaType: .video).first!
+          let editRange = CMTimeRangeMake(start: CMTime.zero, duration: editMovie.duration) //3
+     
+        do{
+            try videoTrack?.insertTimeRange(editRange, of: editAudioTrack, at: CMTime.zero) //4
+            try audioTrack?.insertTimeRange(editRange, of: editVideoTrack, at: CMTime.zero)
+        } catch {
+            //handle error
+            print(error)
+        }
+        
+        playerView.mainavComposition = movie//playerView.url = videoURL
         playerView.delegate = self
         slider.minimumValue = 0
     }
@@ -352,6 +372,7 @@ class EditReadViewController: UIViewController {
             }
         }
     }
+    
     @IBAction func cropDidTap(_ sender: Any) {
         playerView.pause()
     }
