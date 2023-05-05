@@ -8,9 +8,16 @@
 
 import UIKit
 
+protocol TimeSpanSelectDelegate{
+    func addTimePause(timeSpan: Int)
+    func substractimePause(timeSpan: Int)
+}
+
 class TimePauseViewController: UIViewController , UIPickerViewDataSource, UIPickerViewDelegate {
+    var delegate: TimeSpanSelectDelegate?
 
     var isAdding: Bool!
+    var selTimeSpan: Int = 0
     @IBOutlet weak var timeMenu: UIPickerView!
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,10 +28,25 @@ class TimePauseViewController: UIViewController , UIPickerViewDataSource, UIPick
         timeMenu.selectRow(10, inComponent: 0, animated: true)
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        selTimeSpan = (isAdding ? 10 : -10)
+    }
+    
     @IBAction func backDidTap(_ sender: UITapGestureRecognizer) {
         self.dismiss(animated: true)
     }
     
+    @IBAction func okDidTap(_ sender: UIButton)
+    {
+        delegate?.addTimePause(timeSpan:  selTimeSpan )
+        self.dismiss(animated: true)
+    }
+    
+    @IBAction func cancelDidTap(_ sender: UIButton)
+    {
+        self.dismiss(animated: true)
+    }
+        
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         // Return the number of components (columns) in the picker view.
         return 1
@@ -45,6 +67,7 @@ class TimePauseViewController: UIViewController , UIPickerViewDataSource, UIPick
 
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         // Respond to the user selecting a row in the picker view.
+        selTimeSpan = (isAdding ? row : -row )
         print("ok", row)
     }
 

@@ -46,24 +46,25 @@ class EditReadViewController: UIViewController {
     }
     
     func setupPlayer() {
-        let videoTrack = movie.addMutableTrack(withMediaType: .video, preferredTrackID: kCMPersistentTrackID_Invalid)
-        let audioTrack = movie.addMutableTrack(withMediaType: .audio, preferredTrackID: kCMPersistentTrackID_Invalid)
-        
-        let editMovie = AVURLAsset(url: videoURL) //1
-          
-          let editAudioTrack = editMovie.tracks(withMediaType: .audio).first! //2
-          let editVideoTrack = editMovie.tracks(withMediaType: .video).first!
-          let editRange = CMTimeRangeMake(start: CMTime.zero, duration: editMovie.duration) //3
-     
-        do{
-            try videoTrack?.insertTimeRange(editRange, of: editAudioTrack, at: CMTime.zero) //4
-            try audioTrack?.insertTimeRange(editRange, of: editVideoTrack, at: CMTime.zero)
-        } catch {
-            //handle error
-            print(error)
-        }
-        
-        playerView.mainavComposition = movie//playerView.url = videoURL
+//        let videoTrack = movie.addMutableTrack(withMediaType: .video, preferredTrackID: kCMPersistentTrackID_Invalid)
+//        let audioTrack = movie.addMutableTrack(withMediaType: .audio, preferredTrackID: kCMPersistentTrackID_Invalid)
+//
+//        let editMovie = AVURLAsset(url: videoURL) //1
+//
+//          let editAudioTrack = editMovie.tracks(withMediaType: .audio).first! //2
+//          let editVideoTrack = editMovie.tracks(withMediaType: .video).first!
+//          let editRange = CMTimeRangeMake(start: CMTime.zero, duration: editMovie.duration) //3
+//
+//        do{
+//            try videoTrack?.insertTimeRange(editRange, of: editAudioTrack, at: CMTime.zero) //4
+//            try audioTrack?.insertTimeRange(editRange, of: editVideoTrack, at: CMTime.zero)
+//        } catch {
+//            //handle error
+//            print(error)
+//        }
+//
+//        playerView.mainavComposition = movie//
+        playerView.url = videoURL
         playerView.delegate = self
         slider.minimumValue = 0
     }
@@ -95,6 +96,7 @@ class EditReadViewController: UIViewController {
     
     @IBAction func addTimePause(_ sender: UIButton) {
         let controller = TimePauseViewController()
+        controller.delegate = self
         controller.isAdding = true
         controller.modalPresentationStyle = .overFullScreen
         
@@ -104,6 +106,7 @@ class EditReadViewController: UIViewController {
     
     @IBAction func removeTimePause(_ sender: UIButton) {
         let controller = TimePauseViewController()
+        controller.delegate = self
         controller.isAdding = false
         controller.modalPresentationStyle = .overFullScreen
         
@@ -469,4 +472,16 @@ extension EditReadViewController: PlayerViewDelegate {
     func playerVideoDidEnd(player: PlayerView) {
         
     }
+}
+
+extension EditReadViewController: TimeSpanSelectDelegate{
+    func addTimePause(timeSpan: Int) {
+        print("addTimePause span=\(timeSpan)")
+    }
+    
+    func substractimePause(timeSpan: Int) {
+        
+    }
+    
+    
 }

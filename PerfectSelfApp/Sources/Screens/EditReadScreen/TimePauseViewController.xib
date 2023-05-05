@@ -26,14 +26,56 @@
                         <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="my2-lF-9dK">
                             <rect key="frame" x="20" y="0.0" width="353" height="300"/>
                         </pickerView>
+                        <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="B7A-DX-IHA">
+                            <rect key="frame" x="281" y="12" width="100" height="25"/>
+                            <subviews>
+                                <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9B0-wn-g8s" userLabel="ok">
+                                    <rect key="frame" x="0.0" y="0.0" width="50" height="25"/>
+                                    <color key="backgroundColor" red="0.45882352939999999" green="0.52941176469999995" blue="0.85098039219999999" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                    <state key="normal" image="checkmark" catalog="system"/>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                            <real key="value" value="5"/>
+                                        </userDefinedRuntimeAttribute>
+                                    </userDefinedRuntimeAttributes>
+                                    <connections>
+                                        <action selector="okDidTap:" destination="-1" eventType="touchUpInside" id="fmA-Zx-wGK"/>
+                                    </connections>
+                                </button>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kyK-pH-kTs" userLabel="cancel">
+                                    <rect key="frame" x="50" y="0.0" width="50" height="25"/>
+                                    <color key="backgroundColor" red="0.8980392157" green="0.8980392157" blue="0.8980392157" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="tintColor" red="0.14901960780000001" green="0.1960784314" blue="0.21960784310000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                    <state key="normal" image="xmark" catalog="system"/>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                            <real key="value" value="5"/>
+                                        </userDefinedRuntimeAttribute>
+                                    </userDefinedRuntimeAttributes>
+                                    <connections>
+                                        <action selector="cancelDidTap:" destination="-1" eventType="touchUpInside" id="kCo-wm-oLR"/>
+                                    </connections>
+                                </button>
+                            </subviews>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="100" id="0uC-v2-OYs"/>
+                                <constraint firstItem="9B0-wn-g8s" firstAttribute="width" secondItem="kyK-pH-kTs" secondAttribute="width" id="NxF-BJ-yko"/>
+                                <constraint firstAttribute="height" constant="25" id="kCg-61-bSZ"/>
+                            </constraints>
+                        </stackView>
                     </subviews>
                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     <constraints>
                         <constraint firstAttribute="bottom" secondItem="my2-lF-9dK" secondAttribute="bottom" id="2RK-QE-tKg"/>
                         <constraint firstItem="my2-lF-9dK" firstAttribute="top" secondItem="vyJ-1b-hdn" secondAttribute="top" id="JRb-Nh-7ka"/>
+                        <constraint firstAttribute="trailing" secondItem="B7A-DX-IHA" secondAttribute="trailing" constant="12" id="MR2-gH-mP4"/>
                         <constraint firstAttribute="height" constant="300" id="feO-nG-5np"/>
                         <constraint firstItem="my2-lF-9dK" firstAttribute="leading" secondItem="vyJ-1b-hdn" secondAttribute="leading" constant="20" id="hPa-eH-KmE"/>
                         <constraint firstAttribute="trailing" secondItem="my2-lF-9dK" secondAttribute="trailing" constant="20" id="r8j-Lb-xbf"/>
+                        <constraint firstItem="B7A-DX-IHA" firstAttribute="top" secondItem="vyJ-1b-hdn" secondAttribute="top" constant="12" id="uHR-md-Wjc"/>
                     </constraints>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
@@ -61,6 +103,8 @@
         </tapGestureRecognizer>
     </objects>
     <resources>
+        <image name="checkmark" catalog="system" width="128" height="114"/>
+        <image name="xmark" catalog="system" width="128" height="113"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
