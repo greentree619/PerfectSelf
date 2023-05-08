@@ -18,7 +18,9 @@ class EditReadViewController: UIViewController {
     var audioTrack: AVMutableCompositionTrack?
     var editRange: CMTimeRange?
     var  editAudioTrack: AVAssetTrack?
+    var onActorVideoEdit: Bool
     
+    @IBOutlet weak var editBar: UIStackView!
     @IBOutlet weak var playerView: PlayerView!
     @IBOutlet weak var slider: UISlider!
     
@@ -26,9 +28,11 @@ class EditReadViewController: UIViewController {
     @IBOutlet weak var startTimerLabel: UILabel!
     @IBOutlet weak var endTimerLabel: UILabel!
    
-    init(videoUrl: URL, audioUrl: URL?) {
+    init(videoUrl: URL, audioUrl: URL?, isActorVideoEdit: Bool) {
         self.videoURL = videoUrl
         self.audioURL = audioUrl
+        self.onActorVideoEdit = isActorVideoEdit
+
         super.init(nibName: String(describing: EditReadViewController.self), bundle: Bundle.main)
     }
     
@@ -46,6 +50,7 @@ class EditReadViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        editBar.isHidden = !self.onActorVideoEdit
         setupPlayer()
     }
     

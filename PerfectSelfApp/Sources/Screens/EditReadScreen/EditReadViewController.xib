@@ -11,6 +11,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="EditReadViewController" customModule="PerfectSelf" customModuleProvider="target">
             <connections>
+                <outlet property="editBar" destination="1Av-vP-k9N" id="j4W-T3-KbK"/>
                 <outlet property="playButton" destination="QMg-ah-O3j" id="xOu-w1-xFh"/>
                 <outlet property="playerView" destination="gNi-yJ-TIt" id="BeL-lB-uih"/>
                 <outlet property="slider" destination="Iiz-wc-mvQ" id="dfe-i6-O9p"/>
@@ -482,6 +483,7 @@
             <variation key="default">
                 <mask key="subviews">
                     <exclude reference="v8z-TB-Zc4"/>
+                    <exclude reference="c0h-XZ-ZGT"/>
                 </mask>
                 <mask key="constraints">
                     <exclude reference="Ntt-YM-Baa"/>

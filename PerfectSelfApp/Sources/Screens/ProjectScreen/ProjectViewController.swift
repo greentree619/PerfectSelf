@@ -135,10 +135,23 @@ class ProjectViewController: UIViewController {
         }
         
         isOnPlay = false
-        let editReadViewController = EditReadViewController(videoUrl: self.savedVideoUrl!, audioUrl: self.savedAudioUrl)
+        let editReadViewController = EditReadViewController(videoUrl: self.savedVideoUrl!, audioUrl: self.savedAudioUrl, isActorVideoEdit: true)
         editReadViewController.modalPresentationStyle = .fullScreen
         self.present(editReadViewController, animated: false, completion: nil)
     }
+    
+    @IBAction func editReadDidTapped(_ sender: UIButton)
+    {
+        guard self.savedVideoUrl != nil else{
+            return
+        }
+        
+        isOnPlay = false
+        let editReadViewController = EditReadViewController(videoUrl: self.savedVideoUrl!, audioUrl: self.savedAudioUrl, isActorVideoEdit: false)
+        editReadViewController.modalPresentationStyle = .fullScreen
+        self.present(editReadViewController, animated: false, completion: nil)
+    }
+    
     
     @IBAction func sliderValueChanged(_ sender: Any) {
         playerView.currentTime = Double( playerBar.value )
