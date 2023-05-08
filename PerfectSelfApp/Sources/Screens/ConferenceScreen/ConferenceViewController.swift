@@ -27,6 +27,9 @@ class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSample
     @IBOutlet var lblTimer: UILabel!
     @IBOutlet weak var timeSelectCtrl: UIPickerView!
     @IBOutlet weak var timeSelectPannel: UIView!
+    @IBOutlet weak var btnBack: UIButton!
+    @IBOutlet weak var btnLeave: UIButton!
+    
     var count = 3
     var timer: Timer!
     var selectedCount = 3
@@ -224,6 +227,12 @@ class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSample
         self.remoteCameraView.sendSubviewToBack(remoteRenderer)
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        if(_captureState == .capturing){
+            recordEnd()
+        }
+    }
+    
     class func getDocumentsDirectory() -> URL {
         let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
         let documentsDirectory = paths[0]
@@ -271,8 +280,9 @@ class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSample
     }
     
     @IBAction func backDidTap(_ sender: UIButton) {
-        audioRecorder?.stop()
-        _captureState = .end
+        if(_captureState == .capturing){
+            recordEnd()
+        }
         
         let transition = CATransition()
         transition.duration = 0.5 // Set animation duration
@@ -284,34 +294,16 @@ class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSample
         self.signalClient.sendRoomIdClose(roomId: self.roomUid)
     }
     
+    @IBAction func leaveDidTap(_ sender: UIButton) {
+        backDidTap(sender)
+    }
+    
     @IBAction func recordingDidTap(_ sender: UIButton) {
         if(_captureState == .idle){
-            //Send record cmd to other.
-            let recStart: Data = "#CMD#REC#START#".data(using: .utf8)!
-            self.webRTCClient.sendData(recStart)
-            
-            self.count = self.selectedCount
-            self.lblTimer.text = "\(self.count)"
-            lblTimer.isHidden = false
-            if timer != nil {
-                timer.invalidate()
-            }
-            timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true, block: { timer in
-                self.count -= 1
-                self.lblTimer.text = "\(self.count)"
-                if self.count == 0 {
-                    self.lblTimer.isHidden = true
-                    timer.invalidate()
-                    self._captureState = .start
-                    self.audioRecorder?.record()
-                }
-            })
+            recordStart()
         }
         else if(_captureState == .capturing){
-            let recStart: Data = "#CMD#REC#END#".data(using: .utf8)!
-            self.webRTCClient.sendData(recStart)
-            _captureState = .end
-            audioRecorder?.stop()
+            recordEnd()
         }
     }
     
@@ -329,6 +321,42 @@ class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSample
     
     @IBAction func cancelDidTap(_ sender: Any) {
         timeSelectPannel.isHidden = true
+    }
+    
+    func recordStart(){
+        //Send record cmd to other.
+        let recStart: Data = "#CMD#REC#START#".data(using: .utf8)!
+        self.webRTCClient.sendData(recStart)
+        
+        self.count = self.selectedCount
+        self.lblTimer.text = "\(self.count)"
+        lblTimer.isHidden = false
+        if timer != nil {
+            timer.invalidate()
+        }
+        
+        btnBack.isUserInteractionEnabled = false
+        btnLeave.isUserInteractionEnabled = false
+        timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true, block: { timer in
+            self.count -= 1
+            self.lblTimer.text = "\(self.count)"
+            if self.count == 0 {
+                self.lblTimer.isHidden = true
+                timer.invalidate()
+                self._captureState = .start
+                self.audioRecorder?.record()
+                
+                self.btnBack.isUserInteractionEnabled = true
+                self.btnLeave.isUserInteractionEnabled = true
+            }
+        })
+    }
+    
+    func recordEnd(){
+        let recStart: Data = "#CMD#REC#END#".data(using: .utf8)!
+        self.webRTCClient.sendData(recStart)
+        _captureState = .end
+        audioRecorder?.stop()
     }
     
     func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {

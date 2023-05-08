@@ -11,6 +11,8 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ConferenceViewController" customModule="PerfectSelf" customModuleProvider="target">
             <connections>
+                <outlet property="btnBack" destination="ZCm-RC-ejw" id="Gsv-WQ-yib"/>
+                <outlet property="btnLeave" destination="Nr0-JX-AGj" id="vu5-cJ-1uJ"/>
                 <outlet property="lblTimer" destination="KCc-F3-IiK" id="F8h-2h-Fo0"/>
                 <outlet property="localVideoView" destination="oVe-mG-07t" id="1nr-OD-BmB"/>
                 <outlet property="recordButton" destination="ojN-TJ-Aoy" id="qcq-EJ-Xh2"/>
@@ -31,7 +33,7 @@
                     <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oVe-mG-07t" userLabel="localCamera">
-                    <rect key="frame" x="20" y="180" width="149" height="189"/>
+                    <rect key="frame" x="20" y="121" width="149" height="189"/>
                     <subviews>
                         <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UGQ-Rf-uOw">
                             <rect key="frame" x="114" y="7" width="28" height="28"/>
@@ -92,17 +94,17 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <view alpha="0.69999998807907104" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZDA-HM-us0" userLabel="Top Bar">
-                    <rect key="frame" x="0.0" y="59" width="393" height="87"/>
+                    <rect key="frame" x="0.0" y="0.0" width="393" height="87"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Conference" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cbj-3n-1aD">
-                            <rect key="frame" x="147.33333333333334" y="32.333333333333329" width="98.333333333333343" height="22.333333333333329"/>
+                            <rect key="frame" x="147.33333333333334" y="32.333333333333336" width="98.333333333333343" height="22.333333333333336"/>
                             <edgeInsets key="layoutMargins" top="8" left="8" bottom="8" right="8"/>
                             <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="19"/>
                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <color key="highlightedColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         </label>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Nr0-JX-AGj">
-                            <rect key="frame" x="303" y="29.666666666666671" width="70" height="27.666666666666671"/>
+                            <rect key="frame" x="303" y="29.666666666666664" width="70" height="27.666666666666664"/>
                             <color key="backgroundColor" red="0.97647058819999999" green="0.32549019610000002" blue="0.098039215690000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="70" id="7LZ-BV-V2n"/>
@@ -116,6 +118,9 @@
                                     <real key="value" value="2.5"/>
                                 </userDefinedRuntimeAttribute>
                             </userDefinedRuntimeAttributes>
+                            <connections>
+                                <action selector="leaveDidTap:" destination="-1" eventType="touchUpInside" id="xX2-M2-avf"/>
+                            </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZCm-RC-ejw" userLabel="Back">
                             <rect key="frame" x="20" y="31.666666666666671" width="24" height="24"/>
@@ -144,7 +149,7 @@
                     </constraints>
                 </view>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vdA-kj-hut">
-                    <rect key="frame" x="199.66666666666663" y="733" width="173.33333333333337" height="58"/>
+                    <rect key="frame" x="199.66666666666663" y="767" width="173.33333333333337" height="58"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="58" id="5Ow-jJ-iUM"/>
                     </constraints>
@@ -160,7 +165,7 @@
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ojN-TJ-Aoy">
-                    <rect key="frame" x="20" y="733" width="173.66666666666666" height="58"/>
+                    <rect key="frame" x="20" y="767" width="173.66666666666666" height="58"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="58" id="yjE-T6-Flf"/>
                     </constraints>
