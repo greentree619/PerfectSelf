@@ -307,24 +307,41 @@ class AWSMultipartUpload: NSObject, URLSessionTaskDelegate, URLSessionDataDelega
     
     func downloadEx(filePath: URL, bucketName: String,  key: String, completeHandler:@escaping((Error?)->Void)) -> Void
     {
-//        let downloadRequest = AWSS3TransferUtilityDownloadRequest()
-//        downloadRequest.bucket = bucketName
-//        downloadRequest.key = key
-//       let fileURL = filePath//URL(fileURLWithPath: filePath)
-
-        // Configure the transfer options to maximize download speed
-        let transferOptions = AWSS3TransferUtilityDownloadExpression()
-        transferOptions.setValue("bytes=0-1024", forRequestHeader: "Range")
-        //downloadRequest.expression = transferOptions
-
-        // Start the download task
-        transferUtility.download(to: filePath, bucket: bucketName, key: key, expression: transferOptions) { (task, url, data, error) in
-            completeHandler(error)
-//            if let error = error {
-//                print("Error downloading file: \(error.localizedDescription)")
-//            } else {
-//                print("Downloaded file successfully!")
-//            }
+        let expression = AWSS3TransferUtilityDownloadExpression()
+        expression.progressBlock = {(task, progress) in
+            DispatchQueue.main.async(execute: {
+                // Do something e.g. Update a progress bar.
+                print("progress \(progress)")
+            })
+            print(progress.fractionCompleted)   //2
+            if progress.isFinished {           //3
+                print("Download Finished...")
+                //do any task here.
+            }
         }
+        
+        var completionHandler: AWSS3TransferUtilityDownloadCompletionHandlerBlock
+        completionHandler = { (task, location,  data,  error) -> Void in
+           DispatchQueue.main.async(execute: {
+              // Do something e.g. Alert a user for transfer completion.
+              // On failed download, `error` contains the error object.
+               completeHandler(error)
+           })
+        }
+
+        //let transferUtility = self.transferUtility
+        let transferUtility = self.transferUtility
+        transferUtility.download(to: filePath, bucket: bucketName, key: key, expression: expression, completionHandler: completionHandler).continueWith {
+               (task) -> AnyObject? in
+                       if let error = task.error {
+                           print("Error: \(error.localizedDescription)")
+                           completeHandler(error)
+                       }
+
+                       if let _ = task.result {
+                          // Do something with uploadTask.
+                       }
+                       return nil;
+               }
     }
 }

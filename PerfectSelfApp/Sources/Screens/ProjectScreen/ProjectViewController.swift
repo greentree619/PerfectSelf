@@ -21,6 +21,8 @@ class ProjectViewController: UIViewController {
     var savedAudioUrl: URL? = nil
     @IBOutlet weak var playerView: PlayerView!
     //Omitted let awsUpload = AWSMultipartUpload()
+    var startElapseTime: Date?
+    var endElapseTime: Date?
     
     private var isOnPlay: Bool = true {
         didSet {
@@ -63,8 +65,9 @@ class ProjectViewController: UIViewController {
             //print("Error deleting file: \(error.localizedDescription)")
         }
         
+        startElapseTime = Date()
         //Omitted showIndicator(sender: nil, viewController: self, color:UIColor.white)
-        awsUpload.download(filePath: filePath, bucketName: selectedTape!.bucketName, key: "\(selectedTape!.tapeKey).mp4") { (error) -> Void in
+        awsUpload.downloadEx(filePath: filePath, bucketName: selectedTape!.bucketName, key: "\(selectedTape!.tapeKey).mp4") { (error) -> Void in
             if error != nil {
                  //print(error!.localizedDescription)
                 self.savedVideoUrl = nil
@@ -74,6 +77,10 @@ class ProjectViewController: UIViewController {
                 }
             }
             else{
+                self.endElapseTime = Date()
+                let elapsed = self.endElapseTime!.timeIntervalSince(self.startElapseTime!)
+                print("Elapsed time: \(elapsed) seconds")
+                
                 self.savedVideoUrl = filePath
                 self.playerView.url = filePath
                 
@@ -86,7 +93,7 @@ class ProjectViewController: UIViewController {
                     //print("Error deleting file: \(error.localizedDescription)")
                 }
                 
-                awsUpload.download(filePath: filePath, bucketName: selectedTape!.bucketName, key: "\(selectedTape!.tapeKey).m4a") { (error) -> Void in
+                awsUpload.downloadEx(filePath: filePath, bucketName: selectedTape!.bucketName, key: "\(selectedTape!.tapeKey).m4a") { (error) -> Void in
                     DispatchQueue.main.async {
                         hideIndicator(sender: nil)
                         self.playerView.play()
