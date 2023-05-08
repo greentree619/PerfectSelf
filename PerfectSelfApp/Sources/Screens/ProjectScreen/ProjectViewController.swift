@@ -65,7 +65,7 @@ class ProjectViewController: UIViewController {
             //print("Error deleting file: \(error.localizedDescription)")
         }
         
-        startElapseTime = Date()
+        //Omitted startElapseTime = Date()
         //Omitted showIndicator(sender: nil, viewController: self, color:UIColor.white)
         awsUpload.downloadEx(filePath: filePath, bucketName: selectedTape!.bucketName, key: "\(selectedTape!.tapeKey).mp4") { (error) -> Void in
             if error != nil {
@@ -77,9 +77,9 @@ class ProjectViewController: UIViewController {
                 }
             }
             else{
-                self.endElapseTime = Date()
-                let elapsed = self.endElapseTime!.timeIntervalSince(self.startElapseTime!)
-                print("Elapsed time: \(elapsed) seconds")
+                //Omitted self.endElapseTime = Date()
+                //Omitted let elapsed = self.endElapseTime!.timeIntervalSince(self.startElapseTime!)
+                //Omitted print("Elapsed time: \(elapsed) seconds")
                 
                 self.savedVideoUrl = filePath
                 self.playerView.url = filePath
