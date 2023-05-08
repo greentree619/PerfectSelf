@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21225" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_0" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21207"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -43,16 +43,16 @@
                                         </userDefinedRuntimeAttributes>
                                     </imageView>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" translatesAutoresizingMaskIntoConstraints="NO" id="elZ-7U-BZe">
-                                        <rect key="frame" x="50" y="0.0" width="200" height="40"/>
+                                        <rect key="frame" x="50" y="0.0" width="179" height="40"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3UA-VG-kpg">
-                                                <rect key="frame" x="0.0" y="0.0" width="200" height="21.333333333333332"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="179" height="21.333333333333332"/>
                                                 <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="14"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vby-zp-GMd">
-                                                <rect key="frame" x="0.0" y="21.333333333333329" width="200" height="18.666666666666671"/>
+                                                <rect key="frame" x="0.0" y="21.333333333333329" width="179" height="18.666666666666671"/>
                                                 <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="12"/>
                                                 <color key="textColor" red="0.53725490196078429" green="0.54117647058823526" blue="0.55294117647058827" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
@@ -61,16 +61,55 @@
                                         <constraints>
                                             <constraint firstAttribute="width" constant="200" id="Cbz-8E-Tsa"/>
                                         </constraints>
+                                        <variation key="default">
+                                            <mask key="constraints">
+                                                <exclude reference="Cbz-8E-Tsa"/>
+                                            </mask>
+                                        </variation>
                                     </stackView>
-                                    <stackView opaque="NO" contentMode="scaleToFill" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="dal-y2-rnJ">
-                                        <rect key="frame" x="260" y="0.0" width="74" height="40"/>
+                                    <stackView opaque="NO" contentMode="scaleToFill" alignment="top" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="dal-y2-rnJ">
+                                        <rect key="frame" x="239" y="0.0" width="95" height="40"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2zt-at-feM">
-                                                <rect key="frame" x="0.0" y="0.0" width="74" height="14.666666666666666"/>
-                                                <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="12"/>
-                                                <color key="textColor" red="0.53725490200000003" green="0.54117647059999996" blue="0.55294117649999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="star.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="FN1-iU-iH0">
+                                                <rect key="frame" x="0.0" y="-0.33333333333333215" width="15" height="14.666666666666666"/>
+                                                <color key="tintColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="15" id="rG5-yB-E9f"/>
+                                                    <constraint firstAttribute="height" constant="15" id="srS-r0-81q"/>
+                                                </constraints>
+                                            </imageView>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="star.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="Nn2-UZ-tEY">
+                                                <rect key="frame" x="20" y="-0.33333333333333215" width="15" height="14.666666666666666"/>
+                                                <color key="tintColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="15" id="CjA-gC-XE6"/>
+                                                    <constraint firstAttribute="width" constant="15" id="hIP-b1-NMd"/>
+                                                </constraints>
+                                            </imageView>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="star.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="wBx-Xj-cIx">
+                                                <rect key="frame" x="40" y="-0.33333333333333215" width="15" height="14.666666666666666"/>
+                                                <color key="tintColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="15" id="Yvb-6d-Wje"/>
+                                                    <constraint firstAttribute="height" constant="15" id="fti-sJ-W59"/>
+                                                </constraints>
+                                            </imageView>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="star.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="Zbt-RF-jsb">
+                                                <rect key="frame" x="60" y="-0.33333333333333215" width="15" height="14.666666666666666"/>
+                                                <color key="tintColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="15" id="DQt-4L-7Hj"/>
+                                                    <constraint firstAttribute="width" constant="15" id="d2z-KK-ukh"/>
+                                                </constraints>
+                                            </imageView>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="star.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="EK2-3M-wwE">
+                                                <rect key="frame" x="80" y="-0.33333333333333215" width="15" height="14.666666666666666"/>
+                                                <color key="tintColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="15" id="2Xj-tL-AyM"/>
+                                                    <constraint firstAttribute="width" constant="15" id="E2e-e6-AdA"/>
+                                                </constraints>
+                                            </imageView>
                                         </subviews>
                                     </stackView>
                                 </subviews>
@@ -100,9 +139,13 @@
             <size key="customSize" width="313" height="50"/>
             <connections>
                 <outlet property="img_avatar" destination="9Dv-ge-zbG" id="F6q-9G-e2c"/>
+                <outlet property="img_star1" destination="FN1-iU-iH0" id="N3Q-rv-CbU"/>
+                <outlet property="img_star2" destination="Nn2-UZ-tEY" id="27o-Bd-tCE"/>
+                <outlet property="img_star3" destination="wBx-Xj-cIx" id="PgL-9X-DSf"/>
+                <outlet property="img_star4" destination="Zbt-RF-jsb" id="ump-Mz-Dz4"/>
+                <outlet property="img_star5" destination="EK2-3M-wwE" id="Jo7-ci-FoF"/>
                 <outlet property="lbl_name" destination="3UA-VG-kpg" id="OZS-cw-6ws"/>
                 <outlet property="lbl_reviewDate" destination="vby-zp-GMd" id="BrQ-Uo-vYg"/>
-                <outlet property="lbl_score" destination="2zt-at-feM" id="BJ9-bQ-XI6"/>
                 <outlet property="text_review" destination="hEf-hj-8MG" id="7Rr-GX-RiC"/>
             </connections>
             <point key="canvasLocation" x="339.23076923076923" y="20.616113744075829"/>
@@ -110,6 +153,7 @@
     </objects>
     <resources>
         <image name="person.fill" catalog="system" width="128" height="120"/>
+        <image name="star.fill" catalog="system" width="128" height="116"/>
         <systemColor name="labelColor">
             <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>

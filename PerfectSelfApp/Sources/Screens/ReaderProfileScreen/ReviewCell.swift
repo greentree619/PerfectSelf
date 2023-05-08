@@ -13,8 +13,15 @@ class ReviewCell: UICollectionViewCell {
     @IBOutlet weak var img_avatar: UIImageView!
     @IBOutlet weak var lbl_name: UILabel!
     @IBOutlet weak var text_review: UITextView!
-    @IBOutlet weak var lbl_score: UILabel!
     @IBOutlet weak var lbl_reviewDate: UILabel!
+    
+    
+    @IBOutlet weak var img_star1: UIImageView!
+    @IBOutlet weak var img_star2: UIImageView!
+    @IBOutlet weak var img_star3: UIImageView!
+    @IBOutlet weak var img_star4: UIImageView!
+    @IBOutlet weak var img_star5: UIImageView!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
