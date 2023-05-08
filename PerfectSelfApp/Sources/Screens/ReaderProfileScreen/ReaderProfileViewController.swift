@@ -326,7 +326,14 @@ class ReaderProfileViewController: UIViewController, UICollectionViewDataSource,
             let date = dateFormatter.date(from: self.reviews[indexPath.row].bookStartTime)
             dateFormatter.dateFormat = "MMM dd, yyyy"
             cell.lbl_reviewDate.text = dateFormatter.string(from: date ?? Date())
-            cell.lbl_score.text = String(self.reviews[indexPath.row].readerScore)
+//            cell.lbl_score.text = String(self.reviews[indexPath.row].readerScore)
+            //prepare star
+            cell.img_star1.tintColor = self.reviews[indexPath.row].readerScore >= 1 ? UIColor(rgb: 0xFFCC00) : UIColor(rgb: 0x9498AB)
+            cell.img_star2.tintColor = self.reviews[indexPath.row].readerScore >= 2 ? UIColor(rgb: 0xFFCC00) : UIColor(rgb: 0x9498AB)
+            cell.img_star3.tintColor = self.reviews[indexPath.row].readerScore >= 3 ? UIColor(rgb: 0xFFCC00) : UIColor(rgb: 0x9498AB)
+            cell.img_star4.tintColor = self.reviews[indexPath.row].readerScore >= 4 ? UIColor(rgb: 0xFFCC00) : UIColor(rgb: 0x9498AB)
+            cell.img_star5.tintColor = self.reviews[indexPath.row].readerScore >= 5 ? UIColor(rgb: 0xFFCC00) : UIColor(rgb: 0x9498AB)
+            
             cell.text_review.text = self.reviews[indexPath.row].readerReview
             if self.reviews[indexPath.row].actorAvatarKey != nil{
                 let url = "https://\(self.reviews[indexPath.row].actorBucketName!).s3.us-east-2.amazonaws.com/\(self.reviews[indexPath.row].actorAvatarKey!)"
