@@ -323,7 +323,7 @@ class ReaderProfileViewController: UIViewController, UICollectionViewDataSource,
             cell.lbl_name.text = self.reviews[indexPath.row].actorName
             let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss'Z'"
-            let date = dateFormatter.date(from: utcToLocal(dateStr: self.reviews[indexPath.row].bookStartTime)!)
+            let date = dateFormatter.date(from: self.reviews[indexPath.row].bookStartTime)
             dateFormatter.dateFormat = "MMM dd, yyyy"
             cell.lbl_reviewDate.text = dateFormatter.string(from: date ?? Date())
 //            cell.lbl_score.text = String(self.reviews[indexPath.row].readerScore)

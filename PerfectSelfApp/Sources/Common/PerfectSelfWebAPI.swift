@@ -293,8 +293,8 @@ class PerfectSelfWebAPI
         let json: [String: Any] = [
             "actorUid": actorUid,
             "readerUid": readerUid,
-            "bookStartTime": bookStartTime,
-            "bookEndTime": bookEndTime,
+            "bookStartTime": localToUTC(dateStr: bookStartTime)!,
+            "bookEndTime": localToUTC(dateStr: bookEndTime)!,
             "scriptFile": script,
             "scriptBucket": scriptBucket,
             "scriptKey": scriptKey
@@ -320,8 +320,8 @@ class PerfectSelfWebAPI
             "actorUid": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
             "readerUid": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
             "roomUid": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-            "bookStartTime": bookStartTime,
-            "bookEndTime": bookEndTime,
+            "bookStartTime": localToUTC(dateStr: bookStartTime)!,
+            "bookEndTime": localToUTC(dateStr: bookEndTime)!,
             "scriptFile": "string",
             "isAccept": true,
             "readerScore": 0,
@@ -345,9 +345,9 @@ class PerfectSelfWebAPI
         let json: [String: Any] = [
             "readerUid": uid,
             "isDeleted": false,
-            "date": date,
-            "fromTime": fromTime,
-            "toTime": toTime
+            "date": localToUTC(dateStr: date)!,
+            "fromTime": localToUTC(dateStr: fromTime)!,
+            "toTime": localToUTC(dateStr: toTime)!
         ]
         return executeAPI(with: "POST", apiPath: "Availabilities/", json: json, completionHandler:completionHandler)
     }
@@ -386,9 +386,9 @@ class PerfectSelfWebAPI
                 let p: [String:Any] = [
                     "isStandBy": item.isStandBy,
                     "repeatFlag": item.repeatFlag,
-                    "date": item.date,
-                    "fromTime": fromTime,
-                    "toTime": toTime
+                    "date": localToUTC(dateStr: item.date)!,
+                    "fromTime": localToUTC(dateStr: fromTime)!,
+                    "toTime": localToUTC(dateStr: toTime)!
                 ]
                 batchData.append(p)
             }
