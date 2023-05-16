@@ -56,42 +56,37 @@
                         <stackView opaque="NO" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="owa-jE-C8E">
                             <rect key="frame" x="0.0" y="0.0" width="393" height="80"/>
                             <subviews>
-                                <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uBE-lz-rWW">
+                                <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="uBE-lz-rWW">
                                     <rect key="frame" x="30" y="0.0" width="343" height="40"/>
                                     <subviews>
-                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="Cxf-It-YYg">
-                                            <rect key="frame" x="0.0" y="0.0" width="270" height="40"/>
+                                        <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" translatesAutoresizingMaskIntoConstraints="NO" id="1YH-0w-xFc">
+                                            <rect key="frame" x="0.0" y="0.0" width="133.66666666666666" height="40"/>
                                             <subviews>
-                                                <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" translatesAutoresizingMaskIntoConstraints="NO" id="1YH-0w-xFc">
-                                                    <rect key="frame" x="0.0" y="0.0" width="133.66666666666666" height="40"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="My Profile" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fi8-hX-eiR">
+                                                    <rect key="frame" x="0.0" y="0.0" width="108.66666666666667" height="40"/>
+                                                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="24"/>
+                                                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <stackView opaque="NO" contentMode="scaleToFill" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="in6-mB-Tzh">
+                                                    <rect key="frame" x="108.66666666666666" y="0.0" width="25" height="40"/>
                                                     <subviews>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="My Profile" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fi8-hX-eiR">
-                                                            <rect key="frame" x="0.0" y="0.0" width="108.66666666666667" height="40"/>
-                                                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="24"/>
-                                                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                            <nil key="highlightedColor"/>
-                                                        </label>
-                                                        <stackView opaque="NO" contentMode="scaleToFill" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="in6-mB-Tzh">
-                                                            <rect key="frame" x="108.66666666666666" y="0.0" width="25" height="40"/>
-                                                            <subviews>
-                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zuM-aC-R2O">
-                                                                    <rect key="frame" x="0.0" y="7.6666666666666714" width="25" height="25"/>
-                                                                    <constraints>
-                                                                        <constraint firstAttribute="height" constant="25" id="UYy-jn-hpv"/>
-                                                                        <constraint firstAttribute="width" secondItem="zuM-aC-R2O" secondAttribute="height" multiplier="1:1" id="Y1t-UF-Cwd"/>
-                                                                    </constraints>
-                                                                    <color key="tintColor" systemColor="tintColor"/>
-                                                                    <inset key="contentEdgeInsets" minX="3" minY="3" maxX="3" maxY="3"/>
-                                                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                                                    <state key="normal">
-                                                                        <imageReference key="image" image="edit_white" symbolScale="small"/>
-                                                                    </state>
-                                                                    <connections>
-                                                                        <action selector="EditProfile:" destination="-1" eventType="touchUpInside" id="8OW-8t-DXy"/>
-                                                                    </connections>
-                                                                </button>
-                                                            </subviews>
-                                                        </stackView>
+                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zuM-aC-R2O">
+                                                            <rect key="frame" x="0.0" y="7.6666666666666714" width="25" height="25"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="25" id="UYy-jn-hpv"/>
+                                                                <constraint firstAttribute="width" secondItem="zuM-aC-R2O" secondAttribute="height" multiplier="1:1" id="Y1t-UF-Cwd"/>
+                                                            </constraints>
+                                                            <color key="tintColor" systemColor="tintColor"/>
+                                                            <inset key="contentEdgeInsets" minX="3" minY="3" maxX="3" maxY="3"/>
+                                                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                            <state key="normal">
+                                                                <imageReference key="image" image="edit_white" symbolScale="small"/>
+                                                            </state>
+                                                            <connections>
+                                                                <action selector="EditProfile:" destination="-1" eventType="touchUpInside" id="8OW-8t-DXy"/>
+                                                            </connections>
+                                                        </button>
                                                     </subviews>
                                                 </stackView>
                                             </subviews>
