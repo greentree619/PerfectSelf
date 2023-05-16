@@ -122,11 +122,16 @@ class ChatViewController: KUIViewController, UICollectionViewDataSource, UIColle
             }
             do {
                 let items = try JSONDecoder().decode([PerfMessage].self, from: data)
-                print(items)
+                //print(items)
                 DispatchQueue.main.async {
                     self.noMessage.isHidden = !(items.count == 0)
                     self.messages.removeAll()
                     self.messages.append(contentsOf: items)
+                    //UTC2local
+                    for index in self.messages.indices {
+                        self.messages[index].sendTime = utcToLocal(dateStr: self.messages[index].sendTime)!
+                    }
+                    
                     self.messageCollectionView.reloadData()
                 }
             }

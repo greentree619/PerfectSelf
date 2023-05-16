@@ -64,6 +64,10 @@ class MessageCenterViewController: UIViewController, UICollectionViewDataSource,
                 DispatchQueue.main.async {
                     self.items.removeAll()
                     self.items.append(contentsOf: respItems)
+                    //UTC2local
+                    for index in self.items.indices {
+                        self.items[index].sendTime = utcToLocal(dateStr: self.items[index].sendTime)!
+                    }
                     self.chatCardList.reloadData()
                 }
 

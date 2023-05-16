@@ -120,8 +120,8 @@ struct ReaderProfileCard: Codable {
     let hourlyPrice: Int?
     let isStandBy: Bool?
     let date: String?
-    let fromTime: String?
-    let toTime: String?
+    var fromTime: String?
+    var toTime: String?
 }
 struct UnreadState: Codable {
     let uid: String
@@ -137,8 +137,8 @@ struct BookingCard: Codable {
     let scriptFile: String?
     let scriptBucket: String?
     let scriptKey: String?
-    let bookStartTime: String
-    let bookEndTime: String
+    var bookStartTime: String
+    var bookEndTime: String
     let readerReview: String?
     let actorBucketName: String?
     let actorAvatarKey: String?
@@ -152,9 +152,9 @@ struct VideoCard: Codable {
     let tapeName: String
     let bucketName: String
     let tapeKey: String
-    let createdTime: String
-    let updatedTime: String
-    let deletedTime: String
+    var createdTime: String
+    var updatedTime: String
+    var deletedTime: String
 }
 
 struct TimeSlot: Codable {
@@ -176,7 +176,7 @@ struct ChatChannel: Codable {
     let receiverUid: String
     let receiverName: String
     let roomUid: String
-    let sendTime: String
+    var sendTime: String
     let hadRead: Bool
     let message: String
     let senderAvatarBucket: String?
@@ -193,7 +193,7 @@ struct PerfMessage: Codable {
     let senderUid: String
     let receiverUid: String
     let roomUid: String
-    let sendTime: String
+    var sendTime: String
     let hadRead: Bool
     let message: String
 }
