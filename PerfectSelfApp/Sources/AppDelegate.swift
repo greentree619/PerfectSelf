@@ -34,6 +34,31 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         UNUserNotificationCenter.current().delegate = self
         requestPushAuthorization()
         registerForNotifications()
+        
+//        //{{Test localtime<->UTC
+//        var dt:String = "2023-05-16T20:30:00"
+//        dt = localToUTC(dateStr: dt)!
+//        dt = utcToLocal(dateStr: dt)!
+//
+//        dt = "2023-05-16T20:30:00"
+//        dt = localToUTCEx(dateStr: dt)!
+//        dt = utcToLocalEx(dateStr: dt)!
+//
+//        let dateFormatter = DateFormatter()
+//        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
+//
+//        // Set the local time zone
+//        dateFormatter.timeZone = TimeZone.current
+//
+//        // Create a sample local date
+//        let localDate = dateFormatter.date(from: "2023-05-16T20:30:00")!
+//
+//        // Convert the local date to UTC
+//        dateFormatter.timeZone = TimeZone(identifier: "UTC")
+//        let utcDate = dateFormatter.string(from: localDate)
+//
+//        print("UTC Date: \(utcDate)")
+//        //}}
         return true
     }
     

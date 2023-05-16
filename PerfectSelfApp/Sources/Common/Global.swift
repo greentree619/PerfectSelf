@@ -345,6 +345,18 @@ func registerForNotifications() {
     UIApplication.shared.registerForRemoteNotifications()
 }
 
+func localToUTCEx(dateStr: String) -> String? {
+    let dateFormatter = DateFormatter()
+    dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
+    dateFormatter.calendar = Calendar.current
+    dateFormatter.timeZone = TimeZone.current
+    
+    if let date = dateFormatter.date(from: dateStr) {
+        return dateFormatter.string(from: date.toGlobalTime())
+    }
+    return nil
+}
+
 func localToUTC(dateStr: String) -> String? {
     let dateFormatter = DateFormatter()
     dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
@@ -371,6 +383,17 @@ func localToUTC(dateStr: String, dtFormat: String) -> String? {
         dateFormatter.dateFormat = dtFormat
     
         return dateFormatter.string(from: date)
+    }
+    return nil
+}
+
+func utcToLocalEx(dateStr: String) -> String? {
+    let dateFormatter = DateFormatter()
+    dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
+    dateFormatter.timeZone = TimeZone(abbreviation: "UTC")
+    
+    if let date = dateFormatter.date(from: dateStr) {
+        return dateFormatter.string(from: date.toLocalTime())
     }
     return nil
 }
