@@ -120,13 +120,13 @@ class ActorReaderDetailViewController: UIViewController , UICollectionViewDataSo
                         let tf = DateFormatter()
                         tf.dateFormat = "hh"
                         
-                        let index = self.items.firstIndex(where: { df.string(from: Date.getDateFromString(date: $0.date)!) == df.string(from: Date.getDateFromString(date: availibility.date)!) })
+                        let index = self.items.firstIndex(where: { df.string(from: Date.getDateFromString(date: $0.date)!) == df.string(from: Date.getDateFromString(date: utcToLocal(dateStr: availibility.date)!)!) })
                         if index == nil {
-                            self.items.append(TimeSlot(date: availibility.date, time: [Slot](), repeatFlag: 0, isStandBy: false))
+                            self.items.append(TimeSlot(date: utcToLocal(dateStr: availibility.date)!, time: [Slot](), repeatFlag: 0, isStandBy: false))
                         }
                         let idx = index ?? self.items.count - 1
                         
-                        let t = tf.string(from: Date.getDateFromString(date: availibility.fromTime)!)
+                        let t = tf.string(from:Date.getDateFromString(date:  utcToLocal(dateStr: availibility.fromTime)!)!)
                         var slot = 0
                         switch t {
                         case "09":

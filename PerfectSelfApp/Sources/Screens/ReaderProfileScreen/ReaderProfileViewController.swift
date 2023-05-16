@@ -143,13 +143,13 @@ class ReaderProfileViewController: UIViewController, UICollectionViewDataSource,
                         let tf = DateFormatter()
                         tf.dateFormat = "hh"
                         
-                        let index = self.items.firstIndex(where: { df.string(from: Date.getDateFromString(date: $0.date)!) == df.string(from: Date.getDateFromString(date: availibility.date)!) })
+                        let index = self.items.firstIndex(where: { df.string(from: Date.getDateFromString(date: $0.date)!) == df.string(from: Date.getDateFromString(date: utcToLocal(dateStr: availibility.date)!)!) })
                         if index == nil {
-                            self.items.append(TimeSlot(date: availibility.date, time: [Slot](), repeatFlag: 0, isStandBy: false))
+                            self.items.append(TimeSlot(date: utcToLocal(dateStr: availibility.date)!, time: [Slot](), repeatFlag: 0, isStandBy: false))
                         }
                         let idx = index ?? self.items.count - 1
                         
-                        let t = tf.string(from: Date.getDateFromString(date: availibility.fromTime)!)
+                        let t = tf.string(from: Date.getDateFromString(date: utcToLocal(dateStr: availibility.fromTime)!)!)
          
                         var slot = 0
                         switch t {
@@ -323,7 +323,7 @@ class ReaderProfileViewController: UIViewController, UICollectionViewDataSource,
             cell.lbl_name.text = self.reviews[indexPath.row].actorName
             let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss'Z'"
-            let date = dateFormatter.date(from: self.reviews[indexPath.row].bookStartTime)
+            let date = dateFormatter.date(from: utcToLocal(dateStr: self.reviews[indexPath.row].bookStartTime)!)
             dateFormatter.dateFormat = "MMM dd, yyyy"
             cell.lbl_reviewDate.text = dateFormatter.string(from: date ?? Date())
 //            cell.lbl_score.text = String(self.reviews[indexPath.row].readerScore)

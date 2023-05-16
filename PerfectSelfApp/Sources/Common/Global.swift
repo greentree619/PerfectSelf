@@ -344,3 +344,61 @@ func requestPushAuthorization() {
 func registerForNotifications() {
     UIApplication.shared.registerForRemoteNotifications()
 }
+
+func localToUTC(dateStr: String) -> String? {
+    let dateFormatter = DateFormatter()
+    dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
+    dateFormatter.calendar = Calendar.current
+    dateFormatter.timeZone = TimeZone.current
+    
+    if let date = dateFormatter.date(from: dateStr) {
+        dateFormatter.timeZone = TimeZone(abbreviation: "UTC")
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
+    
+        return dateFormatter.string(from: date)
+    }
+    return nil
+}
+
+func localToUTC(dateStr: String, dtFormat: String) -> String? {
+    let dateFormatter = DateFormatter()
+    dateFormatter.dateFormat = dtFormat
+    dateFormatter.calendar = Calendar.current
+    dateFormatter.timeZone = TimeZone.current
+    
+    if let date = dateFormatter.date(from: dateStr) {
+        dateFormatter.timeZone = TimeZone(abbreviation: "UTC")
+        dateFormatter.dateFormat = dtFormat
+    
+        return dateFormatter.string(from: date)
+    }
+    return nil
+}
+
+func utcToLocal(dateStr: String) -> String? {
+    let dateFormatter = DateFormatter()
+    dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
+    dateFormatter.timeZone = TimeZone(abbreviation: "UTC")
+    
+    if let date = dateFormatter.date(from: dateStr) {
+        dateFormatter.timeZone = TimeZone.current
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
+    
+        return dateFormatter.string(from: date)
+    }
+    return nil
+}
+
+func utcToLocal(dateStr: String, dtFormat: String) -> String? {
+    let dateFormatter = DateFormatter()
+    dateFormatter.dateFormat = dtFormat
+    dateFormatter.timeZone = TimeZone(abbreviation: "UTC")
+    
+    if let date = dateFormatter.date(from: dateStr) {
+        dateFormatter.timeZone = TimeZone.current
+        dateFormatter.dateFormat = dtFormat
+    
+        return dateFormatter.string(from: date)
+    }
+    return nil
+}
