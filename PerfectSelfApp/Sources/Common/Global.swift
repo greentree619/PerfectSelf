@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import MediaPlayer
 
 let signalingServerConfig = Config.default
 let webAPI = PerfectSelfWebAPI()
@@ -451,4 +452,20 @@ func utcToLocal(dateStr: String, dtFormat: String) -> String? {
         }
     }
     return nil
+}
+
+func setSpeakerVolume(_ volume: Float) {
+    let audioSession = AVAudioSession.sharedInstance()
+    do {
+        try audioSession.setActive(true)
+        try audioSession.setCategory(.playback, mode: .default, options: [])
+        try audioSession.setMode(.default)
+        
+        let volumeView = MPVolumeView()
+        if let slider = volumeView.subviews.first(where: { $0 is UISlider }) as? UISlider {
+            slider.value = volume
+        }
+    } catch {
+        print("Failed to set speaker volume: \(error.localizedDescription)")
+    }
 }
