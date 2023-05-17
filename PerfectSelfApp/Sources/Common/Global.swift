@@ -346,7 +346,11 @@ func registerForNotifications() {
     UIApplication.shared.registerForRemoteNotifications()
 }
 
-func localToUTCEx(dateStr: String) -> String? {
+func localToUTCEx(dateStr: String?) -> String? {
+    guard let dateStr = dateStr, dateStr.count > 0 else{
+        return ""
+    }
+    
     let dateFormatter = DateFormatter()
     dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
     dateFormatter.calendar = Calendar.current
@@ -358,7 +362,11 @@ func localToUTCEx(dateStr: String) -> String? {
     return nil
 }
 
-func localToUTC(dateStr: String) -> String? {
+func localToUTC(dateStr: String?) -> String? {
+    guard let dateStr = dateStr, dateStr.count > 0 else{
+        return ""
+    }
+    
     let dateFormatter = DateFormatter()
     dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
     dateFormatter.calendar = Calendar.current
@@ -373,7 +381,11 @@ func localToUTC(dateStr: String) -> String? {
     return nil
 }
 
-func localToUTC(dateStr: String, dtFormat: String) -> String? {
+func localToUTC(dateStr: String?, dtFormat: String) -> String? {
+    guard let dateStr = dateStr, dateStr.count > 0 else{
+        return ""
+    }
+    
     let dateFormatter = DateFormatter()
     dateFormatter.dateFormat = dtFormat
     dateFormatter.calendar = Calendar.current
@@ -388,7 +400,11 @@ func localToUTC(dateStr: String, dtFormat: String) -> String? {
     return nil
 }
 
-func utcToLocalEx(dateStr: String) -> String? {
+func utcToLocalEx(dateStr: String?) -> String? {
+    guard let dateStr = dateStr, dateStr.count > 0 else{
+        return ""
+    }
+    
     let dateFormatter = DateFormatter()
     dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
     dateFormatter.timeZone = TimeZone(abbreviation: "UTC")
@@ -406,7 +422,11 @@ func utcToLocalEx(dateStr: String) -> String? {
     return nil
 }
 
-func utcToLocal(dateStr: String) -> String? {
+func utcToLocal(dateStr: String?) -> String? {
+    guard let dateStr = dateStr, dateStr.count > 0 else{
+        return ""
+    }
+    
     let dateFormatter = DateFormatter()
     dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
     dateFormatter.timeZone = TimeZone(abbreviation: "UTC")
@@ -430,7 +450,11 @@ func utcToLocal(dateStr: String) -> String? {
     return nil
 }
 
-func utcToLocal(dateStr: String, dtFormat: String) -> String? {
+func utcToLocal(dateStr: String?, dtFormat: String) -> String? {
+    guard let dateStr = dateStr, dateStr.count > 0 else{
+        return ""
+    }
+    
     let dateFormatter = DateFormatter()
     dateFormatter.dateFormat = dtFormat
     dateFormatter.timeZone = TimeZone(abbreviation: "UTC")

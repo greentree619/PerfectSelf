@@ -118,8 +118,8 @@ class ActorHomeViewController: UIViewController, UICollectionViewDataSource, UIC
                     self.items.append(contentsOf: respItems)
                     //UTC2local
                     for index in self.items.indices {
-                        self.items[index].fromTime = utcToLocal(dateStr: self.items[index].fromTime!)!
-                        self.items[index].toTime = utcToLocal(dateStr: self.items[index].toTime!)!
+                        self.items[index].fromTime = utcToLocal(dateStr: self.items[index].fromTime)!
+                        self.items[index].toTime = utcToLocal(dateStr: self.items[index].toTime)!
                     }                    
                     self.readerList.reloadData()
                 }
