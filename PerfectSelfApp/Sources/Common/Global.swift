@@ -395,6 +395,13 @@ func utcToLocalEx(dateStr: String) -> String? {
     if let date = dateFormatter.date(from: dateStr) {
         return dateFormatter.string(from: date.toLocalTime())
     }
+    else
+    {
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS"
+        if let date = dateFormatter.date(from: dateStr) {
+            return dateFormatter.string(from: date.toLocalTime())
+        }
+    }
     return nil
 }
 
@@ -409,6 +416,16 @@ func utcToLocal(dateStr: String) -> String? {
     
         return dateFormatter.string(from: date)
     }
+    else
+    {
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS"
+        if let date = dateFormatter.date(from: dateStr) {
+            dateFormatter.timeZone = TimeZone.current
+            dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
+        
+            return dateFormatter.string(from: date)
+        }
+    }
     return nil
 }
 
@@ -422,6 +439,16 @@ func utcToLocal(dateStr: String, dtFormat: String) -> String? {
         dateFormatter.dateFormat = dtFormat
     
         return dateFormatter.string(from: date)
+    }
+    else
+    {
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS"
+        if let date = dateFormatter.date(from: dateStr) {
+            dateFormatter.timeZone = TimeZone.current
+            dateFormatter.dateFormat = dtFormat
+        
+            return dateFormatter.string(from: date)
+        }
     }
     return nil
 }
