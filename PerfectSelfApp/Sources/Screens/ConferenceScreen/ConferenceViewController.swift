@@ -52,6 +52,8 @@ class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSample
     private var roomUid: String
     
     private var waitSecKey: String = "REC_WAIT_SEC"
+    var recordingStartCmd: String = "#CMD#REC#START#"
+    var recordingEndCmd: String = "#CMD#REC#END#"
     
     //MARK: WebRTC Conference Status
     
@@ -325,7 +327,7 @@ class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSample
     
     func recordStart(){
         //Send record cmd to other.
-        let recStart: Data = "#CMD#REC#START#".data(using: .utf8)!
+        let recStart: Data = "\(recordingStartCmd)".data(using: .utf8)!
         self.webRTCClient.sendData(recStart)
         
         self.count = self.selectedCount
@@ -345,18 +347,18 @@ class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSample
                 timer.invalidate()
                 self._captureState = .start
                 self.audioRecorder?.record()
-                
-                self.btnBack.isUserInteractionEnabled = true
-                self.btnLeave.isUserInteractionEnabled = true
             }
         })
     }
     
     func recordEnd(){
-        let recStart: Data = "#CMD#REC#END#".data(using: .utf8)!
+        let recStart: Data = "\(recordingEndCmd)".data(using: .utf8)!
         self.webRTCClient.sendData(recStart)
         _captureState = .end
         audioRecorder?.stop()
+        
+        self.btnBack.isUserInteractionEnabled = true
+        self.btnLeave.isUserInteractionEnabled = true
     }
     
     func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
@@ -364,6 +366,8 @@ class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSample
         switch _captureState {
         case .start:
             // Set up recorder
+            Toast.show(message: "Recording start...", controller: uiViewContoller!)
+            
             _filename = self.userName!//UUID().uuidString
             let videoPath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!.appendingPathComponent("\(_filename)\(uploadCount).mp4")
             //let videoPath = URL(string: "\(NSTemporaryDirectory())\(_filename).mp4")
@@ -393,6 +397,8 @@ class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSample
             }
             break
         case .end:
+            Toast.show(message: "Recording end...", controller: uiViewContoller!)
+            
             guard _assetWriterInput?.isReadyForMoreMediaData == true, _assetWriter!.status != .failed else { break }
             let url = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!.appendingPathComponent("\(self.userName!)\(uploadCount).mp4")
             //let url = URL(string: "\(NSTemporaryDirectory())\(self.userName!).mp4")
@@ -569,8 +575,8 @@ extension ConferenceViewController: WebRTCClientDelegate {
     
     func webRTCClient(_ client: WebRTCClient, didReceiveData data: Data) {
         let message = String(data: data, encoding: .utf8) ?? "(Binary: \(data.count) bytes)"
-        let startCmd = "#CMD#REC#START#"//String(describing: "#CMD#REC#START#".cString(using: String.Encoding.utf8))
-        let endCmd = "#CMD#REC#END#"//String(describing: "#CMD#REC#END#".cString(using: String.Encoding.utf8))
+        let startCmd = "\(recordingStartCmd)"//String(describing: "#CMD#REC#START#".cString(using: String.Encoding.utf8))
+        let endCmd = "\(recordingEndCmd)"//String(describing: "#CMD#REC#END#".cString(using: String.Encoding.utf8))
         if(message.compare(startCmd).rawValue == 0)
         {//recording Start
             if(_captureState == .idle){
@@ -581,6 +587,9 @@ extension ConferenceViewController: WebRTCClientDelegate {
                     if self.timer != nil {
                         self.timer.invalidate()
                     }
+                    
+                    self.btnBack.isUserInteractionEnabled = false
+                    self.btnLeave.isUserInteractionEnabled = false
                     self.timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true, block: { timer in
                         self.count -= 1
                         self.lblTimer.text = "\(self.count)"
@@ -600,6 +609,9 @@ extension ConferenceViewController: WebRTCClientDelegate {
                 _captureState = .end
                 audioRecorder?.stop()
             }
+            
+            self.btnBack.isUserInteractionEnabled = true
+            self.btnLeave.isUserInteractionEnabled = true
         }
         
         DispatchQueue.main.async {
