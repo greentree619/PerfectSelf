@@ -175,7 +175,6 @@ class CameraPreviewView: UIView {
         }
 
         //Must be fetched before on main thread
-
         sessionQueue.async { [unowned self] in
             if !movieFileOutput.isRecording {
                 if UIDevice.current.isMultitaskingSupported {

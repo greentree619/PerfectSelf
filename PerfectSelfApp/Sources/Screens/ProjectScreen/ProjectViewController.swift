@@ -21,6 +21,8 @@ class ProjectViewController: UIViewController {
     var savedAudioUrl: URL? = nil
     @IBOutlet weak var playerView: PlayerView!
     //Omitted let awsUpload = AWSMultipartUpload()
+    var startElapseTime: Date?
+    var endElapseTime: Date?
     
     private var isOnPlay: Bool = true {
         didSet {
@@ -63,8 +65,9 @@ class ProjectViewController: UIViewController {
             //print("Error deleting file: \(error.localizedDescription)")
         }
         
+        //Omitted startElapseTime = Date()
         //Omitted showIndicator(sender: nil, viewController: self, color:UIColor.white)
-        awsUpload.download(filePath: filePath, bucketName: selectedTape!.bucketName, key: "\(selectedTape!.tapeKey).mp4") { (error) -> Void in
+        awsUpload.downloadEx(filePath: filePath, bucketName: selectedTape!.bucketName, key: "\(selectedTape!.tapeKey).mp4") { (error) -> Void in
             if error != nil {
                  //print(error!.localizedDescription)
                 self.savedVideoUrl = nil
@@ -74,6 +77,10 @@ class ProjectViewController: UIViewController {
                 }
             }
             else{
+                //Omitted self.endElapseTime = Date()
+                //Omitted let elapsed = self.endElapseTime!.timeIntervalSince(self.startElapseTime!)
+                //Omitted print("Elapsed time: \(elapsed) seconds")
+                
                 self.savedVideoUrl = filePath
                 self.playerView.url = filePath
                 
@@ -86,7 +93,7 @@ class ProjectViewController: UIViewController {
                     //print("Error deleting file: \(error.localizedDescription)")
                 }
                 
-                awsUpload.download(filePath: filePath, bucketName: selectedTape!.bucketName, key: "\(selectedTape!.tapeKey).m4a") { (error) -> Void in
+                awsUpload.downloadEx(filePath: filePath, bucketName: selectedTape!.bucketName, key: "\(selectedTape!.tapeKey).m4a") { (error) -> Void in
                     DispatchQueue.main.async {
                         hideIndicator(sender: nil)
                         self.playerView.play()
@@ -135,10 +142,23 @@ class ProjectViewController: UIViewController {
         }
         
         isOnPlay = false
-        let editReadViewController = EditReadViewController(videoUrl: self.savedVideoUrl!, audioUrl: self.savedAudioUrl!)
+        let editReadViewController = EditReadViewController(videoUrl: self.savedVideoUrl!, audioUrl: self.savedAudioUrl, isActorVideoEdit: true)
         editReadViewController.modalPresentationStyle = .fullScreen
         self.present(editReadViewController, animated: false, completion: nil)
     }
+    
+    @IBAction func editReadDidTapped(_ sender: UIButton)
+    {
+        guard self.savedVideoUrl != nil else{
+            return
+        }
+        
+        isOnPlay = false
+        let editReadViewController = EditReadViewController(videoUrl: self.savedVideoUrl!, audioUrl: self.savedAudioUrl, isActorVideoEdit: false)
+        editReadViewController.modalPresentationStyle = .fullScreen
+        self.present(editReadViewController, animated: false, completion: nil)
+    }
+    
     
     @IBAction func sliderValueChanged(_ sender: Any) {
         playerView.currentTime = Double( playerBar.value )

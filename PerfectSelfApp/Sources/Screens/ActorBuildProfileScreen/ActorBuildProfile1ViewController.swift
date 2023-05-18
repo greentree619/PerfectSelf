@@ -31,7 +31,8 @@ class ActorBuildProfile1ViewController: UIViewController {
         transition.type = CATransitionType.push // Set transition type to push
         transition.subtype = CATransitionSubtype.fromRight // Set transition subtype to from right
         self.view.window?.layer.add(transition, forKey: kCATransition) // Add transition to window layer
-        self.navigationController?.pushViewController(controller, animated: true)
+        self.present(controller, animated: false)
+//        self.navigationController?.pushViewController(controller, animated: true)
     }
     /*
     // MARK: - Navigation

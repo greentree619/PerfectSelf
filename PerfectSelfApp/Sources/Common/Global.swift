@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import MediaPlayer
 
 let signalingServerConfig = Config.default
 let webAPI = PerfectSelfWebAPI()
@@ -120,8 +121,8 @@ struct ReaderProfileCard: Codable {
     let hourlyPrice: Int?
     let isStandBy: Bool?
     let date: String?
-    let fromTime: String?
-    let toTime: String?
+    var fromTime: String?
+    var toTime: String?
 }
 struct UnreadState: Codable {
     let uid: String
@@ -137,8 +138,8 @@ struct BookingCard: Codable {
     let scriptFile: String?
     let scriptBucket: String?
     let scriptKey: String?
-    let bookStartTime: String
-    let bookEndTime: String
+    var bookStartTime: String
+    var bookEndTime: String
     let readerReview: String?
     let actorBucketName: String?
     let actorAvatarKey: String?
@@ -152,9 +153,9 @@ struct VideoCard: Codable {
     let tapeName: String
     let bucketName: String
     let tapeKey: String
-    let createdTime: String
-    let updatedTime: String
-    let deletedTime: String
+    var createdTime: String
+    var updatedTime: String
+    var deletedTime: String
 }
 
 struct TimeSlot: Codable {
@@ -176,7 +177,7 @@ struct ChatChannel: Codable {
     let receiverUid: String
     let receiverName: String
     let roomUid: String
-    let sendTime: String
+    var sendTime: String
     let hadRead: Bool
     let message: String
     let senderAvatarBucket: String?
@@ -193,7 +194,7 @@ struct PerfMessage: Codable {
     let senderUid: String
     let receiverUid: String
     let roomUid: String
-    let sendTime: String
+    var sendTime: String
     let hadRead: Bool
     let message: String
 }
@@ -343,4 +344,152 @@ func requestPushAuthorization() {
 
 func registerForNotifications() {
     UIApplication.shared.registerForRemoteNotifications()
+}
+
+func localToUTCEx(dateStr: String?) -> String? {
+    guard let dateStr = dateStr, dateStr.count > 0 else{
+        return ""
+    }
+    
+    let dateFormatter = DateFormatter()
+    dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
+    dateFormatter.calendar = Calendar.current
+    dateFormatter.timeZone = TimeZone.current
+    
+    if let date = dateFormatter.date(from: dateStr) {
+        return dateFormatter.string(from: date.toGlobalTime())
+    }
+    return nil
+}
+
+func localToUTC(dateStr: String?) -> String? {
+    guard let dateStr = dateStr, dateStr.count > 0 else{
+        return ""
+    }
+    
+    let dateFormatter = DateFormatter()
+    dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
+    dateFormatter.calendar = Calendar.current
+    dateFormatter.timeZone = TimeZone.current
+    
+    if let date = dateFormatter.date(from: dateStr) {
+        dateFormatter.timeZone = TimeZone(abbreviation: "UTC")
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
+    
+        return dateFormatter.string(from: date)
+    }
+    return nil
+}
+
+func localToUTC(dateStr: String?, dtFormat: String) -> String? {
+    guard let dateStr = dateStr, dateStr.count > 0 else{
+        return ""
+    }
+    
+    let dateFormatter = DateFormatter()
+    dateFormatter.dateFormat = dtFormat
+    dateFormatter.calendar = Calendar.current
+    dateFormatter.timeZone = TimeZone.current
+    
+    if let date = dateFormatter.date(from: dateStr) {
+        dateFormatter.timeZone = TimeZone(abbreviation: "UTC")
+        dateFormatter.dateFormat = dtFormat
+    
+        return dateFormatter.string(from: date)
+    }
+    return nil
+}
+
+func utcToLocalEx(dateStr: String?) -> String? {
+    guard let dateStr = dateStr, dateStr.count > 0 else{
+        return ""
+    }
+    
+    let dateFormatter = DateFormatter()
+    dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
+    dateFormatter.timeZone = TimeZone(abbreviation: "UTC")
+    
+    if let date = dateFormatter.date(from: dateStr) {
+        return dateFormatter.string(from: date.toLocalTime())
+    }
+    else
+    {
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS"
+        if let date = dateFormatter.date(from: dateStr) {
+            return dateFormatter.string(from: date.toLocalTime())
+        }
+    }
+    return nil
+}
+
+func utcToLocal(dateStr: String?) -> String? {
+    guard let dateStr = dateStr, dateStr.count > 0 else{
+        return ""
+    }
+    
+    let dateFormatter = DateFormatter()
+    dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
+    dateFormatter.timeZone = TimeZone(abbreviation: "UTC")
+    
+    if let date = dateFormatter.date(from: dateStr) {
+        dateFormatter.timeZone = TimeZone.current
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
+    
+        return dateFormatter.string(from: date)
+    }
+    else
+    {
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS"
+        if let date = dateFormatter.date(from: dateStr) {
+            dateFormatter.timeZone = TimeZone.current
+            dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
+        
+            return dateFormatter.string(from: date)
+        }
+    }
+    return nil
+}
+
+func utcToLocal(dateStr: String?, dtFormat: String) -> String? {
+    guard let dateStr = dateStr, dateStr.count > 0 else{
+        return ""
+    }
+    
+    let dateFormatter = DateFormatter()
+    dateFormatter.dateFormat = dtFormat
+    dateFormatter.timeZone = TimeZone(abbreviation: "UTC")
+    
+    if let date = dateFormatter.date(from: dateStr) {
+        dateFormatter.timeZone = TimeZone.current
+        dateFormatter.dateFormat = dtFormat
+    
+        return dateFormatter.string(from: date)
+    }
+    else
+    {
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS"
+        if let date = dateFormatter.date(from: dateStr) {
+            dateFormatter.timeZone = TimeZone.current
+            dateFormatter.dateFormat = dtFormat
+        
+            return dateFormatter.string(from: date)
+        }
+    }
+    return nil
+}
+
+func setSpeakerVolume(_ volume: Float) {
+    let audioSession = AVAudioSession.sharedInstance()
+    do {
+        try audioSession.setActive(true)
+        try audioSession.setCategory(.playback, mode: .default, options: [])
+        try audioSession.setMode(.default)
+        
+        let volumeView = MPVolumeView()
+        if let slider = volumeView.subviews.first(where: { $0 is UISlider }) as? UISlider {
+            slider.value = volume
+        }
+    } catch {
+        print("Failed to set speaker volume: \(error.localizedDescription)")
+    }
 }

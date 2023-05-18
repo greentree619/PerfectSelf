@@ -13,18 +13,26 @@ import AVFoundation
 class EditReadViewController: UIViewController {
     
     var videoURL: URL
-    var audioURL: URL
+    var audioURL: URL?
     let movie = AVMutableComposition()
+    var audioTrack: AVMutableCompositionTrack?
+    var editRange: CMTimeRange?
+    var  editAudioTrack: AVAssetTrack?
+    var onActorVideoEdit: Bool
     
+    @IBOutlet weak var editBar: UIStackView!
     @IBOutlet weak var playerView: PlayerView!
     @IBOutlet weak var slider: UISlider!
     
+    @IBOutlet weak var playButton: UIButton!
     @IBOutlet weak var startTimerLabel: UILabel!
     @IBOutlet weak var endTimerLabel: UILabel!
    
-    init(videoUrl: URL, audioUrl: URL) {
+    init(videoUrl: URL, audioUrl: URL?, isActorVideoEdit: Bool) {
         self.videoURL = videoUrl
         self.audioURL = audioUrl
+        self.onActorVideoEdit = isActorVideoEdit
+
         super.init(nibName: String(describing: EditReadViewController.self), bundle: Bundle.main)
     }
     
@@ -36,12 +44,13 @@ class EditReadViewController: UIViewController {
     var jobId = ""
     var videoId = ""
     override func viewDidLoad() {
-        print(audioURL, videoURL)
+        //print(audioURL, videoURL)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        editBar.isHidden = !self.onActorVideoEdit
         setupPlayer()
     }
     
@@ -72,7 +81,7 @@ class EditReadViewController: UIViewController {
     }
     
     @IBAction func backDidTap(_ sender: UIButton) {
-        playerView.pause()
+        playerView.stop()
         self.dismiss(animated: false)
     }
     
@@ -80,9 +89,11 @@ class EditReadViewController: UIViewController {
         if playerView.rate > 0 {
             playerView.pause()
             //isPlaying = false
+            playButton.setImage( UIImage(named: "play2")!, for: UIControl.State.normal)
         } else {
             playerView.play()
             //isPlaying = true
+            playButton.setImage( UIImage(named: "pause.circle")!, for: UIControl.State.normal)
         }
     }
     
@@ -98,6 +109,7 @@ class EditReadViewController: UIViewController {
     
     @IBAction func addTimePause(_ sender: UIButton) {
         let controller = TimePauseViewController()
+        controller.delegate = self
         controller.isAdding = true
         controller.modalPresentationStyle = .overFullScreen
         
@@ -107,6 +119,7 @@ class EditReadViewController: UIViewController {
     
     @IBAction func removeTimePause(_ sender: UIButton) {
         let controller = TimePauseViewController()
+        controller.delegate = self
         controller.isAdding = false
         controller.modalPresentationStyle = .overFullScreen
         
@@ -122,9 +135,13 @@ class EditReadViewController: UIViewController {
     {
         playerView.pause()
         
+        guard let _ = audioURL else {
+            return
+        }
+        
         // do audio enhancement
         showIndicator(sender: nil, viewController: self, color: UIColor.white)
-        audoAPI.getFileId(filePath: audioURL) { data, response, error in
+        audoAPI.getFileId(filePath: audioURL!) { data, response, error in
             guard let data = data, error == nil else {
                 DispatchQueue.main.async {
                     hideIndicator(sender: nil)
@@ -273,6 +290,7 @@ class EditReadViewController: UIViewController {
             }
         }
     }
+    
     @IBAction func backgroundRemovalDidTap(_ sender: UIButton) {
         print("Edit Read Backgournd Removal func")
         playerView.pause()
@@ -304,6 +322,7 @@ class EditReadViewController: UIViewController {
             }
         }
     }
+    
     @objc func timerActionForBackRemove() {
         backgroundAPI.getFileStatus(videoId: self.videoId) { data, response, error in
             guard let data = data, error == nil else {
@@ -341,7 +360,7 @@ class EditReadViewController: UIViewController {
 //                                            hideIndicator(sender: nil)
 //                                            Toast.show(message: "Audio Enhancement completed", controller: self)
                                             self.videoURL = saveFilePath
-                                            self.mergeAudioWithVideo(videoUrl: self.videoURL, audioUrl: self.audioURL)
+                                            self.mergeAudioWithVideo(videoUrl: self.videoURL, audioUrl: self.audioURL!)
                                         }
                                         print("Successfully downloaded. Status code: \(statusCode)")
                                     }
@@ -471,6 +490,25 @@ extension EditReadViewController: PlayerViewDelegate {
     }
     
     func playerVideoDidEnd(player: PlayerView) {
+        
+    }
+}
+
+extension EditReadViewController: TimeSpanSelectDelegate{
+    func addTimePause(timeSpan: Int) {
+        print("addTimePause span=\(timeSpan)")
+        
+        do{
+            let atTime: CMTime = CMTimeMakeWithSeconds( Float64(timeSpan), preferredTimescale: 1 )
+            audioTrack?.removeTimeRange(editRange!)
+            try audioTrack?.insertTimeRange(editRange!, of: editAudioTrack!, at: atTime)
+        } catch {
+            //handle error
+            print(error)
+        }
+    }
+    
+    func substractimePause(timeSpan: Int) {
         
     }
 }

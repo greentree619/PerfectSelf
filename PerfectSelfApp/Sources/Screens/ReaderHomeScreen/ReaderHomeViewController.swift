@@ -60,6 +60,11 @@ class ReaderHomeViewController: UIViewController, UICollectionViewDataSource, UI
                 DispatchQueue.main.async {
                     self.items.removeAll()
                     self.items.append(contentsOf: respItems)
+                    //UTC2local
+                    for index in self.items.indices {
+                        self.items[index].bookStartTime = utcToLocal(dateStr: self.items[index].bookStartTime)!
+                        self.items[index].bookEndTime = utcToLocal(dateStr: self.items[index].bookEndTime)!
+                    }
                     self.bookList.reloadData()
                     if self.items.isEmpty {
                         self.bookList.isHidden = true

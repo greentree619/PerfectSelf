@@ -143,13 +143,13 @@ class ReaderProfileViewController: UIViewController, UICollectionViewDataSource,
                         let tf = DateFormatter()
                         tf.dateFormat = "hh"
                         
-                        let index = self.items.firstIndex(where: { df.string(from: Date.getDateFromString(date: $0.date)!) == df.string(from: Date.getDateFromString(date: availibility.date)!) })
+                        let index = self.items.firstIndex(where: { df.string(from: Date.getDateFromString(date: $0.date)!) == df.string(from: Date.getDateFromString(date: utcToLocal(dateStr: availibility.date)!)!) })
                         if index == nil {
-                            self.items.append(TimeSlot(date: availibility.date, time: [Slot](), repeatFlag: 0, isStandBy: false))
+                            self.items.append(TimeSlot(date: utcToLocal(dateStr: availibility.date)!, time: [Slot](), repeatFlag: 0, isStandBy: false))
                         }
                         let idx = index ?? self.items.count - 1
                         
-                        let t = tf.string(from: Date.getDateFromString(date: availibility.fromTime)!)
+                        let t = tf.string(from: Date.getDateFromString(date: utcToLocal(dateStr: availibility.fromTime)!)!)
          
                         var slot = 0
                         switch t {
@@ -326,7 +326,14 @@ class ReaderProfileViewController: UIViewController, UICollectionViewDataSource,
             let date = dateFormatter.date(from: self.reviews[indexPath.row].bookStartTime)
             dateFormatter.dateFormat = "MMM dd, yyyy"
             cell.lbl_reviewDate.text = dateFormatter.string(from: date ?? Date())
-            cell.lbl_score.text = String(self.reviews[indexPath.row].readerScore)
+//            cell.lbl_score.text = String(self.reviews[indexPath.row].readerScore)
+            //prepare star
+            cell.img_star1.tintColor = self.reviews[indexPath.row].readerScore >= 1 ? UIColor(rgb: 0xFFCC00) : UIColor(rgb: 0x9498AB)
+            cell.img_star2.tintColor = self.reviews[indexPath.row].readerScore >= 2 ? UIColor(rgb: 0xFFCC00) : UIColor(rgb: 0x9498AB)
+            cell.img_star3.tintColor = self.reviews[indexPath.row].readerScore >= 3 ? UIColor(rgb: 0xFFCC00) : UIColor(rgb: 0x9498AB)
+            cell.img_star4.tintColor = self.reviews[indexPath.row].readerScore >= 4 ? UIColor(rgb: 0xFFCC00) : UIColor(rgb: 0x9498AB)
+            cell.img_star5.tintColor = self.reviews[indexPath.row].readerScore >= 5 ? UIColor(rgb: 0xFFCC00) : UIColor(rgb: 0x9498AB)
+            
             cell.text_review.text = self.reviews[indexPath.row].readerReview
             if self.reviews[indexPath.row].actorAvatarKey != nil{
                 let url = "https://\(self.reviews[indexPath.row].actorBucketName!).s3.us-east-2.amazonaws.com/\(self.reviews[indexPath.row].actorAvatarKey!)"

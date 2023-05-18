@@ -57,6 +57,12 @@ class ActorLibraryViewController: UIViewController, UICollectionViewDataSource, 
                 DispatchQueue.main.async {
                     self.items.removeAll()
                     self.items.append(contentsOf: respItems)
+                    //UTC2local
+                    for index in self.items.indices {
+                        self.items[index].createdTime = utcToLocal(dateStr: self.items[index].createdTime)!
+                        self.items[index].updatedTime = utcToLocal(dateStr: self.items[index].updatedTime)!
+                        self.items[index].deletedTime = utcToLocal(dateStr: self.items[index].deletedTime)!
+                    }
                     //                    for (i, reader) in items.enumerated() {
                     //                    }
                     self.videoList.reloadData()

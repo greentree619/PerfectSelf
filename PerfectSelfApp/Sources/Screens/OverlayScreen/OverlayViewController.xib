@@ -12,6 +12,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="OverlayViewController" customModule="PerfectSelf" customModuleProvider="target">
             <connections>
                 <outlet property="activityMonitor" destination="qwG-Hk-o2t" id="daF-rE-rN3"/>
+                <outlet property="btnBack" destination="dwO-mP-pK0" id="P7o-Cr-drv"/>
                 <outlet property="btnRecord" destination="uQk-2e-edp" id="56Z-nK-wgr"/>
                 <outlet property="btnTimer" destination="oYB-fe-qia" id="3eh-83-SKk"/>
                 <outlet property="cameraView" destination="jkb-fE-oc3" id="7ov-Qh-ix6"/>
@@ -143,6 +144,11 @@
                         <constraint firstItem="Pou-Kw-rE4" firstAttribute="centerY" secondItem="Q1Y-Wv-N0h" secondAttribute="centerY" id="n3n-EY-3HY"/>
                         <constraint firstItem="dwO-mP-pK0" firstAttribute="centerY" secondItem="Q1Y-Wv-N0h" secondAttribute="centerY" id="tMJ-7S-7MR"/>
                     </constraints>
+                    <variation key="default">
+                        <mask key="subviews">
+                            <exclude reference="Pou-Kw-rE4"/>
+                        </mask>
+                    </variation>
                 </view>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oYB-fe-qia" userLabel="Set Timer">
                     <rect key="frame" x="199.66666666666663" y="733" width="173.33333333333337" height="58"/>

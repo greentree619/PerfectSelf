@@ -25,6 +25,7 @@ class OverlayViewController: UIViewController {
     @IBOutlet var btnStop: UIButton!
     @IBOutlet weak var timeSelectCtrl: UIPickerView!
     @IBOutlet weak var timeSelectPannel: UIView!
+    @IBOutlet weak var btnBack: UIButton!
     
     var count = 3
     var timer: Timer!
@@ -81,34 +82,21 @@ class OverlayViewController: UIViewController {
     }
     
     override func viewWillDisappear(_ animated: Bool){
+        if(isOnRecording)
+        {
+            recordEnd()
+        }
     }
     
     @IBAction func startRecordClicked(_ sender: UIButton)
     {
         if(!isOnRecording)
         {
-            self.count = self.selectedCount
-            self.lblTimer.text = "\(self.count)"
-            lblTimer.isHidden = false
-            if timer != nil {
-                timer.invalidate()
-            }
-            timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true, block: { timer in
-                self.count -= 1
-                self.lblTimer.text = "\(self.count)"
-                if self.count == 0 {
-                    self.btnTimer.isEnabled = true
-                    self.lblTimer.isHidden = true
-                    timer.invalidate()
-                    self.startRecordAction()
-                    self.isOnRecording = true
-                }
-            })
+            recordStart()
         }
         else
         {
-            stopRecordAction()
-            self.isOnRecording = false
+            recordEnd()
         }
     }
     
@@ -135,7 +123,11 @@ class OverlayViewController: UIViewController {
     }
     
     @IBAction func backDidTap(_ sender: UIButton) {
-        stopRecordAction()
+        if(isOnRecording)
+        {
+            recordEnd()
+        }
+        
         self.dismiss(animated: false)
     }
     
@@ -313,6 +305,32 @@ class OverlayViewController: UIViewController {
         }
     }
     
+    func recordStart(){
+        self.count = self.selectedCount
+        self.lblTimer.text = "\(self.count)"
+        lblTimer.isHidden = false
+        if timer != nil {
+            timer.invalidate()
+        }
+        self.btnBack.isUserInteractionEnabled = false
+        timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true, block: { timer in
+            self.count -= 1
+            self.lblTimer.text = "\(self.count)"
+            if self.count == 0 {
+                self.btnTimer.isEnabled = true
+                self.lblTimer.isHidden = true
+                timer.invalidate()
+                self.startRecordAction()
+                self.isOnRecording = true
+                self.btnBack.isUserInteractionEnabled = true
+            }
+        })
+    }
+    
+    func recordEnd(){
+        stopRecordAction()
+        self.isOnRecording = false
+    }
 }
 
 extension OverlayViewController: CameraPreviewDelegate {
