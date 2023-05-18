@@ -248,10 +248,22 @@ extension ActorBuildProfile2ViewController: UIImagePickerControllerDelegate & UI
                             webAPI.updateUserAvatar(uid: self.id, bucketName: "perfectself-avatar-bucket", avatarKey: "\(self.id)/\(avatarUrl!.lastPathComponent)") { data, response, error in
                                 if error == nil {
                                     // successfully update db
+                                    DispatchQueue.main.async {
+                                        if var userInfo = UserDefaults.standard.object(forKey: "USER") as? [String:Any] {
+                                            // Use the saved data
+                                            userInfo["avatarBucketName"] = "perfectself-avatar-bucket"
+                                            userInfo["avatarKey"] = "\(self.id)/\(avatarUrl!.lastPathComponent)"
+                                            UserDefaults.standard.removeObject(forKey: "USER")
+                                            UserDefaults.standard.set(userInfo, forKey: "USER")
+                                            
+                                        } else {
+                                            // No data was saved
+                                            print("No data was saved.")
+                                        }
+                                    }
                                     print("update db completed")
                                 }
                             }
-                            
                         }
                     }
                     else
