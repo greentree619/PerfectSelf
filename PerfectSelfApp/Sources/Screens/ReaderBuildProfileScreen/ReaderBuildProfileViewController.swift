@@ -90,28 +90,25 @@ class ReaderBuildProfileViewController: UIViewController, PhotoDelegate {
         }
         showIndicator(sender: sender, viewController: self)
         webAPI.editReaderProfile(uid: id, title: text_title.text!, hourlyPrice: rate, about: "", introBucketName: "", introVideokey: "", skills: "", auditionType: -1, isExplicitRead: nil) { data, response, error in
-            guard let data = data, error == nil else {
+            guard let _ = data, error == nil else {
                 print(error?.localizedDescription ?? "No data")
                 return
             }
-            let responseJSON = try? JSONSerialization.jsonObject(with: data, options: [])
-
-            if let _ = responseJSON as? [String: Any] {
-                
-                DispatchQueue.main.async {
-                    hideIndicator(sender: sender)
-                    let controller = ReaderTabBarController()
-                    controller.modalPresentationStyle = .fullScreen
-                    self.present(controller, animated: false)
-                }
-            }
-            else
-            {
+            
+            guard let httpResponse = response as? HTTPURLResponse,
+                  (200...299).contains(httpResponse.statusCode) else {
                 DispatchQueue.main.async {
                     hideIndicator(sender: sender)
                     Toast.show(message: "Profile update failed! please try again.", controller: self)
-                    print("error3")
                 }
+                return
+            }
+            
+            DispatchQueue.main.async {
+                hideIndicator(sender: sender)
+                let controller = ReaderTabBarController()
+                controller.modalPresentationStyle = .fullScreen
+                self.present(controller, animated: false)
             }
         }
     }
