@@ -442,8 +442,6 @@ class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSample
                                         // No data was saved
                                         print("No data was saved.")
                                     }
-                                    
-                                   
                                 }
                                 else
                                 {

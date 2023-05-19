@@ -18,7 +18,6 @@ class ActorTabBarController: UITabBarController, UIImagePickerControllerDelegate
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
-        
         tabBar.tintColor = .white;
         tabBar.unselectedItemTintColor = .white.withAlphaComponent(0.67);
         tabBar.isTranslucent = false;
@@ -118,6 +117,34 @@ class ActorTabBarController: UITabBarController, UIImagePickerControllerDelegate
         videoUrl = info[UIImagePickerController.InfoKey.mediaURL] as! URL?
         print(self.videoUrl!)//let pathString = self.videoUrl?.relativePath
         Toast.show(message: "Video Url: \(self.videoUrl!)", controller:  self)
-        //self.dismiss(animated: true, completion: nil)
+        self.dismiss(animated: true, completion: nil)
+        
+//        //Then Upload video
+//        let prefixKey = "\(getDateString())/self-tape/"
+//        awsUpload.multipartUpload(filePath: self.videoUrl!, prefixKey: prefixKey){ error -> Void in
+//            if(error == nil)
+//            {
+//                DispatchQueue.main.async {
+//                    //Omitted hideIndicator(sender: nil)
+//                    //Toast.show(message: "Completed to upload record files", controller: uiViewContoller!)
+//                }
+//                if let userInfo = UserDefaults.standard.object(forKey: "USER") as? [String:Any] {
+//                    // Use the saved data
+//                    let uid = userInfo["uid"] as! String
+//
+//                    webAPI.addLibrary(uid: uid, tapeName: "tapeName", bucketName: "video-client-upload-123456798", tapeKey: "\(prefixKey)\(self.videoUrl!.lastPathComponent)")
+//                } else {
+//                    // No data was saved
+//                    print("No data was saved.")
+//                }
+//            }
+//            else
+//            {
+//                DispatchQueue.main.async {
+//                    //Omitted hideIndicator(sender: nil)
+//                    Toast.show(message: "Failed to upload record files", controller: uiViewContoller!)
+//                }
+//            }
+//        }
     }
 }
