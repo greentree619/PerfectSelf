@@ -76,7 +76,7 @@ class ReaderTabBarController: UITabBarController {
               createNavController(for: ReaderHomeViewController(), title: NSLocalizedString("Home", comment: ""), image: UIImage(systemName: "homekit")!),
               createNavController(for: ReaderBookingViewController(), title: NSLocalizedString("Chat", comment: ""), image: UIImage(systemName: "calendar")!),
               UINavigationController(rootViewController: UIViewController()),
-              createNavController(for: MessageCenterViewController(), title: NSLocalizedString("Book", comment: ""), image: UIImage(systemName: "ellipsis.message")!),
+              createNavController(for: MessageCenterViewController(), title: NSLocalizedString("Book", comment: ""), image: UIImage(named: "ellipsis.message")!),
               createNavController(for: ReaderProfileViewController(), title: NSLocalizedString("Profile", comment: ""), image: UIImage(systemName: "person")!)
         ];
       }
