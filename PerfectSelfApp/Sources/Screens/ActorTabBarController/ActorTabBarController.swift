@@ -8,8 +8,10 @@
 
 import UIKit
 import JJFloatingActionButton
+import MobileCoreServices
 
-class ActorTabBarController: UITabBarController {
+class ActorTabBarController: UITabBarController, UIImagePickerControllerDelegate & UINavigationControllerDelegate {
+    var videoUrl: URL?
 //    let alertController = UIAlertController(title: nil, message: "", preferredStyle: .actionSheet);
     
     override func viewDidLoad() {
@@ -30,8 +32,24 @@ class ActorTabBarController: UITabBarController {
             
         }
         actionButton.addItem(title: "Create Self Tape", image: UIImage(systemName: "plus.circle")) { item in
-          // do something
-            
+            // do something
+            if UIImagePickerController.isSourceTypeAvailable(UIImagePickerController.SourceType.camera) {
+                print("captureVideoPressed and camera available.")
+
+                let imagePicker = UIImagePickerController()
+
+                imagePicker.delegate = self
+                imagePicker.sourceType = .camera
+                imagePicker.mediaTypes = [kUTTypeMovie as String]
+                imagePicker.allowsEditing = false
+
+                imagePicker.showsCameraControls = true
+
+                self.present(imagePicker, animated: true, completion: nil)
+                Toast.show(message: "Start to create self tap.", controller:  self)
+              } else {
+                print("Camera not available.")
+              }
         }
 
         actionButton.buttonDiameter = 50;
@@ -89,5 +107,17 @@ class ActorTabBarController: UITabBarController {
         // Pass the selected object to the new view controller.
     }
     */
-
+    
+    //    private func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+    //        self.videoUrl = info[UIImagePickerController.InfoKey.mediaURL.rawValue] as! URL?
+    //        print(self.videoUrl!)//let pathString = self.videoUrl?.relativePath
+    //        Toast.show(message: "Video Url: \(self.videoUrl!)", controller:  self)
+    //        //self.dismiss(animated: true, completion: nil)
+    //    }
+    func imagePickerController(  didFinishPickingMediaWithInfo info:NSDictionary!) {
+        videoUrl = info[UIImagePickerController.InfoKey.mediaURL] as! URL?
+        print(self.videoUrl!)//let pathString = self.videoUrl?.relativePath
+        Toast.show(message: "Video Url: \(self.videoUrl!)", controller:  self)
+        //self.dismiss(animated: true, completion: nil)
+    }
 }
