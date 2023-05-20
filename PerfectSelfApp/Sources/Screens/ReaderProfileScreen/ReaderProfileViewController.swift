@@ -124,7 +124,6 @@ class ReaderProfileViewController: UIViewController, UICollectionViewDataSource,
             }
             do {
                 let item = try JSONDecoder().decode(ReaderProfileDetail.self, from: data)
-//                print(item)
                 DispatchQueue.main.async {
                     self.readerUsername.text = item.userName
                     self.readerTitle.text = item.title
@@ -168,10 +167,10 @@ class ReaderProfileViewController: UIViewController, UICollectionViewDataSource,
                         default:
                             slot = 0
                         }
-                        self.items[idx].time.append(Slot(id: 0, slot: slot, duration: 0, isDeleted: false))
+                        self.items[idx].time.append(Slot(id: availibility.id, slot: slot, duration: 0, isDeleted: false))
                     }
                     self.items = self.items.sorted(by: { Date.getDateFromString(date: $0.date)! < Date.getDateFromString(date: $1.date)! })
-
+                    
                     self.timeslotList.reloadData()
                     self.reviews.removeAll()
                     self.reviews.append(contentsOf: item.reviewLists)
@@ -197,13 +196,11 @@ class ReaderProfileViewController: UIViewController, UICollectionViewDataSource,
                             }
                             
                              if error != nil {
-                                  //print(error!.localizedDescription)
                                  DispatchQueue.main.async {
                                      Toast.show(message: "Faild to download video", controller: self)
                                  }
                              }
                              else {
-                                 //print(response)//print(response ?? default "")
                                  let documentsPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0];
                                  let filePath = URL(fileURLWithPath: "\(documentsPath)/tempFile.mp4")
                                  DispatchQueue.main.async {
@@ -466,7 +463,7 @@ class ReaderProfileViewController: UIViewController, UICollectionViewDataSource,
                     userInfo["avatarKey"] = ""
                     UserDefaults.standard.removeObject(forKey: "USER")
                     UserDefaults.standard.set(userInfo, forKey: "USER")
-                    print(userInfo)
+                    
                     DispatchQueue.main.async {
                         self.readerAvatar.image = UIImage(systemName: "person.fill")
                     }
@@ -616,8 +613,6 @@ extension ReaderProfileViewController: UIImagePickerControllerDelegate & UINavig
             //Omitted let awsUpload = AWSMultipartUpload()
             DispatchQueue.main.async {
                 showIndicator(sender: nil, viewController: self, color:UIColor.white)
-                print("show1")
-//                Toast.show(message: "Start to files", controller: self)
             }
          
             if self.uploadType == "image" {
@@ -650,7 +645,6 @@ extension ReaderProfileViewController: UIImagePickerControllerDelegate & UINavig
                     awsUpload.uploadImage(filePath: avatarUrl!, bucketName: "perfectself-avatar-bucket", prefix: self.id) { (error: Error?) -> Void in
                         DispatchQueue.main.async {
                             hideIndicator(sender: nil)
-                            print("hide1")
                         }
                         if(error == nil)
                         {
@@ -708,13 +702,11 @@ extension ReaderProfileViewController: UIImagePickerControllerDelegate & UINavig
                                     }
                                     
                                      if error != nil {
-                                          //print(error!.localizedDescription)
                                          DispatchQueue.main.async {
                                              Toast.show(message: "Faild to download video", controller: self)
                                          }
                                      }
                                      else {
-                                         //print(response)//print(response ?? default "")
                                          let documentsPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0];
                                          let filePath = URL(fileURLWithPath: "\(documentsPath)/tempFile.mp4")
                                          DispatchQueue.main.async {

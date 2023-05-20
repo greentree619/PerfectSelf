@@ -8,15 +8,16 @@
 
 import UIKit
 import JJFloatingActionButton
+import MobileCoreServices
 
-class ActorTabBarController: UITabBarController {
+class ActorTabBarController: UITabBarController, UIImagePickerControllerDelegate & UINavigationControllerDelegate {
+    var videoUrl: URL?
 //    let alertController = UIAlertController(title: nil, message: "", preferredStyle: .actionSheet);
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
-        
         tabBar.tintColor = .white;
         tabBar.unselectedItemTintColor = .white.withAlphaComponent(0.67);
         tabBar.isTranslucent = false;
@@ -30,8 +31,24 @@ class ActorTabBarController: UITabBarController {
             
         }
         actionButton.addItem(title: "Create Self Tape", image: UIImage(systemName: "plus.circle")) { item in
-          // do something
-            
+            // do something
+            if UIImagePickerController.isSourceTypeAvailable(UIImagePickerController.SourceType.camera) {
+                print("captureVideoPressed and camera available.")
+
+                let imagePicker = UIImagePickerController()
+
+                imagePicker.delegate = self
+                imagePicker.sourceType = .camera
+                imagePicker.mediaTypes = [kUTTypeMovie as String]
+                imagePicker.allowsEditing = false
+
+                imagePicker.showsCameraControls = true
+
+                self.present(imagePicker, animated: true, completion: nil)
+                Toast.show(message: "Start to create self tap.", controller:  self)
+              } else {
+                print("Camera not available.")
+              }
         }
 
         actionButton.buttonDiameter = 50;
@@ -89,5 +106,45 @@ class ActorTabBarController: UITabBarController {
         // Pass the selected object to the new view controller.
     }
     */
-
+    
+    //    private func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+    //        self.videoUrl = info[UIImagePickerController.InfoKey.mediaURL.rawValue] as! URL?
+    //        print(self.videoUrl!)//let pathString = self.videoUrl?.relativePath
+    //        Toast.show(message: "Video Url: \(self.videoUrl!)", controller:  self)
+    //        //self.dismiss(animated: true, completion: nil)
+    //    }
+    func imagePickerController(  didFinishPickingMediaWithInfo info:NSDictionary!) {
+        videoUrl = info[UIImagePickerController.InfoKey.mediaURL] as! URL?
+        print(self.videoUrl!)//let pathString = self.videoUrl?.relativePath
+        Toast.show(message: "Video Url: \(self.videoUrl!)", controller:  self)
+        self.dismiss(animated: true, completion: nil)
+        
+//        //Then Upload video
+//        let prefixKey = "\(getDateString())/self-tape/"
+//        awsUpload.multipartUpload(filePath: self.videoUrl!, prefixKey: prefixKey){ error -> Void in
+//            if(error == nil)
+//            {
+//                DispatchQueue.main.async {
+//                    //Omitted hideIndicator(sender: nil)
+//                    //Toast.show(message: "Completed to upload record files", controller: uiViewContoller!)
+//                }
+//                if let userInfo = UserDefaults.standard.object(forKey: "USER") as? [String:Any] {
+//                    // Use the saved data
+//                    let uid = userInfo["uid"] as! String
+//
+//                    webAPI.addLibrary(uid: uid, tapeName: "tapeName", bucketName: "video-client-upload-123456798", tapeKey: "\(prefixKey)\(self.videoUrl!.lastPathComponent)")
+//                } else {
+//                    // No data was saved
+//                    print("No data was saved.")
+//                }
+//            }
+//            else
+//            {
+//                DispatchQueue.main.async {
+//                    //Omitted hideIndicator(sender: nil)
+//                    Toast.show(message: "Failed to upload record files", controller: uiViewContoller!)
+//                }
+//            }
+//        }
+    }
 }
