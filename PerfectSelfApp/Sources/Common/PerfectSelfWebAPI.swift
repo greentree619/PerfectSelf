@@ -39,6 +39,24 @@ class PerfectSelfWebAPI
         task.resume()
     }
     
+    func executeAPIEX(with method:String, apiPath: String, json: [[String: Any?]], completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> Void
+    {
+        let urlString = "\(PERFECTSELF_WEBAPI_ROOT)\(apiPath)"
+        let encodedString = urlString.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
+        let jsonData = try? JSONSerialization.data(withJSONObject: json)
+        let url = URL(string: encodedString!)!
+        var request = URLRequest(url: url)
+        request.httpMethod = method
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        if method != "GET" {
+            request.httpBody = jsonData
+            request.setValue("\(String(describing: jsonData?.count))", forHTTPHeaderField: "Content-Length")
+        }
+        
+        let task = URLSession.shared.dataTask(with: request, completionHandler:completionHandler)
+        task.resume()
+    }
+    
     func login(userType: Int, email: String, password: String, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> Void
     {
         let json: [String: Any] = ["userType": userType,// 3 for actor, 4 for reader
@@ -384,6 +402,9 @@ class PerfectSelfWebAPI
                     toTime += "T00:00:00"
                 }
                 let p: [String:Any] = [
+                    "id": slot.id,
+                    "readerUid": uid,
+                    "isDeleted": slot.isDeleted,
                     "isStandBy": item.isStandBy,
                     "repeatFlag": item.repeatFlag,
                     "date": localToUTC(dateStr: item.date)!,
@@ -393,13 +414,8 @@ class PerfectSelfWebAPI
                 batchData.append(p)
             }
         }
-        
-        let json: [String: Any] = [
-            "readerUid": uid,
-            "batchTimeSlot": batchData
-        ]
-        print(json)
-        return executeAPI(with: "POST", apiPath: "Availabilities/AddBatch", json: json, completionHandler:completionHandler)
+        print(batchData)
+        return executeAPIEX(with: "PUT", apiPath: "Availabilities/UpdateBatch", json: batchData, completionHandler:completionHandler)
     }
     func giveFeedback(id: Int, score: Float, review: String, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> Void
     {
