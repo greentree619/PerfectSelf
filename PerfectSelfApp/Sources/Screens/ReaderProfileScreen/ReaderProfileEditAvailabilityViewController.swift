@@ -59,7 +59,7 @@ class ReaderProfileEditAvailabilityViewController: UIViewController {
         DropDown.appearance().selectionBackgroundColor = UIColor.lightGray
         DropDown.appearance().cellHeight = 40
         DropDown.appearance().setupCornerRadius(5) // available since v2.3.6
-        print(timeSlotList)
+        
         displayTimeSlotsForDate(d: Date())
     }
     @IBAction func showDropDown(_ sender: UITapGestureRecognizer) {
@@ -151,7 +151,6 @@ class ReaderProfileEditAvailabilityViewController: UIViewController {
         timeSlotList[index].isStandBy = true
         btn_standby_no.isSelected = false
         btn_standby_yes.isSelected = true
-        print(timeSlotList)
     }
     
     @IBAction func SelectStandByNo(_ sender: UIButton) {
@@ -163,26 +162,40 @@ class ReaderProfileEditAvailabilityViewController: UIViewController {
     @IBAction func Select9Am(_ sender: UIButton) {
         sender.isSelected = !sender.isSelected
         let index = getTimeSlotObjectIndex(d: picker_date.date)
+        let idx = timeSlotList[index].time.firstIndex(where: { $0.slot == 1 })
         
         if sender.isSelected {
-            timeSlotList[index].time.append(Slot(id: -1, slot: 1, duration: 0, isDeleted: false))
+            if idx != nil {
+                timeSlotList[index].time[idx!].isDeleted = false
+            }
+            else {
+                timeSlotList[index].time.append(Slot(id: 0, slot: 1, duration: 0, isDeleted: false))
+            }
+            
             sender.backgroundColor = UIColor.black
         }
         else {
-            timeSlotList[index].time.removeAll(where: { $0.slot == 1 })
+            timeSlotList[index].time[idx!].isDeleted = true
             sender.backgroundColor = UIColor.white
         }
     }
     @IBAction func Select10Am(_ sender: UIButton) {
         sender.isSelected = !sender.isSelected
         let index = getTimeSlotObjectIndex(d: picker_date.date)
+        let idx = timeSlotList[index].time.firstIndex(where: { $0.slot == 2 })
         
         if sender.isSelected {
-            timeSlotList[index].time.append(Slot(id: -1, slot: 2, duration: 0, isDeleted: false))
+            if idx != nil {
+                timeSlotList[index].time[idx!].isDeleted = false
+            }
+            else {
+                timeSlotList[index].time.append(Slot(id: 0, slot: 2, duration: 0, isDeleted: false))
+            }
+            
             sender.backgroundColor = UIColor.black
         }
         else {
-            timeSlotList[index].time.removeAll(where: { $0.slot == 2 })
+            timeSlotList[index].time[idx!].isDeleted = true
             sender.backgroundColor = UIColor.white
         }
     }
@@ -190,55 +203,82 @@ class ReaderProfileEditAvailabilityViewController: UIViewController {
         sender.isSelected = !sender.isSelected
         let index = getTimeSlotObjectIndex(d: picker_date.date)
         
+        let idx = timeSlotList[index].time.firstIndex(where: { $0.slot == 3 })
+        
         if sender.isSelected {
-            timeSlotList[index].time.append(Slot(id: -1, slot: 3, duration: 0, isDeleted: false))
+            if idx != nil {
+                timeSlotList[index].time[idx!].isDeleted = false
+            }
+            else {
+                timeSlotList[index].time.append(Slot(id: 0, slot: 3, duration: 0, isDeleted: false))
+            }
+            
             sender.backgroundColor = UIColor.black
         }
         else {
-            timeSlotList[index].time.removeAll(where: { $0.slot == 3 })
+            timeSlotList[index].time[idx!].isDeleted = true
             sender.backgroundColor = UIColor.white
         }
     }
     @IBAction func Select2Pm(_ sender: UIButton) {
         sender.isSelected = !sender.isSelected
         let index = getTimeSlotObjectIndex(d: picker_date.date)
+        let idx = timeSlotList[index].time.firstIndex(where: { $0.slot == 4 })
         
         if sender.isSelected {
-            timeSlotList[index].time.append(Slot(id: -1, slot: 4, duration: 0, isDeleted: false))
+            if idx != nil {
+                timeSlotList[index].time[idx!].isDeleted = false
+            }
+            else {
+                timeSlotList[index].time.append(Slot(id: 0, slot: 4, duration: 0, isDeleted: false))
+            }
+            
             sender.backgroundColor = UIColor.black
         }
         else {
-            timeSlotList[index].time.removeAll(where: { $0.slot == 4 })
+            timeSlotList[index].time[idx!].isDeleted = true
             sender.backgroundColor = UIColor.white
         }
     }
     @IBAction func Select3Pm(_ sender: UIButton) {
         sender.isSelected = !sender.isSelected
         let index = getTimeSlotObjectIndex(d: picker_date.date)
+        let idx = timeSlotList[index].time.firstIndex(where: { $0.slot == 5 })
         
         if sender.isSelected {
-            timeSlotList[index].time.append(Slot(id: -1, slot: 5, duration: 0, isDeleted: false))
+            if idx != nil {
+                timeSlotList[index].time[idx!].isDeleted = false
+            }
+            else {
+                timeSlotList[index].time.append(Slot(id: 0, slot: 5, duration: 0, isDeleted: false))
+            }
+            
             sender.backgroundColor = UIColor.black
         }
         else {
-            timeSlotList[index].time.removeAll(where: { $0.slot == 5 })
+            timeSlotList[index].time[idx!].isDeleted = true
             sender.backgroundColor = UIColor.white
         }
-        print(timeSlotList)
     }
     @IBAction func Select4Pm(_ sender: UIButton) {
         sender.isSelected = !sender.isSelected
         let index = getTimeSlotObjectIndex(d: picker_date.date)
+        let idx = timeSlotList[index].time.firstIndex(where: { $0.slot == 6 })
         
         if sender.isSelected {
-            timeSlotList[index].time.append(Slot(id: -1, slot: 6, duration: 0, isDeleted: false))
+            if idx != nil {
+                timeSlotList[index].time[idx!].isDeleted = false
+            }
+            else {
+                timeSlotList[index].time.append(Slot(id: 0, slot: 6, duration: 0, isDeleted: false))
+            }
+            
             sender.backgroundColor = UIColor.black
         }
         else {
-            timeSlotList[index].time.removeAll(where: { $0.slot == 6 })
+            timeSlotList[index].time[idx!].isDeleted = true
             sender.backgroundColor = UIColor.white
         }
-        print(timeSlotList)
     }
     @IBAction func GoBack(_ sender: UIButton) {
         let transition = CATransition()
