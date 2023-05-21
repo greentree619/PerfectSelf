@@ -367,7 +367,9 @@ class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSample
         switch _captureState {
         case .start:
             // Set up recorder
-            Toast.show(message: "Recording start...", controller: uiViewContoller!)
+            DispatchQueue.main.async {
+                Toast.show(message: "Recording start...", controller: uiViewContoller!)
+            }
             
             _filename = self.userName!//UUID().uuidString
             let videoPath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!.appendingPathComponent("\(_filename)\(uploadCount).mp4")
@@ -398,7 +400,9 @@ class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSample
             }
             break
         case .end:
-            Toast.show(message: "Recording end...", controller: uiViewContoller!)
+            DispatchQueue.main.async {
+                Toast.show(message: "Recording end...", controller: uiViewContoller!)
+            }
             
             guard _assetWriterInput?.isReadyForMoreMediaData == true, _assetWriter!.status != .failed else { break }
             let url = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!.appendingPathComponent("\(self.userName!)\(uploadCount).mp4")
