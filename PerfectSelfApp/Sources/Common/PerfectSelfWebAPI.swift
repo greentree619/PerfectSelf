@@ -282,13 +282,15 @@ class PerfectSelfWebAPI
         let json: [String: Any] = [
             "id": 0,
             "isDeleted": true,
-            "createdTime": "2023-03-28T14:05:15.103Z",
-            "updatedTime": "2023-03-28T14:05:15.103Z",
-            "deletedTime": "2023-03-28T14:05:15.103Z",
+            "createdTime": "2023-05-22T14:28:11.997Z",
+            "updatedTime": "2023-05-22T14:28:11.997Z",
+            "deletedTime": "2023-05-22T14:28:11.997Z",
             "uid": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-            "userType": -1,
+            "userType": 0,
+            "avatarBucketName": "",
+            "avatarKey": "",
             "userName": username,
-            "email": "string",
+            "email": "",
             "password": "",
             "firstName": "",
             "lastName": "",
@@ -300,7 +302,9 @@ class PerfectSelfWebAPI
             "nationality": "",
             "phoneNumber": "",
             "isLogin": true,
-            "token": "string"
+            "token": "",
+            "fcmDeviceToken": "",
+            "deviceKind": 0
         ]
         
         return executeAPI(with: "PUT", apiPath: "Users/\(uid)", json: json, completionHandler:completionHandler)
