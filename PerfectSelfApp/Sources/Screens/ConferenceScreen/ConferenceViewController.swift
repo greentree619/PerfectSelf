@@ -60,17 +60,17 @@ class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSample
     
     private var speakerOn: Bool = false {
         didSet {
-//REFME
-//            let title = "Speaker: \(self.speakerOn ? "On" : "Off" )"
-//            self.speakerButton?.setTitle(title, for: .normal)
+            //REFME
+            //            let title = "Speaker: \(self.speakerOn ? "On" : "Off" )"
+            //            self.speakerButton?.setTitle(title, for: .normal)
         }
     }
     
     private var mute: Bool = false {
         didSet {
-//REFME
-//            let title = "Mute: \(self.mute ? "on" : "off")"
-//            self.muteButton?.setTitle(title, for: .normal)
+            //REFME
+            //            let title = "Mute: \(self.mute ? "on" : "off")"
+            //            self.muteButton?.setTitle(title, for: .normal)
         }
     }
     
@@ -100,16 +100,16 @@ class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSample
         self.roomUid = roomUid
         super.init(nibName: String(describing: ConferenceViewController.self), bundle: Bundle.main)
         
-//        self.signalingConnected = false
-//        self.hasLocalSdp = false
-//        self.hasRemoteSdp = false
-//        self.localCandidateCount = 0
-//        self.remoteCandidateCount = 0
+        //        self.signalingConnected = false
+        //        self.hasLocalSdp = false
+        //        self.hasRemoteSdp = false
+        //        self.localCandidateCount = 0
+        //        self.remoteCandidateCount = 0
         self.speakerOn = false
         
         self.webRTCClient.delegate = self
-//        self.signalClient.delegate = self
-//        self.signalClient.connect()
+        //        self.signalClient.delegate = self
+        //        self.signalClient.connect()
         uiViewContoller = self
         
         let waitSec = UserDefaults.standard.integer(forKey: self.waitSecKey)
@@ -122,17 +122,17 @@ class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSample
         fatalError("init(coder:) has not been implemented")
     }
     
-//    func dateString() -> String {
-//      let formatter = DateFormatter()
-//      formatter.dateFormat = "ddMMMYY_hhmmssa"
-//      let fileName = formatter.string(from: Date())
-//      return "\(fileName).mp3"
-//    }
+    //    func dateString() -> String {
+    //      let formatter = DateFormatter()
+    //      formatter.dateFormat = "ddMMMYY_hhmmssa"
+    //      let fileName = formatter.string(from: Date())
+    //      return "\(fileName).mp3"
+    //    }
     
-//    func getDocumentsDirectory() -> URL {
-//        let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
-//        return paths[0]
-//    }
+    //    func getDocumentsDirectory() -> URL {
+    //        let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+    //        return paths[0]
+    //    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -152,27 +152,27 @@ class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSample
         self.webRTCClient.speakerOn()
         self.signalClient.sendRoomId(roomId: self.roomUid)
         
-//        self.webRTCClient.offer { (sdp) in
-//            signalingClientStatus!.hasLocalSdp = true
-//            signalingClientStatus!.roomId = self.roomUid
-//            self.signalClient.send(sdp: sdp, roomId: self.roomUid)
-//
-//        }
+        //        self.webRTCClient.offer { (sdp) in
+        //            signalingClientStatus!.hasLocalSdp = true
+        //            signalingClientStatus!.roomId = self.roomUid
+        //            self.signalClient.send(sdp: sdp, roomId: self.roomUid)
+        //
+        //        }
         
-//        if( !signalingClientStatus!.hasLocalSdp && !signalingClientStatus!.isRemoteSdp(roomId: self.roomUid))
-//        {
-//            self.webRTCClient.offer { (sdp) in
-//                signalingClientStatus!.hasLocalSdp = true
-//                self.signalClient.send(sdp: sdp, roomId: self.roomUid)
-//            }
-//        }
-//        else if( !signalingClientStatus!.hasLocalSdp && signalingClientStatus!.isRemoteSdp(roomId: self.roomUid) )
-//        {
-//            self.webRTCClient.answer { (localSdp) in
-//                signalingClientStatus!.hasLocalSdp = true
-//                self.signalClient.send(sdp: localSdp, roomId: self.roomUid)
-//            }
-//        }
+        //        if( !signalingClientStatus!.hasLocalSdp && !signalingClientStatus!.isRemoteSdp(roomId: self.roomUid))
+        //        {
+        //            self.webRTCClient.offer { (sdp) in
+        //                signalingClientStatus!.hasLocalSdp = true
+        //                self.signalClient.send(sdp: sdp, roomId: self.roomUid)
+        //            }
+        //        }
+        //        else if( !signalingClientStatus!.hasLocalSdp && signalingClientStatus!.isRemoteSdp(roomId: self.roomUid) )
+        //        {
+        //            self.webRTCClient.answer { (localSdp) in
+        //                signalingClientStatus!.hasLocalSdp = true
+        //                self.signalClient.send(sdp: localSdp, roomId: self.roomUid)
+        //            }
+        //        }
         
         let localRenderer = RTCMTLVideoView(frame: self.localVideoView?.frame ?? CGRect.zero)
         let remoteRenderer = RTCMTLVideoView(frame: self.remoteCameraView.frame)
@@ -198,7 +198,7 @@ class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSample
         
         let audioTmpUrl = getAudioTempURL()
         //print(self.audioUrl!.absoluteString)
-
+        
         // 4
         let settings = [
             AVFormatIDKey: Int(kAudioFormatMPEG4AAC),
@@ -206,7 +206,7 @@ class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSample
             AVNumberOfChannelsKey: 1,
             AVEncoderAudioQualityKey: AVAudioQuality.high.rawValue
         ]
-
+        
         do {
             // 5
             //try FileManager.default.removeItem(atPath: audioURL.absoluteString)
@@ -242,7 +242,7 @@ class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSample
         //let documentsDirectory = URL(string: NSTemporaryDirectory())
         return documentsDirectory
     }
-
+    
     func getAudioFileURL(fileName: String) -> URL {
         return ConferenceViewController.getDocumentsDirectory().appendingPathComponent("\(fileName)\(uploadCount).m4a")
     }
@@ -292,7 +292,7 @@ class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSample
         transition.type = CATransitionType.push // Set transition type to push
         transition.subtype = CATransitionSubtype.fromLeft // Set transition subtype to from right
         self.view.window?.layer.add(transition, forKey: kCATransition) // Add transition to window layer
-    
+        
         self.dismiss(animated: false)
         self.signalClient.sendRoomIdClose(roomId: self.roomUid)
     }
@@ -415,8 +415,8 @@ class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSample
                 
                 DispatchQueue.global(qos: .userInitiated).async {
                     
-    //                let activity = UIActivityViewController(activityItems: [url], applicationActivities: nil)
-        //                    self?.present(activity, animated: true, completion: nil)
+                    //                let activity = UIActivityViewController(activityItems: [url], applicationActivities: nil)
+                    //                    self?.present(activity, animated: true, completion: nil)
                     
                     let prefixKey = "\(getDateString())/\((uiViewContoller! as! ConferenceViewController).roomUid)/"
                     //Omitted let awsUpload = AWSMultipartUpload()
@@ -425,13 +425,14 @@ class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSample
                         Toast.show(message: "Start to upload record files", controller: uiViewContoller!)
                     }
                     
-                    //Upload audio at first
-                    awsUpload.multipartUpload(filePath: (uiViewContoller! as! ConferenceViewController).audioUrl!, prefixKey: prefixKey){ (error: Error?) -> Void in
+                    //Upload video at first
+                    awsUpload.multipartUpload(filePath: url, prefixKey: prefixKey){ error -> Void in
                         if(error == nil)
-                        {//Then Upload video
-                            awsUpload.multipartUpload(filePath: url, prefixKey: prefixKey){ error -> Void in
+                        {
+                            //Upload audio at secodary
+                            awsUpload.multipartUpload(filePath: (uiViewContoller! as! ConferenceViewController).audioUrl!, prefixKey: prefixKey){ (error: Error?) -> Void in
                                 if(error == nil)
-                                {
+                                {//Then Upload video
                                     DispatchQueue.main.async {
                                         //Omitted hideIndicator(sender: nil)
                                         Toast.show(message: "Completed to upload record files", controller: uiViewContoller!)
@@ -451,7 +452,7 @@ class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSample
                                 {
                                     DispatchQueue.main.async {
                                         //Omitted hideIndicator(sender: nil)
-                                        Toast.show(message: "Failed to upload record files", controller: uiViewContoller!)
+                                        Toast.show(message: "Failed to upload audio file", controller: uiViewContoller!)
                                     }
                                 }
                             }
@@ -460,7 +461,7 @@ class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSample
                         {
                             DispatchQueue.main.async {
                                 //Omitted hideIndicator(sender: nil)
-                                Toast.show(message: "Failed to upload record files", controller: uiViewContoller!)
+                                Toast.show(message: "Failed to upload video file", controller: uiViewContoller!)
                             }
                         }
                     }
@@ -530,18 +531,18 @@ extension ConferenceViewController: UIPickerViewDelegate, UIPickerViewDataSource
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
     }
-
+    
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         return 10
     }
-
+    
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         return "\(row+1)"
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-            // This method is triggered whenever the user makes a change to the picker selection.
-            // The parameter named row and component represents what was selected.
+        // This method is triggered whenever the user makes a change to the picker selection.
+        // The parameter named row and component represents what was selected.
         self.selectedCount = row+1
     }
 }
@@ -556,20 +557,20 @@ extension ConferenceViewController: WebRTCClientDelegate {
     }
     
     func webRTCClient(_ client: WebRTCClient, didChangeConnectionState state: RTCIceConnectionState) {
-//REFME
-//        let textColor: UIColor
-//        switch state {
-//        case .connected, .completed:
-//            textColor = .green
-//        case .disconnected:
-//            textColor = .orange
-//        case .failed, .closed:
-//            textColor = .red
-//        case .new, .checking, .count:
-//            textColor = .black
-//        @unknown default:
-//            textColor = .black
-//        }
+        //REFME
+        //        let textColor: UIColor
+        //        switch state {
+        //        case .connected, .completed:
+        //            textColor = .green
+        //        case .disconnected:
+        //            textColor = .orange
+        //        case .failed, .closed:
+        //            textColor = .red
+        //        case .new, .checking, .count:
+        //            textColor = .black
+        //        @unknown default:
+        //            textColor = .black
+        //        }
         DispatchQueue.main.async {
             //REFME self.webRTCStatusLabel?.text = state.description.capitalized
             //REFME self.webRTCStatusLabel?.textColor = textColor
@@ -618,11 +619,11 @@ extension ConferenceViewController: WebRTCClientDelegate {
         }
         
         DispatchQueue.main.async {
-//REFME
-//            let message = String(data: data, encoding: .utf8) ?? "(Binary: \(data.count) bytes)"
-//            let alert = UIAlertController(title: "Message from WebRTC", message: message, preferredStyle: .alert)
-//            alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
-//            self.present(alert, animated: true, completion: nil)
+            //REFME
+            //            let message = String(data: data, encoding: .utf8) ?? "(Binary: \(data.count) bytes)"
+            //            let alert = UIAlertController(title: "Message from WebRTC", message: message, preferredStyle: .alert)
+            //            alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+            //            self.present(alert, animated: true, completion: nil)
         }
     }
 }
