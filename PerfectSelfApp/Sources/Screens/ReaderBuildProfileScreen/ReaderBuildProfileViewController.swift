@@ -141,7 +141,7 @@ class ReaderBuildProfileViewController: UIViewController, PhotoDelegate {
     func removeCurrentPicture() {
         // call API for remove picture
         //update user profile
-        webAPI.updateUserAvatar(uid: self.id, bucketName: "", avatarKey: "") { data, response, error in
+        webAPI.updateUserInfo(uid: self.id, userType: -1, bucketName: "", avatarKey: "", username: "", email: "", password: "", firstName: "", lastName: "", dateOfBirth: "", gender: -1, currentAddress: "", permanentAddress: "", city: "", nationality: "", phoneNumber: "", isLogin: true, fcmDeviceToken: "", deviceKind: -1) { data, response, error in
             if error == nil {
                 // update local
                 // Retrieve the saved data from UserDefaults
@@ -228,9 +228,22 @@ extension ReaderBuildProfileViewController: UIImagePickerControllerDelegate & UI
                             let url = "https://perfectself-avatar-bucket.s3.us-east-2.amazonaws.com/\(self.id)/\(String(describing: avatarUrl!.lastPathComponent))"
                             self.img_avatar.imageFrom(url: URL(string: url)!)
                             //update user profile
-                            webAPI.updateUserAvatar(uid: self.id, bucketName: "perfectself-avatar-bucket", avatarKey: "\(self.id)/\(avatarUrl!.lastPathComponent)") { data, response, error in
+                            webAPI.updateUserInfo(uid: self.id, userType: -1, bucketName: "perfectself-avatar-bucket", avatarKey: "\(self.id)/\(avatarUrl!.lastPathComponent)", username: "", email: "", password: "", firstName: "", lastName: "", dateOfBirth: "", gender: -1, currentAddress: "", permanentAddress: "", city: "", nationality: "", phoneNumber: "", isLogin: true, fcmDeviceToken: "", deviceKind: -1) { data, response, error in
                                 if error == nil {
                                     // successfully update db
+                                    DispatchQueue.main.async {
+                                        if var userInfo = UserDefaults.standard.object(forKey: "USER") as? [String:Any] {
+                                            // Use the saved data
+                                            userInfo["avatarBucketName"] = "perfectself-avatar-bucket"
+                                            userInfo["avatarKey"] = "\(self.id)/\(avatarUrl!.lastPathComponent)"
+                                            UserDefaults.standard.removeObject(forKey: "USER")
+                                            UserDefaults.standard.set(userInfo, forKey: "USER")
+                                            
+                                        } else {
+                                            // No data was saved
+                                            print("No data was saved.")
+                                        }
+                                    }
                                     print("update db completed")
                                 }
                             }
