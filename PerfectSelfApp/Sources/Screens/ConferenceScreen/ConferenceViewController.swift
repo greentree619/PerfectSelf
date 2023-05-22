@@ -448,7 +448,8 @@ class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSample
                                     if let userInfo = UserDefaults.standard.object(forKey: "USER") as? [String:Any] {
                                         // Use the saved data
                                         let uid = userInfo["uid"] as! String
-                                        let tapeName = "\(getDateString())(\((uiViewContoller! as! ConferenceViewController).tapeId))"
+                                        //let tapeName = "\(getDateString())(\((uiViewContoller! as! ConferenceViewController).tapeId))"
+                                        let tapeName = "\((uiViewContoller! as! ConferenceViewController).tapeId)"
                                         webAPI.addLibrary(uid: uid
                                                           , tapeName: tapeName
                                                           , bucketName: "video-client-upload-123456798"
