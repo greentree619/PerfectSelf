@@ -311,7 +311,7 @@ func getDateString() -> String{
     let now = Date()
     let formatter = DateFormatter()
     formatter.timeZone = TimeZone.current
-    formatter.dateFormat = "yyyy-MM-dd-HHmmss"
+    formatter.dateFormat = "yyyy-MM-dd"//"yyyy-MM-dd-HHmmss"
     let dateString = formatter.string(from: now)
     return dateString
 }
