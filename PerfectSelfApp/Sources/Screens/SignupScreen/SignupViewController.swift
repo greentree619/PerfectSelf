@@ -119,11 +119,11 @@ class SignupViewController: UIViewController {
         controller.phoneNumber = text_phonenumber.text!
         controller.password = text_password.text!
         
-        let transition = CATransition()
-        transition.duration = 0.5 // Set animation duration
-        transition.type = CATransitionType.push // Set transition type to push
-        transition.subtype = CATransitionSubtype.fromRight // Set transition subtype to from right
-        self.view.window?.layer.add(transition, forKey: kCATransition) // Add transition to window layer
+//        let transition = CATransition()
+//        transition.duration = 0.5 // Set animation duration
+//        transition.type = CATransitionType.push // Set transition type to push
+//        transition.subtype = CATransitionSubtype.fromRight // Set transition subtype to from right
+//        self.view.window?.layer.add(transition, forKey: kCATransition) // Add transition to window layer
         self.present(controller, animated: false)
     }
     
