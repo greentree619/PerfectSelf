@@ -72,6 +72,7 @@ class ReaderProfileEditPersonalInfoViewController: UIViewController {
                         print(error?.localizedDescription ?? "No data")
                         return
                     }
+                    
                     DispatchQueue.main.async {
                         let transition = CATransition()
                         transition.duration = 0.5 // Set animation duration
