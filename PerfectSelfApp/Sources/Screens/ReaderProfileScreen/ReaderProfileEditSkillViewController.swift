@@ -27,11 +27,93 @@ class ReaderProfileEditSkillViewController: UIViewController, UICollectionViewDa
     var items = [String]()
     let cellsPerRow = 1
     
-    let headerLabel = ["Skill Set 1", "Skill Set 2", "Skill Set 3"]
+    let headerLabel = ["Strong Storytelling Sense", "Comprehensive Script Analysis", "Writing and Communication Skills", "Industry Knowledge", "Analytical and Critical Thinking", "Time Management and Efficiency", "Adaptability and Flexibility", "Confidentiality and Professionalism"]
     let innerLabel = [
-        ["skill 11", "skill 12", "skill 13"],
-        ["skill 21", "skill 22"],
-        ["skill 31", "skill 32", "skill 33", "skill 34"]
+        [
+            "Understanding Narrative Structure",
+            "Character Development",
+            "Pacing and Timing",
+            "Dialogue Evaluation",
+            "Theme Identification",
+            "Visual Storytelling",
+            "Genre Awareness",
+            "Emotional Impact",
+            "Originality and Creativity",
+            "Audience Engagement"
+        ],
+        [
+            "Identifying Theme and Subtext",
+            "Evaluating Character Development",
+            "Assessing Dialogue",
+            "Analyzing Pacing and Tension",
+            "Evaluating Plot and Conflict",
+            "Considering Visual and Cinematic Elements",
+            "Identifying Marketability and Audience Appeal"
+        ],
+        [
+            "Clarity and Coherence",
+            "Constructive Criticism",
+            "Adaptability of Writing Style",
+            "Attention to Detail",
+            "Formatting and Presentation",
+            "Empathy and Sensitivity",
+            "Active Listening",
+            "Adaptation to Different Audiences",
+            "Professional Correspondence",
+            "Collaboration and Teamwork"
+        ],
+        [
+            "Familiarity with Film History",
+            "Awareness of Current Film Trends",
+            "Market Research",
+            "Knowledge of Industry Players",
+            "Understanding Distribution Platforms",
+            "Insight into International Markets",
+            "Knowledge of Legal and Copyright Issues",
+            "Awareness of Industry Events and Festivals"
+        ],
+        [
+            "Script Analysis",
+            "Identifying Strengths and Weaknesses",
+            "Recognizing Theme and Subtext",
+            "Comparative Analysis",
+            "Objective Evaluation",
+            "Problem-Solving",
+            "Contextual Understanding",
+            "Constructive Feedback"
+        ],
+        [
+            "Prioritization",
+            "Organization",
+            "Focus and Concentration",
+            "Task Breakdown",
+            "Time Blocking",
+            "Deadline Management",
+            "Minimizing Procrastination",
+            "Delegation",
+            "Effective Communication",
+            "Continuous Learning and Improvement"
+        ],
+        [
+            "Genre Familiarity",
+            "Format Adaptation",
+            "Style Variation",
+            "Medium Consideration",
+            "Cultural Sensitivity",
+            "Feedback Customization",
+            "Industry Trends and Evolution",
+            "Collaborative Approach"
+        ],
+        [
+            "Trustworthiness",
+            "Non-Disclosure Agreements (NDAs)",
+            "Data Security",
+            "Professional Communication",
+            "Ethical Guidelines",
+            "Discretion",
+            "Professional Boundaries",
+            "Document Destruction",
+        ]
     ]
     
     override func viewDidLoad() {
@@ -62,7 +144,11 @@ class ReaderProfileEditSkillViewController: UIViewController, UICollectionViewDa
 //        + flowLayout.sectionInset.bottom
 //        + (flowLayout.minimumLineSpacing * CGFloat(cellsPerRow - 1))
 //        let size = Int((collectionView.bounds.width - totalSpace) / CGFloat(cellsPerRow))
-        return CGSize(width: 80, height: 40)
+        let skill = self.items[indexPath.row]
+        let font = UIFont.systemFont(ofSize: 14)
+        let size = (skill as NSString).size(withAttributes: [.font: font])
+        return CGSize(width: size.width + 40, height: 40)
+//        return CGSize(width: 80, height: 40)
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -300,17 +386,28 @@ extension ReaderProfileEditSkillViewController : MKAccordionViewDelegate {
 extension ReaderProfileEditSkillViewController : MKAccordionViewDatasource {
     
     func numberOfSectionsInAccordionView(_ accordionView: MKAccordionView) -> Int {
-        return 3 //TODO: count of section array
+        return self.headerLabel.count //TODO: count of section array
     }
     
     func accordionView(_ accordionView: MKAccordionView, numberOfRowsIn section: Int) -> Int {
         switch section {
         case 0:
-            return 3
+            return innerLabel[0].count;
         case 1:
-            return 2
+            return innerLabel[1].count;
         case 2:
-            return 4
+            return innerLabel[2].count;
+        case 3:
+            return innerLabel[3].count;
+        case 4:
+            return innerLabel[4].count;
+        case 5:
+            return innerLabel[5].count;
+        case 6:
+            return innerLabel[6].count;
+        case 7:
+            return innerLabel[7].count;
+            
         default:
             return 3
         }
