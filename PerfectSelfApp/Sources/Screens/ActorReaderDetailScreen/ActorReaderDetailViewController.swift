@@ -258,7 +258,7 @@ class ActorReaderDetailViewController: UIViewController , UICollectionViewDataSo
         }
         else {
             let skill = self.skills[indexPath.row]
-            let font = UIFont.systemFont(ofSize: 12)
+            let font = UIFont.systemFont(ofSize: 14)
             let size = (skill as NSString).size(withAttributes: [.font: font])
             return CGSize(width: size.width + 20, height: 30)
         }
