@@ -316,6 +316,15 @@ func getDateString() -> String{
     return dateString
 }
 
+func getTapeIdString() -> String{
+    let now = Date()
+    let formatter = DateFormatter()
+    formatter.timeZone = TimeZone.current
+    formatter.dateFormat = "HHmmssS"//"yyyy-MM-dd-HHmmss"
+    let dateString = formatter.string(from: now)
+    return dateString
+}
+
 func getCurrentTime(milisecond: Float64) -> String{
     let seconds = (UInt) (milisecond / 1000) % 60
     let  minutes = (UInt) (((UInt)(milisecond / (1000*60))) % 60)

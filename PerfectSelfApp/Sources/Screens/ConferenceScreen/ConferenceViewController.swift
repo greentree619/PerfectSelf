@@ -46,7 +46,8 @@ class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSample
     private var _assetWriterInput: AVAssetWriterInput?
     private var _adpater: AVAssetWriterInputPixelBufferAdaptor?
     private var audioRecorder: AVAudioRecorder?
-    private var uploadCount = 0
+    //Omitted private var uploadCount = 0
+    private var tapeId = ""
     public var audioUrl: URL?
     private var userName: String?
     private var roomUid: String
@@ -137,7 +138,6 @@ class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSample
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        ConferenceViewController.clearTempFolder()
         lblTimer.isHidden = true
         if let userInfo = UserDefaults.standard.object(forKey: "USER") as? [String:Any] {
             // Use the saved data
@@ -244,7 +244,7 @@ class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSample
     }
     
     func getAudioFileURL(fileName: String) -> URL {
-        return ConferenceViewController.getDocumentsDirectory().appendingPathComponent("\(fileName)\(uploadCount).m4a")
+        return ConferenceViewController.getDocumentsDirectory().appendingPathComponent("\(fileName).m4a")
     }
     
     func getAudioTempURL() -> URL {
@@ -327,8 +327,11 @@ class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSample
     }
     
     func recordStart(){
+        ConferenceViewController.clearTempFolder()
+        tapeId = getTapeIdString()
+        
         //Send record cmd to other.
-        let recStart: Data = "\(recordingStartCmd)".data(using: .utf8)!
+        let recStart: Data = "\(recordingStartCmd)\(self.tapeId)".data(using: .utf8)!
         self.webRTCClient.sendData(recStart)
         
         self.count = self.selectedCount
@@ -372,7 +375,7 @@ class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSample
             }
             
             _filename = self.userName!//UUID().uuidString
-            let videoPath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!.appendingPathComponent("\(_filename)\(uploadCount).mp4")
+            let videoPath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!.appendingPathComponent("\(_filename).mp4")
             //let videoPath = URL(string: "\(NSTemporaryDirectory())\(_filename).mp4")
             
             let writer = try! AVAssetWriter(outputURL: videoPath, fileType: .mp4)
@@ -405,7 +408,7 @@ class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSample
             }
             
             guard _assetWriterInput?.isReadyForMoreMediaData == true, _assetWriter!.status != .failed else { break }
-            let url = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!.appendingPathComponent("\(self.userName!)\(uploadCount).mp4")
+            let url = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!.appendingPathComponent("\(self.userName!).mp4")
             //let url = URL(string: "\(NSTemporaryDirectory())\(self.userName!).mp4")
             _assetWriterInput?.markAsFinished()
             _assetWriter?.finishWriting { [weak self] in
@@ -418,7 +421,7 @@ class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSample
                     //                let activity = UIActivityViewController(activityItems: [url], applicationActivities: nil)
                     //                    self?.present(activity, animated: true, completion: nil)
                     
-                    let prefixKey = "\(getDateString())/\((uiViewContoller! as! ConferenceViewController).roomUid)/"
+                    let prefixKey = "\(getDateString())/\((uiViewContoller! as! ConferenceViewController).roomUid)/\(self!.tapeId)/"
                     //Omitted let awsUpload = AWSMultipartUpload()
                     DispatchQueue.main.async {
                         //Omitted showIndicator(sender: nil, viewController: uiViewContoller!, color:UIColor.white)
@@ -445,9 +448,15 @@ class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSample
                                     if let userInfo = UserDefaults.standard.object(forKey: "USER") as? [String:Any] {
                                         // Use the saved data
                                         let uid = userInfo["uid"] as! String
-                                        webAPI.addLibrary(uid: uid, tapeName: "tapeName", bucketName: "video-client-upload-123456798", tapeKey: "\(prefixKey)\((uiViewContoller! as! ConferenceViewController).userName!)\((uiViewContoller! as! ConferenceViewController).uploadCount)")
+                                        let tapeName = "\(getDateString())(\((uiViewContoller! as! ConferenceViewController).tapeId))"
+                                        webAPI.addLibrary(uid: uid
+                                                          , tapeName: tapeName
+                                                          , bucketName: "video-client-upload-123456798"
+                                                          , tapeKey: "\(prefixKey)\((uiViewContoller! as! ConferenceViewController).userName!)"
+                                                          , roomUid: (uiViewContoller! as! ConferenceViewController).roomUid
+                                                          , tapeId: (uiViewContoller! as! ConferenceViewController).tapeId)
                                         ConferenceViewController.clearTempFolder()
-                                        (uiViewContoller! as! ConferenceViewController).uploadCount += 1
+                                        //Omitted (uiViewContoller! as! ConferenceViewController).uploadCount += 1
                                     } else {
                                         // No data was saved
                                         print("No data was saved.")
@@ -586,9 +595,14 @@ extension ConferenceViewController: WebRTCClientDelegate {
         let message = String(data: data, encoding: .utf8) ?? "(Binary: \(data.count) bytes)"
         let startCmd = "\(recordingStartCmd)"//String(describing: "#CMD#REC#START#".cString(using: String.Encoding.utf8))
         let endCmd = "\(recordingEndCmd)"//String(describing: "#CMD#REC#END#".cString(using: String.Encoding.utf8))
-        if(message.compare(startCmd).rawValue == 0)
+        let  preStartCmdToken = message.prefix(strlen(startCmd))
+        if(preStartCmdToken.compare(startCmd).rawValue == 0)
         {//recording Start
             if(_captureState == .idle){
+                ConferenceViewController.clearTempFolder()
+                let range = message.index(message.startIndex, offsetBy: (strlen(startCmd)))..<message.endIndex
+                self.tapeId = String(message[range])
+                
                 DispatchQueue.main.async {
                     self.count = self.selectedCount
                     self.lblTimer.text = "\(self.count)"
