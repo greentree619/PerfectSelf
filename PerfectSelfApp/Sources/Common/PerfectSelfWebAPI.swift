@@ -112,57 +112,47 @@ class PerfectSelfWebAPI
         return executeAPI(with: "GET", apiPath: "Users/\(uid)", json: [:], completionHandler:completionHandler)
     }
     
-    func updateUserAvatar(uid: String, bucketName: String, avatarKey: String, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> Void
-    {
-        let json: [String: Any] = [
-            "userType": -1,
-            "avatarBucketName": bucketName,
-            "avatarKey": avatarKey,
-            "userName": "",
-            "email": "",
-            "password": "",
-            "firstName": "",
-            "lastName": "",
-            "dateOfBirth": "",
-            "gender": -1,
-            "currentAddress": "",
-            "permanentAddress": "",
-            "city": "",
-            "nationality": "",
-            "phoneNumber": "",
-            "isLogin": true,
-            "token": ""
-        ]
-    
-        return executeAPI(with: "PUT", apiPath: "Users/\(uid)", json: json, completionHandler:completionHandler)
-    }
-    
     func updateUserInfo(uid: String
+                        , userType: Int
                         , bucketName: String
                         , avatarKey: String
+                        , username: String
+                        , email: String
+                        , password: String
+                        , firstName: String
+                        , lastName: String
+                        , dateOfBirth: String
+                        , gender: Int
+                        , currentAddress: String
+                        , permanentAddress: String
+                        , city: String
+                        , nationality: String
+                        , phoneNumber: String
+                        , isLogin: Bool
                         , fcmDeviceToken: String
+                        , deviceKind: Int
                         , completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> Void
     {
         let json: [String: Any] = [
-            "userType": -1,
-            "avatarBucketName": bucketName,
-            "avatarKey": avatarKey,
-            "userName": "",
-            "email": "",
-            "password": "",
-            "firstName": "",
-            "lastName": "",
-            "dateOfBirth": "",
-            "gender": -1,
-            "currentAddress": "",
-            "permanentAddress": "",
-            "city": "",
-            "nationality": "",
-            "phoneNumber": "",
-            "isLogin": true,
+            "userType": userType, //-1,
+            "avatarBucketName": bucketName,//"none",
+            "avatarKey": avatarKey, //"none",
+            "userName": username, //"",
+            "email": email, //"",
+            "password": password, //"",
+            "firstName": firstName, //"",
+            "lastName": lastName, //"",
+            "dateOfBirth": dateOfBirth, //"",
+            "gender": gender, //0,
+            "currentAddress": currentAddress, //"",
+            "permanentAddress": permanentAddress, //"",
+            "city": city, //"",
+            "nationality": nationality, //"",
+            "phoneNumber": phoneNumber, //"",
+            "isLogin": isLogin, // true,
             "token": "",
-            "fcmDeviceToken":  fcmDeviceToken,
-            "deviceKind":  0
+            "fcmDeviceToken": fcmDeviceToken, //"",
+            "deviceKind": deviceKind //0
         ]
     
         return executeAPI(with: "PUT", apiPath: "Users/\(uid)", json: json, completionHandler:completionHandler)
@@ -277,34 +267,7 @@ class PerfectSelfWebAPI
      
         return executeAPI(with: "PUT", apiPath: "ReaderProfiles/\(uid)", json: json, completionHandler:completionHandler)
     }
-    func editReaderProfileName(uid: String, username: String, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> Void
-    {
-        let json: [String: Any] = [
-            "id": 0,
-            "isDeleted": true,
-            "createdTime": "2023-03-28T14:05:15.103Z",
-            "updatedTime": "2023-03-28T14:05:15.103Z",
-            "deletedTime": "2023-03-28T14:05:15.103Z",
-            "uid": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-            "userType": -1,
-            "userName": username,
-            "email": "string",
-            "password": "",
-            "firstName": "",
-            "lastName": "",
-            "dateOfBirth": "",
-            "gender": 0,
-            "currentAddress": "",
-            "permanentAddress": "",
-            "city": "",
-            "nationality": "",
-            "phoneNumber": "",
-            "isLogin": true,
-            "token": "string"
-        ]
-        
-        return executeAPI(with: "PUT", apiPath: "Users/\(uid)", json: json, completionHandler:completionHandler)
-    }
+    
     func bookAppointment(actorUid: String, readerUid: String, bookStartTime: String,bookEndTime: String, script: String,scriptBucket: String, scriptKey: String, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> Void
     {
                 

@@ -28,7 +28,7 @@ class ActorBookUploadScriptViewController: UIViewController, UIDocumentPickerDel
 
         // Do any additional setup after loading the view.
         lbl_readerName.text = "Reading with \(readerName)"
-        print(bookingDate, bookingStartTime)
+        
         let df = DateFormatter()
         df.dateFormat = "yyyy-MM-dd'T'hh:mm:ss"
         df.timeZone = TimeZone(abbreviation: "EST")
@@ -47,7 +47,7 @@ class ActorBookUploadScriptViewController: UIViewController, UIDocumentPickerDel
         self.present(documentPicker, animated: true)
     }
     func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
-        print(urls[0])
+        
         let uuid = UUID().uuidString
         showIndicator(sender: nil, viewController: self, color: UIColor.white)
         awsUpload.uploadScript(filePath: urls[0], bucketName: SCRIPT_BUCKET, prefix: "\(uuid)") { (error: Error?) -> Void in
@@ -57,7 +57,7 @@ class ActorBookUploadScriptViewController: UIViewController, UIDocumentPickerDel
             if error == nil {
                 // do something with url
                 //Omitted let url = "https://perfect-reader-video-bucket.s3.us-east-2.amazonaws.com/actor-script/\(uuid)/\(String(urls[0].lastPathComponent))"
-                //Omitted print(url)
+                
                 self.scriptBucket = SCRIPT_BUCKET
                 self.scriptKey = "\(uuid)/\(String(urls[0].lastPathComponent))"
             }

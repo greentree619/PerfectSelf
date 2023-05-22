@@ -206,7 +206,7 @@ class ActorProfileEditViewController: UIViewController, PhotoDelegate {
     func removeCurrentPicture() {
         // call API for remove picture
         //update user profile
-        webAPI.updateUserAvatar(uid: self.id, bucketName: "", avatarKey: "") { data, response, error in
+        webAPI.updateUserInfo(uid: self.id, userType: -1, bucketName: "", avatarKey: "", username: "", email: "", password: "", firstName: "", lastName: "", dateOfBirth: "", gender: -1, currentAddress: "", permanentAddress: "", city: "", nationality: "", phoneNumber: "", isLogin: true, fcmDeviceToken: "", deviceKind: -1) { data, response, error in
             if error == nil {
                 // update local
                 // Retrieve the saved data from UserDefaults
@@ -295,7 +295,7 @@ extension ActorProfileEditViewController: UIImagePickerControllerDelegate & UINa
                             let url = "https://perfectself-avatar-bucket.s3.us-east-2.amazonaws.com/\(self.id)/\(String(describing: avatarUrl!.lastPathComponent))"
                             self.img_user_avatar.imageFrom(url: URL(string: url)!)
                             //update user profile
-                            webAPI.updateUserAvatar(uid: self.id, bucketName: "perfectself-avatar-bucket", avatarKey: "\(self.id)/\(avatarUrl!.lastPathComponent)") { data, response, error in
+                            webAPI.updateUserInfo(uid: self.id, userType: -1, bucketName: "perfectself-avatar-bucket", avatarKey: "\(self.id)/\(avatarUrl!.lastPathComponent)", username: "", email: "", password: "", firstName: "", lastName: "", dateOfBirth: "", gender: -1, currentAddress: "", permanentAddress: "", city: "", nationality: "", phoneNumber: "", isLogin: true, fcmDeviceToken: "", deviceKind: -1) { data, response, error in
                                 if error == nil {
                                     // successfully update db
                                     //update local
