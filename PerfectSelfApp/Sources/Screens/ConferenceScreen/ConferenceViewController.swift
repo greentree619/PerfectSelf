@@ -429,13 +429,18 @@ class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSample
                     awsUpload.multipartUpload(filePath: url, prefixKey: prefixKey){ error -> Void in
                         if(error == nil)
                         {
+                            DispatchQueue.main.async {
+                                //Omitted hideIndicator(sender: nil)
+                                Toast.show(message: "Completed to upload Video file. Audio file is on uploading.", controller: uiViewContoller!)
+                            }
+                            
                             //Upload audio at secodary
                             awsUpload.multipartUpload(filePath: (uiViewContoller! as! ConferenceViewController).audioUrl!, prefixKey: prefixKey){ (error: Error?) -> Void in
                                 if(error == nil)
                                 {//Then Upload video
                                     DispatchQueue.main.async {
                                         //Omitted hideIndicator(sender: nil)
-                                        Toast.show(message: "Completed to upload record files", controller: uiViewContoller!)
+                                        Toast.show(message: "Completed to upload all record files", controller: uiViewContoller!)
                                     }
                                     if let userInfo = UserDefaults.standard.object(forKey: "USER") as? [String:Any] {
                                         // Use the saved data
