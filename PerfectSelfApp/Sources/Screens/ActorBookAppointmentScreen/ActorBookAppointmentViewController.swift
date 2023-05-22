@@ -39,7 +39,7 @@ class ActorBookAppointmentViewController: UIViewController {
 
         timeFormatter.dateFormat = "hh:mm a"
         dateFormatter.dateFormat = "yyyy-MM-dd"
-        print(timeSlotList)
+        
         if !selectedDate.isEmpty {
             picker_date.setDate(Date.getDateFromString(date: selectedDate)!, animated: true)
             displayTimeSlotsForDate(d: Date.getDateFromString(date: selectedDate)!)
@@ -50,7 +50,6 @@ class ActorBookAppointmentViewController: UIViewController {
     }
     
     @IBAction func ChangeSelectedDate(_ sender: UIDatePicker) {
-        print(sender.date)
         displayTimeSlotsForDate(d: sender.date)
     }
     func displayTimeSlotsForDate(d: Date) {
