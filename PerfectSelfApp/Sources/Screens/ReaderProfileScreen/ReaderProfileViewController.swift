@@ -140,7 +140,7 @@ class ReaderProfileViewController: UIViewController, UICollectionViewDataSource,
                         let df = DateFormatter()
                         df.dateFormat = "yyyy-MM-dd"
                         let tf = DateFormatter()
-                        tf.dateFormat = "hh"
+                        tf.dateFormat = "HH"
                         
                         let index = self.items.firstIndex(where: { df.string(from: Date.getDateFromString(date: $0.date)!) == df.string(from: Date.getDateFromString(date: utcToLocal(dateStr: availibility.date)!)!) })
                         if index == nil {
@@ -149,7 +149,7 @@ class ReaderProfileViewController: UIViewController, UICollectionViewDataSource,
                         let idx = index ?? self.items.count - 1
                         
                         let t = tf.string(from: Date.getDateFromString(date: utcToLocal(dateStr: availibility.fromTime)!)!)
-         
+                        
                         var slot = 0
                         switch t {
                         case "09":
@@ -158,12 +158,24 @@ class ReaderProfileViewController: UIViewController, UICollectionViewDataSource,
                             slot = 2
                         case "11":
                             slot = 3
-                        case "02":
+                        case "14":
                             slot = 4
-                        case "03":
+                        case "15":
                             slot = 5
-                        case "04":
+                        case "16":
                             slot = 6
+                        case "17":
+                            slot = 7
+                        case "18":
+                            slot = 8
+                        case "19":
+                            slot = 9
+                        case "20":
+                            slot = 10
+                        case "21":
+                            slot = 11
+                        case "22":
+                            slot = 12
                         default:
                             slot = 0
                         }
