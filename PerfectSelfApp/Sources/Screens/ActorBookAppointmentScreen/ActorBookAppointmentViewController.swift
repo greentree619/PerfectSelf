@@ -29,6 +29,13 @@ class ActorBookAppointmentViewController: UIViewController {
     @IBOutlet weak var btn_2pm: UIButton!
     @IBOutlet weak var btn_3pm: UIButton!
     @IBOutlet weak var btn_4pm: UIButton!
+    @IBOutlet weak var btn_5pm: UIButton!
+    @IBOutlet weak var btn_6pm: UIButton!
+    @IBOutlet weak var btn_7pm: UIButton!
+    @IBOutlet weak var btn_8pm: UIButton!
+    @IBOutlet weak var btn_9pm: UIButton!
+    @IBOutlet weak var btn_10pm: UIButton!
+    
     var sessionDuration = -1
     var startTime = -1
     override func viewDidLoad() {
@@ -81,6 +88,24 @@ class ActorBookAppointmentViewController: UIViewController {
             } else if t.slot == 6 {
                 btn_4pm.isHighlighted = false
                 btn_4pm.isEnabled = true
+            } else if t.slot == 7 {
+                btn_5pm.isHighlighted = false
+                btn_5pm.isEnabled = true
+            } else if t.slot == 8 {
+                btn_6pm.isHighlighted = false
+                btn_6pm.isEnabled = true
+            } else if t.slot == 9 {
+                btn_7pm.isHighlighted = false
+                btn_7pm.isEnabled = true
+            } else if t.slot == 10 {
+                btn_8pm.isHighlighted = false
+                btn_8pm.isEnabled = true
+            } else if t.slot == 11 {
+                btn_9pm.isHighlighted = false
+                btn_9pm.isEnabled = true
+            } else if t.slot == 12 {
+                btn_10pm.isHighlighted = false
+                btn_10pm.isEnabled = true
             } else {
                 print("oops!")
             }
@@ -105,6 +130,18 @@ class ActorBookAppointmentViewController: UIViewController {
         btn_3pm.isEnabled = isEnabled
         btn_4pm.isHighlighted = !isEnabled
         btn_4pm.isEnabled = isEnabled
+        btn_5pm.isHighlighted = !isEnabled
+        btn_5pm.isEnabled = isEnabled
+        btn_6pm.isHighlighted = !isEnabled
+        btn_6pm.isEnabled = isEnabled
+        btn_7pm.isHighlighted = !isEnabled
+        btn_7pm.isEnabled = isEnabled
+        btn_8pm.isHighlighted = !isEnabled
+        btn_8pm.isEnabled = isEnabled
+        btn_9pm.isHighlighted = !isEnabled
+        btn_9pm.isEnabled = isEnabled
+        btn_10pm.isHighlighted = !isEnabled
+        btn_10pm.isEnabled = isEnabled
     }
     @IBAction func Select15Min(_ sender: UIButton) {
         sender.isSelected = !sender.isSelected
@@ -159,6 +196,12 @@ class ActorBookAppointmentViewController: UIViewController {
         btn_2pm.isSelected = false
         btn_3pm.isSelected = false
         btn_4pm.isSelected = false
+        btn_5pm.isSelected = false
+        btn_6pm.isSelected = false
+        btn_7pm.isSelected = false
+        btn_8pm.isSelected = false
+        btn_9pm.isSelected = false
+        btn_10pm.isSelected = false
         
         if sender.isSelected {
             startTime = 1
@@ -168,6 +211,12 @@ class ActorBookAppointmentViewController: UIViewController {
             btn_2pm.backgroundColor = UIColor.white
             btn_3pm.backgroundColor = UIColor.white
             btn_4pm.backgroundColor = UIColor.white
+            btn_5pm.backgroundColor = UIColor.white
+            btn_6pm.backgroundColor = UIColor.white
+            btn_7pm.backgroundColor = UIColor.white
+            btn_8pm.backgroundColor = UIColor.white
+            btn_9pm.backgroundColor = UIColor.white
+            btn_10pm.backgroundColor = UIColor.white
         }
         else {
             startTime = -1
@@ -182,6 +231,12 @@ class ActorBookAppointmentViewController: UIViewController {
         btn_2pm.isSelected = false
         btn_3pm.isSelected = false
         btn_4pm.isSelected = false
+        btn_5pm.isSelected = false
+        btn_6pm.isSelected = false
+        btn_7pm.isSelected = false
+        btn_8pm.isSelected = false
+        btn_9pm.isSelected = false
+        btn_10pm.isSelected = false
         
         if sender.isSelected {
             startTime = 2
@@ -191,6 +246,12 @@ class ActorBookAppointmentViewController: UIViewController {
             btn_2pm.backgroundColor = UIColor.white
             btn_3pm.backgroundColor = UIColor.white
             btn_4pm.backgroundColor = UIColor.white
+            btn_5pm.backgroundColor = UIColor.white
+            btn_6pm.backgroundColor = UIColor.white
+            btn_7pm.backgroundColor = UIColor.white
+            btn_8pm.backgroundColor = UIColor.white
+            btn_9pm.backgroundColor = UIColor.white
+            btn_10pm.backgroundColor = UIColor.white
         }
         else {
             startTime = -1
@@ -205,6 +266,12 @@ class ActorBookAppointmentViewController: UIViewController {
         btn_2pm.isSelected = false
         btn_3pm.isSelected = false
         btn_4pm.isSelected = false
+        btn_5pm.isSelected = false
+        btn_6pm.isSelected = false
+        btn_7pm.isSelected = false
+        btn_8pm.isSelected = false
+        btn_9pm.isSelected = false
+        btn_10pm.isSelected = false
         
         if sender.isSelected {
             startTime = 3
@@ -214,6 +281,12 @@ class ActorBookAppointmentViewController: UIViewController {
             btn_2pm.backgroundColor = UIColor.white
             btn_3pm.backgroundColor = UIColor.white
             btn_4pm.backgroundColor = UIColor.white
+            btn_5pm.backgroundColor = UIColor.white
+            btn_6pm.backgroundColor = UIColor.white
+            btn_7pm.backgroundColor = UIColor.white
+            btn_8pm.backgroundColor = UIColor.white
+            btn_9pm.backgroundColor = UIColor.white
+            btn_10pm.backgroundColor = UIColor.white
         }
         else {
             startTime = -1
@@ -228,6 +301,12 @@ class ActorBookAppointmentViewController: UIViewController {
 //        btn_2pm.isSelected = false
         btn_3pm.isSelected = false
         btn_4pm.isSelected = false
+        btn_5pm.isSelected = false
+        btn_6pm.isSelected = false
+        btn_7pm.isSelected = false
+        btn_8pm.isSelected = false
+        btn_9pm.isSelected = false
+        btn_10pm.isSelected = false
         
         if sender.isSelected {
             startTime = 4
@@ -237,6 +316,12 @@ class ActorBookAppointmentViewController: UIViewController {
             btn_2pm.backgroundColor = UIColor.black
             btn_3pm.backgroundColor = UIColor.white
             btn_4pm.backgroundColor = UIColor.white
+            btn_5pm.backgroundColor = UIColor.white
+            btn_6pm.backgroundColor = UIColor.white
+            btn_7pm.backgroundColor = UIColor.white
+            btn_8pm.backgroundColor = UIColor.white
+            btn_9pm.backgroundColor = UIColor.white
+            btn_10pm.backgroundColor = UIColor.white
         }
         else {
             startTime = -1
@@ -251,6 +336,12 @@ class ActorBookAppointmentViewController: UIViewController {
         btn_2pm.isSelected = false
 //        btn_3pm.isSelected = false
         btn_4pm.isSelected = false
+        btn_5pm.isSelected = false
+        btn_6pm.isSelected = false
+        btn_7pm.isSelected = false
+        btn_8pm.isSelected = false
+        btn_9pm.isSelected = false
+        btn_10pm.isSelected = false
         
         if sender.isSelected {
             startTime = 5
@@ -260,6 +351,12 @@ class ActorBookAppointmentViewController: UIViewController {
             btn_2pm.backgroundColor = UIColor.white
             btn_3pm.backgroundColor = UIColor.black
             btn_4pm.backgroundColor = UIColor.white
+            btn_5pm.backgroundColor = UIColor.white
+            btn_6pm.backgroundColor = UIColor.white
+            btn_7pm.backgroundColor = UIColor.white
+            btn_8pm.backgroundColor = UIColor.white
+            btn_9pm.backgroundColor = UIColor.white
+            btn_10pm.backgroundColor = UIColor.white
         }
         else {
             startTime = -1
@@ -274,6 +371,12 @@ class ActorBookAppointmentViewController: UIViewController {
         btn_2pm.isSelected = false
         btn_3pm.isSelected = false
 //        btn_4pm.isSelected = false
+        btn_5pm.isSelected = false
+        btn_6pm.isSelected = false
+        btn_7pm.isSelected = false
+        btn_8pm.isSelected = false
+        btn_9pm.isSelected = false
+        btn_10pm.isSelected = false
         
         if sender.isSelected {
             startTime = 6
@@ -283,12 +386,235 @@ class ActorBookAppointmentViewController: UIViewController {
             btn_2pm.backgroundColor = UIColor.white
             btn_3pm.backgroundColor = UIColor.white
             btn_4pm.backgroundColor = UIColor.black
+            btn_5pm.backgroundColor = UIColor.white
+            btn_6pm.backgroundColor = UIColor.white
+            btn_7pm.backgroundColor = UIColor.white
+            btn_8pm.backgroundColor = UIColor.white
+            btn_9pm.backgroundColor = UIColor.white
+            btn_10pm.backgroundColor = UIColor.white
         }
         else {
             startTime = -1
             sender.backgroundColor = UIColor.white
         }
     }
+    
+    @IBAction func Select5Pm(_ sender: UIButton) {
+        sender.isSelected = !sender.isSelected
+        btn_9am.isSelected = false
+        btn_10am.isSelected = false
+        btn_11am.isSelected = false
+        btn_2pm.isSelected = false
+        btn_3pm.isSelected = false
+        btn_4pm.isSelected = false
+//        btn_5pm.isSelected = false
+        btn_6pm.isSelected = false
+        btn_7pm.isSelected = false
+        btn_8pm.isSelected = false
+        btn_9pm.isSelected = false
+        btn_10pm.isSelected = false
+        
+        if sender.isSelected {
+            startTime = 7
+            btn_9am.backgroundColor = UIColor.white
+            btn_10am.backgroundColor = UIColor.white
+            btn_11am.backgroundColor = UIColor.white
+            btn_2pm.backgroundColor = UIColor.white
+            btn_3pm.backgroundColor = UIColor.white
+            btn_4pm.backgroundColor = UIColor.white
+            btn_5pm.backgroundColor = UIColor.black
+            btn_6pm.backgroundColor = UIColor.white
+            btn_7pm.backgroundColor = UIColor.white
+            btn_8pm.backgroundColor = UIColor.white
+            btn_9pm.backgroundColor = UIColor.white
+            btn_10pm.backgroundColor = UIColor.white
+        }
+        else {
+            startTime = -1
+            sender.backgroundColor = UIColor.white
+        }
+    }
+    
+    @IBAction func Select6Pm(_ sender: UIButton) {
+        sender.isSelected = !sender.isSelected
+        btn_9am.isSelected = false
+        btn_10am.isSelected = false
+        btn_11am.isSelected = false
+        btn_2pm.isSelected = false
+        btn_3pm.isSelected = false
+        btn_4pm.isSelected = false
+        btn_5pm.isSelected = false
+//        btn_6pm.isSelected = false
+        btn_7pm.isSelected = false
+        btn_8pm.isSelected = false
+        btn_9pm.isSelected = false
+        btn_10pm.isSelected = false
+        
+        if sender.isSelected {
+            startTime = 8
+            btn_9am.backgroundColor = UIColor.white
+            btn_10am.backgroundColor = UIColor.white
+            btn_11am.backgroundColor = UIColor.white
+            btn_2pm.backgroundColor = UIColor.white
+            btn_3pm.backgroundColor = UIColor.white
+            btn_4pm.backgroundColor = UIColor.white
+            btn_5pm.backgroundColor = UIColor.black
+            btn_6pm.backgroundColor = UIColor.white
+            btn_7pm.backgroundColor = UIColor.white
+            btn_8pm.backgroundColor = UIColor.white
+            btn_9pm.backgroundColor = UIColor.white
+            btn_10pm.backgroundColor = UIColor.white
+        }
+        else {
+            startTime = -1
+            sender.backgroundColor = UIColor.white
+        }
+    }
+    
+    @IBAction func Select7Pm(_ sender: UIButton) {
+        sender.isSelected = !sender.isSelected
+        btn_9am.isSelected = false
+        btn_10am.isSelected = false
+        btn_11am.isSelected = false
+        btn_2pm.isSelected = false
+        btn_3pm.isSelected = false
+        btn_4pm.isSelected = false
+        btn_5pm.isSelected = false
+        btn_6pm.isSelected = false
+//        btn_7pm.isSelected = false
+        btn_8pm.isSelected = false
+        btn_9pm.isSelected = false
+        btn_10pm.isSelected = false
+        
+        if sender.isSelected {
+            startTime = 9
+            btn_9am.backgroundColor = UIColor.white
+            btn_10am.backgroundColor = UIColor.white
+            btn_11am.backgroundColor = UIColor.white
+            btn_2pm.backgroundColor = UIColor.white
+            btn_3pm.backgroundColor = UIColor.white
+            btn_4pm.backgroundColor = UIColor.white
+            btn_5pm.backgroundColor = UIColor.white
+            btn_6pm.backgroundColor = UIColor.white
+            btn_7pm.backgroundColor = UIColor.black
+            btn_8pm.backgroundColor = UIColor.white
+            btn_9pm.backgroundColor = UIColor.white
+            btn_10pm.backgroundColor = UIColor.white
+        }
+        else {
+            startTime = -1
+            sender.backgroundColor = UIColor.white
+        }
+    }
+    
+    @IBAction func Select8Pm(_ sender: UIButton) {
+        sender.isSelected = !sender.isSelected
+        btn_9am.isSelected = false
+        btn_10am.isSelected = false
+        btn_11am.isSelected = false
+        btn_2pm.isSelected = false
+        btn_3pm.isSelected = false
+        btn_4pm.isSelected = false
+        btn_5pm.isSelected = false
+        btn_6pm.isSelected = false
+        btn_7pm.isSelected = false
+//        btn_8pm.isSelected = false
+        btn_9pm.isSelected = false
+        btn_10pm.isSelected = false
+        
+        if sender.isSelected {
+            startTime = 10
+            btn_9am.backgroundColor = UIColor.white
+            btn_10am.backgroundColor = UIColor.white
+            btn_11am.backgroundColor = UIColor.white
+            btn_2pm.backgroundColor = UIColor.white
+            btn_3pm.backgroundColor = UIColor.white
+            btn_4pm.backgroundColor = UIColor.white
+            btn_5pm.backgroundColor = UIColor.white
+            btn_6pm.backgroundColor = UIColor.white
+            btn_7pm.backgroundColor = UIColor.white
+            btn_8pm.backgroundColor = UIColor.black
+            btn_9pm.backgroundColor = UIColor.white
+            btn_10pm.backgroundColor = UIColor.white
+        }
+        else {
+            startTime = -1
+            sender.backgroundColor = UIColor.white
+        }
+    }
+    
+    @IBAction func Select9Pm(_ sender: UIButton) {
+        sender.isSelected = !sender.isSelected
+        btn_9am.isSelected = false
+        btn_10am.isSelected = false
+        btn_11am.isSelected = false
+        btn_2pm.isSelected = false
+        btn_3pm.isSelected = false
+        btn_4pm.isSelected = false
+        btn_5pm.isSelected = false
+        btn_6pm.isSelected = false
+        btn_7pm.isSelected = false
+        btn_8pm.isSelected = false
+//        btn_9pm.isSelected = false
+        btn_10pm.isSelected = false
+        
+        if sender.isSelected {
+            startTime = 11
+            btn_9am.backgroundColor = UIColor.white
+            btn_10am.backgroundColor = UIColor.white
+            btn_11am.backgroundColor = UIColor.white
+            btn_2pm.backgroundColor = UIColor.white
+            btn_3pm.backgroundColor = UIColor.white
+            btn_4pm.backgroundColor = UIColor.white
+            btn_5pm.backgroundColor = UIColor.white
+            btn_6pm.backgroundColor = UIColor.white
+            btn_7pm.backgroundColor = UIColor.white
+            btn_8pm.backgroundColor = UIColor.white
+            btn_9pm.backgroundColor = UIColor.black
+            btn_10pm.backgroundColor = UIColor.white
+        }
+        else {
+            startTime = -1
+            sender.backgroundColor = UIColor.white
+        }
+    }
+    
+    @IBAction func Select10Pm(_ sender: UIButton) {
+        sender.isSelected = !sender.isSelected
+        btn_9am.isSelected = false
+        btn_10am.isSelected = false
+        btn_11am.isSelected = false
+        btn_2pm.isSelected = false
+        btn_3pm.isSelected = false
+        btn_4pm.isSelected = false
+        btn_5pm.isSelected = false
+        btn_6pm.isSelected = false
+        btn_7pm.isSelected = false
+        btn_8pm.isSelected = false
+        btn_9pm.isSelected = false
+//        btn_10pm.isSelected = false
+        
+        if sender.isSelected {
+            startTime = 12
+            btn_9am.backgroundColor = UIColor.white
+            btn_10am.backgroundColor = UIColor.white
+            btn_11am.backgroundColor = UIColor.white
+            btn_2pm.backgroundColor = UIColor.white
+            btn_3pm.backgroundColor = UIColor.white
+            btn_4pm.backgroundColor = UIColor.white
+            btn_5pm.backgroundColor = UIColor.white
+            btn_6pm.backgroundColor = UIColor.white
+            btn_7pm.backgroundColor = UIColor.white
+            btn_8pm.backgroundColor = UIColor.white
+            btn_9pm.backgroundColor = UIColor.white
+            btn_10pm.backgroundColor = UIColor.black
+        }
+        else {
+            startTime = -1
+            sender.backgroundColor = UIColor.white
+        }
+    }
+    
     @IBAction func ContinueToUploadScript(_ sender: UIButton) {
         // check if session selected
         if sessionDuration < 0 || startTime < 0 {
@@ -355,6 +681,60 @@ class ActorBookAppointmentViewController: UIViewController {
                 toTime += "T16:30:00"
             } else if sessionDuration == 3 {
                 toTime += "T17:00:00"
+            }
+        } else if startTime == 7 {
+            fromTime += "T17:00:00"
+            if sessionDuration == 1 {
+                toTime += "T17:15:00"
+            } else if sessionDuration == 2 {
+                toTime += "T17:30:00"
+            } else if sessionDuration == 3 {
+                toTime += "T18:00:00"
+            }
+        } else if startTime == 8 {
+            fromTime += "T18:00:00"
+            if sessionDuration == 1 {
+                toTime += "T18:15:00"
+            } else if sessionDuration == 2 {
+                toTime += "T18:30:00"
+            } else if sessionDuration == 3 {
+                toTime += "T19:00:00"
+            }
+        } else if startTime == 9 {
+            fromTime += "T19:00:00"
+            if sessionDuration == 1 {
+                toTime += "T19:15:00"
+            } else if sessionDuration == 2 {
+                toTime += "T19:30:00"
+            } else if sessionDuration == 3 {
+                toTime += "T20:00:00"
+            }
+        } else if startTime == 10 {
+            fromTime += "T20:00:00"
+            if sessionDuration == 1 {
+                toTime += "T20:15:00"
+            } else if sessionDuration == 2 {
+                toTime += "T20:30:00"
+            } else if sessionDuration == 3 {
+                toTime += "T21:00:00"
+            }
+        } else if startTime == 11 {
+            fromTime += "T21:00:00"
+            if sessionDuration == 1 {
+                toTime += "T21:15:00"
+            } else if sessionDuration == 2 {
+                toTime += "T21:30:00"
+            } else if sessionDuration == 3 {
+                toTime += "T22:00:00"
+            }
+        } else if startTime == 12 {
+            fromTime += "T22:00:00"
+            if sessionDuration == 1 {
+                toTime += "T22:15:00"
+            } else if sessionDuration == 2 {
+                toTime += "T22:30:00"
+            } else if sessionDuration == 3 {
+                toTime += "T23:00:00"
             }
         } else {
             print("oops!")

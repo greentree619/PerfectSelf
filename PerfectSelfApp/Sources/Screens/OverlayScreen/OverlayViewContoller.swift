@@ -174,14 +174,11 @@ class OverlayViewController: UIViewController {
     func mergedVideos(recordUrl:URL, uploadUrl:URL, uploadAudioUrl: URL?) {
         let recordAsset = AVAsset(url: recordUrl)
         var uploadAsset = AVAsset(url: uploadUrl)
-        
         if (uploadAudioUrl != nil) {
             uploadAsset = AVAsset(url: uploadAudioUrl!)
         }
         
-        
         //Omitted activityMonitor.startAnimating()
-
         let mixComposition = AVMutableComposition()
 
         guard

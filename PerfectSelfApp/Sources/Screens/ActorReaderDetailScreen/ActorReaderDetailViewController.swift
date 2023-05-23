@@ -118,7 +118,7 @@ class ActorReaderDetailViewController: UIViewController , UICollectionViewDataSo
                         let df = DateFormatter()
                         df.dateFormat = "yyyy-MM-dd"
                         let tf = DateFormatter()
-                        tf.dateFormat = "hh"
+                        tf.dateFormat = "HH"
                         
                         let index = self.items.firstIndex(where: { df.string(from: Date.getDateFromString(date: $0.date)!) == df.string(from: Date.getDateFromString(date: utcToLocal(dateStr: availibility.date)!)!) })
                         if index == nil {
@@ -135,12 +135,24 @@ class ActorReaderDetailViewController: UIViewController , UICollectionViewDataSo
                             slot = 2
                         case "11":
                             slot = 3
-                        case "02":
+                        case "14":
                             slot = 4
-                        case "03":
+                        case "15":
                             slot = 5
-                        case "04":
+                        case "16":
                             slot = 6
+                        case "17":
+                            slot = 7
+                        case "18":
+                            slot = 8
+                        case "19":
+                            slot = 9
+                        case "20":
+                            slot = 10
+                        case "21":
+                            slot = 11
+                        case "22":
+                            slot = 12
                         default:
                             slot = 0
                         }
