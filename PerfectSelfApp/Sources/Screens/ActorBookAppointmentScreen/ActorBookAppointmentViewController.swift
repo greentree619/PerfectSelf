@@ -458,8 +458,8 @@ class ActorBookAppointmentViewController: UIViewController {
             btn_2pm.backgroundColor = UIColor.white
             btn_3pm.backgroundColor = UIColor.white
             btn_4pm.backgroundColor = UIColor.white
-            btn_5pm.backgroundColor = UIColor.black
-            btn_6pm.backgroundColor = UIColor.white
+            btn_5pm.backgroundColor = UIColor.white
+            btn_6pm.backgroundColor = UIColor.black
             btn_7pm.backgroundColor = UIColor.white
             btn_8pm.backgroundColor = UIColor.white
             btn_9pm.backgroundColor = UIColor.white
