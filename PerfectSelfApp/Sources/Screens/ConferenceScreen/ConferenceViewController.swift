@@ -48,6 +48,7 @@ class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSample
     private var audioRecorder: AVAudioRecorder?
     //Omitted private var uploadCount = 0
     private var tapeId = ""
+    private var tapeDate = ""
     public var audioUrl: URL?
     private var userName: String?
     private var roomUid: String
@@ -329,9 +330,10 @@ class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSample
     func recordStart(){
         ConferenceViewController.clearTempFolder()
         tapeId = getTapeIdString()
+        tapeDate = getDateString()
         
         //Send record cmd to other.
-        let recStart: Data = "\(recordingStartCmd)\(self.tapeId)".data(using: .utf8)!
+        let recStart: Data = "\(recordingStartCmd)\(self.tapeDate)#\(self.tapeId)".data(using: .utf8)!
         self.webRTCClient.sendData(recStart)
         
         self.count = self.selectedCount
@@ -421,7 +423,7 @@ class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSample
                     //                let activity = UIActivityViewController(activityItems: [url], applicationActivities: nil)
                     //                    self?.present(activity, animated: true, completion: nil)
                     
-                    let prefixKey = "\(getDateString())/\((uiViewContoller! as! ConferenceViewController).roomUid)/\(self!.tapeId)/"
+                    let prefixKey = "\(self!.tapeDate)/\((uiViewContoller! as! ConferenceViewController).roomUid)/\(self!.tapeId)/"
                     //Omitted let awsUpload = AWSMultipartUpload()
                     DispatchQueue.main.async {
                         //Omitted showIndicator(sender: nil, viewController: uiViewContoller!, color:UIColor.white)
@@ -602,7 +604,10 @@ extension ConferenceViewController: WebRTCClientDelegate {
             if(_captureState == .idle){
                 ConferenceViewController.clearTempFolder()
                 let range = message.index(message.startIndex, offsetBy: (strlen(startCmd)))..<message.endIndex
-                self.tapeId = String(message[range])
+                let keyInfo = String(message[range])
+                let keyInfoArr = keyInfo.components(separatedBy: "#")
+                self.tapeDate   = keyInfoArr[0]
+                self.tapeId = keyInfoArr[1]
                 
                 DispatchQueue.main.async {
                     self.count = self.selectedCount

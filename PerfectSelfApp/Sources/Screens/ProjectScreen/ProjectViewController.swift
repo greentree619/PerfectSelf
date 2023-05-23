@@ -46,6 +46,10 @@ class ProjectViewController: UIViewController {
     }
     
     override func viewDidAppear(_ animated: Bool) {
+        guard let _ = selectedTape!.readerUid else{
+            Toast.show(message:  "Can't find reader video.", controller:  self)
+            return
+        }
     }
     
     override func viewWillDisappear(_ animated: Bool){
@@ -67,7 +71,7 @@ class ProjectViewController: UIViewController {
         
         //Omitted startElapseTime = Date()
         //Omitted showIndicator(sender: nil, viewController: self, color:UIColor.white)
-        awsUpload.downloadEx(filePath: filePath, bucketName: selectedTape!.bucketName, key: "\(selectedTape!.tapeKey).mp4") { (error) -> Void in
+        awsUpload.downloadEx(filePath: filePath, bucketName: selectedTape!.bucketName, key: "\(selectedTape!.actorTapeKey).mp4") { (error) -> Void in
             if error != nil {
                  //print(error!.localizedDescription)
                 self.savedVideoUrl = nil
@@ -93,7 +97,7 @@ class ProjectViewController: UIViewController {
                     //print("Error deleting file: \(error.localizedDescription)")
                 }
                 
-                awsUpload.downloadEx(filePath: filePath, bucketName: selectedTape!.bucketName, key: "\(selectedTape!.tapeKey).m4a") { (error) -> Void in
+                awsUpload.downloadEx(filePath: filePath, bucketName: selectedTape!.bucketName, key: "\(selectedTape!.actorTapeKey).m4a") { (error) -> Void in
                     DispatchQueue.main.async {
                         hideIndicator(sender: nil)
                         self.playerView.play()

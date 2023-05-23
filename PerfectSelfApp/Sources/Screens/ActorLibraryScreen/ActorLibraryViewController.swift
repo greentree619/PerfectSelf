@@ -107,8 +107,8 @@ class ActorLibraryViewController: UIViewController, UICollectionViewDataSource, 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         //
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Video Collection View Cell", for: indexPath) as! VideoCollectionViewCell
-        cell.name.text = self.items[indexPath.row].tapeName
-        let thumb = "https://video-thumbnail-bucket-123456789.s3.us-east-2.amazonaws.com/\(self.items[indexPath.row].tapeKey)-0.jpg"
+        cell.name.text = (self.items[indexPath.row].readerUid != nil ? self.items[indexPath.row].tapeName : "(\(self.items[indexPath.row].tapeName))")
+        let thumb = "https://video-thumbnail-bucket-123456789.s3.us-east-2.amazonaws.com/\(self.items[indexPath.row].actorTapeKey)-0.jpg"
         cell.tapeThumb.imageFrom(url: URL(string:thumb )!)
         let df = DateFormatter()
         df.dateFormat = "yyyy-MM-dd'T'hh:mm:ss"

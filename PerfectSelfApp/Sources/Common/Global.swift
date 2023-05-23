@@ -148,11 +148,15 @@ struct BookingCard: Codable {
 }
 
 struct VideoCard: Codable {
-    let id: Int
-    let readerUid: String
+    let actorId: Int
+    let actorUid: String
+    let readerUid: String?
     let tapeName: String
     let bucketName: String
-    let tapeKey: String
+    let actorTapeKey: String
+    let readerTapeKey: String?
+    let roomUid: String
+    let tapeId: String
     var createdTime: String
     var updatedTime: String
     var deletedTime: String
