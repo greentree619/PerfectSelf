@@ -11,7 +11,10 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ProjectViewController" customModule="PerfectSelf" customModuleProvider="target">
             <connections>
+                <outlet property="editFinalButton" destination="5Kf-yP-EPd" id="y4I-de-nlt"/>
+                <outlet property="editReadButton" destination="bsS-qO-Zxi" id="hwQ-X8-R39"/>
                 <outlet property="endTime" destination="BK1-CV-fCM" id="znq-Lv-bG5"/>
+                <outlet property="newTakeButton" destination="bTx-jD-fRI" id="Mt9-a2-8aG"/>
                 <outlet property="playButton" destination="X8e-3u-n8w" id="cgT-b6-n7J"/>
                 <outlet property="playerBar" destination="26J-x5-AKA" id="31M-le-Jn5"/>
                 <outlet property="playerView" destination="sSD-iP-Ty3" id="uu5-BE-olQ"/>

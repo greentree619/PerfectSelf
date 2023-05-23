@@ -16,9 +16,14 @@ class ProjectViewController: UIViewController {
     @IBOutlet var startTime: UILabel!
     @IBOutlet var endTime: UILabel!
     @IBOutlet weak var playButton: UIButton!
-        
+    
+    @IBOutlet weak var editReadButton: UIButton!
+    @IBOutlet weak var newTakeButton: UIButton!
+    @IBOutlet weak var editFinalButton: UIButton!
     var savedVideoUrl: URL? = nil
     var savedAudioUrl: URL? = nil
+    var savedReaderVideoUrl: URL? = nil
+    var savedReaderAudioUrl: URL? = nil
     @IBOutlet weak var playerView: PlayerView!
     //Omitted let awsUpload = AWSMultipartUpload()
     var startElapseTime: Date?
@@ -47,9 +52,16 @@ class ProjectViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         guard let _ = selectedTape!.readerUid else{
+            editReadButton.isEnabled = false
+            newTakeButton.isEnabled = false
+            editFinalButton.isEnabled = false
             Toast.show(message:  "Can't find reader video.", controller:  self)
             return
         }
+        
+        editReadButton.isEnabled = true
+        newTakeButton.isEnabled = true
+        editFinalButton.isEnabled = true
     }
     
     override func viewWillDisappear(_ animated: Bool){
@@ -133,11 +145,64 @@ class ProjectViewController: UIViewController {
         }
         isOnPlay = false
         
-        let overlayViewController = OverlayViewController()
-        overlayViewController.uploadVideourl = self.savedVideoUrl
-        overlayViewController.uploadAudiourl = self.savedAudioUrl
-        overlayViewController.modalPresentationStyle = .fullScreen
-        self.present(overlayViewController, animated: false, completion: nil)
+        let documentsPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0];
+        let filePath = URL(fileURLWithPath: "\(documentsPath)/tempReaderFile.mp4")
+        do {
+            try FileManager.default.removeItem(at: filePath)
+            //print("File deleted successfully")
+        } catch {
+            //print("Error deleting file: \(error.localizedDescription)")
+        }
+                
+        awsUpload.downloadEx(filePath: filePath, bucketName: selectedTape!.bucketName, key: "\(selectedTape!.readerTapeKey ?? "").mp4") { (error) -> Void in
+            if error != nil {
+                 //print(error!.localizedDescription)
+                self.savedVideoUrl = nil
+                DispatchQueue.main.async {
+                    hideIndicator(sender: nil)
+                    Toast.show(message: "Faild to download reader video from library", controller: self)
+                }
+            }
+            else{
+                self.savedReaderVideoUrl = filePath
+                
+                //Download audio file
+                let filePath = URL(fileURLWithPath: "\(documentsPath)/tempReaderFile.m4a")
+                do {
+                    try FileManager.default.removeItem(at: filePath)
+                    //print("File deleted successfully")
+                } catch {
+                    //print("Error deleting file: \(error.localizedDescription)")
+                }
+                awsUpload.downloadEx(filePath: filePath, bucketName: selectedTape!.bucketName, key: "\(selectedTape!.readerTapeKey ?? "").m4a") { (error) -> Void in
+                    DispatchQueue.main.async {
+                        hideIndicator(sender: nil)
+                    }
+                    
+                    if error != nil {
+                         //print(error!.localizedDescription)
+                        self.savedAudioUrl = nil
+                        DispatchQueue.main.async {
+                            Toast.show(message: "Faild to download reader audio from library", controller: self)
+                        }
+                    }
+                    else{
+                        self.savedReaderAudioUrl = filePath
+                        
+                        let overlayViewController = OverlayViewController()
+                        overlayViewController.uploadVideourl = self.savedReaderVideoUrl
+                        overlayViewController.uploadAudiourl = self.savedReaderAudioUrl
+                        overlayViewController.modalPresentationStyle = .fullScreen
+                        self.present(overlayViewController, animated: false, completion: nil)
+                    }
+                }
+            }
+        }
+        
+        Toast.show(message: "Start to download reader video and audio...", controller: self)
+        DispatchQueue.main.async {
+            showIndicator(sender: nil, viewController: self, color:UIColor.white)
+        }
     }
     
     @IBAction func editDidTapped(_ sender: UIButton) {
