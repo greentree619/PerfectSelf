@@ -14,6 +14,8 @@ class EditReadViewController: UIViewController {
     
     var videoURL: URL
     var audioURL: URL?
+    var readerVideoURL: URL
+    var readerAudioURL: URL
     let movie = AVMutableComposition()
     var audioTrack: AVMutableCompositionTrack?
     var editRange: CMTimeRange?
@@ -27,10 +29,13 @@ class EditReadViewController: UIViewController {
     @IBOutlet weak var playButton: UIButton!
     @IBOutlet weak var startTimerLabel: UILabel!
     @IBOutlet weak var endTimerLabel: UILabel!
-   
-    init(videoUrl: URL, audioUrl: URL?, isActorVideoEdit: Bool) {
+    @IBOutlet weak var uiTitleLabel: UILabel!
+    
+    init(videoUrl: URL, audioUrl: URL?,  readerVideoUrl: URL, readerAudioUrl: URL, isActorVideoEdit: Bool) {
         self.videoURL = videoUrl
         self.audioURL = audioUrl
+        self.readerVideoURL = readerVideoUrl
+        self.readerAudioURL = readerAudioUrl
         self.onActorVideoEdit = isActorVideoEdit
 
         super.init(nibName: String(describing: EditReadViewController.self), bundle: Bundle.main)
@@ -45,10 +50,25 @@ class EditReadViewController: UIViewController {
     var videoId = ""
     override func viewDidLoad() {
         //print(audioURL, videoURL)
+        
+        let affineTransform = CGAffineTransform(rotationAngle: degreeToRadian(90))
+        playerView.playerLayer.setAffineTransform(affineTransform)
+    }
+    
+    func degreeToRadian(_ x: CGFloat) -> CGFloat {
+        return .pi * x / 180.0
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        if( !onActorVideoEdit ){
+            uiTitleLabel.text = "Edit Read"
+        }
+        else
+        {
+            uiTitleLabel.text = "Edit Final"
+        }
         
         editBar.isHidden = !self.onActorVideoEdit
         setupPlayer()
@@ -57,26 +77,25 @@ class EditReadViewController: UIViewController {
     func setupPlayer() {
         let videoTrack = movie.addMutableTrack(withMediaType: .video, preferredTrackID: kCMPersistentTrackID_Invalid)
         audioTrack = movie.addMutableTrack(withMediaType: .audio, preferredTrackID: kCMPersistentTrackID_Invalid)
+        let audioTrack2 = movie.addMutableTrack(withMediaType: .audio, preferredTrackID: kCMPersistentTrackID_Invalid)
         
-        let editMovie = AVURLAsset(url: videoURL) //1
+        var editMovie = AVURLAsset(url: videoURL) //1
+        var editAudio = AVAsset(url: audioURL!)
+        var editAudio2 = AVAsset(url: readerAudioURL)
+        if( !onActorVideoEdit ){
+            editMovie = AVURLAsset(url: readerVideoURL)
+            editAudio = AVAsset(url: readerAudioURL)
+            editAudio2 = AVAsset(url: audioURL!)
+        }
+        
         editRange = CMTimeRangeMake(start: CMTime.zero, duration: editMovie.duration) //3
-        
-        //var audioDur: CMTimeRange?
-        if( audioURL != nil )
-        {
-            let editAudio = AVAsset(url: audioURL!)
-            editAudioTrack = editAudio.tracks(withMediaType: .audio).first! //2
-        }
-        else
-        {
-            //audioDur = editRange
-            editAudioTrack = editMovie.tracks(withMediaType: .audio).first!
-        }
-        
+        editAudioTrack = editAudio.tracks(withMediaType: .audio).first! //2
+        let editAudioTrack2 = editAudio2.tracks(withMediaType: .audio).first! //2
         let editVideoTrack = editMovie.tracks(withMediaType: .video).first!
         do{
             try videoTrack?.insertTimeRange(editRange!, of: editVideoTrack, at: CMTime.zero) //4
             try audioTrack?.insertTimeRange(editRange!, of: editAudioTrack!, at: CMTime.zero)
+            try audioTrack2?.insertTimeRange(editRange!, of: editAudioTrack2, at: CMTime.zero)
         } catch {
             //handle error
             print(error)
