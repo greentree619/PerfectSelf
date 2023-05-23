@@ -360,6 +360,24 @@ class PerfectSelfWebAPI
                 } else if slot.slot == 6 {
                     fromTime += "T16:00:00"
                     toTime += "T17:00:00"
+                } else if slot.slot == 7 {
+                    fromTime += "T17:00:00"
+                    toTime += "T18:00:00"
+                } else if slot.slot == 8 {
+                    fromTime += "T18:00:00"
+                    toTime += "T19:00:00"
+                } else if slot.slot == 9 {
+                    fromTime += "T19:00:00"
+                    toTime += "T20:00:00"
+                } else if slot.slot == 10 {
+                    fromTime += "T20:00:00"
+                    toTime += "T21:00:00"
+                } else if slot.slot == 11 {
+                    fromTime += "T21:00:00"
+                    toTime += "T22:00:00"
+                } else if slot.slot == 12 {
+                    fromTime += "T22:00:00"
+                    toTime += "T23:00:00"
                 } else {
                     fromTime += "T00:00:00"
                     toTime += "T00:00:00"
