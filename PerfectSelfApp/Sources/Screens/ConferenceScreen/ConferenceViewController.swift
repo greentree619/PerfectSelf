@@ -192,6 +192,10 @@ class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSample
         {
             capturer.captureSession.addOutput(output)
         }
+        if( capturer.captureSession.canSetSessionPreset(AVCaptureSession.Preset.hd1280x720) )
+        {
+            capturer.captureSession.sessionPreset = AVCaptureSession.Preset.hd1280x720
+        }
         capturer.captureSession.commitConfiguration()
         _videoOutput = output
         _captureSession = capturer.captureSession
