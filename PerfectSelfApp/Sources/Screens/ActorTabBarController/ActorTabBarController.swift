@@ -14,6 +14,8 @@ import Photos
 class ActorTabBarController: UITabBarController, UIImagePickerControllerDelegate, UINavigationControllerDelegate{
     var videoUrl: URL?
     let imagePicker = UIImagePickerController()
+    var savedReaderVideoUrl: URL? = nil
+    var savedReaderAudioUrl: URL? = nil
 //    let alertController = UIAlertController(title: nil, message: "", preferredStyle: .actionSheet);
     
     override func viewDidLoad() {
@@ -114,38 +116,28 @@ class ActorTabBarController: UITabBarController, UIImagePickerControllerDelegate
         videoUrl = info[UIImagePickerController.InfoKey.mediaURL] as! URL?
         //Omitted print(self.videoUrl!)//let pathString = self.videoUrl?.relativePath
         
-        DispatchQueue.main.async {
-            Toast.show(message: "Video Url: \(self.videoUrl!)", controller:  self)
-        }
-        
-//        //Then Upload video
-//        let prefixKey = "\(getDateString())/self-tape/"
-//        awsUpload.multipartUpload(filePath: self.videoUrl!, prefixKey: prefixKey){ error -> Void in
-//            if(error == nil)
-//            {
-//                DispatchQueue.main.async {
-//                    //Omitted hideIndicator(sender: nil)
-//                    //Toast.show(message: "Completed to upload record files", controller: uiViewContoller!)
-//                }
-//                if let userInfo = UserDefaults.standard.object(forKey: "USER") as? [String:Any] {
-//                    // Use the saved data
-//                    let uid = userInfo["uid"] as! String
-//
-//                    webAPI.addLibrary(uid: uid, tapeName: "tapeName", bucketName: "video-client-upload-123456798", tapeKey: "\(prefixKey)\(self.videoUrl!.lastPathComponent)")
-//                } else {
-//                    // No data was saved
-//                    print("No data was saved.")
-//                }
-//            }
-//            else
-//            {
-//                DispatchQueue.main.async {
-//                    //Omitted hideIndicator(sender: nil)
-//                    Toast.show(message: "Failed to upload record files", controller: uiViewContoller!)
-//                }
-//            }
+//        DispatchQueue.main.async {
+//            Toast.show(message: "Video Url: \(self.videoUrl!)", controller:  self)
 //        }
-        
+        DispatchQueue.main.async {
+            self.saveOnlyVideoFrom(url: self.videoUrl!) { url in
+                print(url)
+                self.savedReaderVideoUrl = url
+//                let fileManager = FileManager.default
+//                try? fileManager.removeItem(at: url)
+                self.saveOnlyAudioFrom(url: self.videoUrl!) { url in
+                    print(url)
+                    self.savedReaderAudioUrl = url
+//                    let fileManager = FileManager.default
+//                    try? fileManager.removeItem(at: url)
+                    let overlayViewController = OverlayViewController()
+                    overlayViewController.uploadAudiourl = self.savedReaderVideoUrl
+                    overlayViewController.uploadAudiourl = self.savedReaderAudioUrl
+                    overlayViewController.modalPresentationStyle = .fullScreen
+                    self.present(overlayViewController, animated: false, completion: nil)
+                }
+            }
+        }
         dismiss(animated: true, completion: nil)
     }
     
@@ -156,4 +148,135 @@ class ActorTabBarController: UITabBarController, UIImagePickerControllerDelegate
         }
         dismiss(animated: true, completion: nil)
     }
+    
+    func saveOnlyAudioFrom(url: URL, completion: @escaping (URL) -> Void) {
+        let asset = AVAsset(url: url)
+        
+        // Check if the asset has both video and audio tracks
+        guard asset.tracks(withMediaType: .audio).count > 0 else {
+            print("The asset does not have both video and audio tracks.")
+            return
+        }
+        
+        // Create a composition with the asset
+        let composition = AVMutableComposition()
+        
+        // Add audio track to the composition
+        guard let audioTrack = composition.addMutableTrack(withMediaType: .audio, preferredTrackID: kCMPersistentTrackID_Invalid) else {
+            print("Failed to add audio track to the composition.")
+            return
+        }
+
+        do {
+            try audioTrack.insertTimeRange(CMTimeRangeMake(start: .zero, duration: asset.duration),
+                                           of: asset.tracks(withMediaType: .audio)[0],
+                                           at: .zero)
+        } catch {
+            print("Failed to insert audio track into the composition: \(error)")
+            return
+        }
+        
+        // Export the composition with video and audio tracks separated
+        guard let exportSession = AVAssetExportSession(asset: composition, presetName:  AVAssetExportPresetAppleM4A) else {
+            print("Failed to create export session.")
+            return
+        }
+        
+//        let fileManager = FileManager.default
+//        guard let filePaths = try? fileManager.contentsOfDirectory(at: URL(fileURLWithPath: NSTemporaryDirectory()), includingPropertiesForKeys: nil, options: []) else { return }
+//        for filePath in filePaths {
+//            try? fileManager.removeItem(at: filePath)
+//        }
+        
+        let outputURL = URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent("self-tape.m4a")
+        let fileManager = FileManager.default
+        try? fileManager.removeItem(at: outputURL)
+        
+        exportSession.outputURL = outputURL
+        exportSession.outputFileType = .m4a
+        
+        exportSession.exportAsynchronously {
+            switch exportSession.status {
+            case .completed:
+                print("Video and audio tracks separated successfully. Output URL: \(outputURL)")
+                // Access the output URL and perform further operations
+                completion(outputURL)
+            case .failed:
+                print("Failed to separate video and audio tracks: \(exportSession.error?.localizedDescription ?? "")")
+                
+            case .cancelled:
+                print("Separating video and audio tracks operation cancelled.")
+                
+            default:
+                break
+            }
+        }
+    }
+    
+    func saveOnlyVideoFrom(url: URL, completion: @escaping (URL) -> Void) {
+//        let fileManager = FileManager.default
+//        guard let filePaths = try? fileManager.contentsOfDirectory(at: URL(fileURLWithPath: NSTemporaryDirectory()), includingPropertiesForKeys: nil, options: []) else { return }
+//        for filePath in filePaths {
+//            try? fileManager.removeItem(at: filePath)
+//        }
+        
+        let asset = AVAsset(url: url)
+        
+        // Check if the asset has both video and audio tracks
+        guard asset.tracks(withMediaType: .video).count > 0  else {
+            print("The asset does not have both video and audio tracks.")
+            return
+        }
+        
+        // Create a composition with the asset
+        let composition = AVMutableComposition()
+        
+        // Add video track to the composition
+        guard let videoTrack = composition.addMutableTrack(withMediaType: .video, preferredTrackID: kCMPersistentTrackID_Invalid) else {
+            print("Failed to add video track to the composition.")
+            return
+        }
+
+        do {
+            try videoTrack.insertTimeRange(CMTimeRangeMake(start: .zero, duration: asset.duration),
+                                           of: asset.tracks(withMediaType: .video)[0],
+                                           at: .zero)
+        } catch {
+            print("Failed to insert video track into the composition: \(error)")
+            return
+        }
+        
+        // Export the composition with video and audio tracks separated
+        guard let exportSession = AVAssetExportSession(asset: composition, presetName: AVAssetExportPresetHighestQuality) else {
+            print("Failed to create export session.")
+            return
+        }
+        
+        let outputURL = URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent("self-tape.mp4")
+        let fileManager = FileManager.default
+        try? fileManager.removeItem(at: outputURL)
+        
+        exportSession.outputURL = outputURL
+        exportSession.outputFileType = .mp4
+        exportSession.audioMix = nil
+        exportSession.shouldOptimizeForNetworkUse = true
+        
+        exportSession.exportAsynchronously {
+            switch exportSession.status {
+            case .completed:
+                print("Video and audio tracks separated successfully. Output URL: \(outputURL)")
+                completion(outputURL)
+                // Access the output URL and perform further operations
+            case .failed:
+                print("Failed to separate video and audio tracks: \(exportSession.error?.localizedDescription ?? "")")
+                
+            case .cancelled:
+                print("Separating video and audio tracks operation cancelled.")
+                
+            default:
+                break
+            }
+        }
+    }
+    
 }

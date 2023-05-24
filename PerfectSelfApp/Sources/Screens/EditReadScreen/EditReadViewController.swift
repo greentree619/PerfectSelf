@@ -55,10 +55,6 @@ class EditReadViewController: UIViewController {
         playerView.playerLayer.setAffineTransform(affineTransform)
     }
     
-    func degreeToRadian(_ x: CGFloat) -> CGFloat {
-        return .pi * x / 180.0
-    }
-    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         

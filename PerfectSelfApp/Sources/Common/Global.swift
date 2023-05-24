@@ -506,3 +506,7 @@ func setSpeakerVolume(_ volume: Float) {
         print("Failed to set speaker volume: \(error.localizedDescription)")
     }
 }
+
+func degreeToRadian(_ x: CGFloat) -> CGFloat {
+    return .pi * x / 180.0
+}
