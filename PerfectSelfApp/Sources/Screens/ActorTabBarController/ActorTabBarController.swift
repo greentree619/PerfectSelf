@@ -9,9 +9,11 @@
 import UIKit
 import JJFloatingActionButton
 import MobileCoreServices
+import Photos
 
-class ActorTabBarController: UITabBarController, UIImagePickerControllerDelegate & UINavigationControllerDelegate {
+class ActorTabBarController: UITabBarController, UIImagePickerControllerDelegate, UINavigationControllerDelegate{
     var videoUrl: URL?
+    let imagePicker = UIImagePickerController()
 //    let alertController = UIAlertController(title: nil, message: "", preferredStyle: .actionSheet);
     
     override func viewDidLoad() {
@@ -34,21 +36,21 @@ class ActorTabBarController: UITabBarController, UIImagePickerControllerDelegate
             // do something
             if UIImagePickerController.isSourceTypeAvailable(UIImagePickerController.SourceType.camera) {
                 print("captureVideoPressed and camera available.")
-
-                let imagePicker = UIImagePickerController()
-
-                imagePicker.delegate = self
-                imagePicker.sourceType = .camera
-                imagePicker.mediaTypes = [kUTTypeMovie as String]
-                imagePicker.allowsEditing = false
-
-                imagePicker.showsCameraControls = true
-
-                self.present(imagePicker, animated: true, completion: nil)
-                Toast.show(message: "Start to create self tap.", controller:  self)
-              } else {
+                
+                self.imagePicker.delegate = self
+                self.imagePicker.sourceType = .camera
+                self.imagePicker.mediaTypes = [kUTTypeMovie as String]
+                self.imagePicker.allowsEditing = false
+                self.imagePicker.showsCameraControls = true
+                
+                DispatchQueue.main.async {
+                    self.present(self.imagePicker, animated: true, completion: nil)
+                    //Omitted Toast.show(message: "Start to create self tap.", controller:  self)
+                }
+                
+            } else {
                 print("Camera not available.")
-              }
+            }
         }
 
         actionButton.buttonDiameter = 50;
@@ -70,8 +72,8 @@ class ActorTabBarController: UITabBarController, UIImagePickerControllerDelegate
            tabBarItem = arrayOfTabBarItems[2] as? UITabBarItem {
            tabBarItem.isEnabled = false
         }
-        
     }
+    
     fileprivate func createNavController(for rootViewController: UIViewController,
                                                     title: String,
                                                     image: UIImage) -> UIViewController {
@@ -107,17 +109,14 @@ class ActorTabBarController: UITabBarController, UIImagePickerControllerDelegate
     }
     */
     
-    //    private func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
-    //        self.videoUrl = info[UIImagePickerController.InfoKey.mediaURL.rawValue] as! URL?
-    //        print(self.videoUrl!)//let pathString = self.videoUrl?.relativePath
-    //        Toast.show(message: "Video Url: \(self.videoUrl!)", controller:  self)
-    //        //self.dismiss(animated: true, completion: nil)
-    //    }
-    func imagePickerController(  didFinishPickingMediaWithInfo info:NSDictionary!) {
+    // Delegate method to handle the selected image
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         videoUrl = info[UIImagePickerController.InfoKey.mediaURL] as! URL?
-        print(self.videoUrl!)//let pathString = self.videoUrl?.relativePath
-        Toast.show(message: "Video Url: \(self.videoUrl!)", controller:  self)
-        self.dismiss(animated: true, completion: nil)
+        //Omitted print(self.videoUrl!)//let pathString = self.videoUrl?.relativePath
+        
+        DispatchQueue.main.async {
+            Toast.show(message: "Video Url: \(self.videoUrl!)", controller:  self)
+        }
         
 //        //Then Upload video
 //        let prefixKey = "\(getDateString())/self-tape/"
@@ -146,5 +145,15 @@ class ActorTabBarController: UITabBarController, UIImagePickerControllerDelegate
 //                }
 //            }
 //        }
+        
+        dismiss(animated: true, completion: nil)
+    }
+    
+    // Delegate method to handle cancellation of image picker
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        DispatchQueue.main.async {
+            Toast.show(message: "Video Picker Canceled", controller:  self)
+        }
+        dismiss(animated: true, completion: nil)
     }
 }
