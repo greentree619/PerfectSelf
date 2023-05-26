@@ -96,6 +96,7 @@ class ActorProfileEditViewController: UIViewController, PhotoDelegate {
         dropDownForState.dataSource = []
         dropDownForState.selectionAction = { [unowned self] (index: Int, item: String) in
             text_state.text = item
+            self.text_city.text = ""
             
             webAPI.getCities(stateCode: self.stateMap[item]!) { data, response, error in
                 guard let data = data, error == nil else {
@@ -125,6 +126,8 @@ class ActorProfileEditViewController: UIViewController, PhotoDelegate {
         dropDownForCountry.dataSource = []
         dropDownForCountry.selectionAction = { [unowned self] (index: Int, item: String) in
             text_country.text = item
+            self.text_state.text = ""
+            self.text_city.text = ""
             
             webAPI.getStates(countryCode: self.countryMap[item]!) { data, response, error in
                 guard let data = data, error == nil else {
