@@ -43,6 +43,9 @@ class ActorProfileEditViewController: UIViewController, PhotoDelegate {
     @IBOutlet weak var vaccinationview: UIStackView!
     @IBOutlet weak var text_vaccination: UITextField!
     
+    var countryMap = Dictionary<String, String>()
+    var stateMap = Dictionary<String, String>()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -70,28 +73,9 @@ class ActorProfileEditViewController: UIViewController, PhotoDelegate {
         dropDownForGender.dismissMode = .onTap
         dropDownForAgeRange.dismissMode = .onTap
         
-        dropDownForCountry.anchorView = countryview
-        dropDownForCountry.dataSource = ["Not listed", "Country", "Country", "Country"]
-        dropDownForCountry.selectionAction = { [unowned self] (index: Int, item: String) in
-            text_country.text = item
-          
-        }
-        dropDownForCountry.bottomOffset = CGPoint(x: 0, y:(dropDownForCountry.anchorView?.plainView.bounds.height)!)
-        dropDownForCountry.dismissMode = .onTap
-        
-        // State
-        dropDownForState.anchorView = stateview
-        dropDownForState.dataSource = ["Not listed", "State", "State", "State"]
-        dropDownForState.selectionAction = { [unowned self] (index: Int, item: String) in
-            text_state.text = item
-          
-        }
-        dropDownForState.bottomOffset = CGPoint(x: 0, y:(dropDownForState.anchorView?.plainView.bounds.height)!)
-        dropDownForState.dismissMode = .onTap
-        
         // City
         dropDownForCity.anchorView = cityview
-        dropDownForCity.dataSource = ["Not listed", "City", "City", "City"]
+        dropDownForCity.dataSource = []
         dropDownForCity.selectionAction = { [unowned self] (index: Int, item: String) in
             text_city.text = item
           
@@ -99,9 +83,90 @@ class ActorProfileEditViewController: UIViewController, PhotoDelegate {
         dropDownForCity.bottomOffset = CGPoint(x: 0, y:(dropDownForCity.anchorView?.plainView.bounds.height)!)
         dropDownForCity.dismissMode = .onTap
         
+        // State
+        dropDownForState.anchorView = stateview
+        dropDownForState.dataSource = []
+        dropDownForState.selectionAction = { [unowned self] (index: Int, item: String) in
+            text_state.text = item
+            
+            webAPI.getCities(stateCode: self.stateMap[item]!) { data, response, error in
+                guard let data = data, error == nil else {
+                    print(error?.localizedDescription ?? "No data")
+                    return
+                }
+                do {
+                    let respItemsTmp = try JSONDecoder().decode([String: String].self, from: data)
+                    let respItems = respItemsTmp.sorted(by: <)
+                    //print(respItems)
+                    DispatchQueue.main.async {
+                        self.dropDownForCity.dataSource.removeAll()
+                        respItems.forEach { (key, value) in
+                            //print("Key: \(key), Value: \(value)")
+                            self.dropDownForCity.dataSource.append(key)
+                        }
+                    }
+                } catch {
+                    print(error)
+                }
+            }
+        }
+        dropDownForState.bottomOffset = CGPoint(x: 0, y:(dropDownForState.anchorView?.plainView.bounds.height)!)
+        dropDownForState.dismissMode = .onTap
+        
+        dropDownForCountry.anchorView = countryview
+        dropDownForCountry.dataSource = []
+        dropDownForCountry.selectionAction = { [unowned self] (index: Int, item: String) in
+            text_country.text = item
+            
+            webAPI.getStates(countryCode: self.countryMap[item]!) { data, response, error in
+                guard let data = data, error == nil else {
+                    print(error?.localizedDescription ?? "No data")
+                    return
+                }
+                do {
+                    let respItemsTmp = try JSONDecoder().decode([String: Int].self, from: data)
+                    let respItems = respItemsTmp.sorted(by: <)
+                    //print(respItems)
+                    DispatchQueue.main.async {
+                        self.dropDownForState.dataSource.removeAll()
+                        respItems.forEach { (key, value) in
+                            //print("Key: \(key), Value: \(value)")
+                            self.stateMap[key] = "\(value)"
+                            self.dropDownForState.dataSource.append(key)
+                        }
+                    }
+                } catch {
+                    print(error)
+                }
+            }
+        }
+        dropDownForCountry.bottomOffset = CGPoint(x: 0, y:(dropDownForCountry.anchorView?.plainView.bounds.height)!)
+        dropDownForCountry.dismissMode = .onTap
+        webAPI.getCountries { data, response, error in
+            guard let data = data, error == nil else {
+                print(error?.localizedDescription ?? "No data")
+                return
+            }
+            do {
+                let respItemsTmp = try JSONDecoder().decode([String: String].self, from: data)
+                let respItems = respItemsTmp.sorted(by: <)
+                //print(respItems)
+                DispatchQueue.main.async {
+                    self.dropDownForCountry.dataSource.removeAll()
+                    respItems.forEach { (key, value) in
+                        //print("Key: \(key), Value: \(value)")
+                        self.countryMap[key] = value
+                        self.dropDownForCountry.dataSource.append(key)
+                    }
+                }
+            } catch {
+                print(error)
+            }
+        }
+        
         // Agency
         dropDownForAgency.anchorView = agencyview
-        dropDownForAgency.dataSource = ["Not listed", "Agency", "Agency", "Agency"]
+        dropDownForAgency.dataSource = ["No", "Yes"]
         dropDownForAgency.selectionAction = { [unowned self] (index: Int, item: String) in
             text_agency.text = item
           
@@ -111,7 +176,10 @@ class ActorProfileEditViewController: UIViewController, PhotoDelegate {
         
         // Vaccination
         dropDownForVaccination.anchorView = vaccinationview
-        dropDownForVaccination.dataSource = ["Not listed", "Vaccination", "Vaccination", "Vaccination"]
+        dropDownForVaccination.dataSource = ["Not Vaccinated", "Partially Vaccinated", "Fully Vaccinated"]
+        
+        
+        
         dropDownForVaccination.selectionAction = { [unowned self] (index: Int, item: String) in
             text_vaccination.text = item
           

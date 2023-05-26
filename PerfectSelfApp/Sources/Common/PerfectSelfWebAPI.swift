@@ -332,6 +332,7 @@ class PerfectSelfWebAPI
         ]
         return executeAPI(with: "POST", apiPath: "Availabilities/", json: json, completionHandler:completionHandler)
     }
+    
     func updateAvailability(uid: String, timeSlotList: [TimeSlot], completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> Void
     {
         var batchData: [[String: Any]] = [[:]]
@@ -483,6 +484,24 @@ class PerfectSelfWebAPI
 //            print("ok")
 //            print(data)
         }
+    }
+    
+    func getCountries(completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> Void
+    {
+        let json: [String: Any] = [:]
+        return executeAPI(with: "GET", apiPath: "Address/countries", json: json, completionHandler:  completionHandler)
+    }
+    
+    func getStates(countryCode: String, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> Void
+    {
+        let json: [String: Any] = [:]
+        return executeAPI(with: "GET", apiPath: "Address/states/\(countryCode)", json: json, completionHandler:  completionHandler)
+    }
+    
+    func getCities(stateCode: String, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> Void
+    {
+        let json: [String: Any] = [:]
+        return executeAPI(with: "GET", apiPath: "Address/cities/\(stateCode)", json: json, completionHandler:  completionHandler)
     }
     
     func getLibraryURLs( urls: inout [String]) -> Void
