@@ -83,7 +83,7 @@ class ProjectViewController: UIViewController {
         
         //Omitted startElapseTime = Date()
         //Omitted showIndicator(sender: nil, viewController: self, color:UIColor.white)
-        awsUpload.downloadEx(filePath: filePath, bucketName: selectedTape!.bucketName, key: "\(selectedTape!.actorTapeKey).mp4") { (error) -> Void in
+        awsUpload.downloadEx(filePath: filePath, bucketName: selectedTape!.bucketName, key: "\(selectedTape!.actorTapeKey).mp4") { [self] (error) -> Void in
             if error != nil {
                  //print(error!.localizedDescription)
                 self.savedVideoUrl = nil
@@ -147,7 +147,7 @@ class ProjectViewController: UIViewController {
         
         downloadReaderVideoAsync(completionHandler: { () in
             let overlayViewController = OverlayViewController()
-            overlayViewController.uploadAudiourl = self.savedReaderVideoUrl
+            overlayViewController.uploadVideourl = self.savedReaderVideoUrl
             overlayViewController.uploadAudiourl = self.savedReaderAudioUrl
             overlayViewController.modalPresentationStyle = .fullScreen
             self.present(overlayViewController, animated: false, completion: nil)

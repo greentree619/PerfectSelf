@@ -26,9 +26,10 @@ class ActorProfileViewController: UIViewController {
         super.viewWillAppear(true)
         // Retrieve the saved data from UserDefaults
         if let userInfo = UserDefaults.standard.object(forKey: "USER") as? [String:Any] {
+            print(userInfo)
             // Use the saved data
             id = userInfo["uid"] as! String
-            let name = userInfo["userName"] as? String
+            let name = userInfo["userName"] as? String ?? ""
             let fname = userInfo["firstName"] as? String
             let lname = userInfo["lastName"] as? String
             let email = userInfo["email"] as? String

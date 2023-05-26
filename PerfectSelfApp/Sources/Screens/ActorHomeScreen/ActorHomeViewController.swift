@@ -37,6 +37,7 @@ class ActorHomeViewController: UIViewController, UICollectionViewDataSource, UIC
   
     override func viewDidLoad() {
         super.viewDidLoad()
+        uiViewContoller = self
          
         let nib = UINib(nibName: "ReaderCollectionViewCell", bundle: nil)
         readerList.register(nib, forCellWithReuseIdentifier: "Reader Collection View Cell")

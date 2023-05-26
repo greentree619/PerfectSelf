@@ -192,6 +192,10 @@ class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSample
         {
             capturer.captureSession.addOutput(output)
         }
+        if( capturer.captureSession.canSetSessionPreset(AVCaptureSession.Preset.hd1280x720) )
+        {
+            capturer.captureSession.sessionPreset = AVCaptureSession.Preset.hd1280x720
+        }
         capturer.captureSession.commitConfiguration()
         _videoOutput = output
         _captureSession = capturer.captureSession
@@ -228,7 +232,7 @@ class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSample
         }
         self.embedView(remoteRenderer, into: self.remoteCameraView)
         self.remoteCameraView.sendSubviewToBack(remoteRenderer)
-        setSpeakerVolume(0.7)
+        setSpeakerVolume(1.0)
     }
     
     override func viewWillDisappear(_ animated: Bool) {

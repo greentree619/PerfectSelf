@@ -90,21 +90,25 @@ class PerfectSelfWebAPI
         ]
         return executeAPI(with: "POST", apiPath: "Users", json: json, completionHandler:completionHandler)
     }
-
-    func updateActorProfile(actoruid: String, ageRange: String, height: String, weight: String, country: String, state: String, city: String, agency: String, vaccination: String, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> Void
+    func getActorProfile(actoruid: String, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> Void
+    {
+        return executeAPI(with: "GET", apiPath: "ActorProfiles/ByUid/\(actoruid)", json: [:], completionHandler:completionHandler)
+    }
+    func updateActorProfile(actoruid: String, ageRange: String, height: String, weight: String, country: String, state: String, city: String, agency: String, vaccination: Int, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> Void
     {
         let json: [String: Any] = [
             "title": "",
             "actorUid": actoruid,
             "ageRange": ageRange,
-            "height": Int(height) ?? 0,
-            "weight": Int(weight) ?? 0,
+            "height": Float(height) ?? 0,
+            "weight": Float(weight) ?? 0,
             "country": country,
             "state": state,
             "city": city,
-            "agencyCountry": agency,
-            "vaccinationStatus": Int(vaccination) ?? 0,
+            "agency": agency,
+            "vaccinationStatus": vaccination,
         ]
+      print(json)
         return executeAPI(with: "PUT", apiPath: "ActorProfiles/ByUid/\(actoruid)", json: json, completionHandler:completionHandler)
     }
     func getUserInfo(uid: String, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> Void
@@ -332,6 +336,7 @@ class PerfectSelfWebAPI
         ]
         return executeAPI(with: "POST", apiPath: "Availabilities/", json: json, completionHandler:completionHandler)
     }
+    
     func updateAvailability(uid: String, timeSlotList: [TimeSlot], completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> Void
     {
         var batchData: [[String: Any]] = [[:]]
@@ -483,6 +488,24 @@ class PerfectSelfWebAPI
 //            print("ok")
 //            print(data)
         }
+    }
+    
+    func getCountries(completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> Void
+    {
+        let json: [String: Any] = [:]
+        return executeAPI(with: "GET", apiPath: "Address/countries", json: json, completionHandler:  completionHandler)
+    }
+    
+    func getStates(countryCode: String, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> Void
+    {
+        let json: [String: Any] = [:]
+        return executeAPI(with: "GET", apiPath: "Address/states/\(countryCode)", json: json, completionHandler:  completionHandler)
+    }
+    
+    func getCities(stateCode: String, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> Void
+    {
+        let json: [String: Any] = [:]
+        return executeAPI(with: "GET", apiPath: "Address/cities/\(stateCode)", json: json, completionHandler:  completionHandler)
     }
     
     func getLibraryURLs( urls: inout [String]) -> Void

@@ -17,6 +17,7 @@ class ActorBuildProfile3ViewController: UIViewController {
     var agerange:String = ""
     var height:String = ""
     var weight: String = ""
+    var vaccin = 0
     
     let dropDownForCountry = DropDown()
     let dropDownForState = DropDown()
@@ -39,6 +40,9 @@ class ActorBuildProfile3ViewController: UIViewController {
     @IBOutlet weak var vaccinationview: UIStackView!
     @IBOutlet weak var text_vaccination: UITextField!
     
+    var countryMap = Dictionary<String, String>()
+    var stateMap = Dictionary<String, String>()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -51,28 +55,9 @@ class ActorBuildProfile3ViewController: UIViewController {
             print("No data was saved.")
         }
         // The view to which the drop down will appear on
-        dropDownForCountry.anchorView = countryview
-        dropDownForCountry.dataSource = ["Not listed", "Country", "Country", "Country"]
-        dropDownForCountry.selectionAction = { [unowned self] (index: Int, item: String) in
-            text_country.text = item
-          
-        }
-        dropDownForCountry.bottomOffset = CGPoint(x: 0, y:(dropDownForCountry.anchorView?.plainView.bounds.height)!)
-        dropDownForCountry.dismissMode = .onTap
-        
-        // State
-        dropDownForState.anchorView = stateview
-        dropDownForState.dataSource = ["Not listed", "State", "State", "State"]
-        dropDownForState.selectionAction = { [unowned self] (index: Int, item: String) in
-            text_state.text = item
-          
-        }
-        dropDownForState.bottomOffset = CGPoint(x: 0, y:(dropDownForState.anchorView?.plainView.bounds.height)!)
-        dropDownForState.dismissMode = .onTap
-        
         // City
         dropDownForCity.anchorView = cityview
-        dropDownForCity.dataSource = ["Not listed", "City", "City", "City"]
+        dropDownForCity.dataSource = []
         dropDownForCity.selectionAction = { [unowned self] (index: Int, item: String) in
             text_city.text = item
           
@@ -80,9 +65,96 @@ class ActorBuildProfile3ViewController: UIViewController {
         dropDownForCity.bottomOffset = CGPoint(x: 0, y:(dropDownForCity.anchorView?.plainView.bounds.height)!)
         dropDownForCity.dismissMode = .onTap
         
+        
+        // State
+        dropDownForState.anchorView = stateview
+        dropDownForState.dataSource = []
+        dropDownForState.selectionAction = { [unowned self] (index: Int, item: String) in
+            text_state.text = item
+            self.text_city.text = ""
+          
+            webAPI.getCities(stateCode: self.stateMap[item]!) { data, response, error in
+                guard let data = data, error == nil else {
+                    print(error?.localizedDescription ?? "No data")
+                    return
+                }
+                do {
+                    let respItemsTmp = try JSONDecoder().decode([String: String].self, from: data)
+                    let respItems = respItemsTmp.sorted(by: <)
+                    //print(respItems)
+                    DispatchQueue.main.async {
+                        self.dropDownForCity.dataSource.removeAll()
+                        respItems.forEach { (key, value) in
+                            //print("Key: \(key), Value: \(value)")
+                            self.dropDownForCity.dataSource.append(key)
+                        }
+                    }
+                } catch {
+                    print(error)
+                }
+            }
+        }
+        dropDownForState.bottomOffset = CGPoint(x: 0, y:(dropDownForState.anchorView?.plainView.bounds.height)!)
+        dropDownForState.dismissMode = .onTap
+        
+        //Country
+        dropDownForCountry.anchorView = countryview
+        dropDownForCountry.dataSource = []
+        dropDownForCountry.selectionAction = { [unowned self] (index: Int, item: String) in
+            text_country.text = item
+            self.text_state.text = ""
+            self.text_city.text = ""
+          
+            webAPI.getStates(countryCode: self.countryMap[item]!) { data, response, error in
+                guard let data = data, error == nil else {
+                    print(error?.localizedDescription ?? "No data")
+                    return
+                }
+                do {
+                    let respItemsTmp = try JSONDecoder().decode([String: Int].self, from: data)
+                    let respItems = respItemsTmp.sorted(by: <)
+                    //print(respItems)
+                    DispatchQueue.main.async {
+                        self.dropDownForState.dataSource.removeAll()
+                        respItems.forEach { (key, value) in
+                            //print("Key: \(key), Value: \(value)")
+                            self.stateMap[key] = "\(value)"
+                            self.dropDownForState.dataSource.append(key)
+                        }
+                    }
+                } catch {
+                    print(error)
+                }
+            }
+        }
+        dropDownForCountry.bottomOffset = CGPoint(x: 0, y:(dropDownForCountry.anchorView?.plainView.bounds.height)!)
+        dropDownForCountry.dismissMode = .onTap
+        
+        webAPI.getCountries { data, response, error in
+            guard let data = data, error == nil else {
+                print(error?.localizedDescription ?? "No data")
+                return
+            }
+            do {
+                let respItemsTmp = try JSONDecoder().decode([String: String].self, from: data)
+                let respItems = respItemsTmp.sorted(by: <)
+                //print(respItems)
+                DispatchQueue.main.async {
+                    self.dropDownForCountry.dataSource.removeAll()
+                    respItems.forEach { (key, value) in
+                        //print("Key: \(key), Value: \(value)")
+                        self.countryMap[key] = value
+                        self.dropDownForCountry.dataSource.append(key)
+                    }
+                }
+            } catch {
+                print(error)
+            }
+        }
+        
         // Agency
         dropDownForAgency.anchorView = agencyview
-        dropDownForAgency.dataSource = ["Not listed", "Agency", "Agency", "Agency"]
+        dropDownForAgency.dataSource = ["No", "Yes"]
         dropDownForAgency.selectionAction = { [unowned self] (index: Int, item: String) in
             text_agency.text = item
           
@@ -92,10 +164,10 @@ class ActorBuildProfile3ViewController: UIViewController {
         
         // Vaccination
         dropDownForVaccination.anchorView = vaccinationview
-        dropDownForVaccination.dataSource = ["Not listed", "Vaccination", "Vaccination", "Vaccination"]
+        dropDownForVaccination.dataSource = ["Not Vaccinated", "Partially Vaccinated", "Fully Vaccinated"]
         dropDownForVaccination.selectionAction = { [unowned self] (index: Int, item: String) in
             text_vaccination.text = item
-          
+            self.vaccin = index
         }
         dropDownForVaccination.bottomOffset = CGPoint(x: 0, y:(dropDownForVaccination.anchorView?.plainView.bounds.height)!)
         dropDownForVaccination.dismissMode = .onTap
@@ -172,7 +244,7 @@ class ActorBuildProfile3ViewController: UIViewController {
         }
         showIndicator(sender: sender, viewController: self)
    
-        webAPI.updateActorProfile(actoruid: uid, ageRange: agerange, height: height, weight: weight, country: text_country.text ?? "", state: text_state.text ?? "", city: text_city.text ?? "", agency: text_agency.text ?? "", vaccination: text_vaccination.text ?? "") { data, response, error in
+        webAPI.updateActorProfile(actoruid: uid, ageRange: agerange, height: height, weight: weight, country: text_country.text ?? "", state: text_state.text ?? "", city: text_city.text ?? "", agency: text_agency.text ?? "", vaccination: self.vaccin) { data, response, error in
             guard let _ = data, error == nil else {
                 print(error?.localizedDescription ?? "No data")
                 DispatchQueue.main.async {

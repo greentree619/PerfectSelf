@@ -24,8 +24,11 @@
                 <outlet property="text_city" destination="LAE-ou-aMS" id="69h-7i-fWV"/>
                 <outlet property="text_country" destination="Owc-iv-cdy" id="vEq-lc-Lld"/>
                 <outlet property="text_gender" destination="qmc-zx-h1y" id="Pdz-pv-zk1"/>
+                <outlet property="text_height" destination="zHx-Cl-N62" id="Z5B-s0-MaQ"/>
                 <outlet property="text_state" destination="ivb-4t-MVq" id="cvz-uR-wJO"/>
+                <outlet property="text_username" destination="9Nq-zM-BU3" id="k1e-UX-DUh"/>
                 <outlet property="text_vaccination" destination="GcL-3V-1su" id="sJj-dc-JpV"/>
+                <outlet property="text_weight" destination="ZPK-5X-3Dh" id="Ch7-xy-dQK"/>
                 <outlet property="vaccinationview" destination="WQz-sY-dEH" id="kuz-G7-jYr"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -179,7 +182,7 @@
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <subviews>
                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="5or-Pu-dx8">
-                                            <rect key="frame" x="0.0" y="0.0" width="350" height="670"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="350" height="740"/>
                                             <subviews>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="JqC-6m-TZC">
                                                     <rect key="frame" x="0.0" y="0.0" width="350" height="70"/>
@@ -396,7 +399,7 @@
                                                         <stackView opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bdv-Ki-MQq">
                                                             <rect key="frame" x="0.0" y="50" width="350" height="40"/>
                                                             <subviews>
-                                                                <textField opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Country of residence..." textAlignment="natural" adjustsFontForContentSizeCategory="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Owc-iv-cdy">
+                                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Country of residence..." textAlignment="natural" adjustsFontForContentSizeCategory="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Owc-iv-cdy">
                                                                     <rect key="frame" x="8" y="0.0" width="302" height="40"/>
                                                                     <color key="backgroundColor" red="0.8980392157" green="0.8980392157" blue="0.8980392157" alpha="1" colorSpace="calibratedRGB"/>
                                                                     <constraints>
@@ -437,7 +440,7 @@
                                                         <stackView opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wEX-zo-chA">
                                                             <rect key="frame" x="0.0" y="110" width="350" height="40"/>
                                                             <subviews>
-                                                                <textField opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="State..." textAlignment="natural" adjustsFontForContentSizeCategory="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ivb-4t-MVq">
+                                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="State..." textAlignment="natural" adjustsFontForContentSizeCategory="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ivb-4t-MVq">
                                                                     <rect key="frame" x="8" y="0.0" width="302" height="40"/>
                                                                     <color key="backgroundColor" red="0.8980392157" green="0.8980392157" blue="0.8980392157" alpha="1" colorSpace="calibratedRGB"/>
                                                                     <constraints>
@@ -478,7 +481,7 @@
                                                         <stackView opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tRp-x8-Bu7">
                                                             <rect key="frame" x="0.0" y="170" width="350" height="40"/>
                                                             <subviews>
-                                                                <textField opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="City..." textAlignment="natural" adjustsFontForContentSizeCategory="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="LAE-ou-aMS">
+                                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="City..." textAlignment="natural" adjustsFontForContentSizeCategory="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="LAE-ou-aMS">
                                                                     <rect key="frame" x="8" y="0.0" width="302" height="40"/>
                                                                     <color key="backgroundColor" red="0.8980392157" green="0.8980392157" blue="0.8980392157" alpha="1" colorSpace="calibratedRGB"/>
                                                                     <constraints>
@@ -650,6 +653,7 @@
                                                     </constraints>
                                                 </stackView>
                                             </subviews>
+                                            <edgeInsets key="layoutMargins" top="0.0" left="0.0" bottom="70" right="0.0"/>
                                         </stackView>
                                     </subviews>
                                     <constraints>

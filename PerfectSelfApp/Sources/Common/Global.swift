@@ -61,6 +61,21 @@ struct UserInfo: Codable {
     let updatedTime: String?
     let deletedTime: String?
 }
+struct ActorProfile: Codable {
+    let title: String
+    let actorUid: String
+    let ageRange: String
+    let height: Float
+    let weight: Float
+    let country: String
+    let state: String
+    let city: String
+    let agency: String
+    let reviewCount: Int
+    let score: Float
+    let vaccinationStatus: Int
+}
+
 struct ReaderProfileDetail: Codable {
     let uid: String
     let userName: String
@@ -505,4 +520,8 @@ func setSpeakerVolume(_ volume: Float) {
     } catch {
         print("Failed to set speaker volume: \(error.localizedDescription)")
     }
+}
+
+func degreeToRadian(_ x: CGFloat) -> CGFloat {
+    return .pi * x / 180.0
 }

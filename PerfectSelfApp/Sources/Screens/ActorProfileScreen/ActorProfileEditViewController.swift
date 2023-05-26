@@ -12,6 +12,7 @@ import Photos
 
 class ActorProfileEditViewController: UIViewController, PhotoDelegate {
     var id = ""
+    
     var photoType = 0//0: from lib, 1: from camera
     let dropDownForGender = DropDown()
     let dropDownForAgeRange = DropDown()
@@ -43,6 +44,16 @@ class ActorProfileEditViewController: UIViewController, PhotoDelegate {
     @IBOutlet weak var vaccinationview: UIStackView!
     @IBOutlet weak var text_vaccination: UITextField!
     
+    
+    @IBOutlet weak var text_username: UITextField!
+    @IBOutlet weak var text_weight: UITextField!
+    @IBOutlet weak var text_height: UITextField!
+    
+    var countryMap = Dictionary<String, String>()
+    var stateMap = Dictionary<String, String>()
+    var vaccin = 0
+    var gender = 0
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -52,12 +63,12 @@ class ActorProfileEditViewController: UIViewController, PhotoDelegate {
         dropDownForGender.anchorView = genderview // UIView or UIBarButtonItem
         dropDownForAgeRange.anchorView = ageview
         // The list of items to display. Can be changed dynamically
-        dropDownForGender.dataSource = ["Select...", "Male", "Female", "Decline to self-identity"]
+        dropDownForGender.dataSource = ["Select...", "Male", "Female", "Decline to self-identify"]
         dropDownForAgeRange.dataSource = ["Select...", "10-20", "21-30", "31-40", "41-50", "over 50"]
         // Action triggered on selection
         dropDownForGender.selectionAction = { [unowned self] (index: Int, item: String) in
             text_gender.text = item
-          
+            self.gender = index
         }
         dropDownForAgeRange.selectionAction = { [unowned self] (index: Int, item: String) in
             text_age.text = item
@@ -70,28 +81,9 @@ class ActorProfileEditViewController: UIViewController, PhotoDelegate {
         dropDownForGender.dismissMode = .onTap
         dropDownForAgeRange.dismissMode = .onTap
         
-        dropDownForCountry.anchorView = countryview
-        dropDownForCountry.dataSource = ["Not listed", "Country", "Country", "Country"]
-        dropDownForCountry.selectionAction = { [unowned self] (index: Int, item: String) in
-            text_country.text = item
-          
-        }
-        dropDownForCountry.bottomOffset = CGPoint(x: 0, y:(dropDownForCountry.anchorView?.plainView.bounds.height)!)
-        dropDownForCountry.dismissMode = .onTap
-        
-        // State
-        dropDownForState.anchorView = stateview
-        dropDownForState.dataSource = ["Not listed", "State", "State", "State"]
-        dropDownForState.selectionAction = { [unowned self] (index: Int, item: String) in
-            text_state.text = item
-          
-        }
-        dropDownForState.bottomOffset = CGPoint(x: 0, y:(dropDownForState.anchorView?.plainView.bounds.height)!)
-        dropDownForState.dismissMode = .onTap
-        
         // City
         dropDownForCity.anchorView = cityview
-        dropDownForCity.dataSource = ["Not listed", "City", "City", "City"]
+        dropDownForCity.dataSource = []
         dropDownForCity.selectionAction = { [unowned self] (index: Int, item: String) in
             text_city.text = item
           
@@ -99,9 +91,93 @@ class ActorProfileEditViewController: UIViewController, PhotoDelegate {
         dropDownForCity.bottomOffset = CGPoint(x: 0, y:(dropDownForCity.anchorView?.plainView.bounds.height)!)
         dropDownForCity.dismissMode = .onTap
         
+        // State
+        dropDownForState.anchorView = stateview
+        dropDownForState.dataSource = []
+        dropDownForState.selectionAction = { [unowned self] (index: Int, item: String) in
+            text_state.text = item
+            self.text_city.text = ""
+            
+            webAPI.getCities(stateCode: self.stateMap[item]!) { data, response, error in
+                guard let data = data, error == nil else {
+                    print(error?.localizedDescription ?? "No data")
+                    return
+                }
+                do {
+                    let respItemsTmp = try JSONDecoder().decode([String: String].self, from: data)
+                    let respItems = respItemsTmp.sorted(by: <)
+                    //print(respItems)
+                    DispatchQueue.main.async {
+                        self.dropDownForCity.dataSource.removeAll()
+                        respItems.forEach { (key, value) in
+                            //print("Key: \(key), Value: \(value)")
+                            self.dropDownForCity.dataSource.append(key)
+                        }
+                    }
+                } catch {
+                    print(error)
+                }
+            }
+        }
+        dropDownForState.bottomOffset = CGPoint(x: 0, y:(dropDownForState.anchorView?.plainView.bounds.height)!)
+        dropDownForState.dismissMode = .onTap
+        
+        dropDownForCountry.anchorView = countryview
+        dropDownForCountry.dataSource = []
+        dropDownForCountry.selectionAction = { [unowned self] (index: Int, item: String) in
+            text_country.text = item
+            self.text_state.text = ""
+            self.text_city.text = ""
+            
+            webAPI.getStates(countryCode: self.countryMap[item]!) { data, response, error in
+                guard let data = data, error == nil else {
+                    print(error?.localizedDescription ?? "No data")
+                    return
+                }
+                do {
+                    let respItemsTmp = try JSONDecoder().decode([String: Int].self, from: data)
+                    let respItems = respItemsTmp.sorted(by: <)
+                    //print(respItems)
+                    DispatchQueue.main.async {
+                        self.dropDownForState.dataSource.removeAll()
+                        respItems.forEach { (key, value) in
+                            //print("Key: \(key), Value: \(value)")
+                            self.stateMap[key] = "\(value)"
+                            self.dropDownForState.dataSource.append(key)
+                        }
+                    }
+                } catch {
+                    print(error)
+                }
+            }
+        }
+        dropDownForCountry.bottomOffset = CGPoint(x: 0, y:(dropDownForCountry.anchorView?.plainView.bounds.height)!)
+        dropDownForCountry.dismissMode = .onTap
+        webAPI.getCountries { data, response, error in
+            guard let data = data, error == nil else {
+                print(error?.localizedDescription ?? "No data")
+                return
+            }
+            do {
+                let respItemsTmp = try JSONDecoder().decode([String: String].self, from: data)
+                let respItems = respItemsTmp.sorted(by: <)
+                //print(respItems)
+                DispatchQueue.main.async {
+                    self.dropDownForCountry.dataSource.removeAll()
+                    respItems.forEach { (key, value) in
+                        //print("Key: \(key), Value: \(value)")
+                        self.countryMap[key] = value
+                        self.dropDownForCountry.dataSource.append(key)
+                    }
+                }
+            } catch {
+                print(error)
+            }
+        }
+        
         // Agency
         dropDownForAgency.anchorView = agencyview
-        dropDownForAgency.dataSource = ["Not listed", "Agency", "Agency", "Agency"]
+        dropDownForAgency.dataSource = ["No", "Yes"]
         dropDownForAgency.selectionAction = { [unowned self] (index: Int, item: String) in
             text_agency.text = item
           
@@ -111,10 +187,11 @@ class ActorProfileEditViewController: UIViewController, PhotoDelegate {
         
         // Vaccination
         dropDownForVaccination.anchorView = vaccinationview
-        dropDownForVaccination.dataSource = ["Not listed", "Vaccination", "Vaccination", "Vaccination"]
+        dropDownForVaccination.dataSource = ["Not Vaccinated", "Partially Vaccinated", "Fully Vaccinated"]
+        
         dropDownForVaccination.selectionAction = { [unowned self] (index: Int, item: String) in
             text_vaccination.text = item
-          
+            self.vaccin = index
         }
         dropDownForVaccination.bottomOffset = CGPoint(x: 0, y:(dropDownForVaccination.anchorView?.plainView.bounds.height)!)
         dropDownForVaccination.dismissMode = .onTap
@@ -135,6 +212,17 @@ class ActorProfileEditViewController: UIViewController, PhotoDelegate {
         if let userInfo = UserDefaults.standard.object(forKey: "USER") as? [String:Any] {
             // Use the saved data
             id = userInfo["uid"] as! String
+            self.text_username.text = userInfo["userName"] as? String ?? ""
+            let g = userInfo["gender"] as? Int
+            if g == 1 {
+                self.text_gender.text = "Male"
+            } else if g == 2 {
+                self.text_gender.text = "Female"
+            } else if g == 3 {
+                self.text_gender.text = "Decline to self-identify"
+            } else {
+                self.text_gender.text = ""
+            }
             
             let bucketName = userInfo["avatarBucketName"] as? String
             let avatarKey = userInfo["avatarKey"] as? String
@@ -147,14 +235,198 @@ class ActorProfileEditViewController: UIViewController, PhotoDelegate {
             // No data was saved
             print("No data was saved.")
         }
+        // Get Actor profile from DB
+        showIndicator(sender: nil, viewController: self)
+        webAPI.getActorProfile(actoruid: self.id) { data, response, error in
+            DispatchQueue.main.async {
+                hideIndicator(sender: nil)
+            }
+            guard let data = data, error == nil else {
+                print(error?.localizedDescription ?? "No data")
+                return
+            }
+            do {
+                enum MyError: Error {
+                    case NotFound
+                }
+                if let statusCode = (response as? HTTPURLResponse)?.statusCode {
+                    if statusCode != 200 {
+                        throw MyError.NotFound
+                    }
+                    print("Status code: \(statusCode)")
+                }
+                let item = try JSONDecoder().decode(ActorProfile.self, from: data)
+                print(item)
+                DispatchQueue.main.async {
+                    self.text_age.text = item.ageRange
+                    self.text_height.text = String(item.height)
+                    self.text_weight.text = String(item.weight)
+                    self.text_country.text = item.country
+                    self.text_state.text = item.state
+                    self.text_city.text = item.city
+                    self.text_agency.text = item.agency
+                    if item.vaccinationStatus == 0 {
+                        self.text_vaccination.text = "Not Vaccinated"
+                    } else if item.vaccinationStatus == 1 {
+                        self.text_vaccination.text = "Partially Vaccinated"
+                    } else if item.vaccinationStatus == 2 {
+                        self.text_vaccination.text = "Fully Vaccinated"
+                    } else {
+                        self.text_vaccination.text = ""
+                    }
+                    
+                }
+            }
+            catch {
+                print(error)
+                DispatchQueue.main.async {
+                    Toast.show(message: "Something went wrong. try again later", controller: self)
+                }
+            }
+        }
     }
     @IBAction func SaveChanges(_ sender: UIButton) {
-        let transition = CATransition()
-        transition.duration = 0.5 // Set animation duration
-        transition.type = CATransitionType.push // Set transition type to push
-        transition.subtype = CATransitionSubtype.fromLeft // Set transition subtype to from right
-        self.view.window?.layer.add(transition, forKey: kCATransition) // Add transition to window layer
-        self.dismiss(animated: false)
+        var inputCheck: String = ""
+        var focusTextField: UITextField? = nil
+        if(self.text_username.text!.isEmpty){
+            inputCheck += "- Please input user name.\n"
+            if(focusTextField == nil){
+                focusTextField = self.text_username
+            }
+        }
+        
+        if(self.text_gender.text!.isEmpty){
+            inputCheck += "- Please select your gender.\n"
+            if(focusTextField == nil){
+                focusTextField = self.text_gender
+            }
+        }
+        if(self.text_age.text!.isEmpty){
+            inputCheck += "- Please select your age range.\n"
+            if(focusTextField == nil){
+                focusTextField = self.text_age
+            }
+        }
+        if(self.text_height.text!.isEmpty){
+            inputCheck += "- Please input your height.\n"
+            if(focusTextField == nil){
+                focusTextField = self.text_height
+            }
+        }
+        if(self.text_weight.text!.isEmpty){
+            inputCheck += "- Please input your weight.\n"
+            if(focusTextField == nil){
+                focusTextField = self.text_weight
+            }
+        }
+        if(self.text_country.text!.isEmpty){
+            inputCheck += "- Please select your country.\n"
+            if(focusTextField == nil){
+                focusTextField = self.text_country
+            }
+        }
+        if(self.text_state.text!.isEmpty){
+            inputCheck += "- Please select your state.\n"
+            if(focusTextField == nil){
+                focusTextField = self.text_state
+            }
+        }
+        if(self.text_city.text!.isEmpty){
+            inputCheck += "- Please select your city.\n"
+            if(focusTextField == nil){
+                focusTextField = self.text_city
+            }
+        }
+        if(self.text_agency.text!.isEmpty){
+            inputCheck += "- Please select your agency.\n"
+            if(focusTextField == nil){
+                focusTextField = self.text_state
+            }
+        }
+        if(self.text_vaccination.text!.isEmpty){
+            inputCheck += "- Please select your vaccination state.\n"
+            if(focusTextField == nil){
+                focusTextField = self.text_vaccination
+            }
+        }
+        
+        if(!inputCheck.isEmpty){
+            showAlert(viewController: self, title: "Confirm", message: inputCheck) { UIAlertAction in
+                focusTextField!.becomeFirstResponder()
+            }
+            return
+        }
+        
+        // save chages to db
+        showIndicator(sender: nil, viewController: self)
+        webAPI.updateActorProfile(actoruid: self.id, ageRange: self.text_age.text!, height: self.text_height.text!, weight: self.text_weight.text!, country: self.text_country.text!, state: self.text_state.text!, city: self.text_city.text!, agency: self.text_agency.text!, vaccination: self.vaccin) { data, response, error in
+
+            guard error == nil else {
+                print(error?.localizedDescription ?? "No data")
+                DispatchQueue.main.async {
+                    hideIndicator(sender: nil)
+                    Toast.show(message: "Something went wrong. Unable to save changes", controller: self)
+                }
+                return
+            }
+           
+            if let statusCode = (response as? HTTPURLResponse)?.statusCode {
+                if statusCode == 204 {
+                 
+                    DispatchQueue.main.async {
+                        //update username and gender
+                        webAPI.updateUserInfo(uid: self.id, userType: -1, bucketName: "", avatarKey: "", username: self.text_username.text!, email: "", password: "", firstName: "", lastName: "", dateOfBirth: "", gender: self.gender, currentAddress: "", permanentAddress: "", city: "", nationality: "", phoneNumber: "", isLogin: true, fcmDeviceToken: "", deviceKind: -1) { data, response, error in
+                            DispatchQueue.main.async {
+                                hideIndicator(sender: nil)
+                            }
+                            guard error == nil else {
+                                print(error?.localizedDescription ?? "No data")
+                                return
+                            }
+                            print(response.debugDescription)
+                            if let statusCode = (response as? HTTPURLResponse)?.statusCode {
+                                if statusCode == 204 {
+                                    
+                                    DispatchQueue.main.async {
+                                        // update local
+                                        // Retrieve the saved data from UserDefaults
+                                        if var userInfo = UserDefaults.standard.object(forKey: "USER") as? [String:Any] {
+                                            // Use the saved data
+                                            userInfo["userName"] = self.text_username.text
+                                            userInfo["gender"] = self.gender
+                                            UserDefaults.standard.removeObject(forKey: "USER")
+                                            UserDefaults.standard.set(userInfo, forKey: "USER")
+                                            
+                                        } else {
+                                            // No data was saved
+                                            print("No data was saved.")
+                                        }
+                                        let transition = CATransition()
+                                        transition.duration = 0.5 // Set animation duration
+                                        transition.type = CATransitionType.push // Set transition type to push
+                                        transition.subtype = CATransitionSubtype.fromLeft // Set transition subtype to from right
+                                        self.view.window?.layer.add(transition, forKey: kCATransition) // Add transition to window layer
+                                        self.dismiss(animated: false)
+                                    }
+                                    return
+                                } else {
+                                    DispatchQueue.main.async {
+                                        Toast.show(message: "Something went Wrong. Unable to save changes", controller: self)
+                                    }
+                                }
+                            }
+                        }
+                       
+                    }
+                    return
+                }
+                DispatchQueue.main.async {
+                    Toast.show(message: "Something went wrong, unable to save changes", controller: self)
+                }
+                print("Status code: \(statusCode)")
+                return
+            }
+        }
     }
     @IBAction func ShowDropDownForAge(_ sender: UIButton) {
         dropDownForAgeRange.show()

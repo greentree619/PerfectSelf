@@ -60,18 +60,60 @@ class OverlayViewController: UIViewController {
         //Omitted self.containerView.isHidden = true
         cameraView.delegate = self
         playerView.delegate = self
-        guard let url = uploadVideourl else { return }
-        playerView.url = url
+        guard let _ = uploadVideourl else { return }
+        playerView.mainavComposition = getComposition(videoUrl:  uploadVideourl!, audioUrl:  uploadAudiourl!)
+        let affineTransform = CGAffineTransform(rotationAngle: degreeToRadian(90))
+        playerView.playerLayer.setAffineTransform(affineTransform)
         //Omitted slider.minimumValue = 0
         //Omitted btnStop.isEnabled = false
         btnRecord.isEnabled = true
         //Omitted btnTimer.isEnabled = true
         lblTimer.isHidden = true
     }
+    
+    func getComposition(videoUrl: URL, audioUrl: URL) -> AVMutableComposition{
+        let videoAsset = AVAsset(url: videoUrl)
+        let audioAsset = AVAsset(url: audioUrl)
+        
+        let mixComposition = AVMutableComposition()
+        guard
+            let videoTrack = mixComposition.addMutableTrack(
+                withMediaType: .video,
+                preferredTrackID: Int32(kCMPersistentTrackID_Invalid))
+        else { return mixComposition}
+
+        do {
+            try videoTrack.insertTimeRange(
+                CMTimeRangeMake(start: .zero, duration: videoAsset.duration),
+                of: videoAsset.tracks(withMediaType: .video)[0],
+                at: .zero)
+        } catch {
+            print("Failed to load first track")
+            return mixComposition
+        }
+
+        let audioTrack = mixComposition.addMutableTrack(
+            withMediaType: .audio,
+            preferredTrackID: Int32(kCMPersistentTrackID_Invalid))
+        do {
+            try audioTrack?.insertTimeRange(
+                CMTimeRangeMake(
+                    start: .zero,
+                    duration: audioAsset.duration),
+                of: audioAsset.tracks(withMediaType: .audio)[0],
+                at: .zero)
+        } catch {
+            print("Failed to load Audio track")
+        }
+        
+        return mixComposition
+    }
 
     override func viewDidAppear(_ animated: Bool)
     {
         super.viewDidAppear(animated)
+        lblTimer.isHidden = true
+        
         if cameraView.captureSession.isRunning == true {
             return
         }
