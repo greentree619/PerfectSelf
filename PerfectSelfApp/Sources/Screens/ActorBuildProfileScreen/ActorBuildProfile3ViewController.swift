@@ -17,6 +17,7 @@ class ActorBuildProfile3ViewController: UIViewController {
     var agerange:String = ""
     var height:String = ""
     var weight: String = ""
+    var vaccin = 0
     
     let dropDownForCountry = DropDown()
     let dropDownForState = DropDown()
@@ -163,7 +164,7 @@ class ActorBuildProfile3ViewController: UIViewController {
         dropDownForVaccination.dataSource = ["Not Vaccinated", "Partially Vaccinated", "Fully Vaccinated"]
         dropDownForVaccination.selectionAction = { [unowned self] (index: Int, item: String) in
             text_vaccination.text = item
-          
+            self.vaccin = index
         }
         dropDownForVaccination.bottomOffset = CGPoint(x: 0, y:(dropDownForVaccination.anchorView?.plainView.bounds.height)!)
         dropDownForVaccination.dismissMode = .onTap
@@ -240,7 +241,7 @@ class ActorBuildProfile3ViewController: UIViewController {
         }
         showIndicator(sender: sender, viewController: self)
    
-        webAPI.updateActorProfile(actoruid: uid, ageRange: agerange, height: height, weight: weight, country: text_country.text ?? "", state: text_state.text ?? "", city: text_city.text ?? "", agency: text_agency.text ?? "", vaccination: text_vaccination.text ?? "") { data, response, error in
+        webAPI.updateActorProfile(actoruid: uid, ageRange: agerange, height: height, weight: weight, country: text_country.text ?? "", state: text_state.text ?? "", city: text_city.text ?? "", agency: text_agency.text ?? "", vaccination: self.vaccin) { data, response, error in
             guard let _ = data, error == nil else {
                 print(error?.localizedDescription ?? "No data")
                 DispatchQueue.main.async {

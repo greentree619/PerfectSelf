@@ -90,21 +90,25 @@ class PerfectSelfWebAPI
         ]
         return executeAPI(with: "POST", apiPath: "Users", json: json, completionHandler:completionHandler)
     }
-
-    func updateActorProfile(actoruid: String, ageRange: String, height: String, weight: String, country: String, state: String, city: String, agency: String, vaccination: String, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> Void
+    func getActorProfile(actoruid: String, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> Void
+    {
+        return executeAPI(with: "GET", apiPath: "ActorProfiles/ByUid/\(actoruid)", json: [:], completionHandler:completionHandler)
+    }
+    func updateActorProfile(actoruid: String, ageRange: String, height: String, weight: String, country: String, state: String, city: String, agency: String, vaccination: Int, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> Void
     {
         let json: [String: Any] = [
             "title": "",
             "actorUid": actoruid,
             "ageRange": ageRange,
-            "height": Int(height) ?? 0,
-            "weight": Int(weight) ?? 0,
+            "height": Float(height) ?? 0,
+            "weight": Float(weight) ?? 0,
             "country": country,
             "state": state,
             "city": city,
-            "agencyCountry": agency,
-            "vaccinationStatus": Int(vaccination) ?? 0,
+            "agency": agency,
+            "vaccinationStatus": vaccination,
         ]
+      print(json)
         return executeAPI(with: "PUT", apiPath: "ActorProfiles/ByUid/\(actoruid)", json: json, completionHandler:completionHandler)
     }
     func getUserInfo(uid: String, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> Void
