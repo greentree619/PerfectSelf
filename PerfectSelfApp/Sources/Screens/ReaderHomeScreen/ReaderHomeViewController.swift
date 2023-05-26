@@ -19,6 +19,7 @@ class ReaderHomeViewController: UIViewController, UICollectionViewDataSource, UI
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        uiViewContoller = self
 
         let nib = UINib(nibName: "BookingCollectionViewCell", bundle: nil)
         bookList.register(nib, forCellWithReuseIdentifier: "Booking Collection View Cell")
