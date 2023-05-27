@@ -78,13 +78,27 @@ class ActorProfileViewController: UIViewController {
     @IBAction func LogOut(_ sender: UITapGestureRecognizer) {
         // Optional: Dismiss the tab bar controller
         // Delete localstorage
-        UserDefaults.standard.removeObject(forKey: "USER")
-        UserDefaults.standard.removeObject(forKey: "USER_EMAIL")
-        UserDefaults.standard.removeObject(forKey: "USER_PWD")
-        
-        let controller = LoginViewController()
-        controller.modalPresentationStyle = .fullScreen
-        self.present(controller, animated: false)
+        // change user online status
+        showIndicator(sender: nil, viewController: self)
+        webAPI.updateOnlineState(uid: self.id, newState: false) { data, response, error in
+            DispatchQueue.main.async {
+                hideIndicator(sender: nil)
+            }
+            guard error == nil else {
+                return
+            }
+            DispatchQueue.main.async {
+                UserDefaults.standard.removeObject(forKey: "USER")
+                UserDefaults.standard.removeObject(forKey: "USER_EMAIL")
+                UserDefaults.standard.removeObject(forKey: "USER_PWD")
+                
+                let controller = LoginViewController()
+                controller.modalPresentationStyle = .fullScreen
+                self.present(controller, animated: false)
+            }
+            
+        }
+       
     }
     /*
     // MARK: - Navigation
