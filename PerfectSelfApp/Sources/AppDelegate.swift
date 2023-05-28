@@ -32,8 +32,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         IQKeyboardManager.shared.enable = true
         
         UNUserNotificationCenter.current().delegate = self
-        requestPushAuthorization()
-        registerForNotifications()
+//        requestPushAuthorization()
+//        registerForNotifications()
+        
+//        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { granted, error in
+//          if let error = error {
+//          print("D'oh: \(error.localizedDescription)")
+//          } else {
+//          application.registerForRemoteNotifications()
+//          }
+//        }
+        let authOptions: UNAuthorizationOptions = [.alert, .badge, .sound]
+        UNUserNotificationCenter.current().requestAuthorization(
+          options: authOptions) { _, _ in }
+        // 3
+        application.registerForRemoteNotifications()
         
 //        //{{Test localtime<->UTC
 //        var dt:String = "2023-05-16T20:30:00"
@@ -85,24 +98,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         }
     }
     
-    func application(_ application: UIApplication,
-                     didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
-        let tokenParts = deviceToken.map { data in String(format: "%02.2hhx", data) }
-        let token = tokenParts.joined()
-        fcmDeviceToken = token
-        print("Device Token: \(token)")
-        //Toast.show(message: "register: \(token)", controller: uiViewContoller!)
-    }
-    
-    func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
-        print(error.localizedDescription)
-        //Toast.show(message: "register: \(error.localizedDescription)", controller: uiViewContoller!)
-    }
-    
-    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
-        //Toast.show(message: "userNotificationCenter", controller: uiViewContoller!)
-        completionHandler([.banner, .badge, .sound])
-    }
+//    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+//        //Toast.show(message: "userNotificationCenter", controller: uiViewContoller!)
+//        completionHandler([.banner, .badge, .sound])
+//    }
 
     ///MARK: google sigin
     func application(_ application: UIApplication,
@@ -131,4 +130,38 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 //        // If any sessions were discarded while the application was not running, this will be called shortly after application:didFinishLaunchingWithOptions.
 //        // Use this method to release any resources that were specific to the discarded scenes, as they will not return.
 //    }
+}
+
+@available(iOS 14.0, *)
+extension AppDelegate: UNUserNotificationCenterDelegate {
+    func application(_ application: UIApplication,
+                     didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+        let tokenParts = deviceToken.map { data in String(format: "%02.2hhx", data) }
+        let token = tokenParts.joined()
+        fcmDeviceToken = token
+        print("Device Token: \(token)")
+        //Toast.show(message: "register: \(token)", controller: uiViewContoller!)
+    }
+    
+    func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
+        print(error.localizedDescription)
+        //Toast.show(message: "register: \(error.localizedDescription)", controller: uiViewContoller!)
+    }
+    
+    func userNotificationCenter(
+        _ center: UNUserNotificationCenter,
+        willPresent notification: UNNotification,
+        withCompletionHandler completionHandler:
+        @escaping (UNNotificationPresentationOptions) -> Void
+    ) {
+        completionHandler([[.banner, .sound]])
+    }
+    
+    func userNotificationCenter(
+        _ center: UNUserNotificationCenter,
+        didReceive response: UNNotificationResponse,
+        withCompletionHandler completionHandler: @escaping () -> Void
+    ) {
+        completionHandler()
+    }
 }
