@@ -26,7 +26,7 @@ class ChatCardCollectionViewCell: UICollectionViewCell {
          super.prepareForReuse()
          
          // Reset any properties that could affect the cell's appearance
-        img_avatar.image = UIImage(systemName: "person.fill")
+        img_avatar.image = UIImage(systemName: "person.circle.fill")
         lbl_name.text = ""
         lbl_message.text = ""
         lbl_time.text = ""
