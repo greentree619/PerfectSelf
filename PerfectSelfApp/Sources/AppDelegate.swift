@@ -42,11 +42,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 //          application.registerForRemoteNotifications()
 //          }
 //        }
-        let authOptions: UNAuthorizationOptions = [.alert, .badge, .sound]
-        UNUserNotificationCenter.current().requestAuthorization(
-          options: authOptions) { _, _ in }
-        // 3
-        application.registerForRemoteNotifications()
+        
+//        let authOptions: UNAuthorizationOptions = [.alert, .badge, .sound]
+//        UNUserNotificationCenter.current().requestAuthorization(
+//          options: authOptions) { _, _ in }
+//        // 3
+//        application.registerForRemoteNotifications()
+        
+        UNUserNotificationCenter.current().requestAuthorization(options: [
+              .badge, .sound, .alert
+            ]) { granted, _ in
+              guard granted else { return }
+
+              DispatchQueue.main.async {
+                application.registerForRemoteNotifications()
+              }
+            }
         
 //        //{{Test localtime<->UTC
 //        var dt:String = "2023-05-16T20:30:00"
@@ -76,6 +87,43 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     }
     
     private func buildMainViewController() -> UIViewController {
+        //{{TESTCODE
+        let JSON = """
+        {
+            "uid": "a732ed6c-16ed-42f4-b4f2-4d0952a83d06",
+            "userType": 4,
+            "avatarBucketName": "",
+            "avatarKey": "",
+            "userName": "Marcelino",
+            "email": "reader003@gmail.com",
+            "password": "",
+            "firstName": "Gray",
+            "lastName": "Johns",
+            "dateOfBirth": "",
+            "gender": 0,
+            "currentAddress": "",
+            "permanentAddress": "",
+            "city": "",
+            "nationality": "",
+            "phoneNumber": "123456",
+            "isLogin": true,
+            "token": "CHWaBF/okE6MDZh4XnEbOA==",
+            "fcmDeviceToken": "",
+            "deviceKind": 0,
+            "id": 25,
+            "isDeleted": false,
+            "createdTime": "2023-03-24T01:59:15.8911716",
+            "updatedTime": "2023-03-24T01:59:15.8911727",
+            "deletedTime": "0001-01-01T00:00:00"
+          }
+        """
+
+        let data = JSON.data(using: .utf8)!
+        let responseJSON = try? JSONSerialization.jsonObject(with: data, options: [])
+        let userJson = responseJSON as! [String:Any]
+        print(userJson["userType"]!)
+        UserDefaults.standard.setValue(userJson, forKey: "USER")
+        //}}TESTCODE
         
         if let userInfo = UserDefaults.standard.object(forKey: "USER") as? [String:Any] {
             // Use the saved data
@@ -136,11 +184,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 extension AppDelegate: UNUserNotificationCenterDelegate {
     func application(_ application: UIApplication,
                      didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
-        let tokenParts = deviceToken.map { data in String(format: "%02.2hhx", data) }
-        let token = tokenParts.joined()
-        fcmDeviceToken = token
-        print("Device Token: \(token)")
+//        let tokenParts = deviceToken.map { data in String(format: "%02.2hhx", data) }
+//        let token = tokenParts.joined()
+//        fcmDeviceToken = token
+//        print("Device Token: \(token)")
         //Toast.show(message: "register: \(token)", controller: uiViewContoller!)
+        
+        let token = deviceToken.reduce("") { $0 + String(format: "%02x", $1) }
+          print(token)
     }
     
     func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
@@ -154,7 +205,7 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
         withCompletionHandler completionHandler:
         @escaping (UNNotificationPresentationOptions) -> Void
     ) {
-        completionHandler([[.banner, .sound]])
+        completionHandler([[.banner, .sound, .alert]])
     }
     
     func userNotificationCenter(

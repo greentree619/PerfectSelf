@@ -79,6 +79,25 @@ class ReaderHomeViewController: UIViewController, UICollectionViewDataSource, UI
                 }
             }
         }
+        
+        //{{TESTCODE
+        var count = 3
+        _ = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true, block: { timer in
+            count -= 1
+            if count == 0 {
+                let roomUid = self.items[0].roomUid
+                let conferenceViewController = ConferenceViewController(roomUid: roomUid)
+                conferenceViewController.modalPresentationStyle = .fullScreen
+                
+                //        let transition = CATransition()
+                //        transition.duration = 0.5 // Set animation duration
+                //        transition.type = CATransitionType.push // Set transition type to push
+                //        transition.subtype = CATransitionSubtype.fromRight // Set transition subtype to from right
+                //        self.parentViewController!.view.window?.layer.add(transition, forKey: kCATransition) // Add transition to window layer
+                self.present(conferenceViewController, animated: false)
+            }
+        })
+        //}}TESTCODE
     }
     // MARK: - Booking List Delegate.
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {

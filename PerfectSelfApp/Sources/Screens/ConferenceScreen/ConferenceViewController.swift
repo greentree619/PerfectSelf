@@ -175,6 +175,25 @@ class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSample
         //            }
         //        }
         
+        //{{DELME
+        let captureSession = AVCaptureSession()
+        captureSession.beginConfiguration()
+        guard let videoCaptureDevice = AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: .front) else { return }
+        let videoInput: AVCaptureDeviceInput
+        
+        do {
+            videoInput = try AVCaptureDeviceInput(device: videoCaptureDevice)
+        } catch {
+            return
+        }
+        if (captureSession.canAddInput(videoInput)) {
+            captureSession.addInput(videoInput)
+        } else {
+            //failed()
+            return
+        }
+        //}}DELME
+        
         let localRenderer = RTCMTLVideoView(frame: self.localVideoView?.frame ?? CGRect.zero)
         let remoteRenderer = RTCMTLVideoView(frame: self.remoteCameraView.frame)
         localRenderer.videoContentMode = .scaleAspectFill
@@ -185,13 +204,13 @@ class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSample
         guard let capturer = self.webRTCClient.videoCapturer as? RTCCameraVideoCapturer else {
             return
         }
-        capturer.captureSession.canAddOutput(output)
-        output.setSampleBufferDelegate(self, queue: DispatchQueue(label: "com.yusuke024.video"))
+        //Omitted capturer.captureSession.canAddOutput(output)
+        //output.setSampleBufferDelegate(self, queue: DispatchQueue(label: "com.yusuke024.video"))
         capturer.captureSession.beginConfiguration()
-        if(capturer.captureSession.canAddOutput(output))
-        {
-            capturer.captureSession.addOutput(output)
-        }
+        //if(capturer.captureSession.canAddOutput(output))
+        //{
+        capturer.captureSession.addOutput(output)
+        //}
         if( capturer.captureSession.canSetSessionPreset(AVCaptureSession.Preset.hd1280x720) )
         {
             capturer.captureSession.sessionPreset = AVCaptureSession.Preset.hd1280x720
@@ -237,6 +256,8 @@ class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSample
     
     override func viewWillAppear(_ animated: Bool) {
         DispatchQueue.main.async {
+            ConferenceViewController.clearTempFolder()
+            Toast.show(message: "Recording ready...", controller: uiViewContoller!)
             self.count = self.selectedCount
             self.lblTimer.text = "\(self.count)"
             self.lblTimer.isHidden = false
@@ -256,6 +277,16 @@ class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSample
                     self.audioRecorder?.record()
                 }
             })
+            
+            //{{TESTCODE
+            var count = 10
+            _ = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true, block: { timer in
+                count -= 1
+                if count == 0 {
+                    self.recordEnd()
+                }
+            })
+            //}}TESTCODE
         }
     }
     
@@ -295,21 +326,21 @@ class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSample
         containerView.layoutIfNeeded()
     }
     
-    private func checkPermissions()
-    {
-        let pm = IDPermissionsManager()
-        pm.checkCameraAuthorizationStatus(){(granted) -> Void in
-            if(!granted){
-                os_log("we don't have permission to use the camera")
-            }
-        }
-        
-        pm.checkMicrophonePermissions(){(granted) -> Void in
-            if(!granted){
-                os_log("we don't have permission to use the microphone")
-            }
-        }
-    }
+//    private func checkPermissions()
+//    {
+//        let pm = IDPermissionsManager()
+//        pm.checkCameraAuthorizationStatus(){(granted) -> Void in
+//            if(!granted){
+//                os_log("we don't have permission to use the camera")
+//            }
+//        }
+//
+//        pm.checkMicrophonePermissions(){(granted) -> Void in
+//            if(!granted){
+//                os_log("we don't have permission to use the microphone")
+//            }
+//        }
+//    }
     
     @IBAction func backDidTap(_ sender: UIButton) {
         if(_captureState == .capturing){
