@@ -16,8 +16,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "633"
             endingLineNumber = "633"
-            landmarkName = "ConferenceViewController"
-            landmarkType = "21">
+            landmarkName = "webRTCClient(_:didChangeConnectionState:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -80,8 +80,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "414"
             endingLineNumber = "414"
-            landmarkName = "recordStart()"
-            landmarkType = "7">
+            landmarkName = "ConferenceViewController"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -100,14 +100,14 @@
             landmarkType = "7">
             <Locations>
                <Location
-                  uuid = "42D23BEE-5227-4465-9B8F-66049E557C67 - 4e75fbe07fa62ded"
+                  uuid = "42D23BEE-5227-4465-9B8F-66049E557C67 - 613f15b84f7dbb28"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
                   symbolName = "PerfectSelf.LoginDetailViewController.viewDidLoad() -&gt; ()"
                   moduleName = "PerfectSelf"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/kayan/Documents/Workstation/PerfectSelf-develop/PerfectSelfApp/Sources/Screens/LoginDetailScreen/LoginDetailViewController.swift"
+                  urlString = "file:///Users/kayan/Documents/Workstation/PerfectSelf-feature/PerfectSelfApp/Sources/Screens/LoginDetailScreen/LoginDetailViewController.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "36"
@@ -115,14 +115,14 @@
                   offsetFromSymbolStart = "572">
                </Location>
                <Location
-                  uuid = "42D23BEE-5227-4465-9B8F-66049E557C67 - 4e75fbe07fa62ded"
+                  uuid = "42D23BEE-5227-4465-9B8F-66049E557C67 - 613f15b84f7dbb28"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
                   symbolName = "PerfectSelf.LoginDetailViewController.viewDidLoad() -&gt; ()"
                   moduleName = "PerfectSelf"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/kayan/Documents/Workstation/PerfectSelf-develop/PerfectSelfApp/Sources/Screens/LoginDetailScreen/LoginDetailViewController.swift"
+                  urlString = "file:///Users/kayan/Documents/Workstation/PerfectSelf-feature/PerfectSelfApp/Sources/Screens/LoginDetailScreen/LoginDetailViewController.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "36"
@@ -142,9 +142,9 @@
             filePath = "Sources/AppDelegate.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "188"
-            endingLineNumber = "188"
-            landmarkName = "application(_:didRegisterForRemoteNotificationsWithDeviceToken:)"
+            startingLineNumber = "239"
+            endingLineNumber = "239"
+            landmarkName = "userNotificationCenter(_:didReceive:withCompletionHandler:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -152,7 +152,7 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "06EE259B-B20B-4D8A-8179-5395C5A153C7"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Sources/AppDelegate.swift"
@@ -168,16 +168,16 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "126E9576-15C5-46D2-8528-6F399F8CAB84"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Sources/AppDelegate.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "216"
-            endingLineNumber = "216"
-            landmarkName = "userNotificationCenter(_:didReceive:withCompletionHandler:)"
-            landmarkType = "7">
+            startingLineNumber = "237"
+            endingLineNumber = "237"
+            landmarkName = "AppDelegate"
+            landmarkType = "21">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -190,8 +190,8 @@
             filePath = "Sources/AppDelegate.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "58"
-            endingLineNumber = "58"
+            startingLineNumber = "81"
+            endingLineNumber = "81"
             landmarkName = "application(_:didFinishLaunchingWithOptions:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -206,8 +206,8 @@
             filePath = "Sources/AppDelegate.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "52"
-            endingLineNumber = "52"
+            startingLineNumber = "75"
+            endingLineNumber = "75"
             landmarkName = "application(_:didFinishLaunchingWithOptions:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -222,9 +222,9 @@
             filePath = "Sources/AppDelegate.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "193"
-            endingLineNumber = "193"
-            landmarkName = "application(_:didRegisterForRemoteNotificationsWithDeviceToken:)"
+            startingLineNumber = "244"
+            endingLineNumber = "244"
+            landmarkName = "userNotificationCenter(_:didReceive:withCompletionHandler:)"
             landmarkType = "7">
             <Locations>
                <Location
@@ -270,10 +270,10 @@
             filePath = "Sources/AppDelegate.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "194"
-            endingLineNumber = "194"
-            landmarkName = "application(_:didRegisterForRemoteNotificationsWithDeviceToken:)"
-            landmarkType = "7">
+            startingLineNumber = "245"
+            endingLineNumber = "245"
+            landmarkName = "AppDelegate"
+            landmarkType = "21">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -286,10 +286,10 @@
             filePath = "Sources/AppDelegate.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "132"
-            endingLineNumber = "132"
-            landmarkName = "buildMainViewController()"
-            landmarkType = "7">
+            startingLineNumber = "155"
+            endingLineNumber = "155"
+            landmarkName = "AppDelegate"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -302,10 +302,10 @@
             filePath = "Sources/AppDelegate.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "131"
-            endingLineNumber = "131"
-            landmarkName = "buildMainViewController()"
-            landmarkType = "7">
+            startingLineNumber = "154"
+            endingLineNumber = "154"
+            landmarkName = "AppDelegate"
+            landmarkType = "3">
             <Locations>
                <Location
                   uuid = "3F753AB5-09EA-497C-808F-4047FEC16CCB - 77130b659dd4ea94"
@@ -350,8 +350,8 @@
             filePath = "Sources/AppDelegate.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "121"
-            endingLineNumber = "121"
+            startingLineNumber = "144"
+            endingLineNumber = "144"
             landmarkName = "buildMainViewController()"
             landmarkType = "7">
          </BreakpointContent>
@@ -402,38 +402,6 @@
             endingLineNumber = "434"
             landmarkName = "captureOutput(_:didOutput:from:)"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "8A4EC1FA-6608-473B-AE4A-BA9FE701FA38 - 28ccf3f4c220ce6e"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "PerfectSelf.ConferenceViewController.captureOutput(_: __C.AVCaptureOutput, didOutput: __C.CMSampleBufferRef, from: __C.AVCaptureConnection) -&gt; ()"
-                  moduleName = "PerfectSelf"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/kayan/Documents/Workstation/PerfectSelf-develop/PerfectSelfApp/Sources/Screens/ConferenceScreen/ConferenceViewController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "434"
-                  endingLineNumber = "434"
-                  offsetFromSymbolStart = "864">
-               </Location>
-               <Location
-                  uuid = "8A4EC1FA-6608-473B-AE4A-BA9FE701FA38 - 33704aa8f7bc16fe"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 @Swift.MainActor () -&gt; () in PerfectSelf.ConferenceViewController.captureOutput(_: __C.AVCaptureOutput, didOutput: __C.CMSampleBufferRef, from: __C.AVCaptureConnection) -&gt; ()"
-                  moduleName = "PerfectSelf"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/kayan/Documents/Workstation/PerfectSelf-develop/PerfectSelfApp/Sources/Screens/ConferenceScreen/ConferenceViewController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "435"
-                  endingLineNumber = "435"
-                  offsetFromSymbolStart = "56">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -546,6 +514,38 @@
             endingLineNumber = "430"
             landmarkName = "captureOutput(_:didOutput:from:)"
             landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "FF77DAF8-61BE-4ACC-BE7F-85857DE39B81 - bf99be4585219c17"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "PerfectSelf.ConferenceViewController.captureOutput(_: __C.AVCaptureOutput, didOutput: __C.CMSampleBufferRef, from: __C.AVCaptureConnection) -&gt; ()"
+                  moduleName = "PerfectSelf"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/kayan/Documents/Workstation/PerfectSelf-feature/PerfectSelfApp/Sources/Screens/ConferenceScreen/ConferenceViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "430"
+                  endingLineNumber = "430"
+                  offsetFromSymbolStart = "864">
+               </Location>
+               <Location
+                  uuid = "FF77DAF8-61BE-4ACC-BE7F-85857DE39B81 - a4250719b0bd4739"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 @Swift.MainActor () -&gt; () in PerfectSelf.ConferenceViewController.captureOutput(_: __C.AVCaptureOutput, didOutput: __C.CMSampleBufferRef, from: __C.AVCaptureConnection) -&gt; ()"
+                  moduleName = "PerfectSelf"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/kayan/Documents/Workstation/PerfectSelf-feature/PerfectSelfApp/Sources/Screens/ConferenceScreen/ConferenceViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "431"
+                  endingLineNumber = "431"
+                  offsetFromSymbolStart = "56">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -578,6 +578,38 @@
             endingLineNumber = "559"
             landmarkName = "audioRecorderDidFinishRecording(_:successfully:)"
             landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "D87B30D2-2704-4560-AA77-3C6991BF2E41 - 14a567b8c761a2ed"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "PerfectSelf.ConferenceViewController.audioRecorderDidFinishRecording(_: __C.AVAudioRecorder, successfully: Swift.Bool) -&gt; ()"
+                  moduleName = "PerfectSelf"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/kayan/Documents/Workstation/PerfectSelf-feature/PerfectSelfApp/Sources/Screens/ConferenceScreen/ConferenceViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "559"
+                  endingLineNumber = "559"
+                  offsetFromSymbolStart = "1444">
+               </Location>
+               <Location
+                  uuid = "D87B30D2-2704-4560-AA77-3C6991BF2E41 - 14a567b8c761a2ed"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "PerfectSelf.ConferenceViewController.audioRecorderDidFinishRecording(_: __C.AVAudioRecorder, successfully: Swift.Bool) -&gt; ()"
+                  moduleName = "PerfectSelf"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/kayan/Documents/Workstation/PerfectSelf-feature/PerfectSelfApp/Sources/Screens/ConferenceScreen/ConferenceViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "559"
+                  endingLineNumber = "559"
+                  offsetFromSymbolStart = "1792">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -657,6 +689,102 @@
             startingLineNumber = "212"
             endingLineNumber = "212"
             landmarkName = "viewDidLoad()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "513E3114-F997-43CB-81B0-20E2B4320601"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Sources/AppDelegate.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "21"
+            endingLineNumber = "21"
+            landmarkName = "application(_:didFinishLaunchingWithOptions:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "3C349ECA-4A44-4B76-8725-8E9D762C9190"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Sources/AppDelegate.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "24"
+            endingLineNumber = "24"
+            landmarkName = "application(_:didFinishLaunchingWithOptions:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "F67ACE13-ABDA-4940-BDF9-3DAC1CCBAF3C"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Sources/AppDelegate.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "26"
+            endingLineNumber = "26"
+            landmarkName = "application(_:didFinishLaunchingWithOptions:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "1FE9D540-361C-4829-93D6-E7C2DABD2385"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Sources/AppDelegate.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "215"
+            endingLineNumber = "215"
+            landmarkName = "userNotificationCenter(_:willPresent:withCompletionHandler:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "B33BA6A8-6387-4D26-A56C-8C5F753FF3A1"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Sources/AppDelegate.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "243"
+            endingLineNumber = "243"
+            landmarkName = "userNotificationCenter(_:didReceive:withCompletionHandler:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "FB053A7D-F691-4D1B-A690-D591817A536D"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Sources/AppDelegate.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "226"
+            endingLineNumber = "226"
+            landmarkName = "application(application:didReceiveRemoteNotification:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

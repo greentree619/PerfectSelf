@@ -18,6 +18,29 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     func application(_ application: UIApplication,
                      didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
+        let systemVersion = ProcessInfo.processInfo.operatingSystemVersion
+        print(systemVersion)
+        
+        let current = UNUserNotificationCenter.current()
+        current.getNotificationSettings(completionHandler: { permission in
+            switch permission.authorizationStatus  {
+            case .authorized:
+                print("User granted permission for notification")
+            case .denied:
+                print("User denied notification permission")
+            case .notDetermined:
+                print("Notification permission haven't been asked yet")
+            case .provisional:
+                // @available(iOS 12.0, *)
+                print("The application is authorized to post non-interruptive user notifications.")
+            case .ephemeral:
+                // @available(iOS 14.0, *)
+                print("The application is temporarily authorized to post notifications. Only available to app clips.")
+            @unknown default:
+                print("Unknow Status")
+            }
+        })
+        
         do {
             try AVAudioSession.sharedInstance().setCategory(.playAndRecord, options: [.allowBluetooth])
            try AVAudioSession.sharedInstance().setActive(true)
@@ -32,32 +55,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         IQKeyboardManager.shared.enable = true
         
         UNUserNotificationCenter.current().delegate = self
-//        requestPushAuthorization()
-//        registerForNotifications()
-        
-//        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { granted, error in
-//          if let error = error {
-//          print("D'oh: \(error.localizedDescription)")
-//          } else {
-//          application.registerForRemoteNotifications()
-//          }
-//        }
-        
-//        let authOptions: UNAuthorizationOptions = [.alert, .badge, .sound]
-//        UNUserNotificationCenter.current().requestAuthorization(
-//          options: authOptions) { _, _ in }
-//        // 3
-//        application.registerForRemoteNotifications()
-        
-        UNUserNotificationCenter.current().requestAuthorization(options: [
-              .badge, .sound, .alert
-            ]) { granted, _ in
-              guard granted else { return }
-
-              DispatchQueue.main.async {
-                application.registerForRemoteNotifications()
-              }
-            }
+        let authOptions: UNAuthorizationOptions = [.alert, .badge, .sound]
+        UNUserNotificationCenter.current().requestAuthorization(
+          options: authOptions) { _, _ in }
+        // 3
+        application.registerForRemoteNotifications()
         
 //        //{{Test localtime<->UTC
 //        var dt:String = "2023-05-16T20:30:00"
@@ -184,14 +186,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 extension AppDelegate: UNUserNotificationCenterDelegate {
     func application(_ application: UIApplication,
                      didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
-//        let tokenParts = deviceToken.map { data in String(format: "%02.2hhx", data) }
-//        let token = tokenParts.joined()
-//        fcmDeviceToken = token
-//        print("Device Token: \(token)")
-        //Toast.show(message: "register: \(token)", controller: uiViewContoller!)
+        let tokenParts = deviceToken.map { data in String(format: "%02.2hhx", data) }
+        let token = tokenParts.joined()
+        fcmDeviceToken = token
+        print("Device Token: \(token)")
         
-        let token = deviceToken.reduce("") { $0 + String(format: "%02x", $1) }
-          print(token)
+        webAPI.updateUserInfo(uid: "a732ed6c-16ed-42f4-b4f2-4d0952a83d06", userType: -1, bucketName: "", avatarKey: "", username: "", email: "", password: "", firstName: "", lastName: "", dateOfBirth: "", gender: -1, currentAddress: "", permanentAddress: "", city: "", nationality: "", phoneNumber: "", isLogin: true, fcmDeviceToken: fcmDeviceToken, deviceKind: -1)  { data, response, error in
+            if error == nil {
+                // successfully update db
+                print("update db completed")
+            }
+        }
+        //Toast.show(message: "register: \(token)", controller: uiViewContoller!)
     }
     
     func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
@@ -205,7 +211,28 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
         withCompletionHandler completionHandler:
         @escaping (UNNotificationPresentationOptions) -> Void
     ) {
-        completionHandler([[.banner, .sound, .alert]])
+        Toast.show(message: "Audio recording be failed", controller: uiv uiViewController)
+        completionHandler([[.banner, .sound]])
+        
+//        var alertMsg = "Helow Prad!"
+//        var alert: UIAlertController!
+//        alert = UIAlertController(title: "PerfectSelf", message: alertMsg, preferredStyle: UIAlertController.Style.alert, delegate: nil, cancelButtonTitle: "OK")
+//        alert.show(nil, sender: Any?)
+        
+    }
+    
+    func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject]) {
+
+        print("Recived: \(userInfo)")
+       //Parsing userinfo:
+//        var temp : NSDictionary = userInfo as NSDictionary
+//       if let info = userInfo["aps"] as? Dictionary<String, AnyObject>
+//        {
+//            var alertMsg = info["alert"] as! String
+//            var alert: UIAlertView!
+//            alert = UIAlertView(title: "", message: alertMsg, delegate: nil, cancelButtonTitle: "OK")
+//            alert.show()
+//        }
     }
     
     func userNotificationCenter(
