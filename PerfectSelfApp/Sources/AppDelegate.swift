@@ -111,7 +111,7 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
             if let userInfo = UserDefaults.standard.object(forKey: "USER") as? [String:Any] {
                 let uid = userInfo["uid"] as! String
                 let token = userInfo["fcmDeviceToken"] as! String
-                if(token != fcmDeviceToken)
+                if(token.compare(fcmDeviceToken).rawValue != 0 )
                 {
                     webAPI.updateUserInfo(uid: uid, userType: -1, bucketName: "", avatarKey: "", username: "", email: "", password: "", firstName: "", lastName: "", dateOfBirth: "", gender: -1, currentAddress: "", permanentAddress: "", city: "", nationality: "", phoneNumber: "", isLogin: true, fcmDeviceToken: fcmDeviceToken, deviceKind: -1)  { data, response, error in
                         if error == nil {
