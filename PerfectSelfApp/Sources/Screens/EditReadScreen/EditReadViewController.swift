@@ -51,8 +51,8 @@ class EditReadViewController: UIViewController {
     override func viewDidLoad() {
         //print(audioURL, videoURL)
         
-        let affineTransform = CGAffineTransform(rotationAngle: degreeToRadian(90))
-        playerView.playerLayer.setAffineTransform(affineTransform)
+        //Omitted        let affineTransform = CGAffineTransform(rotationAngle: degreeToRadian(90))
+        //Omitted        playerView.playerLayer.setAffineTransform(affineTransform)
     }
     
     override func viewWillAppear(_ animated: Bool) {

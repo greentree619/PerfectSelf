@@ -427,7 +427,7 @@ class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSample
             let input = AVAssetWriterInput(mediaType: .video, outputSettings: settings) // [AVVideoCodecKey: AVVideoCodecType.h264, AVVideoWidthKey: 1920, AVVideoHeightKey: 1080])
             input.mediaTimeScale = CMTimeScale(bitPattern: 600)
             input.expectsMediaDataInRealTime = true
-            input.transform = CGAffineTransform(rotationAngle: .pi/2)
+            input.transform = getVideoTransform()//CGAffineTransform(rotationAngle: .pi/2)
             let adapter = AVAssetWriterInputPixelBufferAdaptor(assetWriterInput: input, sourcePixelBufferAttributes: nil)
             if writer.canAdd(input) {
                 writer.add(input)

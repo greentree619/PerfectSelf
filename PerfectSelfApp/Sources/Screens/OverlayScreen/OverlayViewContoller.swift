@@ -62,8 +62,8 @@ class OverlayViewController: UIViewController {
         playerView.delegate = self
         guard let _ = uploadVideourl else { return }
         playerView.mainavComposition = getComposition(videoUrl:  uploadVideourl!, audioUrl:  uploadAudiourl!)
-        let affineTransform = CGAffineTransform(rotationAngle: degreeToRadian(90))
-        playerView.playerLayer.setAffineTransform(affineTransform)
+        //Omitted let affineTransform = CGAffineTransform(rotationAngle: degreeToRadian(90))
+        //Omitted playerView.playerLayer.setAffineTransform(affineTransform)
         //Omitted slider.minimumValue = 0
         //Omitted btnStop.isEnabled = false
         btnRecord.isEnabled = true
