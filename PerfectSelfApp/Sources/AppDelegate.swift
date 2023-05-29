@@ -32,16 +32,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         IQKeyboardManager.shared.enable = true
         
         UNUserNotificationCenter.current().delegate = self
-//        requestPushAuthorization()
-//        registerForNotifications()
-        
-//        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { granted, error in
-//          if let error = error {
-//          print("D'oh: \(error.localizedDescription)")
-//          } else {
-//          application.registerForRemoteNotifications()
-//          }
-//        }
         let authOptions: UNAuthorizationOptions = [.alert, .badge, .sound]
         UNUserNotificationCenter.current().requestAuthorization(
           options: authOptions) { _, _ in }

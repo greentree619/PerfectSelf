@@ -31,8 +31,10 @@ class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSample
     @IBOutlet weak var btnLeave: UIButton!
     
     var count = 3
+    var remoteCount = 3
     var timer: Timer!
     var selectedCount = 3
+    var isRecordEnabled = false
     
     private var signalClient: SignalingClient
     private var webRTCClient: WebRTCClient
@@ -190,8 +192,14 @@ class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSample
         capturer.captureSession.beginConfiguration()
         if(capturer.captureSession.canAddOutput(output))
         {
+            isRecordEnabled = true
             capturer.captureSession.addOutput(output)
         }
+        else
+        {
+            isRecordEnabled = false
+        }
+        
         if( capturer.captureSession.canSetSessionPreset(AVCaptureSession.Preset.hd1280x720) )
         {
             capturer.captureSession.sessionPreset = AVCaptureSession.Preset.hd1280x720
@@ -236,6 +244,12 @@ class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSample
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        if(!isRecordEnabled)
+        {
+            let alert = UIAlertController(title: "Warning", message: "This device don't support to record from local camera while take meeting.", preferredStyle: UIAlertController.Style.alert)
+            alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
+            self.present(alert, animated: true, completion: nil)
+        }
 //        DispatchQueue.main.async {
 //            self.count = self.selectedCount
 //            self.lblTimer.text = "\(self.count)"
@@ -243,7 +257,7 @@ class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSample
 //            if self.timer != nil {
 //                self.timer.invalidate()
 //            }
-//            
+//
 //            self.btnBack.isUserInteractionEnabled = false
 //            self.btnLeave.isUserInteractionEnabled = false
 //            self.timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true, block: { timer in
@@ -361,7 +375,7 @@ class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSample
         tapeDate = getDateString()
         
         //Send record cmd to other.
-        let recStart: Data = "\(recordingStartCmd)\(self.tapeDate)#\(self.tapeId)".data(using: .utf8)!
+        let recStart: Data = "\(recordingStartCmd)\(self.tapeDate)#\(self.tapeId)#\(self.count)".data(using: .utf8)!
         self.webRTCClient.sendData(recStart)
         
         self.count = self.selectedCount
@@ -636,10 +650,10 @@ extension ConferenceViewController: WebRTCClientDelegate {
                 let keyInfoArr = keyInfo.components(separatedBy: "#")
                 self.tapeDate   = keyInfoArr[0]
                 self.tapeId = keyInfoArr[1]
+                self.remoteCount = Int(keyInfoArr[2])!
                 
                 DispatchQueue.main.async {
-                    self.count = self.selectedCount
-                    self.lblTimer.text = "\(self.count)"
+                    self.lblTimer.text = "\(self.remoteCount)"
                     self.lblTimer.isHidden = false
                     if self.timer != nil {
                         self.timer.invalidate()
@@ -648,9 +662,9 @@ extension ConferenceViewController: WebRTCClientDelegate {
                     self.btnBack.isUserInteractionEnabled = false
                     self.btnLeave.isUserInteractionEnabled = false
                     self.timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true, block: { timer in
-                        self.count -= 1
-                        self.lblTimer.text = "\(self.count)"
-                        if self.count == 0 {
+                        self.remoteCount -= 1
+                        self.lblTimer.text = "\(self.remoteCount)"
+                        if self.remoteCount == 0 {
                             self.lblTimer.isHidden = true
                             timer.invalidate()
                             self._captureState = .start
