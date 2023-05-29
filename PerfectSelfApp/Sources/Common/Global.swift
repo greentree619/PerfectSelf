@@ -525,3 +525,18 @@ func setSpeakerVolume(_ volume: Float) {
 func degreeToRadian(_ x: CGFloat) -> CGFloat {
     return .pi * x / 180.0
 }
+
+func getVideoTransform() -> CGAffineTransform {
+    switch UIDevice.current.orientation {
+    case .portrait:
+        return .identity
+    case .portraitUpsideDown:
+        return CGAffineTransform(rotationAngle: .pi)
+    case .landscapeLeft:
+        return CGAffineTransform(rotationAngle: .pi/2)
+    case .landscapeRight:
+        return CGAffineTransform(rotationAngle: -.pi/2)
+    default:
+        return .identity
+    }
+}

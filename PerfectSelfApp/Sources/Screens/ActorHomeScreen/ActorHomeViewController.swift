@@ -44,6 +44,7 @@ class ActorHomeViewController: UIViewController, UICollectionViewDataSource, UIC
         readerList.dataSource = self
         readerList.delegate = self
         readerList.allowsSelection = true
+        self.unread_badge.isHidden = false
         // Do any additional setup after loading the view.
       
     }
@@ -52,28 +53,47 @@ class ActorHomeViewController: UIViewController, UICollectionViewDataSource, UIC
         // Retrieve the saved data from UserDefaults
         if let userInfo = UserDefaults.standard.object(forKey: "USER") as? [String:Any] {
             // Use the saved data
-            let name = userInfo["firstName"] as? String
+//            let name = userInfo["firstName"] as? String
             uid = userInfo["uid"] as? String
-            let bucketName = userInfo["avatarBucketName"] as? String
-            let avatarKey = userInfo["avatarKey"] as? String
-            greetingLabel.text = "Hi, " + (name ?? "User")
-            if (bucketName != nil && avatarKey != nil) {
-                let url = "https://\( bucketName!).s3.us-east-2.amazonaws.com/\(avatarKey!)"
-                img_actor_avatar.imageFrom(url: URL(string: url)!)
+//            let bucketName = userInfo["avatarBucketName"] as? String
+//            let avatarKey = userInfo["avatarKey"] as? String
+//            greetingLabel.text = "Hi, " + (name ?? "User")
+//            if (bucketName != nil && avatarKey != nil) {
+//                let url = "https://\( bucketName!).s3.us-east-2.amazonaws.com/\(avatarKey!)"
+//                img_actor_avatar.imageFrom(url: URL(string: url)!)
+//            }
+            // call user info
+            webAPI.getUserInfo(uid: uid) { data, response, error in
+                guard let data = data, error == nil else {
+                    print(error?.localizedDescription ?? "No data")
+                    return
+                }
+                
+                let responseJSON = try? JSONSerialization.jsonObject(with: data, options: [])
+                if let responseJSON = responseJSON as? [String: Any] {
+                    
+                    UserDefaults.standard.removeObject(forKey: "USER")
+                    UserDefaults.standard.setValue(responseJSON, forKey: "USER")
+                    DispatchQueue.main.async {
+                        let name = responseJSON["firstName"] as? String
+                        let bucketName = responseJSON["avatarBucketName"] as? String
+                        let avatarKey = responseJSON["avatarKey"] as? String
+                        self.greetingLabel.text = "Hi, " + (name ?? "User")
+                        if (bucketName != nil && avatarKey != nil) {
+                            let url = "https://\( bucketName!).s3.us-east-2.amazonaws.com/\(avatarKey!)"
+                            self.img_actor_avatar.imageFrom(url: URL(string: url)!)
+                        }
+                    }
+                }
             }
         } else {
             // No data was saved
             print("No data was saved.")
         }
         fetchReaderList()
-        //call API for badge appear
         fetchUnreadState()
     }
-    
-//    @IBAction func didSearchStringChanged(_ sender: UITextField) {
-//        searchString = sender.text ?? ""
-//        fetchReaderList()
-//    }
+
     func fetchUnreadState() {
         //call API for badge appear
         webAPI.getUnreadCountByUid(uid: uid) { data, response, error in
