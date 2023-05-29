@@ -87,39 +87,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
             return mainViewController
         }
     }
-    
-//    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
-//        //Toast.show(message: "userNotificationCenter", controller: uiViewContoller!)
-//        completionHandler([.banner, .badge, .sound])
-//    }
 
     ///MARK: google sigin
     func application(_ application: UIApplication,
                      open url: URL, sourceApplication: String?, annotation: Any) -> Bool {
         return GIDSignIn.sharedInstance().handle(url)
     }
-    
-//    @available(iOS 9.0, *)
-//    func application(_ app: UIApplication, open url: URL,
-//                     options: [UIApplication.OpenURLOptionsKey : Any]) -> Bool {
-//        let sourceApplication = options[UIApplication.OpenURLOptionsKey.sourceApplication] as? String
-//        let annotation = options[UIApplication.OpenURLOptionsKey.annotation]
-//        return GIDSignIn.sharedInstance().handle(url)
-//    }
 //    
 //    // MARK: UISceneSession Lifecycle
-//    
-//    func application(_ application: UIApplication, configurationForConnecting connectingSceneSession: UISceneSession, options: UIScene.ConnectionOptions) -> UISceneConfiguration {
-//        // Called when a new scene session is being created.
-//        // Use this method to select a configuration to create the new scene with.
-//        return UISceneConfiguration(name: "Default Configuration", sessionRole: connectingSceneSession.role)
-//    }
-//    
-//    func application(_ application: UIApplication, didDiscardSceneSessions sceneSessions: Set<UISceneSession>) {
-//        // Called when the user discards a scene session.
-//        // If any sessions were discarded while the application was not running, this will be called shortly after application:didFinishLaunchingWithOptions.
-//        // Use this method to release any resources that were specific to the discarded scenes, as they will not return.
-//    }
 }
 
 @available(iOS 14.0, *)
@@ -131,6 +106,22 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
         fcmDeviceToken = token
         print("Device Token: \(token)")
         //Toast.show(message: "register: \(token)", controller: uiViewContoller!)
+        
+        DispatchQueue.main.async {
+            if let userInfo = UserDefaults.standard.object(forKey: "USER") as? [String:Any] {
+                let uid = userInfo["uid"] as! String
+                let token = userInfo["fcmDeviceToken"] as! String
+                if(token != fcmDeviceToken)
+                {
+                    webAPI.updateUserInfo(uid: uid, userType: -1, bucketName: "", avatarKey: "", username: "", email: "", password: "", firstName: "", lastName: "", dateOfBirth: "", gender: -1, currentAddress: "", permanentAddress: "", city: "", nationality: "", phoneNumber: "", isLogin: true, fcmDeviceToken: fcmDeviceToken, deviceKind: -1)  { data, response, error in
+                        if error == nil {
+                            // successfully update db
+                            print("update db completed")
+                        }
+                    }
+                }
+            }
+        }
     }
     
     func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
