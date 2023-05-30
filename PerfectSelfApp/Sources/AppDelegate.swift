@@ -135,7 +135,25 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
         withCompletionHandler completionHandler:
         @escaping (UNNotificationPresentationOptions) -> Void
     ) {
-        completionHandler([[.banner, .sound]])
+        completionHandler([[.banner, .badge, .sound]])
+//        print("User Info = ",notification.request.content.userInfo)
+//        if (UIApplication.shared.applicationState == .background) {
+//            print("User Info = ",notification.request.content.userInfo)
+//            //NSLog("Notification received in background: title:\"\(title)\" body:\"\(body)\"")
+//        } else
+//        {
+//            let alertController = UIAlertController(title: "Notification - PefectSelf", message: "Resered Booking from actor", preferredStyle: .alert)
+//            alertController.addAction(UIAlertAction(title: "OK", style: .cancel))
+//
+//            //Force
+//            //UIApplication.shared.windows.first?.rootViewController!.present(..)
+//
+//            //Safe
+//            guard let viewController = UIApplication.shared.windows.first?.rootViewController else {return}
+//            viewController.present(alertController, animated: true)
+//
+//            //self.present(alertController, animated: true)
+//        }
     }
     
     func userNotificationCenter(
