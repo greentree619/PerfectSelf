@@ -17,7 +17,7 @@ enum PipelineMode
     case PipelineModeAssetWriter
 }// internal state machine
 
-class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDelegate, AVAudioRecorderDelegate {
+class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDelegate, AVCaptureAudioDataOutputSampleBufferDelegate, AVAudioRecorderDelegate {
     
     @IBOutlet weak var localVideoView: UIView!
     
@@ -58,6 +58,64 @@ class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSample
     private var waitSecKey: String = "REC_WAIT_SEC"
     var recordingStartCmd: String = "#CMD#REC#START#"
     var recordingEndCmd: String = "#CMD#REC#END#"
+    
+    let videoQueue = DispatchQueue(label: "VideoQueue", qos: .background, attributes: .concurrent, autoreleaseFrequency: .workItem, target: nil)
+    private let captureSession = AVCaptureSession()
+    
+    var outputUrl: URL {
+        get {
+            
+            if let url = _outputUrl {
+                return url
+            }
+            
+            _outputUrl = outputDirectory.appendingPathComponent("video.mp4")
+            return _outputUrl!
+        }
+    }
+    
+    private var _outputUrl: URL?
+    
+    var exportUrl: URL {
+        get {
+            
+            if let url = _exportUrl {
+                return url
+            }
+            
+            _exportUrl = outputDirectory.appendingPathComponent("video_encoded.mp4")
+            return _exportUrl!
+        }
+    }
+    
+    private var _exportUrl: URL?
+    
+    var outputDirectory: URL {
+        get {
+            
+            if let url = _outputDirectory {
+                return url
+            }
+            
+            _outputDirectory = getDocumentsDirectory().appendingPathComponent("recording")
+            return _outputDirectory!
+        }
+    }
+    
+    private var _outputDirectory: URL?
+
+        private var assetWriter: AVAssetWriter?
+        private var videoInput: AVAssetWriterInput?
+        private var audioInput: AVAssetWriterInput?
+        private var videoOutput: AVCaptureVideoDataOutput?
+        private var audioOutput: AVCaptureAudioDataOutput?
+
+        //private var isRecording = false
+        private var isWriting = false
+
+        private var videoSize = CGSize(width: 640, height: 480)
+        private var exportPreset = AVAssetExportPreset640x480
+
     
     //MARK: WebRTC Conference Status
     
@@ -242,7 +300,175 @@ class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSample
         self.embedView(remoteRenderer, into: self.remoteCameraView)
         self.remoteCameraView.sendSubviewToBack(remoteRenderer)
         setSpeakerVolume(1.0)
+        
+        
+        videoQueue.async {
+            
+            do {
+                
+                try self.configureCaptureSession()
+                
+                DispatchQueue.main.sync {
+                    //Omitted self.configurePreview()
+                }
+                
+            } catch {
+                
+                DispatchQueue.main.async {
+                   //Toast("Unable to configure capture session")
+                }
+            }
+        }
     }
+    
+    private func configureCaptureSession() throws {
+        
+        do {
+            
+            // configure capture devices
+            let camDevice = AVCaptureDevice.default(for: AVMediaType.video)
+            let micDevice = AVCaptureDevice.default(for: AVMediaType.audio)
+            
+            let camInput = try AVCaptureDeviceInput(device: camDevice!)
+            let micInput = try AVCaptureDeviceInput(device: micDevice!)
+            
+            if captureSession.canAddInput(camInput) {
+                captureSession.addInput(camInput)
+            }
+            
+            if captureSession.canAddInput(micInput) {
+                captureSession.addInput(micInput)
+            }
+            
+            // configure audio/video output
+            videoOutput = AVCaptureVideoDataOutput()
+            videoOutput?.alwaysDiscardsLateVideoFrames = false // TODO: is this necessary?
+            videoOutput?.setSampleBufferDelegate(self, queue: videoQueue)
+            
+            if let v = videoOutput {
+                captureSession.addOutput(v)
+            }
+            
+            audioOutput = AVCaptureAudioDataOutput()
+            audioOutput?.setSampleBufferDelegate(self, queue: videoQueue)
+            
+            if let a = audioOutput {
+                captureSession.addOutput(a)
+            }
+            
+            // configure audio session
+            let audioSession = AVAudioSession.sharedInstance()
+            try audioSession.setCategory(AVAudioSession.Category.playAndRecord)
+            try audioSession.setActive(true)
+            
+            var micPort: AVAudioSessionPortDescription?
+            
+            if let inputs = audioSession.availableInputs {
+                for port in inputs {
+                    if port.portType == AVAudioSession.Port.builtInMic {
+                        micPort = port
+                        break;
+                    }
+                }
+            }
+            
+            if let port = micPort, let dataSources = port.dataSources {
+                
+                for source in dataSources {
+                    if source.orientation == AVAudioSession.Orientation.front {
+                        try audioSession.setPreferredInput(port)
+                        break
+                    }
+                }
+            }
+            
+        } catch {
+            print("Failed to configure audio/video capture session")
+            throw error
+        }
+    }
+    
+    private func configureAssetWriter() throws {
+        
+        prepareVideoFile()
+        
+        do {
+            
+            if assetWriter != nil {
+                assetWriter = nil
+                videoInput = nil
+                audioInput = nil
+            }
+            
+            assetWriter = try AVAssetWriter(url: outputUrl, fileType: AVFileType.mp4)
+            
+            guard let writer = assetWriter else {
+                print("Asset writer not created")
+                return
+            }
+            
+            let videoSettings: [String: Any] = [AVVideoCodecKey: AVVideoCodecType.h264,
+                                                AVVideoWidthKey: NSNumber(value: Float(videoSize.width)),
+                                               AVVideoHeightKey: NSNumber(value: Float(videoSize.height))]
+            
+            videoInput = AVAssetWriterInput(mediaType: AVMediaType.video, outputSettings: videoSettings)
+            videoInput?.expectsMediaDataInRealTime = true
+            
+            var channelLayout = AudioChannelLayout()
+            memset(&channelLayout, 0, MemoryLayout<AudioChannelLayout>.size);
+            channelLayout.mChannelLayoutTag = kAudioChannelLayoutTag_Stereo;
+            
+            let audioSettings: [String: Any] = [AVFormatIDKey: kAudioFormatMPEG4AAC,
+                                              AVSampleRateKey: 44100,
+                                        AVNumberOfChannelsKey: 2]
+            
+            audioInput = AVAssetWriterInput(mediaType: AVMediaType.audio, outputSettings: audioSettings)
+            audioInput?.expectsMediaDataInRealTime = true
+            
+            guard let vi = videoInput else {
+                print("Video input not configured")
+                return
+            }
+            
+            guard let ai = audioInput else {
+                print("Audio input not configured")
+                return
+            }
+            
+            if writer.canAdd(vi) {
+                writer.add(vi)
+            }
+            
+            if writer.canAdd(ai) {
+                writer.add(ai)
+            }
+            
+        } catch {
+            print("Failed to configure asset writer")
+            throw error
+        }
+    }
+
+        private func prepareVideoFile() {
+
+            if FileManager.default.fileExists(atPath: outputUrl.path) {
+
+                do {
+                    try FileManager.default.removeItem(at: outputUrl)
+                } catch {
+                    print("Unable to remove file at URL \(outputUrl)")
+                }
+            }
+
+            if !FileManager.default.fileExists(atPath: outputDirectory.path) {
+
+                do {
+                    try FileManager.default.createDirectory(at: outputDirectory, withIntermediateDirectories: true, attributes: nil)
+                } catch {
+                    print("Unable to create directory at URL \(outputDirectory)")
+                }
+            }
+        }
     
     override func viewWillAppear(_ animated: Bool) {
         if(!isRecordEnabled)
@@ -269,20 +495,11 @@ class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSample
                 if self.count == 0 {
                     self.lblTimer.isHidden = true
                     timer.invalidate()
-                    self._captureState = .start
-                    self.audioRecorder?.record()
+                    //self._captureState = .start
+                    //self.audioRecorder?.record()
+                    self.startRecording()
                 }
             })
-            
-            //{{TESTCODE
-            var count = 10
-            _ = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true, block: { timer in
-                count -= 1
-                if count == 0 {
-                    self.recordEnd()
-                }
-            })
-            //}}TESTCODE
         }
     }
     
@@ -706,4 +923,245 @@ extension ConferenceViewController: WebRTCClientDelegate {
             //            self.present(alert, animated: true, completion: nil)
         }
     }
+    
+    private func getDocumentsDirectory() -> URL {
+        let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+        let documentsDirectory = paths[0]
+        return documentsDirectory
+    }
+    
+    private func getVideoSize() -> CGSize {
+
+            if UIDevice.current.orientation == .landscapeLeft || UIDevice.current.orientation == .landscapeRight {
+
+                if videoSize.width > videoSize.height {
+                    return videoSize
+                } else {
+                    return CGSize(width: videoSize.height, height: videoSize.width)
+                }
+
+            } else {
+
+                if videoSize.width < videoSize.height {
+                    return videoSize
+                } else {
+                    return CGSize(width: videoSize.height, height: videoSize.width)
+                }
+            }
+        }
+
+        //MARK: - Controls
+
+        private func startRecording() {
+
+            videoQueue.async {
+
+                do {
+                    try self.configureAssetWriter()
+                    self.captureSession.startRunning()
+
+                } catch {
+                    print("Unable to start recording")
+                    //Omitted DispatchQueue.main.async { self.showAlert("Unable to start recording") }
+                }
+            }
+
+            isRecording = true
+            //Omitted playStopButton.setTitle("Stop Recording", for: .normal)
+            print("Recording did start")
+            
+            //{{TESTCODE
+            var count = 10
+            _ = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true, block: { timer in
+                count -= 1
+                if count == 0 {
+                    //self.recordEnd()
+                    self.stopRecording()
+                }
+            })
+            //}}TESTCODE
+        }
+
+        private func stopRecording() {
+
+            if !isRecording {
+                return
+            }
+
+            videoQueue.async {
+                self.captureSession.stopRunning()
+                
+//                self.assetWriter!.finishWriting {
+//                    print("Asset writer did finish writing")
+//                    self.isWriting = false
+//                }
+
+                do {
+                    try self.export()
+                } catch {
+                    print("Export failed")
+                    //Omitted DispatchQueue.main.async { self.showAlert("Unable to export video") }
+                }
+            }
+
+            isRecording = false
+
+            //Omitted playStopButton.setTitle("Start Recording", for: .normal)
+            print("Recording did stop")
+        }
+
+        //MARK: - AVCaptureVideoDataOutputSampleBufferDelegate
+
+        func captureOutput(_ captureOutput: AVCaptureOutput!, didOutputSampleBuffer sampleBuffer: CMSampleBuffer!, from connection: AVCaptureConnection!) {
+
+            guard let w = assetWriter else {
+                print("Asset writer not configured")
+                return
+            }
+
+            guard let vo = videoOutput else {
+                print("Video output not configured")
+                return
+            }
+
+            guard let ao = audioOutput else {
+                print("Audio output not configured")
+                return
+            }
+
+            guard let vi = videoInput else {
+                print("Video input not configured")
+                return
+            }
+
+            guard let ai = audioInput else {
+                print("Audio input not configured")
+                return
+            }
+
+            let st = CMSampleBufferGetPresentationTimeStamp(sampleBuffer)
+
+            print("Writer status \(w.status.rawValue)")
+
+            if let e = w.error {
+                print("Writer error \(e)")
+                stopRecording()
+                return
+            }
+
+            switch w.status {
+
+            case .unknown:
+
+                if !isWriting {
+                    isWriting = true
+                    w.startWriting()
+                    w.startSession(atSourceTime: st)
+                }
+
+                return
+
+            case .completed:
+                print("Video writing completed")
+                return
+
+            case .cancelled:
+                print("Video writing cancelled")
+                return
+
+            case .failed:
+                print("Video writing failed")
+                return
+
+            default:
+                print("Video is writing")
+            }
+
+            if vo == captureOutput {
+
+                if !vi.append(sampleBuffer) {
+                    print("Unable to write to video buffer")
+                }
+
+            } else if ao == captureOutput {
+
+                if !ai.append(sampleBuffer) {
+                    print("Unable to write to audio buffer")
+                }
+            }
+        }
+
+        //MARK: - Export
+
+        private func getVideoComposition(asset: AVAsset, videoSize: CGSize) -> AVMutableVideoComposition? {
+
+            guard let videoTrack = asset.tracks(withMediaType: AVMediaType.video).first else {
+                print("Unable to get video tracks")
+                return nil
+            }
+
+            let videoComposition = AVMutableVideoComposition()
+            videoComposition.renderSize = videoSize
+
+            let seconds: Float64 = Float64(1.0 / videoTrack.nominalFrameRate)
+            videoComposition.frameDuration = CMTimeMakeWithSeconds(seconds, preferredTimescale: 600);
+
+            let layerInst = AVMutableVideoCompositionLayerInstruction(assetTrack: videoTrack)
+
+            var transforms = asset.preferredTransform
+
+            var isPortrait = true;
+
+            if (transforms.a == 0.0 && transforms.b == 1.0 && transforms.c == -1.0 && transforms.d == 0)
+            || (transforms.a == 0.0 && transforms.b == -1.0 && transforms.c == 1.0 && transforms.d == 0) {
+                isPortrait = false;
+            }
+
+            if isPortrait {
+                //Omitted transforms = transforms.concatenating(CGAffineTransform(rotationAngle: CGFloat(90.0.degreesToRadians)))
+                transforms = transforms.concatenating(CGAffineTransform(translationX: videoSize.width, y: 0))
+            }
+
+            layerInst.setTransform(transforms, at: CMTime.zero)
+
+            let inst = AVMutableVideoCompositionInstruction()
+            inst.backgroundColor = UIColor.black.cgColor
+            inst.layerInstructions = [layerInst]
+            inst.timeRange = CMTimeRange(start: CMTime.zero, duration: asset.duration)
+
+            videoComposition.instructions = [inst]
+
+            return videoComposition
+
+        }
+
+        private func export() throws {
+
+            let videoAsset = AVURLAsset(url: outputUrl)
+
+            if FileManager.default.fileExists(atPath: exportUrl.path) {
+                try FileManager.default.removeItem(at: exportUrl)
+            }
+
+            let videoSize = getVideoSize()
+
+            guard let encoder = AVAssetExportSession(asset: videoAsset, presetName: exportPreset) else {
+                print("Unable to create encoder")
+                return
+            }
+
+            guard let vidcomp = getVideoComposition(asset: videoAsset, videoSize: videoSize) else {
+                print("Unable to create video composition")
+                return
+            }
+
+            encoder.videoComposition = vidcomp
+            encoder.outputFileType = AVFileType.mp4  // MP4 format
+            encoder.outputURL = exportUrl
+            encoder.shouldOptimizeForNetworkUse = true
+
+            encoder.exportAsynchronously(completionHandler: {
+                print("Video exported successfully")
+            })
+        }
 }
