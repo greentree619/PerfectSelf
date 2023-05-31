@@ -246,23 +246,25 @@ class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSample
         guard let capturer = self.webRTCClient.videoCapturer as? RTCCameraVideoCapturer else {
             return
         }
-        capturer.captureSession.canAddOutput(output)
+        //capturer.captureSession.canAddOutput(output)
         output.setSampleBufferDelegate(self, queue: DispatchQueue(label: "com.yusuke024.video"))
-        capturer.captureSession.beginConfiguration()
-        if(capturer.captureSession.canAddOutput(output))
-        {
-            isRecordEnabled = true
-            capturer.captureSession.addOutput(output)
-        }
-        else
-        {
-            isRecordEnabled = false
-        }
+                if(capturer.captureSession.canAddOutput(output))
+                {
+                    isRecordEnabled = true
+                    capturer.captureSession.addOutput(output)
+                }
+                else
+                {
+                    isRecordEnabled = false
+                }
         
-        if( capturer.captureSession.canSetSessionPreset(AVCaptureSession.Preset.hd1280x720) )
-        {
-            capturer.captureSession.sessionPreset = AVCaptureSession.Preset.hd1280x720
-        }
+        capturer.captureSession.beginConfiguration()
+
+        
+//        if( capturer.captureSession.canSetSessionPreset(AVCaptureSession.Preset.hd1280x720) )
+//        {
+//            capturer.captureSession.sessionPreset = AVCaptureSession.Preset.hd1280x720
+//        }
         capturer.captureSession.commitConfiguration()
         _videoOutput = output
         _captureSession = capturer.captureSession
@@ -400,7 +402,9 @@ class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSample
                 audioInput = nil
             }
             
-            assetWriter = try AVAssetWriter(url: outputUrl, fileType: AVFileType.mp4)
+            //assetWriter = try AVAssetWriter(url: outputUrl, fileType: AVFileType.mp4)
+            let videoPath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!.appendingPathComponent("\(_filename).mp4")
+            assetWriter = try AVAssetWriter(outputURL: videoPath, fileType: .mp4)
             
             guard let writer = assetWriter else {
                 print("Asset writer not created")
@@ -971,7 +975,7 @@ extension ConferenceViewController: WebRTCClientDelegate {
             print("Recording did start")
             
             //{{TESTCODE
-            var count = 10
+            var count = 60
             _ = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true, block: { timer in
                 count -= 1
                 if count == 0 {
@@ -989,12 +993,12 @@ extension ConferenceViewController: WebRTCClientDelegate {
             }
 
             videoQueue.async {
-                self.captureSession.stopRunning()
+                self.assetWriter!.finishWriting {
+                    print("Asset writer did finish writing")
+                    self.isWriting = false
+                }
                 
-//                self.assetWriter!.finishWriting {
-//                    print("Asset writer did finish writing")
-//                    self.isWriting = false
-//                }
+                self.captureSession.stopRunning()
 
                 do {
                     try self.export()
