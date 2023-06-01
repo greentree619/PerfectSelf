@@ -17,7 +17,7 @@ enum PipelineMode
     case PipelineModeAssetWriter
 }// internal state machine
 
-class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDelegate, AVCaptureAudioDataOutputSampleBufferDelegate, AVAudioRecorderDelegate {
+class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDelegate, AVCaptureAudioDataOutputSampleBufferDelegate, AVAudioRecorderDelegate, AVCaptureFileOutputRecordingDelegate {
     
     @IBOutlet weak var localVideoView: UIView!
     
@@ -61,6 +61,7 @@ class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSample
     
     let videoQueue = DispatchQueue(label: "VideoQueue", qos: .background, attributes: .concurrent, autoreleaseFrequency: .workItem, target: nil)
     private let captureSession = AVCaptureSession()
+    var movieOutput: AVCaptureMovieFileOutput?
     
     var outputUrl: URL {
         get {
@@ -246,7 +247,7 @@ class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSample
         guard let capturer = self.webRTCClient.videoCapturer as? RTCCameraVideoCapturer else {
             return
         }
-        capturer.captureSession.canAddOutput(output)
+        //capturer.captureSession.canAddOutput(output)
         output.setSampleBufferDelegate(self, queue: DispatchQueue(label: "com.yusuke024.video"))
         capturer.captureSession.beginConfiguration()
         if(capturer.captureSession.canAddOutput(output))
@@ -321,155 +322,6 @@ class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSample
         }
     }
     
-    private func configureCaptureSession() throws {
-        
-        do {
-            
-            // configure capture devices
-            let camDevice = AVCaptureDevice.default(for: AVMediaType.video)
-            let micDevice = AVCaptureDevice.default(for: AVMediaType.audio)
-            
-            let camInput = try AVCaptureDeviceInput(device: camDevice!)
-            let micInput = try AVCaptureDeviceInput(device: micDevice!)
-            
-            if captureSession.canAddInput(camInput) {
-                captureSession.addInput(camInput)
-            }
-            
-            if captureSession.canAddInput(micInput) {
-                captureSession.addInput(micInput)
-            }
-            
-            // configure audio/video output
-            videoOutput = AVCaptureVideoDataOutput()
-            videoOutput?.alwaysDiscardsLateVideoFrames = false // TODO: is this necessary?
-            videoOutput?.setSampleBufferDelegate(self, queue: videoQueue)
-            
-            if let v = videoOutput {
-                captureSession.addOutput(v)
-            }
-            
-            audioOutput = AVCaptureAudioDataOutput()
-            audioOutput?.setSampleBufferDelegate(self, queue: videoQueue)
-            
-            if let a = audioOutput {
-                captureSession.addOutput(a)
-            }
-            
-            // configure audio session
-            let audioSession = AVAudioSession.sharedInstance()
-            try audioSession.setCategory(AVAudioSession.Category.playAndRecord)
-            try audioSession.setActive(true)
-            
-            var micPort: AVAudioSessionPortDescription?
-            
-            if let inputs = audioSession.availableInputs {
-                for port in inputs {
-                    if port.portType == AVAudioSession.Port.builtInMic {
-                        micPort = port
-                        break;
-                    }
-                }
-            }
-            
-            if let port = micPort, let dataSources = port.dataSources {
-                
-                for source in dataSources {
-                    if source.orientation == AVAudioSession.Orientation.front {
-                        try audioSession.setPreferredInput(port)
-                        break
-                    }
-                }
-            }
-            
-        } catch {
-            print("Failed to configure audio/video capture session")
-            throw error
-        }
-    }
-    
-    private func configureAssetWriter() throws {
-        
-        prepareVideoFile()
-        
-        do {
-            
-            if assetWriter != nil {
-                assetWriter = nil
-                videoInput = nil
-                audioInput = nil
-            }
-            
-            assetWriter = try AVAssetWriter(url: outputUrl, fileType: AVFileType.mp4)
-            
-            guard let writer = assetWriter else {
-                print("Asset writer not created")
-                return
-            }
-            
-            let videoSettings: [String: Any] = [AVVideoCodecKey: AVVideoCodecType.h264,
-                                                AVVideoWidthKey: NSNumber(value: Float(videoSize.width)),
-                                               AVVideoHeightKey: NSNumber(value: Float(videoSize.height))]
-            
-            videoInput = AVAssetWriterInput(mediaType: AVMediaType.video, outputSettings: videoSettings)
-            videoInput?.expectsMediaDataInRealTime = true
-            
-            var channelLayout = AudioChannelLayout()
-            memset(&channelLayout, 0, MemoryLayout<AudioChannelLayout>.size);
-            channelLayout.mChannelLayoutTag = kAudioChannelLayoutTag_Stereo;
-            
-            let audioSettings: [String: Any] = [AVFormatIDKey: kAudioFormatMPEG4AAC,
-                                              AVSampleRateKey: 44100,
-                                        AVNumberOfChannelsKey: 2]
-            
-            audioInput = AVAssetWriterInput(mediaType: AVMediaType.audio, outputSettings: audioSettings)
-            audioInput?.expectsMediaDataInRealTime = true
-            
-            guard let vi = videoInput else {
-                print("Video input not configured")
-                return
-            }
-            
-            guard let ai = audioInput else {
-                print("Audio input not configured")
-                return
-            }
-            
-            if writer.canAdd(vi) {
-                writer.add(vi)
-            }
-            
-            if writer.canAdd(ai) {
-                writer.add(ai)
-            }
-            
-        } catch {
-            print("Failed to configure asset writer")
-            throw error
-        }
-    }
-
-        private func prepareVideoFile() {
-
-            if FileManager.default.fileExists(atPath: outputUrl.path) {
-
-                do {
-                    try FileManager.default.removeItem(at: outputUrl)
-                } catch {
-                    print("Unable to remove file at URL \(outputUrl)")
-                }
-            }
-
-            if !FileManager.default.fileExists(atPath: outputDirectory.path) {
-
-                do {
-                    try FileManager.default.createDirectory(at: outputDirectory, withIntermediateDirectories: true, attributes: nil)
-                } catch {
-                    print("Unable to create directory at URL \(outputDirectory)")
-                }
-            }
-        }
-    
     override func viewWillAppear(_ animated: Bool) {
         if(!isRecordEnabled)
         {
@@ -479,6 +331,9 @@ class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSample
         }
         DispatchQueue.main.async {
             ConferenceViewController.clearTempFolder()
+            self.tapeId = getTapeIdString()
+            self.tapeDate = getDateString()
+            
             Toast.show(message: "Recording ready...", controller: uiViewContoller!)
             self.count = self.selectedCount
             self.lblTimer.text = "\(self.count)"
@@ -762,6 +617,157 @@ class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSample
         }
     }
     
+    private func configureCaptureSession() throws {
+        
+        do {
+            
+            // configure capture devices
+            let camDevice = AVCaptureDevice.default(for: AVMediaType.video)
+            let micDevice = AVCaptureDevice.default(for: AVMediaType.audio)
+            
+            let camInput = try AVCaptureDeviceInput(device: camDevice!)
+            let micInput = try AVCaptureDeviceInput(device: micDevice!)
+            
+            if captureSession.canAddInput(camInput) {
+                captureSession.addInput(camInput)
+            }
+            
+            if captureSession.canAddInput(micInput) {
+                captureSession.addInput(micInput)
+            }
+            
+//            // configure audio/video output
+//            videoOutput = AVCaptureVideoDataOutput()
+//            videoOutput?.alwaysDiscardsLateVideoFrames = false // TODO: is this necessary?
+//            videoOutput?.setSampleBufferDelegate(self, queue: videoQueue)
+//
+//            if let v = videoOutput {
+//                captureSession.addOutput(v)
+//            }
+            
+//            audioOutput = AVCaptureAudioDataOutput()
+//            audioOutput?.setSampleBufferDelegate(self, queue: videoQueue)
+//
+//            if let a = audioOutput {
+//                captureSession.addOutput(a)
+//            }
+            movieOutput = AVCaptureMovieFileOutput()
+            captureSession.addOutput(movieOutput!)
+            
+            // configure audio session
+            let audioSession = AVAudioSession.sharedInstance()
+            try audioSession.setCategory(AVAudioSession.Category.playAndRecord)
+            try audioSession.setActive(true)
+            
+            var micPort: AVAudioSessionPortDescription?
+            
+            if let inputs = audioSession.availableInputs {
+                for port in inputs {
+                    if port.portType == AVAudioSession.Port.builtInMic {
+                        micPort = port
+                        break;
+                    }
+                }
+            }
+            
+            if let port = micPort, let dataSources = port.dataSources {
+                
+                for source in dataSources {
+                    if source.orientation == AVAudioSession.Orientation.front {
+                        try audioSession.setPreferredInput(port)
+                        break
+                    }
+                }
+            }
+            
+        } catch {
+            print("Failed to configure audio/video capture session")
+            throw error
+        }
+    }
+    
+    private func configureAssetWriter() throws {
+        
+        prepareVideoFile()
+        
+        do {
+            
+            if assetWriter != nil {
+                assetWriter = nil
+                videoInput = nil
+                audioInput = nil
+            }
+            
+            assetWriter = try AVAssetWriter(url: outputUrl, fileType: AVFileType.mp4)
+            
+            guard let writer = assetWriter else {
+                print("Asset writer not created")
+                return
+            }
+            
+            let videoSettings: [String: Any] = [AVVideoCodecKey: AVVideoCodecType.h264,
+                                                AVVideoWidthKey: NSNumber(value: Float(videoSize.width)),
+                                               AVVideoHeightKey: NSNumber(value: Float(videoSize.height))]
+            
+            videoInput = AVAssetWriterInput(mediaType: AVMediaType.video, outputSettings: videoSettings)
+            videoInput?.expectsMediaDataInRealTime = true
+            
+            var channelLayout = AudioChannelLayout()
+            memset(&channelLayout, 0, MemoryLayout<AudioChannelLayout>.size);
+            channelLayout.mChannelLayoutTag = kAudioChannelLayoutTag_Stereo;
+            
+            let audioSettings: [String: Any] = [AVFormatIDKey: kAudioFormatMPEG4AAC,
+                                              AVSampleRateKey: 44100,
+                                        AVNumberOfChannelsKey: 2]
+            
+            audioInput = AVAssetWriterInput(mediaType: AVMediaType.audio, outputSettings: audioSettings)
+            audioInput?.expectsMediaDataInRealTime = true
+            
+            guard let vi = videoInput else {
+                print("Video input not configured")
+                return
+            }
+            
+            guard let ai = audioInput else {
+                print("Audio input not configured")
+                return
+            }
+            
+            if writer.canAdd(vi) {
+                writer.add(vi)
+            }
+            
+            if writer.canAdd(ai) {
+                writer.add(ai)
+            }
+            
+        } catch {
+            print("Failed to configure asset writer")
+            throw error
+        }
+    }
+
+        private func prepareVideoFile() {
+
+            if FileManager.default.fileExists(atPath: outputUrl.path) {
+
+                do {
+                    try FileManager.default.removeItem(at: outputUrl)
+                } catch {
+                    print("Unable to remove file at URL \(outputUrl)")
+                }
+            }
+
+            if !FileManager.default.fileExists(atPath: outputDirectory.path) {
+
+                do {
+                    try FileManager.default.createDirectory(at: outputDirectory, withIntermediateDirectories: true, attributes: nil)
+                } catch {
+                    print("Unable to create directory at URL \(outputDirectory)")
+                }
+            }
+        }
+    
     func audioRecorderDidFinishRecording(_ recorder: AVAudioRecorder, successfully flag: Bool) {
         if !flag {
             audioRecorder?.stop()
@@ -786,141 +792,6 @@ class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSample
         guard let filePaths = try? fileManager.contentsOfDirectory(at: diskCacheStorageBaseUrl, includingPropertiesForKeys: nil, options: []) else { return }
         for filePath in filePaths {
             try? fileManager.removeItem(at: filePath)
-        }
-    }
-}
-
-//MARK: SignalClientDelegate
-//extension ConferenceViewController: SignalClientDelegate {
-//    func signalClientDidConnect(_ signalClient: SignalingClient) {
-//        //REFME self.signalingConnected = true
-//    }
-//
-//    func signalClientDidDisconnect(_ signalClient: SignalingClient) {
-//        //REFME self.signalingConnected = false
-//    }
-//
-//    func signalClient(_ signalClient: SignalingClient, didReceiveRemoteSdp sdp: RTCSessionDescription) {
-//        print("Received remote sdp")
-//        self.webRTCClient.set(remoteSdp: sdp) { (error) in
-//            //REFME self.hasRemoteSdp = true
-//        }
-//    }
-//
-//    func signalClient(_ signalClient: SignalingClient, didReceiveCandidate candidate: RTCIceCandidate) {
-//        self.webRTCClient.set(remoteCandidate: candidate) { error in
-//            print("Received remote candidate")
-//            //REFME self.remoteCandidateCount += 1
-//        }
-//    }
-//}
-
-////MARK: UIPickerViewDelegate
-extension ConferenceViewController: UIPickerViewDelegate, UIPickerViewDataSource  {
-    func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        return 1
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return 10
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return "\(row+1)"
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        // This method is triggered whenever the user makes a change to the picker selection.
-        // The parameter named row and component represents what was selected.
-        self.selectedCount = row+1
-    }
-}
-
-//MARK: WebRTCClientDelegate
-extension ConferenceViewController: WebRTCClientDelegate {
-    
-    func webRTCClient(_ client: WebRTCClient, didDiscoverLocalCandidate candidate: RTCIceCandidate) {
-        print("discovered local candidate")
-        //REFME self.localCandidateCount += 1
-        self.signalClient.send(candidate: candidate, roomId: self.roomUid)
-    }
-    
-    func webRTCClient(_ client: WebRTCClient, didChangeConnectionState state: RTCIceConnectionState) {
-        //REFME
-        //        let textColor: UIColor
-        //        switch state {
-        //        case .connected, .completed:
-        //            textColor = .green
-        //        case .disconnected:
-        //            textColor = .orange
-        //        case .failed, .closed:
-        //            textColor = .red
-        //        case .new, .checking, .count:
-        //            textColor = .black
-        //        @unknown default:
-        //            textColor = .black
-        //        }
-        DispatchQueue.main.async {
-            //REFME self.webRTCStatusLabel?.text = state.description.capitalized
-            //REFME self.webRTCStatusLabel?.textColor = textColor
-        }
-    }
-    
-    func webRTCClient(_ client: WebRTCClient, didReceiveData data: Data) {
-        let message = String(data: data, encoding: .utf8) ?? "(Binary: \(data.count) bytes)"
-        let startCmd = "\(recordingStartCmd)"//String(describing: "#CMD#REC#START#".cString(using: String.Encoding.utf8))
-        let endCmd = "\(recordingEndCmd)"//String(describing: "#CMD#REC#END#".cString(using: String.Encoding.utf8))
-        let  preStartCmdToken = message.prefix(strlen(startCmd))
-        if(preStartCmdToken.compare(startCmd).rawValue == 0)
-        {//recording Start
-            if(_captureState == .idle){
-                ConferenceViewController.clearTempFolder()
-                let range = message.index(message.startIndex, offsetBy: (strlen(startCmd)))..<message.endIndex
-                let keyInfo = String(message[range])
-                let keyInfoArr = keyInfo.components(separatedBy: "#")
-                self.tapeDate   = keyInfoArr[0]
-                self.tapeId = keyInfoArr[1]
-                self.remoteCount = Int(keyInfoArr[2])!
-                
-                DispatchQueue.main.async {
-                    self.lblTimer.text = "\(self.remoteCount)"
-                    self.lblTimer.isHidden = false
-                    if self.timer != nil {
-                        self.timer.invalidate()
-                    }
-                    
-                    self.btnBack.isUserInteractionEnabled = false
-                    self.btnLeave.isUserInteractionEnabled = false
-                    self.timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true, block: { timer in
-                        self.remoteCount -= 1
-                        self.lblTimer.text = "\(self.remoteCount)"
-                        if self.remoteCount == 0 {
-                            self.lblTimer.isHidden = true
-                            timer.invalidate()
-                            self._captureState = .start
-                            self.audioRecorder?.record()
-                        }
-                    })
-                }
-            }
-        }
-        else if(message.compare(endCmd).rawValue == 0)
-        {//recording end
-            if(_captureState == .capturing){
-                _captureState = .end
-                audioRecorder?.stop()
-            }
-            
-            self.btnBack.isUserInteractionEnabled = true
-            self.btnLeave.isUserInteractionEnabled = true
-        }
-        
-        DispatchQueue.main.async {
-            //REFME
-            //            let message = String(data: data, encoding: .utf8) ?? "(Binary: \(data.count) bytes)"
-            //            let alert = UIAlertController(title: "Message from WebRTC", message: message, preferredStyle: .alert)
-            //            alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
-            //            self.present(alert, animated: true, completion: nil)
         }
     }
     
@@ -959,6 +830,7 @@ extension ConferenceViewController: WebRTCClientDelegate {
                 do {
                     try self.configureAssetWriter()
                     self.captureSession.startRunning()
+                    self.movieOutput?.startRecording(to: self.outputUrl, recordingDelegate: self)
 
                 } catch {
                     print("Unable to start recording")
@@ -989,25 +861,35 @@ extension ConferenceViewController: WebRTCClientDelegate {
             }
 
             videoQueue.async {
-                self.captureSession.stopRunning()
+                self.movieOutput?.stopRecording()
+                //self.captureSession.stopRunning()
                 
 //                self.assetWriter!.finishWriting {
 //                    print("Asset writer did finish writing")
 //                    self.isWriting = false
 //                }
-
-                do {
-                    try self.export()
-                } catch {
-                    print("Export failed")
-                    //Omitted DispatchQueue.main.async { self.showAlert("Unable to export video") }
-                }
+//
+//                do {
+//                    try self.export()
+//                } catch {
+//                    print("Export failed")
+//                    //Omitted DispatchQueue.main.async { self.showAlert("Unable to export video") }
+//                }
             }
 
             isRecording = false
 
             //Omitted playStopButton.setTitle("Start Recording", for: .normal)
             print("Recording did stop")
+        }
+    
+    func fileOutput(_ output: AVCaptureFileOutput, didFinishRecordingTo outputFileURL: URL, from connections: [AVCaptureConnection], error: Error?) {
+            if let error = error {
+                print("Error recording video: \(error.localizedDescription)")
+            } else {
+                // Video recorded successfully, you can access the video file at `outputFileURL`
+                print("Video recorded: \(outputFileURL.absoluteString)")
+            }
         }
 
         //MARK: - AVCaptureVideoDataOutputSampleBufferDelegate
@@ -1164,4 +1046,141 @@ extension ConferenceViewController: WebRTCClientDelegate {
                 print("Video exported successfully")
             })
         }
+}
+
+//MARK: SignalClientDelegate
+//extension ConferenceViewController: SignalClientDelegate {
+//    func signalClientDidConnect(_ signalClient: SignalingClient) {
+//        //REFME self.signalingConnected = true
+//    }
+//
+//    func signalClientDidDisconnect(_ signalClient: SignalingClient) {
+//        //REFME self.signalingConnected = false
+//    }
+//
+//    func signalClient(_ signalClient: SignalingClient, didReceiveRemoteSdp sdp: RTCSessionDescription) {
+//        print("Received remote sdp")
+//        self.webRTCClient.set(remoteSdp: sdp) { (error) in
+//            //REFME self.hasRemoteSdp = true
+//        }
+//    }
+//
+//    func signalClient(_ signalClient: SignalingClient, didReceiveCandidate candidate: RTCIceCandidate) {
+//        self.webRTCClient.set(remoteCandidate: candidate) { error in
+//            print("Received remote candidate")
+//            //REFME self.remoteCandidateCount += 1
+//        }
+//    }
+//}
+
+////MARK: UIPickerViewDelegate
+extension ConferenceViewController: UIPickerViewDelegate, UIPickerViewDataSource  {
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return 10
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return "\(row+1)"
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        // This method is triggered whenever the user makes a change to the picker selection.
+        // The parameter named row and component represents what was selected.
+        self.selectedCount = row+1
+    }
+}
+
+//MARK: WebRTCClientDelegate
+extension ConferenceViewController: WebRTCClientDelegate {
+    
+    func webRTCClient(_ client: WebRTCClient, didDiscoverLocalCandidate candidate: RTCIceCandidate) {
+        print("discovered local candidate")
+        //REFME self.localCandidateCount += 1
+        self.signalClient.send(candidate: candidate, roomId: self.roomUid)
+    }
+    
+    func webRTCClient(_ client: WebRTCClient, didChangeConnectionState state: RTCIceConnectionState) {
+        //REFME
+        //        let textColor: UIColor
+        //        switch state {
+        //        case .connected, .completed:
+        //            textColor = .green
+        //        case .disconnected:
+        //            textColor = .orange
+        //        case .failed, .closed:
+        //            textColor = .red
+        //        case .new, .checking, .count:
+        //            textColor = .black
+        //        @unknown default:
+        //            textColor = .black
+        //        }
+        DispatchQueue.main.async {
+            //REFME self.webRTCStatusLabel?.text = state.description.capitalized
+            //REFME self.webRTCStatusLabel?.textColor = textColor
+        }
+    }
+    
+    func webRTCClient(_ client: WebRTCClient, didReceiveData data: Data) {
+        let message = String(data: data, encoding: .utf8) ?? "(Binary: \(data.count) bytes)"
+        let startCmd = "\(recordingStartCmd)"//String(describing: "#CMD#REC#START#".cString(using: String.Encoding.utf8))
+        let endCmd = "\(recordingEndCmd)"//String(describing: "#CMD#REC#END#".cString(using: String.Encoding.utf8))
+        let  preStartCmdToken = message.prefix(strlen(startCmd))
+        if(preStartCmdToken.compare(startCmd).rawValue == 0)
+        {//recording Start
+            if(_captureState == .idle){
+                ConferenceViewController.clearTempFolder()
+                let range = message.index(message.startIndex, offsetBy: (strlen(startCmd)))..<message.endIndex
+                let keyInfo = String(message[range])
+                let keyInfoArr = keyInfo.components(separatedBy: "#")
+                self.tapeDate   = keyInfoArr[0]
+                self.tapeId = keyInfoArr[1]
+                self.remoteCount = Int(keyInfoArr[2])!
+                
+                DispatchQueue.main.async {
+                    self.lblTimer.text = "\(self.remoteCount)"
+                    self.lblTimer.isHidden = false
+                    if self.timer != nil {
+                        self.timer.invalidate()
+                    }
+                    
+                    self.btnBack.isUserInteractionEnabled = false
+                    self.btnLeave.isUserInteractionEnabled = false
+                    self.timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true, block: { timer in
+                        self.remoteCount -= 1
+                        self.lblTimer.text = "\(self.remoteCount)"
+                        if self.remoteCount == 0 {
+                            self.lblTimer.isHidden = true
+                            timer.invalidate()
+                            self._captureState = .start
+                            self.audioRecorder?.record()
+                        }
+                    })
+                }
+            }
+        }
+        else if(message.compare(endCmd).rawValue == 0)
+        {//recording end
+            if(_captureState == .capturing){
+                _captureState = .end
+                audioRecorder?.stop()
+            }
+            
+            self.btnBack.isUserInteractionEnabled = true
+            self.btnLeave.isUserInteractionEnabled = true
+        }
+        
+        DispatchQueue.main.async {
+            //REFME
+            //            let message = String(data: data, encoding: .utf8) ?? "(Binary: \(data.count) bytes)"
+            //            let alert = UIAlertController(title: "Message from WebRTC", message: message, preferredStyle: .alert)
+            //            alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+            //            self.present(alert, animated: true, completion: nil)
+        }
+    }
+    
+    
 }
