@@ -64,8 +64,56 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 //        //}}
         return true
     }
-    
+
+    ///MARK: google sigin
+    func application(_ application: UIApplication,
+                     open url: URL, sourceApplication: String?, annotation: Any) -> Bool {
+        return GIDSignIn.sharedInstance().handle(url)
+    }
+//    
+//    // MARK: UISceneSession Lifecycle
+}
+
+@available(iOS 14.0, *)
+extension AppDelegate{
     private func buildMainViewController() -> UIViewController {
+#if RECORDING_TEST
+        let JSON = """
+        {
+            "uid": "a732ed6c-16ed-42f4-b4f2-4d0952a83d06",
+            "userType": 4,
+            "avatarBucketName": "",
+            "avatarKey": "",
+            "userName": "Marcelino",
+            "email": "reader003@gmail.com",
+            "password": "",
+            "firstName": "Gray",
+            "lastName": "Johns",
+            "dateOfBirth": "",
+            "gender": 0,
+            "currentAddress": "",
+            "permanentAddress": "",
+            "city": "",
+            "nationality": "",
+            "phoneNumber": "123456",
+            "isLogin": true,
+            "token": "CHWaBF/okE6MDZh4XnEbOA==",
+            "fcmDeviceToken": "",
+            "deviceKind": 0,
+            "id": 25,
+            "isDeleted": false,
+            "createdTime": "2023-03-24T01:59:15.8911716",
+            "updatedTime": "2023-03-24T01:59:15.8911727",
+            "deletedTime": "0001-01-01T00:00:00"
+          }
+        """
+        
+        let data = JSON.data(using: .utf8)!
+        let responseJSON = try? JSONSerialization.jsonObject(with: data, options: [])
+        let userJson = responseJSON as! [String:Any]
+        print(userJson["userType"]!)
+        UserDefaults.standard.setValue(userJson, forKey: "USER")
+#endif
         
         if let userInfo = UserDefaults.standard.object(forKey: "USER") as? [String:Any] {
             // Use the saved data
@@ -80,46 +128,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
             // No data was saved
             print("No data was saved.")
             let mainViewController = LoginViewController()
-//            let navViewController = UINavigationController(rootViewController: mainViewController)
-//            navViewController.navigationBar.prefersLargeTitles = true
-//            navViewController.isNavigationBarHidden = true
-//            return navViewController
+            //            let navViewController = UINavigationController(rootViewController: mainViewController)
+            //            navViewController.navigationBar.prefersLargeTitles = true
+            //            navViewController.isNavigationBarHidden = true
+            //            return navViewController
             return mainViewController
         }
     }
-    
-//    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
-//        //Toast.show(message: "userNotificationCenter", controller: uiViewContoller!)
-//        completionHandler([.banner, .badge, .sound])
-//    }
-
-    ///MARK: google sigin
-    func application(_ application: UIApplication,
-                     open url: URL, sourceApplication: String?, annotation: Any) -> Bool {
-        return GIDSignIn.sharedInstance().handle(url)
-    }
-    
-//    @available(iOS 9.0, *)
-//    func application(_ app: UIApplication, open url: URL,
-//                     options: [UIApplication.OpenURLOptionsKey : Any]) -> Bool {
-//        let sourceApplication = options[UIApplication.OpenURLOptionsKey.sourceApplication] as? String
-//        let annotation = options[UIApplication.OpenURLOptionsKey.annotation]
-//        return GIDSignIn.sharedInstance().handle(url)
-//    }
-//    
-//    // MARK: UISceneSession Lifecycle
-//    
-//    func application(_ application: UIApplication, configurationForConnecting connectingSceneSession: UISceneSession, options: UIScene.ConnectionOptions) -> UISceneConfiguration {
-//        // Called when a new scene session is being created.
-//        // Use this method to select a configuration to create the new scene with.
-//        return UISceneConfiguration(name: "Default Configuration", sessionRole: connectingSceneSession.role)
-//    }
-//    
-//    func application(_ application: UIApplication, didDiscardSceneSessions sceneSessions: Set<UISceneSession>) {
-//        // Called when the user discards a scene session.
-//        // If any sessions were discarded while the application was not running, this will be called shortly after application:didFinishLaunchingWithOptions.
-//        // Use this method to release any resources that were specific to the discarded scenes, as they will not return.
-//    }
 }
 
 @available(iOS 14.0, *)
@@ -131,6 +146,22 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
         fcmDeviceToken = token
         print("Device Token: \(token)")
         //Toast.show(message: "register: \(token)", controller: uiViewContoller!)
+        
+        DispatchQueue.main.async {
+            if let userInfo = UserDefaults.standard.object(forKey: "USER") as? [String:Any] {
+                let uid = userInfo["uid"] as! String
+                let token = userInfo["fcmDeviceToken"] as! String
+                if(token.compare(fcmDeviceToken).rawValue != 0 )
+                {
+                    webAPI.updateUserInfo(uid: uid, userType: -1, bucketName: "", avatarKey: "", username: "", email: "", password: "", firstName: "", lastName: "", dateOfBirth: "", gender: -1, currentAddress: "", permanentAddress: "", city: "", nationality: "", phoneNumber: "", isLogin: true, fcmDeviceToken: fcmDeviceToken, deviceKind: -1)  { data, response, error in
+                        if error == nil {
+                            // successfully update db
+                            print("update db completed")
+                        }
+                    }
+                }
+            }
+        }
     }
     
     func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
@@ -144,7 +175,25 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
         withCompletionHandler completionHandler:
         @escaping (UNNotificationPresentationOptions) -> Void
     ) {
-        completionHandler([[.banner, .sound]])
+        completionHandler([[.banner, .badge, .sound]])
+//        print("User Info = ",notification.request.content.userInfo)
+//        if (UIApplication.shared.applicationState == .background) {
+//            print("User Info = ",notification.request.content.userInfo)
+//            //NSLog("Notification received in background: title:\"\(title)\" body:\"\(body)\"")
+//        } else
+//        {
+//            let alertController = UIAlertController(title: "Notification - PefectSelf", message: "Resered Booking from actor", preferredStyle: .alert)
+//            alertController.addAction(UIAlertAction(title: "OK", style: .cancel))
+//
+//            //Force
+//            //UIApplication.shared.windows.first?.rootViewController!.present(..)
+//
+//            //Safe
+//            guard let viewController = UIApplication.shared.windows.first?.rootViewController else {return}
+//            viewController.present(alertController, animated: true)
+//
+//            //self.present(alertController, animated: true)
+//        }
     }
     
     func userNotificationCenter(

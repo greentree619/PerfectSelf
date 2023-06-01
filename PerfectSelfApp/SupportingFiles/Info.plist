@@ -28,7 +28,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>61</string>
+	<string>73</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>LSSupportsOpeningDocumentsInPlace</key>
@@ -48,6 +48,8 @@
 	<string>saves</string>
 	<key>UIBackgroundModes</key>
 	<array>
+		<string>fetch</string>
+		<string>remote-notification</string>
 		<string>voip</string>
 	</array>
 	<key>UIFileSharingEnabled</key>
