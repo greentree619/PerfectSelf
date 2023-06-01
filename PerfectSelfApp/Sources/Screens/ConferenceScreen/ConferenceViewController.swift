@@ -230,27 +230,17 @@ class ConferenceViewController: UIViewController, AVCaptureFileOutputRecordingDe
     }
     
     override func viewWillAppear(_ animated: Bool) {
-//        DispatchQueue.main.async {
-//            self.count = self.selectedCount
-//            self.lblTimer.text = "\(self.count)"
-//            self.lblTimer.isHidden = false
-//            if self.timer != nil {
-//                self.timer.invalidate()
-//            }
-//
-//            self.btnBack.isUserInteractionEnabled = false
-//            self.btnLeave.isUserInteractionEnabled = false
-//            self.timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true, block: { timer in
-//                self.count -= 1
-//                self.lblTimer.text = "\(self.count)"
-//                if self.count == 0 {
-//                    self.lblTimer.isHidden = true
-//                    timer.invalidate()
-//                    self._captureState = .capturing
-//                    self.audioRecorder?.record()
-//                }
-//            })
-//        }
+#if RECORDING_TEST
+        recordingDidTap(UIButton())
+        
+        var count = 15
+        _ = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true, block: { timer in
+            count -= 1
+            if count == 0 {
+                self.recordingDidTap(UIButton())
+            }
+        })
+#endif
     }
     
     override func viewWillDisappear(_ animated: Bool) {
