@@ -653,8 +653,14 @@ extension ConferenceViewController: WebRTCClientDelegate {
                         if self.remoteCount == 0 {
                             self.lblTimer.isHidden = true
                             timer.invalidate()
-                            self._captureState = .capturing
+#if !targetEnvironment(simulator)
+                            self.videoQueue.async {
+                                self.captureSession.startRunning()
+                                self.movieOutput?.startRecording(to: self.outputUrl, recordingDelegate: self)
+                            }
                             self.audioRecorder?.record()
+#endif
+                            self._captureState = .capturing
                         }
                     })
                 }
@@ -663,8 +669,13 @@ extension ConferenceViewController: WebRTCClientDelegate {
         else if(message.compare(endCmd).rawValue == 0)
         {//recording end
             if(_captureState == .capturing){
-                _captureState = .idle
+#if !targetEnvironment(simulator)
+                videoQueue.async {
+                    self.movieOutput?.stopRecording()
+                }
                 audioRecorder?.stop()
+#endif
+                _captureState = .idle
             }
             
             self.btnBack.isUserInteractionEnabled = true
