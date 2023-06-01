@@ -203,7 +203,6 @@ class ConferenceViewController: UIViewController, AVCaptureFileOutputRecordingDe
             audioRecorder?.stop()
             //finishRecording(success: false)
         }
-        
         //}}Init to record audio
         
         self.webRTCClient.startCaptureLocalVideo(renderer: localRenderer)
@@ -215,25 +214,6 @@ class ConferenceViewController: UIViewController, AVCaptureFileOutputRecordingDe
         self.embedView(remoteRenderer, into: self.remoteCameraView)
         self.remoteCameraView.sendSubviewToBack(remoteRenderer)
         setSpeakerVolume(1.0)
-        
-        videoQueue.async {
-            do {
-                DispatchQueue.main.async {
-                    Toast.show(message: "Initialize for record from camera....", controller: self)
-                }
-#if !targetEnvironment(simulator)
-                try self.configureCaptureSession()
-                self.captureSession.startRunning()
-#endif
-                DispatchQueue.main.async {
-                    Toast.show(message: "Initialize done.", controller: self)
-                }
-            } catch {
-                DispatchQueue.main.async {
-                    Toast.show(message: "Unable to configure capture session", controller: self)
-                }
-            }
-        }
         
         pingPongRcv = false
         DispatchQueue.main.async {
@@ -250,6 +230,25 @@ class ConferenceViewController: UIViewController, AVCaptureFileOutputRecordingDe
                     //Omitted self.semaphore.signal()
                     DispatchQueue.main.async {
                         self.waitingScreen.isHidden = true
+                    }
+                    
+                    self.videoQueue.async {
+                        do {
+                            DispatchQueue.main.async {
+                                Toast.show(message: "Initialize for record from camera....", controller: self)
+                            }
+#if !targetEnvironment(simulator)
+                            try self.configureCaptureSession()
+                            self.captureSession.startRunning()
+#endif
+                            DispatchQueue.main.async {
+                                Toast.show(message: "Initialize done.", controller: self)
+                            }
+                        } catch {
+                            DispatchQueue.main.async {
+                                Toast.show(message: "Unable to configure capture session", controller: self)
+                            }
+                        }
                     }
                     
 #if RECORDING_TEST
