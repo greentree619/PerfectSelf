@@ -211,10 +211,16 @@ class ConferenceViewController: UIViewController, AVCaptureFileOutputRecordingDe
         
         videoQueue.async {
             do {
-                Toast.show(message: "Initialize for record from camera....", controller: self)
+                DispatchQueue.main.async {
+                    Toast.show(message: "Initialize for record from camera....", controller: self)
+                }
+#if !targetEnvironment(simulator)
                 try self.configureCaptureSession()
                 self.captureSession.startRunning()
-                Toast.show(message: "Initialize done.", controller: self)
+#endif
+                DispatchQueue.main.async {
+                    Toast.show(message: "Initialize done.", controller: self)
+                }
             } catch {
                 DispatchQueue.main.async {
                     Toast.show(message: "Unable to configure capture session", controller: self)
@@ -240,7 +246,7 @@ class ConferenceViewController: UIViewController, AVCaptureFileOutputRecordingDe
 //                if self.count == 0 {
 //                    self.lblTimer.isHidden = true
 //                    timer.invalidate()
-//                    self._captureState = .start
+//                    self._captureState = .capturing
 //                    self.audioRecorder?.record()
 //                }
 //            })
@@ -368,13 +374,14 @@ class ConferenceViewController: UIViewController, AVCaptureFileOutputRecordingDe
             if self.count == 0 {
                 self.lblTimer.isHidden = true
                 timer.invalidate()
-                
+#if !targetEnvironment(simulator)
                 self.videoQueue.async {
                     self.captureSession.startRunning()
                     self.movieOutput?.startRecording(to: self.outputUrl, recordingDelegate: self)
                 }
                 self.audioRecorder?.record()
-                self._captureState = .start
+#endif
+                self._captureState = .capturing
             }
         })
     }
@@ -383,11 +390,13 @@ class ConferenceViewController: UIViewController, AVCaptureFileOutputRecordingDe
         let recStart: Data = "\(recordingEndCmd)".data(using: .utf8)!
         self.webRTCClient.sendData(recStart)
         
+#if !targetEnvironment(simulator)
         videoQueue.async {
             self.movieOutput?.stopRecording()
         }
         audioRecorder?.stop()
-        _captureState = .end
+#endif
+        _captureState = .idle
         
         self.btnBack.isUserInteractionEnabled = true
         self.btnLeave.isUserInteractionEnabled = true
@@ -644,7 +653,7 @@ extension ConferenceViewController: WebRTCClientDelegate {
                         if self.remoteCount == 0 {
                             self.lblTimer.isHidden = true
                             timer.invalidate()
-                            self._captureState = .start
+                            self._captureState = .capturing
                             self.audioRecorder?.record()
                         }
                     })
@@ -654,7 +663,7 @@ extension ConferenceViewController: WebRTCClientDelegate {
         else if(message.compare(endCmd).rawValue == 0)
         {//recording end
             if(_captureState == .capturing){
-                _captureState = .end
+                _captureState = .idle
                 audioRecorder?.stop()
             }
             

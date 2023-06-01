@@ -377,6 +377,7 @@
 		BA4714B729A79856007AABC2 /* SanFranciscoText-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SanFranciscoText-Bold.otf"; sourceTree = "<group>"; };
 		BA4714B829A79856007AABC2 /* SFProDisplay-Heavy.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFProDisplay-Heavy.otf"; sourceTree = "<group>"; };
 		BA4714B929A79856007AABC2 /* SanFranciscoDisplay-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SanFranciscoDisplay-Regular.otf"; sourceTree = "<group>"; };
+		BA4A034D2A288E2C00F8C835 /* ReadMe.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = ReadMe.txt; sourceTree = "<group>"; };
 		BA6A5E1C29CCD49D0063ED13 /* ReaderCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReaderCollectionViewCell.swift; sourceTree = "<group>"; };
 		BA6A5E1D29CCD49D0063ED13 /* ReaderCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ReaderCollectionViewCell.xib; sourceTree = "<group>"; };
 		BA7034ED29AEF2A000BFB431 /* UIStoryBoard+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIStoryBoard+Extensions.swift"; sourceTree = "<group>"; };
@@ -697,6 +698,7 @@
 		79262EDA20B0D6F500D576C1 = {
 			isa = PBXGroup;
 			children = (
+				BA4A034D2A288E2C00F8C835 /* ReadMe.txt */,
 				34FFA12E29FB31EF00BB0E14 /* PerfectSelf.entitlements */,
 				BA4714A329A79856007AABC2 /* Fonts */,
 				798FBA422200F3B1009F525E /* Sources */,
@@ -1653,6 +1655,7 @@
 				MARKETING_VERSION = 2.6;
 				PRODUCT_BUNDLE_IDENTIFIER = com.kayan.perfectself;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG RECORDING_TEST";
 				SWIFT_OBJC_BRIDGING_HEADER = "Sources/PerfectSelf-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_TREAT_WARNINGS_AS_ERRORS = YES;

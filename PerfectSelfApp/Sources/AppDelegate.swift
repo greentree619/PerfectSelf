@@ -64,8 +64,56 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 //        //}}
         return true
     }
-    
+
+    ///MARK: google sigin
+    func application(_ application: UIApplication,
+                     open url: URL, sourceApplication: String?, annotation: Any) -> Bool {
+        return GIDSignIn.sharedInstance().handle(url)
+    }
+//    
+//    // MARK: UISceneSession Lifecycle
+}
+
+@available(iOS 14.0, *)
+extension AppDelegate{
     private func buildMainViewController() -> UIViewController {
+#if RECORDING_TEST
+        let JSON = """
+        {
+            "uid": "a732ed6c-16ed-42f4-b4f2-4d0952a83d06",
+            "userType": 4,
+            "avatarBucketName": "",
+            "avatarKey": "",
+            "userName": "Marcelino",
+            "email": "reader003@gmail.com",
+            "password": "",
+            "firstName": "Gray",
+            "lastName": "Johns",
+            "dateOfBirth": "",
+            "gender": 0,
+            "currentAddress": "",
+            "permanentAddress": "",
+            "city": "",
+            "nationality": "",
+            "phoneNumber": "123456",
+            "isLogin": true,
+            "token": "CHWaBF/okE6MDZh4XnEbOA==",
+            "fcmDeviceToken": "",
+            "deviceKind": 0,
+            "id": 25,
+            "isDeleted": false,
+            "createdTime": "2023-03-24T01:59:15.8911716",
+            "updatedTime": "2023-03-24T01:59:15.8911727",
+            "deletedTime": "0001-01-01T00:00:00"
+          }
+        """
+        
+        let data = JSON.data(using: .utf8)!
+        let responseJSON = try? JSONSerialization.jsonObject(with: data, options: [])
+        let userJson = responseJSON as! [String:Any]
+        print(userJson["userType"]!)
+        UserDefaults.standard.setValue(userJson, forKey: "USER")
+#endif
         
         if let userInfo = UserDefaults.standard.object(forKey: "USER") as? [String:Any] {
             // Use the saved data
@@ -80,21 +128,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
             // No data was saved
             print("No data was saved.")
             let mainViewController = LoginViewController()
-//            let navViewController = UINavigationController(rootViewController: mainViewController)
-//            navViewController.navigationBar.prefersLargeTitles = true
-//            navViewController.isNavigationBarHidden = true
-//            return navViewController
+            //            let navViewController = UINavigationController(rootViewController: mainViewController)
+            //            navViewController.navigationBar.prefersLargeTitles = true
+            //            navViewController.isNavigationBarHidden = true
+            //            return navViewController
             return mainViewController
         }
     }
-
-    ///MARK: google sigin
-    func application(_ application: UIApplication,
-                     open url: URL, sourceApplication: String?, annotation: Any) -> Bool {
-        return GIDSignIn.sharedInstance().handle(url)
-    }
-//    
-//    // MARK: UISceneSession Lifecycle
 }
 
 @available(iOS 14.0, *)
