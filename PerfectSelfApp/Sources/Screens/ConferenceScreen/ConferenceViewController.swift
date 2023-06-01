@@ -17,7 +17,7 @@ enum PipelineMode
     case PipelineModeAssetWriter
 }// internal state machine
 
-class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDelegate, AVAudioRecorderDelegate {
+class ConferenceViewController: UIViewController, AVAudioRecorderDelegate {
     
     @IBOutlet weak var localVideoView: UIView!
     
@@ -34,7 +34,7 @@ class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSample
     var remoteCount = 3
     var timer: Timer!
     var selectedCount = 3
-    var isRecordEnabled = false
+    //Omitted var isRecordEnabled = false
     
     private var signalClient: SignalingClient
     private var webRTCClient: WebRTCClient
@@ -42,8 +42,8 @@ class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSample
     private var isRecording: Bool = false
     private var _filename = ""
     private var _time: Double = 0
-    private var _captureSession: AVCaptureSession?
-    private var _videoOutput: AVCaptureVideoDataOutput?
+    //Omitted private var _captureSession: AVCaptureSession?
+    //Omitted private var _videoOutput: AVCaptureVideoDataOutput?
     private var _assetWriter: AVAssetWriter?
     private var _assetWriterInput: AVAssetWriterInput?
     private var _adpater: AVAssetWriterInputPixelBufferAdaptor?
@@ -155,60 +155,12 @@ class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSample
         self.webRTCClient.speakerOn()
         self.signalClient.sendRoomId(roomId: self.roomUid)
         
-        //        self.webRTCClient.offer { (sdp) in
-        //            signalingClientStatus!.hasLocalSdp = true
-        //            signalingClientStatus!.roomId = self.roomUid
-        //            self.signalClient.send(sdp: sdp, roomId: self.roomUid)
-        //
-        //        }
-        
-        //        if( !signalingClientStatus!.hasLocalSdp && !signalingClientStatus!.isRemoteSdp(roomId: self.roomUid))
-        //        {
-        //            self.webRTCClient.offer { (sdp) in
-        //                signalingClientStatus!.hasLocalSdp = true
-        //                self.signalClient.send(sdp: sdp, roomId: self.roomUid)
-        //            }
-        //        }
-        //        else if( !signalingClientStatus!.hasLocalSdp && signalingClientStatus!.isRemoteSdp(roomId: self.roomUid) )
-        //        {
-        //            self.webRTCClient.answer { (localSdp) in
-        //                signalingClientStatus!.hasLocalSdp = true
-        //                self.signalClient.send(sdp: localSdp, roomId: self.roomUid)
-        //            }
-        //        }
-        
         let localRenderer = RTCMTLVideoView(frame: self.localVideoView?.frame ?? CGRect.zero)
         let remoteRenderer = RTCMTLVideoView(frame: self.remoteCameraView.frame)
         localRenderer.videoContentMode = .scaleAspectFill
         remoteRenderer.videoContentMode = .scaleAspectFill
         
-        //{{ Init to record video.
-        let output = AVCaptureVideoDataOutput()
-        guard let capturer = self.webRTCClient.videoCapturer as? RTCCameraVideoCapturer else {
-            return
-        }
-        capturer.captureSession.canAddOutput(output)
-        output.setSampleBufferDelegate(self, queue: DispatchQueue(label: "com.yusuke024.video"))
-        capturer.captureSession.beginConfiguration()
-        if(capturer.captureSession.canAddOutput(output))
-        {
-            isRecordEnabled = true
-            capturer.captureSession.addOutput(output)
-        }
-        else
-        {
-            isRecordEnabled = false
-        }
-        
-        if( capturer.captureSession.canSetSessionPreset(AVCaptureSession.Preset.hd1280x720) )
-        {
-            capturer.captureSession.sessionPreset = AVCaptureSession.Preset.hd1280x720
-        }
-        capturer.captureSession.commitConfiguration()
-        _videoOutput = output
-        _captureSession = capturer.captureSession
-        //}} Init to record video.
-        
+        //{{Init to record audio
         let audioTmpUrl = getAudioTempURL()
         //print(self.audioUrl!.absoluteString)
         
@@ -244,12 +196,6 @@ class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSample
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        if(!isRecordEnabled)
-        {
-            let alert = UIAlertController(title: "Warning", message: "This device don't support to record from local camera while take meeting.", preferredStyle: UIAlertController.Style.alert)
-            alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
-            self.present(alert, animated: true, completion: nil)
-        }
 //        DispatchQueue.main.async {
 //            self.count = self.selectedCount
 //            self.lblTimer.text = "\(self.count)"
@@ -409,129 +355,6 @@ class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSample
         self.btnLeave.isUserInteractionEnabled = true
     }
     
-    func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
-        let timestamp = CMSampleBufferGetPresentationTimeStamp(sampleBuffer).seconds
-        switch _captureState {
-        case .start:
-            // Set up recorder
-            DispatchQueue.main.async {
-                Toast.show(message: "Recording start...", controller: uiViewContoller!)
-            }
-            
-            _filename = self.userName!//UUID().uuidString
-            let videoPath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!.appendingPathComponent("\(_filename).mp4")
-            //let videoPath = URL(string: "\(NSTemporaryDirectory())\(_filename).mp4")
-            
-            let writer = try! AVAssetWriter(outputURL: videoPath, fileType: .mp4)
-            let settings = _videoOutput!.recommendedVideoSettingsForAssetWriter(writingTo: .mp4)
-            let input = AVAssetWriterInput(mediaType: .video, outputSettings: settings) // [AVVideoCodecKey: AVVideoCodecType.h264, AVVideoWidthKey: 1920, AVVideoHeightKey: 1080])
-            input.mediaTimeScale = CMTimeScale(bitPattern: 600)
-            input.expectsMediaDataInRealTime = true
-            input.transform = getVideoTransform()//CGAffineTransform(rotationAngle: .pi/2)
-            let adapter = AVAssetWriterInputPixelBufferAdaptor(assetWriterInput: input, sourcePixelBufferAttributes: nil)
-            if writer.canAdd(input) {
-                writer.add(input)
-            }
-            writer.startWriting()
-            writer.startSession(atSourceTime: .zero)
-            _assetWriter = writer
-            _assetWriterInput = input
-            _adpater = adapter
-            _captureState = .capturing
-            _time = timestamp
-            break
-        case .capturing:
-            if _assetWriterInput?.isReadyForMoreMediaData == true {
-                let time = CMTime(seconds: timestamp - _time, preferredTimescale: CMTimeScale(600))
-                _adpater?.append(CMSampleBufferGetImageBuffer(sampleBuffer)!, withPresentationTime: time)
-            }
-            break
-        case .end:
-            DispatchQueue.main.async {
-                Toast.show(message: "Recording end...", controller: uiViewContoller!)
-            }
-            
-            guard _assetWriterInput?.isReadyForMoreMediaData == true, _assetWriter!.status != .failed else { break }
-            let url = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!.appendingPathComponent("\(self.userName!).mp4")
-            //let url = URL(string: "\(NSTemporaryDirectory())\(self.userName!).mp4")
-            _assetWriterInput?.markAsFinished()
-            _assetWriter?.finishWriting { [weak self] in
-                self?._captureState = .idle
-                self?._assetWriter = nil
-                self?._assetWriterInput = nil
-                
-                DispatchQueue.global(qos: .userInitiated).async {
-                    
-                    //                let activity = UIActivityViewController(activityItems: [url], applicationActivities: nil)
-                    //                    self?.present(activity, animated: true, completion: nil)
-                    
-                    let prefixKey = "\(self!.tapeDate)/\((uiViewContoller! as! ConferenceViewController).roomUid)/\(self!.tapeId)/"
-                    //Omitted let awsUpload = AWSMultipartUpload()
-                    DispatchQueue.main.async {
-                        //Omitted showIndicator(sender: nil, viewController: uiViewContoller!, color:UIColor.white)
-                        Toast.show(message: "Start to upload record files", controller: uiViewContoller!)
-                    }
-                    
-                    //Upload video at first
-                    awsUpload.multipartUpload(filePath: url, prefixKey: prefixKey){ error -> Void in
-                        if(error == nil)
-                        {
-                            DispatchQueue.main.async {
-                                //Omitted hideIndicator(sender: nil)
-                                Toast.show(message: "Completed to upload Video file. Audio file is on uploading.", controller: uiViewContoller!)
-                            }
-                            
-                            //Upload audio at secodary
-                            awsUpload.multipartUpload(filePath: (uiViewContoller! as! ConferenceViewController).audioUrl!, prefixKey: prefixKey){ (error: Error?) -> Void in
-                                if(error == nil)
-                                {//Then Upload video
-                                    DispatchQueue.main.async {
-                                        //Omitted hideIndicator(sender: nil)
-                                        Toast.show(message: "Completed to upload all record files", controller: uiViewContoller!)
-                                    }
-                                    if let userInfo = UserDefaults.standard.object(forKey: "USER") as? [String:Any] {
-                                        // Use the saved data
-                                        let uid = userInfo["uid"] as! String
-                                        //let tapeName = "\(getDateString())(\((uiViewContoller! as! ConferenceViewController).tapeId))"
-                                        let tapeName = "\((uiViewContoller! as! ConferenceViewController).tapeId)"
-                                        webAPI.addLibrary(uid: uid
-                                                          , tapeName: tapeName
-                                                          , bucketName: "video-client-upload-123456798"
-                                                          , tapeKey: "\(prefixKey)\((uiViewContoller! as! ConferenceViewController).userName!)"
-                                                          , roomUid: (uiViewContoller! as! ConferenceViewController).roomUid
-                                                          , tapeId: (uiViewContoller! as! ConferenceViewController).tapeId)
-                                        ConferenceViewController.clearTempFolder()
-                                        //Omitted (uiViewContoller! as! ConferenceViewController).uploadCount += 1
-                                    } else {
-                                        // No data was saved
-                                        print("No data was saved.")
-                                    }
-                                }
-                                else
-                                {
-                                    DispatchQueue.main.async {
-                                        //Omitted hideIndicator(sender: nil)
-                                        Toast.show(message: "Failed to upload audio file", controller: uiViewContoller!)
-                                    }
-                                }
-                            }
-                        }
-                        else
-                        {
-                            DispatchQueue.main.async {
-                                //Omitted hideIndicator(sender: nil)
-                                Toast.show(message: "Failed to upload video file", controller: uiViewContoller!)
-                            }
-                        }
-                    }
-                }//DispatchQueue.global
-            }
-            break
-        default:
-            break
-        }
-    }
-    
     func audioRecorderDidFinishRecording(_ recorder: AVAudioRecorder, successfully flag: Bool) {
         if !flag {
             audioRecorder?.stop()
@@ -560,32 +383,7 @@ class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSample
     }
 }
 
-//MARK: SignalClientDelegate
-//extension ConferenceViewController: SignalClientDelegate {
-//    func signalClientDidConnect(_ signalClient: SignalingClient) {
-//        //REFME self.signalingConnected = true
-//    }
-//
-//    func signalClientDidDisconnect(_ signalClient: SignalingClient) {
-//        //REFME self.signalingConnected = false
-//    }
-//
-//    func signalClient(_ signalClient: SignalingClient, didReceiveRemoteSdp sdp: RTCSessionDescription) {
-//        print("Received remote sdp")
-//        self.webRTCClient.set(remoteSdp: sdp) { (error) in
-//            //REFME self.hasRemoteSdp = true
-//        }
-//    }
-//
-//    func signalClient(_ signalClient: SignalingClient, didReceiveCandidate candidate: RTCIceCandidate) {
-//        self.webRTCClient.set(remoteCandidate: candidate) { error in
-//            print("Received remote candidate")
-//            //REFME self.remoteCandidateCount += 1
-//        }
-//    }
-//}
-
-////MARK: UIPickerViewDelegate
+//MARK: UIPickerViewDelegate
 extension ConferenceViewController: UIPickerViewDelegate, UIPickerViewDataSource  {
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
