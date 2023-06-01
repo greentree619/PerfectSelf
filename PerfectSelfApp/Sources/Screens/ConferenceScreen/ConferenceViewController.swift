@@ -17,7 +17,7 @@ enum PipelineMode
     case PipelineModeAssetWriter
 }// internal state machine
 
-class ConferenceViewController: UIViewController, AVAudioRecorderDelegate {
+class ConferenceViewController: UIViewController, AVCaptureFileOutputRecordingDelegate, AVAudioRecorderDelegate {
     
     @IBOutlet weak var localVideoView: UIView!
     
@@ -55,13 +55,28 @@ class ConferenceViewController: UIViewController, AVAudioRecorderDelegate {
     private var userName: String?
     private var roomUid: String
     
+    let videoQueue = DispatchQueue(label: "VideoQueue", qos: .background, attributes: .concurrent, autoreleaseFrequency: .workItem, target: nil)
+    private let captureSession = AVCaptureSession()
+    var movieOutput: AVCaptureMovieFileOutput?
+    
     private var waitSecKey: String = "REC_WAIT_SEC"
     var recordingStartCmd: String = "#CMD#REC#START#"
     var recordingEndCmd: String = "#CMD#REC#END#"
     
+    var outputUrl: URL {
+        get {
+            
+            if let url = _outputUrl {
+                return url
+            }
+            
+            _outputUrl = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!.appendingPathComponent("\(self.userName!).mp4")
+            return _outputUrl!
+        }
+    }
+    private var _outputUrl: URL?
+    
     //MARK: WebRTC Conference Status
-    
-    
     private var speakerOn: Bool = false {
         didSet {
             //REFME
@@ -193,6 +208,19 @@ class ConferenceViewController: UIViewController, AVAudioRecorderDelegate {
         self.embedView(remoteRenderer, into: self.remoteCameraView)
         self.remoteCameraView.sendSubviewToBack(remoteRenderer)
         setSpeakerVolume(1.0)
+        
+        videoQueue.async {
+            do {
+                Toast.show(message: "Initialize for record from camera....", controller: self)
+                try self.configureCaptureSession()
+                self.captureSession.startRunning()
+                Toast.show(message: "Initialize done.", controller: self)
+            } catch {
+                DispatchQueue.main.async {
+                    Toast.show(message: "Unable to configure capture session", controller: self)
+                }
+            }
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -223,6 +251,7 @@ class ConferenceViewController: UIViewController, AVAudioRecorderDelegate {
         if(_captureState == .capturing){
             recordEnd()
         }
+        self.captureSession.stopRunning()
     }
     
     class func getDocumentsDirectory() -> URL {
@@ -339,8 +368,13 @@ class ConferenceViewController: UIViewController, AVAudioRecorderDelegate {
             if self.count == 0 {
                 self.lblTimer.isHidden = true
                 timer.invalidate()
-                self._captureState = .start
+                
+                self.videoQueue.async {
+                    self.captureSession.startRunning()
+                    self.movieOutput?.startRecording(to: self.outputUrl, recordingDelegate: self)
+                }
                 self.audioRecorder?.record()
+                self._captureState = .start
             }
         })
     }
@@ -348,8 +382,12 @@ class ConferenceViewController: UIViewController, AVAudioRecorderDelegate {
     func recordEnd(){
         let recStart: Data = "\(recordingEndCmd)".data(using: .utf8)!
         self.webRTCClient.sendData(recStart)
-        _captureState = .end
+        
+        videoQueue.async {
+            self.movieOutput?.stopRecording()
+        }
         audioRecorder?.stop()
+        _captureState = .end
         
         self.btnBack.isUserInteractionEnabled = true
         self.btnLeave.isUserInteractionEnabled = true
@@ -379,6 +417,147 @@ class ConferenceViewController: UIViewController, AVAudioRecorderDelegate {
         guard let filePaths = try? fileManager.contentsOfDirectory(at: diskCacheStorageBaseUrl, includingPropertiesForKeys: nil, options: []) else { return }
         for filePath in filePaths {
             try? fileManager.removeItem(at: filePath)
+        }
+    }
+    
+    //MARK: Camera Recording
+    private func configureCaptureSession() throws {
+        captureSession.beginConfiguration()
+        
+        // Setup video input
+        guard let frontCamera = AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: .front) else {
+            print("Front camera not found.")
+            return
+        }
+        do {
+            let videoInput = try AVCaptureDeviceInput(device: frontCamera)
+            if captureSession.canAddInput(videoInput) {
+                captureSession.addInput(videoInput)
+            }
+        } catch {
+            print("Error setting up video input: \(error)")
+        }
+        
+//        // Setup audio input
+//        guard let audioDevice = AVCaptureDevice.default(for: .audio) else {
+//            print("Audio device not found.")
+//            return
+//        }
+//        do {
+//            let audioInput = try AVCaptureDeviceInput(device: audioDevice)
+//            if captureSession.canAddInput(audioInput) {
+//                captureSession.addInput(audioInput)
+//            }
+//        } catch {
+//            print("Error setting up audio input: \(error)")
+//        }
+        
+        // Setup movie output
+        movieOutput = AVCaptureMovieFileOutput()
+        if captureSession.canAddOutput(movieOutput!) {
+            captureSession.addOutput(movieOutput!)
+        }
+        captureSession.commitConfiguration()
+        
+//        // configure audio session
+//        let audioSession = AVAudioSession.sharedInstance()
+//        try audioSession.setCategory(AVAudioSession.Category.playAndRecord)
+//        try audioSession.setActive(true)
+//
+//        var micPort: AVAudioSessionPortDescription?
+//
+//        if let inputs = audioSession.availableInputs {
+//            for port in inputs {
+//                if port.portType == AVAudioSession.Port.builtInMic {
+//                    micPort = port
+//                    break;
+//                }
+//            }
+//        }
+//
+//        if let port = micPort, let dataSources = port.dataSources {
+//
+//            for source in dataSources {
+//                if source.orientation == AVAudioSession.Orientation.front {
+//                    try audioSession.setPreferredInput(port)
+//                    break
+//                }
+//            }
+//        }
+    }
+    
+    func fileOutput(_ output: AVCaptureFileOutput, didFinishRecordingTo outputFileURL: URL, from connections: [AVCaptureConnection], error: Error?) {
+        if let error = error {
+            print("Error recording video: \(error.localizedDescription)")
+        } else {
+            // Video recorded successfully, you can access the video file at `outputFileURL`
+            print("Video recorded: \(outputFileURL.absoluteString)")
+            DispatchQueue.global(qos: .userInitiated).async {
+                let prefixKey = "\(self.tapeDate)/\((uiViewContoller! as! ConferenceViewController).roomUid)/\(self.tapeId)/"
+                print("prefixKey", prefixKey)
+                
+                DispatchQueue.main.async {
+                    Toast.show(message: "Start to upload record files", controller: uiViewContoller!)
+                }
+                
+//                //{{Splite audio and video
+//                DispatchQueue.main.async {
+//                    saveOnlyVideoFrom(url: outputFileURL) { url in
+//                        print(url)
+//                        saveOnlyAudioFrom(url: outputFileURL) { url in
+//                            print(url)
+//                        }
+//                    }
+//                }
+//                //}}Splite audio and video
+                
+                //Upload video at first
+                awsUpload.multipartUpload(filePath: outputFileURL, prefixKey: prefixKey){ error -> Void in
+                    if(error == nil)
+                    {
+                        //Upload audio at secodary
+                        awsUpload.multipartUpload(filePath: (uiViewContoller! as! ConferenceViewController).audioUrl!, prefixKey: prefixKey){ (error: Error?) -> Void in
+                            if(error == nil)
+                            {//Then Upload video
+                                DispatchQueue.main.async {
+                                    //Omitted hideIndicator(sender: nil)
+                                    Toast.show(message: "Completed to upload all record files", controller: uiViewContoller!)
+                                }
+                                if let userInfo = UserDefaults.standard.object(forKey: "USER") as? [String:Any] {
+                                    // Use the saved data
+                                    let uid = userInfo["uid"] as! String
+                                    //let tapeName = "\(getDateString())(\((uiViewContoller! as! ConferenceViewController).tapeId))"
+                                    let tapeName = "\((uiViewContoller! as! ConferenceViewController).tapeId)"
+                                    webAPI.addLibrary(uid: uid
+                                                      , tapeName: tapeName
+                                                      , bucketName: "video-client-upload-123456798"
+                                                      , tapeKey: "\(prefixKey)\((uiViewContoller! as! ConferenceViewController).userName!)"
+                                                      , roomUid: (uiViewContoller! as! ConferenceViewController).roomUid
+                                                      , tapeId: (uiViewContoller! as! ConferenceViewController).tapeId)
+                                    ConferenceViewController.clearTempFolder()
+                                } else {
+                                    // No data was saved
+                                    print("No data was saved.")
+                                }
+                            }
+                            else
+                            {
+                                DispatchQueue.main.async {
+                                    //Omitted hideIndicator(sender: nil)
+                                    Toast.show(message: "Failed to upload audio file", controller: uiViewContoller!)
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        DispatchQueue.main.async {
+                            //Omitted hideIndicator(sender: nil)
+                            Toast.show(message: "Failed to upload video file", controller: uiViewContoller!)
+                        }
+                    }
+                }
+            }//DispatchQueue.global
         }
     }
 }
