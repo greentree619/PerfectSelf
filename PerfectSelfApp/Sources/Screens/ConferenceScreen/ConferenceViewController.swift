@@ -604,31 +604,31 @@ class ConferenceViewController: UIViewController, AVCaptureFileOutputRecordingDe
 //            movieOutput = AVCaptureMovieFileOutput()
 //            captureSession.addOutput(movieOutput!)
 //
-//            // configure audio session
-//            let audioSession = AVAudioSession.sharedInstance()
-//            try audioSession.setCategory(AVAudioSession.Category.playAndRecord)
-//            try audioSession.setActive(true)
-//
-//            var micPort: AVAudioSessionPortDescription?
-//
-//            if let inputs = audioSession.availableInputs {
-//                for port in inputs {
-//                    if port.portType == AVAudioSession.Port.builtInMic {
-//                        micPort = port
-//                        break;
-//                    }
-//                }
-//            }
-//
-//            if let port = micPort, let dataSources = port.dataSources {
-//
-//                for source in dataSources {
-//                    if source.orientation == AVAudioSession.Orientation.front {
-//                        try audioSession.setPreferredInput(port)
-//                        break
-//                    }
-//                }
-//            }
+            // configure audio session
+            let audioSession = AVAudioSession.sharedInstance()
+            try audioSession.setCategory(AVAudioSession.Category.playAndRecord)
+            try audioSession.setActive(true)
+
+            var micPort: AVAudioSessionPortDescription?
+
+            if let inputs = audioSession.availableInputs {
+                for port in inputs {
+                    if port.portType == AVAudioSession.Port.builtInMic {
+                        micPort = port
+                        break;
+                    }
+                }
+            }
+
+            if let port = micPort, let dataSources = port.dataSources {
+
+                for source in dataSources {
+                    if source.orientation == AVAudioSession.Orientation.front {
+                        try audioSession.setPreferredInput(port)
+                        break
+                    }
+                }
+            }
             
 //        } catch {
 //            print("Failed to configure audio/video capture session")
