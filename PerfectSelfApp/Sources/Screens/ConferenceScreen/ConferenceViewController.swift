@@ -239,7 +239,7 @@ class ConferenceViewController: UIViewController, AVCaptureFileOutputRecordingDe
         DispatchQueue.main.async {
             self.syncTimer = Timer.scheduledTimer(withTimeInterval: TimeInterval(300) / 1000, repeats: true, block: { timer in
                 print("signalingConnected:\(self.signalingClientStatus.signalingConnected)")
-                let disabledWait = false
+                var disabledWait: Bool = false
 #if DISABLE_SYNC
                 disabledWait = true
 #endif
