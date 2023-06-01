@@ -259,6 +259,39 @@ class ConferenceViewController: UIViewController, AVCaptureFileOutputRecordingDe
                 DispatchQueue.main.sync {
                     //Omitted self.configurePreview()
                 }
+                
+                DispatchQueue.main.async {
+                    ConferenceViewController.clearTempFolder()
+                    self.tapeId = getTapeIdString()
+                    self.tapeDate = getDateString()
+                    
+                    Toast.show(message: "Recording ready...", controller: uiViewContoller!)
+                    self.count = self.selectedCount
+                    self.lblTimer.text = "\(self.count)"
+                    self.lblTimer.isHidden = false
+                    if self.timer != nil {
+                        self.timer.invalidate()
+                    }
+                    
+                    self.btnBack.isUserInteractionEnabled = false
+                    self.btnLeave.isUserInteractionEnabled = false
+                    self.timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true, block: { timer in
+                        self.count -= 1
+                        self.lblTimer.text = "\(self.count)"
+                        if self.count == 0 {
+                            self.lblTimer.isHidden = true
+                            timer.invalidate()
+                            //self._captureState = .start
+                            //self.audioRecorder?.record()
+                            //Send record cmd to other.
+                            let recStart: Data = "\(self.recordingStartCmd)\(self.tapeDate)#\(self.tapeId)#\(self.count)".data(using: .utf8)!
+                            self.webRTCClient.sendData(recStart)
+                            
+                            
+                            self.startRecording()
+                        }
+                    })
+                }
             } catch {
                 DispatchQueue.main.async {
                    //Toast("Unable to configure capture session")
@@ -268,33 +301,7 @@ class ConferenceViewController: UIViewController, AVCaptureFileOutputRecordingDe
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        DispatchQueue.main.async {
-            ConferenceViewController.clearTempFolder()
-            self.tapeId = getTapeIdString()
-            self.tapeDate = getDateString()
-            
-            Toast.show(message: "Recording ready...", controller: uiViewContoller!)
-            self.count = self.selectedCount
-            self.lblTimer.text = "\(self.count)"
-            self.lblTimer.isHidden = false
-            if self.timer != nil {
-                self.timer.invalidate()
-            }
-            
-            self.btnBack.isUserInteractionEnabled = false
-            self.btnLeave.isUserInteractionEnabled = false
-            self.timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true, block: { timer in
-                self.count -= 1
-                self.lblTimer.text = "\(self.count)"
-                if self.count == 0 {
-                    self.lblTimer.isHidden = true
-                    timer.invalidate()
-                    //self._captureState = .start
-                    //self.audioRecorder?.record()
-                    self.startRecording()
-                }
-            })
-        }
+        
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -843,6 +850,21 @@ class ConferenceViewController: UIViewController, AVCaptureFileOutputRecordingDe
                     DispatchQueue.main.async {
                         //Omitted showIndicator(sender: nil, viewController: uiViewContoller!, color:UIColor.white)
                         Toast.show(message: "Start to upload record files", controller: uiViewContoller!)
+                    }
+                    
+                    DispatchQueue.main.async {
+                        saveOnlyVideoFrom(url: outputFileURL) { url in
+                            print(url)
+            //                self.savedReaderVideoUrl = url
+            //                let fileManager = FileManager.default
+            //                try? fileManager.removeItem(at: url)
+                            saveOnlyAudioFrom(url: outputFileURL) { url in
+                                print(url)
+                                //self.savedReaderAudioUrl = url
+            //                    let fileManager = FileManager.default
+            //                    try? fileManager.removeItem(at: url)
+                            }
+                        }
                     }
                     
                     //Upload video at first
