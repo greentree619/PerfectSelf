@@ -18,7 +18,7 @@ enum PipelineMode
 }// internal state machine
 
 class ConferenceViewController: UIViewController, AVCaptureFileOutputRecordingDelegate {
-    
+
     @IBOutlet weak var localVideoView: UIView!
     
     @IBOutlet weak var timeSelect: UIPickerView!
@@ -541,55 +541,92 @@ class ConferenceViewController: UIViewController, AVCaptureFileOutputRecordingDe
     }
     
     private func configureCaptureSession() throws {
-        do {
-            // configure capture devices
-            let camDevice = AVCaptureDevice.default(for: AVMediaType.video)
-            let micDevice = AVCaptureDevice.default(for: AVMediaType.audio)
+        //do {
+            //captureSession = AVCaptureSession()
+            captureSession.beginConfiguration()
             
-            let camInput = try AVCaptureDeviceInput(device: camDevice!)
-            let micInput = try AVCaptureDeviceInput(device: micDevice!)
-            
-            if captureSession.canAddInput(camInput) {
-                captureSession.addInput(camInput)
+            // Setup video input
+            guard let frontCamera = AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: .front) else {
+                print("Front camera not found.")
+                return
+            }
+            do {
+                let videoInput = try AVCaptureDeviceInput(device: frontCamera)
+                if captureSession.canAddInput(videoInput) {
+                    captureSession.addInput(videoInput)
+                }
+            } catch {
+                print("Error setting up video input: \(error)")
             }
             
-            if captureSession.canAddInput(micInput) {
-                captureSession.addInput(micInput)
+            // Setup audio input
+            guard let audioDevice = AVCaptureDevice.default(for: .audio) else {
+                print("Audio device not found.")
+                return
+            }
+            do {
+                let audioInput = try AVCaptureDeviceInput(device: audioDevice)
+                if captureSession.canAddInput(audioInput) {
+                    captureSession.addInput(audioInput)
+                }
+            } catch {
+                print("Error setting up audio input: \(error)")
             }
             
+            // Setup movie output
             movieOutput = AVCaptureMovieFileOutput()
-            captureSession.addOutput(movieOutput!)
-            
-            // configure audio session
-            let audioSession = AVAudioSession.sharedInstance()
-            try audioSession.setCategory(AVAudioSession.Category.playAndRecord)
-            try audioSession.setActive(true)
-            
-            var micPort: AVAudioSessionPortDescription?
-            
-            if let inputs = audioSession.availableInputs {
-                for port in inputs {
-                    if port.portType == AVAudioSession.Port.builtInMic {
-                        micPort = port
-                        break;
-                    }
-                }
+            if captureSession.canAddOutput(movieOutput!) {
+                captureSession.addOutput(movieOutput!)
             }
+            captureSession.commitConfiguration()
+//            // configure capture devices
+//            let camDevice = AVCaptureDevice.default(for: AVMediaType.video)
+//            let micDevice = AVCaptureDevice.default(for: AVMediaType.audio)
+//
+//            let camInput = try AVCaptureDeviceInput(device: camDevice!)
+//            let micInput = try AVCaptureDeviceInput(device: micDevice!)
+//
+//            if captureSession.canAddInput(camInput) {
+//                captureSession.addInput(camInput)
+//            }
+//
+//            if captureSession.canAddInput(micInput) {
+//                captureSession.addInput(micInput)
+//            }
+//
+//            movieOutput = AVCaptureMovieFileOutput()
+//            captureSession.addOutput(movieOutput!)
+//
+//            // configure audio session
+//            let audioSession = AVAudioSession.sharedInstance()
+//            try audioSession.setCategory(AVAudioSession.Category.playAndRecord)
+//            try audioSession.setActive(true)
+//
+//            var micPort: AVAudioSessionPortDescription?
+//
+//            if let inputs = audioSession.availableInputs {
+//                for port in inputs {
+//                    if port.portType == AVAudioSession.Port.builtInMic {
+//                        micPort = port
+//                        break;
+//                    }
+//                }
+//            }
+//
+//            if let port = micPort, let dataSources = port.dataSources {
+//
+//                for source in dataSources {
+//                    if source.orientation == AVAudioSession.Orientation.front {
+//                        try audioSession.setPreferredInput(port)
+//                        break
+//                    }
+//                }
+//            }
             
-            if let port = micPort, let dataSources = port.dataSources {
-                
-                for source in dataSources {
-                    if source.orientation == AVAudioSession.Orientation.front {
-                        try audioSession.setPreferredInput(port)
-                        break
-                    }
-                }
-            }
-            
-        } catch {
-            print("Failed to configure audio/video capture session")
-            throw error
-        }
+//        } catch {
+//            print("Failed to configure audio/video capture session")
+//            throw error
+//        }
     }
     
 //    private func configureAssetWriter() throws {
