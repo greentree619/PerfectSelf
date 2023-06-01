@@ -795,6 +795,37 @@ class ConferenceViewController: UIViewController, AVCaptureFileOutputRecordingDe
             } else {
                 // Video recorded successfully, you can access the video file at `outputFileURL`
                 print("Video recorded: \(outputFileURL.absoluteString)")
+                
+                DispatchQueue.global(qos: .userInitiated).async {
+                    self.tapeId = getTapeIdString()
+                    self.tapeDate = getDateString()
+                    
+                    let prefixKey = "\(self.tapeDate)/\((uiViewContoller! as! ConferenceViewController).roomUid)/\(self.tapeId)/"
+                    print("prefixKey", prefixKey)
+                    //Omitted let awsUpload = AWSMultipartUpload()
+                    DispatchQueue.main.async {
+                        //Omitted showIndicator(sender: nil, viewController: uiViewContoller!, color:UIColor.white)
+                        Toast.show(message: "Start to upload record files", controller: uiViewContoller!)
+                    }
+                    
+                    //Upload video at first
+                    awsUpload.multipartUpload(filePath: outputFileURL, prefixKey: prefixKey){ error -> Void in
+                        if(error == nil)
+                        {
+                            DispatchQueue.main.async {
+                                //Omitted hideIndicator(sender: nil)
+                                Toast.show(message: "Completed to upload Video file. Audio file is on uploading.", controller: uiViewContoller!)
+                            }
+                        }
+                        else
+                        {
+                            DispatchQueue.main.async {
+                                //Omitted hideIndicator(sender: nil)
+                                Toast.show(message: "Failed to upload video file", controller: uiViewContoller!)
+                            }
+                        }
+                    }
+                }//DispatchQueue.global
             }
         }
 
