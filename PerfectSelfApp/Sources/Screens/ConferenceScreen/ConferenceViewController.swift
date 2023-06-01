@@ -384,11 +384,11 @@ class ConferenceViewController: UIViewController, AVCaptureFileOutputRecordingDe
         tapeDate = getDateString()
         
         //Send record cmd to other.
+        self.count = self.selectedCount
         print("signalingConnected:", signalingClientStatus.signalingConnected)
         let recStart: Data = "\(recordingStartCmd)\(self.tapeDate)#\(self.tapeId)#\(self.count)".data(using: .utf8)!
         self.webRTCClient.sendData(recStart)
         
-        self.count = self.selectedCount
         self.lblTimer.text = "\(self.count)"
         lblTimer.isHidden = false
         if timer != nil {
@@ -666,7 +666,6 @@ extension ConferenceViewController: WebRTCClientDelegate {
         if(preStartCmdToken.compare(startCmd).rawValue == 0)
         {//recording Start
             if(_captureState == .idle){
-                print("Start recording remotely")
                 ConferenceViewController.clearTempFolder()
                 let range = message.index(message.startIndex, offsetBy: (strlen(startCmd)))..<message.endIndex
                 let keyInfo = String(message[range])
@@ -674,7 +673,7 @@ extension ConferenceViewController: WebRTCClientDelegate {
                 self.tapeDate   = keyInfoArr[0]
                 self.tapeId = keyInfoArr[1]
                 self.remoteCount = Int(keyInfoArr[2])!
-                
+                print("Start recording remotely: \(self.remoteCount)")
                 DispatchQueue.main.async {
                     self.lblTimer.text = "\(self.remoteCount)"
                     self.lblTimer.isHidden = false
