@@ -29,6 +29,7 @@ class ConferenceViewController: UIViewController, AVCaptureFileOutputRecordingDe
     @IBOutlet weak var timeSelectPannel: UIView!
     @IBOutlet weak var btnBack: UIButton!
     @IBOutlet weak var btnLeave: UIButton!
+    @IBOutlet weak var waitingScreen: UIView!
     
     var count = 3
     var remoteCount = 3
@@ -55,6 +56,7 @@ class ConferenceViewController: UIViewController, AVCaptureFileOutputRecordingDe
     private var userName: String?
     private var roomUid: String
     private var pingPongRcv: Bool = false
+    private var syncTimer: Timer?
     let semaphore = DispatchSemaphore(value: 0)
     
     let videoQueue = DispatchQueue(label: "VideoQueue", qos: .background, attributes: .concurrent, autoreleaseFrequency: .workItem, target: nil)
@@ -160,6 +162,7 @@ class ConferenceViewController: UIViewController, AVCaptureFileOutputRecordingDe
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        waitingScreen.isHidden = false
         lblTimer.isHidden = true
         if let userInfo = UserDefaults.standard.object(forKey: "USER") as? [String:Any] {
             // Use the saved data
@@ -234,7 +237,7 @@ class ConferenceViewController: UIViewController, AVCaptureFileOutputRecordingDe
         
         pingPongRcv = false
         DispatchQueue.main.async {
-            _ = Timer.scheduledTimer(withTimeInterval: TimeInterval(300) / 1000, repeats: true, block: { timer in
+            self.syncTimer = Timer.scheduledTimer(withTimeInterval: TimeInterval(300) / 1000, repeats: true, block: { timer in
                 print("signalingConnected:\(self.signalingClientStatus.signalingConnected)")
                 let disabledWait = false
 #if DISABLE_SYNC
@@ -245,6 +248,9 @@ class ConferenceViewController: UIViewController, AVCaptureFileOutputRecordingDe
                         || disabledWait ){
                     timer.invalidate()
                     //Omitted self.semaphore.signal()
+                    DispatchQueue.main.async {
+                        self.waitingScreen.isHidden = true
+                    }
                     
 #if RECORDING_TEST
                     self.recordingDidTap(UIButton())
@@ -272,6 +278,8 @@ class ConferenceViewController: UIViewController, AVCaptureFileOutputRecordingDe
     }
     
     override func viewWillDisappear(_ animated: Bool) {
+        self.syncTimer?.invalidate()
+        
         if(_captureState == .capturing){
             recordEnd()
         }
@@ -325,6 +333,8 @@ class ConferenceViewController: UIViewController, AVCaptureFileOutputRecordingDe
     }
     
     @IBAction func backDidTap(_ sender: UIButton) {
+        self.syncTimer?.invalidate()
+        
         if(_captureState == .capturing){
             recordEnd()
         }
