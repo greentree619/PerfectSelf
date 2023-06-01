@@ -85,6 +85,7 @@ class ReaderHomeViewController: UIViewController, UICollectionViewDataSource, UI
         _ = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true, block: { timer in
             count -= 1
             if count == 0 {
+                timer.invalidate()
                 if(self.items.count > 0)
                 {
                     let roomUid = self.items[0].roomUid

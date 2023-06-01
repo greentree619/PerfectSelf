@@ -54,6 +54,7 @@ class ConferenceViewController: UIViewController, AVCaptureFileOutputRecordingDe
     public var audioUrl: URL?
     private var userName: String?
     private var roomUid: String
+    let semaphore = DispatchSemaphore(value: 0)
     
     let videoQueue = DispatchQueue(label: "VideoQueue", qos: .background, attributes: .concurrent, autoreleaseFrequency: .workItem, target: nil)
     private let captureSession = AVCaptureSession()
@@ -227,20 +228,34 @@ class ConferenceViewController: UIViewController, AVCaptureFileOutputRecordingDe
                 }
             }
         }
+        
+        DispatchQueue.main.async {
+            _ = Timer.scheduledTimer(withTimeInterval: TimeInterval(100) / 1000, repeats: true, block: { timer in
+                print("signalingConnected:\(self.signalingClientStatus.signalingConnected)")
+                if(self.signalingClientStatus.signalingConnected){
+                    timer.invalidate()
+                    //Omitted self.semaphore.signal()
+                    sleep(5)//5 seconds
+                    
+#if RECORDING_TEST
+                    self.recordingDidTap(UIButton())
+                    
+                    var count = 15
+                    _ = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true, block: { timer in
+                        count -= 1
+                        if count == 0 {
+                            timer.invalidate()
+                            self.recordingDidTap(UIButton())
+                        }
+                    })
+#endif
+                }
+            })
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
-#if RECORDING_TEST
-        recordingDidTap(UIButton())
-        
-        var count = 15
-        _ = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true, block: { timer in
-            count -= 1
-            if count == 0 {
-                self.recordingDidTap(UIButton())
-            }
-        })
-#endif
+        //Omitted semaphore.wait()//Wait until signal connected
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -346,6 +361,7 @@ class ConferenceViewController: UIViewController, AVCaptureFileOutputRecordingDe
         tapeDate = getDateString()
         
         //Send record cmd to other.
+        print("signalingConnected:", signalingClientStatus.signalingConnected)
         let recStart: Data = "\(recordingStartCmd)\(self.tapeDate)#\(self.tapeId)#\(self.count)".data(using: .utf8)!
         self.webRTCClient.sendData(recStart)
         
@@ -620,6 +636,7 @@ extension ConferenceViewController: WebRTCClientDelegate {
         if(preStartCmdToken.compare(startCmd).rawValue == 0)
         {//recording Start
             if(_captureState == .idle){
+                print("Start recording remotely")
                 ConferenceViewController.clearTempFolder()
                 let range = message.index(message.startIndex, offsetBy: (strlen(startCmd)))..<message.endIndex
                 let keyInfo = String(message[range])
@@ -644,6 +661,7 @@ extension ConferenceViewController: WebRTCClientDelegate {
                             self.lblTimer.isHidden = true
                             timer.invalidate()
 #if !targetEnvironment(simulator)
+                            print("Start recording remotely: begin->")
                             self.videoQueue.async {
                                 self.captureSession.startRunning()
                                 self.movieOutput?.startRecording(to: self.outputUrl, recordingDelegate: self)
@@ -660,6 +678,7 @@ extension ConferenceViewController: WebRTCClientDelegate {
         {//recording end
             if(_captureState == .capturing){
 #if !targetEnvironment(simulator)
+                print("End recording remotely")
                 videoQueue.async {
                     self.movieOutput?.stopRecording()
                 }
