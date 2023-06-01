@@ -54,6 +54,7 @@ class ConferenceViewController: UIViewController, AVCaptureFileOutputRecordingDe
     public var audioUrl: URL?
     private var userName: String?
     private var roomUid: String
+    private var pingPongRcv: Bool = false
     let semaphore = DispatchSemaphore(value: 0)
     
     let videoQueue = DispatchQueue(label: "VideoQueue", qos: .background, attributes: .concurrent, autoreleaseFrequency: .workItem, target: nil)
@@ -63,6 +64,8 @@ class ConferenceViewController: UIViewController, AVCaptureFileOutputRecordingDe
     private var waitSecKey: String = "REC_WAIT_SEC"
     var recordingStartCmd: String = "#CMD#REC#START#"
     var recordingEndCmd: String = "#CMD#REC#END#"
+    var pingPongSCmd: String = "#CMD#PING#"
+    var pingPongRCmd: String = "#CMD#PONG#"
     
     var outputUrl: URL {
         get {
@@ -229,13 +232,19 @@ class ConferenceViewController: UIViewController, AVCaptureFileOutputRecordingDe
             }
         }
         
+        pingPongRcv = false
         DispatchQueue.main.async {
-            _ = Timer.scheduledTimer(withTimeInterval: TimeInterval(100) / 1000, repeats: true, block: { timer in
+            _ = Timer.scheduledTimer(withTimeInterval: TimeInterval(300) / 1000, repeats: true, block: { timer in
                 print("signalingConnected:\(self.signalingClientStatus.signalingConnected)")
-                if(self.signalingClientStatus.signalingConnected){
+                let disabledWait = false
+#if DISABLE_SYNC
+                disabledWait = true
+#endif
+                
+                if((self.signalingClientStatus.signalingConnected && self.pingPongRcv)
+                        || disabledWait ){
                     timer.invalidate()
                     //Omitted self.semaphore.signal()
-                    sleep(5)//5 seconds
                     
 #if RECORDING_TEST
                     self.recordingDidTap(UIButton())
@@ -249,6 +258,10 @@ class ConferenceViewController: UIViewController, AVCaptureFileOutputRecordingDe
                         }
                     })
 #endif
+                }
+                else
+                {
+                    self.sendCmd(cmd: self.pingPongSCmd)
                 }
             })
         }
@@ -575,6 +588,11 @@ class ConferenceViewController: UIViewController, AVCaptureFileOutputRecordingDe
             }//DispatchQueue.global
         }
     }
+    
+    func sendCmd(cmd: String){
+        let recStart: Data = "\(cmd)".data(using: .utf8)!
+        self.webRTCClient.sendData(recStart)
+    }
 }
 
 //MARK: UIPickerViewDelegate
@@ -632,6 +650,8 @@ extension ConferenceViewController: WebRTCClientDelegate {
         let message = String(data: data, encoding: .utf8) ?? "(Binary: \(data.count) bytes)"
         let startCmd = "\(recordingStartCmd)"//String(describing: "#CMD#REC#START#".cString(using: String.Encoding.utf8))
         let endCmd = "\(recordingEndCmd)"//String(describing: "#CMD#REC#END#".cString(using: String.Encoding.utf8))
+        let pingCmd = "\(pingPongSCmd)"
+        let pongCmd = "\(pingPongRCmd)"
         let  preStartCmdToken = message.prefix(strlen(startCmd))
         if(preStartCmdToken.compare(startCmd).rawValue == 0)
         {//recording Start
@@ -689,6 +709,14 @@ extension ConferenceViewController: WebRTCClientDelegate {
             
             self.btnBack.isUserInteractionEnabled = true
             self.btnLeave.isUserInteractionEnabled = true
+        }
+        else if(message.compare(pingCmd).rawValue == 0)
+        {//received ping cmd
+            self.sendCmd(cmd: pingPongRCmd)
+        }
+        else if(message.compare(pongCmd).rawValue == 0)
+        {//received pong cmd
+            self.pingPongRcv = true
         }
         
         DispatchQueue.main.async {
