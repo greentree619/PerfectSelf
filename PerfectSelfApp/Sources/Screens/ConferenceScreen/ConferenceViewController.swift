@@ -29,6 +29,7 @@ class ConferenceViewController: UIViewController, AVCaptureFileOutputRecordingDe
     @IBOutlet weak var timeSelectPannel: UIView!
     @IBOutlet weak var btnBack: UIButton!
     @IBOutlet weak var btnLeave: UIButton!
+    @IBOutlet weak var waitingScreen: UIView!
     
     var count = 3
     var remoteCount = 3
@@ -54,6 +55,8 @@ class ConferenceViewController: UIViewController, AVCaptureFileOutputRecordingDe
     public var audioUrl: URL?
     private var userName: String?
     private var roomUid: String
+    private var pingPongRcv: Bool = false
+    private var syncTimer: Timer?
     let semaphore = DispatchSemaphore(value: 0)
     
     let videoQueue = DispatchQueue(label: "VideoQueue", qos: .background, attributes: .concurrent, autoreleaseFrequency: .workItem, target: nil)
@@ -63,6 +66,8 @@ class ConferenceViewController: UIViewController, AVCaptureFileOutputRecordingDe
     private var waitSecKey: String = "REC_WAIT_SEC"
     var recordingStartCmd: String = "#CMD#REC#START#"
     var recordingEndCmd: String = "#CMD#REC#END#"
+    var pingPongSCmd: String = "#CMD#PING#"
+    var pingPongRCmd: String = "#CMD#PONG#"
     
     var outputUrl: URL {
         get {
@@ -157,6 +162,7 @@ class ConferenceViewController: UIViewController, AVCaptureFileOutputRecordingDe
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        waitingScreen.isHidden = false
         lblTimer.isHidden = true
         if let userInfo = UserDefaults.standard.object(forKey: "USER") as? [String:Any] {
             // Use the saved data
@@ -197,7 +203,6 @@ class ConferenceViewController: UIViewController, AVCaptureFileOutputRecordingDe
             audioRecorder?.stop()
             //finishRecording(success: false)
         }
-        
         //}}Init to record audio
         
         self.webRTCClient.startCaptureLocalVideo(renderer: localRenderer)
@@ -210,32 +215,41 @@ class ConferenceViewController: UIViewController, AVCaptureFileOutputRecordingDe
         self.remoteCameraView.sendSubviewToBack(remoteRenderer)
         setSpeakerVolume(1.0)
         
-        videoQueue.async {
-            do {
-                DispatchQueue.main.async {
-                    Toast.show(message: "Initialize for record from camera....", controller: self)
-                }
-#if !targetEnvironment(simulator)
-                try self.configureCaptureSession()
-                self.captureSession.startRunning()
-#endif
-                DispatchQueue.main.async {
-                    Toast.show(message: "Initialize done.", controller: self)
-                }
-            } catch {
-                DispatchQueue.main.async {
-                    Toast.show(message: "Unable to configure capture session", controller: self)
-                }
-            }
-        }
-        
+        pingPongRcv = false
         DispatchQueue.main.async {
-            _ = Timer.scheduledTimer(withTimeInterval: TimeInterval(100) / 1000, repeats: true, block: { timer in
+            self.syncTimer = Timer.scheduledTimer(withTimeInterval: TimeInterval(300) / 1000, repeats: true, block: { timer in
                 print("signalingConnected:\(self.signalingClientStatus.signalingConnected)")
-                if(self.signalingClientStatus.signalingConnected){
+                var disabledWait: Bool = false
+#if DISABLE_SYNC
+                disabledWait = true
+#endif
+                
+                if((self.signalingClientStatus.signalingConnected && self.pingPongRcv)
+                        || disabledWait ){
                     timer.invalidate()
                     //Omitted self.semaphore.signal()
-                    sleep(5)//5 seconds
+                    DispatchQueue.main.async {
+                        self.waitingScreen.isHidden = true
+                    }
+                    
+                    self.videoQueue.async {
+                        do {
+                            DispatchQueue.main.async {
+                                Toast.show(message: "Initialize for record from camera....", controller: self)
+                            }
+#if !targetEnvironment(simulator)
+                            try self.configureCaptureSession()
+                            self.captureSession.startRunning()
+#endif
+                            DispatchQueue.main.async {
+                                Toast.show(message: "Initialize done.", controller: self)
+                            }
+                        } catch {
+                            DispatchQueue.main.async {
+                                Toast.show(message: "Unable to configure capture session", controller: self)
+                            }
+                        }
+                    }
                     
 #if RECORDING_TEST
                     self.recordingDidTap(UIButton())
@@ -250,6 +264,10 @@ class ConferenceViewController: UIViewController, AVCaptureFileOutputRecordingDe
                     })
 #endif
                 }
+                else
+                {
+                    self.sendCmd(cmd: self.pingPongSCmd)
+                }
             })
         }
     }
@@ -259,6 +277,8 @@ class ConferenceViewController: UIViewController, AVCaptureFileOutputRecordingDe
     }
     
     override func viewWillDisappear(_ animated: Bool) {
+        self.syncTimer?.invalidate()
+        
         if(_captureState == .capturing){
             recordEnd()
         }
@@ -312,6 +332,8 @@ class ConferenceViewController: UIViewController, AVCaptureFileOutputRecordingDe
     }
     
     @IBAction func backDidTap(_ sender: UIButton) {
+        self.syncTimer?.invalidate()
+        
         if(_captureState == .capturing){
             recordEnd()
         }
@@ -361,11 +383,11 @@ class ConferenceViewController: UIViewController, AVCaptureFileOutputRecordingDe
         tapeDate = getDateString()
         
         //Send record cmd to other.
+        self.count = self.selectedCount
         print("signalingConnected:", signalingClientStatus.signalingConnected)
         let recStart: Data = "\(recordingStartCmd)\(self.tapeDate)#\(self.tapeId)#\(self.count)".data(using: .utf8)!
         self.webRTCClient.sendData(recStart)
         
-        self.count = self.selectedCount
         self.lblTimer.text = "\(self.count)"
         lblTimer.isHidden = false
         if timer != nil {
@@ -575,6 +597,11 @@ class ConferenceViewController: UIViewController, AVCaptureFileOutputRecordingDe
             }//DispatchQueue.global
         }
     }
+    
+    func sendCmd(cmd: String){
+        let recStart: Data = "\(cmd)".data(using: .utf8)!
+        self.webRTCClient.sendData(recStart)
+    }
 }
 
 //MARK: UIPickerViewDelegate
@@ -632,11 +659,12 @@ extension ConferenceViewController: WebRTCClientDelegate {
         let message = String(data: data, encoding: .utf8) ?? "(Binary: \(data.count) bytes)"
         let startCmd = "\(recordingStartCmd)"//String(describing: "#CMD#REC#START#".cString(using: String.Encoding.utf8))
         let endCmd = "\(recordingEndCmd)"//String(describing: "#CMD#REC#END#".cString(using: String.Encoding.utf8))
+        let pingCmd = "\(pingPongSCmd)"
+        let pongCmd = "\(pingPongRCmd)"
         let  preStartCmdToken = message.prefix(strlen(startCmd))
         if(preStartCmdToken.compare(startCmd).rawValue == 0)
         {//recording Start
             if(_captureState == .idle){
-                print("Start recording remotely")
                 ConferenceViewController.clearTempFolder()
                 let range = message.index(message.startIndex, offsetBy: (strlen(startCmd)))..<message.endIndex
                 let keyInfo = String(message[range])
@@ -644,7 +672,7 @@ extension ConferenceViewController: WebRTCClientDelegate {
                 self.tapeDate   = keyInfoArr[0]
                 self.tapeId = keyInfoArr[1]
                 self.remoteCount = Int(keyInfoArr[2])!
-                
+                print("Start recording remotely: \(self.remoteCount)")
                 DispatchQueue.main.async {
                     self.lblTimer.text = "\(self.remoteCount)"
                     self.lblTimer.isHidden = false
@@ -689,6 +717,14 @@ extension ConferenceViewController: WebRTCClientDelegate {
             
             self.btnBack.isUserInteractionEnabled = true
             self.btnLeave.isUserInteractionEnabled = true
+        }
+        else if(message.compare(pingCmd).rawValue == 0)
+        {//received ping cmd
+            self.sendCmd(cmd: pingPongRCmd)
+        }
+        else if(message.compare(pongCmd).rawValue == 0)
+        {//received pong cmd
+            self.pingPongRcv = true
         }
         
         DispatchQueue.main.async {

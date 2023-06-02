@@ -54,6 +54,9 @@ class ActorProfileEditViewController: UIViewController, PhotoDelegate {
     var vaccin = 0
     var gender = 0
     
+    var bucketName: String?
+    var avatarKey: String?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -216,16 +219,19 @@ class ActorProfileEditViewController: UIViewController, PhotoDelegate {
             let g = userInfo["gender"] as? Int
             if g == 1 {
                 self.text_gender.text = "Male"
+                self.gender = 1
             } else if g == 2 {
                 self.text_gender.text = "Female"
+                self.gender = 2
             } else if g == 3 {
                 self.text_gender.text = "Decline to self-identify"
+                self.gender = 3
             } else {
                 self.text_gender.text = ""
             }
             
-            let bucketName = userInfo["avatarBucketName"] as? String
-            let avatarKey = userInfo["avatarKey"] as? String
+            bucketName = userInfo["avatarBucketName"] as? String
+            avatarKey = userInfo["avatarKey"] as? String
             
             if (bucketName != nil && avatarKey != nil) {
                 let url = "https://\( bucketName!).s3.us-east-2.amazonaws.com/\(avatarKey!)"
@@ -256,7 +262,7 @@ class ActorProfileEditViewController: UIViewController, PhotoDelegate {
                     print("Status code: \(statusCode)")
                 }
                 let item = try JSONDecoder().decode(ActorProfile.self, from: data)
-                print(item)
+                
                 DispatchQueue.main.async {
                     self.text_age.text = item.ageRange
                     self.text_height.text = String(item.height)
@@ -267,10 +273,13 @@ class ActorProfileEditViewController: UIViewController, PhotoDelegate {
                     self.text_agency.text = item.agency
                     if item.vaccinationStatus == 0 {
                         self.text_vaccination.text = "Not Vaccinated"
+                        self.vaccin = 0
                     } else if item.vaccinationStatus == 1 {
                         self.text_vaccination.text = "Partially Vaccinated"
+                        self.vaccin = 1
                     } else if item.vaccinationStatus == 2 {
                         self.text_vaccination.text = "Fully Vaccinated"
+                        self.vaccin = 2
                     } else {
                         self.text_vaccination.text = ""
                     }
@@ -375,7 +384,7 @@ class ActorProfileEditViewController: UIViewController, PhotoDelegate {
                  
                     DispatchQueue.main.async {
                         //update username and gender
-                        webAPI.updateUserInfo(uid: self.id, userType: -1, bucketName: "", avatarKey: "", username: self.text_username.text!, email: "", password: "", firstName: "", lastName: "", dateOfBirth: "", gender: self.gender, currentAddress: "", permanentAddress: "", city: "", nationality: "", phoneNumber: "", isLogin: true, fcmDeviceToken: "", deviceKind: -1) { data, response, error in
+                        webAPI.updateUserInfo(uid: self.id, userType: -1, bucketName: self.bucketName ?? "", avatarKey: self.avatarKey ?? "", username: self.text_username.text!, email: "", password: "", firstName: "", lastName: "", dateOfBirth: "", gender: self.gender, currentAddress: "", permanentAddress: "", city: "", nationality: "", phoneNumber: "", isLogin: true, fcmDeviceToken: "", deviceKind: -1) { data, response, error in
                             DispatchQueue.main.async {
                                 hideIndicator(sender: nil)
                             }
@@ -416,7 +425,6 @@ class ActorProfileEditViewController: UIViewController, PhotoDelegate {
                                 }
                             }
                         }
-                       
                     }
                     return
                 }

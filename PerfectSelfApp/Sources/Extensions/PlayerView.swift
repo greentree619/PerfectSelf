@@ -58,6 +58,15 @@ class PlayerView: UIView {
         }
     }
     
+    public var avAsset: AVAsset? {
+        didSet {
+            guard let avAsset = avAsset else {
+                return
+            }
+            playerItem = AVPlayerItem(asset: avAsset)
+        }
+    }
+    
     public var mainavComposition: AVMutableComposition? {
         didSet {
             guard let mainavComposition = mainavComposition else {

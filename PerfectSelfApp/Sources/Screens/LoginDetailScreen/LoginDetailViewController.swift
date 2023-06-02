@@ -125,14 +125,16 @@ class LoginDetailViewController: UIViewController {
                 
                 if result as! Bool {
                     let user = responseJSON["user"] as! [String: Any]
-                    
+                    print(user)
                     let fCMDeviceToken = user["fcmDeviceToken"] as! String
                     let uid = user["uid"] as! String
+                    let bucketName = user["avatarBucketName"] as? String
+                    let avatarKey = user["avatarKey"] as? String
                     
                    if( fcmDeviceToken.count > 0 &&
                        fcmDeviceToken != fCMDeviceToken )
                     {
-                       webAPI.updateUserInfo(uid: uid, userType: -1, bucketName: "", avatarKey: "", username: "", email: "", password: "", firstName: "", lastName: "", dateOfBirth: "", gender: -1, currentAddress: "", permanentAddress: "", city: "", nationality: "", phoneNumber: "", isLogin: true, fcmDeviceToken: fcmDeviceToken, deviceKind: -1)  { data, response, error in
+                       webAPI.updateUserInfo(uid: uid, userType: -1, bucketName: bucketName ?? "", avatarKey: avatarKey ?? "", username: "", email: "", password: "", firstName: "", lastName: "", dateOfBirth: "", gender: -1, currentAddress: "", permanentAddress: "", city: "", nationality: "", phoneNumber: "", isLogin: true, fcmDeviceToken: fcmDeviceToken, deviceKind: -1)  { data, response, error in
                            if error == nil {
                                // successfully update db
                                print("update db completed")

@@ -14,6 +14,22 @@ import GoogleSignIn
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate {
 
+    func applicationWillTerminate(_ application: UIApplication) {
+        // update online status
+//        print("app will terminate")
+        if let userInfo = UserDefaults.standard.object(forKey: "USER") as? [String:Any] {
+            let uid = userInfo["uid"] as! String
+            
+            webAPI.updateOnlineState(uid: uid, newState: false) { data, response, error in
+                guard error == nil else {
+                    print(error?.localizedDescription ?? "")
+                    return
+                }
+            }
+ 
+        }
+    }
+    
     internal var window: UIWindow?
     func application(_ application: UIApplication,
                      didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
@@ -38,30 +54,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         // 3
         application.registerForRemoteNotifications()
         
-//        //{{Test localtime<->UTC
-//        var dt:String = "2023-05-16T20:30:00"
-//        dt = localToUTC(dateStr: dt)!
-//        dt = utcToLocal(dateStr: dt)!
-//
-//        dt = "2023-05-16T20:30:00"
-//        dt = localToUTCEx(dateStr: dt)!
-//        dt = utcToLocalEx(dateStr: dt)!
-//
-//        let dateFormatter = DateFormatter()
-//        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
-//
-//        // Set the local time zone
-//        dateFormatter.timeZone = TimeZone.current
-//
-//        // Create a sample local date
-//        let localDate = dateFormatter.date(from: "2023-05-16T20:30:00")!
-//
-//        // Convert the local date to UTC
-//        dateFormatter.timeZone = TimeZone(identifier: "UTC")
-//        let utcDate = dateFormatter.string(from: localDate)
-//
-//        print("UTC Date: \(utcDate)")
-//        //}}
         return true
     }
 
@@ -151,9 +143,12 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
             if let userInfo = UserDefaults.standard.object(forKey: "USER") as? [String:Any] {
                 let uid = userInfo["uid"] as! String
                 let token = userInfo["fcmDeviceToken"] as! String
+                let bucketName = userInfo["avatarBucketName"] as? String
+                let avatarKey = userInfo["avatarKey"] as? String
+                
                 if(token.compare(fcmDeviceToken).rawValue != 0 )
                 {
-                    webAPI.updateUserInfo(uid: uid, userType: -1, bucketName: "", avatarKey: "", username: "", email: "", password: "", firstName: "", lastName: "", dateOfBirth: "", gender: -1, currentAddress: "", permanentAddress: "", city: "", nationality: "", phoneNumber: "", isLogin: true, fcmDeviceToken: fcmDeviceToken, deviceKind: -1)  { data, response, error in
+                    webAPI.updateUserInfo(uid: uid, userType: -1, bucketName: bucketName ?? "", avatarKey: avatarKey ?? "", username: "", email: "", password: "", firstName: "", lastName: "", dateOfBirth: "", gender: -1, currentAddress: "", permanentAddress: "", city: "", nationality: "", phoneNumber: "", isLogin: true, fcmDeviceToken: fcmDeviceToken, deviceKind: -1)  { data, response, error in
                         if error == nil {
                             // successfully update db
                             print("update db completed")
@@ -176,24 +171,6 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
         @escaping (UNNotificationPresentationOptions) -> Void
     ) {
         completionHandler([[.banner, .badge, .sound]])
-//        print("User Info = ",notification.request.content.userInfo)
-//        if (UIApplication.shared.applicationState == .background) {
-//            print("User Info = ",notification.request.content.userInfo)
-//            //NSLog("Notification received in background: title:\"\(title)\" body:\"\(body)\"")
-//        } else
-//        {
-//            let alertController = UIAlertController(title: "Notification - PefectSelf", message: "Resered Booking from actor", preferredStyle: .alert)
-//            alertController.addAction(UIAlertAction(title: "OK", style: .cancel))
-//
-//            //Force
-//            //UIApplication.shared.windows.first?.rootViewController!.present(..)
-//
-//            //Safe
-//            guard let viewController = UIApplication.shared.windows.first?.rootViewController else {return}
-//            viewController.present(alertController, animated: true)
-//
-//            //self.present(alertController, animated: true)
-//        }
     }
     
     func userNotificationCenter(

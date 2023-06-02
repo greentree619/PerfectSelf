@@ -35,8 +35,10 @@ class ActorTabBarController: UITabBarController, UIImagePickerControllerDelegate
             
         }
         actionButton.addItem(title: "Create Self Tape", image: UIImage(systemName: "plus.circle")) { item in
+
             // do something
             if UIImagePickerController.isSourceTypeAvailable(UIImagePickerController.SourceType.camera) {
+#if !targetEnvironment(simulator)
                 print("captureVideoPressed and camera available.")
                 
                 self.imagePicker.delegate = self
@@ -49,7 +51,7 @@ class ActorTabBarController: UITabBarController, UIImagePickerControllerDelegate
                     self.present(self.imagePicker, animated: true, completion: nil)
                     //Omitted Toast.show(message: "Start to create self tap.", controller:  self)
                 }
-                
+#endif          
             } else {
                 print("Camera not available.")
             }

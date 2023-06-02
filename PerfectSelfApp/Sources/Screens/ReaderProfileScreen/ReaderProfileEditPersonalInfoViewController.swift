@@ -65,8 +65,9 @@ class ReaderProfileEditPersonalInfoViewController: UIViewController {
             DispatchQueue.main.async {
                 if let userInfo = UserDefaults.standard.object(forKey: "USER") as? [String:Any] {
                     // Use the saved data
-                    print(userInfo)
-                    webAPI.updateUserInfo(uid: self.uid, userType: -1, bucketName: userInfo["avatarBucketName"] as! String, avatarKey: userInfo["avatarKey"] as! String, username: self.readerName.text!, email: "", password: "", firstName: "", lastName: "", dateOfBirth: "", gender: -1, currentAddress: "", permanentAddress: "", city: "", nationality: "", phoneNumber: "", isLogin: true, fcmDeviceToken: "", deviceKind: -1) { data, response, error in
+                    let bucketName = userInfo["avatarBucketName"] as? String
+                    let avatarKey = userInfo["avatarKey"] as? String
+                    webAPI.updateUserInfo(uid: self.uid, userType: -1, bucketName: bucketName ?? "", avatarKey: avatarKey ?? "", username: self.readerName.text!, email: "", password: "", firstName: "", lastName: "", dateOfBirth: "", gender: -1, currentAddress: "", permanentAddress: "", city: "", nationality: "", phoneNumber: "", isLogin: true, fcmDeviceToken: "", deviceKind: -1) { data, response, error in
                         DispatchQueue.main.async {
                             hideIndicator(sender: nil);
                         }
