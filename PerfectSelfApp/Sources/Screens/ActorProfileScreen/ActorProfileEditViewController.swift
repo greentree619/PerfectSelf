@@ -208,9 +208,6 @@ class ActorProfileEditViewController: UIViewController, PhotoDelegate {
         DropDown.appearance().selectionBackgroundColor = UIColor.lightGray
         DropDown.appearance().cellHeight = 40
         DropDown.appearance().setupCornerRadius(5) // available since v2.3.6
-    }
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(true)
         // Retrieve the saved data from UserDefaults
         if let userInfo = UserDefaults.standard.object(forKey: "USER") as? [String:Any] {
             // Use the saved data
@@ -293,6 +290,10 @@ class ActorProfileEditViewController: UIViewController, PhotoDelegate {
                 }
             }
         }
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+     
     }
     @IBAction func SaveChanges(_ sender: UIButton) {
         var inputCheck: String = ""
