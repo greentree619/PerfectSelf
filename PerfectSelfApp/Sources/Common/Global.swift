@@ -670,3 +670,40 @@ func saveOnlyVideoFrom(url: URL, completion: @escaping (URL) -> Void) {
         }
     }
 }
+
+func transformForTrack(_ assetTrack: AVAssetTrack) -> CGAffineTransform{
+    var affineTransform = CGAffineTransform(rotationAngle: degreeToRadian(0))
+    
+    let size = assetTrack.naturalSize
+    let txf = assetTrack.preferredTransform
+    
+    var recordType = ""
+    if (size.width == txf.tx && size.height == txf.ty){
+        recordType = "UIInterfaceOrientationLandscapeRight"
+    }else if (txf.tx == 0 && txf.ty == 0){
+        recordType = "UIInterfaceOrientationLandscapeLeft"
+    }else if (txf.tx == 0 && txf.ty == size.width){
+        recordType = "UIInterfaceOrientationPortraitUpsideDown"
+    }else{
+        recordType = "UIInterfaceOrientationPortrait"
+    }
+    
+    if recordType == "UIInterfaceOrientationPortrait" {
+        let t1: CGAffineTransform = CGAffineTransform(translationX: assetTrack.naturalSize.height, y: -(assetTrack.naturalSize.width - assetTrack.naturalSize.height)/2)
+        let t2: CGAffineTransform = t1.rotated(by: CGFloat(Double.pi / 2))
+        let finalTransform: CGAffineTransform = t2
+        affineTransform = finalTransform
+    }else if recordType == "UIInterfaceOrientationLandscapeRight" {
+        let t1: CGAffineTransform = CGAffineTransform(translationX: assetTrack.naturalSize.height, y: -(assetTrack.naturalSize.width - assetTrack.naturalSize.height)/2)
+        let t2: CGAffineTransform = t1.rotated(by: -CGFloat(Double.pi))
+        let finalTransform: CGAffineTransform = t2
+        affineTransform = finalTransform
+    }else if recordType == "UIInterfaceOrientationPortraitUpsideDown" {
+        let t1: CGAffineTransform = CGAffineTransform(translationX: assetTrack.naturalSize.height, y: -(assetTrack.naturalSize.width - assetTrack.naturalSize.height)/2)
+        let t2: CGAffineTransform = t1.rotated(by: -CGFloat(Double.pi/2))
+        let finalTransform: CGAffineTransform = t2
+        affineTransform = finalTransform
+    }
+    
+    return affineTransform
+}

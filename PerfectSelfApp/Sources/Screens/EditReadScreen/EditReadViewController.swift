@@ -74,7 +74,7 @@ class EditReadViewController: UIViewController {
         let videoTrack = movie.addMutableTrack(withMediaType: .video, preferredTrackID: kCMPersistentTrackID_Invalid)
         audioTrack = movie.addMutableTrack(withMediaType: .audio, preferredTrackID: kCMPersistentTrackID_Invalid)
         let audioTrack2 = movie.addMutableTrack(withMediaType: .audio, preferredTrackID: kCMPersistentTrackID_Invalid)
-        
+                
         var editMovie = AVURLAsset(url: videoURL) //1
         var editAudio = AVAsset(url: audioURL!)
         var editAudio2 = AVAsset(url: readerAudioURL)
@@ -88,6 +88,8 @@ class EditReadViewController: UIViewController {
         editAudioTrack = editAudio.tracks(withMediaType: .audio).first! //2
         let editAudioTrack2 = editAudio2.tracks(withMediaType: .audio).first! //2
         let editVideoTrack = editMovie.tracks(withMediaType: .video).first!
+        videoTrack!.preferredTransform = transformForTrack(editVideoTrack)
+        
         do{
             try videoTrack?.insertTimeRange(editRange!, of: editVideoTrack, at: CMTime.zero) //4
             try audioTrack?.insertTimeRange(editRange!, of: editAudioTrack!, at: CMTime.zero)
@@ -107,8 +109,14 @@ class EditReadViewController: UIViewController {
 //        let instruction = AVMutableVideoCompositionInstruction()
 //        instruction.layerInstructions = [layerInstruction]
 //        videoComposition.instructions = [instruction]
-               
-        playerView.mainavComposition = movie//playerView.url = videoURL
+          
+        //{{
+        playerView.mainavComposition = movie
+        //==
+        //playerView.url = videoURL
+        //==
+        //playerView.avAsset = editMovie
+        //}}
 //        playerView.playerItem?.videoComposition = videoComposition
         playerView.delegate = self
         slider.minimumValue = 0

@@ -188,7 +188,11 @@ class CameraPreviewView: UIView {
                 // Start recording to a temporary file.
                 let outputFileName = UUID().uuidString
                 let outputFilePath = (self.outputFolder as NSString).appendingPathComponent((outputFileName as NSString).appendingPathExtension("mov")!)
+                
+#if !targetEnvironment(simulator)
                 movieFileOutput.startRecording(to: URL(fileURLWithPath: outputFilePath), recordingDelegate: self)
+#endif
+                
                 self.isVideoRecording = true
                 DispatchQueue.main.async {
                     self.delegate?.videoDidBeginRecording()
