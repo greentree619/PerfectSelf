@@ -425,7 +425,6 @@ class ActorProfileEditViewController: UIViewController, PhotoDelegate {
                                 }
                             }
                         }
-                       
                     }
                     return
                 }

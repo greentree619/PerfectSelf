@@ -11,7 +11,9 @@ import UIKit
 class ActorProfileViewController: UIViewController {
 
     var id = ""
-
+    var bucketName: String?
+    var avatarKey: String?
+    
     @IBOutlet weak var lbl_fullname: UILabel!
     @IBOutlet weak var lbl_username: UILabel!
     @IBOutlet weak var lbl_email: UILabel!
@@ -26,7 +28,7 @@ class ActorProfileViewController: UIViewController {
         super.viewWillAppear(true)
         // Retrieve the saved data from UserDefaults
         if let userInfo = UserDefaults.standard.object(forKey: "USER") as? [String:Any] {
-            print(userInfo)
+            
             // Use the saved data
             id = userInfo["uid"] as! String
             let name = userInfo["userName"] as? String ?? ""
@@ -34,8 +36,8 @@ class ActorProfileViewController: UIViewController {
             let lname = userInfo["lastName"] as? String
             let email = userInfo["email"] as? String
             
-            let bucketName = userInfo["avatarBucketName"] as? String
-            let avatarKey = userInfo["avatarKey"] as? String
+            bucketName = userInfo["avatarBucketName"] as? String
+            avatarKey = userInfo["avatarKey"] as? String
             
             if (bucketName != nil && avatarKey != nil) {
                 let url = "https://\( bucketName!).s3.us-east-2.amazonaws.com/\(avatarKey!)"
@@ -65,6 +67,9 @@ class ActorProfileViewController: UIViewController {
     
     @IBAction func ChangePassword(_ sender: UITapGestureRecognizer) {
         let controller = ActorProfileChangePasswordViewController()
+        controller.id = id
+        controller.bucketName = self.bucketName
+        controller.avatarKey = self.avatarKey
         controller.modalPresentationStyle = .fullScreen
 //        let transition = CATransition()
 //        transition.duration = 0.5 // Set animation duration
