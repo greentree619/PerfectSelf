@@ -72,11 +72,12 @@ class SignupDetailViewController: UIViewController {
         if isActor {
             showIndicator(sender: sender, viewController: self)
             webAPI.signup(userType: 3, userName: txtUserName.text!, firstName: txtFirstName.text!, lastName: txtLastName.text!, email: email, password: password, phoneNumber: phoneNumber) { data, response, error in
+                DispatchQueue.main.async {
+                    hideIndicator(sender: sender)
+                }
                 guard let data = data, error == nil else {
                     print(error?.localizedDescription ?? "No data")
-                    DispatchQueue.main.async {
-                        hideIndicator(sender: sender)
-                    }
+                   
                     return
                 }
                 if let httpResponse = response as? HTTPURLResponse {
@@ -87,14 +88,12 @@ class SignupDetailViewController: UIViewController {
                     
                     guard responseJSON["email"] != nil else {
                         DispatchQueue.main.async {
-                            hideIndicator(sender: sender)
-                            Toast.show(message: "Signup failed! please try again.", controller: self)
+                            Toast.show(message: "here is already an account associated with this email address. Please try again.", controller: self)
                             //self.text_email.becomeFirstResponder()
                         }
                         return
                     }
                     DispatchQueue.main.async {
-                        hideIndicator(sender: sender)
                         //{{REFME
                         Toast.show(message: "Successfully signed up!", controller: self)
                         UserDefaults.standard.setValue(responseJSON, forKey: "USER")
@@ -114,8 +113,7 @@ class SignupDetailViewController: UIViewController {
                 else
                 {
                     DispatchQueue.main.async {
-                        hideIndicator(sender: sender)
-                        Toast.show(message: "Signup failed! please try again.", controller: self)
+                        Toast.show(message: "here is already an account associated with this email address. Please try again.", controller: self)
                     }
                 }
             }
@@ -139,7 +137,7 @@ class SignupDetailViewController: UIViewController {
                     guard responseJSON["email"] != nil else {
                         DispatchQueue.main.async {
                             hideIndicator(sender: sender)
-                            Toast.show(message: "Signup failed! please try again.", controller: self)
+                            Toast.show(message: "There is already an account associated with this email address. Please try again.", controller: self)
                             //self.text_email.becomeFirstResponder()
                         }
                         return
@@ -171,7 +169,7 @@ class SignupDetailViewController: UIViewController {
                 {
                     DispatchQueue.main.async {
                         hideIndicator(sender: sender)
-                        Toast.show(message: "Signup failed! please try again.", controller: self)
+                        Toast.show(message: "There is already an account associated with this email address. Please try again.", controller: self)
                     }
                 }
             }
