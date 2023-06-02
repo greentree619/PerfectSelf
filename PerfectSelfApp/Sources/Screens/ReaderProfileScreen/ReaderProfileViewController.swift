@@ -710,6 +710,7 @@ extension ReaderProfileViewController: UIImagePickerControllerDelegate & UINavig
                 else {
                     DispatchQueue.main.async {
                         hideIndicator(sender: nil)
+                        Toast.show(message: "Image Url invalid, Try again later!", controller: self)
                     }
                 }
             }

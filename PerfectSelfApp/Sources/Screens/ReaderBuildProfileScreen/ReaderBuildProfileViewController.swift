@@ -259,6 +259,12 @@ extension ReaderBuildProfileViewController: UIImagePickerControllerDelegate & UI
                     }
                 }
             }
+            else {
+                DispatchQueue.main.async {
+                    hideIndicator(sender: nil)
+                    Toast.show(message: "Image Url invalid, Try again!", controller: self)
+                }
+            }
         }//DispatchQueue.global
         
         dismiss(animated: true, completion: nil)

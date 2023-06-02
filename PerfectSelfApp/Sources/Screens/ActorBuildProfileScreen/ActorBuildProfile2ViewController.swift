@@ -282,6 +282,12 @@ extension ActorBuildProfile2ViewController: UIImagePickerControllerDelegate & UI
                     }
                 }
             }
+            else {
+                DispatchQueue.main.async {
+                    hideIndicator(sender: nil)
+                    Toast.show(message: "Image Url invalid, Try again later!", controller: self)
+                }
+            }
         }//DispatchQueue.global
         
         dismiss(animated: true, completion: nil)

@@ -540,6 +540,7 @@ extension ActorProfileEditViewController: UIImagePickerControllerDelegate & UINa
 //                Toast.show(message: "Start to upload record files", controller: self)
             }
             // Get the URL of the selected image
+            //var imageUrl = info[UIImagePickerController.InfoKey.mediaURL] as! URL?
             var avatarUrl: URL? = nil
             //Upload audio at first
             guard let image = (self.photoType == 0 ? info[.originalImage] : info[.editedImage]) as? UIImage else {
@@ -605,6 +606,12 @@ extension ActorProfileEditViewController: UIImagePickerControllerDelegate & UINa
                             Toast.show(message: "Failed to upload avatar image, Try again later!", controller: self)
                         }
                     }
+                }
+            }
+            else {
+                DispatchQueue.main.async {
+                    hideIndicator(sender: nil)
+                    Toast.show(message: "Image Url invalid, Try again later!", controller: self)
                 }
             }
         }//DispatchQueue.global
