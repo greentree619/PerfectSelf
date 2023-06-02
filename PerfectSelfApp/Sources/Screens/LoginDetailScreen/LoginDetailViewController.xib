@@ -25,6 +25,7 @@
             <connections>
                 <outlet property="btn_actor" destination="Rf6-yp-tpa" id="c08-fS-pKA"/>
                 <outlet property="btn_forgotpassword" destination="5gs-TK-Gx8" id="mNr-oe-n5w"/>
+                <outlet property="btn_login" destination="SUU-EH-NYx" id="vsc-la-xg6"/>
                 <outlet property="btn_reader" destination="sOi-JV-SP6" id="Sq6-xY-6qC"/>
                 <outlet property="btn_rememberme" destination="otN-Yw-J12" id="oW6-vb-2o5"/>
                 <outlet property="btn_showpassword" destination="8SV-9a-FPz" id="qeb-8K-AU6"/>

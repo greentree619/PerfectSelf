@@ -13,6 +13,7 @@ class LoginDetailViewController: UIViewController {
     let show = UIImage(named: "icons8-eye-20")! as UIImage
     let hide = UIImage(named : "icons8-hide-20")! as UIImage
     
+    @IBOutlet weak var btn_login: UIButton!
     @IBOutlet weak var btn_actor: UIButton!
     @IBOutlet weak var btn_reader: UIButton!
     @IBOutlet weak var btn_forgotpassword: UIButton!
@@ -66,133 +67,131 @@ class LoginDetailViewController: UIViewController {
     }
     
     @IBAction func DoLogin(_ sender: UIButton) {
-        var inputCheck: String = ""
-        var focusTextField: UITextField? = nil
-  
-//AUTOLOGIN
-//        /*
-//         Test Code
-//         */
-//        //{{
-//        text_email.text = "tester001@gmail.com"
-//        text_password.text = "123456"
-//        //}}
-        
-        if(text_email.text!.isEmpty){
-            inputCheck += "- Please input user email.\n"
-            if(focusTextField == nil){
-                focusTextField = text_email
+        if btn_forgotpassword.isSelected {
+            let controller = EmailSubmitViewController();
+            controller.modalPresentationStyle = .fullScreen
+            self.present(controller, animated: false)
+            
+        } else {
+            var inputCheck: String = ""
+            var focusTextField: UITextField? = nil
+            
+            if(text_email.text!.isEmpty){
+                inputCheck += "- Please input user email.\n"
+                if(focusTextField == nil){
+                    focusTextField = text_email
+                }
             }
-        }
-        
-        if(!isValidEmail(email: text_email.text!)){
-            inputCheck += "- Email format is wrong.\n"
-            if(focusTextField == nil){
-                focusTextField = text_email
+            
+            if(!isValidEmail(email: text_email.text!)){
+                inputCheck += "- Email format is wrong.\n"
+                if(focusTextField == nil){
+                    focusTextField = text_email
+                }
             }
-        }
-        
-        if(text_password.text!.isEmpty){
-            inputCheck += "- Please input user password.\n"
-            if(focusTextField == nil){
-                focusTextField = text_password
+            
+            if(text_password.text!.isEmpty){
+                inputCheck += "- Please input user password.\n"
+                if(focusTextField == nil){
+                    focusTextField = text_password
+                }
             }
-        }
-        
-        if(!inputCheck.isEmpty){
-            showAlert(viewController: self, title: "Confirm", message: inputCheck) { UIAlertAction in
-                focusTextField!.becomeFirstResponder()
-            }
-            return
-        }
-        showIndicator(sender: sender, viewController: self)
-        webAPI.login(userType: userType, email: text_email.text!, password: text_password.text!){ data, response, error in
-            guard let data = data, error == nil else {
-                print(error?.localizedDescription ?? "No data")
+            
+            if(!inputCheck.isEmpty){
+                showAlert(viewController: self, title: "Confirm", message: inputCheck) { UIAlertAction in
+                    focusTextField!.becomeFirstResponder()
+                }
                 return
             }
-            let responseJSON = try? JSONSerialization.jsonObject(with: data, options: [])
-           
-            if let responseJSON = responseJSON as? [String: Any] {
-                guard let result = responseJSON["result"] else {
-                    DispatchQueue.main.async {
-                        hideIndicator(sender: sender)
-                        Toast.show(message: "Login failed! please try again.", controller: self)
-                        let _ = self.text_email.becomeFirstResponder()
-                    }
+            showIndicator(sender: sender, viewController: self)
+            webAPI.login(userType: userType, email: text_email.text!, password: text_password.text!){ data, response, error in
+                guard let data = data, error == nil else {
+                    print(error?.localizedDescription ?? "No data")
                     return
                 }
+                let responseJSON = try? JSONSerialization.jsonObject(with: data, options: [])
                 
-                if result as! Bool {
-                    let user = responseJSON["user"] as! [String: Any]
-                    print(user)
-                    let fCMDeviceToken = user["fcmDeviceToken"] as! String
-                    let uid = user["uid"] as! String
-                    let bucketName = user["avatarBucketName"] as? String
-                    let avatarKey = user["avatarKey"] as? String
-                    
-                   if( fcmDeviceToken.count > 0 &&
-                       fcmDeviceToken != fCMDeviceToken )
-                    {
-                       webAPI.updateUserInfo(uid: uid, userType: -1, bucketName: bucketName ?? "", avatarKey: avatarKey ?? "", username: "", email: "", password: "", firstName: "", lastName: "", dateOfBirth: "", gender: -1, currentAddress: "", permanentAddress: "", city: "", nationality: "", phoneNumber: "", isLogin: true, fcmDeviceToken: fcmDeviceToken, deviceKind: -1)  { data, response, error in
-                           if error == nil {
-                               // successfully update db
-                               print("update db completed")
-                           }
-                       }
-                       //print(fcmDeviceToken, deviceKind)
-                    }
-
-                    UserDefaults.standard.setValue(user, forKey: "USER")
-                    DispatchQueue.main.async {
-                        hideIndicator(sender: sender)
-                        //{{REFME
-//                        var rememberMeFlag: Bool = UserDefaults.standard.bool(forKey: "REMEMBER_USER")
-                        let rememberMeFlag: Bool = self.btn_rememberme.isSelected
-                        UserDefaults.standard.set(rememberMeFlag, forKey: "REMEMBER_USER")
-                        
-                        UserDefaults.standard.set(String(self.text_email.text!), forKey: "USER_EMAIL")
-                        UserDefaults.standard.set(String(self.text_password.text!), forKey: "USER_PWD")
-                        
-                        //}}REFME
-                        if self.userType == 3 {
-                            let controller = ActorTabBarController();
-                            controller.modalPresentationStyle = .fullScreen
-                            let transition = CATransition()
-                            transition.duration = 0.5 // Set animation duration
-                            transition.type = CATransitionType.push // Set transition type to push
-                            transition.subtype = CATransitionSubtype.fromRight // Set transition subtype to from right
-                            self.view.window?.layer.add(transition, forKey: kCATransition) // Add transition to window layer
-                            self.present(controller, animated: false)
+                if let responseJSON = responseJSON as? [String: Any] {
+                    guard let result = responseJSON["result"] else {
+                        DispatchQueue.main.async {
+                            hideIndicator(sender: sender)
+                            Toast.show(message: "Login failed! please try again.", controller: self)
+                            let _ = self.text_email.becomeFirstResponder()
                         }
-                        else {
-                            let controller = ReaderTabBarController();
-                            controller.modalPresentationStyle = .fullScreen
-                            let transition = CATransition()
-                            transition.duration = 0.5 // Set animation duration
-                            transition.type = CATransitionType.push // Set transition type to push
-                            transition.subtype = CATransitionSubtype.fromRight // Set transition subtype to from right
-                            self.view.window?.layer.add(transition, forKey: kCATransition) // Add transition to window layer
-                            self.present(controller, animated: false)
+                        return
+                    }
+                    
+                    if result as! Bool {
+                        let user = responseJSON["user"] as! [String: Any]
+                        print(user)
+                        let fCMDeviceToken = user["fcmDeviceToken"] as! String
+                        let uid = user["uid"] as! String
+                        let bucketName = user["avatarBucketName"] as? String
+                        let avatarKey = user["avatarKey"] as? String
+                        
+                        if( fcmDeviceToken.count > 0 &&
+                            fcmDeviceToken != fCMDeviceToken )
+                        {
+                            webAPI.updateUserInfo(uid: uid, userType: -1, bucketName: bucketName ?? "", avatarKey: avatarKey ?? "", username: "", email: "", password: "", firstName: "", lastName: "", dateOfBirth: "", gender: -1, currentAddress: "", permanentAddress: "", city: "", nationality: "", phoneNumber: "", isLogin: true, fcmDeviceToken: fcmDeviceToken, deviceKind: -1)  { data, response, error in
+                                if error == nil {
+                                    // successfully update db
+                                    print("update db completed")
+                                }
+                            }
+                            //print(fcmDeviceToken, deviceKind)
+                        }
+                        
+                        UserDefaults.standard.setValue(user, forKey: "USER")
+                        DispatchQueue.main.async {
+                            hideIndicator(sender: sender)
+                            //{{REFME
+                            //                        var rememberMeFlag: Bool = UserDefaults.standard.bool(forKey: "REMEMBER_USER")
+                            let rememberMeFlag: Bool = self.btn_rememberme.isSelected
+                            UserDefaults.standard.set(rememberMeFlag, forKey: "REMEMBER_USER")
+                            
+                            UserDefaults.standard.set(String(self.text_email.text!), forKey: "USER_EMAIL")
+                            UserDefaults.standard.set(String(self.text_password.text!), forKey: "USER_PWD")
+                            
+                            //}}REFME
+                            if self.userType == 3 {
+                                let controller = ActorTabBarController();
+                                controller.modalPresentationStyle = .fullScreen
+                                let transition = CATransition()
+                                transition.duration = 0.5 // Set animation duration
+                                transition.type = CATransitionType.push // Set transition type to push
+                                transition.subtype = CATransitionSubtype.fromRight // Set transition subtype to from right
+                                self.view.window?.layer.add(transition, forKey: kCATransition) // Add transition to window layer
+                                self.present(controller, animated: false)
+                            }
+                            else {
+                                let controller = ReaderTabBarController();
+                                controller.modalPresentationStyle = .fullScreen
+                                let transition = CATransition()
+                                transition.duration = 0.5 // Set animation duration
+                                transition.type = CATransitionType.push // Set transition type to push
+                                transition.subtype = CATransitionSubtype.fromRight // Set transition subtype to from right
+                                self.view.window?.layer.add(transition, forKey: kCATransition) // Add transition to window layer
+                                self.present(controller, animated: false)
+                            }
+                        }
+                    }
+                    else
+                    {
+                        let err = responseJSON["error"] as? String
+                        DispatchQueue.main.async {
+                            hideIndicator(sender: sender)
+                            Toast.show(message: err ?? "", controller: self)
+                            let _ = self.text_email.becomeFirstResponder()
                         }
                     }
                 }
                 else
                 {
-                    let err = responseJSON["error"] as? String
                     DispatchQueue.main.async {
                         hideIndicator(sender: sender)
-                        Toast.show(message: err ?? "", controller: self)
+                        Toast.show(message: "Login failed! please try again.", controller: self)
                         let _ = self.text_email.becomeFirstResponder()
                     }
-                }
-            }
-            else
-            {
-                DispatchQueue.main.async {
-                    hideIndicator(sender: sender)
-                    Toast.show(message: "Login failed! please try again.", controller: self)
-                    let _ = self.text_email.becomeFirstResponder()
                 }
             }
         }
@@ -230,9 +229,11 @@ class LoginDetailViewController: UIViewController {
         if sender.isSelected {
             sender.setImage(checkedImage, for: UIControl.State.normal);
             sender.tintColor = UIColor(red:255,green: 255, blue: 255,  alpha: 1);
+            btn_login.setTitle("Reset Password", for: .normal)
         }
         else {
             sender.setImage(uncheckedImage, for: UIControl.State.normal)
+            btn_login.setTitle("Login", for: .normal)
         }
     }
     
