@@ -668,7 +668,7 @@ extension ReaderProfileViewController: UIImagePickerControllerDelegate & UINavig
             else if self.uploadType == "video" {
                 if let videoURL = info[.mediaURL] as? URL {
                     //Then Upload video
-                    awsUpload.uploadVideo(filePath: videoURL, bucketName: "video-client-upload-123456798", prefix: self.id) { (error: Error?) -> Void in
+                    awsUpload.multipartUpload(filePath: videoURL, bucketName: "video-client-upload-123456798", prefixKey: self.id) { (error: Error?) -> Void in
                         if(error == nil)
                         {
                             DispatchQueue.main.async {
@@ -676,7 +676,6 @@ extension ReaderProfileViewController: UIImagePickerControllerDelegate & UINavig
                                 Toast.show(message: "file upload completed.", controller: self)
                                 // update avatar
                                 let url = "https://video-client-upload-123456798.s3.us-east-2.amazonaws.com/intro-video/\(self.id)/\(String(describing: videoURL.lastPathComponent))"
-                                
                                 let downloadImageURL = url.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)! as NSString
                                 
                                 let requestURL: NSURL = NSURL(string: downloadImageURL as String)!
@@ -685,9 +684,6 @@ extension ReaderProfileViewController: UIImagePickerControllerDelegate & UINavig
                                 let config = URLSessionConfiguration.default
                                 let session = URLSession(configuration: config)
                                 let task = session.dataTask(with: request, completionHandler: {(data, response, error) in
-                                    DispatchQueue.main.async {
-        //                                hideIndicator(sender: nil)
-                                    }
                                     
                                      if error != nil {
                                          DispatchQueue.main.async {

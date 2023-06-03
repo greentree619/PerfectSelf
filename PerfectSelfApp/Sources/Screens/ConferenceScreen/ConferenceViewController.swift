@@ -512,7 +512,7 @@ class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSample
                     
                     log(meetingUid: roomUid, log:"\(self!.userName!) video upload start: \(prefixKey)")
                     //Upload video at first
-                    awsUpload.multipartUpload(filePath: url, prefixKey: prefixKey){ error -> Void in
+                    awsUpload.multipartUpload(filePath: url, bucketName: "video-client-upload-123456798", prefixKey: prefixKey){ error -> Void in
                         if(error == nil)
                         {
                             log(meetingUid: roomUid, log:"\(self!.userName!) video upload end successfully")
@@ -523,7 +523,7 @@ class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSample
                             
                             log(meetingUid: roomUid, log:"\(self!.userName!) audio upload start")
                             //Upload audio at secodary
-                            awsUpload.multipartUpload(filePath: (uiViewContoller! as! ConferenceViewController).audioUrl!, prefixKey: prefixKey){ (error: Error?) -> Void in
+                            awsUpload.multipartUpload(filePath: (uiViewContoller! as! ConferenceViewController).audioUrl!, bucketName: "video-client-upload-123456798", prefixKey: prefixKey){ (error: Error?) -> Void in
                                 if(error == nil)
                                 {//Then Upload video
                                     log(meetingUid: roomUid, log:"\(self!.userName!) audio upload end successfully.")
