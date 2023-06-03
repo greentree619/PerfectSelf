@@ -493,11 +493,14 @@ class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSample
             let url = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!.appendingPathComponent("\(self.userName!).mp4")
             //let url = URL(string: "\(NSTemporaryDirectory())\(self.userName!).mp4")
             _assetWriterInput?.markAsFinished()
+            
+            log(meetingUid: self.roomUid, log:"\(self.userName!) expert to video file: Start")
             _assetWriter?.finishWriting { [weak self] in
                 self?._captureState = .idle
                 self?._assetWriter = nil
                 self?._assetWriterInput = nil
                 
+                log(meetingUid: self!.roomUid, log:"\(self!.userName!) expert to video file: End")
                 DispatchQueue.global(qos: .userInitiated).async {
                     
                     //                let activity = UIActivityViewController(activityItems: [url], applicationActivities: nil)
