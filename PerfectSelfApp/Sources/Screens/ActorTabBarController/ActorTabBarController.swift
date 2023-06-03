@@ -51,7 +51,7 @@ class ActorTabBarController: UITabBarController, UIImagePickerControllerDelegate
                     self.present(self.imagePicker, animated: true, completion: nil)
                     //Omitted Toast.show(message: "Start to create self tap.", controller:  self)
                 }
-#endif          
+#endif
             } else {
                 print("Camera not available.")
             }

@@ -181,7 +181,7 @@ class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSample
         let remoteRenderer = RTCMTLVideoView(frame: self.remoteCameraView.frame)
         localRenderer.videoContentMode = .scaleAspectFill
         remoteRenderer.videoContentMode = .scaleAspectFill
-        
+#if !targetEnvironment(simulator)
         //{{ Init to record video.
         let output = AVCaptureVideoDataOutput()
         guard let capturer = self.webRTCClient.videoCapturer as? RTCCameraVideoCapturer else {
@@ -231,7 +231,7 @@ class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSample
             //finishRecording(success: false)
         }
         //}}Init to record audio
-        
+#endif
         self.webRTCClient.startCaptureLocalVideo(renderer: localRenderer)
         self.webRTCClient.renderRemoteVideo(to: remoteRenderer)
         
@@ -693,10 +693,12 @@ extension ConferenceViewController: WebRTCClientDelegate {
         else if(message.compare(pingCmd).rawValue == 0)
         {//received ping cmd
             self.sendCmd(cmd: pingPongRCmd)
+            print("Send Pong")
         }
         else if(message.compare(pongCmd).rawValue == 0)
         {//received pong cmd
             self.pingPongRcv = true
+            print("Received Pong")
         }
         
         DispatchQueue.main.async {
