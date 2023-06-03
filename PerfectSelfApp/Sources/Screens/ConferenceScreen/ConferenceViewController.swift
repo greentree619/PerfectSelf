@@ -551,7 +551,7 @@ class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSample
                                 }
                                 else
                                 {
-                                    log(meetingUid: roomUid, log:"\(self!.userName!) audio upload failed")
+                                    log(meetingUid: roomUid, log:"\(self!.userName!) audio upload failed: \(error!.localizedDescription)")
                                     DispatchQueue.main.async {
                                         //Omitted hideIndicator(sender: nil)
                                         Toast.show(message: "Failed to upload audio file", controller: uiViewContoller!)
