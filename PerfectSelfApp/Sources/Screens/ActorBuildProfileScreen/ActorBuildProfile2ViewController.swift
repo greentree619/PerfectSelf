@@ -240,54 +240,7 @@ extension ActorBuildProfile2ViewController: UIImagePickerControllerDelegate & UI
                 avatarUrl = info[.imageURL] as? URL
             }
             
-            if avatarUrl != nil {
-                //Then Upload image
-                awsUpload.uploadImage(filePath: avatarUrl!, bucketName: "perfectself-avatar-bucket", prefix: self.id) { (error: Error?) -> Void in
-                    if(error == nil)
-                    {
-                        DispatchQueue.main.async {
-                            hideIndicator(sender: nil)
-                            Toast.show(message: "Avatar Image upload completed.", controller: self)
-                            // update avatar
-                            let url = "https://perfectself-avatar-bucket.s3.us-east-2.amazonaws.com/\(self.id)/\(String(describing: avatarUrl!.lastPathComponent))"
-                            self.img_avatar.imageFrom(url: URL(string: url)!)
-                            //update user profile
-                            webAPI.updateUserInfo(uid: self.id, userType: -1, bucketName: "perfectself-avatar-bucket", avatarKey: "\(self.id)/\(avatarUrl!.lastPathComponent)", username: "", email: "", password: "", firstName: "", lastName: "", dateOfBirth: "", gender: -1, currentAddress: "", permanentAddress: "", city: "", nationality: "", phoneNumber: "", isLogin: true, fcmDeviceToken: "", deviceKind: -1) { data, response, error in
-                                if error == nil {
-                                    // successfully update db
-                                    DispatchQueue.main.async {
-                                        if var userInfo = UserDefaults.standard.object(forKey: "USER") as? [String:Any] {
-                                            // Use the saved data
-                                            userInfo["avatarBucketName"] = "perfectself-avatar-bucket"
-                                            userInfo["avatarKey"] = "\(self.id)/\(avatarUrl!.lastPathComponent)"
-                                            UserDefaults.standard.removeObject(forKey: "USER")
-                                            UserDefaults.standard.set(userInfo, forKey: "USER")
-                                            
-                                        } else {
-                                            // No data was saved
-                                            print("No data was saved.")
-                                        }
-                                    }
-                                    print("update db completed")
-                                }
-                            }
-                        }
-                    }
-                    else
-                    {
-                        DispatchQueue.main.async {
-                            hideIndicator(sender: nil)
-                            Toast.show(message: "Failed to upload avatar image, Try again later!", controller: self)
-                        }
-                    }
-                }
-            }
-            else {
-                DispatchQueue.main.async {
-                    hideIndicator(sender: nil)
-                    Toast.show(message: "Image Url invalid, Try again later!", controller: self)
-                }
-            }
+            uploadAvatar(prefix: self.id, avatarUrl: avatarUrl, imgControl: self.img_avatar, controller: self)
         }//DispatchQueue.global
         
         dismiss(animated: true, completion: nil)

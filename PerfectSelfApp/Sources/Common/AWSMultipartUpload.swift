@@ -231,6 +231,7 @@ class AWSMultipartUpload: NSObject, URLSessionTaskDelegate, URLSessionDataDelega
             return nil
         })
     }
+    
     func uploadScript(filePath: URL, bucketName: String, prefix: String, completeHandler:@escaping((Error?)->Void)) -> Void
     {
         let expression  = AWSS3TransferUtilityUploadExpression()
@@ -265,6 +266,7 @@ class AWSMultipartUpload: NSObject, URLSessionTaskDelegate, URLSessionDataDelega
             return nil
         })
     }
+    
     func download(filePath: URL, bucketName: String,  key: String, completeHandler:@escaping((Error?)->Void)) -> Void
     {
         let expression = AWSS3TransferUtilityDownloadExpression()
