@@ -759,3 +759,19 @@ func uploadAvatar(prefix: String, avatarUrl: URL?, imgControl: UIImageView, cont
         }
     }
 }
+
+func log(meetingUid: String, log: String){
+    DispatchQueue(label: "log").async {
+        webAPI.logSend(meetingUid: meetingUid, log: log) { data, response, error in
+            if(error == nil){
+                let responseJSON = try? JSONSerialization.jsonObject(with: data!, options: [])
+                if let responseJSON = responseJSON as? [String: Any] {
+                    guard let result = responseJSON["result"] else {
+                        return
+                    }
+                    print("result:", result)
+                }
+            }
+        }
+    }
+}
