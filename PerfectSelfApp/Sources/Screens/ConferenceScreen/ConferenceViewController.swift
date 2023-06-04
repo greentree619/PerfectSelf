@@ -252,7 +252,7 @@ class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSample
             self.syncTimer = Timer.scheduledTimer(withTimeInterval: TimeInterval(300) / 1000, repeats: true, block: { timer in
                 print("signalingConnected:\(self.signalingClientStatus.signalingConnected)")
                 var disabledWait: Bool = false
-#if DISABLE_SYNC
+#if DISABLE_WWAITING_MEETING
                 disabledWait = true
 #endif
                 
@@ -449,33 +449,35 @@ class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSample
         let timestamp = CMSampleBufferGetPresentationTimeStamp(sampleBuffer).seconds
         switch _captureState {
         case .start:
-            // Set up recorder
-            DispatchQueue.main.async {
-                Toast.show(message: "Recording start...", controller: uiViewContoller!)
+            DispatchQueue(label: "com.perfectself.captureQueue", attributes: .concurrent).async { [self] in
+                DispatchQueue.main.async {
+                    Toast.show(message: "Recording start...", controller: uiViewContoller!)
+                }
+                
+                log(meetingUid: self.roomUid, log:"\(self.userName!) video recording module start")
+                
+                _filename = self.userName!//UUID().uuidString
+                let videoPath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!.appendingPathComponent("\(_filename).mp4")
+                //let videoPath = URL(string: "\(NSTemporaryDirectory())\(_filename).mp4")
+                
+                let writer = try! AVAssetWriter(outputURL: videoPath, fileType: .mp4)
+                let settings = _videoOutput!.recommendedVideoSettingsForAssetWriter(writingTo: .mp4)
+                let input = AVAssetWriterInput(mediaType: .video, outputSettings: settings) // [AVVideoCodecKey: AVVideoCodecType.h264, AVVideoWidthKey: 1920, AVVideoHeightKey: 1080])
+                input.mediaTimeScale = CMTimeScale(bitPattern: 600)
+                input.expectsMediaDataInRealTime = true
+                input.transform = getVideoTransform()//CGAffineTransform(rotationAngle: .pi/2)
+                let adapter = AVAssetWriterInputPixelBufferAdaptor(assetWriterInput: input, sourcePixelBufferAttributes: nil)
+                if writer.canAdd(input) {
+                    writer.add(input)
+                }
+                writer.startWriting()
+                writer.startSession(atSourceTime: .zero)
+                _assetWriter = writer
+                _assetWriterInput = input
+                _adpater = adapter
+                _time = timestamp
             }
-            log(meetingUid: self.roomUid, log:"\(self.userName!) video recording module start")
-            
-            _filename = self.userName!//UUID().uuidString
-            let videoPath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!.appendingPathComponent("\(_filename).mp4")
-            //let videoPath = URL(string: "\(NSTemporaryDirectory())\(_filename).mp4")
-            
-            let writer = try! AVAssetWriter(outputURL: videoPath, fileType: .mp4)
-            let settings = _videoOutput!.recommendedVideoSettingsForAssetWriter(writingTo: .mp4)
-            let input = AVAssetWriterInput(mediaType: .video, outputSettings: settings) // [AVVideoCodecKey: AVVideoCodecType.h264, AVVideoWidthKey: 1920, AVVideoHeightKey: 1080])
-            input.mediaTimeScale = CMTimeScale(bitPattern: 600)
-            input.expectsMediaDataInRealTime = true
-            input.transform = getVideoTransform()//CGAffineTransform(rotationAngle: .pi/2)
-            let adapter = AVAssetWriterInputPixelBufferAdaptor(assetWriterInput: input, sourcePixelBufferAttributes: nil)
-            if writer.canAdd(input) {
-                writer.add(input)
-            }
-            writer.startWriting()
-            writer.startSession(atSourceTime: .zero)
-            _assetWriter = writer
-            _assetWriterInput = input
-            _adpater = adapter
             _captureState = .capturing
-            _time = timestamp
             break
         case .capturing:
             if _assetWriterInput?.isReadyForMoreMediaData == true {
@@ -484,94 +486,98 @@ class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSample
             }
             break
         case .end:
-            log(meetingUid: self.roomUid, log:"\(self.userName!) video recording module end")
-            DispatchQueue.main.async {
-                Toast.show(message: "Recording end...", controller: uiViewContoller!)
-            }
-            
             guard _assetWriterInput?.isReadyForMoreMediaData == true, _assetWriter!.status != .failed else { break }
-            let url = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!.appendingPathComponent("\(self.userName!).mp4")
-            //let url = URL(string: "\(NSTemporaryDirectory())\(self.userName!).mp4")
-            _assetWriterInput?.markAsFinished()
+            self._captureState = .idle
             
-            log(meetingUid: self.roomUid, log:"\(self.userName!) expert to video file: Start")
-            _assetWriter?.finishWriting { [weak self] in
-                self?._captureState = .idle
-                self?._assetWriter = nil
-                self?._assetWriterInput = nil
+            DispatchQueue(label: "com.perfectself.captureQueue", attributes: .concurrent).async { [self] in
+                log(meetingUid: self.roomUid, log:"\(self.userName!) video recording module end")
+                DispatchQueue.main.async {
+                    Toast.show(message: "Recording end...", controller: uiViewContoller!)
+                }
                 
-                log(meetingUid: self!.roomUid, log:"\(self!.userName!) expert to video file: End")
-                DispatchQueue.global(qos: .userInitiated).async {
+                let url = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!.appendingPathComponent("\(self.userName!).mp4")
+                //let url = URL(string: "\(NSTemporaryDirectory())\(self.userName!).mp4")
+                _assetWriterInput?.markAsFinished()
+                
+                log(meetingUid: self.roomUid, log:"\(self.userName!) expert to video file: Start")
+                
+                _assetWriter?.finishWriting { [weak self] in
+                    self?._assetWriter = nil
+                    self?._assetWriterInput = nil
                     
-                    //                let activity = UIActivityViewController(activityItems: [url], applicationActivities: nil)
-                    //                    self?.present(activity, animated: true, completion: nil)
-                    let roomUid = (uiViewContoller! as! ConferenceViewController).roomUid
-                    let prefixKey = "\(self!.tapeDate)/\(roomUid)/\(self!.tapeId)/"
-                    //Omitted let awsUpload = AWSMultipartUpload()
-                    DispatchQueue.main.async {
-                        //Omitted showIndicator(sender: nil, viewController: uiViewContoller!, color:UIColor.white)
-                        Toast.show(message: "Start to upload record files", controller: uiViewContoller!)
-                    }
+                    log(meetingUid: self!.roomUid, log:"\(self!.userName!) expert to video file: End")
                     
-                    log(meetingUid: roomUid, log:"\(self!.userName!) video upload start: \(prefixKey)")
-                    //Upload video at first
-                    awsUpload.multipartUpload(filePath: url, bucketName: "video-client-upload-123456798", prefixKey: prefixKey){ error -> Void in
-                        if(error == nil)
-                        {
-                            log(meetingUid: roomUid, log:"\(self!.userName!) video upload end successfully")
-                            DispatchQueue.main.async {
-                                //Omitted hideIndicator(sender: nil)
-                                Toast.show(message: "Completed to upload Video file. Audio file is on uploading.", controller: uiViewContoller!)
-                            }
-                            
-                            log(meetingUid: roomUid, log:"\(self!.userName!) audio upload start")
-                            //Upload audio at secodary
-                            awsUpload.multipartUpload(filePath: (uiViewContoller! as! ConferenceViewController).audioUrl!, bucketName: "video-client-upload-123456798", prefixKey: prefixKey){ (error: Error?) -> Void in
-                                if(error == nil)
-                                {//Then Upload video
-                                    log(meetingUid: roomUid, log:"\(self!.userName!) audio upload end successfully.")
-                                    DispatchQueue.main.async {
-                                        //Omitted hideIndicator(sender: nil)
-                                        Toast.show(message: "Completed to upload all record files", controller: uiViewContoller!)
+                    DispatchQueue.global(qos: .userInitiated).async {
+                        //                let activity = UIActivityViewController(activityItems: [url], applicationActivities: nil)
+                        //                    self?.present(activity, animated: true, completion: nil)
+                        let roomUid = (uiViewContoller! as! ConferenceViewController).roomUid
+                        let prefixKey = "\(self!.tapeDate)/\(roomUid)/\(self!.tapeId)/"
+                        //Omitted let awsUpload = AWSMultipartUpload()
+                        DispatchQueue.main.async {
+                            //Omitted showIndicator(sender: nil, viewController: uiViewContoller!, color:UIColor.white)
+                            Toast.show(message: "Start to upload record files", controller: uiViewContoller!)
+                        }
+                        
+                        log(meetingUid: roomUid, log:"\(self!.userName!) video upload start: \(prefixKey)")
+                        //Upload video at first
+                        awsUpload.multipartUpload(filePath: url, bucketName: "video-client-upload-123456798", prefixKey: prefixKey){ error -> Void in
+                            if(error == nil)
+                            {
+                                log(meetingUid: roomUid, log:"\(self!.userName!) video upload end successfully")
+                                DispatchQueue.main.async {
+                                    //Omitted hideIndicator(sender: nil)
+                                    Toast.show(message: "Completed to upload Video file. Audio file is on uploading.", controller: uiViewContoller!)
+                                }
+                                
+                                log(meetingUid: roomUid, log:"\(self!.userName!) audio upload start")
+                                //Upload audio at secodary
+                                awsUpload.multipartUpload(filePath: (uiViewContoller! as! ConferenceViewController).audioUrl!, bucketName: "video-client-upload-123456798", prefixKey: prefixKey){ (error: Error?) -> Void in
+                                    if(error == nil)
+                                    {//Then Upload video
+                                        log(meetingUid: roomUid, log:"\(self!.userName!) audio upload end successfully.")
+                                        DispatchQueue.main.async {
+                                            //Omitted hideIndicator(sender: nil)
+                                            Toast.show(message: "Completed to upload all record files", controller: uiViewContoller!)
+                                        }
+                                        if let userInfo = UserDefaults.standard.object(forKey: "USER") as? [String:Any] {
+                                            // Use the saved data
+                                            let uid = userInfo["uid"] as! String
+                                            //let tapeName = "\(getDateString())(\((uiViewContoller! as! ConferenceViewController).tapeId))"
+                                            let tapeName = "\((uiViewContoller! as! ConferenceViewController).tapeId)"
+                                            webAPI.addLibrary(uid: uid
+                                                              , tapeName: tapeName
+                                                              , bucketName: "video-client-upload-123456798"
+                                                              , tapeKey: "\(prefixKey)\((uiViewContoller! as! ConferenceViewController).userName!)"
+                                                              , roomUid: (uiViewContoller! as! ConferenceViewController).roomUid
+                                                              , tapeId: (uiViewContoller! as! ConferenceViewController).tapeId)
+                                            ConferenceViewController.clearTempFolder()
+                                            //Omitted (uiViewContoller! as! ConferenceViewController).uploadCount += 1
+                                        } else {
+                                            // No data was saved
+                                            print("No data was saved.")
+                                        }
                                     }
-                                    if let userInfo = UserDefaults.standard.object(forKey: "USER") as? [String:Any] {
-                                        // Use the saved data
-                                        let uid = userInfo["uid"] as! String
-                                        //let tapeName = "\(getDateString())(\((uiViewContoller! as! ConferenceViewController).tapeId))"
-                                        let tapeName = "\((uiViewContoller! as! ConferenceViewController).tapeId)"
-                                        webAPI.addLibrary(uid: uid
-                                                          , tapeName: tapeName
-                                                          , bucketName: "video-client-upload-123456798"
-                                                          , tapeKey: "\(prefixKey)\((uiViewContoller! as! ConferenceViewController).userName!)"
-                                                          , roomUid: (uiViewContoller! as! ConferenceViewController).roomUid
-                                                          , tapeId: (uiViewContoller! as! ConferenceViewController).tapeId)
-                                        ConferenceViewController.clearTempFolder()
-                                        //Omitted (uiViewContoller! as! ConferenceViewController).uploadCount += 1
-                                    } else {
-                                        // No data was saved
-                                        print("No data was saved.")
+                                    else
+                                    {
+                                        log(meetingUid: roomUid, log:"\(self!.userName!) audio upload failed: \(error!.localizedDescription)")
+                                        DispatchQueue.main.async {
+                                            //Omitted hideIndicator(sender: nil)
+                                            Toast.show(message: "Failed to upload audio file", controller: uiViewContoller!)
+                                        }
                                     }
                                 }
-                                else
-                                {
-                                    log(meetingUid: roomUid, log:"\(self!.userName!) audio upload failed: \(error!.localizedDescription)")
-                                    DispatchQueue.main.async {
-                                        //Omitted hideIndicator(sender: nil)
-                                        Toast.show(message: "Failed to upload audio file", controller: uiViewContoller!)
-                                    }
+                            }
+                            else
+                            {
+                                log(meetingUid: roomUid, log:"\(self!.userName!) video upload failed:\(error!.localizedDescription)")
+                                DispatchQueue.main.async {
+                                    //Omitted hideIndicator(sender: nil)
+                                    Toast.show(message: "Failed to upload video file", controller: uiViewContoller!)
                                 }
                             }
                         }
-                        else
-                        {
-                            log(meetingUid: roomUid, log:"\(self!.userName!) video upload failed:\(error!.localizedDescription)")
-                            DispatchQueue.main.async {
-                                //Omitted hideIndicator(sender: nil)
-                                Toast.show(message: "Failed to upload video file", controller: uiViewContoller!)
-                            }
-                        }
-                    }
-                }//DispatchQueue.global
+                    }//DispatchQueue.global
+                }
             }
             break
         default:
