@@ -17,6 +17,7 @@ class ReaderCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var status: UIView!
     @IBOutlet weak var review: UILabel!
     
+    @IBOutlet weak var availableView: UIStackView!
     override func awakeFromNib() {
         
         super.awakeFromNib()
@@ -33,6 +34,7 @@ class ReaderCollectionViewCell: UICollectionViewCell {
         availableDate.text = ""
         status.backgroundColor = UIColor(rgb: 0xAAAAAA)
         review.text = ""
+        availableView.isHidden = false
      }
 
 }
