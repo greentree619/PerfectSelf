@@ -53,15 +53,8 @@ class ActorHomeViewController: UIViewController, UICollectionViewDataSource, UIC
         // Retrieve the saved data from UserDefaults
         if let userInfo = UserDefaults.standard.object(forKey: "USER") as? [String:Any] {
             // Use the saved data
-//            let name = userInfo["firstName"] as? String
             uid = userInfo["uid"] as? String
-//            let bucketName = userInfo["avatarBucketName"] as? String
-//            let avatarKey = userInfo["avatarKey"] as? String
-//            greetingLabel.text = "Hi, " + (name ?? "User")
-//            if (bucketName != nil && avatarKey != nil) {
-//                let url = "https://\( bucketName!).s3.us-east-2.amazonaws.com/\(avatarKey!)"
-//                img_actor_avatar.imageFrom(url: URL(string: url)!)
-//            }
+
             // call user info
             webAPI.getUserInfo(uid: uid) { data, response, error in
                 guard let data = data, error == nil else {
@@ -137,11 +130,13 @@ class ActorHomeViewController: UIViewController, UICollectionViewDataSource, UIC
                 DispatchQueue.main.async {
                     self.items.removeAll()
                     self.items.append(contentsOf: respItems)
+                    
                     //UTC2local
                     for index in self.items.indices {
                         self.items[index].fromTime = utcToLocal(dateStr: self.items[index].fromTime)!
                         self.items[index].toTime = utcToLocal(dateStr: self.items[index].toTime)!
-                    }                    
+                    }
+                    
                     self.readerList.reloadData()
                 }
 
@@ -184,13 +179,21 @@ class ActorHomeViewController: UIViewController, UICollectionViewDataSource, UIC
         cell.review.text = "(\(self.items[indexPath.row].reviewCount))"
         cell.status.backgroundColor = self.items[indexPath.row].isLogin ? UIColor(rgb: 0x34C759) : UIColor(rgb: 0xAAAAAA)
         
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss'Z'"
-        let date = dateFormatter.date(from: self.items[indexPath.row].date ?? "1900-01-01T00:00:00Z")
-        
-        let dfforlabel = DateFormatter()
-        dfforlabel.dateFormat = "MMM dd, hh:mm a"
-        cell.availableDate.text = dfforlabel.string(from: date ?? Date())
+        if self.items[indexPath.row].date != nil {
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss'Z'"
+            let date = dateFormatter.date(from: self.items[indexPath.row].date ?? "1900-01-01T00:00:00Z")
+            let t = dateFormatter.date(from: self.items[indexPath.row].fromTime ?? "1900-01-01T00:00:00Z")
+            
+            let dateLabel = DateFormatter()
+            dateLabel.dateFormat = "MMM dd"
+            let timeLabel = DateFormatter()
+            timeLabel.dateFormat = "hh:mm a"
+            cell.availableDate.text = dateLabel.string(from: date ?? Date()) + ", " + timeLabel.string(from: t ?? Date())
+        }
+        else {
+            cell.availableView.isHidden = true
+        }
         // return card
         cell.layer.masksToBounds = false
         cell.layer.shadowOffset = CGSizeZero

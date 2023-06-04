@@ -85,7 +85,7 @@ class AWSMultipartUpload: NSObject, URLSessionTaskDelegate, URLSessionDataDelega
         }
     }
     
-    func multipartUpload(filePath: URL, prefixKey: String, completeHandler:@escaping((Error?)->Void)) -> Void
+    func multipartUpload(filePath: URL, bucketName: String, prefixKey: String, completeHandler:@escaping((Error?)->Void)) -> Void
     {
         let expression = AWSS3TransferUtilityMultiPartUploadExpression()
               expression.progressBlock = {(task, progress) in
@@ -112,7 +112,7 @@ class AWSMultipartUpload: NSObject, URLSessionTaskDelegate, URLSessionDataDelega
 
         let transferUtility = self.transferUtility//AWSS3TransferUtility.default()
 
-        transferUtility.uploadUsingMultiPart(fileURL: filePath, bucket: self.bucketName, key: String("\(prefixKey)\(filePath.lastPathComponent)"), contentType: self.contentType,
+        transferUtility.uploadUsingMultiPart(fileURL: filePath, bucket: bucketName, key: "intro-video/\(prefixKey)/\(String(filePath.lastPathComponent))", contentType: self.contentType,
                 expression: expression,
                 completionHandler: completionHandler).continueWith {
                (task) -> AnyObject? in
