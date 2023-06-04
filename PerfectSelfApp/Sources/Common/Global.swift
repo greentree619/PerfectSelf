@@ -775,3 +775,13 @@ func log(meetingUid: String, log: String){
         }
     }
 }
+
+func encodeURLParameter(_ string: String) -> String? {
+    let allowedCharacters = CharacterSet(charactersIn: "!*'();:@&=+$,/?%#[] ").inverted
+    
+    if let encodedString = string.addingPercentEncoding(withAllowedCharacters: allowedCharacters) {
+        return encodedString
+    }
+    
+    return nil
+}

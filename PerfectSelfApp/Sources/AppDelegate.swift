@@ -26,7 +26,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
                     return
                 }
             }
- 
         }
     }
     
@@ -53,7 +52,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
           options: authOptions) { _, _ in }
         // 3
         application.registerForRemoteNotifications()
-        
         return true
     }
 

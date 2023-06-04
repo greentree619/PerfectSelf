@@ -54,6 +54,7 @@ class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSample
     private var tapeDate = ""
     public var audioUrl: URL?
     private var userName: String?
+    private var userUid: String?
     private var roomUid: String
     private var pingPongRcv: Bool = false
     private var syncTimer: Timer?
@@ -167,6 +168,7 @@ class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSample
         if let userInfo = UserDefaults.standard.object(forKey: "USER") as? [String:Any] {
             // Use the saved data
             userName = userInfo["userName"] as? String
+            userUid = userInfo["uid"] as? String
         } else {
             // No data was saved
             print("No data was saved.")
@@ -174,7 +176,7 @@ class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSample
         
         if let version = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String,
            let build = Bundle.main.object(forInfoDictionaryKey: kCFBundleVersionKey as String) as? String {
-            log(meetingUid: roomUid, log:"\(self.userName!) app version \(version).\(build)")
+            log(meetingUid: roomUid, log:"\(self.userName!)[\(self.userUid!)] app version \(version).\(build)")
         }
         
         self.timeSelect.delegate = self
@@ -518,7 +520,7 @@ class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSample
                             Toast.show(message: "Start to upload record files", controller: uiViewContoller!)
                         }
                         
-                        log(meetingUid: roomUid, log:"\(self!.userName!) video upload start: \(prefixKey)")
+                        log(meetingUid: roomUid, log:"\(self!.userName!) video upload start: \(encodeURLParameter(prefixKey)!)")
                         //Upload video at first
                         awsUpload.multipartUpload(filePath: url, bucketName: "video-client-upload-123456798", prefixKey: prefixKey){ error -> Void in
                             if(error == nil)
