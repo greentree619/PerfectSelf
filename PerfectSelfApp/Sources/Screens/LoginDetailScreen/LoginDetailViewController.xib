@@ -302,35 +302,23 @@
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PQc-Q0-WrE" userLabel="Forgot Password">
                                                     <rect key="frame" x="170" y="0.0" width="165" height="45"/>
                                                     <subviews>
-                                                        <button opaque="NO" contentMode="scaleToFill" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5gs-TK-Gx8" userLabel="Forgot Button">
-                                                            <rect key="frame" x="41" y="0.0" width="18" height="45"/>
+                                                        <button opaque="NO" contentMode="scaleToFill" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5gs-TK-Gx8" userLabel="Forgot Button">
+                                                            <rect key="frame" x="56" y="0.0" width="109" height="45"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                             <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                                            <state key="normal" image="icons8-unchecked-checkbox-14"/>
-                                                            <state key="selected" image="icons8-checked-checkbox-14"/>
-                                                            <buttonConfiguration key="configuration" style="plain" image="icons8-unchecked-checkbox-14" cornerStyle="dynamic">
-                                                                <backgroundConfiguration key="background" cornerRadius="3"/>
-                                                                <directionalEdgeInsets key="contentInsets" top="2" leading="2" bottom="2" trailing="2"/>
-                                                            </buttonConfiguration>
+                                                            <state key="normal" title="Forgot Password">
+                                                                <color key="titleColor" systemColor="linkColor"/>
+                                                            </state>
                                                             <connections>
-                                                                <action selector="ChangeForgotPassword:" destination="-1" eventType="touchUpInside" id="WD2-bb-4Gk"/>
+                                                                <action selector="ForgotPassword:" destination="-1" eventType="touchUpInside" id="bWa-oJ-nfO"/>
                                                             </connections>
                                                         </button>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Forgot Password" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0VP-te-DSM">
-                                                            <rect key="frame" x="64" y="0.0" width="101" height="45"/>
-                                                            <edgeInsets key="layoutMargins" top="8" left="8" bottom="8" right="8"/>
-                                                            <fontDescription key="fontDescription" name="RalewayRoman-Regular" family="Raleway" pointSize="13"/>
-                                                            <nil key="textColor"/>
-                                                            <nil key="highlightedColor"/>
-                                                        </label>
                                                     </subviews>
                                                     <color key="backgroundColor" white="1" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
-                                                        <constraint firstItem="5gs-TK-Gx8" firstAttribute="top" secondItem="PQc-Q0-WrE" secondAttribute="top" id="DDt-9u-4Ys"/>
-                                                        <constraint firstItem="0VP-te-DSM" firstAttribute="leading" secondItem="5gs-TK-Gx8" secondAttribute="trailing" constant="5" id="RZA-fa-eWy"/>
-                                                        <constraint firstAttribute="bottom" secondItem="5gs-TK-Gx8" secondAttribute="bottom" id="ent-HW-tZA"/>
-                                                        <constraint firstItem="0VP-te-DSM" firstAttribute="top" secondItem="PQc-Q0-WrE" secondAttribute="top" id="fcR-FO-QCP"/>
-                                                        <constraint firstAttribute="bottom" secondItem="0VP-te-DSM" secondAttribute="bottom" id="jtF-zb-yKt"/>
-                                                        <constraint firstAttribute="trailing" secondItem="0VP-te-DSM" secondAttribute="trailing" id="pwB-MM-DhP"/>
+                                                        <constraint firstAttribute="bottom" secondItem="5gs-TK-Gx8" secondAttribute="bottom" id="9JV-3S-3UQ"/>
+                                                        <constraint firstAttribute="trailing" secondItem="5gs-TK-Gx8" secondAttribute="trailing" id="Icb-Uv-8mo"/>
+                                                        <constraint firstItem="5gs-TK-Gx8" firstAttribute="top" secondItem="PQc-Q0-WrE" secondAttribute="top" id="ddC-Ug-iCv"/>
                                                     </constraints>
                                                 </view>
                                             </subviews>
@@ -464,6 +452,9 @@
         <image name="login_line" width="114" height="2"/>
         <image name="login_pass" width="19" height="19"/>
         <image name="login_reader" width="28" height="31"/>
+        <systemColor name="linkColor">
+            <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
