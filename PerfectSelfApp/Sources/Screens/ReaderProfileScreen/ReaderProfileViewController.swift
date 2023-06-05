@@ -668,7 +668,7 @@ extension ReaderProfileViewController: UIImagePickerControllerDelegate & UINavig
             else if self.uploadType == "video" {
                 if let videoURL = info[.mediaURL] as? URL {
                     //Then Upload video
-                    awsUpload.multipartUpload(filePath: videoURL, bucketName: "video-client-upload-123456798", prefixKey: self.id) { (error: Error?) -> Void in
+                    awsUpload.multipartUpload(filePath: videoURL, bucketName: "video-client-upload-123456798", prefixKey: "intro-video/\(self.id)/") { (error: Error?) -> Void in
                         if(error == nil)
                         {
                             DispatchQueue.main.async {
