@@ -264,6 +264,7 @@ class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSample
                     log(meetingUid: gRoomUid!, log:"\(userName!) start meeting.")
                     
 #if RECORDING_TEST
+                    onAWSUploading = true
                     self.recordingDidTap(UIButton())
                     
                     var count = 120
@@ -275,7 +276,7 @@ class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSample
                         }
                     })
                     
-                    var count2 = 10
+                    var count2 = 120
                     _ = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true, block: { timer in
                         count2 -= 1
                         if count2 == 0 {
@@ -548,6 +549,10 @@ class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSample
                                                       , roomUid: gRoomUid!
                                                       , tapeId: (uiViewContoller! as! ConferenceViewController).tapeId)
                                     ConferenceViewController.clearTempFolder()
+
+#if RECORDING_TEST
+                                    onAWSUploading = false
+#endif
                                     //Omitted (uiViewContoller! as! ConferenceViewController).uploadCount += 1
                                 } else {
                                     // No data was saved

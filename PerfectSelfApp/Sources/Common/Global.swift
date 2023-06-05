@@ -31,6 +31,10 @@ var userUid: String?
 var gRoomUid: String?
 //}}For uploading to AWS.
 
+#if RECORDING_TEST
+var onAWSUploading = false
+#endif//RECORDING_TEST
+
 //var webRTCClient: WebRTCClient?
 //var signalClient: SignalingClient?
 //var signalingClientStatus: SignalingClientStatus?
