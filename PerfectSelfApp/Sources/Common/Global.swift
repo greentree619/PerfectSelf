@@ -24,6 +24,13 @@ var uiViewContoller: UIViewController? = nil
 var selectedTape: VideoCard?
 let awsUpload = AWSMultipartUpload()
 
+//{{For uploading to AWS.
+var audioUrl: URL?
+var userName: String?
+var userUid: String?
+var gRoomUid: String?
+//}}For uploading to AWS.
+
 //var webRTCClient: WebRTCClient?
 //var signalClient: SignalingClient?
 //var signalingClientStatus: SignalingClientStatus?
