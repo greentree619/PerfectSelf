@@ -6,6 +6,7 @@
 //  Copyright © 2023 Stas Seldin. All rights reserved.
 //
 import UIKit
+import GoogleSignIn
 
 class LoginDetailViewController: UIViewController {
     let checkedImage = UIImage(named: "icons8-checked-checkbox-14")! as UIImage
@@ -58,6 +59,10 @@ class LoginDetailViewController: UIViewController {
             // No data was saved
             print("No data was saved.")
         }
+        
+        GIDSignIn.sharedInstance().presentingViewController = self
+        GIDSignIn.sharedInstance().clientID = GoogleAuthClientID
+        GIDSignIn.sharedInstance()?.delegate = self
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -237,6 +242,14 @@ class LoginDetailViewController: UIViewController {
         }
     }
     
+    @IBAction func googleLoginDidTap(_ sender: Any) {
+        let gidSignIn = GIDSignIn.sharedInstance()
+        gidSignIn!.signIn()
+    }
+    
+    @IBAction func facebookLoginDidTap(_ sender: UIButton) {
+    }
+    
     @IBAction func GoBack(_ sender: UIButton) {
 //        self.navigationController?.popViewController(animated: true)
         let transition = CATransition()
@@ -257,4 +270,21 @@ class LoginDetailViewController: UIViewController {
      }
      */
     
+}
+
+extension LoginDetailViewController: GIDSignInDelegate{
+    func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
+        print("asdf")
+//        if let user = user {
+//            GIDSignIn.sharedInstance().t.getAuthToken(user) { (token, error) in
+//                if let token = token {
+//                    // Use token to make authenticated requests to Google API
+//                } else if let error = error {
+//                    print("Error fetching auth token: \(error.localizedDescription)")
+//                }
+//            }
+//        } else if let error = error {
+//            print("Error signing in: \(error.localizedDescription)")
+//        }
+    }
 }
