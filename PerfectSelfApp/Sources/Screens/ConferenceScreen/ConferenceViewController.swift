@@ -267,7 +267,7 @@ class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSample
                     onAWSUploading = true
                     self.recordingDidTap(UIButton())
                     
-                    var count = 120
+                    var count = 15
                     _ = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true, block: { timer in
                         count -= 1
                         if count == 0 {
@@ -276,7 +276,7 @@ class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSample
                         }
                     })
                     
-                    var count2 = 120
+                    var count2 = 15
                     _ = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true, block: { timer in
                         count2 -= 1
                         if count2 == 0 {
@@ -520,6 +520,7 @@ class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSample
                         //                    self?.present(activity, animated: true, completion: nil)
                         let roomUid = gRoomUid!
                         let prefixKey = "\(self!.tapeDate)/\(gRoomUid!)/\(self!.tapeId)/"
+                        print("Video upload prefixKey: \(prefixKey)")
                         //Omitted let awsUpload = AWSMultipartUpload()
                         DispatchQueue.main.async {
                             //Omitted showIndicator(sender: nil, viewController: uiViewContoller!, color:UIColor.white)
@@ -588,6 +589,7 @@ class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSample
             let tmpUrl = getAudioTempURL()
             audioUrl = getAudioFileURL(fileName: userName!)
             let prefixKey = "\(self.tapeDate)/\(gRoomUid!)/\(self.tapeId)/"
+            print("Audio upload prefixKey: \(prefixKey)")
             do {
                 try FileManager.default.moveItem(at: tmpUrl, to: audioUrl!)
                 
