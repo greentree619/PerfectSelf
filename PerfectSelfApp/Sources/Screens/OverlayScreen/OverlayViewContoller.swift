@@ -115,6 +115,26 @@ class OverlayViewController: UIViewController {
         super.viewDidAppear(animated)
         lblTimer.isHidden = true
         
+#if OVERLAY_TEST
+        var count = 7
+        _ = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true, block: { timer in
+            count -= 1
+            if count == 0 {
+                timer.invalidate()
+                self.startRecordClicked(UIButton())
+            }
+        })
+        
+        var count2 = count + 5
+        _ = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true, block: { timer in
+            count2 -= 1
+            if count2 == 0 {
+                timer.invalidate()
+                self.startRecordClicked(UIButton())
+            }
+        })
+#endif//OVERLAY_TEST
+        
         if cameraView.captureSession.isRunning == true {
             return
         }

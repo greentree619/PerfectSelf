@@ -105,6 +105,44 @@ extension AppDelegate{
         UserDefaults.standard.setValue(userJson, forKey: "USER")
 #endif
         
+#if OVERLAY_TEST
+        let JSON = """
+        {
+        "uid": "e5c95229-e15e-44c7-ac74-fc39b71acef6",
+        "userType": 3,
+        "avatarBucketName": "",
+        "avatarKey": "",
+        "userName": "Daniel",
+        "email": "tester001@gmail.com",
+        "password": "",
+        "firstName": "tony",
+        "lastName": "bingo",
+        "dateOfBirth": "",
+        "gender": 0,
+        "currentAddress": "",
+        "permanentAddress": "",
+        "city": "",
+        "nationality": "",
+        "phoneNumber": "123456",
+        "isLogin": true,
+        "token": "SGOC97v5xkGPLWai7i9m9A==",
+        "fcmDeviceToken": "b480e060ba7e60a57bec0be27140f2e92a6f400ed916cfcc77e7afe9d92c0781",
+        "deviceKind": 0,
+        "id": 19,
+        "isDeleted": false,
+        "createdTime": "2023-03-22T20:50:43.4284916",
+        "updatedTime": "2023-03-22T20:50:43.4284936",
+        "deletedTime": "0001-01-01T00:00:00"
+        }
+        """
+        
+        let data = JSON.data(using: .utf8)!
+        let responseJSON = try? JSONSerialization.jsonObject(with: data, options: [])
+        let userJson = responseJSON as! [String:Any]
+        print(userJson["userType"]!)
+        UserDefaults.standard.setValue(userJson, forKey: "USER")
+#endif
+        
         if let userInfo = UserDefaults.standard.object(forKey: "USER") as? [String:Any] {
             // Use the saved data
             
