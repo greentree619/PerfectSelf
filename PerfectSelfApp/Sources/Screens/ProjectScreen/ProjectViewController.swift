@@ -68,17 +68,6 @@ class ProjectViewController: UIViewController {
         editReadButton.isEnabled = true
         newTakeButton.isEnabled = true
         editFinalButton.isEnabled = true
-        
-#if OVERLAY_TEST
-        var count = 7
-        _ = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true, block: { timer in
-            count -= 1
-            if count == 0 {
-                timer.invalidate()
-                self.recordNewTakeDidTapped(UIButton())
-            }
-        })
-#endif//OVERLAY_TEST
     }
     
     override func viewWillDisappear(_ animated: Bool){
@@ -151,6 +140,18 @@ class ProjectViewController: UIViewController {
                                     hideIndicator(sender: nil)
                                     self.actorPlayerView.play()
                                     self.playerView.play()
+                                    
+                                    
+#if OVERLAY_TEST
+                                    var count = 2
+                                    _ = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true, block: { timer in
+                                        count -= 1
+                                        if count == 0 {
+                                            timer.invalidate()
+                                            self.recordNewTakeDidTapped(UIButton())
+                                        }
+                                    })
+#endif//OVERLAY_TEST
                                 })
                             }
                             //}}Wait until download both
