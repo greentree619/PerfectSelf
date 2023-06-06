@@ -568,6 +568,26 @@ func getVideoTransformStatus() -> String {
     }
 }
 
+func initAVMutableComposition(avMComp: AVMutableComposition, videoURL: URL, audioURL: URL){
+    let videoTrack = avMComp.addMutableTrack(withMediaType: .video, preferredTrackID: kCMPersistentTrackID_Invalid)
+    let audioTrack = avMComp.addMutableTrack(withMediaType: .audio, preferredTrackID: kCMPersistentTrackID_Invalid)
+            
+    let videoAsset = AVURLAsset(url: videoURL)
+    let audioAsset = AVURLAsset(url: audioURL)
+    
+    let dur = CMTimeRangeMake(start: CMTime.zero, duration: videoAsset.duration)
+    let vTrack = videoAsset.tracks(withMediaType: .video).first!
+    videoTrack!.preferredTransform = transformForTrack(vTrack)
+    
+    do{
+        try videoTrack?.insertTimeRange(dur, of: vTrack,  at: CMTime.zero)
+        try audioTrack?.insertTimeRange(dur, of: audioAsset.tracks(withMediaType: .audio).first!, at: CMTime.zero)
+    } catch {
+        //handle error
+        print(error)
+    }
+}
+
 func saveOnlyAudioFrom(url: URL, completion: @escaping (URL) -> Void) {
     let asset = AVAsset(url: url)
     

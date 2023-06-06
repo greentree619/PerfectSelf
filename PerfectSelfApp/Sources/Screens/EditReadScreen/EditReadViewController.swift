@@ -98,17 +98,6 @@ class EditReadViewController: UIViewController {
             //handle error
             print(error)
         }
-        
-//        let videoComposition = AVMutableVideoComposition()
-//        videoComposition.renderSize = videoTrack!.naturalSize
-//        videoComposition.frameDuration = CMTime(value: 1, timescale: 30)
-//
-//        let layerInstruction = AVMutableVideoCompositionLayerInstruction(assetTrack: videoTrack!)
-//        //layerInstruction.setTransform(videoTrack!.preferredTransform, at: .zero) // Preserve original orientation
-//
-//        let instruction = AVMutableVideoCompositionInstruction()
-//        instruction.layerInstructions = [layerInstruction]
-//        videoComposition.instructions = [instruction]
           
         //{{
         playerView.mainavComposition = movie

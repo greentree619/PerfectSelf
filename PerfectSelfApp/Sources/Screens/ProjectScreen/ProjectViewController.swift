@@ -29,6 +29,9 @@ class ProjectViewController: UIViewController {
     var startElapseTime: Date?
     var endElapseTime: Date?
     
+    let actorAV = AVMutableComposition()
+    let readerAV = AVMutableComposition()
+    
     private var isOnPlay: Bool = true {
         didSet {
             DispatchQueue.main.async {
@@ -109,7 +112,6 @@ class ProjectViewController: UIViewController {
                 //Omitted print("Elapsed time: \(elapsed) seconds")
                 
                 self.savedVideoUrl = filePath
-                self.playerView.url = filePath
                 
                 //Download audio file
                 let filePath = URL(fileURLWithPath: "\(documentsPath)/tempFile.m4a")
@@ -120,10 +122,9 @@ class ProjectViewController: UIViewController {
                     //print("Error deleting file: \(error.localizedDescription)")
                 }
                 
-                awsUpload.downloadEx(filePath: filePath, bucketName: selectedTape!.bucketName, key: "\(selectedTape!.actorTapeKey).m4a") { (error) -> Void in
+                awsUpload.downloadEx(filePath: filePath, bucketName: selectedTape!.bucketName, key: "\(selectedTape!.actorTapeKey).m4a") { [self] (error) -> Void in
                     DispatchQueue.main.async {
                         hideIndicator(sender: nil)
-                        self.playerView.play()
                     }
                     
                     if error != nil {
@@ -135,6 +136,11 @@ class ProjectViewController: UIViewController {
                     }
                     else{
                         self.savedAudioUrl = filePath
+                        DispatchQueue.main.async { [self] in
+                            initAVMutableComposition(avMComp: actorAV, videoURL: self.savedVideoUrl!, audioURL: self.savedAudioUrl!)
+                            self.playerView.mainavComposition = actorAV
+                            self.playerView.play()
+                        }
                     }
                 }
             }
