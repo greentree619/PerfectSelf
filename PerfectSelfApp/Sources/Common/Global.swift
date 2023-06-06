@@ -553,6 +553,21 @@ func getVideoTransform() -> CGAffineTransform {
     }
 }
 
+func getVideoTransformStatus() -> String {
+    switch UIDevice.current.orientation {
+    case .portrait:
+        return "portrait"
+    case .portraitUpsideDown:
+        return "portraitUpsideDown"
+    case .landscapeLeft:
+        return "landscapeLeft"
+    case .landscapeRight:
+        return "landscapeRight"
+    default:
+        return "default"
+    }
+}
+
 func saveOnlyAudioFrom(url: URL, completion: @escaping (URL) -> Void) {
     let asset = AVAsset(url: url)
     

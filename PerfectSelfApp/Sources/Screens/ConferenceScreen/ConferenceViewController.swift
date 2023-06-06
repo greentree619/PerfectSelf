@@ -474,18 +474,18 @@ class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSample
             DispatchQueue(label: "com.perfectself.captureQueue", attributes: .concurrent).async { [self] in
                 DispatchQueue.main.async {
                     Toast.show(message: "Recording start...", controller: uiViewContoller!)
+                    let devOrientation = getVideoTransformStatus()
+                    log(meetingUid: gRoomUid!, log:"\(userName!) video recording module start (device orientation: \(devOrientation)")
                 }
                 
-                log(meetingUid: gRoomUid!, log:"\(userName!) video recording module start")
-                
-            _filename = userName!//UUID().uuidString
+                _filename = userName!//UUID().uuidString
                 let videoPath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!.appendingPathComponent("\(_filename).mp4")
                 //let videoPath = URL(string: "\(NSTemporaryDirectory())\(_filename).mp4")
                 
                 let writer = try! AVAssetWriter(outputURL: videoPath, fileType: .mp4)
                 let settings = _videoOutput!.recommendedVideoSettingsForAssetWriter(writingTo: .mp4)
                 let input = AVAssetWriterInput(mediaType: .video, outputSettings: settings) // [AVVideoCodecKey: AVVideoCodecType.h264, AVVideoWidthKey: 1920, AVVideoHeightKey: 1080])
-            input.mediaTimeScale = CMTimeScale(bitPattern: 300)
+                input.mediaTimeScale = CMTimeScale(bitPattern: 300)
                 input.expectsMediaDataInRealTime = true
                 input.transform = getVideoTransform()//CGAffineTransform(rotationAngle: .pi/2)
                 let adapter = AVAssetWriterInputPixelBufferAdaptor(assetWriterInput: input, sourcePixelBufferAttributes: nil)
@@ -564,7 +564,7 @@ class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSample
                                                       , roomUid: gRoomUid!
                                                       , tapeId: (uiViewContoller! as! ConferenceViewController).tapeId)
                                     ConferenceViewController.clearTempFolder()
-
+                                    
 #if RECORDING_TEST
                                     onAWSUploading = false
 #endif
