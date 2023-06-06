@@ -210,6 +210,12 @@ class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSample
         capturer.captureSession.commitConfiguration()
         _videoOutput = output
         _captureSession = capturer.captureSession
+        
+        log(meetingUid: gRoomUid!, log:"\(userName!) CaptureSession Starting...")
+        if( _captureSession?.isRunning == false ){
+            _captureSession?.startRunning()
+            log(meetingUid: gRoomUid!, log:"\(userName!) CaptureSession Start: OK.")
+        }
         //}} Init to record video.
         
         //{{Init to record audio
@@ -314,6 +320,12 @@ class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSample
         
         if(_captureState == .capturing){
             recordEnd()
+        }
+        
+        log(meetingUid: gRoomUid!, log:"\(userName!) CaptureSession Stopping...")
+        if( _captureSession?.isRunning == true ){
+            _captureSession?.stopRunning()
+            log(meetingUid: gRoomUid!, log:"\(userName!) CaptureSession Stop: OK")
         }
         //Omitted self.captureSession.stopRunning()
     }
