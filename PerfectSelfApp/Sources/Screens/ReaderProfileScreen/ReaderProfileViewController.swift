@@ -663,60 +663,12 @@ extension ReaderProfileViewController: UIImagePickerControllerDelegate & UINavig
                     avatarUrl = info[.imageURL] as? URL
                 }
                 
-                if avatarUrl != nil {
-                    //Then Upload image
-                    awsUpload.uploadImage(filePath: avatarUrl!, bucketName: "perfectself-avatar-bucket", prefix: self.id) { (error: Error?) -> Void in
-                        DispatchQueue.main.async {
-                            hideIndicator(sender: nil)
-                        }
-                        if(error == nil)
-                        {
-                            DispatchQueue.main.async {
-                                Toast.show(message: "Avatar Image upload completed.", controller: self)
-                                // update avatar
-                                let url = "https://perfectself-avatar-bucket.s3.us-east-2.amazonaws.com/\(self.id)/\(String(describing: avatarUrl!.lastPathComponent))"
-                                self.readerAvatar.imageFrom(url: URL(string: url)!)
-                                //update user profile
-                                webAPI.updateUserInfo(uid: self.id, userType: -1, bucketName: "perfectself-avatar-bucket", avatarKey: "\(self.id)/\(avatarUrl!.lastPathComponent)", username: "", email: "", password: "", firstName: "", lastName: "", dateOfBirth: "", gender: -1, currentAddress: "", permanentAddress: "", city: "", nationality: "", phoneNumber: "", isLogin: true, fcmDeviceToken: "", deviceKind: -1) { data, response, error in
-                                    if error == nil {
-                                        // successfully update db
-                                        DispatchQueue.main.async {
-                                            if var userInfo = UserDefaults.standard.object(forKey: "USER") as? [String:Any] {
-                                                // Use the saved data
-                                                userInfo["avatarBucketName"] = "perfectself-avatar-bucket"
-                                                userInfo["avatarKey"] = "\(self.id)/\(avatarUrl!.lastPathComponent)"
-                                                UserDefaults.standard.removeObject(forKey: "USER")
-                                                UserDefaults.standard.set(userInfo, forKey: "USER")
-                                                
-                                            } else {
-                                                // No data was saved
-                                                print("No data was saved.")
-                                            }
-                                        }
-                                        print("update db completed")
-                                    }
-                                }
-                                
-                            }
-                        }
-                        else
-                        {
-                            DispatchQueue.main.async {
-                                Toast.show(message: "Failed to upload avatar image, Try again later!", controller: self)
-                            }
-                        }
-                    }
-                }
-                else {
-                    DispatchQueue.main.async {
-                        hideIndicator(sender: nil)
-                    }
-                }
+                uploadAvatar(prefix: self.id, avatarUrl: avatarUrl, imgControl: self.readerAvatar, controller: self)
             }
             else if self.uploadType == "video" {
                 if let videoURL = info[.mediaURL] as? URL {
                     //Then Upload video
-                    awsUpload.uploadVideo(filePath: videoURL, bucketName: "video-client-upload-123456798", prefix: self.id) { (error: Error?) -> Void in
+                    awsUpload.multipartUpload(filePath: videoURL, bucketName: "video-client-upload-123456798", prefixKey: "intro-video/\(self.id)/") { (error: Error?) -> Void in
                         if(error == nil)
                         {
                             DispatchQueue.main.async {
@@ -724,7 +676,6 @@ extension ReaderProfileViewController: UIImagePickerControllerDelegate & UINavig
                                 Toast.show(message: "file upload completed.", controller: self)
                                 // update avatar
                                 let url = "https://video-client-upload-123456798.s3.us-east-2.amazonaws.com/intro-video/\(self.id)/\(String(describing: videoURL.lastPathComponent))"
-                                
                                 let downloadImageURL = url.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)! as NSString
                                 
                                 let requestURL: NSURL = NSURL(string: downloadImageURL as String)!
@@ -733,9 +684,6 @@ extension ReaderProfileViewController: UIImagePickerControllerDelegate & UINavig
                                 let config = URLSessionConfiguration.default
                                 let session = URLSession(configuration: config)
                                 let task = session.dataTask(with: request, completionHandler: {(data, response, error) in
-                                    DispatchQueue.main.async {
-        //                                hideIndicator(sender: nil)
-                                    }
                                     
                                      if error != nil {
                                          DispatchQueue.main.async {

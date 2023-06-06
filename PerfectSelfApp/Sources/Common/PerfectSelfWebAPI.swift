@@ -508,6 +508,26 @@ class PerfectSelfWebAPI
         return executeAPI(with: "GET", apiPath: "Address/cities/\(stateCode)", json: json, completionHandler:  completionHandler)
     }
     
+    func sendVerifyCodeToEmail(email: String, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> Void
+    {
+        return executeAPI(with: "GET", apiPath: "Email/SendVerifyCode/\(email)", json: [:], completionHandler:  completionHandler)
+    }
+    
+    func verifyCode(email: String, code: String, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> Void
+    {
+        return executeAPI(with: "GET", apiPath: "Users/VerifyForResetPassword/\(email)/\(code)", json: [:], completionHandler:  completionHandler)
+    }
+    
+    func logSend(meetingUid: String, log: String, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> Void
+    {
+        return executeAPI(with: "GET", apiPath: "Log/\(meetingUid)/\(log)", json: [:], completionHandler:  completionHandler)
+    }
+    
+    func resetPassword(email: String, code: String, password: String, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> Void
+    {
+        return executeAPI(with: "POST", apiPath: "Users/ResetPassword/\(email)/\(code)/\(password)", json: [:], completionHandler:  completionHandler)
+    }
+    
     func getLibraryURLs( urls: inout [String]) -> Void
     {
     //    var request = URLRequest(url: URL(string: "https://www.example.com/api/v1")!, cachePolicy: .useProtocolCachePolicy, timeoutInterval: 10.0)

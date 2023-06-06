@@ -6,6 +6,7 @@
 //  Copyright © 2023 Stas Seldin. All rights reserved.
 //
 import UIKit
+import GoogleSignIn
 
 class LoginDetailViewController: UIViewController {
     let checkedImage = UIImage(named: "icons8-checked-checkbox-14")! as UIImage
@@ -13,6 +14,7 @@ class LoginDetailViewController: UIViewController {
     let show = UIImage(named: "icons8-eye-20")! as UIImage
     let hide = UIImage(named : "icons8-hide-20")! as UIImage
     
+    @IBOutlet weak var btn_login: UIButton!
     @IBOutlet weak var btn_actor: UIButton!
     @IBOutlet weak var btn_reader: UIButton!
     @IBOutlet weak var btn_forgotpassword: UIButton!
@@ -57,6 +59,10 @@ class LoginDetailViewController: UIViewController {
             // No data was saved
             print("No data was saved.")
         }
+        
+        GIDSignIn.sharedInstance().presentingViewController = self
+        GIDSignIn.sharedInstance().clientID = GoogleAuthClientID
+        GIDSignIn.sharedInstance()?.delegate = self
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -66,17 +72,9 @@ class LoginDetailViewController: UIViewController {
     }
     
     @IBAction func DoLogin(_ sender: UIButton) {
+        
         var inputCheck: String = ""
         var focusTextField: UITextField? = nil
-  
-//AUTOLOGIN
-//        /*
-//         Test Code
-//         */
-//        //{{
-//        text_email.text = "tester001@gmail.com"
-//        text_password.text = "123456"
-//        //}}
         
         if(text_email.text!.isEmpty){
             inputCheck += "- Please input user email.\n"
@@ -112,7 +110,7 @@ class LoginDetailViewController: UIViewController {
                 return
             }
             let responseJSON = try? JSONSerialization.jsonObject(with: data, options: [])
-           
+            
             if let responseJSON = responseJSON as? [String: Any] {
                 guard let result = responseJSON["result"] else {
                     DispatchQueue.main.async {
@@ -131,23 +129,23 @@ class LoginDetailViewController: UIViewController {
                     let bucketName = user["avatarBucketName"] as? String
                     let avatarKey = user["avatarKey"] as? String
                     
-                   if( fcmDeviceToken.count > 0 &&
-                       fcmDeviceToken != fCMDeviceToken )
+                    if( fcmDeviceToken.count > 0 &&
+                        fcmDeviceToken != fCMDeviceToken )
                     {
-                       webAPI.updateUserInfo(uid: uid, userType: -1, bucketName: bucketName ?? "", avatarKey: avatarKey ?? "", username: "", email: "", password: "", firstName: "", lastName: "", dateOfBirth: "", gender: -1, currentAddress: "", permanentAddress: "", city: "", nationality: "", phoneNumber: "", isLogin: true, fcmDeviceToken: fcmDeviceToken, deviceKind: -1)  { data, response, error in
-                           if error == nil {
-                               // successfully update db
-                               print("update db completed")
-                           }
-                       }
-                       //print(fcmDeviceToken, deviceKind)
+                        webAPI.updateUserInfo(uid: uid, userType: -1, bucketName: bucketName ?? "", avatarKey: avatarKey ?? "", username: "", email: "", password: "", firstName: "", lastName: "", dateOfBirth: "", gender: -1, currentAddress: "", permanentAddress: "", city: "", nationality: "", phoneNumber: "", isLogin: true, fcmDeviceToken: fcmDeviceToken, deviceKind: -1)  { data, response, error in
+                            if error == nil {
+                                // successfully update db
+                                print("update db completed")
+                            }
+                        }
+                        //print(fcmDeviceToken, deviceKind)
                     }
-
+                    
                     UserDefaults.standard.setValue(user, forKey: "USER")
                     DispatchQueue.main.async {
                         hideIndicator(sender: sender)
                         //{{REFME
-//                        var rememberMeFlag: Bool = UserDefaults.standard.bool(forKey: "REMEMBER_USER")
+                        //                        var rememberMeFlag: Bool = UserDefaults.standard.bool(forKey: "REMEMBER_USER")
                         let rememberMeFlag: Bool = self.btn_rememberme.isSelected
                         UserDefaults.standard.set(rememberMeFlag, forKey: "REMEMBER_USER")
                         
@@ -224,16 +222,10 @@ class LoginDetailViewController: UIViewController {
             sender.setImage(uncheckedImage, for: UIControl.State.normal)
         }
     }
-    @IBAction func ChangeForgotPassword(_ sender: UIButton) {
-        sender.isSelected.toggle();
-        
-        if sender.isSelected {
-            sender.setImage(checkedImage, for: UIControl.State.normal);
-            sender.tintColor = UIColor(red:255,green: 255, blue: 255,  alpha: 1);
-        }
-        else {
-            sender.setImage(uncheckedImage, for: UIControl.State.normal)
-        }
+    @IBAction func ForgotPassword(_ sender: UIButton) {
+        let controller = EmailSubmitViewController();
+        controller.modalPresentationStyle = .fullScreen
+        self.present(controller, animated: false)
     }
     
     
@@ -248,6 +240,14 @@ class LoginDetailViewController: UIViewController {
             text_password.isSecureTextEntry = true;
             sender.setImage(hide, for: UIControl.State.normal);
         }
+    }
+    
+    @IBAction func googleLoginDidTap(_ sender: Any) {
+        let gidSignIn = GIDSignIn.sharedInstance()
+        gidSignIn!.signIn()
+    }
+    
+    @IBAction func facebookLoginDidTap(_ sender: UIButton) {
     }
     
     @IBAction func GoBack(_ sender: UIButton) {
@@ -270,4 +270,21 @@ class LoginDetailViewController: UIViewController {
      }
      */
     
+}
+
+extension LoginDetailViewController: GIDSignInDelegate{
+    func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
+        print("asdf")
+//        if let user = user {
+//            GIDSignIn.sharedInstance().t.getAuthToken(user) { (token, error) in
+//                if let token = token {
+//                    // Use token to make authenticated requests to Google API
+//                } else if let error = error {
+//                    print("Error fetching auth token: \(error.localizedDescription)")
+//                }
+//            }
+//        } else if let error = error {
+//            print("Error signing in: \(error.localizedDescription)")
+//        }
+    }
 }

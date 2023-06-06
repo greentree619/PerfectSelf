@@ -40,6 +40,28 @@ class ActorLibraryViewController: UIViewController, UICollectionViewDataSource, 
 
         menuArray = [menu1, menu2]
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated);
+        
+#if OVERLAY_TEST
+        var count = 3
+        _ = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true, block: { timer in
+            count -= 1
+            if count == 0 {
+                timer.invalidate()
+                if(self.items.count > 0)
+                {
+                    selectedTape = self.items[0]
+                    let projectViewController = ProjectViewController()
+                    projectViewController.modalPresentationStyle = .fullScreen
+                    self.present(projectViewController, animated: false, completion: nil)
+                }
+            }
+        })
+#endif//OVERLAY_TEST
+    }
+    
     func fetchVideos() {
         showIndicator(sender: nil, viewController: self)
         webAPI.getLibraryByUid(uid: uid){ data, response, error in
@@ -76,6 +98,7 @@ class ActorLibraryViewController: UIViewController, UICollectionViewDataSource, 
             }
         }
     }
+    
     @IBAction func ShowFolderMenu(_ sender: UIButton) {
         let originInWindow = sender.convert(CGPoint.zero, to: nil)
         
@@ -88,6 +111,7 @@ class ActorLibraryViewController: UIViewController, UICollectionViewDataSource, 
         popupMenu.delegate = self
 
     }
+    
     // MARK: - Video List Delegate.
     func collectionView(_ collectionView: UICollectionView,        numberOfItemsInSection section: Int) -> Int {
          // myData is the array of items

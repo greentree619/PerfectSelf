@@ -208,9 +208,6 @@ class ActorProfileEditViewController: UIViewController, PhotoDelegate {
         DropDown.appearance().selectionBackgroundColor = UIColor.lightGray
         DropDown.appearance().cellHeight = 40
         DropDown.appearance().setupCornerRadius(5) // available since v2.3.6
-    }
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(true)
         // Retrieve the saved data from UserDefaults
         if let userInfo = UserDefaults.standard.object(forKey: "USER") as? [String:Any] {
             // Use the saved data
@@ -293,6 +290,10 @@ class ActorProfileEditViewController: UIViewController, PhotoDelegate {
                 }
             }
         }
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+     
     }
     @IBAction func SaveChanges(_ sender: UIButton) {
         var inputCheck: String = ""
@@ -540,6 +541,7 @@ extension ActorProfileEditViewController: UIImagePickerControllerDelegate & UINa
 //                Toast.show(message: "Start to upload record files", controller: self)
             }
             // Get the URL of the selected image
+            //var imageUrl = info[UIImagePickerController.InfoKey.mediaURL] as! URL?
             var avatarUrl: URL? = nil
             //Upload audio at first
             guard let image = (self.photoType == 0 ? info[.originalImage] : info[.editedImage]) as? UIImage else {
@@ -563,50 +565,7 @@ extension ActorProfileEditViewController: UIImagePickerControllerDelegate & UINa
                 avatarUrl = info[.imageURL] as? URL
             }
             
-            if avatarUrl != nil {
-                //Then Upload image
-                awsUpload.uploadImage(filePath: avatarUrl!, bucketName: "perfectself-avatar-bucket", prefix: self.id) { (error: Error?) -> Void in
-                    if(error == nil)
-                    {
-                        DispatchQueue.main.async {
-                            hideIndicator(sender: nil)
-                            Toast.show(message: "Avatar Image upload completed.", controller: self)
-                            // update avatar
-                            let url = "https://perfectself-avatar-bucket.s3.us-east-2.amazonaws.com/\(self.id)/\(String(describing: avatarUrl!.lastPathComponent))"
-                            self.img_user_avatar.imageFrom(url: URL(string: url)!)
-                            //update user profile
-                            webAPI.updateUserInfo(uid: self.id, userType: -1, bucketName: "perfectself-avatar-bucket", avatarKey: "\(self.id)/\(avatarUrl!.lastPathComponent)", username: "", email: "", password: "", firstName: "", lastName: "", dateOfBirth: "", gender: -1, currentAddress: "", permanentAddress: "", city: "", nationality: "", phoneNumber: "", isLogin: true, fcmDeviceToken: "", deviceKind: -1) { data, response, error in
-                                if error == nil {
-                                    // successfully update db
-                                    //update local
-                                    // Retrieve the saved data from UserDefaults
-                                    DispatchQueue.main.async {
-                                        if var userInfo = UserDefaults.standard.object(forKey: "USER") as? [String:Any] {
-                                            // Use the saved data
-                                            userInfo["avatarBucketName"] = "perfectself-avatar-bucket"
-                                            userInfo["avatarKey"] = "\(self.id)/\(avatarUrl!.lastPathComponent)"
-                                            UserDefaults.standard.removeObject(forKey: "USER")
-                                            UserDefaults.standard.set(userInfo, forKey: "USER")
-                                            
-                                        } else {
-                                            // No data was saved
-                                            print("No data was saved.")
-                                        }
-                                    }
-                                }
-                            }
-                            
-                        }
-                    }
-                    else
-                    {
-                        DispatchQueue.main.async {
-                            hideIndicator(sender: nil)
-                            Toast.show(message: "Failed to upload avatar image, Try again later!", controller: self)
-                        }
-                    }
-                }
-            }
+            uploadAvatar(prefix: self.id, avatarUrl: avatarUrl, imgControl: self.img_user_avatar, controller: self)
         }//DispatchQueue.global
         
         dismiss(animated: true, completion: nil)

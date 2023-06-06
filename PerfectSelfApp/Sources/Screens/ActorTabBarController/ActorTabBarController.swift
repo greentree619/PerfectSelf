@@ -51,7 +51,7 @@ class ActorTabBarController: UITabBarController, UIImagePickerControllerDelegate
                     self.present(self.imagePicker, animated: true, completion: nil)
                     //Omitted Toast.show(message: "Start to create self tap.", controller:  self)
                 }
-#endif          
+#endif
             } else {
                 print("Camera not available.")
             }
@@ -67,6 +67,9 @@ class ActorTabBarController: UITabBarController, UIImagePickerControllerDelegate
         actionButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -16).isActive = true
         actionButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true;
 
+#if OVERLAY_TEST
+        selectedIndex = 1
+#endif//OVERLAY_TEST
     }
 
     override func viewWillAppear(_ animated: Bool) {

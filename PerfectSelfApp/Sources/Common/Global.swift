@@ -23,6 +23,18 @@ var activityIndicatorView: UIActivityIndicatorView? = nil
 var uiViewContoller: UIViewController? = nil
 var selectedTape: VideoCard?
 let awsUpload = AWSMultipartUpload()
+let GoogleAuthClientID = "669216550945-mgc5slqbok7j5ubp8255loi7hkoe7mj3.apps.googleusercontent.com"
+
+//{{For uploading to AWS.
+var audioUrl: URL?
+var userName: String?
+var userUid: String?
+var gRoomUid: String?
+//}}For uploading to AWS.
+
+#if RECORDING_TEST
+var onAWSUploading = false
+#endif//RECORDING_TEST
 
 //var webRTCClient: WebRTCClient?
 //var signalClient: SignalingClient?
@@ -541,6 +553,21 @@ func getVideoTransform() -> CGAffineTransform {
     }
 }
 
+func getVideoTransformStatus() -> String {
+    switch UIDevice.current.orientation {
+    case .portrait:
+        return "portrait"
+    case .portraitUpsideDown:
+        return "portraitUpsideDown"
+    case .landscapeLeft:
+        return "landscapeLeft"
+    case .landscapeRight:
+        return "landscapeRight"
+    default:
+        return "default"
+    }
+}
+
 func saveOnlyAudioFrom(url: URL, completion: @escaping (URL) -> Void) {
     let asset = AVAsset(url: url)
     
@@ -706,4 +733,82 @@ func transformForTrack(_ assetTrack: AVAssetTrack) -> CGAffineTransform{
     }
     
     return affineTransform
+}
+
+func uploadAvatar(prefix: String, avatarUrl: URL?, imgControl: UIImageView, controller: UIViewController){
+    guard let avatarUrl = avatarUrl else{
+        DispatchQueue.main.async {
+            hideIndicator(sender: nil)
+            Toast.show(message: "Image Url invalid, Try again later!", controller:  controller)
+        }
+        return
+    }
+    
+    //Then Upload image
+    awsUpload.uploadImage(filePath: avatarUrl, bucketName: "perfectself-avatar-bucket", prefix: prefix) { (error: Error?) -> Void in
+        var uploadResult = "Avatar Image upload completed."
+        if(error == nil)
+        {
+            DispatchQueue.main.async {
+                // update avatar
+                let url = "https://perfectself-avatar-bucket.s3.us-east-2.amazonaws.com/\(prefix)/\(String(describing: avatarUrl.lastPathComponent))"
+                imgControl.imageFrom(url: URL(string: url)!)
+                //update user profile
+                webAPI.updateUserInfo(uid: prefix, userType: -1, bucketName: "perfectself-avatar-bucket", avatarKey: "\(prefix)/\(avatarUrl.lastPathComponent)", username: "", email: "", password: "", firstName: "", lastName: "", dateOfBirth: "", gender: -1, currentAddress: "", permanentAddress: "", city: "", nationality: "", phoneNumber: "", isLogin: true, fcmDeviceToken: "", deviceKind: -1) { data, response, error in
+                    if error == nil {
+                        // successfully update db
+                        DispatchQueue.main.async {
+                            if var userInfo = UserDefaults.standard.object(forKey: "USER") as? [String:Any] {
+                                // Use the saved data
+                                userInfo["avatarBucketName"] = "perfectself-avatar-bucket"
+                                userInfo["avatarKey"] = "\(prefix)/\(avatarUrl.lastPathComponent)"
+                                UserDefaults.standard.removeObject(forKey: "USER")
+                                UserDefaults.standard.set(userInfo, forKey: "USER")
+                                
+                            } else {
+                                // No data was saved
+                                print("No data was saved.")
+                            }
+                        }
+                        print("update db completed")
+                    }
+                }
+            }
+        }
+        else
+        {
+            uploadResult = "Failed to upload avatar image, Try again later!"
+        }
+        
+        DispatchQueue.main.async {
+            hideIndicator(sender: nil)
+            Toast.show(message: uploadResult, controller: controller)
+        }
+    }
+}
+
+func log(meetingUid: String, log: String){
+    DispatchQueue(label: "log").async {
+        webAPI.logSend(meetingUid: meetingUid, log: log) { data, response, error in
+            if(error == nil){
+                let responseJSON = try? JSONSerialization.jsonObject(with: data!, options: [])
+                if let responseJSON = responseJSON as? [String: Any] {
+                    guard let result = responseJSON["result"] else {
+                        return
+                    }
+                    print("result:", result)
+                }
+            }
+        }
+    }
+}
+
+func encodeURLParameter(_ string: String) -> String? {
+    let allowedCharacters = CharacterSet(charactersIn: "!*'();:@&=+$,/?%#[] ").inverted
+    
+    if let encodedString = string.addingPercentEncoding(withAllowedCharacters: allowedCharacters) {
+        return encodedString
+    }
+    
+    return nil
 }
