@@ -397,8 +397,10 @@ class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSample
     }
     
     @IBAction func setTimerDidTap(_ sender: Any) {
-        timeSelectCtrl .selectRow( self.selectedCount-1, inComponent: 0, animated: true)
-        timeSelectPannel.isHidden = false
+        DispatchQueue.main.async {
+            self.timeSelectCtrl .selectRow( self.selectedCount-1, inComponent: 0, animated: true)
+            self.timeSelectPannel.isHidden = false
+        }
     }
     
     
