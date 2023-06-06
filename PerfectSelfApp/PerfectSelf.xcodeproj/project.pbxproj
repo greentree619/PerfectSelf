@@ -1660,6 +1660,7 @@
 			baseConfigurationReference = 9B2028BF3D141AFCF2791F2E /* Pods-PerfectSelf.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = PerfectSelf.entitlements;
 				CODE_SIGN_STYLE = Automatic;
@@ -1692,6 +1693,7 @@
 			baseConfigurationReference = 869D21314A3A21C4B3BFA98D /* Pods-PerfectSelf.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = PerfectSelf.entitlements;
 				CODE_SIGN_STYLE = Automatic;
