@@ -771,28 +771,47 @@ func uploadAvatar(prefix: String, avatarUrl: URL?, imgControl: UIImageView, cont
         {
             DispatchQueue.main.async {
                 // update avatar
-                let url = "https://perfectself-avatar-bucket.s3.us-east-2.amazonaws.com/\(prefix)/\(String(describing: avatarUrl.lastPathComponent))"
-                imgControl.imageFrom(url: URL(string: url)!)
-                //update user profile
-                webAPI.updateUserInfo(uid: prefix, userType: -1, bucketName: "perfectself-avatar-bucket", avatarKey: "\(prefix)/\(avatarUrl.lastPathComponent)", username: "", email: "", password: "", firstName: "", lastName: "", dateOfBirth: "", gender: -1, currentAddress: "", permanentAddress: "", city: "", nationality: "", phoneNumber: "", isLogin: true, fcmDeviceToken: "", deviceKind: -1) { data, response, error in
-                    if error == nil {
-                        // successfully update db
-                        DispatchQueue.main.async {
-                            if var userInfo = UserDefaults.standard.object(forKey: "USER") as? [String:Any] {
-                                // Use the saved data
-                                userInfo["avatarBucketName"] = "perfectself-avatar-bucket"
-                                userInfo["avatarKey"] = "\(prefix)/\(avatarUrl.lastPathComponent)"
-                                UserDefaults.standard.removeObject(forKey: "USER")
-                                UserDefaults.standard.set(userInfo, forKey: "USER")
-                                
-                            } else {
-                                // No data was saved
-                                print("No data was saved.")
+                let url = "https://perfectself-avatar-thumb-bucket.s3.us-east-2.amazonaws.com/\(prefix)/\(String(describing: avatarUrl.lastPathComponent))"
+                
+                var count = 100
+                _ = Timer.scheduledTimer(withTimeInterval: TimeInterval(100) / 1000, repeats: true, block: { timer in
+                    count-=1
+                    if(count == 0){
+                        timer.invalidate()
+                        return
+                    }
+                    else{
+                        DispatchQueue.global().async {
+                            if let data = try? Data(contentsOf: URL(string: url)!){
+                                if let image = UIImage(data:data){
+                                    timer.invalidate()
+                                    DispatchQueue.main.async{
+                                        imgControl.image = image
+                                        //update user profile
+                                        webAPI.updateUserInfo(uid: prefix, userType: -1, bucketName: "perfectself-avatar-thumb-bucket", avatarKey: "\(prefix)/\(avatarUrl.lastPathComponent)", username: "", email: "", password: "", firstName: "", lastName: "", dateOfBirth: "", gender: -1, currentAddress: "", permanentAddress: "", city: "", nationality: "", phoneNumber: "", isLogin: true, fcmDeviceToken: "", deviceKind: -1) { data, response, error in
+                                            if error == nil {
+                                                // successfully update db
+                                                DispatchQueue.main.async {
+                                                    if var userInfo = UserDefaults.standard.object(forKey: "USER") as? [String:Any] {
+                                                        // Use the saved data
+                                                        userInfo["avatarBucketName"] = "perfectself-avatar-thumb-bucket"
+                                                        userInfo["avatarKey"] = "\(prefix)/\(avatarUrl.lastPathComponent)"
+                                                        UserDefaults.standard.removeObject(forKey: "USER")
+                                                        UserDefaults.standard.set(userInfo, forKey: "USER")
+                                                        
+                                                    } else {
+                                                        // No data was saved
+                                                        print("No data was saved.")
+                                                    }
+                                                }
+                                                print("update db completed")
+                                            }
+                                        }
+                                    }
+                                }
                             }
                         }
-                        print("update db completed")
-                    }
-                }
+                    }})
             }
         }
         else
