@@ -142,7 +142,7 @@
                                         <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="d90-aa-tZ2">
                                             <rect key="frame" x="0.0" y="0.0" width="60" height="60"/>
                                             <subviews>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="person.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="5Jh-aW-lvC">
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="person.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="5Jh-aW-lvC">
                                                     <rect key="frame" x="0.0" y="2" width="60" height="56.666666666666671"/>
                                                     <color key="backgroundColor" red="0.53725490200000003" green="0.54117647059999996" blue="0.55294117649999996" alpha="1" colorSpace="calibratedRGB"/>
                                                     <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -334,7 +334,9 @@
                                             <rect key="frame" x="30" y="0.0" width="87" height="20"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                             <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                            <state key="normal" title="Edit hourly rate"/>
+                                            <state key="normal" title="Edit hourly rate">
+                                                <color key="titleColor" red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            </state>
                                             <connections>
                                                 <action selector="EditHourlyRate:" destination="-1" eventType="touchUpInside" id="VKB-H4-EtT"/>
                                             </connections>
@@ -416,10 +418,10 @@
                                                     <rect key="frame" x="0.0" y="0.0" width="353" height="44"/>
                                                     <subviews>
                                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="PnV-HE-oHp">
-                                                            <rect key="frame" x="0.0" y="10" width="89.333333333333329" height="34"/>
+                                                            <rect key="frame" x="0.0" y="10" width="89" height="34"/>
                                                             <subviews>
                                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WRm-qL-ROr">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="89.333333333333329" height="20"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="89" height="20"/>
                                                                     <color key="tintColor" red="0.25098039220000001" green="0.38823529410000002" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                     <state key="normal" title="Button"/>
                                                                     <buttonConfiguration key="configuration" style="plain" title="Overview" cornerStyle="dynamic">
@@ -431,18 +433,18 @@
                                                                     </connections>
                                                                 </button>
                                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="underline" translatesAutoresizingMaskIntoConstraints="NO" id="xyK-Hw-HdO">
-                                                                    <rect key="frame" x="0.0" y="30" width="89.333333333333329" height="4"/>
+                                                                    <rect key="frame" x="0.0" y="30" width="89" height="4"/>
                                                                 </imageView>
                                                             </subviews>
                                                         </stackView>
                                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="tBo-zF-6sy">
-                                                            <rect key="frame" x="89.333333333333329" y="10" width="175.66666666666669" height="34"/>
+                                                            <rect key="frame" x="89" y="10" width="176" height="34"/>
                                                             <subviews>
                                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sWm-O9-Not">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="175.66666666666666" height="20"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="176" height="20"/>
                                                                     <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     <state key="normal" title="Button"/>
-                                                                    <buttonConfiguration key="configuration" style="plain" title="Video introduction" cornerStyle="dynamic">
+                                                                    <buttonConfiguration key="configuration" style="plain" title="Video Introduction" cornerStyle="dynamic">
                                                                         <fontDescription key="titleFontDescription" type="boldSystem" pointSize="16"/>
                                                                         <directionalEdgeInsets key="contentInsets" top="0.0" leading="0.0" bottom="0.0" trailing="0.0"/>
                                                                     </buttonConfiguration>
@@ -451,7 +453,7 @@
                                                                     </connections>
                                                                 </button>
                                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="underline" translatesAutoresizingMaskIntoConstraints="NO" id="tdU-GU-Lx4">
-                                                                    <rect key="frame" x="0.0" y="30" width="175.66666666666666" height="4"/>
+                                                                    <rect key="frame" x="0.0" y="30" width="176" height="4"/>
                                                                 </imageView>
                                                             </subviews>
                                                         </stackView>
@@ -611,15 +613,15 @@
                                                     <rect key="frame" x="0.0" y="20" width="353" height="285"/>
                                                     <subviews>
                                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="EkQ-HO-TiN">
-                                                            <rect key="frame" x="0.0" y="0.0" width="353" height="365"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="353" height="363"/>
                                                             <subviews>
                                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="DVy-V7-Fy5">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="353" height="100"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="353" height="98"/>
                                                                     <subviews>
                                                                         <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vrY-nX-IXt">
                                                                             <rect key="frame" x="0.0" y="0.0" width="353" height="18"/>
                                                                             <subviews>
-                                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="About me" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FQH-ed-gmD">
+                                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="About Me" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FQH-ed-gmD">
                                                                                     <rect key="frame" x="0.0" y="0.0" width="335" height="18"/>
                                                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
                                                                                     <nil key="textColor"/>
@@ -652,13 +654,15 @@
                                                                             <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                                                         </textView>
                                                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="tVz-2w-VsC">
-                                                                            <rect key="frame" x="0.0" y="71" width="353" height="29"/>
+                                                                            <rect key="frame" x="0.0" y="71" width="353" height="27"/>
                                                                             <subviews>
                                                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yYy-fQ-cC1">
-                                                                                    <rect key="frame" x="0.0" y="0.0" width="77" height="29"/>
-                                                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
+                                                                                    <rect key="frame" x="0.0" y="0.0" width="64" height="27"/>
+                                                                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                                                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                                                                    <state key="normal" title="Show more"/>
+                                                                                    <state key="normal" title="Show more">
+                                                                                        <color key="titleColor" systemColor="tintColor"/>
+                                                                                    </state>
                                                                                 </button>
                                                                             </subviews>
                                                                         </stackView>
@@ -673,7 +677,7 @@
                                                                     </variation>
                                                                 </stackView>
                                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="P8h-ae-m0j">
-                                                                    <rect key="frame" x="0.0" y="110" width="353" height="1"/>
+                                                                    <rect key="frame" x="0.0" y="108" width="353" height="1"/>
                                                                     <subviews>
                                                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="filter_divide" translatesAutoresizingMaskIntoConstraints="NO" id="DzW-EG-F4K">
                                                                             <rect key="frame" x="0.0" y="0.0" width="353" height="1"/>
@@ -684,7 +688,7 @@
                                                                     </constraints>
                                                                 </stackView>
                                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="ddF-oL-iaZ">
-                                                                    <rect key="frame" x="0.0" y="121" width="353" height="120"/>
+                                                                    <rect key="frame" x="0.0" y="119" width="353" height="120"/>
                                                                     <subviews>
                                                                         <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6FE-b5-Dii">
                                                                             <rect key="frame" x="0.0" y="0.0" width="353" height="38"/>
@@ -762,7 +766,7 @@
                                                                     </constraints>
                                                                 </stackView>
                                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="wVh-pd-t8s">
-                                                                    <rect key="frame" x="0.0" y="251" width="353" height="1"/>
+                                                                    <rect key="frame" x="0.0" y="249" width="353" height="1"/>
                                                                     <subviews>
                                                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="filter_divide" translatesAutoresizingMaskIntoConstraints="NO" id="Ejv-Ai-XLx">
                                                                             <rect key="frame" x="0.0" y="0.0" width="353" height="1"/>
@@ -773,7 +777,7 @@
                                                                     </constraints>
                                                                 </stackView>
                                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="bdB-FL-MuV">
-                                                                    <rect key="frame" x="0.0" y="262" width="353" height="103"/>
+                                                                    <rect key="frame" x="0.0" y="260" width="353" height="103"/>
                                                                     <subviews>
                                                                         <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CX6-jd-nd7">
                                                                             <rect key="frame" x="0.0" y="0.0" width="353" height="38"/>
