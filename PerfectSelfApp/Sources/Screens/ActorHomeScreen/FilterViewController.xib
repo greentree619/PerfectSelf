@@ -139,10 +139,10 @@
                                                             <edgeInsets key="layoutMargins" top="8" left="8" bottom="8" right="8"/>
                                                         </stackView>
                                                         <stackView opaque="NO" contentMode="left" semanticContentAttribute="forceLeftToRight" translatesAutoresizingMaskIntoConstraints="NO" id="jPB-ED-GON">
-                                                            <rect key="frame" x="0.0" y="58" width="127.33333333333333" height="20"/>
+                                                            <rect key="frame" x="0.0" y="58" width="128.66666666666666" height="20"/>
                                                             <subviews>
-                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Available Time slots" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="X3U-Tl-l3Q">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="127.33333333333333" height="20"/>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Available Time Slots" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="X3U-Tl-l3Q">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="128.66666666666666" height="20"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="height" constant="20" id="PAg-bg-6sf" customClass="AdaptiveLayoutConstraint" customModule="PerfectSelf" customModuleProvider="target"/>
                                                                     </constraints>
