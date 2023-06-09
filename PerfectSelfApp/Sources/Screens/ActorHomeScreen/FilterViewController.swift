@@ -54,7 +54,7 @@ class FilterViewController: UIViewController, SelectDateDelegate {
 
         // Do any additional setup after loading the view.
         
-        rangeSlider = RangeSeekSlider(frame: CGRect(x: 0, y: 0, width: sliderView.frame.width, height: sliderView.frame.height))
+        rangeSlider = RangeSeekSlider(frame: CGRect(x: 0, y: 0, width: sliderView.frame.width-20, height: sliderView.frame.height))
         sliderView.addSubview(rangeSlider)
         rangeSlider.minValue = 0
         rangeSlider.maxValue = 100
