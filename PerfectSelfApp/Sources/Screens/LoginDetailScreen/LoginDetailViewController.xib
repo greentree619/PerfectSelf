@@ -94,7 +94,7 @@
                                         <constraint firstItem="iKj-hx-8j5" firstAttribute="top" secondItem="8VJ-zC-Qe3" secondAttribute="top" id="ytA-M7-Qkc"/>
                                     </constraints>
                                 </view>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Welcome Back! You have been missed" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DjP-kp-uzS">
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You'v been missed" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DjP-kp-uzS">
                                     <rect key="frame" x="20" y="64" width="335" height="20"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="20" id="viA-ED-wI7"/>
