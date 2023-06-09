@@ -302,7 +302,7 @@
                             </constraints>
                         </stackView>
                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="fVW-Ug-Vl5">
-                            <rect key="frame" x="20" y="504" width="353" height="70"/>
+                            <rect key="frame" x="20" y="449" width="353" height="70"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" text="Vaccination Status" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="393" translatesAutoresizingMaskIntoConstraints="NO" id="sAH-as-PCj">
                                     <rect key="frame" x="0.0" y="0.0" width="353" height="30"/>
@@ -361,7 +361,7 @@
                             </constraints>
                         </stackView>
                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="EDh-8f-UFv">
-                            <rect key="frame" x="20" y="589" width="353" height="144"/>
+                            <rect key="frame" x="20" y="534" width="353" height="199"/>
                         </stackView>
                         <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="jPI-bM-Lge">
                             <rect key="frame" x="20" y="748" width="353" height="50"/>
@@ -393,6 +393,11 @@
                         </stackView>
                     </subviews>
                     <edgeInsets key="layoutMargins" top="0.0" left="20" bottom="20" right="20"/>
+                    <variation key="default">
+                        <mask key="subviews">
+                            <exclude reference="PQR-GW-ABv"/>
+                        </mask>
+                    </variation>
                 </stackView>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>

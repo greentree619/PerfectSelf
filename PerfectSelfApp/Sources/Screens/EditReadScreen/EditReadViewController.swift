@@ -98,17 +98,6 @@ class EditReadViewController: UIViewController {
             Toast.show(message: "Error while play result video", controller: self)
             return
         }
-        
-//        let videoComposition = AVMutableVideoComposition()
-//        videoComposition.renderSize = videoTrack!.naturalSize
-//        videoComposition.frameDuration = CMTime(value: 1, timescale: 30)
-//
-//        let layerInstruction = AVMutableVideoCompositionLayerInstruction(assetTrack: videoTrack!)
-//        //layerInstruction.setTransform(videoTrack!.preferredTransform, at: .zero) // Preserve original orientation
-//
-//        let instruction = AVMutableVideoCompositionInstruction()
-//        instruction.layerInstructions = [layerInstruction]
-//        videoComposition.instructions = [instruction]
           
         //{{
         playerView.mainavComposition = movie

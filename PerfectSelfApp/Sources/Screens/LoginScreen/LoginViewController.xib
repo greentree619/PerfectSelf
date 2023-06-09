@@ -81,7 +81,7 @@
                         <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NtC-Mo-BAw">
                             <rect key="frame" x="0.0" y="573" width="375" height="90"/>
                             <subviews>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Connect With Readers and Film Your Best Self Tape" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CSN-38-KRU">
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Connect with Readers and Film your Best Self Tape" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CSN-38-KRU">
                                     <rect key="frame" x="20" y="20" width="335" height="50"/>
                                     <fontDescription key="fontDescription" name="Raleway-Medium" family="Raleway" pointSize="16"/>
                                     <nil key="textColor"/>

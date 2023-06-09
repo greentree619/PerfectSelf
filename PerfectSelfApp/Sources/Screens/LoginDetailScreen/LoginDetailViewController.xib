@@ -42,8 +42,8 @@
                 <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0G0-N9-4dV">
                     <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                     <subviews>
-                        <stackView opaque="NO" contentMode="scaleToFill" semanticContentAttribute="spatial" preservesSuperviewLayoutMargins="YES" axis="vertical" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="7q3-Ub-RYc" userLabel="Login Layout">
-                            <rect key="frame" x="0.0" y="0.0" width="375" height="824"/>
+                        <stackView opaque="NO" contentMode="scaleToFill" semanticContentAttribute="spatial" preservesSuperviewLayoutMargins="YES" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="7q3-Ub-RYc" userLabel="Login Layout">
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="734.5"/>
                             <subviews>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8VJ-zC-Qe3">
                                     <rect key="frame" x="20" y="20" width="335" height="34"/>
@@ -94,8 +94,8 @@
                                         <constraint firstItem="iKj-hx-8j5" firstAttribute="top" secondItem="8VJ-zC-Qe3" secondAttribute="top" id="ytA-M7-Qkc"/>
                                     </constraints>
                                 </view>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Welcome Back! You have been missed" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DjP-kp-uzS">
-                                    <rect key="frame" x="20" y="69" width="335" height="20"/>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You'v been missed" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DjP-kp-uzS">
+                                    <rect key="frame" x="20" y="64" width="335" height="20"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="20" id="viA-ED-wI7"/>
                                     </constraints>
@@ -104,9 +104,9 @@
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="login3" translatesAutoresizingMaskIntoConstraints="NO" id="ase-Xn-x1L">
-                                    <rect key="frame" x="20" y="104" width="335" height="170"/>
+                                    <rect key="frame" x="20" y="94" width="335" height="150"/>
                                     <constraints>
-                                        <constraint firstAttribute="height" constant="170" id="AtR-74-YBN" customClass="AdaptiveLayoutConstraint" customModule="PerfectSelf" customModuleProvider="target">
+                                        <constraint firstAttribute="height" constant="150" id="AtR-74-YBN" customClass="AdaptiveLayoutConstraint" customModule="PerfectSelf" customModuleProvider="target">
                                             <userDefinedRuntimeAttributes>
                                                 <userDefinedRuntimeAttribute type="boolean" keyPath="setAdaptiveLayout" value="YES"/>
                                             </userDefinedRuntimeAttributes>
@@ -114,7 +114,7 @@
                                     </constraints>
                                 </imageView>
                                 <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZCT-xn-u3H">
-                                    <rect key="frame" x="20" y="289" width="335" height="25"/>
+                                    <rect key="frame" x="20" y="254" width="335" height="25"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" text="Account Type" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="393" translatesAutoresizingMaskIntoConstraints="NO" id="PMd-Oc-7Ct">
                                             <rect key="frame" x="0.0" y="0.0" width="335" height="25"/>
@@ -129,7 +129,7 @@
                                     </constraints>
                                 </stackView>
                                 <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="PAf-xf-Dd0" userLabel="LoginRole">
-                                    <rect key="frame" x="20" y="329" width="335" height="70"/>
+                                    <rect key="frame" x="20" y="289" width="335" height="70"/>
                                     <subviews>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Rf6-yp-tpa">
                                             <rect key="frame" x="0.0" y="0.0" width="152.5" height="70"/>
@@ -174,7 +174,7 @@
                                     </constraints>
                                 </stackView>
                                 <stackView opaque="NO" contentMode="scaleToFill" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="ctT-VS-Fz8" userLabel="Email">
-                                    <rect key="frame" x="20" y="414" width="335" height="45"/>
+                                    <rect key="frame" x="20" y="369" width="335" height="45"/>
                                     <subviews>
                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="login_email" translatesAutoresizingMaskIntoConstraints="NO" id="HdI-sf-sfy">
                                             <rect key="frame" x="8" y="8" width="19" height="29"/>
@@ -212,7 +212,7 @@
                                     </userDefinedRuntimeAttributes>
                                 </stackView>
                                 <stackView opaque="NO" contentMode="scaleToFill" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="844-ea-dXr" userLabel="Password">
-                                    <rect key="frame" x="20" y="474" width="335" height="45"/>
+                                    <rect key="frame" x="20" y="424" width="335" height="45"/>
                                     <subviews>
                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="login_pass" translatesAutoresizingMaskIntoConstraints="NO" id="D15-rc-nsN">
                                             <rect key="frame" x="8" y="8" width="19" height="29"/>
@@ -260,7 +260,7 @@
                                     </userDefinedRuntimeAttributes>
                                 </stackView>
                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="bottom" translatesAutoresizingMaskIntoConstraints="NO" id="s2F-3J-2cY" userLabel="Forgot Password">
-                                    <rect key="frame" x="20" y="534" width="335" height="45"/>
+                                    <rect key="frame" x="20" y="479" width="335" height="45"/>
                                     <subviews>
                                         <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="fM8-E2-O19">
                                             <rect key="frame" x="0.0" y="0.0" width="335" height="45"/>
@@ -282,7 +282,7 @@
                                                             </connections>
                                                         </button>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Remember Me" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JDH-gQ-xGG">
-                                                            <rect key="frame" x="28" y="0.0" width="86" height="45"/>
+                                                            <rect key="frame" x="28" y="0.0" width="90" height="45"/>
                                                             <edgeInsets key="layoutMargins" top="8" left="8" bottom="8" right="8"/>
                                                             <fontDescription key="fontDescription" name="RalewayRoman-Regular" family="Raleway" pointSize="13"/>
                                                             <nil key="textColor"/>
@@ -341,10 +341,10 @@
                                     </userDefinedRuntimeAttributes>
                                 </stackView>
                                 <stackView opaque="NO" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4dE-Wk-iTF">
-                                    <rect key="frame" x="20" y="594" width="335" height="108"/>
+                                    <rect key="frame" x="20" y="534" width="335" height="88"/>
                                     <subviews>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SUU-EH-NYx">
-                                            <rect key="frame" x="0.0" y="50" width="335" height="50"/>
+                                            <rect key="frame" x="0.0" y="30" width="335" height="50"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="50" id="edx-WD-GHa" customClass="AdaptiveLayoutConstraint" customModule="PerfectSelf" customModuleProvider="target"/>
                                             </constraints>
@@ -355,22 +355,22 @@
                                             </connections>
                                         </button>
                                     </subviews>
-                                    <edgeInsets key="layoutMargins" top="50" left="0.0" bottom="8" right="0.0"/>
+                                    <edgeInsets key="layoutMargins" top="30" left="0.0" bottom="8" right="0.0"/>
                                 </stackView>
                                 <stackView opaque="NO" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" translatesAutoresizingMaskIntoConstraints="NO" id="v6E-R1-Lba">
-                                    <rect key="frame" x="20" y="717" width="335" height="14"/>
+                                    <rect key="frame" x="20" y="632" width="335" height="14.5"/>
                                     <subviews>
                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="login_line" translatesAutoresizingMaskIntoConstraints="NO" id="rd1-50-mdp">
-                                            <rect key="frame" x="0.0" y="0.0" width="111.5" height="14"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="111.5" height="14.5"/>
                                         </imageView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="or login with" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2BH-dZ-s3E">
-                                            <rect key="frame" x="111.5" y="0.0" width="112" height="14"/>
+                                            <rect key="frame" x="111.5" y="0.0" width="112" height="14.5"/>
                                             <fontDescription key="fontDescription" name="RalewayRoman-Regular" family="Raleway" pointSize="12"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="login_line" translatesAutoresizingMaskIntoConstraints="NO" id="vVv-vB-bHa">
-                                            <rect key="frame" x="223.5" y="0.0" width="111.5" height="14"/>
+                                            <rect key="frame" x="223.5" y="0.0" width="111.5" height="14.5"/>
                                         </imageView>
                                     </subviews>
                                     <constraints>
@@ -379,7 +379,7 @@
                                     </constraints>
                                 </stackView>
                                 <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="wHA-TX-42m" userLabel="Third Party Login">
-                                    <rect key="frame" x="20" y="746" width="335" height="70"/>
+                                    <rect key="frame" x="20" y="656.5" width="335" height="70"/>
                                     <subviews>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="27D-Ov-PLk">
                                             <rect key="frame" x="0.0" y="8" width="162.5" height="52"/>

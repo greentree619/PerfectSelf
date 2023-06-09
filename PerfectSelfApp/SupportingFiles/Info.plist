@@ -30,7 +30,9 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>29</string>
+	<string>33</string>
+	<key>GIDClientID</key>
+	<string>669216550945-mgc5slqbok7j5ubp8255loi7hkoe7mj3.apps.googleusercontent.com</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>LSSupportsOpeningDocumentsInPlace</key>
@@ -75,7 +77,5 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
-	<key>GIDClientID</key>
-	<string>669216550945-mgc5slqbok7j5ubp8255loi7hkoe7mj3.apps.googleusercontent.com</string>
 </dict>
 </plist>

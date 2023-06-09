@@ -25,9 +25,13 @@ class ProjectViewController: UIViewController {
     var savedReaderVideoUrl: URL? = nil
     var savedReaderAudioUrl: URL? = nil
     @IBOutlet weak var playerView: PlayerView!
+    @IBOutlet weak var actorPlayerView: PlayerView!
     //Omitted let awsUpload = AWSMultipartUpload()
     var startElapseTime: Date?
     var endElapseTime: Date?
+    
+    let actorAV = AVMutableComposition()
+    let readerAV = AVMutableComposition()
     
     private var isOnPlay: Bool = true {
         didSet {
@@ -38,6 +42,7 @@ class ProjectViewController: UIViewController {
                     self.playButton.tintColor = UIColor.white
                     self.playButton.imageView?.tintColor = UIColor.white
                     self.playerView.play()
+                    self.actorPlayerView.play()
                 }
                 else
                 {
@@ -45,6 +50,7 @@ class ProjectViewController: UIViewController {
                     self.playButton.tintColor = UIColor.white
                     self.playButton.imageView?.tintColor = UIColor.white
                     self.playerView.pause()
+                    self.actorPlayerView.pause()
                 }
             }
         }
@@ -62,17 +68,6 @@ class ProjectViewController: UIViewController {
         editReadButton.isEnabled = true
         newTakeButton.isEnabled = true
         editFinalButton.isEnabled = true
-        
-#if OVERLAY_TEST
-        var count = 7
-        _ = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true, block: { timer in
-            count -= 1
-            if count == 0 {
-                timer.invalidate()
-                self.recordNewTakeDidTapped(UIButton())
-            }
-        })
-#endif//OVERLAY_TEST
     }
     
     override func viewWillDisappear(_ animated: Bool){
@@ -82,6 +77,7 @@ class ProjectViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.playerView.delegate = self
+        self.actorPlayerView.delegate = self
         
         let documentsPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0];
         let filePath = URL(fileURLWithPath: "\(documentsPath)/tempFile.mp4")
@@ -109,7 +105,6 @@ class ProjectViewController: UIViewController {
                 //Omitted print("Elapsed time: \(elapsed) seconds")
                 
                 self.savedVideoUrl = filePath
-                self.playerView.url = filePath
                 
                 //Download audio file
                 let filePath = URL(fileURLWithPath: "\(documentsPath)/tempFile.m4a")
@@ -120,12 +115,7 @@ class ProjectViewController: UIViewController {
                     //print("Error deleting file: \(error.localizedDescription)")
                 }
                 
-                awsUpload.downloadEx(filePath: filePath, bucketName: selectedTape!.bucketName, key: "\(selectedTape!.actorTapeKey).m4a") { (error) -> Void in
-                    DispatchQueue.main.async {
-                        hideIndicator(sender: nil)
-                        self.playerView.play()
-                    }
-                    
+                awsUpload.downloadEx(filePath: filePath, bucketName: selectedTape!.bucketName, key: "\(selectedTape!.actorTapeKey).m4a") { [self] (error) -> Void in
                     if error != nil {
                          //print(error!.localizedDescription)
                         self.savedAudioUrl = nil
@@ -135,8 +125,47 @@ class ProjectViewController: UIViewController {
                     }
                     else{
                         self.savedAudioUrl = filePath
+                        DispatchQueue.main.async { [self] in
+                            initAVMutableComposition(avMComp: actorAV, videoURL: self.savedVideoUrl!, audioURL: self.savedAudioUrl!)
+                            self.actorPlayerView.mainavComposition = actorAV
+                            //Omitted self.actorPlayerView.play()
+                            
+                            //{{Wait until download both
+                            DispatchQueue.main.async {
+                                _ = Timer.scheduledTimer(withTimeInterval: TimeInterval(100) / 1000, repeats: true, block: { timer in
+                                    guard self.savedReaderVideoUrl != nil, self.savedReaderAudioUrl != nil else{
+                                        return
+                                    }
+                                    timer.invalidate()
+                                    hideIndicator(sender: nil)
+                                    self.actorPlayerView.play()
+                                    self.playerView.play()
+                                    
+                                    
+#if OVERLAY_TEST
+                                    var count = 2
+                                    _ = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true, block: { timer in
+                                        count -= 1
+                                        if count == 0 {
+                                            timer.invalidate()
+                                            self.recordNewTakeDidTapped(UIButton())
+                                        }
+                                    })
+#endif//OVERLAY_TEST
+                                })
+                            }
+                            //}}Wait until download both
+                        }
                     }
                 }
+            }
+        }
+        
+        downloadReaderVideoAsync(silent: true) {
+            DispatchQueue.main.async { [self] in
+                initAVMutableComposition(avMComp: readerAV, videoURL: self.savedReaderVideoUrl!, audioURL: self.savedReaderAudioUrl!)
+                self.playerView.mainavComposition = readerAV
+                //Omitted self.playerView.play()
             }
         }
         
@@ -156,7 +185,7 @@ class ProjectViewController: UIViewController {
         }
         isOnPlay = false
         
-        downloadReaderVideoAsync(completionHandler: { () in
+        downloadReaderVideoAsync(silent: false, completionHandler: { () in
             let overlayViewController = OverlayViewController()
             overlayViewController.uploadVideourl = self.savedReaderVideoUrl
             overlayViewController.uploadAudiourl = self.savedReaderAudioUrl
@@ -172,7 +201,7 @@ class ProjectViewController: UIViewController {
         }
         isOnPlay = false
         
-        downloadReaderVideoAsync(completionHandler: { () in
+        downloadReaderVideoAsync(silent: false, completionHandler: { () in
             let editReadViewController = EditReadViewController(videoUrl: self.savedVideoUrl!, audioUrl: self.savedAudioUrl, readerVideoUrl: self.savedReaderVideoUrl!, readerAudioUrl: self.savedReaderAudioUrl!, isActorVideoEdit: true)
             editReadViewController.modalPresentationStyle = .fullScreen
             self.present(editReadViewController, animated: false, completion: nil)
@@ -187,23 +216,23 @@ class ProjectViewController: UIViewController {
         }
         isOnPlay = false
         
-        downloadReaderVideoAsync(completionHandler: { () in
+        downloadReaderVideoAsync(silent: false, completionHandler: { () in
             let editReadViewController = EditReadViewController(videoUrl: self.savedVideoUrl!, audioUrl: self.savedAudioUrl, readerVideoUrl: self.savedReaderVideoUrl!, readerAudioUrl: self.savedReaderAudioUrl!, isActorVideoEdit: false)
             editReadViewController.modalPresentationStyle = .fullScreen
             self.present(editReadViewController, animated: false, completion: nil)
         })
     }
     
-    
     @IBAction func sliderValueChanged(_ sender: Any) {
         playerView.currentTime = Double( playerBar.value )
+        actorPlayerView.currentTime = Double( playerBar.value )
     }
     
     @IBAction func playDidTapped(_ sender: UIButton) {
         self.isOnPlay = !self.isOnPlay
     }
     
-    func downloadReaderVideoAsync( completionHandler: @escaping () -> Void )-> Void
+    func downloadReaderVideoAsync(silent: Bool, completionHandler: @escaping () -> Void )-> Void
     {
         guard let _ = self.savedReaderVideoUrl, let _ = self.savedReaderAudioUrl else{
             let documentsPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0];
@@ -220,7 +249,7 @@ class ProjectViewController: UIViewController {
                     //print(error!.localizedDescription)
                     self.savedVideoUrl = nil
                     DispatchQueue.main.async {
-                        hideIndicator(sender: nil)
+                        if( !silent ){hideIndicator(sender: nil)}
                         Toast.show(message: "Faild to download reader video from library", controller: self)
                     }
                 }
@@ -237,7 +266,7 @@ class ProjectViewController: UIViewController {
                     }
                     awsUpload.downloadEx(filePath: filePath, bucketName: selectedTape!.bucketName, key: "\(selectedTape!.readerTapeKey ?? "").m4a") { (error) -> Void in
                         DispatchQueue.main.async {
-                            hideIndicator(sender: nil)
+                            if( !silent ){hideIndicator(sender: nil)}
                         }
                         
                         if error != nil {
@@ -262,7 +291,7 @@ class ProjectViewController: UIViewController {
             
             Toast.show(message: "Start to download reader video and audio...", controller: self)
             DispatchQueue.main.async {
-                showIndicator(sender: nil, viewController: self, color:UIColor.white)
+                if( !silent ){showIndicator(sender: nil, viewController: self, color:UIColor.white)}
             }
             return
         }

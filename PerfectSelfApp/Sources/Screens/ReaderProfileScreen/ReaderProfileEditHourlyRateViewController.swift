@@ -30,7 +30,7 @@ class ReaderProfileEditHourlyRateViewController: UIViewController {
             }
         }
         guard let newRate = Int(text_rate.text!) else {
-            showAlert(viewController: self, title: "Warning", message: "Input number invalid") {_ in
+            showAlert(viewController: self, title: "Warning", message: "Value should be valid integer") {_ in
                 
             }
             return

@@ -129,7 +129,8 @@ class ReaderProfileViewController: UIViewController, UICollectionViewDataSource,
                     self.readerTitle.text = item.title
                     self.scoreAndReviewCount.text = "\(item.score) (\(item.bookPassCount))"
                     self.readerAbout.text = item.about
-                    self.hourlyPrice.text = "$\(item.hourlyPrice/4) / 15 mins"
+                    
+                    self.hourlyPrice.text = "$\(Float(item.hourlyPrice)/4) / 15 mins"
                     self.skills = item.skills.components(separatedBy: ",")
                     self.skillList.reloadData()
                     self.hourlyRate = item.hourlyPrice

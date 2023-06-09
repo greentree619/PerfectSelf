@@ -60,16 +60,16 @@
                                     </userDefinedRuntimeAttributes>
                                 </view>
                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="eC6-8X-Ihv">
-                                    <rect key="frame" x="79.999999999999986" y="0.0" width="143.66666666666663" height="50"/>
+                                    <rect key="frame" x="79.999999999999986" y="0.0" width="129.66666666666663" height="50"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Hi, User!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gjf-XO-iAc">
-                                            <rect key="frame" x="0.0" y="0.0" width="143.66666666666666" height="29.666666666666668"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="129.66666666666666" height="29.666666666666668"/>
                                             <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="16"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Let's get it started!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HB8-wm-AkI">
-                                            <rect key="frame" x="0.0" y="29.666666666666671" width="143.66666666666666" height="20.333333333333329"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Let's get started!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HB8-wm-AkI">
+                                            <rect key="frame" x="0.0" y="29.666666666666671" width="129.66666666666666" height="20.333333333333329"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <color key="textColor" red="0.58039215686274503" green="0.59607843137254901" blue="0.6705882352941176" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
@@ -77,10 +77,10 @@
                                     </subviews>
                                 </stackView>
                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="bottom" translatesAutoresizingMaskIntoConstraints="NO" id="eKp-Hg-unj">
-                                    <rect key="frame" x="233.66666666666663" y="0.0" width="139.33333333333337" height="50"/>
+                                    <rect key="frame" x="219.66666666666663" y="0.0" width="153.33333333333337" height="50"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qL5-7R-ggJ">
-                                            <rect key="frame" x="89.333333333333343" y="0.0" width="50" height="50"/>
+                                            <rect key="frame" x="103.33333333333334" y="0.0" width="50" height="50"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="H2a-dc-Oak">
                                                     <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
