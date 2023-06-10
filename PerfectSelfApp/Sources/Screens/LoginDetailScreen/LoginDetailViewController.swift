@@ -24,7 +24,7 @@ class LoginDetailViewController: UIViewController {
     @IBOutlet weak var btn_showpassword: UIButton!
     
     var isShowPassword = false;
-    var userType = 3 // 3 for actor, 4 for reader
+//    var userType = 3 // 3 for actor, 4 for reader
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,25 +40,25 @@ class LoginDetailViewController: UIViewController {
         
         text_email.text = userEmail
         text_password.text = userPwd
-        if let userInfo = UserDefaults.standard.object(forKey: "USER") as? [String:Any] {
-            // Use the saved data
-            self.userType = userInfo["userType"] as? Int ?? 3
-            if userType == 4 {
-                btn_reader.isSelected = true
-                btn_actor.isSelected = false
-                btn_reader.borderWidth = 3;
-                btn_actor.borderWidth = 0;
-            }
-            else {
-                btn_actor.isSelected = true
-                btn_reader.isSelected = false
-                btn_actor.borderWidth = 3;
-                btn_reader.borderWidth = 0;
-            }
-        } else {
-            // No data was saved
-            print("No data was saved.")
-        }
+//        if let userInfo = UserDefaults.standard.object(forKey: "USER") as? [String:Any] {
+//            // Use the saved data
+//            self.userType = userInfo["userType"] as? Int ?? 3
+//            if userType == 4 {
+//                btn_reader.isSelected = true
+//                btn_actor.isSelected = false
+//                btn_reader.borderWidth = 3;
+//                btn_actor.borderWidth = 0;
+//            }
+//            else {
+//                btn_actor.isSelected = true
+//                btn_reader.isSelected = false
+//                btn_actor.borderWidth = 3;
+//                btn_reader.borderWidth = 0;
+//            }
+//        } else {
+//            // No data was saved
+//            print("No data was saved.")
+//        }
         
         GIDSignIn.sharedInstance().presentingViewController = self
         GIDSignIn.sharedInstance().clientID = GoogleAuthClientID
@@ -104,7 +104,7 @@ class LoginDetailViewController: UIViewController {
             return
         }
         showIndicator(sender: sender, viewController: self)
-        webAPI.login(userType: userType, email: text_email.text!, password: text_password.text!){ data, response, error in
+        webAPI.login(userType: -1, email: text_email.text!, password: text_password.text!){ data, response, error in
             guard let data = data, error == nil else {
                 print(error?.localizedDescription ?? "No data")
                 return
@@ -128,6 +128,7 @@ class LoginDetailViewController: UIViewController {
                     let uid = user["uid"] as! String
                     let bucketName = user["avatarBucketName"] as? String
                     let avatarKey = user["avatarKey"] as? String
+                    let userType = user["userType"] as? Int
                     
                     if( fcmDeviceToken.count > 0 &&
                         fcmDeviceToken != fCMDeviceToken )
@@ -145,7 +146,7 @@ class LoginDetailViewController: UIViewController {
                     DispatchQueue.main.async {
                         hideIndicator(sender: sender)
                         //{{REFME
-                        //                        var rememberMeFlag: Bool = UserDefaults.standard.bool(forKey: "REMEMBER_USER")
+                        //var rememberMeFlag: Bool = UserDefaults.standard.bool(forKey: "REMEMBER_USER")
                         let rememberMeFlag: Bool = self.btn_rememberme.isSelected
                         UserDefaults.standard.set(rememberMeFlag, forKey: "REMEMBER_USER")
                         
@@ -153,7 +154,7 @@ class LoginDetailViewController: UIViewController {
                         UserDefaults.standard.set(String(self.text_password.text!), forKey: "USER_PWD")
                         
                         //}}REFME
-                        if self.userType == 3 {
+                        if userType == 3 {
                             let controller = ActorTabBarController();
                             controller.modalPresentationStyle = .fullScreen
                             let transition = CATransition()
@@ -201,14 +202,14 @@ class LoginDetailViewController: UIViewController {
         sender.borderWidth = 3;
         btn_reader.borderWidth = 0;
         btn_reader.isSelected = false;
-        userType = 3;
+//        userType = 3;
     }
     @IBAction func ReaderSelected(_ sender: UIButton) {
         sender.isSelected=true;
         sender.borderWidth = 3;
         btn_actor.borderWidth = 0;
         btn_actor.isSelected = false;
-        userType = 4;
+//        userType = 4;
     }
     
     @IBAction func ChangeRememberMe(_ sender: UIButton) {
