@@ -12,7 +12,7 @@ protocol CameraPreviewDelegate {
     func captureSessionDidStartRunning()
     func captureSessionDidStopRunning()
     func videoDidBeginRecording()
-    func videDidEndRecording(with url: URL?, error: Error?)
+    func videoDidEndRecording(with url: URL?, error: Error?)
 }
 
 class CameraPreviewView: UIView {
@@ -224,12 +224,12 @@ extension CameraPreviewView: AVCaptureFileOutputRecordingDelegate {
         if let currentError = error {
             print("[SwiftyCam]: Movie file finishing error: \(currentError)")
             DispatchQueue.main.async {
-                self.delegate?.videDidEndRecording(with: nil, error: currentError)
+                self.delegate?.videoDidEndRecording(with: nil, error: currentError)
             }
         } else {
             //Call delegate function with the URL of the outputfile
             DispatchQueue.main.async {
-                self.delegate?.videDidEndRecording(with: outputFileURL, error: nil)
+                self.delegate?.videoDidEndRecording(with: outputFileURL, error: nil)
             }
         }
     }

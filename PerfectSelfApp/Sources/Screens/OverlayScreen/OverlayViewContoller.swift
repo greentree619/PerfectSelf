@@ -6,7 +6,6 @@
 //  Copyright © 2023 Stas Seldin. All rights reserved.
 //
 import UIKit
-import WebRTC
 import AVFoundation
 import Photos
 
@@ -80,7 +79,7 @@ class OverlayViewController: UIViewController {
             let videoTrack = mixComposition.addMutableTrack(
                 withMediaType: .video,
                 preferredTrackID: Int32(kCMPersistentTrackID_Invalid))
-        else { return mixComposition}
+        else { return mixComposition }
 
         do {
             videoTrack.preferredTransform = transformForTrack(videoAsset.tracks(withMediaType: .video)[0])
@@ -140,7 +139,14 @@ class OverlayViewController: UIViewController {
         }
         
         DispatchQueue.main.async {
-            self.cameraView.captureSession.startRunning()
+            if(  AVCaptureDevice.authorizationStatus(for: .video) == .authorized &&
+                   AVCaptureDevice.authorizationStatus(for: .audio) == .authorized ){
+                self.cameraView.captureSession.startRunning()
+            }
+            else
+            {
+                Toast.show(message: "It is impossible to use camera and microphone.", controller: self)
+            }
         }
     }
     
@@ -222,7 +228,6 @@ class OverlayViewController: UIViewController {
         timeSelectPannel.isHidden = true
     }
     
-    
     @IBAction func cancelDidTap(_ sender: UIButton) {
         timeSelectPannel.isHidden = true
     }
@@ -288,55 +293,56 @@ class OverlayViewController: UIViewController {
         } catch {
             print("Failed to load Audio track")
         }
+        
+        previewMergeResult(merged: mixComposition, recordURL: recordUrl, readerVURL: uploadUrl, readerAURL: uploadAudioUrl!)
 
-        // Not needed Uploaded video track here right now..
-
-        let mainInstruction = AVMutableVideoCompositionInstruction()
-        mainInstruction.timeRange = CMTimeRangeMake(
-            start: .zero,
-            duration: recordAsset.duration)
-
-        // only video of recorded track so not added time CMTimeAdd(recordAsset.duration, secondAsset.duration)
-        let firstInstruction = VideoHelper.videoCompositionInstruction(recordTrack, asset: recordAsset)
-        firstInstruction.setOpacity(0.0, at: recordAsset.duration)
-
-        mainInstruction.layerInstructions = [firstInstruction]
-        let mainComposition = AVMutableVideoComposition()
-        mainComposition.instructions = [mainInstruction]
-        mainComposition.frameDuration = CMTimeMake(value: 1, timescale: 30)
-        mainComposition.renderSize = VideoSize
-
-        guard
-            let documentDirectory = FileManager.default.urls(
-                for: .cachesDirectory,
-                in: .userDomainMask).first
-        else { return }
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateStyle = .long
-        dateFormatter.timeStyle = .short
-        var date = dateFormatter.string(from: Date())
-        date += UUID().uuidString
-        let url = documentDirectory.appendingPathComponent("mergeVideo-\(date).mov")
-
-        guard let exporter = AVAssetExportSession(
-            asset: mixComposition,
-            presetName: AVAssetExportPresetHighestQuality)
-        else { return }
-        exporter.outputURL = url
-        exporter.outputFileType = AVFileType.mov
-        exporter.shouldOptimizeForNetworkUse = true
-        exporter.videoComposition = mainComposition
-
-        exporter.exportAsynchronously {
-            DispatchQueue.main.async {
-                self.exportDidFinish(exporter)
-            }
-        }
+//        // Not needed Uploaded video track here right now..
+//        let mainInstruction = AVMutableVideoCompositionInstruction()
+//        mainInstruction.timeRange = CMTimeRangeMake(
+//            start: .zero,
+//            duration: recordAsset.duration)
+//
+//        // only video of recorded track so not added time CMTimeAdd(recordAsset.duration, secondAsset.duration)
+//        let firstInstruction = VideoHelper.videoCompositionInstruction(recordTrack, asset: recordAsset)
+//        firstInstruction.setOpacity(0.0, at: recordAsset.duration)
+//
+//        mainInstruction.layerInstructions = [firstInstruction]
+//        let mainComposition = AVMutableVideoComposition()
+//        mainComposition.instructions = [mainInstruction]
+//        mainComposition.frameDuration = CMTimeMake(value: 1, timescale: 30)
+//        mainComposition.renderSize = VideoSize
+//
+//        guard
+//            let documentDirectory = FileManager.default.urls(
+//                for: .cachesDirectory,
+//                in: .userDomainMask).first
+//        else { return }
+//        let dateFormatter = DateFormatter()
+//        dateFormatter.dateStyle = .long
+//        dateFormatter.timeStyle = .short
+//        var date = dateFormatter.string(from: Date())
+//        date += UUID().uuidString
+//        let url = documentDirectory.appendingPathComponent("mergeVideo-\(date).mov")
+//
+//        guard let exporter = AVAssetExportSession(
+//            asset: mixComposition,
+//            presetName: AVAssetExportPresetHighestQuality)
+//        else { return }
+//        exporter.outputURL = url
+//        exporter.outputFileType = AVFileType.mov
+//        exporter.shouldOptimizeForNetworkUse = true
+//        exporter.videoComposition = mainComposition
+//
+//        exporter.exportAsynchronously {
+//            DispatchQueue.main.async {
+//                self.exportDidFinish(exporter)
+//            }
+//        }
     }
     
     func exportDidFinish(_ session: AVAssetExportSession) {
       // 1
-      activityMonitor.stopAnimating()
+      //Omitted activityMonitor.stopAnimating()
 
       // 2
       guard
@@ -354,6 +360,18 @@ class OverlayViewController: UIViewController {
 //        }
 //        vc.videoUrl = outputURL
 //        self.navigationController?.show(vc, sender: nil)
+    }
+    
+    func previewMergeResult(merged: AVMutableComposition, recordURL: URL, readerVURL: URL, readerAURL: URL) {
+      activityMonitor.stopAnimating()
+  
+        let vc: VideoCompositionViewController = VideoCompositionViewController()
+        vc.mergedResult = merged
+        vc.recordURL = recordURL
+        vc.readerAURL = readerAURL
+        vc.readerVURL = readerVURL
+        vc.modalPresentationStyle = .fullScreen
+        self.present(vc, animated: false, completion: nil)
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -394,7 +412,6 @@ class OverlayViewController: UIViewController {
 }
 
 extension OverlayViewController: CameraPreviewDelegate {
-
     func captureSessionDidStartRunning() {
        //
     }
@@ -407,7 +424,7 @@ extension OverlayViewController: CameraPreviewDelegate {
         //
     }
 
-    func videDidEndRecording(with url: URL?, error: Error?) {
+    func videoDidEndRecording(with url: URL?, error: Error?) {
         guard let url = url, let uploadurl = self.uploadVideourl else {
             return
         }

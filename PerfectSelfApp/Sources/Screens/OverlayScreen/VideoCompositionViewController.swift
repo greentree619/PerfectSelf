@@ -14,6 +14,10 @@ import Photos
 class VideoCompositionViewController: UIViewController {
 
     var videoUrl: URL!
+    var mergedResult: AVMutableComposition?
+    var recordURL: URL?
+    var readerAURL: URL?
+    var readerVURL: URL?
     @IBOutlet var btnPlayPause: UIButton!
     @IBOutlet var slider: UISlider!
 
@@ -40,7 +44,7 @@ class VideoCompositionViewController: UIViewController {
     }
 
     func setupPlayer() {
-        playerView.url = videoUrl
+        playerView.mainavComposition = mergedResult!
         playerView.delegate = self
         slider.minimumValue = 0
     }
@@ -51,9 +55,95 @@ class VideoCompositionViewController: UIViewController {
     }
 
     @IBAction func btnSaveclicked(_ sender: Any?) {
-        saveVideoToAlbum(videoUrl) { error in
-            if (error == nil) {
-                print("Save successfully")
+        log(meetingUid: "overlay-save", log:"tester video upload start:")
+        let tapeId = getTapeIdString()
+        let tapeDate = getDateString()
+        gRoomUid = selectedTape!.roomUid
+        let prefixKey = "\(tapeDate)/\(gRoomUid!)/\(tapeId)/"
+        print("Video upload prefixKey: \(prefixKey)")
+        userName = "self-tape"
+        //Omitted let uuid = UUID().uuidString
+        showIndicator(sender: nil, viewController: self)
+        
+        DispatchQueue.main.async {
+            saveOnlyVideoFrom(url: self.recordURL!) { url in
+                print(url)
+                DispatchQueue.main.async {
+                    Toast.show(message: "Start to upload video file", controller:  self)
+                }
+                log(meetingUid: "overlay-save", log:"tester video upload start: \(encodeURLParameter(prefixKey)!)")
+                //Upload video at first
+                awsUpload.multipartUpload(filePath: url, bucketName: "video-client-upload-123456798", prefixKey: prefixKey){ error -> Void in
+                    DispatchQueue.main.async {
+                        hideIndicator(sender: nil)
+                    }
+
+                    if(error == nil)
+                    {
+                        log(meetingUid: "overlay-save", log:"\(userName!) video upload end successfully")
+                        DispatchQueue.main.async {
+                            //Omitted hideIndicator(sender: nil)
+                            Toast.show(message: "Completed to upload Video file.", controller: self)
+                        }
+
+                        if let userInfo = UserDefaults.standard.object(forKey: "USER") as? [String:Any] {
+                            // Use the saved data
+                            let uid = userInfo["uid"] as! String
+                            //let tapeName = "\(getDateString())(\((uiViewContoller! as! ConferenceViewController).tapeId))"
+                            let tapeName = "\(tapeId)"
+                            webAPI.addLibrary(uid: uid
+                                              , tapeName: tapeName
+                                              , bucketName: "video-client-upload-123456798"
+                                              , tapeKey: "\(prefixKey)\(userName!)"
+                                              , roomUid: gRoomUid!
+                                              , tapeId: tapeId)
+                            webAPI.addLibrary(uid: selectedTape!.readerUid!
+                                              , tapeName: tapeName
+                                              , bucketName: "video-client-upload-123456798"
+                                              , tapeKey: selectedTape!.readerTapeKey!
+                                              , roomUid: gRoomUid!
+                                              , tapeId: tapeId)
+                            //Omitted ConferenceViewController.clearTempFolder()
+                        } else {
+                            // No data was saved
+                            print("No data was saved.")
+                        }
+                    }
+                    else
+                    {
+                        log(meetingUid: "overlay-save", log:"\(userName!) video upload failed:\(error!.localizedDescription)")
+                        DispatchQueue.main.async {
+                            //hideIndicator(sender: nil)
+                            Toast.show(message: "Failed to upload video file", controller: uiViewContoller!)
+                        }
+                    }
+                }
+            }
+
+            saveOnlyAudioFrom(url: self.recordURL!) { url in
+                print(url)
+                let prefixKey = "\(tapeDate)/\(gRoomUid!)/\(tapeId)/"
+                print("Audio upload prefixKey: \(prefixKey)")
+                log(meetingUid: "overlay-save", log:"\(userName!) audio upload start")
+                //Upload audio at secodary
+                awsUpload.multipartUpload(filePath: url, bucketName: "video-client-upload-123456798", prefixKey: prefixKey){ (error: Error?) -> Void in
+                    if(error == nil)
+                    {//Then Upload video
+                        log(meetingUid: "overlay-save", log:"\(userName!) audio upload end successfully.")
+                        DispatchQueue.main.async {
+                            //Omitted hideIndicator(sender: nil)
+                            Toast.show(message: "Completed to upload audio file.", controller: self)
+                        }
+                    }
+                    else
+                    {
+                        log(meetingUid: "overlay-save", log:"\(userName!) audio upload failed: \(error!.localizedDescription)")
+                        DispatchQueue.main.async {
+                            //Omitted hideIndicator(sender: nil)
+                            Toast.show(message: "Failed to upload audio file", controller: self)
+                        }
+                    }
+                }
             }
         }
     }
