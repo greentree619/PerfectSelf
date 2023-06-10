@@ -510,7 +510,7 @@ class ReaderProfileViewController: UIViewController, UICollectionViewDataSource,
         present(controller, animated: false, completion: nil)
     }
     @IBAction func EditExperience(_ sender: UIButton) {
-        let controller = ReaderProfileEditSkillViewController()
+        let controller = ReaderProfileEditExperienceViewController()
         
         controller.modalPresentationStyle = .fullScreen
         let transition = CATransition()
