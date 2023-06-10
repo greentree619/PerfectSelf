@@ -42,6 +42,11 @@ class VideoCompositionViewController: UIViewController {
         
         setupPlayer()
     }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        isPlaying = false
+    }
 
     func setupPlayer() {
         playerView.mainavComposition = mergedResult!
@@ -55,6 +60,8 @@ class VideoCompositionViewController: UIViewController {
     }
 
     @IBAction func btnSaveclicked(_ sender: Any?) {
+        isPlaying = false
+        
         log(meetingUid: "overlay-save", log:"tester video upload start:")
         let tapeId = getTapeIdString()
         let tapeDate = getDateString()

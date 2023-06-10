@@ -145,7 +145,7 @@ class OverlayViewController: UIViewController {
             }
             else
             {
-                Toast.show(message: "It is impossible to use camera and microphone.", controller: self)
+                //Omitted Toast.show(message: "It is impossible to use camera and microphone.", controller: self)
             }
         }
     }
