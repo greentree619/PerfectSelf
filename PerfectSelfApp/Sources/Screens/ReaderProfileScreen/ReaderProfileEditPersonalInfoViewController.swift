@@ -27,7 +27,7 @@ class ReaderProfileEditPersonalInfoViewController: UIViewController {
         readerName.text = username
         readerTitle.text = usertitle
         dropDownForGender.anchorView = genderView
-        dropDownForGender.dataSource = ["Select...", "Male", "Female", "Decline to self-identity"]
+        dropDownForGender.dataSource = genderAry
         dropDownForGender.selectionAction = { [unowned self] (index: Int, item: String) in
             text_gender.text = item
             gender = index
@@ -58,18 +58,7 @@ class ReaderProfileEditPersonalInfoViewController: UIViewController {
 //                print(g ?? "ok")
                 DispatchQueue.main.async {
                     self.gender = g ?? 0
-                    if g == 0 {
-                        self.text_gender.text = ""
-                    }
-                    else if g == 1 {
-                        self.text_gender.text = "Male"
-                    }
-                    else if g == 2 {
-                        self.text_gender.text = "Female"
-                    }
-                    else {
-                        self.text_gender.text = "Decline to self-identity"
-                    }
+                    self.text_gender.text = genderAry[self.gender]
                 }
             }
         }

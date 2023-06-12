@@ -9,7 +9,7 @@
 import UIKit
 
 class ActorFindReaderViewController: UIViewController , UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, SortDelegate, FilterDelegate{
-    func setFilterParams(isAvailableSoon: Bool, isOnline: Bool, timeSlotType: Int, isCommercialRead: Bool, isShortRead: Bool, isExtendedRead: Bool, isDateSelected: Bool, fromDate: Date, toDate: Date, minPrice: Float, maxPrice: Float, gender: Int, isExplicitRead: Bool) {
+    func setFilterParams(isAvailableSoon: Bool, isOnline: Bool, timeSlotType: Int, isCommercialRead: Bool, isShortRead: Bool, isExtendedRead: Bool, isDateSelected: Bool, fromDate: Date, toDate: Date, minPrice: Float, maxPrice: Float, gender: [Int], isExplicitRead: Bool) {
         self.isAvailableSoon = isAvailableSoon
         self.isOnline = isOnline
         self.timeSlotType = timeSlotType
@@ -40,7 +40,7 @@ class ActorFindReaderViewController: UIViewController , UICollectionViewDataSour
     var toDate = Date()
     var minPrice:Float = 0.0
     var maxPrice:Float = 100.0
-    var gender = -1
+    var gender: [Int] = [Int]()
     var isCommercialRead = false
     var isShortRead = false
     var isExtendedRead = false
@@ -76,7 +76,7 @@ class ActorFindReaderViewController: UIViewController , UICollectionViewDataSour
         spin.startAnimating()
         // call API to fetch reader list
         
-        webAPI.getReaders(readerName: nil,isSponsored: nil, isAvailableSoon: isAvailableSoon,isTopRated: nil, isOnline: isOnline, availableTimeSlotType: nil, availableFrom: isDateSelected ? Date.getStringFromDate(date: fromDate) : nil, availableTo: isDateSelected ? Date.getStringFromDate(date: toDate) : nil, minPrice: minPrice, maxPrice: maxPrice, gender: gender != -1 ? gender:nil, sortBy: sortType) { data, response, error in
+        webAPI.getReaders(readerName: nil,isSponsored: nil, isAvailableSoon: isAvailableSoon,isTopRated: nil, isOnline: isOnline, availableTimeSlotType: nil, availableFrom: isDateSelected ? Date.getStringFromDate(date: fromDate) : nil, availableTo: isDateSelected ? Date.getStringFromDate(date: toDate) : nil, minPrice: minPrice, maxPrice: maxPrice, gender: gender, sortBy: sortType) { data, response, error in
             DispatchQueue.main.async {
                 self.spin.stopAnimating()
                 self.spin.isHidden = true

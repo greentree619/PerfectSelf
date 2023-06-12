@@ -31,16 +31,16 @@ enum Gender: Int {
     case NonBinary
     case Genderqueer
     case Genderfluid
-//    case Transgender
-//    case Agender
-//    case Bigender
-//    case TwoSpirit
-//    case Androgynous
-//    case Unkown
-//    case Nothing
+    case Transgender
+    case Agender
+    case Bigender
+    case TwoSpirit
+    case Androgynous
+    case Unkown
+    case Nothing
 }
 
-let genderAry = ["Male",  "Female", "NonBinary",  "Genderqueer"]//, "Genderfluid",  "Transgender",   "Agender",  "Bigender",  "TwoSpirit",  "Androgynous",   "Unkown", ""]
+let genderAry = ["Male",  "Female", "NonBinary",  "Genderqueer", "Genderfluid",  "Transgender",   "Agender",  "Bigender",  "TwoSpirit",  "Androgynous",   "Unkown", ""]
 
 //{{For uploading to AWS.
 var audioUrl: URL?

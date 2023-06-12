@@ -11,7 +11,7 @@ import RangeSeekSlider
 protocol FilterDelegate {
     func setFilterParams(isAvailableSoon: Bool,isOnline: Bool,timeSlotType: Int,
                          isCommercialRead: Bool,isShortRead: Bool,isExtendedRead: Bool
-                         ,isDateSelected: Bool,fromDate: Date,toDate: Date, minPrice: Float, maxPrice: Float,gender: Int, isExplicitRead: Bool)
+                         ,isDateSelected: Bool,fromDate: Date,toDate: Date, minPrice: Float, maxPrice: Float,gender: [Int], isExplicitRead: Bool)
 }
 
 class FilterViewController: UIViewController, SelectDateDelegate {
@@ -38,8 +38,22 @@ class FilterViewController: UIViewController, SelectDateDelegate {
     var isMaleSelected = false
     var isFemaleSelected = false
     var isExplicitRead = false
+    var genderCheckAry: [UIButton] = [UIButton]()
     
     var parentUIViewController : UIViewController?
+    
+    @IBOutlet weak var maleGenderchk: UIButton!
+    @IBOutlet weak var fmaleGenderChk: UIButton!
+    @IBOutlet weak var nonBinGenderChk: UIButton!
+    @IBOutlet weak var genderqueerGenderChk: UIButton!
+    @IBOutlet weak var genderFluidGenChk: UIButton!
+    @IBOutlet weak var transGenderChk: UIButton!
+    @IBOutlet weak var agenderGenderChk: UIButton!
+    @IBOutlet weak var bigGenderChk: UIButton!
+    @IBOutlet weak var twoSpiritGenderChk: UIButton!
+    @IBOutlet weak var androgynousGenderChk: UIButton!
+    @IBOutlet weak var unkownGenderChk: UIButton!
+    @IBOutlet weak var allGenderChk: UIButton!
     
     @IBOutlet weak var btn_standby: UIButton!
     @IBOutlet weak var btn_45min: UIButton!
@@ -53,13 +67,15 @@ class FilterViewController: UIViewController, SelectDateDelegate {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        genderCheckAry.removeAll()
+        genderCheckAry = [maleGenderchk, fmaleGenderChk, nonBinGenderChk, genderqueerGenderChk, genderFluidGenChk, transGenderChk, agenderGenderChk, bigGenderChk, twoSpiritGenderChk, androgynousGenderChk, unkownGenderChk]
         
         rangeSlider = RangeSeekSlider(frame: CGRect(x: 0, y: 0, width: sliderView.frame.width-20, height: sliderView.frame.height))
         sliderView.addSubview(rangeSlider)
         rangeSlider.minValue = 0
         rangeSlider.maxValue = 100
-        rangeSlider.selectedMinValue = 10
-        rangeSlider.selectedMaxValue = 30
+        rangeSlider.selectedMinValue = 0
+        rangeSlider.selectedMaxValue = 100
         rangeSlider.step = 1
         
     }
@@ -78,6 +94,7 @@ class FilterViewController: UIViewController, SelectDateDelegate {
         self.view.window?.layer.add(transition, forKey: kCATransition) // Add transition to window layer
         self.present(controller, animated: false, completion: nil)
     }
+    
     @IBAction func ApplyFilter(_ sender: UIButton) {
         self.dismiss(animated: true) {
             if self.originType == 0 {
@@ -91,12 +108,7 @@ class FilterViewController: UIViewController, SelectDateDelegate {
                 controller.toDate = self.toDate
                 controller.minPrice = Float(self.rangeSlider.selectedMinValue)
                 controller.maxPrice = Float(self.rangeSlider.selectedMaxValue)
-                if (self.isMaleSelected && self.isFemaleSelected) || (!self.isMaleSelected && !self.isFemaleSelected) {
-                    controller.gender = -1
-                }
-                else {
-                    controller.gender = self.isMaleSelected ? 0 : 1
-                }
+                controller.gender = self.getSelectedGenderAry()
                 controller.isCommercialRead = self.isCommercialRead
                 controller.isShortRead = self.isShortRead
                 controller.isExtendedRead = self.isExtendedRead
@@ -106,25 +118,72 @@ class FilterViewController: UIViewController, SelectDateDelegate {
             }
             else {
                 // call delegate
-                var mg = -1
-                if (self.isMaleSelected && self.isFemaleSelected) || (!self.isMaleSelected && !self.isFemaleSelected) {
-                    mg = -1
-                }
-                else {
-                    mg = self.isMaleSelected ? 0 : 1
-                }
+                let mg =  self.getSelectedGenderAry()
                 self.delegate?.setFilterParams(isAvailableSoon: self.isAvailableSoon, isOnline: self.isOnline, timeSlotType: self.timeSlotType, isCommercialRead: self.isCommercialRead, isShortRead: self.isShortRead, isExtendedRead: self.isExplicitRead, isDateSelected: self.isDateSelected, fromDate: self.fromDate, toDate: self.toDate, minPrice: Float(self.rangeSlider.selectedMinValue), maxPrice: Float(self.rangeSlider.selectedMaxValue), gender: mg, isExplicitRead: self.isExplicitRead)
             }
-          
         }
     }
+    
     @IBAction func SelectMale(_ sender: UIButton) {
         sender.isSelected = !sender.isSelected
         isMaleSelected = !isMaleSelected
     }
+    
     @IBAction func SelectFemale(_ sender: UIButton) {
         sender.isSelected = !sender.isSelected
         isFemaleSelected = !isFemaleSelected
+    }
+    
+    @IBAction func nonBinaryDidTap(_ sender: UIButton) {
+        sender.isSelected = !sender.isSelected
+    }
+    
+    @IBAction func GenderqueerDidTap(_ sender: UIButton) {
+        sender.isSelected = !sender.isSelected
+    }
+    
+    @IBAction func genderfluidDidTap(_ sender: UIButton) {
+        sender.isSelected = !sender.isSelected
+    }
+    
+    @IBAction func transgenderDidTap(_ sender: UIButton) {
+        sender.isSelected = !sender.isSelected
+    }
+    
+    @IBAction func agenderDidTap(_ sender: UIButton) {
+        sender.isSelected = !sender.isSelected
+    }
+    
+    @IBAction func bigenderDidTap(_ sender: UIButton) {
+        sender.isSelected = !sender.isSelected
+    }
+    
+    @IBAction func twoSpiritDidTap(_ sender: UIButton) {
+        sender.isSelected = !sender.isSelected
+    }
+    
+    @IBAction func androgynousDidTap(_ sender: UIButton) {
+        sender.isSelected = !sender.isSelected
+    }
+    
+    @IBAction func unkownDidTap(_ sender: UIButton) {
+        sender.isSelected = !sender.isSelected
+    }
+    
+    @IBAction func allGenderDidTap(_ sender: UIButton) {
+        sender.isSelected = !sender.isSelected
+        maleGenderchk.isSelected = sender.isSelected
+        fmaleGenderChk.isSelected = sender.isSelected
+        nonBinGenderChk.isSelected = sender.isSelected
+        genderqueerGenderChk.isSelected = sender.isSelected
+        genderFluidGenChk.isSelected = sender.isSelected
+        transGenderChk.isSelected = sender.isSelected
+        agenderGenderChk.isSelected = sender.isSelected
+        bigGenderChk.isSelected = sender.isSelected
+        twoSpiritGenderChk.isSelected = sender.isSelected
+        androgynousGenderChk.isSelected = sender.isSelected
+        unkownGenderChk.isSelected = sender.isSelected
+        allGenderChk.isSelected = sender.isSelected
     }
     
     @IBAction func CloseFilterModal(_ sender: UIButton) {
@@ -259,6 +318,16 @@ class FilterViewController: UIViewController, SelectDateDelegate {
     @IBAction func SelectExplicitRead(_ sender: UIButton) {
         sender.isSelected = !sender.isSelected
         isExplicitRead = !isExplicitRead
+    }
+    
+    func getSelectedGenderAry()->[Int]
+    {
+        var ret = [Int]()
+        for (index, chk) in genderCheckAry.enumerated() {
+            //print("\(index) is from \(chk.isSelected)")
+            if( chk.isSelected ) {ret.append(index)}
+        }
+        return ret
     }
     /*
     // MARK: - Navigation
