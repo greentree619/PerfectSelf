@@ -101,10 +101,10 @@
                             <color key="highlightedColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         </label>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Nr0-JX-AGj">
-                            <rect key="frame" x="303" y="29.666666666666671" width="70" height="27.666666666666671"/>
+                            <rect key="frame" x="293" y="29.666666666666671" width="80" height="27.666666666666671"/>
                             <color key="backgroundColor" red="0.97647058819999999" green="0.32549019610000002" blue="0.098039215690000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <constraints>
-                                <constraint firstAttribute="width" constant="70" id="7LZ-BV-V2n"/>
+                                <constraint firstAttribute="width" constant="80" id="7LZ-BV-V2n"/>
                                 <constraint firstAttribute="height" constant="27.5" id="flr-Li-Swm"/>
                             </constraints>
                             <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
