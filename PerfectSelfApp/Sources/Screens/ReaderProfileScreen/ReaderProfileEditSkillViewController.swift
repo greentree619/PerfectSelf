@@ -27,7 +27,7 @@ class ReaderProfileEditSkillViewController: UIViewController, UICollectionViewDa
     var items = [String]()
     let cellsPerRow = 1
     
-    let headerLabel = ["Strong Storytelling Sense", "Comprehensive Script Analysis", "Writing and Communication Skills", "Industry Knowledge", "Analytical and Critical Thinking", "Time Management and Efficiency", "Adaptability and Flexibility", "Confidentiality and Professionalism"]
+    let headerLabel = ["Strong Storytelling Sense", "Comprehensive Script Analysis", "Writing and Communication Skills", "Industry Knowledge", "Analytical and Critical Thinking", "Time Management and Efficiency", "Adaptability and Flexibility", "Confidentiality and Professionalism", "Others"]
     let innerLabel = [
         [
             "Understanding Narrative Structure",
@@ -112,7 +112,11 @@ class ReaderProfileEditSkillViewController: UIViewController, UICollectionViewDa
             "Ethical Guidelines",
             "Discretion",
             "Professional Boundaries",
-            "Document Destruction",
+            "Document Destruction"
+        ],
+        [
+            "Fast Speaking",
+            "Low voice"
         ]
     ]
     
@@ -390,27 +394,8 @@ extension ReaderProfileEditSkillViewController : MKAccordionViewDatasource {
     }
     
     func accordionView(_ accordionView: MKAccordionView, numberOfRowsIn section: Int) -> Int {
-        switch section {
-        case 0:
-            return innerLabel[0].count;
-        case 1:
-            return innerLabel[1].count;
-        case 2:
-            return innerLabel[2].count;
-        case 3:
-            return innerLabel[3].count;
-        case 4:
-            return innerLabel[4].count;
-        case 5:
-            return innerLabel[5].count;
-        case 6:
-            return innerLabel[6].count;
-        case 7:
-            return innerLabel[7].count;
-            
-        default:
-            return 3
-        }
+        
+        return innerLabel[section].count
     }
     
     func accordionView(_ accordionView: MKAccordionView , cellForRowAt indexPath: IndexPath) -> UITableViewCell {

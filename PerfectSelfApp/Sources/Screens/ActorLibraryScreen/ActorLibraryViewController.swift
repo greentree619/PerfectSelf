@@ -17,6 +17,7 @@ class ActorLibraryViewController: UIViewController, UICollectionViewDataSource, 
     let cellsPerRow = 2
     var menuArray: [HSMenu] = []
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -33,7 +34,7 @@ class ActorLibraryViewController: UIViewController, UICollectionViewDataSource, 
             // No data was saved
             print("No data was saved.")
         }
-        fetchVideos()
+        
         //
         let menu1 = HSMenu(icon: nil, title: "Create Folder")
         let menu2 = HSMenu(icon: nil, title: "Edit")
@@ -43,6 +44,10 @@ class ActorLibraryViewController: UIViewController, UICollectionViewDataSource, 
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated);
+        
+        items.removeAll()
+        fetchVideos()
+        videoList.reloadData()
         
 #if OVERLAY_TEST
         var count = 3
@@ -105,7 +110,6 @@ class ActorLibraryViewController: UIViewController, UICollectionViewDataSource, 
         let x = originInWindow.x
         let y = originInWindow.y + sender.frame.height
 
-        print("Button coordinates: (\(x), \(y))")
         let popupMenu = HSPopupMenu(menuArray: menuArray, arrowPoint: CGPoint(x: x, y: y))
         popupMenu.popUp()
         popupMenu.delegate = self
@@ -176,6 +180,16 @@ class ActorLibraryViewController: UIViewController, UICollectionViewDataSource, 
 }
 extension ActorLibraryViewController: HSPopupMenuDelegate {
     func popupMenu(_ popupMenu: HSPopupMenu, didSelectAt index: Int) {
-        print("selected index is: " + "\(index)")
+        print("hspopupmenu selected index is: " + "\(index)")
+        
+        if index == 0 {
+            //create new folder
+            let v = VideoCard(actorId: 0, actorUid: self.uid, readerUid: "", tapeName: "New Folder", bucketName: "", actorTapeKey: "", readerTapeKey: "", roomUid: "", tapeId: "", createdTime: Date.getStringFromDate(date: Date()), updatedTime: "", deletedTime: "")
+            self.items.append(v)
+            self.videoList.reloadData()
+            
+        } else {
+            
+        }
     }
 }

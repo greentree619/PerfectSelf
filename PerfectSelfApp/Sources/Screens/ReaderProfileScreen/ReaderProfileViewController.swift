@@ -97,13 +97,13 @@ class ReaderProfileViewController: UIViewController, UICollectionViewDataSource,
         self.view_videointro.frame.origin.x = self.view_container.frame.width
         self.view_review.frame.origin.x = self.view_container.frame.width
         
-        btn_edit_avatar.isHidden = true;
-        btn_edit_userinfo.isHidden = true;
-        btn_edit_experience.isHidden = true;
-        btn_edit_about.isHidden = true;
-        btn_edit_skills.isHidden = true;
-        btn_edit_availability.isHidden = true;
-        view_edit_hourly_rate.isHidden = true;
+//        btn_edit_avatar.isHidden = true;
+//        btn_edit_userinfo.isHidden = true;
+//        btn_edit_experience.isHidden = true;
+//        btn_edit_about.isHidden = true;
+//        btn_edit_skills.isHidden = true;
+//        btn_edit_availability.isHidden = true;
+//        view_edit_hourly_rate.isHidden = true;
         if let userInfo = UserDefaults.standard.object(forKey: "USER") as? [String:Any] {
             // Use the saved data
             id = userInfo["uid"] as! String
@@ -510,14 +510,14 @@ class ReaderProfileViewController: UIViewController, UICollectionViewDataSource,
         present(controller, animated: false, completion: nil)
     }
     @IBAction func EditExperience(_ sender: UIButton) {
-        let controller = ReaderProfileEditSkillViewController()
+        let controller = ReaderProfileEditExperienceViewController()
         
         controller.modalPresentationStyle = .fullScreen
-        let transition = CATransition()
-        transition.duration = 0.5 // Set animation duration
-        transition.type = CATransitionType.push // Set transition type to push
-        transition.subtype = CATransitionSubtype.fromRight // Set transition subtype to from right
-        self.view.window?.layer.add(transition, forKey: kCATransition) // Add transition to window layer
+//        let transition = CATransition()
+//        transition.duration = 0.5 // Set animation duration
+//        transition.type = CATransitionType.push // Set transition type to push
+//        transition.subtype = CATransitionSubtype.fromRight // Set transition subtype to from right
+//        self.view.window?.layer.add(transition, forKey: kCATransition) // Add transition to window layer
         present(controller, animated: false, completion: nil)
     }
     @IBAction func EditAbout(_ sender: UIButton) {
@@ -559,6 +559,19 @@ class ReaderProfileViewController: UIViewController, UICollectionViewDataSource,
         present(controller, animated: false, completion: nil)
     }
     @IBAction func EditHourlyRate(_ sender: UIButton) {
+        let controller = ReaderProfileEditHourlyRateViewController()
+        controller.hourlyrate = hourlyRate
+        controller.uid = id
+        controller.modalPresentationStyle = .fullScreen
+//        let transition = CATransition()
+//        transition.duration = 0.5 // Set animation duration
+//        transition.type = CATransitionType.push // Set transition type to push
+//        transition.subtype = CATransitionSubtype.fromRight // Set transition subtype to from right
+//        self.view.window?.layer.add(transition, forKey: kCATransition) // Add transition to window layer
+        present(controller, animated: false, completion: nil)
+    }
+    
+    @IBAction func EditHourlyRate1(_ sender: UIButton) {
         let controller = ReaderProfileEditHourlyRateViewController()
         controller.hourlyrate = hourlyRate
         controller.uid = id
