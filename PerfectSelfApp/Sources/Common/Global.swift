@@ -25,6 +25,23 @@ var selectedTape: VideoCard?
 let awsUpload = AWSMultipartUpload()
 let GoogleAuthClientID = "669216550945-mgc5slqbok7j5ubp8255loi7hkoe7mj3.apps.googleusercontent.com"
 
+enum Gender: Int {
+    case Male = 0
+    case Female
+    case NonBinary
+    case Genderqueer
+    case Genderfluid
+//    case Transgender
+//    case Agender
+//    case Bigender
+//    case TwoSpirit
+//    case Androgynous
+//    case Unkown
+//    case Nothing
+}
+
+let genderAry = ["Male",  "Female", "NonBinary",  "Genderqueer"]//, "Genderfluid",  "Transgender",   "Agender",  "Bigender",  "TwoSpirit",  "Androgynous",   "Unkown", ""]
+
 //{{For uploading to AWS.
 var audioUrl: URL?
 var userName: String?

@@ -32,7 +32,7 @@ class ReaderBuildProfileViewController: UIViewController, PhotoDelegate {
         
         lbl_name.text = username
         dropDownForGender.anchorView = genderView
-        dropDownForGender.dataSource = ["Select...", "Male", "Female", "Decline to self-identity"]
+        dropDownForGender.dataSource = genderAry
         dropDownForGender.selectionAction = { [unowned self] (index: Int, item: String) in
             text_gender.text = item
         }

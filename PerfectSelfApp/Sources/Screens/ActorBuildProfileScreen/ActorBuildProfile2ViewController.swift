@@ -42,7 +42,7 @@ class ActorBuildProfile2ViewController: UIViewController, PhotoDelegate {
         dropDownForGender.anchorView = genderview // UIView or UIBarButtonItem
         dropDownForAgeRange.anchorView = ageview
         // The list of items to display. Can be changed dynamically
-        dropDownForGender.dataSource = ["Select...", "Male", "Female", "Decline to self-identity"]
+        dropDownForGender.dataSource = genderAry
         dropDownForAgeRange.dataSource = ["Select...", "10-20", "21-30", "31-40", "41-50", "over 50"]
         // Action triggered on selection
         dropDownForGender.selectionAction = { [unowned self] (index: Int, item: String) in

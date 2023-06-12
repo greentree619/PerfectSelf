@@ -66,7 +66,7 @@ class ActorProfileEditViewController: UIViewController, PhotoDelegate {
         dropDownForGender.anchorView = genderview // UIView or UIBarButtonItem
         dropDownForAgeRange.anchorView = ageview
         // The list of items to display. Can be changed dynamically
-        dropDownForGender.dataSource = ["Select...", "Male", "Female", "Decline to self-identify"]
+        dropDownForGender.dataSource = genderAry
         dropDownForAgeRange.dataSource = ["Select...", "10-20", "21-30", "31-40", "41-50", "over 50"]
         // Action triggered on selection
         dropDownForGender.selectionAction = { [unowned self] (index: Int, item: String) in
@@ -214,18 +214,8 @@ class ActorProfileEditViewController: UIViewController, PhotoDelegate {
             id = userInfo["uid"] as! String
             self.text_username.text = userInfo["userName"] as? String ?? ""
             let g = userInfo["gender"] as? Int
-            if g == 1 {
-                self.text_gender.text = "Male"
-                self.gender = 1
-            } else if g == 2 {
-                self.text_gender.text = "Female"
-                self.gender = 2
-            } else if g == 3 {
-                self.text_gender.text = "Decline to self-identify"
-                self.gender = 3
-            } else {
-                self.text_gender.text = ""
-            }
+            self.gender = g!;
+            self.text_gender.text = genderAry[g!]
             
             bucketName = userInfo["avatarBucketName"] as? String
             avatarKey = userInfo["avatarKey"] as? String
