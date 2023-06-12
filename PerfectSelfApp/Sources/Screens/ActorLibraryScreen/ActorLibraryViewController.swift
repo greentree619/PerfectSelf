@@ -110,7 +110,6 @@ class ActorLibraryViewController: UIViewController, UICollectionViewDataSource, 
         let x = originInWindow.x
         let y = originInWindow.y + sender.frame.height
 
-        print("Button coordinates: (\(x), \(y))")
         let popupMenu = HSPopupMenu(menuArray: menuArray, arrowPoint: CGPoint(x: x, y: y))
         popupMenu.popUp()
         popupMenu.delegate = self
@@ -181,6 +180,16 @@ class ActorLibraryViewController: UIViewController, UICollectionViewDataSource, 
 }
 extension ActorLibraryViewController: HSPopupMenuDelegate {
     func popupMenu(_ popupMenu: HSPopupMenu, didSelectAt index: Int) {
-        print("selected index is: " + "\(index)")
+        print("hspopupmenu selected index is: " + "\(index)")
+        
+        if index == 0 {
+            //create new folder
+            let v = VideoCard(actorId: 0, actorUid: self.uid, readerUid: "", tapeName: "New Folder", bucketName: "", actorTapeKey: "", readerTapeKey: "", roomUid: "", tapeId: "", createdTime: Date.getStringFromDate(date: Date()), updatedTime: "", deletedTime: "")
+            self.items.append(v)
+            self.videoList.reloadData()
+            
+        } else {
+            
+        }
     }
 }

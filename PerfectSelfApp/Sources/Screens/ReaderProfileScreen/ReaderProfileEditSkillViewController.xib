@@ -140,10 +140,10 @@
                                     <rect key="frame" x="0.0" y="0.0" width="353" height="70"/>
                                     <subviews>
                                         <stackView opaque="NO" contentMode="left" semanticContentAttribute="forceLeftToRight" translatesAutoresizingMaskIntoConstraints="NO" id="gu0-ix-Mg9">
-                                            <rect key="frame" x="0.0" y="0.0" width="196.66666666666666" height="17"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="191.66666666666666" height="17"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select your audition type(s):" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gLb-BU-ef7">
-                                                    <rect key="frame" x="0.0" y="0.0" width="196.66666666666666" height="17"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select your audition type(s)" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gLb-BU-ef7">
+                                                    <rect key="frame" x="0.0" y="0.0" width="191.66666666666666" height="17"/>
                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -299,7 +299,7 @@
                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="hPl-Er-bRg">
                                     <rect key="frame" x="0.0" y="172" width="353" height="20"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select your skills:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gaK-69-XbS">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select your skills" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gaK-69-XbS">
                                             <rect key="frame" x="0.0" y="0.0" width="353" height="20"/>
                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
                                             <nil key="textColor"/>
@@ -310,9 +310,28 @@
                                         <constraint firstAttribute="height" constant="20" id="mnT-FA-bOF" customClass="AdaptiveLayoutConstraint" customModule="PerfectSelf" customModuleProvider="target"/>
                                     </constraints>
                                 </stackView>
-                                <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rSL-2a-Pmh">
+                                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kSD-31-3ge">
                                     <rect key="frame" x="0.0" y="202" width="353" height="282"/>
-                                </stackView>
+                                    <subviews>
+                                        <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rSL-2a-Pmh">
+                                            <rect key="frame" x="0.0" y="0.0" width="353" height="800"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="800" id="Haw-iO-EJm"/>
+                                            </constraints>
+                                        </stackView>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="Zjv-FL-BeL" firstAttribute="trailing" secondItem="rSL-2a-Pmh" secondAttribute="trailing" id="1vY-bf-YRL"/>
+                                        <constraint firstItem="rSL-2a-Pmh" firstAttribute="leading" secondItem="dCI-bM-svc" secondAttribute="leading" id="Fvb-JV-sDO"/>
+                                        <constraint firstItem="rSL-2a-Pmh" firstAttribute="leading" secondItem="Zjv-FL-BeL" secondAttribute="leading" id="GPJ-yb-XFk"/>
+                                        <constraint firstItem="dCI-bM-svc" firstAttribute="top" secondItem="rSL-2a-Pmh" secondAttribute="top" id="P6e-lU-tk2"/>
+                                        <constraint firstItem="rSL-2a-Pmh" firstAttribute="trailing" secondItem="dCI-bM-svc" secondAttribute="trailing" id="cQL-MA-OZK"/>
+                                        <constraint firstItem="rSL-2a-Pmh" firstAttribute="width" secondItem="dCI-bM-svc" secondAttribute="width" id="n4I-E4-M0a"/>
+                                        <constraint firstItem="rSL-2a-Pmh" firstAttribute="bottom" secondItem="dCI-bM-svc" secondAttribute="bottom" id="yND-wE-aDx"/>
+                                    </constraints>
+                                    <viewLayoutGuide key="contentLayoutGuide" id="dCI-bM-svc"/>
+                                    <viewLayoutGuide key="frameLayoutGuide" id="Zjv-FL-BeL"/>
+                                </scrollView>
                             </subviews>
                         </stackView>
                     </subviews>
