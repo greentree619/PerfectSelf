@@ -130,6 +130,8 @@
 		943BABDF2A2A40CD00B3F619 /* ButtonExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 943BABDE2A2A40CD00B3F619 /* ButtonExtension.swift */; };
 		945CCDD32A044A2B0011310B /* TimePauseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 945CCDD12A044A2B0011310B /* TimePauseViewController.swift */; };
 		945CCDD42A044A2B0011310B /* TimePauseViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 945CCDD22A044A2B0011310B /* TimePauseViewController.xib */; };
+		9471DB4C2A3422A500E0BCB9 /* ReaderProfileEditExperienceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9471DB4A2A3422A500E0BCB9 /* ReaderProfileEditExperienceViewController.swift */; };
+		9471DB4D2A3422A500E0BCB9 /* ReaderProfileEditExperienceViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9471DB4B2A3422A500E0BCB9 /* ReaderProfileEditExperienceViewController.xib */; };
 		BA00A54529CA1AD100C90922 /* Toast.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA00A54429CA1AD100C90922 /* Toast.swift */; };
 		BA0E353A29BF8C2800ED838A /* StackViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA0E353629BF8C2800ED838A /* StackViewExtension.swift */; };
 		BA0E353B29BF8C2800ED838A /* CGFloatExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA0E353729BF8C2800ED838A /* CGFloatExtension.swift */; };
@@ -361,6 +363,8 @@
 		943BABDE2A2A40CD00B3F619 /* ButtonExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonExtension.swift; sourceTree = "<group>"; };
 		945CCDD12A044A2B0011310B /* TimePauseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimePauseViewController.swift; sourceTree = "<group>"; };
 		945CCDD22A044A2B0011310B /* TimePauseViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TimePauseViewController.xib; sourceTree = "<group>"; };
+		9471DB4A2A3422A500E0BCB9 /* ReaderProfileEditExperienceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReaderProfileEditExperienceViewController.swift; sourceTree = "<group>"; };
+		9471DB4B2A3422A500E0BCB9 /* ReaderProfileEditExperienceViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ReaderProfileEditExperienceViewController.xib; sourceTree = "<group>"; };
 		9B2028BF3D141AFCF2791F2E /* Pods-PerfectSelf.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PerfectSelf.debug.xcconfig"; path = "Target Support Files/Pods-PerfectSelf/Pods-PerfectSelf.debug.xcconfig"; sourceTree = "<group>"; };
 		9F05824DD001DE2D746EF6D8 /* Pods_PerfectSelf.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PerfectSelf.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BA00A54429CA1AD100C90922 /* Toast.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Toast.swift; sourceTree = "<group>"; };
@@ -1079,6 +1083,8 @@
 				47F9BA8629D7006600050403 /* ReaderProfileEditHourlyRateViewController.xib */,
 				47C58E9929F0C2D10047C074 /* ReviewCell.swift */,
 				47C58E9A29F0C2D10047C074 /* ReviewCell.xib */,
+				9471DB4A2A3422A500E0BCB9 /* ReaderProfileEditExperienceViewController.swift */,
+				9471DB4B2A3422A500E0BCB9 /* ReaderProfileEditExperienceViewController.xib */,
 			);
 			path = ReaderProfileScreen;
 			sourceTree = "<group>";
@@ -1252,6 +1258,7 @@
 				47C9733629DC1E5A00468E11 /* Raleway-ExtraBold.ttf in Resources */,
 				47C9733F29DC1E5A00468E11 /* Raleway-Thin.ttf in Resources */,
 				47C9733129DC1E5A00468E11 /* Raleway-MediumItalic.ttf in Resources */,
+				9471DB4D2A3422A500E0BCB9 /* ReaderProfileEditExperienceViewController.xib in Resources */,
 				79262EEE20B0D6F800D576C1 /* Assets.xcassets in Resources */,
 				47C9733029DC1E5A00468E11 /* Raleway-BoldItalic.ttf in Resources */,
 				47C9735929DC255000468E11 /* Lato-BoldItalic.ttf in Resources */,
@@ -1443,6 +1450,7 @@
 				BAD0B52329BA17130061FEF5 /* HomeViewController.swift in Sources */,
 				BA0E353A29BF8C2800ED838A /* StackViewExtension.swift in Sources */,
 				474D241F29DA9EED00FD7DF0 /* DateSelectViewController.swift in Sources */,
+				9471DB4C2A3422A500E0BCB9 /* ReaderProfileEditExperienceViewController.swift in Sources */,
 				BAD0B52429BA17130061FEF5 /* EditReadViewController.swift in Sources */,
 				BA00A54529CA1AD100C90922 /* Toast.swift in Sources */,
 				478AD18429F9A9D8008550F2 /* ScriptViewController.swift in Sources */,
