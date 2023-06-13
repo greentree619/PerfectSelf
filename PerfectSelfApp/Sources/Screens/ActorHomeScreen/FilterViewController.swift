@@ -70,7 +70,7 @@ class FilterViewController: UIViewController, SelectDateDelegate {
         genderCheckAry.removeAll()
         genderCheckAry = [maleGenderchk, fmaleGenderChk, nonBinGenderChk, genderqueerGenderChk, genderFluidGenChk, transGenderChk, agenderGenderChk, bigGenderChk, twoSpiritGenderChk, androgynousGenderChk, unkownGenderChk]
         
-        rangeSlider = RangeSeekSlider(frame: CGRect(x: 0, y: 0, width: sliderView.frame.width-20, height: sliderView.frame.height))
+        rangeSlider = RangeSeekSlider(frame: CGRect(x: 0, y: 0, width: sliderView.frame.width-35, height: sliderView.frame.height))
         sliderView.addSubview(rangeSlider)
         rangeSlider.minValue = 0
         rangeSlider.maxValue = 100
