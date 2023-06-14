@@ -25,6 +25,33 @@ var selectedTape: VideoCard?
 let awsUpload = AWSMultipartUpload()
 let GoogleAuthClientID = "669216550945-mgc5slqbok7j5ubp8255loi7hkoe7mj3.apps.googleusercontent.com"
 
+var Filter: [String: Any] = [
+    "isAvailableSoon": false,
+    "isOnlineNow": true,
+    "timeSlotType": 0,
+    "isDateSelected": false,
+    "fromDate": Date(),
+    "toDate": Date(),
+    "priceMinVal": 0,
+    "priceMaxVal": 100,
+    "isMale": false,
+    "isFemale": false,
+    "isNonBinary": false,
+    "isGenderqueer": false,
+    "isGenderfluid": false,
+    "isTransgender": false,
+    "isAgender": false,
+    "isBigender": false,
+    "isTwoSpirit": false,
+    "isAndrogynous": false,
+    "isUnknown": false,
+    "isAll": false,
+    "isCommercialRead": true,
+    "isShortRead": false,
+    "isExtendedRead": false,
+    "isExplicitRead": false
+]
+
 enum Gender: Int {
     case Male = 0
     case Female
