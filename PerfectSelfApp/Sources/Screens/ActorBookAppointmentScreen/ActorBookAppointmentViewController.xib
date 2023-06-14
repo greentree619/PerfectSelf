@@ -93,10 +93,10 @@
                             </variation>
                         </stackView>
                         <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SnB-Bh-P5q">
-                            <rect key="frame" x="0.0" y="139" width="390" height="595"/>
+                            <rect key="frame" x="0.0" y="139" width="390" height="705"/>
                             <subviews>
                                 <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aSh-vL-S7u">
-                                    <rect key="frame" x="0.0" y="0.0" width="390" height="595"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="390" height="601"/>
                                     <subviews>
                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="qh2-zK-JAK">
                                             <rect key="frame" x="0.0" y="0.0" width="390" height="700"/>
@@ -602,58 +602,56 @@
                                 </scrollView>
                             </subviews>
                             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
-                            <constraints>
-                                <constraint firstAttribute="trailing" secondItem="aSh-vL-S7u" secondAttribute="trailing" id="4f6-I7-M3N"/>
-                                <constraint firstItem="aSh-vL-S7u" firstAttribute="leading" secondItem="SnB-Bh-P5q" secondAttribute="leading" id="O8n-js-CmJ"/>
-                                <constraint firstAttribute="bottom" secondItem="aSh-vL-S7u" secondAttribute="bottom" id="k5G-o0-Yfx"/>
-                                <constraint firstItem="aSh-vL-S7u" firstAttribute="top" secondItem="SnB-Bh-P5q" secondAttribute="top" id="ttR-2O-2Tg"/>
-                            </constraints>
+                            <edgeInsets key="layoutMargins" top="0.0" left="0.0" bottom="70" right="0.0"/>
                             <userDefinedRuntimeAttributes>
                                 <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                                     <real key="value" value="10"/>
                                 </userDefinedRuntimeAttribute>
                             </userDefinedRuntimeAttributes>
                         </stackView>
-                        <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="eg7-Ss-NPZ">
-                            <rect key="frame" x="0.0" y="734" width="390" height="110"/>
-                            <subviews>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ucp-06-lG4">
-                                    <rect key="frame" x="20" y="15" width="350" height="41"/>
-                                    <state key="normal" title="Button"/>
-                                    <buttonConfiguration key="configuration" style="filled" title="Continue"/>
-                                    <connections>
-                                        <action selector="ContinueToUploadScript:" destination="-1" eventType="touchUpInside" id="e8H-UC-AmX"/>
-                                    </connections>
-                                </button>
-                            </subviews>
-                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            <constraints>
-                                <constraint firstAttribute="height" constant="110" id="Ehv-jD-TCM" customClass="AdaptiveLayoutConstraint" customModule="PerfectSelf" customModuleProvider="target"/>
-                            </constraints>
-                            <edgeInsets key="layoutMargins" top="15" left="20" bottom="20" right="20"/>
-                            <userDefinedRuntimeAttributes>
-                                <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBound" value="NO"/>
-                                <userDefinedRuntimeAttribute type="number" keyPath="layer.shadowOpacity">
-                                    <real key="value" value="0.29999999999999999"/>
-                                </userDefinedRuntimeAttribute>
-                                <userDefinedRuntimeAttribute type="number" keyPath="layer.shadowRadius">
-                                    <integer key="value" value="5"/>
-                                </userDefinedRuntimeAttribute>
-                                <userDefinedRuntimeAttribute type="size" keyPath="layer.shadowOffset">
-                                    <size key="value" width="0.0" height="0.0"/>
-                                </userDefinedRuntimeAttribute>
-                            </userDefinedRuntimeAttributes>
-                        </stackView>
                     </subviews>
                     <color key="backgroundColor" red="0.45882352939999999" green="0.52941176469999995" blue="0.85098039219999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                </stackView>
+                <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="eg7-Ss-NPZ">
+                    <rect key="frame" x="0.0" y="735" width="390" height="109"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ucp-06-lG4">
+                            <rect key="frame" x="20" y="15" width="350" height="40"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="40" id="oiR-nP-C1p" customClass="AdaptiveLayoutConstraint" customModule="PerfectSelf" customModuleProvider="target"/>
+                            </constraints>
+                            <state key="normal" title="Button"/>
+                            <buttonConfiguration key="configuration" style="filled" title="Continue"/>
+                            <connections>
+                                <action selector="ContinueToUploadScript:" destination="-1" eventType="touchUpInside" id="e8H-UC-AmX"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <edgeInsets key="layoutMargins" top="15" left="20" bottom="20" right="20"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBound" value="NO"/>
+                        <userDefinedRuntimeAttribute type="number" keyPath="layer.shadowOpacity">
+                            <real key="value" value="0.29999999999999999"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="number" keyPath="layer.shadowRadius">
+                            <integer key="value" value="5"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="size" keyPath="layer.shadowOffset">
+                            <size key="value" width="0.0" height="0.0"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
                 </stackView>
             </subviews>
             <viewLayoutGuide key="safeArea" id="9WF-fm-2iq"/>
             <constraints>
                 <constraint firstAttribute="bottom" secondItem="zZh-CC-gc8" secondAttribute="bottom" id="1Kh-CB-wxc"/>
+                <constraint firstAttribute="bottom" secondItem="eg7-Ss-NPZ" secondAttribute="bottom" id="DYr-9Q-SRl"/>
+                <constraint firstItem="9WF-fm-2iq" firstAttribute="trailing" secondItem="eg7-Ss-NPZ" secondAttribute="trailing" id="Hhx-Ur-j2k"/>
                 <constraint firstItem="9WF-fm-2iq" firstAttribute="trailing" secondItem="zZh-CC-gc8" secondAttribute="trailing" id="S0R-Iv-svc"/>
                 <constraint firstItem="zZh-CC-gc8" firstAttribute="leading" secondItem="9WF-fm-2iq" secondAttribute="leading" id="YLB-Ff-2th"/>
                 <constraint firstItem="zZh-CC-gc8" firstAttribute="top" secondItem="H2i-y8-rcT" secondAttribute="top" id="mVe-eL-QfH"/>
+                <constraint firstItem="eg7-Ss-NPZ" firstAttribute="leading" secondItem="9WF-fm-2iq" secondAttribute="leading" id="t6t-1X-8LV"/>
             </constraints>
             <point key="canvasLocation" x="205" y="-616"/>
         </view>

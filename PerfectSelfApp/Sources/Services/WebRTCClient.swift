@@ -307,8 +307,8 @@ extension WebRTCClient {
             do {
                 try self.rtcAudioSession.setCategory(AVAudioSession.Category.playAndRecord.rawValue, with: AVAudioSession.CategoryOptions.defaultToSpeaker)
                 try self.rtcAudioSession.setMode(AVAudioSession.Mode.voiceChat.rawValue)
-                try self.rtcAudioSession.overrideOutputAudioPort(.speaker)
                 try self.rtcAudioSession.setActive(true)
+                //Omitted try self.rtcAudioSession.overrideOutputAudioPort(.speaker)
             } catch let error {
                 debugPrint("Couldn't force audio to speaker: \(error)")
             }

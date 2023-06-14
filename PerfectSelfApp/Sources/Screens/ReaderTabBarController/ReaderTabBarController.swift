@@ -12,12 +12,21 @@ import JJFloatingActionButton
 
 class ReaderTabBarController: UITabBarController {
 //    let alertController = UIAlertController(title: nil, message: "", preferredStyle: .actionSheet);
+    var uid = ""
+    var items = [TimeSlot]()
+    var skills = [String]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
-        
+        if let userInfo = UserDefaults.standard.object(forKey: "USER") as? [String:Any] {
+            // Use the saved data
+            uid = userInfo["uid"] as! String
+        } else {
+            // No data was saved
+            print("No data was saved.")
+        }
         tabBar.tintColor = .white;
         tabBar.unselectedItemTintColor = .white.withAlphaComponent(0.67);
         tabBar.isTranslucent = false;
@@ -26,13 +35,13 @@ class ReaderTabBarController: UITabBarController {
   
         // Add floating button
         let actionButton = JJFloatingActionButton()
-        actionButton.addItem(title: "Create Slate", image: UIImage(systemName: "plus.circle")) { item in
+        actionButton.addItem(title: "Add Availability", image: UIImage(systemName: "plus.circle")) { item in
           // do something
-            
+            self.getReaderInfoAndNavigate(to: 1)// 1: nav to availability screen
         }
-        actionButton.addItem(title: "Create Self Tape", image: UIImage(systemName: "plus.circle")) { item in
+        actionButton.addItem(title: "Add Skills", image: UIImage(systemName: "plus.circle")) { item in
           // do something
-            
+            self.getReaderInfoAndNavigate(to: 2)// 2: nav to skill screen
         }
 
         actionButton.buttonDiameter = 50;
@@ -41,10 +50,8 @@ class ReaderTabBarController: UITabBarController {
       
         view.addSubview(actionButton)
         actionButton.translatesAutoresizingMaskIntoConstraints = false
-//        actionButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16).isActive = true
         actionButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -16).isActive = true
         actionButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true;
-
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -55,6 +62,94 @@ class ReaderTabBarController: UITabBarController {
            tabBarItem.isEnabled = false
         }
         
+    }
+    func getReaderInfoAndNavigate(to: Int) {
+        // call API for reader profile
+        showIndicator(sender: nil, viewController: self)
+        webAPI.getReaderById(id:self.uid) { data, response, error in
+            DispatchQueue.main.async {
+                hideIndicator(sender: nil)
+            }
+            guard let data = data, error == nil else {
+                print(error?.localizedDescription ?? "No data")
+                return
+            }
+            do {
+                let item = try JSONDecoder().decode(ReaderProfileDetail.self, from: data)
+                DispatchQueue.main.async {
+                    self.skills = item.skills.components(separatedBy: ",")
+                    
+                    self.items.removeAll()
+                    for availibility in item.allAvailability {
+                        let df = DateFormatter()
+                        df.dateFormat = "yyyy-MM-dd"
+                        let tf = DateFormatter()
+                        tf.dateFormat = "HH"
+                        
+                        let index = self.items.firstIndex(where: { df.string(from: Date.getDateFromString(date: $0.date)!) == df.string(from: Date.getDateFromString(date: utcToLocal(dateStr: availibility.date)!)!) })
+                        if index == nil {
+                            self.items.append(TimeSlot(date: utcToLocal(dateStr: availibility.date)!, time: [Slot](), repeatFlag: 0, isStandBy: false))
+                        }
+                        let idx = index ?? self.items.count - 1
+                        
+                        let t = tf.string(from: Date.getDateFromString(date: utcToLocal(dateStr: availibility.fromTime)!)!)
+                        
+                        var slot = 0
+                        switch t {
+                        case "09":
+                            slot = 1
+                        case "10":
+                            slot = 2
+                        case "11":
+                            slot = 3
+                        case "14":
+                            slot = 4
+                        case "15":
+                            slot = 5
+                        case "16":
+                            slot = 6
+                        case "17":
+                            slot = 7
+                        case "18":
+                            slot = 8
+                        case "19":
+                            slot = 9
+                        case "20":
+                            slot = 10
+                        case "21":
+                            slot = 11
+                        case "22":
+                            slot = 12
+                        default:
+                            slot = 0
+                        }
+                        self.items[idx].time.append(Slot(id: availibility.id, slot: slot, duration: 0, isDeleted: false))
+                    }
+                    self.items = self.items.sorted(by: { Date.getDateFromString(date: $0.date)! < Date.getDateFromString(date: $1.date)! })
+                    
+                    if to == 1 {
+                        let controller = ReaderProfileEditAvailabilityViewController()
+                        controller.uid = self.uid
+                        controller.timeSlotList = self.items
+                        controller.modalPresentationStyle = .fullScreen
+                        self.present(controller, animated: false, completion: nil)
+                    }
+                    else if to == 2 {
+                        let controller = ReaderProfileEditSkillViewController()
+                        controller.uid = self.uid
+                        controller.items = self.skills
+                        controller.modalPresentationStyle = .fullScreen
+                        self.present(controller, animated: false, completion: nil)
+                    }
+                }
+            }
+            catch {
+                DispatchQueue.main.async {
+                    hideIndicator(sender: nil);
+                    Toast.show(message: "Something went wrong. try again later", controller: self)
+                }
+            }
+        }
     }
     fileprivate func createNavController(for rootViewController: UIViewController,
                                                     title: String,

@@ -198,7 +198,7 @@ class PerfectSelfWebAPI
         return executeAPI(with: "PUT", apiPath: "ReaderProfiles/\(uid)", json: json, completionHandler:completionHandler)
     }
     
-    func getReaders(readerName: String?, isSponsored: Bool?, isAvailableSoon: Bool?, isTopRated: Bool?, isOnline: Bool?, availableTimeSlotType: Int?, availableFrom: String?, availableTo: String?, minPrice: Float?, maxPrice: Float?, gender: Int?, sortBy: Int?, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> Void
+    func getReaders(readerName: String?, isSponsored: Bool?, isAvailableSoon: Bool?, isTopRated: Bool?, isOnline: Bool?, availableTimeSlotType: Int?, availableFrom: String?, availableTo: String?, minPrice: Float?, maxPrice: Float?, gender: [Int]?, sortBy: Int?, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> Void
     {
         var params = ""
         var isParamsExist = false
@@ -234,8 +234,13 @@ class PerfectSelfWebAPI
             params += (isParamsExist ? "&":"") + "minPrice=\(minPrice!)&maxPrice=\(maxPrice!)"
             isParamsExist = true
         }
-        if gender != nil {
-            params += (isParamsExist ? "&":"") + "gender=\(gender!)"
+        if gender != nil && gender!.count > 0 {
+            params += (isParamsExist ? "&":"")
+            
+            for (index, gend) in gender!.enumerated() {
+                params += "genders=\(gend)"
+                if(index + 1 < gender!.count) {params += "&"}
+            }
             isParamsExist = true
         }
         if sortBy != nil {

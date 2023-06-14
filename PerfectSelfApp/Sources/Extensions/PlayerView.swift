@@ -83,6 +83,7 @@ class PlayerView: UIView {
             }
             player = AVPlayer(playerItem: playerItem)
             playerLayer.player = player
+            playerLayer.videoGravity = AVLayerVideoGravity.resizeAspectFill
             player?.actionAtItemEnd = .pause
             addObserversPlayer(avPlayer: player!)
             addObserversVideoItem(playerItem: playerItem)

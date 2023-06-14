@@ -109,11 +109,15 @@ class ActorReaderDetailViewController: UIViewController , UICollectionViewDataSo
                     self.scoreAndReviewCount.text = "\(item.score) (\(item.bookPassCount))"
                     self.reader_about.text = item.about
                     self.reader_hourly.text = "$\(item.hourlyPrice/4) / 15 mins"
-                    self.skills = item.skills.components(separatedBy: ",")
+                    self.skills.removeAll()
+                    if !item.skills.isEmpty {
+                        self.skills = item.skills.components(separatedBy: ",")
+                    }
                     self.skillList.reloadData()
-                    
+ 
                     self.items.removeAll()
 //                    self.items.append(contentsOf: item.allAvailability)
+                    
                     for availibility in item.allAvailability {
                         let df = DateFormatter()
                         df.dateFormat = "yyyy-MM-dd"
@@ -358,19 +362,15 @@ class ActorReaderDetailViewController: UIViewController , UICollectionViewDataSo
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         // add the code here to perform action on the cell
-        let controller = ActorBookAppointmentViewController();
-        controller.rUid = uid
-        controller.rName = self.reader_name.text ?? "Reader"
-        controller.selectedDate = self.items[indexPath.row].date
-        controller.timeSlotList = self.items
-        controller.modalPresentationStyle = .fullScreen
-     
-//        let transition = CATransition()
-//        transition.duration = 0.5 // Set animation duration
-//        transition.type = CATransitionType.push // Set transition type to push
-//        transition.subtype = CATransitionSubtype.fromRight // Set transition subtype to from right
-//        self.view.window?.layer.add(transition, forKey: kCATransition) // Add transition to window layer
-        self.present(controller, animated: false)
+        if collectionView == timeslotList {
+            let controller = ActorBookAppointmentViewController();
+            controller.rUid = uid
+            controller.rName = self.reader_name.text ?? "Reader"
+            controller.selectedDate = self.items[indexPath.row].date
+            controller.timeSlotList = self.items
+            controller.modalPresentationStyle = .fullScreen
+            self.present(controller, animated: false)
+        }
     }
     @IBAction func ShowOverview(_ sender: UIButton) {
         sender.tintColor = UIColor(rgb: 0x4063FF)

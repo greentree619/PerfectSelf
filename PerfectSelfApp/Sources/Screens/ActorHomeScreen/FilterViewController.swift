@@ -9,9 +9,7 @@
 import UIKit
 import RangeSeekSlider
 protocol FilterDelegate {
-    func setFilterParams(isAvailableSoon: Bool,isOnline: Bool,timeSlotType: Int,
-                         isCommercialRead: Bool,isShortRead: Bool,isExtendedRead: Bool
-                         ,isDateSelected: Bool,fromDate: Date,toDate: Date, minPrice: Float, maxPrice: Float,gender: Int, isExplicitRead: Bool)
+    func fetchReadersWithFilter(viewController: UIViewController)
 }
 
 class FilterViewController: UIViewController, SelectDateDelegate {
@@ -19,33 +17,41 @@ class FilterViewController: UIViewController, SelectDateDelegate {
         let df = DateFormatter()
         df.dateFormat = "MM/dd/yyyy"
         text_date_range.text = df.string(from: fromDate) + "-" + df.string(from: toDate)
-        isDateSelected = true
-        self.fromDate = fromDate
-        self.toDate = toDate
+        Filter["isDateSelected"] = true
+        Filter["fromDate"] = fromDate
+        Filter["toDate"] = toDate
     }
-    var delegate: FilterDelegate?
+    var fd: FilterDelegate?
     var originType = 0
     
-    var isAvailableSoon = false
-    var isOnline = true
-    var timeSlotType = 0
-    var isCommercialRead = true
-    var isShortRead = false
-    var isExtendedRead = false
-    var isDateSelected = false
-    var fromDate = Date()
-    var toDate = Date()
-    var isMaleSelected = false
-    var isFemaleSelected = false
-    var isExplicitRead = false
-    
+    var genderCheckAry: [UIButton] = [UIButton]()
     var parentUIViewController : UIViewController?
     
+    @IBOutlet weak var maleGenderchk: UIButton!
+    @IBOutlet weak var fmaleGenderChk: UIButton!
+    @IBOutlet weak var nonBinGenderChk: UIButton!
+    @IBOutlet weak var genderqueerGenderChk: UIButton!
+    @IBOutlet weak var genderFluidGenChk: UIButton!
+    @IBOutlet weak var transGenderChk: UIButton!
+    @IBOutlet weak var agenderGenderChk: UIButton!
+    @IBOutlet weak var bigGenderChk: UIButton!
+    @IBOutlet weak var twoSpiritGenderChk: UIButton!
+    @IBOutlet weak var androgynousGenderChk: UIButton!
+    @IBOutlet weak var unkownGenderChk: UIButton!
+    @IBOutlet weak var allGenderChk: UIButton!
+    
+    @IBOutlet weak var btn_availablesoon: UIButton!
+    @IBOutlet weak var btn_onlinenow: UIButton!
     @IBOutlet weak var btn_standby: UIButton!
     @IBOutlet weak var btn_45min: UIButton!
     @IBOutlet weak var btn_30min: UIButton!
     @IBOutlet weak var btn_15min: UIButton!
     @IBOutlet weak var sliderView: UIStackView!
+    @IBOutlet weak var btn_comercialread: UIButton!
+    @IBOutlet weak var btn_shortread: UIButton!
+    @IBOutlet weak var btn_extendedread: UIButton!
+    
+    @IBOutlet weak var btn_explicitChk: UIButton!
     @IBOutlet weak var text_date_range: UITextField!
     
     var rangeSlider : RangeSeekSlider = RangeSeekSlider(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
@@ -53,15 +59,128 @@ class FilterViewController: UIViewController, SelectDateDelegate {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        genderCheckAry.removeAll()
+        genderCheckAry = [maleGenderchk, fmaleGenderChk, nonBinGenderChk, genderqueerGenderChk, genderFluidGenChk, transGenderChk, agenderGenderChk, bigGenderChk, twoSpiritGenderChk, androgynousGenderChk, unkownGenderChk]
         
-        rangeSlider = RangeSeekSlider(frame: CGRect(x: 0, y: 0, width: sliderView.frame.width-20, height: sliderView.frame.height))
+        rangeSlider = RangeSeekSlider(frame: CGRect(x: 0, y: 0, width: sliderView.frame.width-35, height: sliderView.frame.height))
         sliderView.addSubview(rangeSlider)
         rangeSlider.minValue = 0
         rangeSlider.maxValue = 100
-        rangeSlider.selectedMinValue = 10
-        rangeSlider.selectedMaxValue = 30
         rangeSlider.step = 1
         
+        // initialize the state
+        if (Filter["isAvailableSoon"] as! Bool) {
+            btn_availablesoon.backgroundColor = UIColor(rgb: 0x4865FF)
+            btn_availablesoon.setTitleColor(.white, for: .normal)
+        }
+        else {
+            btn_availablesoon.backgroundColor = UIColor(rgb: 0xFFFFFF)
+            btn_availablesoon.setTitleColor(UIColor(rgb: 0x4865FF), for: .normal)
+        }
+        if Filter["isOnlineNow"] as! Bool {
+            btn_onlinenow.backgroundColor = UIColor(rgb: 0x4865FF)
+            btn_onlinenow.setTitleColor(.white, for: .normal)
+        }
+        else {
+            btn_onlinenow.backgroundColor = UIColor(rgb: 0xFFFFFF)
+            btn_onlinenow.setTitleColor(UIColor(rgb: 0x4865FF), for: .normal)
+        }
+        let tType = Filter["timeSlotType"] as! Int
+        if tType == 0 {
+            btn_15min.backgroundColor = UIColor(rgb: 0x4865FF)
+            btn_15min.setTitleColor(.white, for: .normal)
+            btn_30min.backgroundColor = UIColor(rgb: 0xFFFFFF)
+            btn_30min.setTitleColor(UIColor(rgb: 0x4865FF), for: .normal)
+            btn_45min.backgroundColor = UIColor(rgb: 0xFFFFFF)
+            btn_45min.setTitleColor(UIColor(rgb: 0x4865FF), for: .normal)
+            btn_standby.backgroundColor = UIColor(rgb: 0xFFFFFF)
+            btn_standby.setTitleColor(UIColor(rgb: 0x4865FF), for: .normal)
+        } else if tType == 1 {
+            btn_30min.backgroundColor = UIColor(rgb: 0x4865FF)
+            btn_30min.setTitleColor(.white, for: .normal)
+            btn_15min.backgroundColor = UIColor(rgb: 0xFFFFFF)
+            btn_15min.setTitleColor(UIColor(rgb: 0x4865FF), for: .normal)
+            btn_45min.backgroundColor = UIColor(rgb: 0xFFFFFF)
+            btn_45min.setTitleColor(UIColor(rgb: 0x4865FF), for: .normal)
+            btn_standby.backgroundColor = UIColor(rgb: 0xFFFFFF)
+            btn_standby.setTitleColor(UIColor(rgb: 0x4865FF), for: .normal)
+        }
+        else if tType == 2 {
+            btn_45min.backgroundColor = UIColor(rgb: 0x4865FF)
+            btn_45min.setTitleColor(.white, for: .normal)
+            btn_30min.backgroundColor = UIColor(rgb: 0xFFFFFF)
+            btn_30min.setTitleColor(UIColor(rgb: 0x4865FF), for: .normal)
+            btn_15min.backgroundColor = UIColor(rgb: 0xFFFFFF)
+            btn_15min.setTitleColor(UIColor(rgb: 0x4865FF), for: .normal)
+            btn_standby.backgroundColor = UIColor(rgb: 0xFFFFFF)
+            btn_standby.setTitleColor(UIColor(rgb: 0x4865FF), for: .normal)
+        } else if tType == 3 {
+            btn_standby.backgroundColor = UIColor(rgb: 0x4865FF)
+            btn_standby.setTitleColor(.white, for: .normal)
+            btn_30min.backgroundColor = UIColor(rgb: 0xFFFFFF)
+            btn_30min.setTitleColor(UIColor(rgb: 0x4865FF), for: .normal)
+            btn_45min.backgroundColor = UIColor(rgb: 0xFFFFFF)
+            btn_45min.setTitleColor(UIColor(rgb: 0x4865FF), for: .normal)
+            btn_15min.backgroundColor = UIColor(rgb: 0xFFFFFF)
+            btn_15min.setTitleColor(UIColor(rgb: 0x4865FF), for: .normal)
+        }
+        else {
+            Toast.show(message: "Unknown TypeSlot Type", controller: self)
+        }
+        
+        if (Filter["isDateSelected"] as! Bool) {
+            let df = DateFormatter()
+            df.dateFormat = "MM/dd/yyyy"
+            let fromDate = Filter["fromDate"] as! Date
+            let toDate = Filter["toDate"] as! Date
+            text_date_range.text = df.string(from: fromDate) + "-" + df.string(from: toDate)
+        }
+        rangeSlider.selectedMinValue = CGFloat(Filter["priceMinVal"] as! Int)
+        rangeSlider.selectedMaxValue = CGFloat(Filter["priceMaxVal"] as! Int)
+        
+        maleGenderchk.isSelected = Filter["isMale"] as! Bool
+        fmaleGenderChk.isSelected = Filter["isFemale"] as! Bool
+        nonBinGenderChk.isSelected = Filter["isNonBinary"] as! Bool
+        genderqueerGenderChk.isSelected = Filter["isGenderqueer"] as! Bool
+        genderFluidGenChk.isSelected = Filter["isGenderfluid"] as! Bool
+        transGenderChk.isSelected = Filter["isTransgender"] as! Bool
+        agenderGenderChk.isSelected = Filter["isAgender"] as! Bool
+        bigGenderChk.isSelected = Filter["isBigender"] as! Bool
+        twoSpiritGenderChk.isSelected = Filter["isTwoSpirit"] as! Bool
+        androgynousGenderChk.isSelected = Filter["isAndrogynous"] as! Bool
+        unkownGenderChk.isSelected = Filter["isUnknown"] as! Bool
+        allGenderChk.isSelected = Filter["isAll"] as! Bool
+        if (Filter["isCommercialRead"] as! Bool) {
+            btn_comercialread.backgroundColor = UIColor(rgb: 0x4865FF)
+            btn_comercialread.setTitleColor(.white, for: .normal)
+            btn_comercialread.tintColor = .white
+        }
+        else {
+            btn_comercialread.backgroundColor = UIColor(rgb: 0xFFFFFF)
+            btn_comercialread.setTitleColor(UIColor(rgb: 0x4865FF), for: .normal)
+            btn_comercialread.tintColor = UIColor(rgb: 0x4865FF)
+        }
+        if (Filter["isShortRead"] as! Bool) {
+            btn_shortread.backgroundColor = UIColor(rgb: 0x4865FF)
+            btn_shortread.setTitleColor(.white, for: .normal)
+            btn_shortread.tintColor = .white
+        }
+        else {
+            btn_shortread.backgroundColor = UIColor(rgb: 0xFFFFFF)
+            btn_shortread.setTitleColor(UIColor(rgb: 0x4865FF), for: .normal)
+            btn_shortread.tintColor = UIColor(rgb: 0x4865FF)
+        }
+        if (Filter["isExtendedRead"] as! Bool) {
+            btn_extendedread.backgroundColor = UIColor(rgb: 0x4865FF)
+            btn_extendedread.setTitleColor(.white, for: .normal)
+            btn_extendedread.tintColor = .white
+        }
+        else {
+            btn_extendedread.backgroundColor = UIColor(rgb: 0xFFFFFF)
+            btn_extendedread.setTitleColor(UIColor(rgb: 0x4865FF), for: .normal)
+            btn_extendedread.tintColor = UIColor(rgb: 0x4865FF)
+        }
+        btn_explicitChk.isSelected = Filter["isExplicitRead"] as! Bool
     }
     @IBAction func tapCallback(_ sender: UITapGestureRecognizer) {
           self.dismiss(animated: true);
@@ -78,63 +197,191 @@ class FilterViewController: UIViewController, SelectDateDelegate {
         self.view.window?.layer.add(transition, forKey: kCATransition) // Add transition to window layer
         self.present(controller, animated: false, completion: nil)
     }
+    
     @IBAction func ApplyFilter(_ sender: UIButton) {
+        Filter["priceMinVal"] = Int(rangeSlider.selectedMinValue)
+        Filter["priceMaxVal"] = Int(rangeSlider.selectedMaxValue)
+        
         self.dismiss(animated: true) {
             if self.originType == 0 {
                 let controller = ActorFindReaderViewController()
                 
-                controller.isAvailableSoon = self.isAvailableSoon
-                controller.isOnline = self.isOnline
-                controller.timeSlotType = self.timeSlotType
-                controller.isDateSelected = self.isDateSelected
-                controller.fromDate = self.fromDate
-                controller.toDate = self.toDate
-                controller.minPrice = Float(self.rangeSlider.selectedMinValue)
-                controller.maxPrice = Float(self.rangeSlider.selectedMaxValue)
-                if (self.isMaleSelected && self.isFemaleSelected) || (!self.isMaleSelected && !self.isFemaleSelected) {
-                    controller.gender = -1
-                }
-                else {
-                    controller.gender = self.isMaleSelected ? 0 : 1
-                }
-                controller.isCommercialRead = self.isCommercialRead
-                controller.isShortRead = self.isShortRead
-                controller.isExtendedRead = self.isExtendedRead
-                controller.isComfortableWithExplicitRead = self.isExplicitRead
+//                controller.isAvailableSoon = self.isAvailableSoon
+//                controller.isOnline = self.isOnline
+//                controller.timeSlotType = self.timeSlotType
+//                controller.isDateSelected = self.isDateSelected
+//                controller.fromDate = self.fromDate
+//                controller.toDate = self.toDate
+//                controller.minPrice = Float(self.rangeSlider.selectedMinValue)
+//                controller.maxPrice = Float(self.rangeSlider.selectedMaxValue)
+//                controller.gender = self.getSelectedGenderAry()
+//                controller.isCommercialRead = self.isCommercialRead
+//                controller.isShortRead = self.isShortRead
+//                controller.isExtendedRead = self.isExtendedRead
+//                controller.isComfortableWithExplicitRead = self.isExplicitRead
                 
                 self.parentUIViewController?.navigationController?.pushViewController(controller, animated: true)
             }
             else {
                 // call delegate
-                var mg = -1
-                if (self.isMaleSelected && self.isFemaleSelected) || (!self.isMaleSelected && !self.isFemaleSelected) {
-                    mg = -1
-                }
-                else {
-                    mg = self.isMaleSelected ? 0 : 1
-                }
-                self.delegate?.setFilterParams(isAvailableSoon: self.isAvailableSoon, isOnline: self.isOnline, timeSlotType: self.timeSlotType, isCommercialRead: self.isCommercialRead, isShortRead: self.isShortRead, isExtendedRead: self.isExplicitRead, isDateSelected: self.isDateSelected, fromDate: self.fromDate, toDate: self.toDate, minPrice: Float(self.rangeSlider.selectedMinValue), maxPrice: Float(self.rangeSlider.selectedMaxValue), gender: mg, isExplicitRead: self.isExplicitRead)
+                self.fd?.fetchReadersWithFilter(viewController: self)
             }
-          
         }
     }
+    
     @IBAction func SelectMale(_ sender: UIButton) {
         sender.isSelected = !sender.isSelected
-        isMaleSelected = !isMaleSelected
+        //isMaleSelected = !isMaleSelected
+        Filter["isMale"] = sender.isSelected
     }
+    
     @IBAction func SelectFemale(_ sender: UIButton) {
         sender.isSelected = !sender.isSelected
-        isFemaleSelected = !isFemaleSelected
+        //isFemaleSelected = !isFemaleSelected
+        Filter["isFemale"] = sender.isSelected
+    }
+    
+    @IBAction func nonBinaryDidTap(_ sender: UIButton) {
+        sender.isSelected = !sender.isSelected
+        Filter["isNonBinary"] = sender.isSelected
+    }
+    
+    @IBAction func GenderqueerDidTap(_ sender: UIButton) {
+        sender.isSelected = !sender.isSelected
+        Filter["isGenderqueer"] = sender.isSelected
+    }
+    
+    @IBAction func genderfluidDidTap(_ sender: UIButton) {
+        sender.isSelected = !sender.isSelected
+        Filter["isGenderfluid"] = sender.isSelected
+    }
+    
+    @IBAction func transgenderDidTap(_ sender: UIButton) {
+        sender.isSelected = !sender.isSelected
+        Filter["isTransgender"] = sender.isSelected
+    }
+    
+    @IBAction func agenderDidTap(_ sender: UIButton) {
+        sender.isSelected = !sender.isSelected
+        Filter["isAgender"] = sender.isSelected
+    }
+    
+    @IBAction func bigenderDidTap(_ sender: UIButton) {
+        sender.isSelected = !sender.isSelected
+        Filter["isBigender"] = sender.isSelected
+    }
+    
+    @IBAction func twoSpiritDidTap(_ sender: UIButton) {
+        sender.isSelected = !sender.isSelected
+        Filter["isTwoSpirit"] = sender.isSelected
+    }
+    
+    @IBAction func androgynousDidTap(_ sender: UIButton) {
+        sender.isSelected = !sender.isSelected
+        Filter["isAndrogynous"] = sender.isSelected
+    }
+    
+    @IBAction func unkownDidTap(_ sender: UIButton) {
+        sender.isSelected = !sender.isSelected
+        Filter["isUnknown"] = sender.isSelected
+    }
+    
+    @IBAction func allGenderDidTap(_ sender: UIButton) {
+        sender.isSelected = !sender.isSelected
+        maleGenderchk.isSelected = sender.isSelected
+        fmaleGenderChk.isSelected = sender.isSelected
+        nonBinGenderChk.isSelected = sender.isSelected
+        genderqueerGenderChk.isSelected = sender.isSelected
+        genderFluidGenChk.isSelected = sender.isSelected
+        transGenderChk.isSelected = sender.isSelected
+        agenderGenderChk.isSelected = sender.isSelected
+        bigGenderChk.isSelected = sender.isSelected
+        twoSpiritGenderChk.isSelected = sender.isSelected
+        androgynousGenderChk.isSelected = sender.isSelected
+        unkownGenderChk.isSelected = sender.isSelected
+        allGenderChk.isSelected = sender.isSelected
+        
+        Filter["isAll"] = sender.isSelected
+        Filter["isMale"] = sender.isSelected
+        Filter["isFemale"] = sender.isSelected
+        Filter["isNonBinary"] = sender.isSelected
+        Filter["isGenderqueer"] = sender.isSelected
+        Filter["isGenderfluid"] = sender.isSelected
+        Filter["isTransgender"] = sender.isSelected
+        Filter["isAgender"] = sender.isSelected
+        Filter["isBigender"] = sender.isSelected
+        Filter["isTwoSpirit"] = sender.isSelected
+        Filter["isAndrogynous"] = sender.isSelected
+        Filter["isUnknown"] = sender.isSelected
     }
     
     @IBAction func CloseFilterModal(_ sender: UIButton) {
-        self.dismiss(animated: true)
+        // Initialize the Filter state
+        Filter["isAvailableSoon"] = false
+        Filter["isOnlineNow"] = true
+        Filter["timeSlotType"] = 0
+        Filter["isDateSelected"] = false
+        Filter["fromDate"] = Date()
+        Filter["toDate"] = Date()
+        Filter["priceMinVal"] = 0
+        Filter["priceMaxVal"] = 0
+        Filter["isMale"] = false
+        Filter["isFemale"] = false
+        Filter["isNonBinary"] = false
+        Filter["isGenderqueer"] = false
+        Filter["isGenderfluid"] = false
+        Filter["isTransgender"] = false
+        Filter["isAgender"] = false
+        Filter["isBigender"] = false
+        Filter["isTwoSpirit"] = false
+        Filter["isAndrogynous"] = false
+        Filter["isUnknown"] = false
+        Filter["isAll"] = false
+        Filter["isCommercialRead"] = true
+        Filter["isShortRead"] = false
+        Filter["isExtendedRead"] = false
+        Filter["isExplicitRead"] = false
+
+        btn_onlinenow.backgroundColor = UIColor(rgb: 0x4865FF)
+        btn_onlinenow.setTitleColor(.white, for: .normal)
+        btn_availablesoon.backgroundColor = UIColor(rgb: 0xFFFFFF)
+        btn_availablesoon.setTitleColor(UIColor(rgb: 0x4865FF), for: .normal)
+        btn_15min.backgroundColor = UIColor(rgb: 0x4865FF)
+        btn_15min.setTitleColor(.white, for: .normal)
+        btn_30min.backgroundColor = UIColor(rgb: 0xFFFFFF)
+        btn_30min.setTitleColor(UIColor(rgb: 0x4865FF), for: .normal)
+        btn_45min.backgroundColor = UIColor(rgb: 0xFFFFFF)
+        btn_45min.setTitleColor(UIColor(rgb: 0x4865FF), for: .normal)
+        btn_standby.backgroundColor = UIColor(rgb: 0xFFFFFF)
+        btn_standby.setTitleColor(UIColor(rgb: 0x4865FF), for: .normal)
+        text_date_range.text = ""
+        rangeSlider.selectedMinValue = 0
+        rangeSlider.selectedMaxValue = 100
+
+        maleGenderchk.isSelected = false
+        fmaleGenderChk.isSelected = false
+        nonBinGenderChk.isSelected = false
+        genderqueerGenderChk.isSelected = false
+        genderFluidGenChk.isSelected = false
+        transGenderChk.isSelected = false
+        agenderGenderChk.isSelected = false
+        bigGenderChk.isSelected = false
+        twoSpiritGenderChk.isSelected = false
+        androgynousGenderChk.isSelected = false
+        unkownGenderChk.isSelected = false
+        allGenderChk.isSelected = false
+        btn_comercialread.backgroundColor = UIColor(rgb: 0x4865FF)
+        btn_comercialread.setTitleColor(.white, for: .normal)
+        btn_shortread.backgroundColor = UIColor(rgb: 0xFFFFFF)
+        btn_shortread.setTitleColor(UIColor(rgb: 0x4865FF), for: .normal)
+        btn_extendedread.backgroundColor = UIColor(rgb: 0xFFFFFF)
+        btn_extendedread.setTitleColor(UIColor(rgb: 0x4865FF), for: .normal)
+        btn_explicitChk.isSelected = false
     }
-    
     @IBAction func SelectOnlineNow(_ sender: UIButton) {
-        isOnline = !isOnline
+        Filter["isOnlineNow"] = !(Filter["isOnlineNow"] as! Bool)
         
-        if isOnline {
+        if Filter["isOnlineNow"] as! Bool {
             sender.backgroundColor = UIColor(rgb: 0x4865FF)
             sender.setTitleColor(.white, for: .normal)
             
@@ -146,9 +393,8 @@ class FilterViewController: UIViewController, SelectDateDelegate {
     }
     
     @IBAction func SelectAvailableSoon(_ sender: UIButton) {
-        isAvailableSoon = !isAvailableSoon
-        
-        if isAvailableSoon {
+        Filter["isAvailableSoon"] = !(Filter["isAvailableSoon"] as! Bool)
+        if (Filter["isAvailableSoon"] as! Bool) {
             sender.backgroundColor = UIColor(rgb: 0x4865FF)
             sender.setTitleColor(.white, for: .normal)
             
@@ -160,7 +406,8 @@ class FilterViewController: UIViewController, SelectDateDelegate {
     }
     
     @IBAction func Select15TimeSlot(_ sender: UIButton) {
-        timeSlotType = 0
+        Filter["timeSlotType"] = 0
+        
         sender.backgroundColor = UIColor(rgb: 0x4865FF)
         sender.setTitleColor(.white, for: .normal)
         
@@ -173,7 +420,8 @@ class FilterViewController: UIViewController, SelectDateDelegate {
     }
     
     @IBAction func Select30TimeSlot(_ sender: UIButton) {
-        timeSlotType = 1
+        Filter["timeSlotType"] = 1
+        
         sender.backgroundColor = UIColor(rgb: 0x4865FF)
         sender.setTitleColor(.white, for: .normal)
         
@@ -186,7 +434,8 @@ class FilterViewController: UIViewController, SelectDateDelegate {
     }
     
     @IBAction func Select45OverTimeSlot(_ sender: UIButton) {
-        timeSlotType = 2
+        Filter["timeSlotType"] = 2
+        
         sender.backgroundColor = UIColor(rgb: 0x4865FF)
         sender.setTitleColor(.white, for: .normal)
         
@@ -199,7 +448,8 @@ class FilterViewController: UIViewController, SelectDateDelegate {
     }
     
     @IBAction func SelectStandByTimeSlot(_ sender: UIButton) {
-        timeSlotType = 3
+        Filter["timeSlotType"] = 3
+        
         sender.backgroundColor = UIColor(rgb: 0x4865FF)
         sender.setTitleColor(.white, for: .normal)
         
@@ -212,9 +462,9 @@ class FilterViewController: UIViewController, SelectDateDelegate {
     }
     
     @IBAction func SelectCommercialRead(_ sender: UIButton) {
-        isCommercialRead = !isCommercialRead
+        Filter["isCommercialRead"] = !(Filter["isCommercialRead"] as! Bool)
         
-        if isCommercialRead {
+        if (Filter["isCommercialRead"] as! Bool) {
             sender.backgroundColor = UIColor(rgb: 0x4865FF)
             sender.setTitleColor(.white, for: .normal)
             sender.tintColor = .white
@@ -227,9 +477,9 @@ class FilterViewController: UIViewController, SelectDateDelegate {
     }
     
     @IBAction func SelectShortRead(_ sender: UIButton) {
-        isShortRead = !isShortRead
+        Filter["isShortRead"] = !(Filter["isShortRead"] as! Bool)
         
-        if isShortRead {
+        if (Filter["isShortRead"] as! Bool) {
             sender.backgroundColor = UIColor(rgb: 0x4865FF)
             sender.setTitleColor(.white, for: .normal)
             sender.tintColor = .white
@@ -242,9 +492,9 @@ class FilterViewController: UIViewController, SelectDateDelegate {
     }
     
     @IBAction func SelectExtendedRead(_ sender: UIButton) {
-        isExtendedRead = !isExtendedRead
+        Filter["isExtendedRead"] = !(Filter["isExtendedRead"] as! Bool)
         
-        if isExtendedRead {
+        if (Filter["isExtendedRead"] as! Bool) {
             sender.backgroundColor = UIColor(rgb: 0x4865FF)
             sender.setTitleColor(.white, for: .normal)
             sender.tintColor = .white
@@ -258,8 +508,17 @@ class FilterViewController: UIViewController, SelectDateDelegate {
     
     @IBAction func SelectExplicitRead(_ sender: UIButton) {
         sender.isSelected = !sender.isSelected
-        isExplicitRead = !isExplicitRead
+        Filter["isExplicitRead"] = !(Filter["isExplicitRead"] as! Bool)
     }
+    
+//    func getSelectedGenderAry()->[Int]
+//    {
+//        var ret = [Int]()
+//        for (index, chk) in genderCheckAry.enumerated() {
+//            if( chk.isSelected ) {ret.append(index)}
+//        }
+//        return ret
+//    }
     /*
     // MARK: - Navigation
 

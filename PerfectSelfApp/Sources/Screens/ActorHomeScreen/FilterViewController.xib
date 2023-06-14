@@ -11,12 +11,30 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="FilterViewController" customModule="PerfectSelf" customModuleProvider="target">
             <connections>
+                <outlet property="agenderGenderChk" destination="piN-cT-yds" id="YZ5-bL-N9H"/>
+                <outlet property="allGenderChk" destination="ohL-WE-xPq" id="XET-5R-o1N"/>
+                <outlet property="androgynousGenderChk" destination="mRi-8U-Dy4" id="WRb-JK-01K"/>
+                <outlet property="bigGenderChk" destination="f7y-k1-ojD" id="lxs-Md-sFL"/>
                 <outlet property="btn_15min" destination="gN6-78-cbK" id="51H-Pd-txp"/>
                 <outlet property="btn_30min" destination="Oqe-zK-bQH" id="6NO-ed-WLI"/>
                 <outlet property="btn_45min" destination="baB-dq-YlT" id="4Ow-iT-Rza"/>
+                <outlet property="btn_availablesoon" destination="Krg-B9-xsA" id="2Aa-vp-bRS"/>
+                <outlet property="btn_comercialread" destination="Pdu-qV-5qV" id="jLI-kw-zcD"/>
+                <outlet property="btn_explicitChk" destination="mzS-oP-5u4" id="fdD-z5-nuK"/>
+                <outlet property="btn_extendedread" destination="pDe-jw-aNQ" id="rf4-t7-Tt8"/>
+                <outlet property="btn_onlinenow" destination="Okj-BL-Hl5" id="naV-iL-IuH"/>
+                <outlet property="btn_shortread" destination="2u1-ie-Rld" id="18f-N2-gbR"/>
                 <outlet property="btn_standby" destination="JXk-qf-NLh" id="bEm-73-3sG"/>
+                <outlet property="fmaleGenderChk" destination="rmz-p2-J2c" id="YRN-5F-gKV"/>
+                <outlet property="genderFluidGenChk" destination="0Gi-Yw-Yri" id="xUh-Be-EDy"/>
+                <outlet property="genderqueerGenderChk" destination="Iee-vV-h8J" id="Jdk-Wr-sBU"/>
+                <outlet property="maleGenderchk" destination="hwd-M6-LCn" id="JCo-lz-Rqw"/>
+                <outlet property="nonBinGenderChk" destination="KMd-Jr-gvl" id="xRO-0a-JWW"/>
                 <outlet property="sliderView" destination="yo1-us-5hb" id="jpH-7M-fN0"/>
                 <outlet property="text_date_range" destination="2su-gN-dNx" id="x0Z-rp-dVF"/>
+                <outlet property="transGenderChk" destination="aEl-0R-4nZ" id="b2K-e5-tMt"/>
+                <outlet property="twoSpiritGenderChk" destination="Po4-Pt-BoB" id="3ir-2U-rAw"/>
+                <outlet property="unkownGenderChk" destination="2wS-bY-V7r" id="qYt-Sa-RUd"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -70,7 +88,7 @@
                                     <rect key="frame" x="0.0" y="0.0" width="374" height="426"/>
                                     <subviews>
                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="a1W-4S-nZO">
-                                            <rect key="frame" x="0.0" y="0.0" width="374" height="567"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="374" height="623.66666666666663"/>
                                             <subviews>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="02q-yS-EOR">
                                                     <rect key="frame" x="0.0" y="0.0" width="374" height="185"/>
@@ -367,53 +385,210 @@
                                                         <constraint firstAttribute="height" constant="5" id="KWV-mw-ncC"/>
                                                     </constraints>
                                                 </imageView>
-                                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="h4g-n8-swM">
-                                                    <rect key="frame" x="0.0" y="335" width="374" height="80"/>
+                                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="top" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="h4g-n8-swM" userLabel="Gender Stack View">
+                                                    <rect key="frame" x="0.0" y="335" width="374" height="136.66666666666663"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Gender:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5F4-IN-vpw">
-                                                            <rect key="frame" x="0.0" y="0.0" width="62.333333333333336" height="26.666666666666668"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="62.333333333333336" height="19.333333333333332"/>
                                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hwd-M6-LCn">
-                                                            <rect key="frame" x="0.0" y="26.666666666666629" width="55" height="26.666666666666671"/>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                            <inset key="contentEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                                            <state key="normal" title="Male" image="icons8-unchecked-checkbox-14">
-                                                                <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                            </state>
-                                                            <state key="selected" title="Male" image="icons8-checked-checkbox-14"/>
-                                                            <connections>
-                                                                <action selector="SelectMale:" destination="-1" eventType="touchUpInside" id="R1E-ar-v17"/>
-                                                            </connections>
-                                                        </button>
-                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rmz-p2-J2c">
-                                                            <rect key="frame" x="0.0" y="53.333333333333364" width="71" height="26.666666666666664"/>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                            <inset key="contentEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                                            <state key="normal" title="Female" image="icons8-unchecked-checkbox-14">
-                                                                <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                            </state>
-                                                            <state key="selected" title="Female" image="icons8-checked-checkbox-14"/>
-                                                            <connections>
-                                                                <action selector="SelectFemale:" destination="-1" eventType="touchUpInside" id="DzA-tZ-mzG"/>
-                                                            </connections>
-                                                        </button>
+                                                        <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="gof-bH-rdV">
+                                                            <rect key="frame" x="0.0" y="29.333333333333371" width="374" height="19.333333333333329"/>
+                                                            <subviews>
+                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hwd-M6-LCn">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="124.66666666666667" height="19.333333333333332"/>
+                                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                                    <inset key="contentEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                                                    <state key="normal" title="Male" image="icons8-unchecked-checkbox-14">
+                                                                        <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                    </state>
+                                                                    <state key="selected" title="Male" image="icons8-checked-checkbox-14"/>
+                                                                    <connections>
+                                                                        <action selector="SelectMale:" destination="-1" eventType="touchUpInside" id="R1E-ar-v17"/>
+                                                                    </connections>
+                                                                </button>
+                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rmz-p2-J2c">
+                                                                    <rect key="frame" x="124.66666666666666" y="0.0" width="124.66666666666666" height="19.333333333333332"/>
+                                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                                    <inset key="contentEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                                    <state key="normal" title="Female" image="icons8-unchecked-checkbox-14">
+                                                                        <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                    </state>
+                                                                    <state key="selected" title="Female" image="icons8-checked-checkbox-14"/>
+                                                                    <connections>
+                                                                        <action selector="SelectFemale:" destination="-1" eventType="touchUpInside" id="DzA-tZ-mzG"/>
+                                                                    </connections>
+                                                                </button>
+                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KMd-Jr-gvl">
+                                                                    <rect key="frame" x="249.33333333333329" y="0.0" width="124.66666666666666" height="19.333333333333332"/>
+                                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                                    <inset key="contentEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                                    <state key="normal" title="NonBinary" image="icons8-unchecked-checkbox-14">
+                                                                        <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                    </state>
+                                                                    <state key="selected" title="NonBinary" image="icons8-checked-checkbox-14"/>
+                                                                    <connections>
+                                                                        <action selector="nonBinaryDidTap:" destination="-1" eventType="touchUpInside" id="pY2-e8-H5F"/>
+                                                                    </connections>
+                                                                </button>
+                                                            </subviews>
+                                                        </stackView>
+                                                        <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="42P-JZ-937">
+                                                            <rect key="frame" x="0.0" y="58.666666666666636" width="374" height="19.333333333333336"/>
+                                                            <subviews>
+                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Iee-vV-h8J">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="124.66666666666667" height="19.333333333333332"/>
+                                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                                    <inset key="contentEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                                    <state key="normal" title="Genderqueer" image="icons8-unchecked-checkbox-14">
+                                                                        <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                    </state>
+                                                                    <state key="selected" title="Genderqueer" image="icons8-checked-checkbox-14"/>
+                                                                    <connections>
+                                                                        <action selector="GenderqueerDidTap:" destination="-1" eventType="touchUpInside" id="ClX-UI-NFr"/>
+                                                                    </connections>
+                                                                </button>
+                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0Gi-Yw-Yri">
+                                                                    <rect key="frame" x="124.66666666666666" y="0.0" width="124.66666666666666" height="19.333333333333332"/>
+                                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                                    <inset key="contentEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                                    <state key="normal" title="Genderfluid" image="icons8-unchecked-checkbox-14">
+                                                                        <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                    </state>
+                                                                    <state key="selected" title="Genderfluid" image="icons8-checked-checkbox-14"/>
+                                                                    <connections>
+                                                                        <action selector="genderfluidDidTap:" destination="-1" eventType="touchUpInside" id="YSX-hC-6XA"/>
+                                                                    </connections>
+                                                                </button>
+                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aEl-0R-4nZ">
+                                                                    <rect key="frame" x="249.33333333333329" y="0.0" width="124.66666666666666" height="19.333333333333332"/>
+                                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                                    <inset key="contentEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                                    <state key="normal" title="Transgender" image="icons8-unchecked-checkbox-14">
+                                                                        <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                    </state>
+                                                                    <state key="selected" title="Transgender" image="icons8-checked-checkbox-14"/>
+                                                                    <connections>
+                                                                        <action selector="transgenderDidTap:" destination="-1" eventType="touchUpInside" id="5i2-rd-7CG"/>
+                                                                    </connections>
+                                                                </button>
+                                                            </subviews>
+                                                        </stackView>
+                                                        <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="ggR-aQ-tj5">
+                                                            <rect key="frame" x="0.0" y="88" width="374" height="19.333333333333329"/>
+                                                            <subviews>
+                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="piN-cT-yds">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="124.66666666666667" height="19.333333333333332"/>
+                                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                                    <inset key="contentEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                                    <state key="normal" title="Agender" image="icons8-unchecked-checkbox-14">
+                                                                        <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                    </state>
+                                                                    <state key="selected" title="Agender" image="icons8-checked-checkbox-14"/>
+                                                                    <connections>
+                                                                        <action selector="agenderDidTap:" destination="-1" eventType="touchUpInside" id="Iyv-8o-DS7"/>
+                                                                    </connections>
+                                                                </button>
+                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="f7y-k1-ojD">
+                                                                    <rect key="frame" x="124.66666666666666" y="0.0" width="124.66666666666666" height="19.333333333333332"/>
+                                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                                    <inset key="contentEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                                    <state key="normal" title="Bigender" image="icons8-unchecked-checkbox-14">
+                                                                        <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                    </state>
+                                                                    <state key="selected" title="Bigender" image="icons8-checked-checkbox-14"/>
+                                                                    <connections>
+                                                                        <action selector="bigenderDidTap:" destination="-1" eventType="touchUpInside" id="Iu0-Xc-lHi"/>
+                                                                    </connections>
+                                                                </button>
+                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Po4-Pt-BoB">
+                                                                    <rect key="frame" x="249.33333333333329" y="0.0" width="124.66666666666666" height="19.333333333333332"/>
+                                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                                    <inset key="contentEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                                    <state key="normal" title="TwoSpirit" image="icons8-unchecked-checkbox-14">
+                                                                        <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                    </state>
+                                                                    <state key="selected" title="TwoSpirit" image="icons8-checked-checkbox-14"/>
+                                                                    <connections>
+                                                                        <action selector="twoSpiritDidTap:" destination="-1" eventType="touchUpInside" id="1hh-Cd-A0z"/>
+                                                                    </connections>
+                                                                </button>
+                                                            </subviews>
+                                                        </stackView>
+                                                        <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="kxD-Nl-NNN">
+                                                            <rect key="frame" x="0.0" y="117.33333333333337" width="374" height="19.333333333333343"/>
+                                                            <subviews>
+                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mRi-8U-Dy4">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="124.66666666666667" height="19.333333333333332"/>
+                                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                                    <inset key="contentEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                                    <state key="normal" title="Androgynous" image="icons8-unchecked-checkbox-14">
+                                                                        <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                    </state>
+                                                                    <state key="selected" title="Androgynous" image="icons8-checked-checkbox-14"/>
+                                                                    <connections>
+                                                                        <action selector="androgynousDidTap:" destination="-1" eventType="touchUpInside" id="IS5-Cx-u9y"/>
+                                                                    </connections>
+                                                                </button>
+                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2wS-bY-V7r">
+                                                                    <rect key="frame" x="124.66666666666666" y="0.0" width="124.66666666666666" height="19.333333333333332"/>
+                                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                                    <inset key="contentEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                                    <state key="normal" title="Unkown" image="icons8-unchecked-checkbox-14">
+                                                                        <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                    </state>
+                                                                    <state key="selected" title="Unkown" image="icons8-checked-checkbox-14"/>
+                                                                    <connections>
+                                                                        <action selector="unkownDidTap:" destination="-1" eventType="touchUpInside" id="rWG-Y6-MHR"/>
+                                                                    </connections>
+                                                                </button>
+                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ohL-WE-xPq">
+                                                                    <rect key="frame" x="249.33333333333329" y="0.0" width="124.66666666666666" height="19.333333333333332"/>
+                                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                                    <inset key="contentEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                                    <state key="normal" title="All" image="icons8-unchecked-checkbox-14">
+                                                                        <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                    </state>
+                                                                    <state key="selected" title="All" image="icons8-checked-checkbox-14"/>
+                                                                    <connections>
+                                                                        <action selector="allGenderDidTap:" destination="-1" eventType="touchUpInside" id="IfL-ti-OBg"/>
+                                                                    </connections>
+                                                                </button>
+                                                            </subviews>
+                                                        </stackView>
                                                     </subviews>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="80" id="lMG-kl-OOp"/>
+                                                        <constraint firstAttribute="trailing" secondItem="gof-bH-rdV" secondAttribute="trailing" id="CZU-Zo-cmR"/>
+                                                        <constraint firstItem="gof-bH-rdV" firstAttribute="leading" secondItem="h4g-n8-swM" secondAttribute="leading" id="Dkx-Bj-gIQ"/>
+                                                        <constraint firstItem="kxD-Nl-NNN" firstAttribute="leading" secondItem="h4g-n8-swM" secondAttribute="leading" id="M7x-Uq-v1I"/>
+                                                        <constraint firstItem="42P-JZ-937" firstAttribute="leading" secondItem="h4g-n8-swM" secondAttribute="leading" id="Nqr-nu-52W"/>
+                                                        <constraint firstAttribute="trailing" secondItem="ggR-aQ-tj5" secondAttribute="trailing" id="Yrn-mg-qn0"/>
+                                                        <constraint firstAttribute="trailing" secondItem="42P-JZ-937" secondAttribute="trailing" id="doA-zZ-wJm"/>
+                                                        <constraint firstItem="ggR-aQ-tj5" firstAttribute="leading" secondItem="h4g-n8-swM" secondAttribute="leading" id="jkO-6M-0eV"/>
+                                                        <constraint firstAttribute="trailing" secondItem="kxD-Nl-NNN" secondAttribute="trailing" id="s6o-ms-oYB"/>
                                                     </constraints>
                                                 </stackView>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="filter_divide" translatesAutoresizingMaskIntoConstraints="NO" id="OqO-Bp-i8L">
-                                                    <rect key="frame" x="0.0" y="425" width="374" height="5"/>
+                                                    <rect key="frame" x="0.0" y="481.66666666666663" width="374" height="5"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="5" id="rL9-dF-qwR"/>
                                                     </constraints>
                                                 </imageView>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="P3o-oq-yln">
-                                                    <rect key="frame" x="0.0" y="440" width="374" height="100"/>
+                                                    <rect key="frame" x="0.0" y="496.66666666666663" width="374" height="100"/>
                                                     <subviews>
                                                         <stackView opaque="NO" contentMode="left" semanticContentAttribute="forceLeftToRight" translatesAutoresizingMaskIntoConstraints="NO" id="7K7-bC-Xgy">
                                                             <rect key="frame" x="0.0" y="0.0" width="100.33333333333333" height="50"/>
@@ -514,7 +689,7 @@
                                                     </constraints>
                                                 </stackView>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="top" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="hpi-ul-O4N">
-                                                    <rect key="frame" x="0.0" y="550" width="374" height="17"/>
+                                                    <rect key="frame" x="0.0" y="606.66666666666663" width="374" height="17"/>
                                                     <subviews>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mzS-oP-5u4">
                                                             <rect key="frame" x="0.0" y="0.0" width="218" height="17"/>

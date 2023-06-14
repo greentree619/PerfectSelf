@@ -18,7 +18,8 @@ enum PipelineMode
 }// internal state machine
 
 class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDelegate, AVAudioRecorderDelegate {
-    
+    let videoWidth = 720
+    let videoHeight = 1280
     @IBOutlet weak var localVideoView: UIView!
     
     @IBOutlet weak var timeSelect: UIPickerView!
@@ -190,9 +191,9 @@ class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSample
         guard let capturer = self.webRTCClient.videoCapturer as? RTCCameraVideoCapturer else {
             return
         }
-        capturer.captureSession.canAddOutput(output)
         output.setSampleBufferDelegate(self, queue: DispatchQueue(label: "com.yusuke024.video"))
         capturer.captureSession.beginConfiguration()
+        
         if(capturer.captureSession.canAddOutput(output))
         {
             isRecordEnabled = true
@@ -483,7 +484,9 @@ class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSample
                 //let videoPath = URL(string: "\(NSTemporaryDirectory())\(_filename).mp4")
                 
                 let writer = try! AVAssetWriter(outputURL: videoPath, fileType: .mp4)
-                let settings = _videoOutput!.recommendedVideoSettingsForAssetWriter(writingTo: .mp4)
+                let settings: [String: Any] = [AVVideoCodecKey: AVVideoCodecType.h264,
+                                                 AVVideoWidthKey: NSNumber(value: Float(videoWidth)),
+                                                 AVVideoHeightKey: NSNumber(value: Float(videoHeight))]
                 let input = AVAssetWriterInput(mediaType: .video, outputSettings: settings) // [AVVideoCodecKey: AVVideoCodecType.h264, AVVideoWidthKey: 1920, AVVideoHeightKey: 1080])
                 input.mediaTimeScale = CMTimeScale(bitPattern: 300)
                 input.expectsMediaDataInRealTime = true
