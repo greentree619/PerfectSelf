@@ -356,7 +356,14 @@ class ActorProfileEditViewController: UIViewController, PhotoDelegate {
             }
             return
         }
-        
+        if let userInfo = UserDefaults.standard.object(forKey: "USER") as? [String:Any] {
+            // Use the saved data
+            self.bucketName = userInfo["avatarBucketName"] as? String
+            self.avatarKey = userInfo["avatarKey"] as? String
+        } else {
+            // No data was saved
+            print("No data was saved.")
+        }
         // save chages to db
         showIndicator(sender: nil, viewController: self)
         webAPI.updateActorProfile(actoruid: self.id, ageRange: self.text_age.text!, height: self.text_height.text!, weight: self.text_weight.text!, country: self.text_country.text!, state: self.text_state.text!, city: self.text_city.text!, agency: self.text_agency.text!, vaccination: self.vaccin) { data, response, error in
@@ -483,12 +490,15 @@ class ActorProfileEditViewController: UIViewController, PhotoDelegate {
                 // Retrieve the saved data from UserDefaults
                 if var userInfo = UserDefaults.standard.object(forKey: "USER") as? [String:Any] {
                     // Use the saved data
+                    
                     userInfo["avatarBucketName"] = ""
                     userInfo["avatarKey"] = ""
                     UserDefaults.standard.removeObject(forKey: "USER")
                     UserDefaults.standard.set(userInfo, forKey: "USER")
                     print(userInfo)
                     DispatchQueue.main.async {
+                        self.bucketName = ""
+                        self.avatarKey = ""
                         self.img_user_avatar.image = UIImage(systemName: "person.fill")
                     }
                     
