@@ -19,6 +19,7 @@
             <connections>
                 <outlet property="btn_back" destination="5KY-bM-EjF" id="9dV-hb-5fo"/>
                 <outlet property="chatCardList" destination="Iwc-dS-W6l" id="khs-M8-Gyw"/>
+                <outlet property="noChat" destination="ajP-cE-5nW" id="SOK-Kc-pFo"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -159,12 +160,20 @@
                         </mask>
                     </variation>
                 </stackView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Book a meeting to start chat" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ajP-cE-5nW">
+                    <rect key="frame" x="94" y="416.33333333333331" width="205" height="19.333333333333314"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.5" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="wek-Ab-tqX" secondAttribute="bottom" id="8uh-HH-VkS"/>
+                <constraint firstItem="ajP-cE-5nW" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" id="Cmf-HM-EYY"/>
                 <constraint firstItem="wek-Ab-tqX" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="RtS-nj-P9S"/>
+                <constraint firstItem="ajP-cE-5nW" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="fVo-rE-64Y"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="wek-Ab-tqX" secondAttribute="trailing" id="xG5-bh-aml"/>
                 <constraint firstItem="wek-Ab-tqX" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="xxf-Mr-kML"/>
             </constraints>
