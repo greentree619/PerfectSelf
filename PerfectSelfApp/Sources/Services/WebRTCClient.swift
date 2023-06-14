@@ -110,7 +110,7 @@ final class WebRTCClient: NSObject {
     }
     
     // MARK: Media
-    func startCaptureLocalVideo(renderer: RTCVideoRenderer) {
+    func startCaptureLocalVideo(renderer: RTCVideoRenderer, completionHandler: @escaping ()->Void) {
         guard let capturer = self.videoCapturer as? RTCCameraVideoCapturer else {
             return
         }
@@ -132,7 +132,12 @@ final class WebRTCClient: NSObject {
 
         capturer.startCapture(with: frontCamera,
                               format: format,
-                              fps: Int(fps.maxFrameRate))
+                              fps: Int(fps.maxFrameRate)){ error in
+            if error != nil {
+              debugPrint("Capture error : ", error?.localizedDescription as Any)
+            }
+            completionHandler()
+       }
         
         self.localVideoTrack?.add(renderer)
     }
@@ -305,9 +310,11 @@ extension WebRTCClient {
             
             self.rtcAudioSession.lockForConfiguration()
             do {
-                try self.rtcAudioSession.setCategory(AVAudioSession.Category.playAndRecord.rawValue, with: AVAudioSession.CategoryOptions.defaultToSpeaker)
-                try self.rtcAudioSession.setMode(AVAudioSession.Mode.voiceChat.rawValue)
+                try self.rtcAudioSession.setCategory(AVAudioSession.Category.playAndRecord.rawValue, with: [.defaultToSpeaker, .allowBluetoothA2DP, .allowBluetooth])
+                try self.rtcAudioSession.setMode(AVAudioSession.Mode.videoChat.rawValue)
+                try self.rtcAudioSession.overrideOutputAudioPort(.speaker)
                 try self.rtcAudioSession.setActive(true)
+                
                 //Omitted try self.rtcAudioSession.overrideOutputAudioPort(.speaker)
             } catch let error {
                 debugPrint("Couldn't force audio to speaker: \(error)")

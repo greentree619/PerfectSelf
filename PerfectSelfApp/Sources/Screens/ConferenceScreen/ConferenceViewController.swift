@@ -178,7 +178,6 @@ class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSample
         
         self.timeSelect.delegate = self
         self.timeSelect.dataSource = self
-        self.webRTCClient.speakerOn()
         self.signalClient.sendRoomId(roomId: gRoomUid!)
         
         let localRenderer = RTCMTLVideoView(frame: self.localVideoView?.frame ?? CGRect.zero)
@@ -242,7 +241,9 @@ class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSample
         }
         //}}Init to record audio
 #endif
-        self.webRTCClient.startCaptureLocalVideo(renderer: localRenderer)
+        self.webRTCClient.startCaptureLocalVideo(renderer: localRenderer) {
+            self.webRTCClient.speakerOn()
+        }
         self.webRTCClient.renderRemoteVideo(to: remoteRenderer)
         
         if let localVideoView = self.localVideoView {

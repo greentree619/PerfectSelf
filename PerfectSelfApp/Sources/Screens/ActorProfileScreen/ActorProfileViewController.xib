@@ -15,6 +15,7 @@
                 <outlet property="lbl_email" destination="sfg-pd-cgF" id="AVN-G2-6iu"/>
                 <outlet property="lbl_fullname" destination="NzY-5i-ABN" id="0sW-S4-aP2"/>
                 <outlet property="lbl_username" destination="CRd-S3-vDu" id="SRv-uw-c6R"/>
+                <outlet property="switch_mode" destination="yUa-31-wuW" id="IYP-qO-cQE"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -35,7 +36,7 @@
                                         <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JYm-J3-fD0">
                                             <rect key="frame" x="12" y="8" width="84" height="84"/>
                                             <subviews>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="person.circle.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="o39-ye-nP1">
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="person.circle.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="o39-ye-nP1">
                                                     <rect key="frame" x="0.0" y="1" width="84" height="82.666666666666671"/>
                                                     <color key="backgroundColor" systemColor="systemGray5Color"/>
                                                     <userDefinedRuntimeAttributes>
@@ -196,6 +197,8 @@
                                                 </label>
                                                 <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yUa-31-wuW">
                                                     <rect key="frame" x="301" y="0.0" width="51" height="25"/>
+                                                    <color key="onTintColor" red="0.19607843137254902" green="0.67843137254901964" blue="0.90196078431372551" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <color key="thumbTintColor" red="0.45882352941176469" green="0.52941176470588236" blue="0.85098039215686272" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 </switch>
                                             </subviews>
                                             <constraints>

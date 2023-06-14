@@ -230,6 +230,12 @@ class BookingCollectionViewCell: UICollectionViewCell {
     @IBAction func RescheduleBooking(_ sender: UIButton) {
         let controller = ActorResheduleViewController()
         controller.bookId = id
+        //ruid, selecteddate
+        controller.rUid = self.uid
+        let df = DateFormatter()
+        df.dateFormat = "dd MMM, yyyy"
+        controller.selectedDate = Date.getStringFromDate(date: df.date(from: lbl_date.text!) ?? Date())
+        
         controller.modalPresentationStyle = .fullScreen
 //        let transition = CATransition()
 //        transition.duration = 0.5 // Set animation duration

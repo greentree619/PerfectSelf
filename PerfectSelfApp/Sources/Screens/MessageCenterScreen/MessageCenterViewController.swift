@@ -14,6 +14,7 @@ class MessageCenterViewController: UIViewController, UICollectionViewDataSource,
     @IBOutlet weak var chatCardList: UICollectionView!
     @IBOutlet weak var btn_back: UIButton!
     
+    @IBOutlet weak var noChat: UILabel!
     var items = [ChatChannel]()
     let cellsPerRow = 1
     var uid = ""
@@ -26,6 +27,7 @@ class MessageCenterViewController: UIViewController, UICollectionViewDataSource,
         chatCardList.delegate = self
         chatCardList.allowsSelection = true
         // Do any additional setup after loading the view.
+        noChat.isHidden = true
         self.navigationItem.setHidesBackButton(true, animated: false)
         // Retrieve the saved data from UserDefaults
         if let userInfo = UserDefaults.standard.object(forKey: "USER") as? [String:Any] {
@@ -64,6 +66,7 @@ class MessageCenterViewController: UIViewController, UICollectionViewDataSource,
                 DispatchQueue.main.async {
                     self.items.removeAll()
                     self.items.append(contentsOf: respItems)
+                    self.noChat.isHidden = respItems.count != 0
                     //UTC2local
                     for index in self.items.indices {
                         self.items[index].sendTime = utcToLocal(dateStr: self.items[index].sendTime)!
