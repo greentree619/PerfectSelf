@@ -9,42 +9,14 @@
 import UIKit
 
 class ActorFindReaderViewController: UIViewController , UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, SortDelegate, FilterDelegate{
-    func setFilterParams(isAvailableSoon: Bool, isOnline: Bool, timeSlotType: Int, isCommercialRead: Bool, isShortRead: Bool, isExtendedRead: Bool, isDateSelected: Bool, fromDate: Date, toDate: Date, minPrice: Float, maxPrice: Float, gender: [Int], isExplicitRead: Bool) {
-        self.isAvailableSoon = isAvailableSoon
-        self.isOnline = isOnline
-        self.timeSlotType = timeSlotType
-        self.isDateSelected = isDateSelected
-        self.fromDate = fromDate
-        self.toDate = toDate
-        self.minPrice = minPrice
-        self.maxPrice = maxPrice
-        self.gender = gender
-        self.isCommercialRead = isCommercialRead
-        self.isShortRead = isShortRead
-        self.isExtendedRead = isExtendedRead
-        self.isComfortableWithExplicitRead = isExplicitRead
+    func fetchReadersWithFilter(viewController: UIViewController) {
         fetchReaderList()
-        
     }
     
     func setSortType(viewController: UIViewController, sortType: Int) {
         self.sortType = sortType
         fetchReaderList()
     }
-    
-    var isAvailableSoon = false
-    var isOnline = false
-    var timeSlotType = -1
-    var isDateSelected = false
-    var fromDate = Date()
-    var toDate = Date()
-    var minPrice:Float = 0.0
-    var maxPrice:Float = 100.0
-    var gender: [Int] = [Int]()
-    var isCommercialRead = false
-    var isShortRead = false
-    var isExtendedRead = false
-    var isComfortableWithExplicitRead = false
     
     var sortType = 0
     
@@ -65,7 +37,6 @@ class ActorFindReaderViewController: UIViewController , UICollectionViewDataSour
         readerList.allowsSelection = true
         // Do any additional setup after loading the view.
         self.navigationItem.setHidesBackButton(true, animated: false)
-        
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true);
@@ -75,8 +46,41 @@ class ActorFindReaderViewController: UIViewController , UICollectionViewDataSour
         spin.isHidden = false
         spin.startAnimating()
         // call API to fetch reader list
-        
-        webAPI.getReaders(readerName: nil,isSponsored: nil, isAvailableSoon: isAvailableSoon,isTopRated: nil, isOnline: isOnline, availableTimeSlotType: nil, availableFrom: isDateSelected ? Date.getStringFromDate(date: fromDate) : nil, availableTo: isDateSelected ? Date.getStringFromDate(date: toDate) : nil, minPrice: minPrice, maxPrice: maxPrice, gender: gender, sortBy: sortType) { data, response, error in
+        var gender = [Int]()
+        if Filter["isMale"] as! Bool {
+            gender.append(0)
+        }
+        if Filter["isFemale"] as! Bool {
+            gender.append(1)
+        }
+        if Filter["isNonBinary"] as! Bool {
+            gender.append(2)
+        }
+        if Filter["isGenderqueer"] as! Bool {
+            gender.append(3)
+        }
+        if Filter["isGenderfluid"] as! Bool {
+            gender.append(4)
+        }
+        if Filter["isTransgender"] as! Bool {
+            gender.append(5)
+        }
+        if Filter["isAgender"] as! Bool {
+            gender.append(6)
+        }
+        if Filter["isBigender"] as! Bool {
+            gender.append(7)
+        }
+        if Filter["isTwoSpirit"] as! Bool {
+            gender.append(8)
+        }
+        if Filter["isAndrogynous"] as! Bool {
+            gender.append(9)
+        }
+        if Filter["isUnknown"] as! Bool {
+            gender.append(10)
+        }
+        webAPI.getReaders(readerName: nil,isSponsored: nil, isAvailableSoon: (Filter["isAvailableSoon"] as? Bool), isTopRated: nil, isOnline: Filter["isonlineNow"] as? Bool, availableTimeSlotType: (Filter["timeSlotType"] as? Int), availableFrom: (Filter["isDateSelected"] as! Bool) ? Date.getStringFromDate(date: Filter["fromDate"] as! Date) : nil, availableTo: (Filter["isDateSelected"] as! Bool) ? Date.getStringFromDate(date: Filter["toDate"] as! Date) : nil, minPrice: (Filter["priceMinVal"] as? Float), maxPrice: (Filter["priceMaxVal"] as? Float), gender: gender, sortBy: sortType) { data, response, error in
             DispatchQueue.main.async {
                 self.spin.stopAnimating()
                 self.spin.isHidden = true
@@ -186,7 +190,7 @@ class ActorFindReaderViewController: UIViewController , UICollectionViewDataSour
         let controller = FilterViewController()
         controller.originType = 1
         controller.modalPresentationStyle = .overFullScreen
-        controller.delegate = self
+        controller.fd = self
         self.present(controller, animated: true)
         
     }

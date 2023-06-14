@@ -18,6 +18,12 @@
                 <outlet property="btn_15min" destination="gN6-78-cbK" id="51H-Pd-txp"/>
                 <outlet property="btn_30min" destination="Oqe-zK-bQH" id="6NO-ed-WLI"/>
                 <outlet property="btn_45min" destination="baB-dq-YlT" id="4Ow-iT-Rza"/>
+                <outlet property="btn_availablesoon" destination="Krg-B9-xsA" id="2Aa-vp-bRS"/>
+                <outlet property="btn_comercialread" destination="Pdu-qV-5qV" id="jLI-kw-zcD"/>
+                <outlet property="btn_explicitChk" destination="mzS-oP-5u4" id="fdD-z5-nuK"/>
+                <outlet property="btn_extendedread" destination="pDe-jw-aNQ" id="rf4-t7-Tt8"/>
+                <outlet property="btn_onlinenow" destination="Okj-BL-Hl5" id="naV-iL-IuH"/>
+                <outlet property="btn_shortread" destination="2u1-ie-Rld" id="18f-N2-gbR"/>
                 <outlet property="btn_standby" destination="JXk-qf-NLh" id="bEm-73-3sG"/>
                 <outlet property="fmaleGenderChk" destination="rmz-p2-J2c" id="YRN-5F-gKV"/>
                 <outlet property="genderFluidGenChk" destination="0Gi-Yw-Yri" id="xUh-Be-EDy"/>
