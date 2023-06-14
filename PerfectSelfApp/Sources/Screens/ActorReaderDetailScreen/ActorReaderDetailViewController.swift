@@ -109,11 +109,15 @@ class ActorReaderDetailViewController: UIViewController , UICollectionViewDataSo
                     self.scoreAndReviewCount.text = "\(item.score) (\(item.bookPassCount))"
                     self.reader_about.text = item.about
                     self.reader_hourly.text = "$\(item.hourlyPrice/4) / 15 mins"
-                    self.skills = item.skills.components(separatedBy: ",")
+                    self.skills.removeAll()
+                    if !item.skills.isEmpty {
+                        self.skills = item.skills.components(separatedBy: ",")
+                    }
                     self.skillList.reloadData()
-                    
+ 
                     self.items.removeAll()
 //                    self.items.append(contentsOf: item.allAvailability)
+                    
                     for availibility in item.allAvailability {
                         let df = DateFormatter()
                         df.dateFormat = "yyyy-MM-dd"
