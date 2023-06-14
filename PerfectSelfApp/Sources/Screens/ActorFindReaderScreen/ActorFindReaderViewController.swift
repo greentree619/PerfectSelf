@@ -140,13 +140,21 @@ class ActorFindReaderViewController: UIViewController , UICollectionViewDataSour
         cell.review.text = "(\(self.items[indexPath.row].reviewCount))"
         cell.status.backgroundColor = self.items[indexPath.row].isLogin ? UIColor(rgb: 0x34C759) : UIColor(rgb: 0xAAAAAA)
         
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss'Z'"
-        let date = dateFormatter.date(from: self.items[indexPath.row].date ?? "1900-01-01T00:00:00Z")
-    
-        let dfforlabel = DateFormatter()
-        dfforlabel.dateFormat = "MMM dd, hh:mm a"
-        cell.availableDate.text = dfforlabel.string(from: date ?? Date())
+        if self.items[indexPath.row].date != nil {
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss'Z'"
+            let date = dateFormatter.date(from: self.items[indexPath.row].date ?? "1900-01-01T00:00:00Z")
+            let t = dateFormatter.date(from: self.items[indexPath.row].fromTime ?? "1900-01-01T00:00:00Z")
+            
+            let dateLabel = DateFormatter()
+            dateLabel.dateFormat = "MMM dd"
+            let timeLabel = DateFormatter()
+            timeLabel.dateFormat = "hh:mm a"
+            cell.availableDate.text = dateLabel.string(from: date ?? Date()) + ", " + timeLabel.string(from: t ?? Date())
+        }
+        else {
+            cell.availableView.isHidden = true
+        }
         // return card
         cell.layer.masksToBounds = false
         cell.layer.shadowOffset = CGSizeZero
