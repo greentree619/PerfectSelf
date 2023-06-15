@@ -95,7 +95,7 @@ class ReaderProfileEditPersonalInfoViewController: UIViewController {
         // call API for about update
         showIndicator(sender: nil, viewController: self)
 
-        webAPI.editReaderProfile(uid: uid, title: readerTitle.text!, hourlyPrice: -1, about: "", introBucketName: "", introVideokey: "", skills: "", auditionType: -1, isExplicitRead: nil) { data, response, error in
+        webAPI.editReaderProfile(uid: uid, title: readerTitle.text!, hourlyPrice: -1, about: "", introBucketName: "", introVideokey: "", skills: nil, auditionType: -1, isExplicitRead: nil) { data, response, error in
             
             guard let _ = data, error == nil else {
                 print(error?.localizedDescription ?? "No data")

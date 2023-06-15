@@ -50,6 +50,8 @@ class ReaderProfileViewController: UIViewController, UICollectionViewDataSource,
     var reviews = [Review]()
     @IBOutlet weak var skillList: UICollectionView!
     var skills = [String]()
+    var auditionType = 0
+    var isExplicitRead = false
     
     @IBOutlet weak var lbl_noreview: UILabel!
     @IBOutlet var btnPlayPause: UIButton!
@@ -124,6 +126,7 @@ class ReaderProfileViewController: UIViewController, UICollectionViewDataSource,
             }
             do {
                 let item = try JSONDecoder().decode(ReaderProfileDetail.self, from: data)
+                print(item)
                 DispatchQueue.main.async {
                     self.readerUsername.text = item.userName
                     self.readerTitle.text = item.title
@@ -135,6 +138,8 @@ class ReaderProfileViewController: UIViewController, UICollectionViewDataSource,
                     self.skills = self.skills.filter { !$0.isEmpty }
                     self.skillList.reloadData()
                     self.hourlyRate = item.hourlyPrice
+                    self.auditionType = item.auditionType
+                    self.isExplicitRead = item.isExplicitRead
                     
                     self.items.removeAll()
 //                    self.items.append(contentsOf: item.allAvailability)
@@ -540,6 +545,8 @@ class ReaderProfileViewController: UIViewController, UICollectionViewDataSource,
         controller.modalPresentationStyle = .fullScreen
         controller.items = self.skills
         controller.uid = self.id
+        controller.auditionType = self.auditionType
+        controller.isExplicitRead = self.isExplicitRead
 //        let transition = CATransition()
 //        transition.duration = 0.5 // Set animation duration
 //        transition.type = CATransitionType.push // Set transition type to push

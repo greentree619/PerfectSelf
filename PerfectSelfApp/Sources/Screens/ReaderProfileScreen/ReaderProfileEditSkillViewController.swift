@@ -16,6 +16,11 @@ class ReaderProfileEditSkillViewController: UIViewController, UICollectionViewDa
     var typeOfAccordianView = TypeOfAccordianView.Formal
     
     var uid = ""
+    var auditionType = 0
+    var isExplicitRead = false
+    @IBOutlet weak var btn_extendedread: UIButton!
+    @IBOutlet weak var btn_shortread: UIButton!
+    @IBOutlet weak var btn_commercialread: UIButton!
     @IBOutlet weak var btn_explicit_no: UIButton!
     @IBOutlet weak var btn_explicit_yes: UIButton!
     @IBOutlet weak var skillView: UIStackView!
@@ -23,7 +28,7 @@ class ReaderProfileEditSkillViewController: UIViewController, UICollectionViewDa
     var isCommercialRead = true
     var isShortRead = false
     var isExtendedRead = false
-//    @IBOutlet weak var selectedSkillView: UIStackView!
+
     var items = [String]()
     let cellsPerRow = 1
     
@@ -135,6 +140,30 @@ class ReaderProfileEditSkillViewController: UIViewController, UICollectionViewDa
         accordionView.dataSource = self;
         accordionView.isCollapsedAllWhenOneIsOpen = true
         skillView.addSubview(accordionView);
+        
+        if isExplicitRead {
+            btn_explicit_yes.isSelected = true
+            btn_explicit_no.isSelected = false
+        } else {
+            btn_explicit_yes.isSelected = false
+            btn_explicit_no.isSelected = true
+        }
+        
+        self.isExtendedRead = (self.auditionType & 1) != 0
+        self.isShortRead = (self.auditionType & 2) != 0
+        self.isCommercialRead = (self.auditionType & 4) != 0
+        
+        btn_commercialread.backgroundColor = self.isCommercialRead ? UIColor(rgb: 0x4865FF) : UIColor(rgb: 0xFFFFFF)
+        btn_commercialread.setTitleColor(self.isCommercialRead ? .white : UIColor(rgb: 0x4865FF), for: .normal)
+        btn_commercialread.tintColor = self.isCommercialRead ? .white : UIColor(rgb: 0x4865FF)
+      
+        btn_shortread.backgroundColor = self.isShortRead ? UIColor(rgb: 0x4865FF) : UIColor(rgb: 0xFFFFFF)
+        btn_shortread.setTitleColor(self.isShortRead ? .white : UIColor(rgb: 0x4865FF), for: .normal)
+        btn_shortread.tintColor = self.isShortRead ? .white : UIColor(rgb: 0x4865FF)
+        
+        btn_extendedread.backgroundColor = self.isExtendedRead ? UIColor(rgb: 0x4865FF) : UIColor(rgb: 0xFFFFFF)
+        btn_extendedread.setTitleColor(self.isExtendedRead ? .white : UIColor(rgb: 0x4865FF), for: .normal)
+        btn_extendedread.tintColor = self.isExtendedRead ? .white : UIColor(rgb: 0x4865FF)
     }
     // MARK: - Time Slot List Delegate.
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -189,6 +218,7 @@ class ReaderProfileEditSkillViewController: UIViewController, UICollectionViewDa
         //call API for update reader's skill
         let skills = self.items.joined(separator: ",")
         let aType = (self.isExtendedRead ? 4:0) + (self.isShortRead ? 2 : 0) + (self.isCommercialRead ? 1:0)
+        print(aType)
         showIndicator(sender: nil, viewController: self)
         webAPI.editReaderProfile(uid: uid, title: "", hourlyPrice: -1, about: "", introBucketName: "", introVideokey: "", skills: skills, auditionType: aType, isExplicitRead: btn_explicit_yes.isSelected) { data, response, error in
             DispatchQueue.main.async {
