@@ -28,8 +28,7 @@ class LoginViewController: UIViewController {
         //uiViewContoller = self
         //registerForNotifications()
         
-//        let controller = SignupViewController()
-        let controller = ActorBuildProfile1ViewController()
+        let controller = SignupViewController()
         controller.modalPresentationStyle = .fullScreen
         let transition = CATransition()
         transition.duration = 0.5 // Set animation duration
