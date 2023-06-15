@@ -12,8 +12,11 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ReaderProfileEditSkillViewController" customModule="PerfectSelf" customModuleProvider="target">
             <connections>
+                <outlet property="btn_commercialread" destination="eBZ-Fe-BAF" id="Jus-dX-jnb"/>
                 <outlet property="btn_explicit_no" destination="m09-iL-Qwv" id="4Ru-Bc-3lq"/>
                 <outlet property="btn_explicit_yes" destination="Qp4-0X-8ZC" id="IIN-6Y-7Vp"/>
+                <outlet property="btn_extendedread" destination="y6p-Oo-4pD" id="Atu-5F-kT9"/>
+                <outlet property="btn_shortread" destination="AJQ-4l-1PM" id="Wiu-TB-LBC"/>
                 <outlet property="selectedSkillList" destination="s7T-Zt-CBM" id="qDG-RQ-yFJ"/>
                 <outlet property="skillView" destination="rSL-2a-Pmh" id="edU-Ob-5ec"/>
                 <outlet property="view" destination="Wcg-Kk-uTu" id="ZLX-xc-DE2"/>

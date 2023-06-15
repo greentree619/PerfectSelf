@@ -255,8 +255,7 @@ class PerfectSelfWebAPI
         return executeAPI(with: "GET", apiPath: "ReaderProfiles/Detail/\(id)", json: [:], completionHandler:completionHandler)
     }
     
-    
-    func editReaderProfile(uid: String,title: String,hourlyPrice: Int, about: String, introBucketName: String, introVideokey: String, skills: String, auditionType: Int, isExplicitRead: Bool?, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> Void
+    func editReaderProfile(uid: String,title: String,hourlyPrice: Int, about: String, introBucketName: String, introVideokey: String, skills: String?, auditionType: Int, isExplicitRead: Bool?, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> Void
     {
         let json: [String: Any?] = [
             "id": 0,// no effect

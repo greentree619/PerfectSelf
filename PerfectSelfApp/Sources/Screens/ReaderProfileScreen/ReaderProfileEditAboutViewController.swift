@@ -37,7 +37,7 @@ class ReaderProfileEditAboutViewController: UIViewController {
     @IBAction func SaveChanges(_ sender: UIButton) {
         // call API for about update
         showIndicator(sender: nil, viewController: self)
-        webAPI.editReaderProfile(uid: uid, title: "", hourlyPrice: -1, about: text_about.text, introBucketName: "", introVideokey: "", skills: "", auditionType: -1, isExplicitRead: nil) { data, response, error in
+        webAPI.editReaderProfile(uid: uid, title: "", hourlyPrice: -1, about: text_about.text, introBucketName: "", introVideokey: "", skills: nil, auditionType: -1, isExplicitRead: nil) { data, response, error in
             DispatchQueue.main.async {
                 hideIndicator(sender: nil);
             }

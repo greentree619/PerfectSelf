@@ -110,7 +110,7 @@ final class WebRTCClient: NSObject {
     }
     
     // MARK: Media
-    func startCaptureLocalVideo(renderer: RTCVideoRenderer, completionHandler: @escaping ()->Void) {
+    func startCaptureLocalVideo(renderer: RTCVideoRenderer, completionHandler: @escaping (Error?)->Void) {
         guard let capturer = self.videoCapturer as? RTCCameraVideoCapturer else {
             return
         }
@@ -133,10 +133,10 @@ final class WebRTCClient: NSObject {
         capturer.startCapture(with: frontCamera,
                               format: format,
                               fps: Int(fps.maxFrameRate)){ error in
-            if error != nil {
-              debugPrint("Capture error : ", error?.localizedDescription as Any)
-            }
-            completionHandler()
+            //if error != nil {
+              //debugPrint("Capture error : ", error?.localizedDescription as Any)
+            //}
+            completionHandler(error)
        }
         
         self.localVideoTrack?.add(renderer)
@@ -302,7 +302,7 @@ extension WebRTCClient {
     }
     
     // Force speaker
-    func speakerOn() {
+    func speakerOn(completionHandler: @escaping (Error?)->Void) {
         self.audioQueue.async { [weak self] in
             guard let self = self else {
                 return
@@ -315,9 +315,10 @@ extension WebRTCClient {
                 try self.rtcAudioSession.overrideOutputAudioPort(.speaker)
                 try self.rtcAudioSession.setActive(true)
                 
-                //Omitted try self.rtcAudioSession.overrideOutputAudioPort(.speaker)
+                completionHandler( nil )
             } catch let error {
-                debugPrint("Couldn't force audio to speaker: \(error)")
+                //debugPrint("Couldn't force audio to speaker: \(error)")
+                completionHandler( error )
             }
             self.rtcAudioSession.unlockForConfiguration()
         }

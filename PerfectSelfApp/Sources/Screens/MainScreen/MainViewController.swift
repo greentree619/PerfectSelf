@@ -132,7 +132,7 @@ class MainViewController: UIViewController {
             self.webRTCClient.speakerOff()
         }
         else {
-            self.webRTCClient.speakerOn()
+            //Omitted self.webRTCClient.speakerOn()
         }
         self.speakerOn = !self.speakerOn
     }
