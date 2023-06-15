@@ -51,6 +51,7 @@ class ActorProfileEditViewController: UIViewController, PhotoDelegate {
     
     var countryMap = Dictionary<String, String>()
     var stateMap = Dictionary<String, String>()
+    var cityMap = Dictionary<String, String>()
     var vaccin = 0
     var gender = 0
     
@@ -89,7 +90,6 @@ class ActorProfileEditViewController: UIViewController, PhotoDelegate {
         dropDownForCity.dataSource = []
         dropDownForCity.selectionAction = { [unowned self] (index: Int, item: String) in
             text_city.text = item
-          
         }
         dropDownForCity.bottomOffset = CGPoint(x: 0, y:(dropDownForCity.anchorView?.plainView.bounds.height)!)
         dropDownForCity.dismissMode = .onTap
@@ -114,6 +114,7 @@ class ActorProfileEditViewController: UIViewController, PhotoDelegate {
                         self.dropDownForCity.dataSource.removeAll()
                         respItems.forEach { (key, value) in
                             //print("Key: \(key), Value: \(value)")
+                            self.cityMap[key] = "\(value)"
                             self.dropDownForCity.dataSource.append(key)
                         }
                     }
@@ -444,11 +445,49 @@ class ActorProfileEditViewController: UIViewController, PhotoDelegate {
     @IBAction func ShowCountryDropDown(_ sender: UIButton) {
         dropDownForCountry.show()
     }
+
+
+//    @IBAction func ShowCountry(_ sender: UITextField) {
+//        self.dropDownForCountry.dataSource = Array(self.countryMap.keys)
+//        dropDownForCountry.show()
+//        print("oks")
+//    }
+    @IBAction func SearchCountry(_ sender: UITextField) {
+        
+        self.dropDownForCountry.dataSource.removeAll()
+        let list = self.countryMap.keys.filter {$0.contains(sender.text ?? "")}
+        self.dropDownForCountry.dataSource = list
+        if list.isEmpty {
+            dropDownForCountry.hide()
+        } else {
+            dropDownForCountry.show()
+        }
+    }
     @IBAction func ShowStateDropDown(_ sender: UIButton) {
         dropDownForState.show()
     }
+    @IBAction func SearchState(_ sender: UITextField) {
+        self.dropDownForState.dataSource.removeAll()
+        let list = self.stateMap.keys.filter {$0.contains(sender.text ?? "")}
+        self.dropDownForState.dataSource = list
+        if list.isEmpty {
+            dropDownForState.hide()
+        } else {
+            dropDownForState.show()
+        }
+    }
     @IBAction func ShowCityDropDown(_ sender: UIButton) {
         dropDownForCity.show()
+    }
+    @IBAction func SearchCity(_ sender: UITextField) {
+        self.dropDownForCity.dataSource.removeAll()
+        let list = self.cityMap.keys.filter {$0.contains(sender.text ?? "")}
+        self.dropDownForCity.dataSource = list
+        if list.isEmpty {
+            dropDownForCity.hide()
+        } else {
+            dropDownForCity.show()
+        }
     }
     @IBAction func ShowAgencyDropDown(_ sender: UIButton) {
         dropDownForAgency.show()

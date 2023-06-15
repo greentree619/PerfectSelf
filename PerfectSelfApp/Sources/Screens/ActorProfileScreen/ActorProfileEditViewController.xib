@@ -403,15 +403,18 @@
                                                             <rect key="frame" x="0.0" y="40" width="353" height="40"/>
                                                             <subviews>
                                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Country of residence..." textAlignment="natural" adjustsFontForContentSizeCategory="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Owc-iv-cdy">
-                                                                    <rect key="frame" x="8" y="0.0" width="305" height="40"/>
+                                                                    <rect key="frame" x="8" y="0.0" width="345" height="40"/>
                                                                     <color key="backgroundColor" red="0.8980392157" green="0.8980392157" blue="0.8980392157" alpha="1" colorSpace="calibratedRGB"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="height" constant="40" id="L88-7a-K97" customClass="AdaptiveLayoutConstraint" customModule="PerfectSelf" customModuleProvider="target"/>
                                                                     </constraints>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                                     <textInputTraits key="textInputTraits"/>
+                                                                    <connections>
+                                                                        <action selector="SearchCountry:" destination="-1" eventType="editingChanged" id="NfH-nm-3MW"/>
+                                                                    </connections>
                                                                 </textField>
-                                                                <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KKu-Ij-PNn">
+                                                                <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" pointerInteraction="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KKu-Ij-PNn">
                                                                     <rect key="frame" x="313" y="0.0" width="40" height="40"/>
                                                                     <color key="backgroundColor" red="0.8980392157" green="0.8980392157" blue="0.8980392157" alpha="1" colorSpace="calibratedRGB"/>
                                                                     <constraints>
@@ -439,18 +442,26 @@
                                                                     <real key="value" value="5"/>
                                                                 </userDefinedRuntimeAttribute>
                                                             </userDefinedRuntimeAttributes>
+                                                            <variation key="default">
+                                                                <mask key="subviews">
+                                                                    <exclude reference="KKu-Ij-PNn"/>
+                                                                </mask>
+                                                            </variation>
                                                         </stackView>
                                                         <stackView opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wEX-zo-chA">
                                                             <rect key="frame" x="0.0" y="90" width="353" height="40"/>
                                                             <subviews>
                                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="State..." textAlignment="natural" adjustsFontForContentSizeCategory="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ivb-4t-MVq">
-                                                                    <rect key="frame" x="8" y="0.0" width="305" height="40"/>
+                                                                    <rect key="frame" x="8" y="0.0" width="345" height="40"/>
                                                                     <color key="backgroundColor" red="0.8980392157" green="0.8980392157" blue="0.8980392157" alpha="1" colorSpace="calibratedRGB"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="height" constant="40" id="yOw-Gu-mlX" customClass="AdaptiveLayoutConstraint" customModule="PerfectSelf" customModuleProvider="target"/>
                                                                     </constraints>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                                     <textInputTraits key="textInputTraits"/>
+                                                                    <connections>
+                                                                        <action selector="SearchState:" destination="-1" eventType="editingChanged" id="bjp-aN-Kig"/>
+                                                                    </connections>
                                                                 </textField>
                                                                 <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Qah-ry-00s">
                                                                     <rect key="frame" x="313" y="0.0" width="40" height="40"/>
@@ -480,18 +491,26 @@
                                                                     <real key="value" value="5"/>
                                                                 </userDefinedRuntimeAttribute>
                                                             </userDefinedRuntimeAttributes>
+                                                            <variation key="default">
+                                                                <mask key="subviews">
+                                                                    <exclude reference="Qah-ry-00s"/>
+                                                                </mask>
+                                                            </variation>
                                                         </stackView>
                                                         <stackView opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tRp-x8-Bu7">
                                                             <rect key="frame" x="0.0" y="140" width="353" height="40"/>
                                                             <subviews>
                                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="City..." textAlignment="natural" adjustsFontForContentSizeCategory="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="LAE-ou-aMS">
-                                                                    <rect key="frame" x="8" y="0.0" width="305" height="40"/>
+                                                                    <rect key="frame" x="8" y="0.0" width="345" height="40"/>
                                                                     <color key="backgroundColor" red="0.8980392157" green="0.8980392157" blue="0.8980392157" alpha="1" colorSpace="calibratedRGB"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="height" constant="40" id="wTf-gr-tqS" customClass="AdaptiveLayoutConstraint" customModule="PerfectSelf" customModuleProvider="target"/>
                                                                     </constraints>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                                     <textInputTraits key="textInputTraits"/>
+                                                                    <connections>
+                                                                        <action selector="SearchCity:" destination="-1" eventType="editingChanged" id="hpV-9k-ZY6"/>
+                                                                    </connections>
                                                                 </textField>
                                                                 <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MVe-Du-Muy">
                                                                     <rect key="frame" x="313" y="0.0" width="40" height="40"/>
@@ -521,6 +540,11 @@
                                                                     <real key="value" value="5"/>
                                                                 </userDefinedRuntimeAttribute>
                                                             </userDefinedRuntimeAttributes>
+                                                            <variation key="default">
+                                                                <mask key="subviews">
+                                                                    <exclude reference="MVe-Du-Muy"/>
+                                                                </mask>
+                                                            </variation>
                                                         </stackView>
                                                     </subviews>
                                                 </stackView>
