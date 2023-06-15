@@ -23,6 +23,7 @@ class ReaderBuildProfileViewController: UIViewController, PhotoDelegate {
     @IBOutlet weak var img_avatar: UIImageView!
     @IBOutlet weak var genderView: UIStackView!
     let dropDownForGender = DropDown()
+    var gender = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,6 +36,7 @@ class ReaderBuildProfileViewController: UIViewController, PhotoDelegate {
         dropDownForGender.dataSource = genderAry
         dropDownForGender.selectionAction = { [unowned self] (index: Int, item: String) in
             text_gender.text = item
+            self.gender = index
         }
         // Top of drop down will be below the anchorView
         dropDownForGender.bottomOffset = CGPoint(x: 0, y:(dropDownForGender.anchorView?.plainView.bounds.height)!)
@@ -105,10 +107,39 @@ class ReaderBuildProfileViewController: UIViewController, PhotoDelegate {
             }
             
             DispatchQueue.main.async {
-                hideIndicator(sender: sender)
-                let controller = ReaderTabBarController()
-                controller.modalPresentationStyle = .fullScreen
-                self.present(controller, animated: false)
+                
+                if var userInfo = UserDefaults.standard.object(forKey: "USER") as? [String:Any] {
+                    // Use the saved data
+                    let uid = userInfo["uid"] as! String
+                    let bucketName = userInfo["avatarBucketName"] as? String
+                    let avatarKey = userInfo["avatarKey"] as? String
+                    webAPI.updateUserInfo(uid: uid, userType: -1, bucketName: bucketName ?? "", avatarKey: avatarKey ?? "", username: "", email: "", password: "", firstName: "", lastName: "", dateOfBirth: "", gender: self.gender, currentAddress: "", permanentAddress: "", city: "", nationality: "", phoneNumber: "", isLogin: true, fcmDeviceToken: "", deviceKind: -1) { data, response, error in
+                        DispatchQueue.main.async {
+                            hideIndicator(sender: nil);
+                        }
+                       
+                        guard let _ = data, error == nil else {
+                            print(error?.localizedDescription ?? "No data")
+                            return
+                        }
+                        
+                        DispatchQueue.main.async {
+                            //update gender info in local
+                            userInfo["gender"] = self.gender
+                            UserDefaults.standard.removeObject(forKey: "USER")
+                            UserDefaults.standard.set(userInfo, forKey: "USER")
+                            
+                            let controller = ReaderTabBarController()
+                            controller.modalPresentationStyle = .fullScreen
+                            self.present(controller, animated: false)
+                        }
+                    }
+                    
+                } else {
+                    // No data was saved
+                    print("No data was saved.")
+                }
+                
             }
         }
     }
