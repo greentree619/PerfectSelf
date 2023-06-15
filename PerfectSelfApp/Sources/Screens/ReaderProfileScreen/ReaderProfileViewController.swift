@@ -132,6 +132,7 @@ class ReaderProfileViewController: UIViewController, UICollectionViewDataSource,
                     
                     self.hourlyPrice.text = "$\(Float(item.hourlyPrice)/4) / 15 mins"
                     self.skills = item.skills.components(separatedBy: ",")
+                    self.skills = self.skills.filter { !$0.isEmpty }
                     self.skillList.reloadData()
                     self.hourlyRate = item.hourlyPrice
                     

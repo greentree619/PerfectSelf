@@ -113,6 +113,7 @@ class ActorReaderDetailViewController: UIViewController , UICollectionViewDataSo
                     if !item.skills.isEmpty {
                         self.skills = item.skills.components(separatedBy: ",")
                     }
+                    self.skills = self.skills.filter { !$0.isEmpty }
                     self.skillList.reloadData()
  
                     self.items.removeAll()
