@@ -84,7 +84,7 @@ class ChatViewController: KUIViewController, UICollectionViewDataSource, UIColle
         messageCollectionView.dataSource = self
         messageCollectionView.delegate = self
         
-        self.webRTCClient.speakerOn()
+        //Omitted self.webRTCClient.speakerOn()
         self.signalClient.sendRoomId(roomId: self.roomUid)
         if let userInfo = UserDefaults.standard.object(forKey: "USER") as? [String:Any] {
             // Use the saved data

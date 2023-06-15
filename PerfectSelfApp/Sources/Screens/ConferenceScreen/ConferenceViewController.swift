@@ -241,8 +241,15 @@ class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSample
         }
         //}}Init to record audio
 #endif
-        self.webRTCClient.startCaptureLocalVideo(renderer: localRenderer) {
-            self.webRTCClient.speakerOn()
+        self.webRTCClient.startCaptureLocalVideo(renderer: localRenderer) {error in
+            self.webRTCClient.speakerOn { error in
+                if error == nil{
+                    log(meetingUid: gRoomUid!, log:"\(userName!) Forced audio for WebRTC")
+                }
+                else{
+                    log(meetingUid: gRoomUid!, log:"\(userName!) WebRTC audio error:\(String(describing: error?.localizedDescription))")
+                }
+            }
         }
         self.webRTCClient.renderRemoteVideo(to: remoteRenderer)
         
@@ -251,7 +258,7 @@ class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSample
         }
         self.embedView(remoteRenderer, into: self.remoteCameraView)
         self.remoteCameraView.sendSubviewToBack(remoteRenderer)
-        setSpeakerVolume(1.0)
+        //Omitted setSpeakerVolume(1.0)
         
         pingPongRcv = false
         DispatchQueue.main.async {

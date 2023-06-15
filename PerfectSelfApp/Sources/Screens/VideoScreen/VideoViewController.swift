@@ -33,7 +33,7 @@ class VideoViewController: UIViewController {
         remoteRenderer.videoContentMode = .scaleAspectFill
         
 
-        self.webRTCClient.startCaptureLocalVideo(renderer: localRenderer, completionHandler: {
+        self.webRTCClient.startCaptureLocalVideo(renderer: localRenderer, completionHandler: {error in
             print("test")
         })
         self.webRTCClient.renderRemoteVideo(to: remoteRenderer)
