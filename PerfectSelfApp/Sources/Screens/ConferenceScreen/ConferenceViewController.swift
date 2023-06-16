@@ -184,81 +184,6 @@ class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSample
         let remoteRenderer = RTCMTLVideoView(frame: self.remoteCameraView.frame)
         localRenderer.videoContentMode = .scaleAspectFill
         remoteRenderer.videoContentMode = .scaleAspectFill
-#if !targetEnvironment(simulator)
-        //{{ Init to record video.
-        let output = AVCaptureVideoDataOutput()
-        guard let capturer = self.webRTCClient.videoCapturer as? RTCCameraVideoCapturer else {
-            return
-        }
-        output.setSampleBufferDelegate(self, queue: DispatchQueue(label: "com.yusuke024.video"))
-        capturer.captureSession.beginConfiguration()
-        
-        if(capturer.captureSession.canAddOutput(output))
-        {
-            isRecordEnabled = true
-            capturer.captureSession.addOutput(output)
-        }
-        else
-        {
-            isRecordEnabled = false
-        }
-        
-        if( capturer.captureSession.canSetSessionPreset(AVCaptureSession.Preset.low) )
-        {
-            capturer.captureSession.sessionPreset = AVCaptureSession.Preset.low
-        }
-        capturer.captureSession.commitConfiguration()
-        _videoOutput = output
-        _captureSession = capturer.captureSession
-        
-        log(meetingUid: gRoomUid!, log:"\(userName!) CaptureSession Starting...")
-        if( _captureSession?.isRunning == false ){
-            _captureSession?.startRunning()
-            log(meetingUid: gRoomUid!, log:"\(userName!) CaptureSession Start: OK.")
-        }
-        //}} Init to record video.
-#endif
-        self.webRTCClient.startCaptureLocalVideo(renderer: localRenderer) { [self]error in
-            self.webRTCClient.speakerOn { error in
-                if error == nil{
-                    log(meetingUid: gRoomUid!, log:"\(userName!) Forced audio for WebRTC")
-                }
-                else{
-                    log(meetingUid: gRoomUid!, log:"\(userName!) WebRTC audio error:\(String(describing: error?.localizedDescription))")
-                }
-            }
-            
-            //{{Init to record audio
-            let audioTmpUrl = getAudioTempURL()
-            //print(audioUrl!.absoluteString)
-            
-            // 4
-            let settings = [
-                AVFormatIDKey: Int(kAudioFormatMPEG4AAC),
-                AVSampleRateKey: 12000,
-                AVNumberOfChannelsKey: 1,
-                AVEncoderAudioQualityKey: AVAudioQuality.high.rawValue
-            ]
-            
-            do {
-                // 5
-                //try FileManager.default.removeItem(atPath: audioURL.absoluteString)
-                audioRecorder = try AVAudioRecorder(url: audioTmpUrl, settings: settings)
-                audioRecorder?.delegate = self
-            } catch {
-                audioRecorder?.stop()
-                //finishRecording(success: false)
-            }
-            //}}Init to record audio
-        }
-        self.webRTCClient.renderRemoteVideo(to: remoteRenderer)
-        
-        if let localVideoView = self.localVideoView {
-            self.embedView(localRenderer, into: localVideoView)
-        }
-        self.embedView(remoteRenderer, into: self.remoteCameraView)
-        self.remoteCameraView.sendSubviewToBack(remoteRenderer)
-        //Omitted setSpeakerVolume(1.0)
         
         pingPongRcv = false
         DispatchQueue.main.async {
@@ -273,6 +198,29 @@ class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSample
                    || disabledWait ){
                     timer.invalidate()
                     //Omitted self.semaphore.signal()
+                    //{{Init WebRTC using video and audio
+                    self.webRTCClient.startCaptureLocalVideo(renderer: localRenderer) { [self]error in
+                        self.webRTCClient.speakerOn { error in
+                            if error == nil{
+                                log(meetingUid: gRoomUid!, log:"\(userName!) Forced audio for WebRTC")
+                            }
+                            else{
+                                log(meetingUid: gRoomUid!, log:"\(userName!) WebRTC audio error:\(String(describing: error?.localizedDescription))")
+                            }
+                            
+                            self.initVideoCaptureSession()
+                            self.initAudioCaptureSession()
+                        }
+                    }
+                    self.webRTCClient.renderRemoteVideo(to: remoteRenderer)
+                    
+                    if let localVideoView = self.localVideoView {
+                        self.embedView(localRenderer, into: localVideoView)
+                    }
+                    self.embedView(remoteRenderer, into: self.remoteCameraView)
+                    self.remoteCameraView.sendSubviewToBack(remoteRenderer)
+                    //}}Init WebRTC using video and audio
+                    
                     DispatchQueue.main.async {
                         self.waitingScreen.isHidden = true
                     }
@@ -436,6 +384,68 @@ class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSample
     
     @IBAction func cancelDidTap(_ sender: Any) {
         timeSelectPannel.isHidden = true
+    }
+    
+    func initVideoCaptureSession(){
+#if !targetEnvironment(simulator)
+        //{{ Init to record video.
+        let output = AVCaptureVideoDataOutput()
+        guard let capturer = self.webRTCClient.videoCapturer as? RTCCameraVideoCapturer else {
+            return
+        }
+        output.setSampleBufferDelegate(self, queue: DispatchQueue(label: "com.yusuke024.video"))
+        capturer.captureSession.beginConfiguration()
+        
+        if(capturer.captureSession.canAddOutput(output))
+        {
+            isRecordEnabled = true
+            capturer.captureSession.addOutput(output)
+        }
+        else
+        {
+            isRecordEnabled = false
+        }
+        
+        if( capturer.captureSession.canSetSessionPreset(AVCaptureSession.Preset.low) )
+        {
+            capturer.captureSession.sessionPreset = AVCaptureSession.Preset.low
+        }
+        capturer.captureSession.commitConfiguration()
+        _videoOutput = output
+        _captureSession = capturer.captureSession
+        
+        log(meetingUid: gRoomUid!, log:"\(userName!) CaptureSession Starting...")
+        if( _captureSession?.isRunning == false ){
+            _captureSession?.startRunning()
+            log(meetingUid: gRoomUid!, log:"\(userName!) CaptureSession Start: OK.")
+        }
+        //}} Init to record video.
+#endif
+    }
+    
+    func initAudioCaptureSession(){
+        //{{Init to record audio
+        let audioTmpUrl = getAudioTempURL()
+        //print(audioUrl!.absoluteString)
+        
+        // 4
+        let settings = [
+            AVFormatIDKey: Int(kAudioFormatMPEG4AAC),
+            AVSampleRateKey: 12000,
+            AVNumberOfChannelsKey: 1,
+            AVEncoderAudioQualityKey: AVAudioQuality.high.rawValue
+        ]
+        
+        do {
+            // 5
+            //try FileManager.default.removeItem(atPath: audioURL.absoluteString)
+            audioRecorder = try AVAudioRecorder(url: audioTmpUrl, settings: settings)
+            audioRecorder?.delegate = self
+        } catch {
+            audioRecorder?.stop()
+            //finishRecording(success: false)
+        }
+        //}}Init to record audio
     }
     
     func recordStart(){
