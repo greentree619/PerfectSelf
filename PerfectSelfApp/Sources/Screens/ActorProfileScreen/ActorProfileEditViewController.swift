@@ -112,6 +112,7 @@ class ActorProfileEditViewController: UIViewController, PhotoDelegate {
                     //print(respItems)
                     DispatchQueue.main.async {
                         self.dropDownForCity.dataSource.removeAll()
+                        self.cityMap = [:]
                         respItems.forEach { (key, value) in
                             //print("Key: \(key), Value: \(value)")
                             self.cityMap[key] = "\(value)"
@@ -144,6 +145,7 @@ class ActorProfileEditViewController: UIViewController, PhotoDelegate {
                     //print(respItems)
                     DispatchQueue.main.async {
                         self.dropDownForState.dataSource.removeAll()
+                        self.stateMap = [:]
                         respItems.forEach { (key, value) in
                             //print("Key: \(key), Value: \(value)")
                             self.stateMap[key] = "\(value)"
@@ -168,6 +170,7 @@ class ActorProfileEditViewController: UIViewController, PhotoDelegate {
                 //print(respItems)
                 DispatchQueue.main.async {
                     self.dropDownForCountry.dataSource.removeAll()
+                    self.countryMap = [:]
                     respItems.forEach { (key, value) in
                         //print("Key: \(key), Value: \(value)")
                         self.countryMap[key] = value
@@ -446,16 +449,16 @@ class ActorProfileEditViewController: UIViewController, PhotoDelegate {
         dropDownForCountry.show()
     }
 
-
-//    @IBAction func ShowCountry(_ sender: UITextField) {
-//        self.dropDownForCountry.dataSource = Array(self.countryMap.keys)
-//        dropDownForCountry.show()
-//        print("oks")
-//    }
+    @IBAction func CheckValidCountry(_ sender: UITextField) {
+        if !self.countryMap.keys.contains(sender.text!) {
+            sender.text = ""
+        }
+    }
+    
     @IBAction func SearchCountry(_ sender: UITextField) {
         
         self.dropDownForCountry.dataSource.removeAll()
-        let list = self.countryMap.keys.filter {$0.contains(sender.text ?? "")}
+        let list = self.countryMap.keys.filter {$0.lowercased().contains(sender.text!.lowercased())}
         self.dropDownForCountry.dataSource = list
         if list.isEmpty {
             dropDownForCountry.hide()
@@ -466,9 +469,15 @@ class ActorProfileEditViewController: UIViewController, PhotoDelegate {
     @IBAction func ShowStateDropDown(_ sender: UIButton) {
         dropDownForState.show()
     }
+    
+    @IBAction func CheckValidState(_ sender: UITextField) {
+        if !self.stateMap.keys.contains(sender.text!) {
+            sender.text = ""
+        }
+    }
     @IBAction func SearchState(_ sender: UITextField) {
         self.dropDownForState.dataSource.removeAll()
-        let list = self.stateMap.keys.filter {$0.contains(sender.text ?? "")}
+        let list = self.stateMap.keys.filter {$0.lowercased().contains(sender.text!.lowercased())}
         self.dropDownForState.dataSource = list
         if list.isEmpty {
             dropDownForState.hide()
@@ -479,9 +488,14 @@ class ActorProfileEditViewController: UIViewController, PhotoDelegate {
     @IBAction func ShowCityDropDown(_ sender: UIButton) {
         dropDownForCity.show()
     }
+    @IBAction func CheckValidCity(_ sender: UITextField) {
+        if !self.cityMap.keys.contains(sender.text!) {
+            sender.text = ""
+        }
+    }
     @IBAction func SearchCity(_ sender: UITextField) {
         self.dropDownForCity.dataSource.removeAll()
-        let list = self.cityMap.keys.filter {$0.contains(sender.text ?? "")}
+        let list = self.cityMap.keys.filter {$0.lowercased().contains(sender.text!.lowercased())}
         self.dropDownForCity.dataSource = list
         if list.isEmpty {
             dropDownForCity.hide()

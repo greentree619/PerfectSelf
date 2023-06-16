@@ -411,6 +411,7 @@
                                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                                     <textInputTraits key="textInputTraits"/>
                                                                     <connections>
+                                                                        <action selector="CheckValidCountry:" destination="-1" eventType="editingDidEnd" id="uSs-I6-KPm"/>
                                                                         <action selector="SearchCountry:" destination="-1" eventType="editingChanged" id="NfH-nm-3MW"/>
                                                                     </connections>
                                                                 </textField>
@@ -460,6 +461,7 @@
                                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                                     <textInputTraits key="textInputTraits"/>
                                                                     <connections>
+                                                                        <action selector="CheckValidState:" destination="-1" eventType="editingDidEnd" id="bwu-M2-tAQ"/>
                                                                         <action selector="SearchState:" destination="-1" eventType="editingChanged" id="bjp-aN-Kig"/>
                                                                     </connections>
                                                                 </textField>
@@ -509,6 +511,7 @@
                                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                                     <textInputTraits key="textInputTraits"/>
                                                                     <connections>
+                                                                        <action selector="CheckValidCity:" destination="-1" eventType="editingDidEnd" id="pHb-Tr-sLH"/>
                                                                         <action selector="SearchCity:" destination="-1" eventType="editingChanged" id="hpV-9k-ZY6"/>
                                                                     </connections>
                                                                 </textField>

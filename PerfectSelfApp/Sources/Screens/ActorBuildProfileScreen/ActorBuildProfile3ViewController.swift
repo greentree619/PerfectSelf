@@ -13,7 +13,7 @@ class ActorBuildProfile3ViewController: UIViewController {
 
     var uid = ""
     var username:String = ""
-    var gender:String = ""
+    var gender:Int = 0
     var agerange:String = ""
     var height:String = ""
     var weight: String = ""
@@ -42,6 +42,7 @@ class ActorBuildProfile3ViewController: UIViewController {
     
     var countryMap = Dictionary<String, String>()
     var stateMap = Dictionary<String, String>()
+    var cityMap = Dictionary<String, String>()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -84,8 +85,10 @@ class ActorBuildProfile3ViewController: UIViewController {
                     //print(respItems)
                     DispatchQueue.main.async {
                         self.dropDownForCity.dataSource.removeAll()
+                        self.cityMap = [:]
                         respItems.forEach { (key, value) in
                             //print("Key: \(key), Value: \(value)")
+                            self.cityMap[key] = "\(value)"
                             self.dropDownForCity.dataSource.append(key)
                         }
                     }
@@ -116,6 +119,7 @@ class ActorBuildProfile3ViewController: UIViewController {
                     //print(respItems)
                     DispatchQueue.main.async {
                         self.dropDownForState.dataSource.removeAll()
+                        self.stateMap = [:]
                         respItems.forEach { (key, value) in
                             //print("Key: \(key), Value: \(value)")
                             self.stateMap[key] = "\(value)"
@@ -141,6 +145,7 @@ class ActorBuildProfile3ViewController: UIViewController {
                 //print(respItems)
                 DispatchQueue.main.async {
                     self.dropDownForCountry.dataSource.removeAll()
+                    self.countryMap = [:]
                     respItems.forEach { (key, value) in
                         //print("Key: \(key), Value: \(value)")
                         self.countryMap[key] = value
@@ -185,11 +190,62 @@ class ActorBuildProfile3ViewController: UIViewController {
     @IBAction func ShowCountryDropDown(_ sender: UIButton) {
         dropDownForCountry.show()
     }
+
+    @IBAction func CheckValidCountry(_ sender: UITextField) {
+        if !self.countryMap.keys.contains(sender.text!) {
+            sender.text = ""
+        }
+    }
+    
+    @IBAction func SearchCountry(_ sender: UITextField) {
+        
+        self.dropDownForCountry.dataSource.removeAll()
+        let list = self.countryMap.keys.filter {$0.lowercased().contains(sender.text!.lowercased() )}
+        self.dropDownForCountry.dataSource = list
+        if list.isEmpty {
+            dropDownForCountry.hide()
+        } else {
+            dropDownForCountry.show()
+        }
+    }
     @IBAction func ShowStateDropDown(_ sender: UIButton) {
         dropDownForState.show()
     }
+    
+
+    @IBAction func CheckValidState(_ sender: UITextField) {
+        if !self.stateMap.keys.contains(sender.text!) {
+            sender.text = ""
+        }
+    }
+    @IBAction func SearchState(_ sender: UITextField) {
+        self.dropDownForState.dataSource.removeAll()
+        let list = self.stateMap.keys.filter {$0.lowercased().contains(sender.text!.lowercased())}
+        self.dropDownForState.dataSource = list
+        if list.isEmpty {
+            dropDownForState.hide()
+        } else {
+            dropDownForState.show()
+        }
+    }
     @IBAction func ShowCityDropDown(_ sender: UIButton) {
         dropDownForCity.show()
+    }
+    @IBAction func CheckValidCity(_ sender: UITextField) {
+        if !self.cityMap.keys.contains(sender.text!) {
+            sender.text = ""
+        }
+    }
+   
+    @IBAction func SearchCity(_ sender: UITextField) {
+        self.dropDownForCity.dataSource.removeAll()
+        let list = self.cityMap.keys.filter {$0.lowercased().contains(sender.text!.lowercased())}
+        self.dropDownForCity.dataSource = list
+        if list.isEmpty {
+            dropDownForCity.hide()
+        } else {
+            dropDownForCity.show()
+        }
     }
     @IBAction func ShowAgencyDropDown(_ sender: UIButton) {
         dropDownForAgency.show()
@@ -253,10 +309,37 @@ class ActorBuildProfile3ViewController: UIViewController {
                 return
             }
             DispatchQueue.main.async {
-                hideIndicator(sender: sender)
-                let controller = ActorTabBarController()
-                controller.modalPresentationStyle = .fullScreen
-                self.present(controller, animated: false)
+                
+                if var userInfo = UserDefaults.standard.object(forKey: "USER") as? [String:Any] {
+                    // Use the saved data
+                    let bucketName = userInfo["avatarBucketName"] as? String
+                    let avatarKey = userInfo["avatarKey"] as? String
+                    webAPI.updateUserInfo(uid: self.uid, userType: -1, bucketName: bucketName ?? "", avatarKey: avatarKey ?? "", username: "", email: "", password: "", firstName: "", lastName: "", dateOfBirth: "", gender: self.gender, currentAddress: "", permanentAddress: "", city: "", nationality: "", phoneNumber: "", isLogin: true, fcmDeviceToken: "", deviceKind: -1) { data, response, error in
+                        DispatchQueue.main.async {
+                            hideIndicator(sender: nil);
+                        }
+                       
+                        guard let _ = data, error == nil else {
+                            print(error?.localizedDescription ?? "No data")
+                            return
+                        }
+                        
+                        DispatchQueue.main.async {
+                            //update gender info in local
+                            userInfo["gender"] = self.gender
+                            UserDefaults.standard.removeObject(forKey: "USER")
+                            UserDefaults.standard.set(userInfo, forKey: "USER")
+                            
+                            let controller = ActorTabBarController()
+                            controller.modalPresentationStyle = .fullScreen
+                            self.present(controller, animated: false)
+                        }
+                    }
+                    
+                } else {
+                    // No data was saved
+                    print("No data was saved.")
+                }
             }
         }
     }
