@@ -289,6 +289,9 @@
                             <color key="tintColor" white="1" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <state key="normal" title="Button"/>
                             <buttonConfiguration key="configuration" style="plain" image="recycle" title=""/>
+                            <connections>
+                                <action selector="deleteDidTap:" destination="-1" eventType="touchUpInside" id="FzZ-fT-ILU"/>
+                            </connections>
                         </button>
                     </subviews>
                     <constraints>

@@ -235,6 +235,10 @@ struct VideoCard: Codable {
     var deletedTime: String
 }
 
+struct TapeCount: Codable {
+    let tapeCount: Int
+}
+
 struct TimeSlot: Codable {
     var date: String
     var time: [Slot]

@@ -43,7 +43,7 @@ class ActorLibraryViewController: UIViewController, UICollectionViewDataSource, 
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated);
+        super.viewWillAppear(animated)
         
         items.removeAll()
         fetchVideos()

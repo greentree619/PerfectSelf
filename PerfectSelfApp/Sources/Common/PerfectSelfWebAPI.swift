@@ -90,10 +90,12 @@ class PerfectSelfWebAPI
         ]
         return executeAPI(with: "POST", apiPath: "Users", json: json, completionHandler:completionHandler)
     }
+    
     func getActorProfile(actoruid: String, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> Void
     {
         return executeAPI(with: "GET", apiPath: "ActorProfiles/ByUid/\(actoruid)", json: [:], completionHandler:completionHandler)
     }
+    
     func updateActorProfile(actoruid: String, ageRange: String, height: String, weight: String, country: String, state: String, city: String, agency: String, vaccination: Int, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> Void
     {
         let json: [String: Any] = [
@@ -111,6 +113,7 @@ class PerfectSelfWebAPI
       print(json)
         return executeAPI(with: "PUT", apiPath: "ActorProfiles/ByUid/\(actoruid)", json: json, completionHandler:completionHandler)
     }
+    
     func getUserInfo(uid: String, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> Void
     {
         return executeAPI(with: "GET", apiPath: "Users/\(uid)", json: [:], completionHandler:completionHandler)
@@ -250,6 +253,7 @@ class PerfectSelfWebAPI
       
         return executeAPI(with: "GET", apiPath: "ReaderProfiles/ReaderList?\(params)", json: [:], completionHandler:completionHandler)
     }
+    
     func getReaderById(id: String, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> Void
     {
         return executeAPI(with: "GET", apiPath: "ReaderProfiles/Detail/\(id)", json: [:], completionHandler:completionHandler)
@@ -291,18 +295,22 @@ class PerfectSelfWebAPI
    
         return executeAPI(with: "POST", apiPath: "Books/", json: json, completionHandler:completionHandler)
     }
+    
     func getBookingsByUid(uid: String, bookType: Int, name: String, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> Void
     {
         return executeAPI(with: "GET", apiPath: "Books/DetailList/ByUid/\(uid)?bookType=\(bookType)&name=\(name)", json: [:], completionHandler:completionHandler)
     }
+    
     func cancelBookingByRoomUid(uid: String, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> Void
     {
         return executeAPI(with: "DELETE", apiPath: "Books/ByRoomUid/\(uid)", json: [:], completionHandler:completionHandler)
     }
+    
     func acceptBookingById(id: Int, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> Void
     {
         return executeAPI(with: "POST", apiPath: "Books/Accept/\(id)", json: [:], completionHandler:completionHandler)
     }
+    
     func rescheduleBooking(id: Int, bookStartTime: String, bookEndTime: String, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> Void
     {
         let json: [String: Any] = [
@@ -320,13 +328,33 @@ class PerfectSelfWebAPI
 
         return executeAPI(with: "POST", apiPath: "Books/Reschedule/\(id)", json: json, completionHandler:completionHandler)
     }
+    
     func getAvailabilityById(uid: String, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> Void
     {
         return executeAPI(with: "GET", apiPath: "Availabilities/UpcomingByUid/\(uid)/\(Date.getStringFromDate(date: Date()))", json: [:], completionHandler:completionHandler)
     }
+    
     func getLibraryByUid(uid: String, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> Void
     {
         return executeAPI(with: "GET", apiPath: "Library/ByUid/\(uid)", json: [:], completionHandler:completionHandler)
+    }
+    
+    func deleteTapeByUid(uid: String?, tapeKey: String?, roomUid: String?, tapeId: String?, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> Void
+    {
+        guard let _=uid, let _=tapeKey, let _=roomUid else{
+            return
+        }
+        let tapeKey = encodeURLParameter(tapeKey!)
+        return executeAPI(with: "DELETE", apiPath: "Library/DeleteBy/\(uid!)/\(tapeKey!)/\(roomUid!)/\(tapeId!)", json: [:], completionHandler:completionHandler)
+    }
+    
+    func getTapeCountByKey(tapeKey: String?, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> Void
+    {
+        guard let _=tapeKey else{
+            return
+        }
+        let tapeKey = encodeURLParameter(tapeKey!)
+        return executeAPI(with: "GET", apiPath: "Library/CountByTapeKey/\(tapeKey!)", json: [:], completionHandler:completionHandler)
     }
 
     func addAvailability(uid: String, date: String, fromTime: String, toTime: String, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> Void
@@ -407,27 +435,33 @@ class PerfectSelfWebAPI
         print(batchData)
         return executeAPIEX(with: "PUT", apiPath: "Availabilities/UpdateBatch", json: batchData, completionHandler:completionHandler)
     }
+    
     func giveFeedback(id: Int, score: Float, review: String, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> Void
     {
         print("Books/GiveFeedbackToUid/\(id)?score=\(score)&review=\(review)")
         return executeAPI(with: "PUT", apiPath: "Books/GiveFeedbackToUid/\(id)?score=\(score)&review=\(review)", json: [:], completionHandler:completionHandler)
     }
+    
     func getUnreadCountByUid(uid: String, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> Void
     {
         return executeAPI(with: "GET", apiPath: "MessageHistory/GetUnreadCountEx/\(uid)", json: [:], completionHandler:completionHandler)
     }
+    
     func getChannelHistoryByUid(uid: String, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> Void
     {
         return executeAPI(with: "GET", apiPath: "MessageHistory/GetChannelHistory/\(uid)", json: [:], completionHandler:completionHandler)
     }
+    
     func getMessageHistoryByRoomId(roomId: String, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> Void
     {
         return executeAPI(with: "GET", apiPath: "MessageHistory/GetChatHistory/\(roomId)", json: [:], completionHandler:completionHandler)
     }
+    
     func getRoomIdBySendUidAndReceiverUid(sUid: String, rUid: String, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> Void
     {
         return executeAPI(with: "GET", apiPath: "MessageHistory/GetRoomId/\(sUid)/\(rUid)", json: [:], completionHandler:completionHandler)
     }
+    
     func sendMessage(roomId: String,sUid: String, rUid: String, message: String, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> Void
     {
         let json: [String: Any] = [
@@ -439,14 +473,17 @@ class PerfectSelfWebAPI
         
         return executeAPI(with: "POST", apiPath: "MessageHistory", json: json, completionHandler:completionHandler)
     }
+    
     func updateAllMessageReadState(suid: String, ruid: String, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> Void
     {
         return executeAPI(with: "PUT", apiPath: "MessageHistory/SetAllReadMessage/\(ruid)/\(suid)", json: [:], completionHandler:completionHandler)
     }
+    
     func updateOnlineState(uid: String, newState: Bool, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> Void
     {
         return executeAPI(with: "PUT", apiPath: "Users/ChangeOnline/\(uid)?state=\(newState)", json: [:], completionHandler:completionHandler)
     }
+    
     func login() -> Void
     {
         let json: [String: Any] = ["userName": "tester",

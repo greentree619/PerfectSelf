@@ -346,4 +346,36 @@ class AWSMultipartUpload: NSObject, URLSessionTaskDelegate, URLSessionDataDelega
                        return nil;
                }
     }
+    
+    func cancelDownload(){
+        let awsTask = transferUtility.getDownloadTasks()
+        if let taskArray = awsTask.result {
+            for idx in taskArray {
+                if let task = idx as? AWSS3TransferUtilityDownloadTask {
+                    task.cancel()
+                }
+            }
+        }
+    }
+    
+    func deleteFile(bucket: String, key: String?){
+        guard let _=key else{
+            return
+        }
+
+        let s3 = AWSS3.default()
+        guard let deleteObjectRequest = AWSS3DeleteObjectRequest() else {
+            return
+        }
+        deleteObjectRequest.bucket = bucket
+        deleteObjectRequest.key = key
+        s3.deleteObject(deleteObjectRequest).continueWith { (task:AWSTask) -> AnyObject? in
+            if let error = task.error {
+                print("Error occurred: \(error)")
+                return nil
+            }
+            print("Deleted successfully.")
+            return nil
+        }
+    }
 }

@@ -176,12 +176,69 @@ class ProjectViewController: UIViewController {
             }
         }
         
-        DispatchQueue.main.async {
+        DispatchQueue.main.async { [self] in
             showIndicator(sender: nil, viewController: self, color:UIColor.white)
+            let tapGesture = UITapGestureRecognizer(target: self, action:  #selector(didTapIndicatorView(_:)))
+            backgroundView!.addGestureRecognizer(tapGesture)
+            Toast.show(message: "To cancel download from library, please tap screen.", controller: self)
         }
     }
     
-    @IBAction func backDidTapped(_ sender: UIButton) {
+    @IBAction func deleteDidTap(_ sender: UIButton) {
+        showConfirm(viewController: self, title: "Confirm", message: "Are you sure to delete?") { [self] UIAlertAction in
+            //print("Ok button tapped")
+            webAPI.getTapeCountByKey( tapeKey: selectedTape!.actorTapeKey ){ data, response, error in
+                guard let data = data, error == nil else {
+                    print(error?.localizedDescription ?? "No data")
+                    return
+                }
+                do {
+                    let resp = try JSONDecoder().decode(TapeCount.self, from: data)
+                    print(resp.tapeCount)
+                    if(resp.tapeCount == 1){
+                        awsUpload.deleteFile(bucket: selectedTape!.bucketName, key: "\(selectedTape!.actorTapeKey).mp4")
+                        awsUpload.deleteFile(bucket: selectedTape!.bucketName, key: "\(selectedTape!.actorTapeKey).m4a")
+                    }
+                } catch {
+                    print(error)
+                }
+            }
+            
+            webAPI.getTapeCountByKey( tapeKey: selectedTape!.readerTapeKey ){ data, response, error in
+                guard let data = data, error == nil else {
+                    print(error?.localizedDescription ?? "No data")
+                    return
+                }
+                do {
+                    let resp = try JSONDecoder().decode(TapeCount.self, from: data)
+                    print(resp.tapeCount)
+                    if(resp.tapeCount == 1){
+                        awsUpload.deleteFile(bucket: selectedTape!.bucketName, key: "\(String(describing: selectedTape!.readerTapeKey)).mp4")
+                        awsUpload.deleteFile(bucket: selectedTape!.bucketName, key: "\(String(describing: selectedTape!.readerTapeKey)).m4a")
+                    }
+                } catch {
+                    print(error)
+                }
+            }
+            
+            webAPI.deleteTapeByUid(uid: selectedTape!.actorUid, tapeKey: selectedTape!.actorTapeKey, roomUid: selectedTape!.roomUid, tapeId: selectedTape!.tapeId) { data, urlResponse, error in
+            }
+            webAPI.deleteTapeByUid(uid: selectedTape!.readerUid, tapeKey: selectedTape!.readerTapeKey, roomUid: selectedTape!.roomUid, tapeId: selectedTape!.tapeId) { data, urlResponse, error in
+            }
+            
+            backDidTapped(UIButton())
+        } cancelHandler: { UIAlertAction in
+            //print("Cancel button tapped")
+        }
+    }
+    
+    @IBAction func didTapIndicatorView(_ sender: UITapGestureRecognizer) {
+        //print("did tap view", sender)
+        awsUpload.cancelDownload()
+        hideIndicator(sender: nil)
+    }
+    
+    @IBAction func backDidTapped(_ sender: UIButton?) {
         isOnPlay = false
         self.dismiss(animated: false)
     }
