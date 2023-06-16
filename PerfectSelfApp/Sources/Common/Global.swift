@@ -620,14 +620,16 @@ func initAVMutableComposition(avMComp: AVMutableComposition, videoURL: URL, audi
             
     let videoAsset = AVURLAsset(url: videoURL)
     let audioAsset = AVURLAsset(url: audioURL)
-    
+        
     let dur = CMTimeRangeMake(start: CMTime.zero, duration: videoAsset.duration)
     let vTrack = videoAsset.tracks(withMediaType: .video).first!
     videoTrack!.preferredTransform = transformForTrack(vTrack)
     
     do{
         try videoTrack?.insertTimeRange(dur, of: vTrack,  at: CMTime.zero)
-        try audioTrack?.insertTimeRange(dur, of: audioAsset.tracks(withMediaType: .audio).first!, at: CMTime.zero)
+        if(audioAsset.tracks(withMediaType: .audio).count > 0){
+            try audioTrack?.insertTimeRange(dur, of: audioAsset.tracks(withMediaType: .audio).first!, at: CMTime.zero)
+        }
     } catch {
         //handle error
         print(error)

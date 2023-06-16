@@ -18,8 +18,8 @@ enum PipelineMode
 }// internal state machine
 
 class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDelegate, AVAudioRecorderDelegate {
-    let videoWidth = 720
-    let videoHeight = 1280
+    let videoWidth = 1280//720
+    let videoHeight = 720//1280
     @IBOutlet weak var localVideoView: UIView!
     
     @IBOutlet weak var timeSelect: UIPickerView!
