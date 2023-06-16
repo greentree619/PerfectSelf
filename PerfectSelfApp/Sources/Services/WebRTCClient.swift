@@ -211,6 +211,13 @@ final class WebRTCClient: NSObject {
         let buffer = RTCDataBuffer(data: data, isBinary: true)
         self.remoteDataChannel?.sendData(buffer)
     }
+    
+    func close(){
+        let capturer = videoCapturer as? RTCCameraVideoCapturer
+        capturer?.captureSession.stopRunning()
+        speakerOff()
+        peerConnection.close()
+    }
 }
 
 extension WebRTCClient: RTCPeerConnectionDelegate {

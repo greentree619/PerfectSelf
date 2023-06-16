@@ -217,31 +217,8 @@ class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSample
             log(meetingUid: gRoomUid!, log:"\(userName!) CaptureSession Start: OK.")
         }
         //}} Init to record video.
-        
-        //{{Init to record audio
-        let audioTmpUrl = getAudioTempURL()
-        //print(audioUrl!.absoluteString)
-        
-        // 4
-        let settings = [
-            AVFormatIDKey: Int(kAudioFormatMPEG4AAC),
-            AVSampleRateKey: 12000,
-            AVNumberOfChannelsKey: 1,
-            AVEncoderAudioQualityKey: AVAudioQuality.high.rawValue
-        ]
-        
-        do {
-            // 5
-            //try FileManager.default.removeItem(atPath: audioURL.absoluteString)
-            audioRecorder = try AVAudioRecorder(url: audioTmpUrl, settings: settings)
-            audioRecorder?.delegate = self
-        } catch {
-            audioRecorder?.stop()
-            //finishRecording(success: false)
-        }
-        //}}Init to record audio
 #endif
-        self.webRTCClient.startCaptureLocalVideo(renderer: localRenderer) {error in
+        self.webRTCClient.startCaptureLocalVideo(renderer: localRenderer) { [self]error in
             self.webRTCClient.speakerOn { error in
                 if error == nil{
                     log(meetingUid: gRoomUid!, log:"\(userName!) Forced audio for WebRTC")
@@ -250,6 +227,29 @@ class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSample
                     log(meetingUid: gRoomUid!, log:"\(userName!) WebRTC audio error:\(String(describing: error?.localizedDescription))")
                 }
             }
+            
+            //{{Init to record audio
+            let audioTmpUrl = getAudioTempURL()
+            //print(audioUrl!.absoluteString)
+            
+            // 4
+            let settings = [
+                AVFormatIDKey: Int(kAudioFormatMPEG4AAC),
+                AVSampleRateKey: 12000,
+                AVNumberOfChannelsKey: 1,
+                AVEncoderAudioQualityKey: AVAudioQuality.high.rawValue
+            ]
+            
+            do {
+                // 5
+                //try FileManager.default.removeItem(atPath: audioURL.absoluteString)
+                audioRecorder = try AVAudioRecorder(url: audioTmpUrl, settings: settings)
+                audioRecorder?.delegate = self
+            } catch {
+                audioRecorder?.stop()
+                //finishRecording(success: false)
+            }
+            //}}Init to record audio
         }
         self.webRTCClient.renderRemoteVideo(to: remoteRenderer)
         
@@ -332,11 +332,14 @@ class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSample
         }
         
         log(meetingUid: gRoomUid!, log:"\(userName!) CaptureSession Stopping...")
-        if( _captureSession?.isRunning == true ){
-            _captureSession?.stopRunning()
-            log(meetingUid: gRoomUid!, log:"\(userName!) CaptureSession Stop: OK")
-        }
-        //Omitted self.captureSession.stopRunning()
+        //{{
+        webRTCClient.close()
+        //==
+//        if( _captureSession?.isRunning == true ){
+//            _captureSession?.stopRunning()
+//            log(meetingUid: gRoomUid!, log:"\(userName!) CaptureSession Stop: OK")
+//        }
+        //}}
     }
     
     class func getDocumentsDirectory() -> URL {

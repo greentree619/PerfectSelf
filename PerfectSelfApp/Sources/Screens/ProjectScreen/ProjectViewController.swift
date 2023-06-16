@@ -24,6 +24,7 @@ class ProjectViewController: UIViewController {
     var savedAudioUrl: URL? = nil
     var savedReaderVideoUrl: URL? = nil
     var savedReaderAudioUrl: URL? = nil
+    var doneReaderAVDownload: Bool = false
     @IBOutlet weak var playerView: PlayerView!
     @IBOutlet weak var actorPlayerView: PlayerView!
     //Omitted let awsUpload = AWSMultipartUpload()
@@ -119,6 +120,7 @@ class ProjectViewController: UIViewController {
                     if error != nil {
                          //print(error!.localizedDescription)
                         self.savedAudioUrl = nil
+                        hideIndicator(sender: nil)
                         DispatchQueue.main.async {
                             Toast.show(message: "Faild to download audio from library", controller: self)
                         }
@@ -133,14 +135,13 @@ class ProjectViewController: UIViewController {
                             //{{Wait until download both
                             DispatchQueue.main.async {
                                 _ = Timer.scheduledTimer(withTimeInterval: TimeInterval(100) / 1000, repeats: true, block: { timer in
-                                    guard self.savedReaderVideoUrl != nil, self.savedReaderAudioUrl != nil else{
+                                    guard self.doneReaderAVDownload == true else{
                                         return
                                     }
                                     timer.invalidate()
                                     hideIndicator(sender: nil)
                                     self.actorPlayerView.play()
                                     self.playerView.play()
-                                    
                                     
 #if OVERLAY_TEST
                                     var count = 2
@@ -161,7 +162,13 @@ class ProjectViewController: UIViewController {
             }
         }
         
+        doneReaderAVDownload = false
         downloadReaderVideoAsync(silent: true) {
+            self.doneReaderAVDownload = true
+            guard  let _ = self.savedReaderVideoUrl, let  _ = self.savedReaderAudioUrl else{
+                return
+            }
+            
             DispatchQueue.main.async { [self] in
                 initAVMutableComposition(avMComp: readerAV, videoURL: self.savedReaderVideoUrl!, audioURL: self.savedReaderAudioUrl!)
                 self.playerView.mainavComposition = readerAV
@@ -186,6 +193,10 @@ class ProjectViewController: UIViewController {
         isOnPlay = false
         
         downloadReaderVideoAsync(silent: false, completionHandler: { () in
+            guard  let _ = self.savedReaderVideoUrl, let  _ = self.savedReaderAudioUrl else{
+                return
+            }
+            
             let overlayViewController = OverlayViewController()
             overlayViewController.uploadVideourl = self.savedReaderVideoUrl
             overlayViewController.uploadAudiourl = self.savedReaderAudioUrl
@@ -202,6 +213,10 @@ class ProjectViewController: UIViewController {
         isOnPlay = false
         
         downloadReaderVideoAsync(silent: false, completionHandler: { () in
+            guard  let _ = self.savedReaderVideoUrl, let  _ = self.savedReaderAudioUrl else{
+                return
+            }
+            
             let editReadViewController = EditReadViewController(videoUrl: self.savedVideoUrl!, audioUrl: self.savedAudioUrl, readerVideoUrl: self.savedReaderVideoUrl!, readerAudioUrl: self.savedReaderAudioUrl!, isActorVideoEdit: true)
             editReadViewController.modalPresentationStyle = .fullScreen
             self.present(editReadViewController, animated: false, completion: nil)
@@ -217,6 +232,10 @@ class ProjectViewController: UIViewController {
         isOnPlay = false
         
         downloadReaderVideoAsync(silent: false, completionHandler: { () in
+            guard  let _ = self.savedReaderVideoUrl, let  _ = self.savedReaderAudioUrl else{
+                return
+            }
+            
             let editReadViewController = EditReadViewController(videoUrl: self.savedVideoUrl!, audioUrl: self.savedAudioUrl, readerVideoUrl: self.savedReaderVideoUrl!, readerAudioUrl: self.savedReaderAudioUrl!, isActorVideoEdit: false)
             editReadViewController.modalPresentationStyle = .fullScreen
             self.present(editReadViewController, animated: false, completion: nil)
@@ -247,11 +266,12 @@ class ProjectViewController: UIViewController {
             awsUpload.downloadEx(filePath: filePath, bucketName: selectedTape!.bucketName, key: "\(selectedTape!.readerTapeKey ?? "").mp4") { (error) -> Void in
                 if error != nil {
                     //print(error!.localizedDescription)
-                    self.savedVideoUrl = nil
+                    self.savedReaderVideoUrl = nil
                     DispatchQueue.main.async {
                         if( !silent ){hideIndicator(sender: nil)}
                         Toast.show(message: "Faild to download reader video from library", controller: self)
                     }
+                    completionHandler()
                 }
                 else{
                     self.savedReaderVideoUrl = filePath
@@ -271,7 +291,7 @@ class ProjectViewController: UIViewController {
                         
                         if error != nil {
                             //print(error!.localizedDescription)
-                            self.savedAudioUrl = nil
+                            self.savedReaderAudioUrl = nil
                             DispatchQueue.main.async {
                                 Toast.show(message: "Faild to download reader audio from library", controller: self)
                             }
@@ -283,8 +303,8 @@ class ProjectViewController: UIViewController {
 //                            overlayViewController.uploadAudiourl = self.savedReaderAudioUrl
 //                            overlayViewController.modalPresentationStyle = .fullScreen
 //                            self.present(overlayViewController, animated: false, completion: nil)
-                            completionHandler()
                         }
+                        completionHandler()
                     }
                 }
             }
