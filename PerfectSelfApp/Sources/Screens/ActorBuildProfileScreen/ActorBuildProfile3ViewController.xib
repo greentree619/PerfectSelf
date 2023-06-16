@@ -114,13 +114,17 @@
                                     <rect key="frame" x="0.0" y="50" width="353" height="40"/>
                                     <subviews>
                                         <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Country of residence..." textAlignment="natural" adjustsFontForContentSizeCategory="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="5Oj-Uu-aUU">
-                                            <rect key="frame" x="8" y="0.0" width="305" height="40"/>
+                                            <rect key="frame" x="8" y="0.0" width="345" height="40"/>
                                             <color key="backgroundColor" red="0.8980392157" green="0.8980392157" blue="0.8980392157" alpha="1" colorSpace="calibratedRGB"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="40" id="1bi-9C-BnE" customClass="AdaptiveLayoutConstraint" customModule="PerfectSelf" customModuleProvider="target"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                             <textInputTraits key="textInputTraits"/>
+                                            <connections>
+                                                <action selector="CheckValidCountry:" destination="-1" eventType="editingDidEnd" id="0Kh-J3-9KF"/>
+                                                <action selector="SearchCountry:" destination="-1" eventType="editingChanged" id="qo3-E3-YnU"/>
+                                            </connections>
                                         </textField>
                                         <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Cl2-yM-4df">
                                             <rect key="frame" x="313" y="0.0" width="40" height="40"/>
@@ -150,18 +154,27 @@
                                             <real key="value" value="5"/>
                                         </userDefinedRuntimeAttribute>
                                     </userDefinedRuntimeAttributes>
+                                    <variation key="default">
+                                        <mask key="subviews">
+                                            <exclude reference="Cl2-yM-4df"/>
+                                        </mask>
+                                    </variation>
                                 </stackView>
                                 <stackView opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fvC-g3-o2Q">
                                     <rect key="frame" x="0.0" y="110" width="353" height="40"/>
                                     <subviews>
                                         <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="State..." textAlignment="natural" adjustsFontForContentSizeCategory="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="5ov-Ig-r9D">
-                                            <rect key="frame" x="8" y="0.0" width="305" height="40"/>
+                                            <rect key="frame" x="8" y="0.0" width="345" height="40"/>
                                             <color key="backgroundColor" red="0.8980392157" green="0.8980392157" blue="0.8980392157" alpha="1" colorSpace="calibratedRGB"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="40" id="EA4-Cr-0Yo" customClass="AdaptiveLayoutConstraint" customModule="PerfectSelf" customModuleProvider="target"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                             <textInputTraits key="textInputTraits"/>
+                                            <connections>
+                                                <action selector="CheckValidState:" destination="-1" eventType="editingDidEnd" id="9Ok-Lf-rU7"/>
+                                                <action selector="SearchState:" destination="-1" eventType="editingChanged" id="4JS-AU-Gd8"/>
+                                            </connections>
                                         </textField>
                                         <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8LF-LK-9Wk">
                                             <rect key="frame" x="313" y="0.0" width="40" height="40"/>
@@ -191,18 +204,27 @@
                                             <real key="value" value="5"/>
                                         </userDefinedRuntimeAttribute>
                                     </userDefinedRuntimeAttributes>
+                                    <variation key="default">
+                                        <mask key="subviews">
+                                            <exclude reference="8LF-LK-9Wk"/>
+                                        </mask>
+                                    </variation>
                                 </stackView>
                                 <stackView opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HcB-gE-Dlk">
                                     <rect key="frame" x="0.0" y="170" width="353" height="40"/>
                                     <subviews>
                                         <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="City..." textAlignment="natural" adjustsFontForContentSizeCategory="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="JLI-qY-1C2">
-                                            <rect key="frame" x="8" y="0.0" width="305" height="40"/>
+                                            <rect key="frame" x="8" y="0.0" width="345" height="40"/>
                                             <color key="backgroundColor" red="0.8980392157" green="0.8980392157" blue="0.8980392157" alpha="1" colorSpace="calibratedRGB"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="40" id="LR2-b6-Rrs" customClass="AdaptiveLayoutConstraint" customModule="PerfectSelf" customModuleProvider="target"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                             <textInputTraits key="textInputTraits"/>
+                                            <connections>
+                                                <action selector="CheckValidCity:" destination="-1" eventType="editingDidEnd" id="9Ky-zw-9bQ"/>
+                                                <action selector="SearchCity:" destination="-1" eventType="editingChanged" id="Ozv-fV-S5m"/>
+                                            </connections>
                                         </textField>
                                         <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZXq-8V-dzx">
                                             <rect key="frame" x="313" y="0.0" width="40" height="40"/>
@@ -232,6 +254,11 @@
                                             <real key="value" value="5"/>
                                         </userDefinedRuntimeAttribute>
                                     </userDefinedRuntimeAttributes>
+                                    <variation key="default">
+                                        <mask key="subviews">
+                                            <exclude reference="ZXq-8V-dzx"/>
+                                        </mask>
+                                    </variation>
                                 </stackView>
                             </subviews>
                         </stackView>

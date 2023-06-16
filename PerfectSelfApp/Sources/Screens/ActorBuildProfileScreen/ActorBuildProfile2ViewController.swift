@@ -23,6 +23,7 @@ class ActorBuildProfile2ViewController: UIViewController, PhotoDelegate {
     @IBOutlet weak var text_weight: UITextField!
     @IBOutlet weak var text_height: UITextField!
     @IBOutlet weak var img_avatar: UIImageView!
+    var gender = 0;
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,7 +48,7 @@ class ActorBuildProfile2ViewController: UIViewController, PhotoDelegate {
         // Action triggered on selection
         dropDownForGender.selectionAction = { [unowned self] (index: Int, item: String) in
             text_gender.text = item
-          
+            self.gender = index
         }
         dropDownForAgeRange.selectionAction = { [unowned self] (index: Int, item: String) in
             text_age.text = item
@@ -180,7 +181,7 @@ class ActorBuildProfile2ViewController: UIViewController, PhotoDelegate {
         }
         let controller = ActorBuildProfile3ViewController()
         controller.username = text_username.text != nil ? text_username.text!: ""
-        controller.gender = text_gender.text != nil ? text_gender.text!: ""
+        controller.gender = self.gender
         controller.agerange = text_age.text != nil ? text_age.text! : ""
         controller.height = text_height.text != nil ? text_height.text! : ""
         controller.weight = text_weight.text != nil ? text_weight.text! : ""
