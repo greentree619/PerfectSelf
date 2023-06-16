@@ -28,7 +28,18 @@ class PlayerView: UIView {
     private var currentTimeContext = true
     private var rateContext = true
     private var playerItemContext = true
+    
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        let audioSession = AVAudioSession.sharedInstance()
 
+        do {
+            try audioSession.overrideOutputAudioPort(AVAudioSession.PortOverride.speaker)
+        } catch let error as NSError {
+            print("audioSession error: \(error.localizedDescription)")
+        }
+    }
+    
     override public class var layerClass: Swift.AnyClass {
         get {
             return AVPlayerLayer.self
