@@ -80,107 +80,20 @@ class ProjectViewController: UIViewController {
         self.playerView.delegate = self
         self.actorPlayerView.delegate = self
         
-        let documentsPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0];
-        let filePath = URL(fileURLWithPath: "\(documentsPath)/tempFile.mp4")
-        do {
-            try FileManager.default.removeItem(at: filePath)
-            //print("File deleted successfully")
-        } catch {
-            //print("Error deleting file: \(error.localizedDescription)")
-        }
-        
-        //Omitted startElapseTime = Date()
-        //Omitted showIndicator(sender: nil, viewController: self, color:UIColor.white)
-        awsUpload.downloadEx(filePath: filePath, bucketName: selectedTape!.bucketName, key: "\(selectedTape!.actorTapeKey).mp4") { [self] (error) -> Void in
-            if error != nil {
-                 //print(error!.localizedDescription)
-                self.savedVideoUrl = nil
-                DispatchQueue.main.async {
-                    hideIndicator(sender: nil)
-                    Toast.show(message: "Faild to download video from library", controller: self)
-                }
-            }
-            else{
-                //Omitted self.endElapseTime = Date()
-                //Omitted let elapsed = self.endElapseTime!.timeIntervalSince(self.startElapseTime!)
-                //Omitted print("Elapsed time: \(elapsed) seconds")
-                
-                self.savedVideoUrl = filePath
-                
-                //Download audio file
-                let filePath = URL(fileURLWithPath: "\(documentsPath)/tempFile.m4a")
-                do {
-                    try FileManager.default.removeItem(at: filePath)
-                    //print("File deleted successfully")
-                } catch {
-                    //print("Error deleting file: \(error.localizedDescription)")
-                }
-                
-                awsUpload.downloadEx(filePath: filePath, bucketName: selectedTape!.bucketName, key: "\(selectedTape!.actorTapeKey).m4a") { [self] (error) -> Void in
-                    if error != nil {
-                         //print(error!.localizedDescription)
-                        self.savedAudioUrl = nil
-                        hideIndicator(sender: nil)
-                        DispatchQueue.main.async {
-                            Toast.show(message: "Faild to download audio from library", controller: self)
-                        }
-                    }
-                    else{
-                        self.savedAudioUrl = filePath
-                        DispatchQueue.main.async { [self] in
-                            initAVMutableComposition(avMComp: actorAV, videoURL: self.savedVideoUrl!, audioURL: self.savedAudioUrl!)
-                            self.actorPlayerView.mainavComposition = actorAV
-                            //Omitted self.actorPlayerView.play()
-                            
-                            //{{Wait until download both
-                            DispatchQueue.main.async {
-                                _ = Timer.scheduledTimer(withTimeInterval: TimeInterval(100) / 1000, repeats: true, block: { timer in
-                                    guard self.doneReaderAVDownload == true else{
-                                        return
-                                    }
-                                    timer.invalidate()
-                                    hideIndicator(sender: nil)
-                                    self.actorPlayerView.play()
-                                    self.playerView.play()
-                                    
-#if OVERLAY_TEST
-                                    var count = 2
-                                    _ = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true, block: { timer in
-                                        count -= 1
-                                        if count == 0 {
-                                            timer.invalidate()
-                                            self.recordNewTakeDidTapped(UIButton())
-                                        }
-                                    })
-#endif//OVERLAY_TEST
-                                })
-                            }
-                            //}}Wait until download both
-                        }
-                    }
-                }
-            }
-        }
-        
-        doneReaderAVDownload = false
-        downloadReaderVideoAsync(silent: true) {
-            self.doneReaderAVDownload = true
-            guard  let _ = self.savedReaderVideoUrl, let  _ = self.savedReaderAudioUrl else{
-                return
-            }
+        downloadLibraryTape {
+            self.actorPlayerView.play()
+            self.playerView.play()
             
-            DispatchQueue.main.async { [self] in
-                initAVMutableComposition(avMComp: readerAV, videoURL: self.savedReaderVideoUrl!, audioURL: self.savedReaderAudioUrl!)
-                self.playerView.mainavComposition = readerAV
-                //Omitted self.playerView.play()
-            }
-        }
-        
-        DispatchQueue.main.async { [self] in
-            showIndicator(sender: nil, viewController: self, color:UIColor.white)
-            let tapGesture = UITapGestureRecognizer(target: self, action:  #selector(didTapIndicatorView(_:)))
-            backgroundView!.addGestureRecognizer(tapGesture)
-            Toast.show(message: "To cancel download from library, please tap screen.", controller: self)
+#if OVERLAY_TEST
+            var count = 2
+            _ = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true, block: { timer in
+                count -= 1
+                if count == 0 {
+                    timer.invalidate()
+                    self.recordNewTakeDidTapped(UIButton())
+                }
+            })
+#endif//OVERLAY_TEST
         }
     }
     
@@ -308,6 +221,29 @@ class ProjectViewController: UIViewController {
         self.isOnPlay = !self.isOnPlay
     }
     
+    @IBAction func exportDidTap(_ sender: UIButton?) {
+        print("exportDidTap")
+        self.isOnPlay = false
+        
+        if(savedVideoUrl == nil
+           || savedAudioUrl == nil
+           || savedReaderVideoUrl == nil
+           || savedReaderAudioUrl == nil)
+        {
+            showConfirm(viewController: self, title: "Confirm", message: "You need to download tapes from library. Are you sure to download?") { [self] UIAlertAction in
+                //print("Ok button tapped")
+                self.downloadLibraryTape {
+                    self.exportToLocalGallery()
+                }
+            } cancelHandler: { UIAlertAction in
+                //print("Cancel button tapped")
+            }
+            return
+        }
+        
+        self.exportToLocalGallery()
+    }
+    
     func downloadReaderVideoAsync(silent: Bool, completionHandler: @escaping () -> Void )-> Void
     {
         guard let _ = self.savedReaderVideoUrl, let _ = self.savedReaderAudioUrl else{
@@ -376,6 +312,103 @@ class ProjectViewController: UIViewController {
         completionHandler()
     }
     
+    func exportToLocalGallery(){
+        print("exportToLocalGallery")
+    }
+    
+    func downloadLibraryTape(completionHandler: @escaping () -> Void)-> Void
+    {
+        let documentsPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0];
+        let filePath = URL(fileURLWithPath: "\(documentsPath)/tempFile.mp4")
+        do {
+            try FileManager.default.removeItem(at: filePath)
+            //print("File deleted successfully")
+        } catch {
+            //print("Error deleting file: \(error.localizedDescription)")
+        }
+        
+        //Omitted startElapseTime = Date()
+        //Omitted showIndicator(sender: nil, viewController: self, color:UIColor.white)
+        awsUpload.downloadEx(filePath: filePath, bucketName: selectedTape!.bucketName, key: "\(selectedTape!.actorTapeKey).mp4") { [self] (error) -> Void in
+            if error != nil {
+                 //print(error!.localizedDescription)
+                self.savedVideoUrl = nil
+                DispatchQueue.main.async {
+                    hideIndicator(sender: nil)
+                    Toast.show(message: "Faild to download video from library", controller: self)
+                }
+            }
+            else{
+                //Omitted self.endElapseTime = Date()
+                //Omitted let elapsed = self.endElapseTime!.timeIntervalSince(self.startElapseTime!)
+                //Omitted print("Elapsed time: \(elapsed) seconds")
+                
+                self.savedVideoUrl = filePath
+                
+                //Download audio file
+                let filePath = URL(fileURLWithPath: "\(documentsPath)/tempFile.m4a")
+                do {
+                    try FileManager.default.removeItem(at: filePath)
+                    //print("File deleted successfully")
+                } catch {
+                    //print("Error deleting file: \(error.localizedDescription)")
+                }
+                
+                awsUpload.downloadEx(filePath: filePath, bucketName: selectedTape!.bucketName, key: "\(selectedTape!.actorTapeKey).m4a") { [self] (error) -> Void in
+                    if error != nil {
+                         //print(error!.localizedDescription)
+                        self.savedAudioUrl = nil
+                        hideIndicator(sender: nil)
+                        DispatchQueue.main.async {
+                            Toast.show(message: "Faild to download audio from library", controller: self)
+                        }
+                    }
+                    else{
+                        self.savedAudioUrl = filePath
+                        DispatchQueue.main.async { [self] in
+                            initAVMutableComposition(avMComp: actorAV, videoURL: self.savedVideoUrl!, audioURL: self.savedAudioUrl!)
+                            self.actorPlayerView.mainavComposition = actorAV
+                            //Omitted self.actorPlayerView.play()
+                            
+                            //{{Wait until download both
+                            DispatchQueue.main.async {
+                                _ = Timer.scheduledTimer(withTimeInterval: TimeInterval(100) / 1000, repeats: true, block: { timer in
+                                    guard self.doneReaderAVDownload == true else{
+                                        return
+                                    }
+                                    timer.invalidate()
+                                    hideIndicator(sender: nil)
+                                    completionHandler()
+                                })
+                            }
+                            //}}Wait until download both
+                        }
+                    }
+                }
+            }
+        }
+        
+        doneReaderAVDownload = false
+        downloadReaderVideoAsync(silent: true) {
+            self.doneReaderAVDownload = true
+            guard  let _ = self.savedReaderVideoUrl, let  _ = self.savedReaderAudioUrl else{
+                return
+            }
+            
+            DispatchQueue.main.async { [self] in
+                initAVMutableComposition(avMComp: readerAV, videoURL: self.savedReaderVideoUrl!, audioURL: self.savedReaderAudioUrl!)
+                self.playerView.mainavComposition = readerAV
+                //Omitted self.playerView.play()
+            }
+        }
+        
+        DispatchQueue.main.async { [self] in
+            showIndicator(sender: nil, viewController: self, color:UIColor.white)
+            let tapGesture = UITapGestureRecognizer(target: self, action:  #selector(didTapIndicatorView(_:)))
+            backgroundView!.addGestureRecognizer(tapGesture)
+            Toast.show(message: "To cancel download from library, please tap screen.", controller: self)
+        }
+    }
     
     /*
     // MARK: - Navigation

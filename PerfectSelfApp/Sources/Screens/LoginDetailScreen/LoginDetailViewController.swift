@@ -275,7 +275,6 @@ class LoginDetailViewController: UIViewController {
 
 extension LoginDetailViewController: GIDSignInDelegate{
     func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
-        print("asdf")
 //        if let user = user {
 //            GIDSignIn.sharedInstance().t.getAuthToken(user) { (token, error) in
 //                if let token = token {

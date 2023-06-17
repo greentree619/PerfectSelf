@@ -406,9 +406,9 @@ class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSample
             isRecordEnabled = false
         }
         
-        if( capturer.captureSession.canSetSessionPreset(AVCaptureSession.Preset.low) )
+        if( capturer.captureSession.canSetSessionPreset(AVCaptureSession.Preset.medium) )
         {
-            capturer.captureSession.sessionPreset = AVCaptureSession.Preset.low
+            capturer.captureSession.sessionPreset = AVCaptureSession.Preset.medium
         }
         capturer.captureSession.commitConfiguration()
         _videoOutput = output
