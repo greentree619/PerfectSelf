@@ -942,3 +942,24 @@ func saveVideoToAlbum(_ outputURL: URL, _ completion: ((Error?) -> Void)?) {
         }
     }
 }
+
+func requestCameraAndAudioPermission( _ completion: (() -> Void)?) {
+    AVCaptureDevice.requestAccess(for: .video) { granted in
+        if granted {
+            // Camera permission granted
+            AVCaptureDevice.requestAccess(for: .audio) { granted in
+//                if granted {
+//                    // Audio permission granted
+//                } else {
+//                    // Audio permission denied
+//                    // Handle denial of audio permission
+//                }
+                completion?()
+            }
+        } else {
+            // Camera permission denied
+            // Handle denial of camera permission
+            completion?()
+        }
+    }
+}

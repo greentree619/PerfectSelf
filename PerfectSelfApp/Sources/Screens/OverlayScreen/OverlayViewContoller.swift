@@ -134,20 +134,9 @@ class OverlayViewController: UIViewController {
         })
 #endif//OVERLAY_TEST
         
-        if cameraView.captureSession.isRunning == true {
-            return
-        }
-        
-        DispatchQueue.main.async {
-            if(  AVCaptureDevice.authorizationStatus(for: .video) == .authorized &&
-                   AVCaptureDevice.authorizationStatus(for: .audio) == .authorized ){
-                self.cameraView.captureSession.startRunning()
-            }
-            else
-            {
-                //Omitted Toast.show(message: "It is impossible to use camera and microphone.", controller: self)
-            }
-        }
+//Omitted         if cameraView.captureSession.isRunning == true {
+//            return
+//        }
     }
     
     override func viewWillDisappear(_ animated: Bool){

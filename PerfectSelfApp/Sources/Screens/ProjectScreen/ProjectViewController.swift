@@ -157,22 +157,16 @@ class ProjectViewController: UIViewController {
     }
     
     @IBAction func recordNewTakeDidTapped(_ sender: UIButton) {
-        guard self.savedVideoUrl != nil else{
-            return
-        }
-        isOnPlay = false
-        
-        downloadReaderVideoAsync(silent: false, completionHandler: { () in
-            guard  let _ = self.savedReaderVideoUrl, let  _ = self.savedReaderAudioUrl else{
-                return
+        if(  AVCaptureDevice.authorizationStatus(for: .video) != .authorized ||
+               AVCaptureDevice.authorizationStatus(for: .audio) != .authorized ){
+            requestCameraAndAudioPermission{ [self] in
+                DispatchQueue.main.async { [self] in
+                    showOverlayUI()
+                }
             }
-            
-            let overlayViewController = OverlayViewController()
-            overlayViewController.uploadVideourl = self.savedReaderVideoUrl
-            overlayViewController.uploadAudiourl = self.savedReaderAudioUrl
-            overlayViewController.modalPresentationStyle = .fullScreen
-            self.present(overlayViewController, animated: false, completion: nil)
-        })
+           return
+        }
+        showOverlayUI()
     }
     
     /// Marker: Edit Final
@@ -242,6 +236,30 @@ class ProjectViewController: UIViewController {
         }
         
         self.exportToLocalGallery()
+    }
+    
+    func showOverlayUI(){
+        guard AVCaptureDevice.authorizationStatus(for: .video) == .authorized, AVCaptureDevice.authorizationStatus(for: .audio) == .authorized else{
+            Toast.show(message: "Can't gain the permission to use camera and microphoen.", controller:  self)
+            return
+        }
+        
+        guard self.savedVideoUrl != nil else{
+            return
+        }
+        isOnPlay = false
+        
+        downloadReaderVideoAsync(silent: false, completionHandler: { () in
+            guard  let _ = self.savedReaderVideoUrl, let  _ = self.savedReaderAudioUrl else{
+                return
+            }
+            
+            let overlayViewController = OverlayViewController()
+            overlayViewController.uploadVideourl = self.savedReaderVideoUrl
+            overlayViewController.uploadAudiourl = self.savedReaderAudioUrl
+            overlayViewController.modalPresentationStyle = .fullScreen
+            self.present(overlayViewController, animated: false, completion: nil)
+        })
     }
     
     func downloadReaderVideoAsync(silent: Bool, completionHandler: @escaping () -> Void )-> Void
