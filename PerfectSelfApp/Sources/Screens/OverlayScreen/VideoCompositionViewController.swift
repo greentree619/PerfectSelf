@@ -164,36 +164,6 @@ class VideoCompositionViewController: UIViewController {
            isPlaying = true
         }
     }
-
-    func requestAuthorization(completion: @escaping ()->Void) {
-        if PHPhotoLibrary.authorizationStatus() == .notDetermined {
-            PHPhotoLibrary.requestAuthorization { (status) in
-                DispatchQueue.main.async {
-                    completion()
-                }
-            }
-        } else if PHPhotoLibrary.authorizationStatus() == .authorized{
-            completion()
-        }
-    }
-
-    func saveVideoToAlbum(_ outputURL: URL, _ completion: ((Error?) -> Void)?) {
-        requestAuthorization {
-            PHPhotoLibrary.shared().performChanges({
-                let request = PHAssetCreationRequest.forAsset()
-                request.addResource(with: .video, fileURL: outputURL, options: nil)
-            }) { (result, error) in
-                DispatchQueue.main.async {
-                    if let error = error {
-                        print(error.localizedDescription)
-                    } else {
-                        print("Saved successfully")
-                    }
-                    completion?(error)
-                }
-            }
-        }
-    }
 }
 
 extension VideoCompositionViewController: PlayerViewDelegate {

@@ -9,8 +9,6 @@ import AVFoundation
 import UIKit
 import Foundation
 
-let VideoSize = CGSize(width: 1080, height: 1920)
-
 class VideoHelper {
 
     static func orientationFromTransform(

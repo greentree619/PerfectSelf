@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 import MediaPlayer
+import Photos
 
 let signalingServerConfig = Config.default
 let webAPI = PerfectSelfWebAPI()
@@ -24,6 +25,9 @@ var uiViewContoller: UIViewController? = nil
 var selectedTape: VideoCard?
 let awsUpload = AWSMultipartUpload()
 let GoogleAuthClientID = "669216550945-mgc5slqbok7j5ubp8255loi7hkoe7mj3.apps.googleusercontent.com"
+let videoWidth = 1280//720
+let videoHeight = 720//1280
+let VideoSize = CGSize(width: videoHeight, height: videoWidth)
 
 var Filter: [String: Any] = [
     "isAvailableSoon": false,
@@ -907,4 +911,34 @@ func encodeURLParameter(_ string: String) -> String? {
     }
     
     return nil
+}
+
+func requestAuthorization(completion: @escaping ()->Void) {
+    if PHPhotoLibrary.authorizationStatus() == .notDetermined {
+        PHPhotoLibrary.requestAuthorization { (status) in
+            DispatchQueue.main.async {
+                completion()
+            }
+        }
+    } else if PHPhotoLibrary.authorizationStatus() == .authorized{
+        completion()
+    }
+}
+
+func saveVideoToAlbum(_ outputURL: URL, _ completion: ((Error?) -> Void)?) {
+    requestAuthorization {
+        PHPhotoLibrary.shared().performChanges({
+            let request = PHAssetCreationRequest.forAsset()
+            request.addResource(with: .video, fileURL: outputURL, options: nil)
+        }) { (result, error) in
+            DispatchQueue.main.async {
+                if let error = error {
+                    print(error.localizedDescription)
+                } else {
+                    print("Saved successfully")
+                }
+                completion?(error)
+            }
+        }
+    }
 }
