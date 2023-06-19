@@ -38,7 +38,14 @@ class TimePauseViewController: UIViewController , UIPickerViewDataSource, UIPick
     
     @IBAction func okDidTap(_ sender: UIButton)
     {
-        delegate?.addTimePause(timeSpan:  selTimeSpan )
+        if(selTimeSpan >= 0){
+            delegate?.addTimePause(timeSpan:  selTimeSpan )
+        }
+        else
+        {
+            delegate?.substractimePause(timeSpan: selTimeSpan )
+        }
+        
         self.dismiss(animated: true)
     }
     

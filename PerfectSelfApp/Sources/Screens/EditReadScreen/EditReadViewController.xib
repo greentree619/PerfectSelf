@@ -283,6 +283,9 @@
                                             <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                             <state key="normal" title="" image="fast-backward2"/>
+                                            <connections>
+                                                <action selector="gotoFirstDidTap:" destination="-1" eventType="touchUpInside" id="eez-As-nhS"/>
+                                            </connections>
                                         </button>
                                     </subviews>
                                     <constraints>
@@ -323,6 +326,9 @@
                                             <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                             <state key="normal" title="" image="fast-forward"/>
+                                            <connections>
+                                                <action selector="forwardDidTap:" destination="-1" eventType="touchUpInside" id="VsF-Zx-8yx"/>
+                                            </connections>
                                         </button>
                                     </subviews>
                                     <constraints>
@@ -353,6 +359,9 @@
                                             <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                             <state key="normal" title="" image="fast-forward2"/>
+                                            <connections>
+                                                <action selector="gotoEndDidTap:" destination="-1" eventType="touchUpInside" id="kFf-cQ-4xW"/>
+                                            </connections>
                                         </button>
                                     </subviews>
                                     <constraints>
@@ -392,6 +401,9 @@
                                             <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                             <state key="normal" title="" image="fast-backward"/>
+                                            <connections>
+                                                <action selector="backwardDidTap:" destination="-1" eventType="touchUpInside" id="6o3-Dg-hzW"/>
+                                            </connections>
                                         </button>
                                     </subviews>
                                     <constraints>

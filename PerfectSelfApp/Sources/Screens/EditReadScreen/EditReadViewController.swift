@@ -17,10 +17,11 @@ class EditReadViewController: UIViewController {
     var readerVideoURL: URL
     var readerAudioURL: URL
     let movie = AVMutableComposition()
-    var audioTrack: AVMutableCompositionTrack?
+    var audioMTrack: AVMutableCompositionTrack?
     var editRange: CMTimeRange?
     var  editAudioTrack: AVAssetTrack?
     var onActorVideoEdit: Bool
+    var editAudioAsset: AVURLAsset?
     
     @IBOutlet weak var editBar: UIStackView!
     @IBOutlet weak var playerView: PlayerView!
@@ -72,27 +73,27 @@ class EditReadViewController: UIViewController {
     
     func setupPlayer() {
         let videoTrack = movie.addMutableTrack(withMediaType: .video, preferredTrackID: kCMPersistentTrackID_Invalid)
-        audioTrack = movie.addMutableTrack(withMediaType: .audio, preferredTrackID: kCMPersistentTrackID_Invalid)
+        audioMTrack = movie.addMutableTrack(withMediaType: .audio, preferredTrackID: kCMPersistentTrackID_Invalid)
         let audioTrack2 = movie.addMutableTrack(withMediaType: .audio, preferredTrackID: kCMPersistentTrackID_Invalid)
                 
-        var editMovie = AVURLAsset(url: videoURL) //1
-        var editAudio = AVAsset(url: audioURL!)
-        var editAudio2 = AVAsset(url: readerAudioURL)
-        if( !onActorVideoEdit ){
-            editMovie = AVURLAsset(url: readerVideoURL)
-            editAudio = AVAsset(url: readerAudioURL)
-            editAudio2 = AVAsset(url: audioURL!)
-        }
+        let editMovie = AVURLAsset(url: videoURL) //1
+        editAudioAsset = AVURLAsset(url: audioURL!)
+        let editAudio2 = AVURLAsset(url: readerAudioURL)
+//        if( !onActorVideoEdit ){
+//            editMovie = AVURLAsset(url: readerVideoURL)
+//            editAudioAsset = AVAsset(url: readerAudioURL)
+//            editAudio2 = AVAsset(url: audioURL!)
+//        }
         
         editRange = CMTimeRangeMake(start: CMTime.zero, duration: editMovie.duration) //3
-        editAudioTrack = editAudio.tracks(withMediaType: .audio).first! //2
+        editAudioTrack = editAudioAsset!.tracks(withMediaType: .audio).first! //2
         let editAudioTrack2 = editAudio2.tracks(withMediaType: .audio).first! //2
         let editVideoTrack = editMovie.tracks(withMediaType: .video).first!
         videoTrack!.preferredTransform = transformForTrack(editVideoTrack)
         
         do{
             try videoTrack?.insertTimeRange(editRange!, of: editVideoTrack, at: CMTime.zero) //4
-            try audioTrack?.insertTimeRange(editRange!, of: editAudioTrack!, at: CMTime.zero)
+            try audioMTrack?.insertTimeRange(editRange!, of: editAudioTrack!, at: CMTime.zero)
             try audioTrack2?.insertTimeRange(editRange!, of: editAudioTrack2, at: CMTime.zero)
         } catch {
             //handle error
@@ -225,6 +226,19 @@ class EditReadViewController: UIViewController {
             }
         }
     }
+    
+    @IBAction func gotoFirstDidTap(_ sender: UIButton) {
+    }
+    
+    @IBAction func backwardDidTap(_ sender: UIButton) {
+    }
+    
+    @IBAction func forwardDidTap(_ sender: UIButton) {
+    }
+    
+    @IBAction func gotoEndDidTap(_ sender: UIButton) {
+    }
+    
     //new function
     @objc func timerAction(){
         audoAPI.getJobStatus(jobId: self.jobId) { data, response, error in
@@ -445,9 +459,9 @@ class EditReadViewController: UIViewController {
         try? videoTrack?.insertTimeRange(CMTimeRangeMake(start: CMTime.zero, duration: videoAsset.duration), of: videoAssetTrack, at: CMTime.zero)
         videoTrack?.preferredTransform = videoAssetTrack.preferredTransform // THIS LINE IS IMPORTANT
 
-        let audioTrack = mainComposition.addMutableTrack(withMediaType: .audio, preferredTrackID: kCMPersistentTrackID_Invalid)
+        let audioMTrack = mainComposition.addMutableTrack(withMediaType: .audio, preferredTrackID: kCMPersistentTrackID_Invalid)
         let audioAssetTrack = audioAsset.tracks(withMediaType: .audio).first!
-        try? audioTrack?.insertTimeRange(CMTimeRangeMake(start: CMTime.zero, duration: audioAsset.duration), of: audioAssetTrack, at: CMTime.zero)
+        try? audioMTrack?.insertTimeRange(CMTimeRangeMake(start: CMTime.zero, duration: audioAsset.duration), of: audioAssetTrack, at: CMTime.zero)
 
         let exportSession = AVAssetExportSession(asset: mainComposition, presetName: AVAssetExportPresetHighestQuality)
         guard
@@ -531,8 +545,10 @@ extension EditReadViewController: TimeSpanSelectDelegate{
         
         do{
             let atTime: CMTime = CMTimeMakeWithSeconds( Float64(timeSpan), preferredTimescale: 1 )
-            audioTrack?.removeTimeRange(editRange!)
-            try audioTrack?.insertTimeRange(editRange!, of: editAudioTrack!, at: atTime)
+            editRange = audioMTrack?.timeRange
+            audioMTrack?.removeTimeRange(editRange!)
+            audioMTrack?.insertEmptyTimeRange(CMTimeRange(start: .zero, end: atTime))
+            try audioMTrack?.insertTimeRange(editRange!, of: editAudioTrack!, at: atTime)
         } catch {
             //handle error
             print(error)
@@ -540,6 +556,16 @@ extension EditReadViewController: TimeSpanSelectDelegate{
     }
     
     func substractimePause(timeSpan: Int) {
-        
+        print("addTimePause span=\(timeSpan)")
+        do{
+            let atTime: CMTime = CMTimeMakeWithSeconds( Float64(-timeSpan), preferredTimescale: 1 )
+            editRange = audioMTrack?.timeRange
+            audioMTrack?.removeTimeRange(editRange!)
+            try audioMTrack?.insertTimeRange(CMTimeRange(start: atTime, end:editAudioAsset!.duration), of: editAudioTrack!, at: .zero)
+            audioMTrack?.insertEmptyTimeRange(CMTimeRange(start: CMTimeSubtract(editAudioAsset!.duration, atTime) , end: editAudioAsset!.duration))
+        } catch {
+            //handle error
+            print(error)
+        }
     }
 }
