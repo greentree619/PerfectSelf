@@ -17,11 +17,15 @@ class EditReadViewController: UIViewController {
     var readerVideoURL: URL
     var readerAudioURL: URL
     let movie = AVMutableComposition()
+    var videoMTrack: AVMutableCompositionTrack?
     var audioMTrack: AVMutableCompositionTrack?
+    var audioMTrack2: AVMutableCompositionTrack?
     var editRange: CMTimeRange?
-    var  editAudioTrack: AVAssetTrack?
+    var editAudioTrack: AVAssetTrack?
     var onActorVideoEdit: Bool
     var editAudioAsset: AVURLAsset?
+    //Omitted var timeSpan: Int = 0
+    var trackSegmentRepo: TrackSegmentRepo?
     
     @IBOutlet weak var editBar: UIStackView!
     @IBOutlet weak var playerView: PlayerView!
@@ -72,29 +76,31 @@ class EditReadViewController: UIViewController {
     }
     
     func setupPlayer() {
-        let videoTrack = movie.addMutableTrack(withMediaType: .video, preferredTrackID: kCMPersistentTrackID_Invalid)
+        videoMTrack = movie.addMutableTrack(withMediaType: .video, preferredTrackID: kCMPersistentTrackID_Invalid)
         audioMTrack = movie.addMutableTrack(withMediaType: .audio, preferredTrackID: kCMPersistentTrackID_Invalid)
-        let audioTrack2 = movie.addMutableTrack(withMediaType: .audio, preferredTrackID: kCMPersistentTrackID_Invalid)
-                
-        let editMovie = AVURLAsset(url: videoURL) //1
+        audioMTrack2 = movie.addMutableTrack(withMediaType: .audio, preferredTrackID: kCMPersistentTrackID_Invalid)
+        
+        var editMovie = AVURLAsset(url: videoURL) //1
         editAudioAsset = AVURLAsset(url: audioURL!)
-        let editAudio2 = AVURLAsset(url: readerAudioURL)
-//        if( !onActorVideoEdit ){
-//            editMovie = AVURLAsset(url: readerVideoURL)
-//            editAudioAsset = AVAsset(url: readerAudioURL)
-//            editAudio2 = AVAsset(url: audioURL!)
-//        }
+        var editAudio2 = AVURLAsset(url: readerAudioURL)
+        if( !onActorVideoEdit ){
+            editMovie = AVURLAsset(url: readerVideoURL)
+            editAudioAsset = AVURLAsset(url: readerAudioURL)
+            editAudio2 = AVURLAsset(url: audioURL!)
+        }
+        
+        trackSegmentRepo = TrackSegmentRepo(range: CMTimeRange(start:.zero, duration: editAudioAsset!.duration))
         
         editRange = CMTimeRangeMake(start: CMTime.zero, duration: editMovie.duration) //3
         editAudioTrack = editAudioAsset!.tracks(withMediaType: .audio).first! //2
         let editAudioTrack2 = editAudio2.tracks(withMediaType: .audio).first! //2
         let editVideoTrack = editMovie.tracks(withMediaType: .video).first!
-        videoTrack!.preferredTransform = transformForTrack(editVideoTrack)
+        videoMTrack!.preferredTransform = transformForTrack(editVideoTrack)
         
         do{
-            try videoTrack?.insertTimeRange(editRange!, of: editVideoTrack, at: CMTime.zero) //4
+            try videoMTrack?.insertTimeRange(editRange!, of: editVideoTrack, at: CMTime.zero) //4
             try audioMTrack?.insertTimeRange(editRange!, of: editAudioTrack!, at: CMTime.zero)
-            try audioTrack2?.insertTimeRange(editRange!, of: editAudioTrack2, at: CMTime.zero)
+            try audioMTrack2?.insertTimeRange(editRange!, of: editAudioTrack2, at: CMTime.zero)
         } catch {
             //handle error
             print(error)
@@ -110,11 +116,68 @@ class EditReadViewController: UIViewController {
 //        playerView.playerItem?.videoComposition = videoComposition
         playerView.delegate = self
         slider.minimumValue = 0
+        playerView.addObserver(self, forKeyPath: "status", context: nil)
     }
     
     @IBAction func backDidTap(_ sender: UIButton) {
+        //print(self.timeSpan)
         playerView.stop()
-        self.dismiss(animated: false)
+        showConfirm(viewController: self, title: "Confirm", message: "Are you sure to apply changes?") { [self] UIAlertAction in
+            movie.removeTrack(videoMTrack!)
+            movie.removeTrack(audioMTrack2!)
+            exportAudioWithTimeSpan(uiCtrl:  self, composition: movie
+                                    , audioMixInputParam:
+                                        trackSegmentRepo!.getMixInputParams(compositionTrack: audioMTrack!)) { [self] (m4aUrl: URL?) in
+                if(m4aUrl != nil) {
+                    //print(m4aUrl!)
+                    var userName = "Anymous"
+                    if let userInfo = UserDefaults.standard.object(forKey: "USER") as? [String:Any] {
+                        // Use the saved data
+                        userName = userInfo["userName"] as! String
+                    }
+                    
+                    var tapeKey = "\(selectedTape!.actorTapeKey).m4a"
+                    audioURL = m4aUrl
+                    if( !onActorVideoEdit ){
+                        readerAudioURL = m4aUrl!
+                        tapeKey = "\(selectedTape!.readerTapeKey!).m4a"
+                    }
+                    
+                    DispatchQueue.main.async {
+                        showIndicator(sender: nil, viewController: self)
+                        Toast.show(message: "Uploading audio file...", controller: self)
+                    }
+                    awsUpload.multipartUpload(filePath: m4aUrl!, bucketName: "video-client-upload-123456798", prefixKey: tapeKey, forceKey: true){ (error: Error?) -> Void in
+                        DispatchQueue.main.async {
+                            hideIndicator(sender: nil)
+                        }
+                        
+                        if(error == nil)
+                        {//Then Upload video
+                            log(meetingUid: "editread-save", log:"\(userName) audio upload end successfully.")
+                            DispatchQueue.main.async {
+                                //Omitted hideIndicator(sender: nil)
+                                Toast.show(message: "Completed to upload audio file.", controller: self)
+                            }
+                        }
+                        else
+                        {
+                            log(meetingUid: "editread-save", log:"\(userName) audio upload failed: \(error!.localizedDescription)")
+                            DispatchQueue.main.async {
+                                //Omitted hideIndicator(sender: nil)
+                                Toast.show(message: "Failed to upload audio file", controller: self)
+                            }
+                        }
+                    }
+                }
+                
+                DispatchQueue.main.async {
+                    self.dismiss(animated: false)
+                }
+            }
+        } cancelHandler: { [self] UIAlertAction in
+            self.dismiss(animated: false)
+        }
     }
     
     @IBAction func playDidTap(_ sender: UIButton) {
@@ -228,15 +291,36 @@ class EditReadViewController: UIViewController {
     }
     
     @IBAction func gotoFirstDidTap(_ sender: UIButton) {
+        slider.setValue(0, animated: false)
+        playerView.currentTime = Double( 0)
     }
     
     @IBAction func backwardDidTap(_ sender: UIButton) {
+        var curVal = slider.value
+        curVal = curVal - 5
+        if(curVal < 0) {curVal = 0}
+        slider.setValue(curVal, animated: false)
+        playerView.currentTime = Double( curVal)
     }
     
     @IBAction func forwardDidTap(_ sender: UIButton) {
+        var curVal = slider.value
+        curVal = curVal + 5
+        if(curVal > slider.maximumValue) {curVal = slider.maximumValue}
+        slider.setValue(curVal, animated: false)
+        playerView.currentTime = Double( curVal)
     }
     
     @IBAction func gotoEndDidTap(_ sender: UIButton) {
+        slider.setValue(slider.maximumValue, animated: false)
+        playerView.currentTime = Double( slider.maximumValue)
+    }
+    
+    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+        if(object as? NSObject == playerView && keyPath == "status")
+        {
+            print(playerView.player?.status as Any)
+        }
     }
     
     //new function
@@ -507,7 +591,6 @@ class EditReadViewController: UIViewController {
             }
         }
     }
-    
 }
 
 extension EditReadViewController: PlayerViewDelegate {
@@ -517,13 +600,12 @@ extension EditReadViewController: PlayerViewDelegate {
     
     func playerVideo(player: PlayerView, duration: Double) {
         slider.minimumValue = Float(0)
-        slider.maximumValue =  Float(duration)
+        slider.maximumValue =  Float(duration)//as seconds
 //        self.startTimerLabel.text = getCurrentTime(second:  0)
 //        self.endTimerLabel.text = getCurrentTime(second: duration)
         
         slider.value = 0.0
         playerView.currentTime = Double( 0 )
-        
     }
     
     func playerVideo(player: PlayerView, statusItemPlayer: AVPlayer.Status, error: Error?) {
@@ -541,31 +623,28 @@ extension EditReadViewController: PlayerViewDelegate {
 
 extension EditReadViewController: TimeSpanSelectDelegate{
     func addTimePause(timeSpan: Int) {
-        print("addTimePause span=\(timeSpan)")
+        print("addTimePause span=\(timeSpan) slider=\(slider.value)")
         
-        do{
-            let atTime: CMTime = CMTimeMakeWithSeconds( Float64(timeSpan), preferredTimescale: 1 )
-            editRange = audioMTrack?.timeRange
-            audioMTrack?.removeTimeRange(editRange!)
-            audioMTrack?.insertEmptyTimeRange(CMTimeRange(start: .zero, end: atTime))
-            try audioMTrack?.insertTimeRange(editRange!, of: editAudioTrack!, at: atTime)
-        } catch {
-            //handle error
-            print(error)
-        }
+        let atTime: CMTime = CMTimeMakeWithSeconds( Float64(slider.value), preferredTimescale: 12000 )
+        let timeDur: CMTime = CMTimeMakeWithSeconds( Float64(timeSpan), preferredTimescale: 1 )
+        trackSegmentRepo!.addEmptySegment(range: CMTimeRange(start: atTime, duration: timeDur))
+        trackSegmentRepo!.buildTrack(compositionTrack: audioMTrack!, assetTrack: editAudioTrack!)
+        
+        playerView.mainavComposition = movie
+        playerView.delegate = self
+        slider.minimumValue = 0
     }
     
     func substractimePause(timeSpan: Int) {
-        print("addTimePause span=\(timeSpan)")
-        do{
-            let atTime: CMTime = CMTimeMakeWithSeconds( Float64(-timeSpan), preferredTimescale: 1 )
-            editRange = audioMTrack?.timeRange
-            audioMTrack?.removeTimeRange(editRange!)
-            try audioMTrack?.insertTimeRange(CMTimeRange(start: atTime, end:editAudioAsset!.duration), of: editAudioTrack!, at: .zero)
-            audioMTrack?.insertEmptyTimeRange(CMTimeRange(start: CMTimeSubtract(editAudioAsset!.duration, atTime) , end: editAudioAsset!.duration))
-        } catch {
-            //handle error
-            print(error)
-        }
+        print("substractTimePause span=\(timeSpan) slider=\(slider.value)")
+        
+        let atTime: CMTime = CMTimeMakeWithSeconds( Float64(slider.value), preferredTimescale: 12000 )
+        let timeDur: CMTime = CMTimeMakeWithSeconds( Float64(-timeSpan), preferredTimescale: 1 )
+        trackSegmentRepo!.deleteEmptySegment(range: CMTimeRange(start: atTime, duration: timeDur))
+        trackSegmentRepo!.buildTrack(compositionTrack: audioMTrack!, assetTrack: editAudioTrack!)
+        
+        playerView.mainavComposition = movie
+        playerView.delegate = self
+        slider.minimumValue = 0
     }
 }

@@ -7,59 +7,130 @@
 //
 
 import Foundation
-//
-//  Toast.swift
-//  PerfectSelf
-//
-//  Created by Kayan Mishra on 3/21/23.
-//  Copyright © 2023 Stas Seldin. All rights reserved.
-//
+import AVFoundation
 
-import Foundation
-import UIKit
+struct TrackSegment {
+    var trackRange: CMTimeRange
+    var assetRange: CMTimeRange?
+}
 
-//How to use: Toast.show(message: "My message", controller: myViewControllerName)
-class Toast {
-    static func show(message: String, controller: UIViewController) {
-        let toastContainer = UIView(frame: CGRect())
-        toastContainer.backgroundColor = UIColor.black.withAlphaComponent(0.6)
-        toastContainer.alpha = 0.0
-        toastContainer.layer.cornerRadius = 25;
-        toastContainer.clipsToBounds  =  true
-
-        let toastLabel = UILabel(frame: CGRect())
-        toastLabel.textColor = UIColor.white
-        toastLabel.textAlignment = .center;
-        toastLabel.font.withSize(12.0)
-        toastLabel.text = message
-        toastLabel.clipsToBounds  =  true
-        toastLabel.numberOfLines = 0
-
-        toastContainer.addSubview(toastLabel)
-        controller.view.addSubview(toastContainer)
-
-        toastLabel.translatesAutoresizingMaskIntoConstraints = false
-        toastContainer.translatesAutoresizingMaskIntoConstraints = false
-
-        let a1 = NSLayoutConstraint(item: toastLabel, attribute: .leading, relatedBy: .equal, toItem: toastContainer, attribute: .leading, multiplier: 1, constant: 15)
-        let a2 = NSLayoutConstraint(item: toastLabel, attribute: .trailing, relatedBy: .equal, toItem: toastContainer, attribute: .trailing, multiplier: 1, constant: -15)
-        let a3 = NSLayoutConstraint(item: toastLabel, attribute: .bottom, relatedBy: .equal, toItem: toastContainer, attribute: .bottom, multiplier: 1, constant: -15)
-        let a4 = NSLayoutConstraint(item: toastLabel, attribute: .top, relatedBy: .equal, toItem: toastContainer, attribute: .top, multiplier: 1, constant: 15)
-        toastContainer.addConstraints([a1, a2, a3, a4])
-
-        let c1 = NSLayoutConstraint(item: toastContainer, attribute: .leading, relatedBy: .equal, toItem: controller.view, attribute: .leading, multiplier: 1, constant: 65)
-        let c2 = NSLayoutConstraint(item: toastContainer, attribute: .trailing, relatedBy: .equal, toItem: controller.view, attribute: .trailing, multiplier: 1, constant: -65)
-        let c3 = NSLayoutConstraint(item: toastContainer, attribute: .bottom, relatedBy: .equal, toItem: controller.view, attribute: .bottom, multiplier: 1, constant: -75)
-        controller.view.addConstraints([c1, c2, c3])
-
-        UIView.animate(withDuration: 0.5, delay: 0.0, options: .curveEaseIn, animations: {
-            toastContainer.alpha = 1.0
-        }, completion: { _ in
-            UIView.animate(withDuration: 0.5, delay: 2.5, options: .curveEaseOut, animations: {
-                toastContainer.alpha = 0.0
-            }, completion: {_ in
-                toastContainer.removeFromSuperview()
-            })
-        })
+class TrackSegmentRepo {
+    var segments = [TrackSegment]()
+    
+    init(range: CMTimeRange) {
+        segments.append(TrackSegment(trackRange: range, assetRange: range))
+    }
+    
+    deinit{
+        segments.removeAll()
+    }
+    
+    func addEmptySegment(range: CMTimeRange){
+        var atIndex: Int = -1
+        for index in segments.indices {
+            
+            if(CMTimeCompare(segments[index].trackRange.start, range.start) == 0){
+                atIndex = index + 1
+                segments.insert(TrackSegment(trackRange: range, assetRange: nil), at: index)
+                break
+            }
+            else if(segments[index].trackRange.containsTime(range.start)){
+                if(segments[index].assetRange == nil){
+                    segments[index].trackRange.duration = CMTimeAdd(segments[index].trackRange.duration, range.duration)
+                    atIndex = index + 1
+                }
+                else{
+                    let hotTrackTimeRange = segments[index].trackRange
+                    let hotAssetTimeRange = segments[index].assetRange
+                    let leftDur = CMTimeSubtract(range.start, segments[index].trackRange.start)
+                    segments[index].trackRange.duration = leftDur
+                    segments[index].assetRange!.duration = leftDur
+                    
+                    segments.insert(TrackSegment(trackRange: CMTimeRange(start: range.start, end: hotTrackTimeRange.end)
+                                                 , assetRange: CMTimeRange(start: CMTimeAdd(hotAssetTimeRange!.start, leftDur), end: hotAssetTimeRange!.end))
+                                    , at: index+1)
+                    
+                    segments.insert(TrackSegment(trackRange: range, assetRange: nil), at: index+1)
+                    atIndex = index + 2
+                }
+                break
+            }
+        }
+        
+        if(atIndex >= 0){
+            for i in (atIndex..<segments.count) {
+                segments[i].trackRange.start = CMTimeAdd(segments[i].trackRange.start, range.duration)
+            }
+        }
+    }
+    
+    func deleteEmptySegment(range: CMTimeRange){
+        for i in (0..<segments.count).reversed() {
+            if(range.containsTimeRange(segments[i].trackRange)
+               || (CMTimeCompare(range.start, segments[i].trackRange.start) == 0
+                   && CMTimeCompare(range.end, segments[i].trackRange.end) == 0)){
+                segments.remove(at: i)
+            }
+        }
+        
+        for i in (0..<segments.count) {
+            if(segments[i].trackRange.containsTime( range.start )){
+                let leftDur = CMTimeSubtract(range.start, segments[i].trackRange.start)
+                segments[i].trackRange.duration = leftDur
+                if(segments[i].assetRange != nil){
+                    segments[i].assetRange!.duration = leftDur
+                }
+                break
+            }
+        }
+        
+        for i in (0..<segments.count) {
+            if(segments[i].trackRange.containsTime( range.end )){
+                let rightDur = CMTimeSubtract(segments[i].trackRange.end, range.end)
+                segments[i].trackRange.start = range.end
+                segments[i].trackRange.duration = rightDur
+                if(segments[i].assetRange != nil){
+                    segments[i].assetRange!.start = CMTimeSubtract(segments[i].assetRange!.end, rightDur)
+                }
+                break
+            }
+        }
+        
+        for i in (0..<segments.count) {
+            if(segments[i].trackRange.start >= range.end){
+                segments[i].trackRange.start = CMTimeSubtract(segments[i].trackRange.start, range.duration)
+            }
+        }
+    }
+    
+    func buildTrack(compositionTrack: AVMutableCompositionTrack, assetTrack: AVAssetTrack){
+        compositionTrack.removeTimeRange(CMTimeRange(start: .zero, duration:  CMTimeMakeWithSeconds( 6*60*60, preferredTimescale: 1 )))
+        
+        for i in (0..<segments.count) {
+            if(segments[i].assetRange != nil){
+                do{
+                    try compositionTrack.insertTimeRange(segments[i].assetRange!, of: assetTrack, at: segments[i].trackRange.start)
+                }catch {}
+            }
+        }
+    }
+    
+    func getMixInputParams(compositionTrack: AVMutableCompositionTrack) -> AVMutableAudioMixInputParameters{
+        let trackMix = AVMutableAudioMixInputParameters(track: compositionTrack)
+        
+        for i in (0..<segments.count) {
+            if(segments[i].assetRange != nil){
+                trackMix.setVolume(1, at: segments[i].trackRange.start)
+            }
+            else
+            {
+                trackMix.setVolume(0, at: segments[i].trackRange.start)
+            }
+        }
+        return trackMix
+    }
+    
+    func clear(){
+        segments.removeAll()
     }
 }

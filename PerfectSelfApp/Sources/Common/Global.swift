@@ -121,6 +121,7 @@ struct UserInfo: Codable {
     let updatedTime: String?
     let deletedTime: String?
 }
+
 struct ActorProfile: Codable {
     let title: String
     let actorUid: String
@@ -306,6 +307,7 @@ struct BackLinks: Codable {
 struct RoomInfo: Codable {
     let roomUid: String
 }
+
 //        showAlert(viewController: self, title: "Confirm", message: "Please input") { UIAlertAction in
 //            print("Ok button tapped")
 //        }
@@ -961,5 +963,42 @@ func requestCameraAndAudioPermission( _ completion: (() -> Void)?) {
             // Handle denial of camera permission
             completion?()
         }
+    }
+}
+
+func exportAudioWithTimeSpan(uiCtrl: UIViewController, composition: AVMutableComposition, audioMixInputParam: AVMutableAudioMixInputParameters, _ completion: @escaping ((URL?) -> Void)){
+    showIndicator(sender: nil, viewController: uiCtrl, color:UIColor.white)
+    guard
+        let documentDirectory = FileManager.default.urls(
+            for: .cachesDirectory,
+            in: .userDomainMask).first
+    else { return }
+    let dateFormatter = DateFormatter()
+    dateFormatter.dateStyle = .long
+    dateFormatter.timeStyle = .short
+    var date = dateFormatter.string(from: Date())
+    date += UUID().uuidString
+    let url = documentDirectory.appendingPathComponent("changedaudio-\(date).m4a")
+    
+    let trackMix = audioMixInputParam
+    
+    let exporter = AVAssetExportSession(asset: composition, presetName: AVAssetExportPresetAppleM4A)
+    let audioMix = AVMutableAudioMix()
+    audioMix.inputParameters = [trackMix]
+    exporter!.audioMix = audioMix
+    exporter!.outputFileType = .m4a
+    exporter!.outputURL = url
+    
+    exporter!.exportAsynchronously {
+        DispatchQueue.main.async {
+            hideIndicator(sender: nil)
+        }
+        
+        guard exporter!.status == .completed,
+              let outputURL = exporter!.outputURL else {
+            completion(nil)
+            return
+        }
+        completion(outputURL)
     }
 }

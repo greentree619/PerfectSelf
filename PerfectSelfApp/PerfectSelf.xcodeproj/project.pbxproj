@@ -13,6 +13,7 @@
 		2F7EBC3622DCC6430015B46E /* WebSocketProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F7EBC3522DCC6430015B46E /* WebSocketProvider.swift */; };
 		2F7EBC3822DCCB4E0015B46E /* StarscreamProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F7EBC3722DCCB4E0015B46E /* StarscreamProvider.swift */; };
 		2F7EBC3A22DCCE240015B46E /* NativeWebSocket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F7EBC3922DCCE240015B46E /* NativeWebSocket.swift */; };
+		344386EB2A40735700D479FB /* TrackSegmentRepo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 344386EA2A40735700D479FB /* TrackSegmentRepo.swift */; };
 		47007BE929C2B0C000F83CFD /* ActorSetPaymentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47007BE729C2B0BF00F83CFD /* ActorSetPaymentViewController.swift */; };
 		47007BEA29C2B0C000F83CFD /* ActorSetPaymentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 47007BE829C2B0C000F83CFD /* ActorSetPaymentViewController.xib */; };
 		470AEBCA29D1ACE200AD3848 /* StringHeight.swift in Sources */ = {isa = PBXBuildFile; fileRef = 470AEBC929D1ACE200AD3848 /* StringHeight.swift */; };
@@ -240,6 +241,7 @@
 		2F7EBC3522DCC6430015B46E /* WebSocketProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebSocketProvider.swift; sourceTree = "<group>"; };
 		2F7EBC3722DCCB4E0015B46E /* StarscreamProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarscreamProvider.swift; sourceTree = "<group>"; };
 		2F7EBC3922DCCE240015B46E /* NativeWebSocket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeWebSocket.swift; sourceTree = "<group>"; };
+		344386EA2A40735700D479FB /* TrackSegmentRepo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackSegmentRepo.swift; sourceTree = "<group>"; };
 		34FFA12E29FB31EF00BB0E14 /* PerfectSelf.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PerfectSelf.entitlements; sourceTree = "<group>"; };
 		47007BE729C2B0BF00F83CFD /* ActorSetPaymentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActorSetPaymentViewController.swift; sourceTree = "<group>"; };
 		47007BE829C2B0C000F83CFD /* ActorSetPaymentViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ActorSetPaymentViewController.xib; sourceTree = "<group>"; };
@@ -838,6 +840,7 @@
 				BA3F909929C457C200ABE966 /* PerfectSelfWebAPI.swift */,
 				47F84E7129FB5B5F003636A9 /* AudioEnhancementAPI.swift */,
 				4765AEFE29FEB6400053A9C2 /* BackgroundRemovalAPI.swift */,
+				344386EA2A40735700D479FB /* TrackSegmentRepo.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -1469,6 +1472,7 @@
 				4715510129CDBF00007CE524 /* TimeSlotCollectionViewCell.swift in Sources */,
 				BAD5C84F29AEDF0E00A2F109 /* CameraPreviewView.swift in Sources */,
 				4765AEFF29FEB6400053A9C2 /* BackgroundRemovalAPI.swift in Sources */,
+				344386EB2A40735700D479FB /* TrackSegmentRepo.swift in Sources */,
 				4772156129CE700C00319CBC /* VideoCollectionViewCell.swift in Sources */,
 				BAB7379C29B40B7500F3D663 /* AWSMultipartUpload.swift in Sources */,
 				47F84E7229FB5B5F003636A9 /* AudioEnhancementAPI.swift in Sources */,
@@ -1656,7 +1660,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = PerfectSelf.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 62;
+				CURRENT_PROJECT_VERSION = 65;
 				DEVELOPMENT_TEAM = 9WURFUCGR3;
 				INFOPLIST_FILE = "$(SRCROOT)/SupportingFiles/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = PerfectSelf;
@@ -1689,7 +1693,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = PerfectSelf.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 62;
+				CURRENT_PROJECT_VERSION = 65;
 				DEVELOPMENT_TEAM = 9WURFUCGR3;
 				INFOPLIST_FILE = "$(SRCROOT)/SupportingFiles/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = PerfectSelf;
