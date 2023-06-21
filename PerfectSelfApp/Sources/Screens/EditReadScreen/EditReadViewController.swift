@@ -100,7 +100,10 @@ class EditReadViewController: UIViewController {
         do{
             try videoMTrack?.insertTimeRange(editRange!, of: editVideoTrack, at: CMTime.zero) //4
             try audioMTrack?.insertTimeRange(editRange!, of: editAudioTrack!, at: CMTime.zero)
-            try audioMTrack2?.insertTimeRange(editRange!, of: editAudioTrack2, at: CMTime.zero)
+            
+            if( onActorVideoEdit ){//Add other track in only case Edit Final
+                try audioMTrack2?.insertTimeRange(editRange!, of: editAudioTrack2, at: CMTime.zero)
+            }
         } catch {
             //handle error
             print(error)
@@ -316,6 +319,12 @@ class EditReadViewController: UIViewController {
         playerView.currentTime = Double( slider.maximumValue)
     }
     
+    @IBAction func redoDidTap(_ sender: UIButton) {
+    }
+    
+    @IBAction func undoDidTap(_ sender: Any) {
+    }
+        
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         if(object as? NSObject == playerView && keyPath == "status")
         {

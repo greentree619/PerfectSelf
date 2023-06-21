@@ -59,13 +59,51 @@
                                         <action selector="backDidTap:" destination="-1" eventType="touchUpInside" id="CX0-Co-NSo"/>
                                     </connections>
                                 </button>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jgq-bc-Vgq" userLabel="Undo">
+                                    <rect key="frame" x="322.66666666666669" y="30.333333333333329" width="50.333333333333314" height="26.666666666666671"/>
+                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                    <state key="normal" title="Undo"/>
+                                    <buttonConfiguration key="configuration" style="filled">
+                                        <attributedString key="attributedTitle">
+                                            <fragment content="Undo">
+                                                <attributes>
+                                                    <font key="NSFont" size="11" name="Helvetica"/>
+                                                </attributes>
+                                            </fragment>
+                                        </attributedString>
+                                    </buttonConfiguration>
+                                    <connections>
+                                        <action selector="undoDidTap:" destination="-1" eventType="touchUpInside" id="VMD-dH-m3b"/>
+                                    </connections>
+                                </button>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QcI-O9-adK" userLabel="Redo">
+                                    <rect key="frame" x="267.33333333333331" y="30.333333333333329" width="50.333333333333314" height="26.666666666666671"/>
+                                    <state key="normal" title="Button"/>
+                                    <buttonConfiguration key="configuration" style="filled">
+                                        <attributedString key="attributedTitle">
+                                            <fragment content="Redo">
+                                                <attributes>
+                                                    <color key="NSColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <font key="NSFont" size="11" name="Helvetica"/>
+                                                </attributes>
+                                            </fragment>
+                                        </attributedString>
+                                    </buttonConfiguration>
+                                    <connections>
+                                        <action selector="redoDidTap:" destination="-1" eventType="touchUpInside" id="ye4-La-PwD"/>
+                                    </connections>
+                                </button>
                             </subviews>
                             <constraints>
                                 <constraint firstItem="3Mw-me-A3q" firstAttribute="leading" secondItem="QmO-sV-Vye" secondAttribute="leading" constant="20" id="M5R-LX-2dt"/>
                                 <constraint firstAttribute="height" constant="87" id="OZh-F6-coa"/>
                                 <constraint firstItem="Ekz-pU-awT" firstAttribute="centerY" secondItem="QmO-sV-Vye" secondAttribute="centerY" id="Oky-Dc-9lw"/>
+                                <constraint firstAttribute="trailing" secondItem="Jgq-bc-Vgq" secondAttribute="trailing" constant="20" id="Tpw-lh-uHO"/>
+                                <constraint firstItem="Jgq-bc-Vgq" firstAttribute="centerY" secondItem="QmO-sV-Vye" secondAttribute="centerY" id="bb6-sR-KEC"/>
+                                <constraint firstItem="QcI-O9-adK" firstAttribute="centerY" secondItem="QmO-sV-Vye" secondAttribute="centerY" id="m8V-kN-Wgo"/>
                                 <constraint firstItem="Ekz-pU-awT" firstAttribute="centerX" secondItem="QmO-sV-Vye" secondAttribute="centerX" id="oBH-qH-xIK"/>
                                 <constraint firstItem="3Mw-me-A3q" firstAttribute="centerY" secondItem="QmO-sV-Vye" secondAttribute="centerY" id="pl6-cN-oAq"/>
+                                <constraint firstItem="Jgq-bc-Vgq" firstAttribute="leading" secondItem="QcI-O9-adK" secondAttribute="trailing" constant="5" id="q20-y6-esR"/>
                             </constraints>
                         </view>
                     </subviews>
