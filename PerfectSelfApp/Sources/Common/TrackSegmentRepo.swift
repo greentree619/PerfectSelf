@@ -9,9 +9,19 @@
 import Foundation
 import AVFoundation
 
-struct TrackSegment {
+class TrackSegment {
     var trackRange: CMTimeRange
     var assetRange: CMTimeRange?
+    
+    init(trackRange: CMTimeRange, assetRange: CMTimeRange?) {
+        self.trackRange = trackRange
+        self.assetRange = assetRange
+    }
+    
+    func copy(with zone: NSZone? = nil) -> TrackSegment {
+        let copy = TrackSegment(trackRange: trackRange, assetRange: assetRange)
+        return copy
+    }
 }
 
 class TrackSegmentRepo {
@@ -103,8 +113,42 @@ class TrackSegmentRepo {
         }
     }
     
+    func backupSegments() -> [TrackSegment]{
+        let backup = segments.map { $0.copy() }
+        return backup
+    }
+    
+    func restoreSegments(backup: [TrackSegment]){
+        segments.removeAll()
+        for i in (0..<backup.count) {
+            segments.append(backup[i])
+        }
+    }
+    
+    func dumpTrackSegments(){
+#if DEBUG
+        print("")
+        for i in (0..<segments.count) {
+            let trackRange = segments[i].trackRange
+            let assetRange = segments[i].assetRange
+            if(assetRange == nil){
+                let trackRange = segments[i].trackRange
+                let trackEnd = trackRange.start.seconds + trackRange.duration.seconds
+                print("{\(trackRange.start.seconds):\(trackRange.start.timescale) \(trackEnd):\(trackRange.duration.timescale)} -> {nil}")
+            }
+            else{
+                let trackEnd = trackRange.start.seconds + trackRange.duration.seconds
+                let assetEnd = assetRange!.start.seconds + assetRange!.duration.seconds
+                print("{\(trackRange.start.seconds):\(trackRange.start.timescale) \(trackEnd):\(trackRange.duration.timescale)} -> {\(assetRange!.start.seconds):\(assetRange!.start.timescale) \(assetEnd):\(assetRange!.duration.timescale)}")
+            }
+        }
+#endif
+    }
+    
     func buildTrack(compositionTrack: AVMutableCompositionTrack, assetTrack: AVAssetTrack){
         compositionTrack.removeTimeRange(CMTimeRange(start: .zero, duration:  CMTimeMakeWithSeconds( 6*60*60, preferredTimescale: 1 )))
+        
+        dumpTrackSegments()
         
         for i in (0..<segments.count) {
             if(segments[i].assetRange != nil){

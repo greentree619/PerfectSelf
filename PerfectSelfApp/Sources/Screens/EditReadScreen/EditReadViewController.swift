@@ -35,7 +35,9 @@ class EditReadViewController: UIViewController {
     @IBOutlet weak var startTimerLabel: UILabel!
     @IBOutlet weak var endTimerLabel: UILabel!
     @IBOutlet weak var uiTitleLabel: UILabel!
-    
+    @IBOutlet weak var undoButton: UIButton!
+    @IBOutlet weak var redoButton: UIButton!
+        
     init(videoUrl: URL, audioUrl: URL?,  readerVideoUrl: URL, readerAudioUrl: URL, isActorVideoEdit: Bool) {
         self.videoURL = videoUrl
         self.audioURL = audioUrl
@@ -320,9 +322,13 @@ class EditReadViewController: UIViewController {
     }
     
     @IBAction func redoDidTap(_ sender: UIButton) {
+        self.undoManager?.redo()
+        updateUndoButtons()
     }
     
     @IBAction func undoDidTap(_ sender: Any) {
+        self.undoManager?.undo()
+        updateUndoButtons()
     }
         
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
@@ -600,6 +606,33 @@ class EditReadViewController: UIViewController {
             }
         }
     }
+    
+    func updateUndoButtons(){
+        redoButton.isEnabled = undoManager!.canRedo
+        undoButton.isEnabled = undoManager!.canUndo
+    }
+    
+    func addTimePauseModule(pos: Float64, timeSpan: Int){
+        let atTime: CMTime = CMTimeMakeWithSeconds( Float64(pos), preferredTimescale: 12000 )
+        let timeDur: CMTime = CMTimeMakeWithSeconds( Float64(timeSpan), preferredTimescale: 1 )
+        trackSegmentRepo!.addEmptySegment(range: CMTimeRange(start: atTime, duration: timeDur))
+        applyTrackChange()
+    }
+    
+    func substractimePauseModule(pos: Float64, timeSpan: Int){
+        let atTime: CMTime = CMTimeMakeWithSeconds( Float64(pos), preferredTimescale: 12000 )
+        let timeDur: CMTime = CMTimeMakeWithSeconds( Float64(-timeSpan), preferredTimescale: 1 )
+        trackSegmentRepo!.deleteEmptySegment(range: CMTimeRange(start: atTime, duration: timeDur))
+        applyTrackChange()
+    }
+    
+    func applyTrackChange(){
+        trackSegmentRepo!.buildTrack(compositionTrack: audioMTrack!, assetTrack: editAudioTrack!)
+        
+        playerView.mainavComposition = movie
+        playerView.delegate = self
+        slider.minimumValue = 0
+    }
 }
 
 extension EditReadViewController: PlayerViewDelegate {
@@ -633,27 +666,39 @@ extension EditReadViewController: PlayerViewDelegate {
 extension EditReadViewController: TimeSpanSelectDelegate{
     func addTimePause(timeSpan: Int) {
         print("addTimePause span=\(timeSpan) slider=\(slider.value)")
-        
-        let atTime: CMTime = CMTimeMakeWithSeconds( Float64(slider.value), preferredTimescale: 12000 )
-        let timeDur: CMTime = CMTimeMakeWithSeconds( Float64(timeSpan), preferredTimescale: 1 )
-        trackSegmentRepo!.addEmptySegment(range: CMTimeRange(start: atTime, duration: timeDur))
-        trackSegmentRepo!.buildTrack(compositionTrack: audioMTrack!, assetTrack: editAudioTrack!)
-        
-        playerView.mainavComposition = movie
-        playerView.delegate = self
-        slider.minimumValue = 0
+        let backup = trackSegmentRepo!.backupSegments()
+        addTimePauseModule(pos: Float64(slider.value), timeSpan: timeSpan)
+        let cur = trackSegmentRepo!.backupSegments()
+        applyTimePauseUndoActionRegister(backup: backup, cur: cur)
+        updateUndoButtons()
     }
     
     func substractimePause(timeSpan: Int) {
         print("substractTimePause span=\(timeSpan) slider=\(slider.value)")
-        
-        let atTime: CMTime = CMTimeMakeWithSeconds( Float64(slider.value), preferredTimescale: 12000 )
-        let timeDur: CMTime = CMTimeMakeWithSeconds( Float64(-timeSpan), preferredTimescale: 1 )
-        trackSegmentRepo!.deleteEmptySegment(range: CMTimeRange(start: atTime, duration: timeDur))
-        trackSegmentRepo!.buildTrack(compositionTrack: audioMTrack!, assetTrack: editAudioTrack!)
-        
-        playerView.mainavComposition = movie
-        playerView.delegate = self
-        slider.minimumValue = 0
+        let backup = trackSegmentRepo!.backupSegments()
+        substractimePauseModule(pos: Float64(slider.value), timeSpan: timeSpan)
+        let cur = trackSegmentRepo!.backupSegments()
+        applyTimePauseUndoActionRegister(backup: backup, cur: cur)
+        updateUndoButtons()
+    }
+}
+
+extension EditReadViewController {
+    func applyTimePauseUndoActionRegister(backup: [TrackSegment], cur: [TrackSegment]){
+        self.undoManager?.registerUndo(withTarget: self, handler: { (selfTarget) in
+            selfTarget.trackSegmentRepo!.restoreSegments(backup: backup)
+            selfTarget.applyTrackChange()
+            selfTarget.applyTimePauseRedoActionRegister(backup: backup, cur: cur)
+            selfTarget.updateUndoButtons()
+        })
+    }
+    
+    func applyTimePauseRedoActionRegister(backup: [TrackSegment], cur: [TrackSegment]){
+        self.undoManager?.registerUndo(withTarget: self, handler: { (selfTarget) in
+            selfTarget.trackSegmentRepo!.restoreSegments(backup: cur)
+            selfTarget.applyTrackChange()
+            selfTarget.applyTimePauseUndoActionRegister(backup: backup, cur: cur)
+            selfTarget.updateUndoButtons()
+        })
     }
 }
