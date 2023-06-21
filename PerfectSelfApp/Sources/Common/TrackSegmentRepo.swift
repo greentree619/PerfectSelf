@@ -76,15 +76,15 @@ class TrackSegmentRepo {
     
     func deleteEmptySegment(range: CMTimeRange){
         for i in (0..<segments.count).reversed() {
-            if(range.containsTimeRange(segments[i].trackRange)
-               || (CMTimeCompare(range.start, segments[i].trackRange.start) == 0
-                   && CMTimeCompare(range.end, segments[i].trackRange.end) == 0)){
+            if((CMTimeCompare(range.start, segments[i].trackRange.start) <= 0
+                   && CMTimeCompare(range.end, segments[i].trackRange.end) >= 0)){
                 segments.remove(at: i)
             }
         }
         
         for i in (0..<segments.count) {
-            if(segments[i].trackRange.containsTime( range.start )){
+            if(CMTimeCompare(range.start, segments[i].trackRange.start) > 0
+                        && segments[i].trackRange.containsTime( range.start )){
                 let leftDur = CMTimeSubtract(range.start, segments[i].trackRange.start)
                 segments[i].trackRange.duration = leftDur
                 if(segments[i].assetRange != nil){
@@ -95,7 +95,8 @@ class TrackSegmentRepo {
         }
         
         for i in (0..<segments.count) {
-            if(segments[i].trackRange.containsTime( range.end )){
+            if(CMTimeCompare(range.end, segments[i].trackRange.end) < 0
+                            && segments[i].trackRange.containsTime( range.end )){
                 let rightDur = CMTimeSubtract(segments[i].trackRange.end, range.end)
                 segments[i].trackRange.start = range.end
                 segments[i].trackRange.duration = rightDur
