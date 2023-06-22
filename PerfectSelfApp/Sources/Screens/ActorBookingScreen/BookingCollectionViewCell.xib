@@ -104,15 +104,15 @@
                                 </subviews>
                             </stackView>
                             <stackView opaque="NO" contentMode="scaleToFill" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="95c-cL-0nL">
-                                <rect key="frame" x="7.9999999999999929" y="72.666666666666671" width="113.33333333333331" height="32"/>
+                                <rect key="frame" x="8" y="72.666666666666671" width="118" height="32"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nwv-Eu-J9U">
-                                        <rect key="frame" x="0.0" y="0.3333333333333286" width="113.33333333333333" height="31.333333333333332"/>
+                                        <rect key="frame" x="0.0" y="0.3333333333333286" width="118" height="31.333333333333332"/>
                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                         <state key="normal" title="view script">
                                             <imageReference key="image" image="arrowshape.right" catalog="system" symbolScale="small"/>
                                         </state>
-                                        <buttonConfiguration key="configuration" style="plain" imagePlacement="trailing" title="view script" imagePadding="5" cornerStyle="dynamic">
+                                        <buttonConfiguration key="configuration" style="plain" imagePlacement="trailing" title="View Script" imagePadding="5" cornerStyle="dynamic">
                                             <imageReference key="image" image="chevron.right" catalog="system" symbolScale="small"/>
                                             <backgroundConfiguration key="background"/>
                                             <fontDescription key="titleFontDescription" name="Raleway-Regular" family="Raleway" pointSize="18"/>
@@ -140,8 +140,9 @@
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="filled">
                                             <attributedString key="attributedTitle">
-                                                <fragment content="Join meeting">
+                                                <fragment content="Join Meeting">
                                                     <attributes>
+                                                        <color key="NSColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                                         <font key="NSFont" size="13" name="Helvetica"/>
                                                     </attributes>
                                                 </fragment>
@@ -188,7 +189,7 @@
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="plain">
                                             <attributedString key="attributedTitle">
-                                                <fragment content="Send messsage">
+                                                <fragment content="Send Messsage">
                                                     <attributes>
                                                         <font key="NSFont" size="12" name="Helvetica"/>
                                                         <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="charWrapping" baseWritingDirection="natural" lineHeightMultiple="1" tighteningFactorForTruncation="0.0"/>
