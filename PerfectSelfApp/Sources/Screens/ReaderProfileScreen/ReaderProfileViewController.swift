@@ -91,8 +91,8 @@ class ReaderProfileViewController: UIViewController, UICollectionViewDataSource,
         skillList.delegate = self
         skillList.allowsSelection = true
         // Do any additional setup after loading the view.
-        line_videointro.isHidden = true
-        line_review.isHidden = true
+        line_videointro.alpha = 0
+        line_review.alpha = 0
         self.view_videointro.alpha = 0
         self.view_review.alpha = 0
         self.view_overview.frame.origin.x = 0
@@ -393,9 +393,9 @@ class ReaderProfileViewController: UIViewController, UICollectionViewDataSource,
         sender.tintColor = UIColor(rgb: 0x4063FF)
         btn_videointro.tintColor = .black
         btn_review.tintColor = .black
-        line_overview.isHidden = false
-        line_videointro.isHidden = true
-        line_review.isHidden = true
+        line_overview.alpha = 1
+        line_videointro.alpha = 0
+        line_review.alpha = 0
         
         UIView.animate(withDuration: 0.5, animations: {
             self.view_overview.alpha = 1
@@ -411,9 +411,9 @@ class ReaderProfileViewController: UIViewController, UICollectionViewDataSource,
         sender.tintColor = UIColor(rgb: 0x4063FF)
         btn_overview.tintColor = .black
         btn_review.tintColor = .black
-        line_overview.isHidden = true
-        line_videointro.isHidden = false
-        line_review.isHidden = true
+        line_overview.alpha = 0
+        line_videointro.alpha = 1
+        line_review.alpha = 0
        
         UIView.animate(withDuration: 0.5, animations: {
             self.view_overview.alpha = 0
@@ -429,9 +429,9 @@ class ReaderProfileViewController: UIViewController, UICollectionViewDataSource,
         sender.tintColor = UIColor(rgb: 0x4063FF)
         btn_overview.tintColor = .black
         btn_videointro.tintColor = .black
-        line_overview.isHidden = true
-        line_videointro.isHidden = true
-        line_review.isHidden = false
+        line_overview.alpha = 0
+        line_videointro.alpha = 0
+        line_review.alpha = 1
         
         UIView.animate(withDuration: 0.5, animations: {
             self.view_overview.alpha = 0

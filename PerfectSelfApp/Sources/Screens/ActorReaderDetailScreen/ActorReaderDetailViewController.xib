@@ -530,7 +530,9 @@
                                                                         </stackView>
                                                                     </subviews>
                                                                     <constraints>
+                                                                        <constraint firstAttribute="trailing" secondItem="tH0-TW-1Kw" secondAttribute="trailing" constant="10" id="LTX-9I-q5A"/>
                                                                         <constraint firstAttribute="height" constant="300" id="rB8-nD-f9N"/>
+                                                                        <constraint firstItem="tH0-TW-1Kw" firstAttribute="leading" secondItem="ixc-xK-jd0" secondAttribute="leading" constant="10" id="wTp-0R-hIe"/>
                                                                     </constraints>
                                                                     <variation key="default">
                                                                         <mask key="constraints">
