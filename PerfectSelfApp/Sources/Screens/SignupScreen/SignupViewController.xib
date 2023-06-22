@@ -353,7 +353,7 @@
                                         <action selector="SignUp:" destination="-1" eventType="touchUpInside" id="MCD-8K-ov1"/>
                                     </connections>
                                 </button>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="By signing up you are agreed to our Term &amp; Conditions and Privacy Policy" lineBreakMode="clip" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="62W-ax-r8n">
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="By signing up, you agree our Terms &amp; Conditions and Privacy Policy" lineBreakMode="clip" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="62W-ax-r8n">
                                     <rect key="frame" x="20" y="631" width="388" height="40"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="40" id="n7q-gX-BNb" customClass="AdaptiveLayoutConstraint" customModule="PerfectSelf" customModuleProvider="target">
