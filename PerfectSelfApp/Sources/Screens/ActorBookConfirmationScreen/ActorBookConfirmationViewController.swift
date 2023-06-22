@@ -42,7 +42,7 @@ class ActorBookConfirmationViewController: UIViewController, EKEventEditViewDele
         img_book_animation.loadGif(asset: "book-animation")
         lbl_readerName.text = "Reading with \(readerName)"
         let df = DateFormatter()
-        df.dateFormat = "yyyy-MM-dd'T'hh:mm:ss"
+        df.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
         df.timeZone = TimeZone(abbreviation: "EST")
         let estDate = df.date(from: bookingDate + bookingStartTime) ?? Date()
         df.dateFormat = "MMM dd, yyyy  HH:mm a"

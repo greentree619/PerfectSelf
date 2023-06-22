@@ -82,7 +82,7 @@ class OverlayViewController: UIViewController {
         else { return mixComposition }
 
         do {
-            videoTrack.preferredTransform = transformForTrack(videoAsset.tracks(withMediaType: .video)[0])
+            videoTrack.preferredTransform = transformForTrack()
             try videoTrack.insertTimeRange(
                 CMTimeRangeMake(start: .zero, duration: videoAsset.duration),
                 of: videoAsset.tracks(withMediaType: .video)[0],

@@ -28,6 +28,8 @@ let GoogleAuthClientID = "669216550945-mgc5slqbok7j5ubp8255loi7hkoe7mj3.apps.goo
 let videoWidth = 1280//720
 let videoHeight = 720//1280
 let VideoSize = CGSize(width: videoHeight, height: videoWidth)
+var videoRotateOffset: Int = 0
+var mainRotateDegree: Int = 90
 
 var Filter: [String: Any] = [
     "isAvailableSoon": false,
@@ -624,7 +626,7 @@ func getVideoTransformStatus() -> String {
     }
 }
 
-func initAVMutableComposition(avMComp: AVMutableComposition, videoURL: URL, audioURL: URL){
+func initAVMutableComposition(avMComp: AVMutableComposition, videoURL: URL, audioURL: URL, rotate: Int=0) -> AVMutableCompositionTrack{
     let videoTrack = avMComp.addMutableTrack(withMediaType: .video, preferredTrackID: kCMPersistentTrackID_Invalid)
     let audioTrack = avMComp.addMutableTrack(withMediaType: .audio, preferredTrackID: kCMPersistentTrackID_Invalid)
             
@@ -633,7 +635,7 @@ func initAVMutableComposition(avMComp: AVMutableComposition, videoURL: URL, audi
         
     let dur = CMTimeRangeMake(start: CMTime.zero, duration: videoAsset.duration)
     let vTrack = videoAsset.tracks(withMediaType: .video).first!
-    videoTrack!.preferredTransform = transformForTrack(vTrack)
+    videoTrack!.preferredTransform = transformForTrack(rotateOffset: CGFloat(rotate))
     
     do{
         try videoTrack?.insertTimeRange(dur, of: vTrack,  at: CMTime.zero)
@@ -644,6 +646,8 @@ func initAVMutableComposition(avMComp: AVMutableComposition, videoURL: URL, audi
         //handle error
         print(error)
     }
+    
+    return videoTrack!
 }
 
 func saveOnlyAudioFrom(url: URL, completion: @escaping (URL) -> Void) {
@@ -776,45 +780,8 @@ func saveOnlyVideoFrom(url: URL, completion: @escaping (URL) -> Void) {
     }
 }
 
-func transformForTrack(_ assetTrack: AVAssetTrack) -> CGAffineTransform{
-    var affineTransform = CGAffineTransform(rotationAngle: degreeToRadian(0))
-    
-//    let size = assetTrack.naturalSize
-//    let txf = assetTrack.preferredTransform
-    
-//    var recordType = ""
-//    if (size.width == txf.tx && size.height == txf.ty){
-//        recordType = "UIInterfaceOrientationLandscapeRight"
-//    }else if (txf.tx == 0 && txf.ty == 0){
-//        recordType = "UIInterfaceOrientationLandscapeLeft"
-//    }else if (txf.tx == 0 && txf.ty == size.width){
-//        recordType = "UIInterfaceOrientationPortraitUpsideDown"
-//    }else{
-//        recordType = "UIInterfaceOrientationPortrait"
-//    }
-    
-    let t1: CGAffineTransform = CGAffineTransform(translationX: assetTrack.naturalSize.height, y: -(assetTrack.naturalSize.width - assetTrack.naturalSize.height)/2)
-    let t2: CGAffineTransform = t1.rotated(by: CGFloat(Double.pi / 2))
-    let finalTransform: CGAffineTransform = t2
-    affineTransform = finalTransform
-    
-//    if recordType == "UIInterfaceOrientationPortrait" {
-//        let t1: CGAffineTransform = CGAffineTransform(translationX: assetTrack.naturalSize.height, y: -(assetTrack.naturalSize.width - assetTrack.naturalSize.height)/2)
-//        let t2: CGAffineTransform = t1.rotated(by: CGFloat(Double.pi / 2))
-//        let finalTransform: CGAffineTransform = t2
-//        affineTransform = finalTransform
-//    }else if recordType == "UIInterfaceOrientationLandscapeRight" {
-//        let t1: CGAffineTransform = CGAffineTransform(translationX: assetTrack.naturalSize.height, y: -(assetTrack.naturalSize.width - assetTrack.naturalSize.height)/2)
-//        let t2: CGAffineTransform = t1.rotated(by: -CGFloat(Double.pi))
-//        let finalTransform: CGAffineTransform = t2
-//        affineTransform = finalTransform
-//    }else if recordType == "UIInterfaceOrientationPortraitUpsideDown" {
-//        let t1: CGAffineTransform = CGAffineTransform(translationX: assetTrack.naturalSize.height, y: -(assetTrack.naturalSize.width - assetTrack.naturalSize.height)/2)
-//        let t2: CGAffineTransform = t1.rotated(by: -CGFloat(Double.pi/2))
-//        let finalTransform: CGAffineTransform = t2
-//        affineTransform = finalTransform
-//    }
-    
+func transformForTrack(rotateOffset: CGFloat=0) -> CGAffineTransform{
+    let affineTransform = CGAffineTransform(rotationAngle: degreeToRadian(CGFloat(mainRotateDegree)+rotateOffset))
     return affineTransform
 }
 

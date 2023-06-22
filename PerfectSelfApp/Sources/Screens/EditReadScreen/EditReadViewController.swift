@@ -26,6 +26,8 @@ class EditReadViewController: UIViewController {
     var editAudioAsset: AVURLAsset?
     //Omitted var timeSpan: Int = 0
     var trackSegmentRepo: TrackSegmentRepo?
+    var tmpVRotateOffset: Int  = videoRotateOffset
+    var timePauseChanged: Bool = false
     
     @IBOutlet weak var editBar: UIStackView!
     @IBOutlet weak var playerView: PlayerView!
@@ -97,7 +99,8 @@ class EditReadViewController: UIViewController {
         editAudioTrack = editAudioAsset!.tracks(withMediaType: .audio).first! //2
         let editAudioTrack2 = editAudio2.tracks(withMediaType: .audio).first! //2
         let editVideoTrack = editMovie.tracks(withMediaType: .video).first!
-        videoMTrack!.preferredTransform = transformForTrack(editVideoTrack)
+        let rotateOffset = (onActorVideoEdit ? videoRotateOffset : 0)
+        videoMTrack!.preferredTransform = transformForTrack(rotateOffset: CGFloat(rotateOffset))
         
         do{
             try videoMTrack?.insertTimeRange(editRange!, of: editVideoTrack, at: CMTime.zero) //4
@@ -128,57 +131,64 @@ class EditReadViewController: UIViewController {
         //print(self.timeSpan)
         playerView.stop()
         showConfirm(viewController: self, title: "Confirm", message: "Are you sure to apply changes?") { [self] UIAlertAction in
-            movie.removeTrack(videoMTrack!)
-            movie.removeTrack(audioMTrack2!)
-            exportAudioWithTimeSpan(uiCtrl:  self, composition: movie
-                                    , audioMixInputParam:
-                                        trackSegmentRepo!.getMixInputParams(compositionTrack: audioMTrack!)) { [self] (m4aUrl: URL?) in
-                if(m4aUrl != nil) {
-                    //print(m4aUrl!)
-                    var userName = "Anymous"
-                    if let userInfo = UserDefaults.standard.object(forKey: "USER") as? [String:Any] {
-                        // Use the saved data
-                        userName = userInfo["userName"] as! String
-                    }
-                    
-                    var tapeKey = "\(selectedTape!.actorTapeKey).m4a"
-                    audioURL = m4aUrl
-                    if( !onActorVideoEdit ){
-                        readerAudioURL = m4aUrl!
-                        tapeKey = "\(selectedTape!.readerTapeKey!).m4a"
+            videoRotateOffset = tmpVRotateOffset
+            if(timePauseChanged)
+            {
+                movie.removeTrack(videoMTrack!)
+                movie.removeTrack(audioMTrack2!)
+                exportAudioWithTimeSpan(uiCtrl:  self, composition: movie
+                                        , audioMixInputParam:
+                                            trackSegmentRepo!.getMixInputParams(compositionTrack: audioMTrack!)) { [self] (m4aUrl: URL?) in
+                    if(m4aUrl != nil) {
+                        //print(m4aUrl!)
+                        var userName = "Anymous"
+                        if let userInfo = UserDefaults.standard.object(forKey: "USER") as? [String:Any] {
+                            // Use the saved data
+                            userName = userInfo["userName"] as! String
+                        }
+                        
+                        var tapeKey = "\(selectedTape!.actorTapeKey).m4a"
+                        audioURL = m4aUrl
+                        if( !onActorVideoEdit ){
+                            readerAudioURL = m4aUrl!
+                            tapeKey = "\(selectedTape!.readerTapeKey!).m4a"
+                        }
+                        
+                        DispatchQueue.main.async {
+                            showIndicator(sender: nil, viewController: self)
+                            Toast.show(message: "Uploading audio file...", controller: self)
+                        }
+                        awsUpload.multipartUpload(filePath: m4aUrl!, bucketName: "video-client-upload-123456798", prefixKey: tapeKey, forceKey: true){ (error: Error?) -> Void in
+                            DispatchQueue.main.async {
+                                hideIndicator(sender: nil)
+                            }
+                            
+                            if(error == nil)
+                            {//Then Upload video
+                                log(meetingUid: "editread-save", log:"\(userName) audio upload end successfully.")
+                                DispatchQueue.main.async {
+                                    //Omitted hideIndicator(sender: nil)
+                                    Toast.show(message: "Completed to upload audio file.", controller: self)
+                                }
+                            }
+                            else
+                            {
+                                log(meetingUid: "editread-save", log:"\(userName) audio upload failed: \(error!.localizedDescription)")
+                                DispatchQueue.main.async {
+                                    //Omitted hideIndicator(sender: nil)
+                                    Toast.show(message: "Failed to upload audio file", controller: self)
+                                }
+                            }
+                        }
                     }
                     
                     DispatchQueue.main.async {
-                        showIndicator(sender: nil, viewController: self)
-                        Toast.show(message: "Uploading audio file...", controller: self)
-                    }
-                    awsUpload.multipartUpload(filePath: m4aUrl!, bucketName: "video-client-upload-123456798", prefixKey: tapeKey, forceKey: true){ (error: Error?) -> Void in
-                        DispatchQueue.main.async {
-                            hideIndicator(sender: nil)
-                        }
-                        
-                        if(error == nil)
-                        {//Then Upload video
-                            log(meetingUid: "editread-save", log:"\(userName) audio upload end successfully.")
-                            DispatchQueue.main.async {
-                                //Omitted hideIndicator(sender: nil)
-                                Toast.show(message: "Completed to upload audio file.", controller: self)
-                            }
-                        }
-                        else
-                        {
-                            log(meetingUid: "editread-save", log:"\(userName) audio upload failed: \(error!.localizedDescription)")
-                            DispatchQueue.main.async {
-                                //Omitted hideIndicator(sender: nil)
-                                Toast.show(message: "Failed to upload audio file", controller: self)
-                            }
-                        }
+                        self.dismiss(animated: false)
                     }
                 }
-                
-                DispatchQueue.main.async {
-                    self.dismiss(animated: false)
-                }
+            }
+            else{
+                self.dismiss(animated: false)
             }
         } cancelHandler: { [self] UIAlertAction in
             self.dismiss(animated: false)
@@ -229,6 +239,12 @@ class EditReadViewController: UIViewController {
     @IBAction func rotateDidTap(_ sender: UIButton)
     {
         playerView.pause()
+        tmpVRotateOffset += 90
+        tmpVRotateOffset %=  360
+        
+        videoMTrack!.preferredTransform = transformForTrack(rotateOffset: CGFloat(tmpVRotateOffset))
+        playerView.mainavComposition = nil
+        playerView.mainavComposition = movie
     }
     
     @IBAction func audioEditDidTap(_ sender: UIButton)
@@ -666,6 +682,7 @@ extension EditReadViewController: PlayerViewDelegate {
 extension EditReadViewController: TimeSpanSelectDelegate{
     func addTimePause(timeSpan: Int) {
         print("addTimePause span=\(timeSpan) slider=\(slider.value)")
+        timePauseChanged = true
         let backup = trackSegmentRepo!.backupSegments()
         addTimePauseModule(pos: Float64(slider.value), timeSpan: timeSpan)
         let cur = trackSegmentRepo!.backupSegments()
@@ -675,6 +692,7 @@ extension EditReadViewController: TimeSpanSelectDelegate{
     
     func substractimePause(timeSpan: Int) {
         print("substractTimePause span=\(timeSpan) slider=\(slider.value)")
+        timePauseChanged = true
         let backup = trackSegmentRepo!.backupSegments()
         substractimePauseModule(pos: Float64(slider.value), timeSpan: timeSpan)
         let cur = trackSegmentRepo!.backupSegments()
