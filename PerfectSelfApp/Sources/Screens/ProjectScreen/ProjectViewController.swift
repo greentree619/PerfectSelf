@@ -30,6 +30,7 @@ class ProjectViewController: UIViewController {
     //Omitted let awsUpload = AWSMultipartUpload()
     var startElapseTime: Date?
     var endElapseTime: Date?
+    var actorVTrack: AVMutableCompositionTrack?
     
     let actorAV = AVMutableComposition()
     let readerAV = AVMutableComposition()
@@ -55,6 +56,10 @@ class ProjectViewController: UIViewController {
                 }
             }
         }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        actorVTrack?.preferredTransform = transformForTrack(rotateOffset: CGFloat(videoRotateOffset))
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -519,7 +524,7 @@ class ProjectViewController: UIViewController {
                     else{
                         self.savedAudioUrl = filePath
                         DispatchQueue.main.async { [self] in
-                            initAVMutableComposition(avMComp: actorAV, videoURL: self.savedVideoUrl!, audioURL: self.savedAudioUrl!)
+                            actorVTrack = initAVMutableComposition(avMComp: actorAV, videoURL: self.savedVideoUrl!, audioURL: self.savedAudioUrl!, rotate: videoRotateOffset)
                             self.actorPlayerView.mainavComposition = actorAV
                             //Omitted self.actorPlayerView.play()
                             
@@ -549,7 +554,7 @@ class ProjectViewController: UIViewController {
             }
             
             DispatchQueue.main.async { [self] in
-                initAVMutableComposition(avMComp: readerAV, videoURL: self.savedReaderVideoUrl!, audioURL: self.savedReaderAudioUrl!)
+                _ = initAVMutableComposition(avMComp: readerAV, videoURL: self.savedReaderVideoUrl!, audioURL: self.savedReaderAudioUrl!)
                 self.playerView.mainavComposition = readerAV
                 //Omitted self.playerView.play()
             }

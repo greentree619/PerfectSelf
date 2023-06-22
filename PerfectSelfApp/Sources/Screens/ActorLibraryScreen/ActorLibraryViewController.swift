@@ -138,7 +138,7 @@ class ActorLibraryViewController: UIViewController, UICollectionViewDataSource, 
         cell.name.text = (self.items[indexPath.row].readerUid != nil ? self.items[indexPath.row].tapeName : "(\(self.items[indexPath.row].tapeName))")
         let thumb = "https://video-thumbnail-bucket-123456789.s3.us-east-2.amazonaws.com/\(self.items[indexPath.row].actorTapeKey)-0.jpg"
         cell.tapeThumb.imageFrom(url: URL(string:thumb )!)
-        cell.tapeThumb.transform = CGAffineTransformMakeRotation(degreeToRadian(90))
+        cell.tapeThumb.transform = CGAffineTransformMakeRotation(degreeToRadian(CGFloat(mainRotateDegree)))
         let df = DateFormatter()
         df.dateFormat = "yyyy-MM-dd'T'hh:mm:ss"
         let d = df.date(from: self.items[indexPath.row].createdTime)
@@ -161,6 +161,7 @@ class ActorLibraryViewController: UIViewController, UICollectionViewDataSource, 
         // add the code here to perform action on the cell
         print("didDeselectItemAt" + String(indexPath.row))
         
+        videoRotateOffset = 0
         selectedTape = self.items[indexPath.row]
         let projectViewController = ProjectViewController()
         projectViewController.modalPresentationStyle = .fullScreen
