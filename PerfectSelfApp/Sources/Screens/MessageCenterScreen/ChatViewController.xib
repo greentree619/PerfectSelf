@@ -46,7 +46,7 @@
                                     <rect key="frame" x="20" y="0.0" width="353" height="50"/>
                                     <subviews>
                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="dE5-XT-xOC">
-                                            <rect key="frame" x="0.0" y="0.0" width="280" height="50"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="353" height="50"/>
                                             <subviews>
                                                 <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="cOd-xA-mQw">
                                                     <rect key="frame" x="0.0" y="0.0" width="185.33333333333334" height="50"/>
@@ -137,10 +137,10 @@
                                             </subviews>
                                         </stackView>
                                         <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" alignment="center" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="sDj-lR-76I">
-                                            <rect key="frame" x="280" y="0.0" width="73" height="50"/>
+                                            <rect key="frame" x="353" y="0.0" width="0.0" height="50"/>
                                             <subviews>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CdW-u6-xhu">
-                                                    <rect key="frame" x="0.0" y="8" width="34" height="34"/>
+                                                <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CdW-u6-xhu">
+                                                    <rect key="frame" x="0.0" y="0.0" width="34" height="34"/>
                                                     <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="34" id="Deh-1G-lIN"/>
@@ -160,8 +160,8 @@
                                                         <action selector="DoVideoCall:" destination="-1" eventType="touchUpInside" id="xQT-tT-B2b"/>
                                                     </connections>
                                                 </button>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MgN-2l-btH">
-                                                    <rect key="frame" x="39" y="8" width="34" height="34"/>
+                                                <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MgN-2l-btH">
+                                                    <rect key="frame" x="0.0" y="0.0" width="34" height="34"/>
                                                     <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="34" id="MB6-dR-1G2"/>
@@ -257,7 +257,7 @@
                                     <rect key="frame" x="20" y="5" width="353" height="65"/>
                                     <subviews>
                                         <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Type a message..." textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="L9i-nm-RTh">
-                                            <rect key="frame" x="0.0" y="23.333333333333371" width="263" height="18.666666666666671"/>
+                                            <rect key="frame" x="0.0" y="23.333333333333371" width="293" height="18.666666666666671"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                             <textInputTraits key="textInputTraits"/>
                                             <userDefinedRuntimeAttributes>
@@ -267,7 +267,7 @@
                                             </userDefinedRuntimeAttributes>
                                         </textField>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pHN-b6-y5g">
-                                            <rect key="frame" x="263" y="18.666666666666629" width="30" height="28"/>
+                                            <rect key="frame" x="293" y="18.666666666666629" width="30" height="28"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="30" id="X7h-8A-10x"/>
                                             </constraints>
@@ -275,7 +275,7 @@
                                             <state key="normal" image="paperclip" catalog="system"/>
                                         </button>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lPe-s6-nvQ">
-                                            <rect key="frame" x="293" y="19.333333333333371" width="30" height="26.333333333333329"/>
+                                            <rect key="frame" x="323" y="19.333333333333371" width="30" height="26.333333333333329"/>
                                             <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                             <state key="normal" image="paperplane" catalog="system">
                                                 <color key="titleColor" red="0.45882352939999999" green="0.52941176469999995" blue="0.85098039219999999" alpha="1" colorSpace="calibratedRGB"/>
@@ -284,8 +284,8 @@
                                                 <action selector="SendMessage:" destination="-1" eventType="touchUpInside" id="yvG-54-oKa"/>
                                             </connections>
                                         </button>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rEd-bS-M4c">
-                                            <rect key="frame" x="323" y="19" width="30" height="27"/>
+                                        <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rEd-bS-M4c">
+                                            <rect key="frame" x="353" y="19" width="30" height="27"/>
                                             <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                             <state key="normal" image="mic" catalog="system"/>
                                         </button>
