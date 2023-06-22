@@ -140,7 +140,7 @@ class ActorLibraryViewController: UIViewController, UICollectionViewDataSource, 
         cell.tapeThumb.imageFrom(url: URL(string:thumb )!)
         cell.tapeThumb.transform = CGAffineTransformMakeRotation(degreeToRadian(CGFloat(mainRotateDegree)))
         let df = DateFormatter()
-        df.dateFormat = "yyyy-MM-dd'T'hh:mm:ss"
+        df.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
         let d = df.date(from: self.items[indexPath.row].createdTime)
         df.dateFormat = "dd-MM-yyyy"
         cell.createdDate.text = df.string(from: d ?? Date())
