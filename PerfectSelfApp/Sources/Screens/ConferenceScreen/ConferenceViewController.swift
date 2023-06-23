@@ -10,6 +10,7 @@ import SwiftUI
 import AVFoundation
 import WebRTC
 import os.log
+import HGCircularSlider
 
 enum PipelineMode
 {
@@ -29,6 +30,8 @@ class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSample
     @IBOutlet weak var btnBack: UIButton!
     @IBOutlet weak var btnLeave: UIButton!
     @IBOutlet weak var waitingScreen: UIView!
+    @IBOutlet weak var uploadProgress: CircularSlider!
+    @IBOutlet weak var uploadStatus: UILabel!
     
     var count = 3
     var remoteCount = 3
@@ -253,6 +256,21 @@ class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSample
                 }
             })
         }
+        
+        uploadProgress.minimumValue = 0.0
+        uploadProgress.maximumValue = 1.0
+        uploadProgress.endPointValue = 0.00 // the progress
+        uploadProgress.isUserInteractionEnabled = false
+        // to remove padding, for more details see issue #25
+        uploadProgress.thumbLineWidth = 0.0
+        uploadProgress.thumbRadius = 0.0
+        uploadStatus.text="  0%"
+        uploadProgress.addTarget(self, action: #selector(updateUploadProgress), for: .valueChanged)
+    }
+    
+    @objc func updateUploadProgress() {
+        let value = uploadProgress.endPointValue
+        uploadStatus.text=String(format: "%3 d%", Int(value*100))
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -561,6 +579,7 @@ class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSample
                         DispatchQueue.main.async {
                             self!.btnBack.isEnabled = false
                             self!.btnLeave.isEnabled = false
+                            self!.uploadProgress.isHidden = false
                             //Omitted showIndicator(sender: nil, viewController: uiViewContoller!, color:UIColor.white)
                             Toast.show(message: "Start to upload record files", controller: uiViewContoller!)
                         }
@@ -609,9 +628,11 @@ class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSample
                             DispatchQueue.main.async {
                                 self!.btnBack.isEnabled = true
                                 self!.btnLeave.isEnabled = true
+                                self!.uploadProgress.isHidden = true
                             }
                         }progressHandler: { (progressVal)->Void in
-                            Toast.show(message: "Upload progress", controller: uiViewContoller!)
+                            self!.uploadProgress.endPointValue = progressVal
+                            //Toast.show(message: "Upload progress", controller: uiViewContoller!)
                         }
                     }//DispatchQueue.global
                 }

@@ -19,5 +19,5 @@ target 'PerfectSelf' do
   pod 'GoogleAPIClientForREST/Calendar'
   pod 'GoogleSignIn', '~> 6.2'
   pod 'GoogleSignInSwiftSupport'
-  #pod 'HGCircularSlider'
+  pod 'HGCircularSlider'
 end
