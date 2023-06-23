@@ -220,6 +220,9 @@ class ProjectViewController: UIViewController {
         self.isOnPlay = !self.isOnPlay
     }
     
+    @IBAction func shareDidTap(_ sender: UIButton) {
+    }
+    
     @IBAction func exportDidTap(_ sender: UIButton?) {
         print("exportDidTap")
         self.isOnPlay = false

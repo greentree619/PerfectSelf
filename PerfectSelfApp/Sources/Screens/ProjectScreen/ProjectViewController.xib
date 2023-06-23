@@ -187,7 +187,7 @@
                         <action selector="playDidTapped:" destination="-1" eventType="touchUpInside" id="lHt-J4-HkA"/>
                     </connections>
                 </button>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LiK-78-fBX">
+                <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LiK-78-fBX">
                     <rect key="frame" x="21" y="160" width="100" height="36"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="IN PROCESS" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="V0G-FC-0Ly">
@@ -216,7 +216,7 @@
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                 </view>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zD4-LN-r71" userLabel="forward">
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zD4-LN-r71" userLabel="share">
                     <rect key="frame" x="337" y="160" width="36" height="36"/>
                     <subviews>
                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="button-circle-bg" translatesAutoresizingMaskIntoConstraints="NO" id="7X6-h1-F6N">
@@ -228,7 +228,7 @@
                             <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                             <state key="normal" title="" image="forward"/>
                             <connections>
-                                <action selector="exportDidTap:" destination="-1" eventType="touchUpInside" id="Uqf-89-zeg"/>
+                                <action selector="shareDidTap:" destination="-1" eventType="touchUpInside" id="VXI-f8-9OD"/>
                             </connections>
                         </button>
                     </subviews>
@@ -281,8 +281,44 @@
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                 </view>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Lb7-Ge-vfZ" userLabel="recycle">
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lWu-Er-ne6" userLabel="export">
                     <rect key="frame" x="337" y="210" width="36" height="36"/>
+                    <subviews>
+                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="button-circle-bg" translatesAutoresizingMaskIntoConstraints="NO" id="pKx-0u-IH7">
+                            <rect key="frame" x="0.0" y="0.0" width="36" height="36"/>
+                        </imageView>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6DY-y9-biY">
+                            <rect key="frame" x="0.0" y="0.0" width="36" height="36"/>
+                            <color key="tintColor" white="1" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <state key="normal" title="Button"/>
+                            <buttonConfiguration key="configuration" style="plain" image="square.and.arrow.up" catalog="system" title="">
+                                <color key="baseForegroundColor" systemColor="systemBackgroundColor"/>
+                            </buttonConfiguration>
+                            <connections>
+                                <action selector="exportDidTap:" destination="-1" eventType="touchUpInside" id="EQx-fK-skN"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <constraints>
+                        <constraint firstItem="6DY-y9-biY" firstAttribute="top" secondItem="lWu-Er-ne6" secondAttribute="top" id="2rd-s9-fyP"/>
+                        <constraint firstAttribute="height" constant="36" id="JDs-f6-awq"/>
+                        <constraint firstItem="pKx-0u-IH7" firstAttribute="top" secondItem="lWu-Er-ne6" secondAttribute="top" id="K2V-x6-nqd"/>
+                        <constraint firstAttribute="bottom" secondItem="6DY-y9-biY" secondAttribute="bottom" id="UwL-AG-Lo3"/>
+                        <constraint firstAttribute="trailing" secondItem="pKx-0u-IH7" secondAttribute="trailing" id="Z5M-Za-Uvs"/>
+                        <constraint firstAttribute="bottom" secondItem="pKx-0u-IH7" secondAttribute="bottom" id="asq-vK-HUJ"/>
+                        <constraint firstAttribute="width" constant="36" id="drL-kP-iVg"/>
+                        <constraint firstItem="pKx-0u-IH7" firstAttribute="leading" secondItem="lWu-Er-ne6" secondAttribute="leading" id="f26-SV-BXy"/>
+                        <constraint firstItem="6DY-y9-biY" firstAttribute="leading" secondItem="lWu-Er-ne6" secondAttribute="leading" id="gbg-eD-sia"/>
+                        <constraint firstAttribute="trailing" secondItem="6DY-y9-biY" secondAttribute="trailing" id="nrh-Yl-7xf"/>
+                    </constraints>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                            <color key="value" white="1" alpha="0.5" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Lb7-Ge-vfZ" userLabel="recycle">
+                    <rect key="frame" x="337" y="260" width="36" height="36"/>
                     <subviews>
                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="button-circle-bg2" translatesAutoresizingMaskIntoConstraints="NO" id="mZr-Bs-fJ3">
                             <rect key="frame" x="0.0" y="0.0" width="36" height="36"/>
@@ -322,6 +358,7 @@
                 <constraint firstItem="HWB-Y9-ZdC" firstAttribute="trailing" secondItem="gaY-FD-hHh" secondAttribute="trailing" id="Bkv-ir-Gid"/>
                 <constraint firstAttribute="trailing" secondItem="Sfp-wB-P9S" secondAttribute="trailing" id="Hyc-6v-8P6"/>
                 <constraint firstItem="X8e-3u-n8w" firstAttribute="centerX" secondItem="aCy-Za-TYj" secondAttribute="centerX" id="MAX-7Z-9Wd"/>
+                <constraint firstItem="lWu-Er-ne6" firstAttribute="top" secondItem="zD4-LN-r71" secondAttribute="bottom" constant="14" id="QyG-hp-RuG"/>
                 <constraint firstItem="HWB-Y9-ZdC" firstAttribute="trailing" secondItem="Lb7-Ge-vfZ" secondAttribute="trailing" constant="20" id="RwK-VH-QPD"/>
                 <constraint firstItem="Sfp-wB-P9S" firstAttribute="leading" secondItem="HWB-Y9-ZdC" secondAttribute="leading" id="S3Q-xw-Zm9"/>
                 <constraint firstItem="HWB-Y9-ZdC" firstAttribute="bottom" secondItem="SvV-ve-dM4" secondAttribute="bottom" id="S6m-NK-aq4"/>
@@ -339,9 +376,10 @@
                 <constraint firstItem="gaY-FD-hHh" firstAttribute="top" secondItem="HWB-Y9-ZdC" secondAttribute="top" id="f3C-9C-7P6"/>
                 <constraint firstItem="gaY-FD-hHh" firstAttribute="height" secondItem="HWB-Y9-ZdC" secondAttribute="height" multiplier="0.5" id="jwp-Gx-tW8"/>
                 <constraint firstItem="LiK-78-fBX" firstAttribute="leading" secondItem="HWB-Y9-ZdC" secondAttribute="leading" constant="21" id="lVh-4g-RwT"/>
-                <constraint firstItem="Lb7-Ge-vfZ" firstAttribute="top" secondItem="zD4-LN-r71" secondAttribute="bottom" constant="14" id="nGA-C1-3iW"/>
+                <constraint firstItem="Lb7-Ge-vfZ" firstAttribute="top" secondItem="lWu-Er-ne6" secondAttribute="bottom" constant="14" id="nGA-C1-3iW"/>
                 <constraint firstItem="zD4-LN-r71" firstAttribute="top" secondItem="Sfp-wB-P9S" secondAttribute="bottom" constant="14" id="o57-ZF-jaz"/>
                 <constraint firstItem="X8e-3u-n8w" firstAttribute="centerY" secondItem="aCy-Za-TYj" secondAttribute="centerY" id="pDO-Xz-82b"/>
+                <constraint firstItem="HWB-Y9-ZdC" firstAttribute="trailing" secondItem="lWu-Er-ne6" secondAttribute="trailing" constant="20" id="wUq-GO-a2w"/>
             </constraints>
             <variation key="default">
                 <mask key="subviews">
@@ -360,6 +398,7 @@
         <image name="forward" width="18" height="16"/>
         <image name="pause.circle" catalog="system" width="128" height="123"/>
         <image name="recycle" width="19" height="21"/>
+        <image name="square.and.arrow.up" catalog="system" width="115" height="128"/>
         <systemColor name="labelColor">
             <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
