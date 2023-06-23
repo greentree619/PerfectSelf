@@ -132,7 +132,7 @@
                                 <action selector="editReadDidTapped:" destination="-1" eventType="touchUpInside" id="KVq-tK-KWM"/>
                             </connections>
                         </button>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bTx-jD-fRI" userLabel="Record New Take">
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="characterWrap" translatesAutoresizingMaskIntoConstraints="NO" id="bTx-jD-fRI" userLabel="Record New Take">
                             <rect key="frame" x="141" y="0.0" width="111" height="58"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="58" id="YZM-ul-uGu"/>
@@ -140,7 +140,18 @@
                             <color key="tintColor" systemColor="tintColor"/>
                             <inset key="imageEdgeInsets" minX="30" minY="0.0" maxX="18" maxY="0.0"/>
                             <state key="normal" title="Button"/>
-                            <buttonConfiguration key="configuration" style="filled" title=" Record New Take">
+                            <buttonConfiguration key="configuration" style="filled">
+                                <attributedString key="attributedTitle">
+                                    <fragment>
+                                        <string key="content">Record
+New Take</string>
+                                        <attributes>
+                                            <color key="NSColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <font key="NSFont" size="17" name="ABeeZee-Regular"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                        </attributes>
+                                    </fragment>
+                                </attributedString>
                                 <color key="baseForegroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <color key="baseBackgroundColor" red="0.45882352941176469" green="0.52941176470588236" blue="0.85098039215686272" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </buttonConfiguration>
