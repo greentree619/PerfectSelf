@@ -971,3 +971,24 @@ func exportAudioWithTimeSpan(uiCtrl: UIViewController, composition: AVMutableCom
         completion(outputURL)
     }
 }
+
+func showViewBy(currentTime:Double, view: UIImageView?){
+    if(currentTime > 0){view?.isHidden = true}
+    else {view?.isHidden = false}
+}
+
+func initPlayerThumb(playerView: PlayerView, movie: AVMutableComposition, completeHandler:@escaping(UIImageView)->Void){
+    let imageGenerator = AVAssetImageGenerator(asset: movie)
+    let screenshotTime = CMTime(seconds: 1, preferredTimescale: 30)
+    if let imageRef = try? imageGenerator.copyCGImage(at: screenshotTime, actualTime: nil) {
+        DispatchQueue.main.async {
+            let img = UIImage(cgImage: imageRef)
+            let thumbView = UIImageView(image: img)
+            thumbView.transform = CGAffineTransformMakeRotation(degreeToRadian(CGFloat(mainRotateDegree)))
+            playerView.addSubview(thumbView)
+            thumbView.frame = playerView.frame
+            thumbView.layer.contentsGravity = CALayerContentsGravity.resizeAspectFill
+            completeHandler(thumbView)
+        }
+    }
+}

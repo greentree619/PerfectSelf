@@ -25,6 +25,8 @@ class OverlayViewController: UIViewController {
     @IBOutlet weak var timeSelectCtrl: UIPickerView!
     @IBOutlet weak var timeSelectPannel: UIView!
     @IBOutlet weak var btnBack: UIButton!
+    var playerThumbView: UIImageView?
+    var movie: AVMutableComposition?
     
     var count = 3
     var timer: Timer!
@@ -58,9 +60,10 @@ class OverlayViewController: UIViewController {
         
         //Omitted self.containerView.isHidden = true
         cameraView.delegate = self
-        playerView.delegate = self
         guard let _ = uploadVideourl else { return }
-        playerView.mainavComposition = getComposition(videoUrl:  uploadVideourl!, audioUrl:  uploadAudiourl!)
+        movie = getComposition(videoUrl:  uploadVideourl!, audioUrl:  uploadAudiourl!)
+        playerView.mainavComposition = movie
+        playerView.delegate = self
         //Omitted let affineTransform = CGAffineTransform(rotationAngle: degreeToRadian(90))
         //Omitted playerView.playerLayer.setAffineTransform(affineTransform)
         //Omitted slider.minimumValue = 0
@@ -452,6 +455,7 @@ extension OverlayViewController: UIPickerViewDelegate, UIPickerViewDataSource  {
 extension OverlayViewController: PlayerViewDelegate {
     func playerVideo(player: PlayerView, currentTime: Double) {
         //Omitted slider.value = Float(currentTime)
+        showViewBy(currentTime: currentTime, view: playerThumbView)
     }
 
     func playerVideo(player: PlayerView, duration: Double) {
@@ -464,6 +468,9 @@ extension OverlayViewController: PlayerViewDelegate {
 
     func playerVideo(player: PlayerView, statusItemPlayer: AVPlayerItem.Status, error: Error?) {
         //
+        initPlayerThumb(playerView: playerView, movie: movie!) { view in
+            self.playerThumbView = view
+        }
     }
     
     func playerVideoDidEnd(player: PlayerView) {

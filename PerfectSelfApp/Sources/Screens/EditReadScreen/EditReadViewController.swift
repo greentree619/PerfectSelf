@@ -28,6 +28,7 @@ class EditReadViewController: UIViewController {
     var trackSegmentRepo: TrackSegmentRepo?
     var tmpVRotateOffset: Int  = videoRotateOffset
     var timePauseChanged: Bool = false
+    var playerThumbView: UIImageView?
     
     @IBOutlet weak var editBar: UIStackView!
     @IBOutlet weak var playerView: PlayerView!
@@ -212,6 +213,7 @@ class EditReadViewController: UIViewController {
     }
     
     @IBAction func playerSeekValueChanged(_ sender: UISlider) {
+        showViewBy(currentTime: Double(sender.value), view: playerThumbView)
         playerView.currentTime = Double( sender.value )
     }
     
@@ -318,6 +320,7 @@ class EditReadViewController: UIViewController {
     @IBAction func gotoFirstDidTap(_ sender: UIButton) {
         slider.setValue(0, animated: false)
         playerView.currentTime = Double( 0)
+        playerThumbView?.isHidden = false
     }
     
     @IBAction func backwardDidTap(_ sender: UIButton) {
@@ -657,6 +660,7 @@ class EditReadViewController: UIViewController {
 
 extension EditReadViewController: PlayerViewDelegate {
     func playerVideo(player: PlayerView, currentTime: Double) {
+        showViewBy(currentTime: currentTime, view: playerThumbView)
         slider.value = Float(currentTime)
     }
     
@@ -675,7 +679,9 @@ extension EditReadViewController: PlayerViewDelegate {
     }
     
     func playerVideo(player: PlayerView, statusItemPlayer: AVPlayerItem.Status, error: Error?) {
-        
+        initPlayerThumb(playerView: playerView, movie: movie) { view in
+            self.playerThumbView = view
+        }
     }
     
     func playerVideoDidEnd(player: PlayerView) {
