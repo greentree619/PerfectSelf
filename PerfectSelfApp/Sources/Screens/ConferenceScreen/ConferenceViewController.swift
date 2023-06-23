@@ -559,6 +559,8 @@ class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSample
                         print("Video upload prefixKey: \(prefixKey)")
                         //Omitted let awsUpload = AWSMultipartUpload()
                         DispatchQueue.main.async {
+                            self!.btnBack.isEnabled = false
+                            self!.btnLeave.isEnabled = false
                             //Omitted showIndicator(sender: nil, viewController: uiViewContoller!, color:UIColor.white)
                             Toast.show(message: "Start to upload record files", controller: uiViewContoller!)
                         }
@@ -604,6 +606,12 @@ class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSample
                                     Toast.show(message: "Failed to upload video file", controller: uiViewContoller!)
                                 }
                             }
+                            DispatchQueue.main.async {
+                                self!.btnBack.isEnabled = true
+                                self!.btnLeave.isEnabled = true
+                            }
+                        }progressHandler: { (progressVal)->Void in
+                            Toast.show(message: "Upload progress", controller: uiViewContoller!)
                         }
                     }//DispatchQueue.global
                 }

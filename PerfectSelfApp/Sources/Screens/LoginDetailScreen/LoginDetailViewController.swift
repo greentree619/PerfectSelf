@@ -60,9 +60,9 @@ class LoginDetailViewController: UIViewController {
 //            print("No data was saved.")
 //        }
         
-        GIDSignIn.sharedInstance().presentingViewController = self
-        GIDSignIn.sharedInstance().clientID = GoogleAuthClientID
-        GIDSignIn.sharedInstance()?.delegate = self
+//Omitted        GIDSignIn.sharedInstance().presentingViewController = self
+//Omitted        GIDSignIn.sharedInstance().clientID = GoogleAuthClientID
+//Omitted        GIDSignIn.sharedInstance()?.delegate = self
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -244,8 +244,15 @@ class LoginDetailViewController: UIViewController {
     }
     
     @IBAction func googleLoginDidTap(_ sender: Any) {
-        let gidSignIn = GIDSignIn.sharedInstance()
-        gidSignIn!.signIn()
+        //Omitted        let gidSignIn = GIDSignIn.sharedInstance()
+        //Omitted        gidSignIn!.signIn()
+        GIDSignIn.sharedInstance.signIn(with: signInConfig, presenting: self) { signInResult, error in
+            guard let signInResult = signInResult else {
+                print("Error! \(String(describing: error))")
+                return
+            }
+            print(signInResult.userID!)
+        }
     }
     
     @IBAction func facebookLoginDidTap(_ sender: UIButton) {
@@ -273,18 +280,19 @@ class LoginDetailViewController: UIViewController {
     
 }
 
-extension LoginDetailViewController: GIDSignInDelegate{
-    func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
-//        if let user = user {
-//            GIDSignIn.sharedInstance().t.getAuthToken(user) { (token, error) in
-//                if let token = token {
-//                    // Use token to make authenticated requests to Google API
-//                } else if let error = error {
-//                    print("Error fetching auth token: \(error.localizedDescription)")
-//                }
-//            }
-//        } else if let error = error {
-//            print("Error signing in: \(error.localizedDescription)")
-//        }
-    }
-}
+//Omitted
+//extension LoginDetailViewController: GIDSignInDelegate{
+//    func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
+////        if let user = user {
+////            GIDSignIn.sharedInstance().t.getAuthToken(user) { (token, error) in
+////                if let token = token {
+////                    // Use token to make authenticated requests to Google API
+////                } else if let error = error {
+////                    print("Error fetching auth token: \(error.localizedDescription)")
+////                }
+////            }
+////        } else if let error = error {
+////            print("Error signing in: \(error.localizedDescription)")
+////        }
+//    }
+//}

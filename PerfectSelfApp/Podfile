@@ -17,6 +17,7 @@ target 'PerfectSelf' do
   pod 'AnimatedCardInput'
   pod "SwiftGifOrigin"
   pod 'GoogleAPIClientForREST/Calendar'
-  pod 'GoogleSignIn', '~> 5.0.2'
+  pod 'GoogleSignIn', '~> 6.2'
   pod 'GoogleSignInSwiftSupport'
+  #pod 'HGCircularSlider'
 end

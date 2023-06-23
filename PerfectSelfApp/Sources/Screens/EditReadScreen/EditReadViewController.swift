@@ -39,14 +39,14 @@ class EditReadViewController: UIViewController {
     @IBOutlet weak var uiTitleLabel: UILabel!
     @IBOutlet weak var undoButton: UIButton!
     @IBOutlet weak var redoButton: UIButton!
-        
+    
     init(videoUrl: URL, audioUrl: URL?,  readerVideoUrl: URL, readerAudioUrl: URL, isActorVideoEdit: Bool) {
         self.videoURL = videoUrl
         self.audioURL = audioUrl
         self.readerVideoURL = readerVideoUrl
         self.readerAudioURL = readerAudioUrl
         self.onActorVideoEdit = isActorVideoEdit
-
+        
         super.init(nibName: String(describing: EditReadViewController.self), bundle: Bundle.main)
     }
     
@@ -113,7 +113,7 @@ class EditReadViewController: UIViewController {
             //handle error
             print(error)
         }
-          
+        
         //{{
         playerView.mainavComposition = movie
         //==
@@ -121,7 +121,7 @@ class EditReadViewController: UIViewController {
         //==
         //playerView.avAsset = editMovie
         //}}
-//        playerView.playerItem?.videoComposition = videoComposition
+        //        playerView.playerItem?.videoComposition = videoComposition
         playerView.delegate = self
         slider.minimumValue = 0
         playerView.addObserver(self, forKeyPath: "status", context: nil)
@@ -180,6 +180,10 @@ class EditReadViewController: UIViewController {
                                 }
                             }
                         }
+                    progressHandler: { (progressVal)->Void in
+                        print("progressHandler", progressVal)
+                        Toast.show(message: "Upload progress", controller: uiViewContoller!)
+                    }
                     }
                     
                     DispatchQueue.main.async {
@@ -286,7 +290,7 @@ class EditReadViewController: UIViewController {
                         struct JobId : Codable {
                             let jobId: String
                         }
-                       
+                        
                         let respItem = try JSONDecoder().decode(JobId.self, from: data)
                         print(respItem.jobId)
                         DispatchQueue.main.async {
@@ -300,7 +304,7 @@ class EditReadViewController: UIViewController {
                         }
                     }
                 }
-
+                
             } catch {
                 print(error)
                 DispatchQueue.main.async {
@@ -346,7 +350,7 @@ class EditReadViewController: UIViewController {
         self.undoManager?.undo()
         updateUndoButtons()
     }
-        
+    
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         if(object as? NSObject == playerView && keyPath == "status")
         {
@@ -400,7 +404,7 @@ class EditReadViewController: UIViewController {
                                         hideIndicator(sender: nil)
                                         Toast.show(message: "Audio Enhancement completed", controller: self)
                                         self.audioURL = saveFilePath
-//                                        self.mergeAudioWithVideo(videoUrl: self.videoURL, audioUrl: self.audioURL)
+                                        //                                        self.mergeAudioWithVideo(videoUrl: self.videoURL, audioUrl: self.audioURL)
                                         self.setupPlayer()
                                     }
                                     print("Successfully downloaded. Status code: \(statusCode)")
@@ -438,7 +442,7 @@ class EditReadViewController: UIViewController {
                     }
                     
                 } else {
-                   return
+                    return
                 }
                 
             } catch {
@@ -499,7 +503,7 @@ class EditReadViewController: UIViewController {
                     let res = try JSONDecoder().decode(BackRemoveResult.self, from: data)
                     DispatchQueue.main.async {
                         if res.data.attributes.status == "done" {
-//                            hideIndicator(sender: nil)
+                            //                            hideIndicator(sender: nil)
                             self.timer.invalidate()
                             // download file
                             let documentsPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0];
@@ -517,8 +521,8 @@ class EditReadViewController: UIViewController {
                                     // Success
                                     if let statusCode = (response as? HTTPURLResponse)?.statusCode {
                                         DispatchQueue.main.async {
-//                                            hideIndicator(sender: nil)
-//                                            Toast.show(message: "Audio Enhancement completed", controller: self)
+                                            //                                            hideIndicator(sender: nil)
+                                            //                                            Toast.show(message: "Audio Enhancement completed", controller: self)
                                             self.videoURL = saveFilePath
                                             self.mergeAudioWithVideo(videoUrl: self.videoURL, audioUrl: self.audioURL!)
                                         }
@@ -568,16 +572,16 @@ class EditReadViewController: UIViewController {
         let videoAsset = AVAsset(url: videoUrl)
         let audioAsset = AVAsset(url: audioUrl)
         let mainComposition = AVMutableComposition()
-
+        
         let videoTrack = mainComposition.addMutableTrack(withMediaType: .video, preferredTrackID: kCMPersistentTrackID_Invalid)
         let videoAssetTrack = videoAsset.tracks(withMediaType: .video).first!
         try? videoTrack?.insertTimeRange(CMTimeRangeMake(start: CMTime.zero, duration: videoAsset.duration), of: videoAssetTrack, at: CMTime.zero)
         videoTrack?.preferredTransform = videoAssetTrack.preferredTransform // THIS LINE IS IMPORTANT
-
+        
         let audioMTrack = mainComposition.addMutableTrack(withMediaType: .audio, preferredTrackID: kCMPersistentTrackID_Invalid)
         let audioAssetTrack = audioAsset.tracks(withMediaType: .audio).first!
         try? audioMTrack?.insertTimeRange(CMTimeRangeMake(start: CMTime.zero, duration: audioAsset.duration), of: audioAssetTrack, at: CMTime.zero)
-
+        
         let exportSession = AVAssetExportSession(asset: mainComposition, presetName: AVAssetExportPresetHighestQuality)
         guard
             let documentDirectory = FileManager.default.urls(
@@ -659,8 +663,8 @@ extension EditReadViewController: PlayerViewDelegate {
     func playerVideo(player: PlayerView, duration: Double) {
         slider.minimumValue = Float(0)
         slider.maximumValue =  Float(duration)//as seconds
-//        self.startTimerLabel.text = getCurrentTime(second:  0)
-//        self.endTimerLabel.text = getCurrentTime(second: duration)
+        //        self.startTimerLabel.text = getCurrentTime(second:  0)
+        //        self.endTimerLabel.text = getCurrentTime(second: duration)
         
         slider.value = 0.0
         playerView.currentTime = Double( 0 )
