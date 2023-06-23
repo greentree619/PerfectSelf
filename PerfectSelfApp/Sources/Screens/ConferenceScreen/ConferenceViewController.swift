@@ -268,11 +268,6 @@ class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSample
         uploadProgress.addTarget(self, action: #selector(updateUploadProgress), for: .valueChanged)
     }
     
-    @objc func updateUploadProgress() {
-        let value = uploadProgress.endPointValue
-        uploadStatus.text=String(format: "%3 d%", Int(value*100))
-    }
-    
     override func viewWillAppear(_ animated: Bool) {
         //Omitted semaphore.wait()//Wait until signal connected
         log(meetingUid: gRoomUid!, log:"\(userName!) entered in room")
@@ -284,6 +279,24 @@ class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSample
             alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
             self.present(alert, animated: true, completion: nil)
         }
+        
+#if UPLOAD_PROGRESS
+        uploadProgress.isHidden = false
+        var count = 0
+        _ = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true, block: { timer in
+            count += 1
+            DispatchQueue.main.async {
+                self.uploadProgress.endPointValue = CGFloat(count)/100.0
+                self.updateUploadProgress()
+            }
+            if count > 100 {
+                timer.invalidate()
+                DispatchQueue.main.async {
+                    self.uploadProgress.isHidden = true
+                }
+            }
+        })
+#endif
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -632,6 +645,7 @@ class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSample
                             }
                         }progressHandler: { (progressVal)->Void in
                             self!.uploadProgress.endPointValue = progressVal
+                            self!.updateUploadProgress()
                             //Toast.show(message: "Upload progress", controller: uiViewContoller!)
                         }
                     }//DispatchQueue.global
@@ -697,6 +711,11 @@ class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSample
     func sendCmd(cmd: String){
         let recStart: Data = "\(cmd)".data(using: .utf8)!
         self.webRTCClient.sendData(recStart)
+    }
+    
+    @objc func updateUploadProgress() {
+        let value = uploadProgress.endPointValue
+        uploadStatus.text=String(format: "%3 d%%", Int(value*100))
     }
 }
 
