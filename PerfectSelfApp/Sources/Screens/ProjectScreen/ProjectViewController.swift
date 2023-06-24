@@ -130,11 +130,12 @@ class ProjectViewController: UIViewController {
                                 self.noiseRemovalTimer!.invalidate()
                                 if error == nil, audioUrl != nil{
                                     self.savedAudioUrl = audioUrl
-                                    
-                                    actorVTrack = initAVMutableComposition(avMComp: actorAV, videoURL: self.savedVideoUrl!, audioURL: self.savedAudioUrl!, rotate: videoRotateOffset)
-                                    self.actorPlayerView.mainavComposition = actorAV
-                                    
-                                    self.noiseRemovalCount += 1
+                                    DispatchQueue.main.async {[self] in
+                                        actorVTrack = initAVMutableComposition(avMComp: actorAV, videoURL: self.savedVideoUrl!, audioURL: self.savedAudioUrl!, rotate: videoRotateOffset)
+                                        self.actorPlayerView.mainavComposition = actorAV
+                                        
+                                        self.noiseRemovalCount += 1
+                                    }
                                 }
                             }
                         }
@@ -150,11 +151,12 @@ class ProjectViewController: UIViewController {
                                 self.noiseRemovalReaderTimer!.invalidate()
                                 if error == nil, audioUrl != nil{
                                     self.savedReaderAudioUrl = audioUrl
-                                    
-                                    _ = initAVMutableComposition(avMComp: readerAV, videoURL: self.savedReaderVideoUrl!, audioURL: self.savedReaderAudioUrl!)
-                                    self.playerView.mainavComposition = readerAV
-                                    
-                                    self.noiseRemovalCount += 1
+                                    DispatchQueue.main.async {[self] in
+                                        _ = initAVMutableComposition(avMComp: readerAV, videoURL: self.savedReaderVideoUrl!, audioURL: self.savedReaderAudioUrl!)
+                                        self.playerView.mainavComposition = readerAV
+                                        
+                                        self.noiseRemovalCount += 1
+                                    }
                                 }
                             }
                         }
