@@ -1014,3 +1014,94 @@ func initPlayerThumbEx(playerView: PlayerView, url: URL?, thumbImgView: UIImageV
     }
     return retView
 }
+
+func getJobIdForRemovalAudioNoise(uiCtrl:UIViewController, audioURL: URL, completeHandler:@escaping(String)->Void){
+    audoAPI.getFileId(filePath: audioURL) { data, response, error in
+        guard let data = data, error == nil else {
+            DispatchQueue.main.async {
+                Toast.show(message: "Audio Enhancement failed. Unable to upload file.", controller: uiCtrl)
+            }
+            completeHandler("")
+            return
+        }
+        do {
+            struct FileId : Codable {
+                let fileId: String
+            }
+            //print("Raw response data: \(String(describing: dataString))")
+            let respItem = try JSONDecoder().decode(FileId.self, from: data)
+            //print(respItem.fileId)
+            audoAPI.removeNoise(fileId: respItem.fileId) { data, response, error in
+                guard let data = data, error == nil else {
+                    DispatchQueue.main.async {
+                        Toast.show(message: "Audio Enhancement failed. Unable to process uploaded file.", controller: uiCtrl)
+                    }
+                    completeHandler("")
+                    return
+                }
+                do {
+                    struct JobId : Codable {
+                        let jobId: String
+                    }
+                    
+                    let respItem = try JSONDecoder().decode(JobId.self, from: data)
+                    //print(respItem.jobId)
+                    DispatchQueue.main.async {
+                        //self.jobId = respItem.jobId
+                    }
+                    completeHandler(respItem.jobId)
+                } catch {
+                    DispatchQueue.main.async {
+                        Toast.show(message: "Audio Enhancement failed. Unable to get job id.", controller: uiCtrl)
+                    }
+                    completeHandler("")
+                }
+            }
+            
+        } catch {
+            print(error)
+            DispatchQueue.main.async {
+                Toast.show(message: "Audio Enhancement failed. Unable to get file id.", controller: uiCtrl)
+            }
+            completeHandler("")
+        }
+    }
+}
+
+func downloadClearAudio(uiCtrl: UIViewController, jobId: String, completeHandler: @escaping(Error?, URL?)->Void){
+    audoAPI.getJobStatus(jobId: jobId) { data, response, error in
+        guard let data = data, error == nil else {
+            completeHandler(error, nil)
+            return
+        }
+        do {
+            struct JobStatus: Codable {
+                let state: String
+            }
+            let respItem = try JSONDecoder().decode(JobStatus.self, from: data)
+            if respItem.state == "succeeded" {
+                struct JobStatusSucceed: Codable {
+                    let state: String
+                    let downloadPath: String
+                }
+                let res = try JSONDecoder().decode(JobStatusSucceed.self, from: data)
+                audoAPI.getResultFile(downloadPath: res.downloadPath) { (tempLocalUrl, response, error) in
+                    if let _ = tempLocalUrl, error == nil {
+                        // Success
+                        if let statusCode = (response as? HTTPURLResponse)?.statusCode {
+                            DispatchQueue.main.async {
+                                Toast.show(message: "Audio Enhancement completed", controller: uiCtrl)
+                            }
+                            print("Successfully downloaded. Status code: \(statusCode)")
+                            completeHandler(nil, tempLocalUrl)
+                        }
+                    } else {
+                        completeHandler(error, nil)
+                    }
+                }
+            } else if respItem.state == "failed" {
+            }
+        } catch {
+        }
+    }
+}

@@ -39,6 +39,9 @@ class ProjectViewController: UIViewController {
     var radownloadProgress: Float = 0
     @IBOutlet weak var rPlayerThumbView: UIImageView!
     let semaphore = DispatchSemaphore(value: 1)
+    var noiseRemovalTimer: Timer? = nil
+    var noiseRemovalReaderTimer: Timer? = nil
+    var noiseRemovalCount = 0
     
     @IBOutlet weak var downloadProgressView: CircularSlider!
     @IBOutlet weak var downloadProgressLabel: UILabel!
@@ -111,8 +114,63 @@ class ProjectViewController: UIViewController {
         downloadProgressLabel.text="  0%"
         
         downloadLibraryTape {
-            self.actorPlayerView.play()
-            self.playerView.play()
+            self.noiseRemovalCount = 0
+            DispatchQueue.main.async {
+                showIndicator(sender: nil, viewController: self, color: UIColor.white)
+                Toast.show(message: "On processing noise-removal for actor and reader audios.", controller: self)
+            }
+            //{{Removal noise from audio
+            getJobIdForRemovalAudioNoise(uiCtrl: self, audioURL: self.savedAudioUrl!) { jobId in
+                DispatchQueue.main.async {
+                    self.noiseRemovalTimer = Timer.scheduledTimer(withTimeInterval: TimeInterval(500) / 1000, repeats: true, block: { timer in
+                        downloadClearAudio(uiCtrl: self, jobId: jobId) { [self] error, audioUrl in
+                            if( self.noiseRemovalTimer!.isValid ){
+                                self.noiseRemovalTimer!.invalidate()
+                                if error == nil, audioUrl != nil{
+                                    self.savedAudioUrl = audioUrl
+                                    self.noiseRemovalCount += 1
+                                    
+                                    actorVTrack = initAVMutableComposition(avMComp: actorAV, videoURL: self.savedVideoUrl!, audioURL: self.savedAudioUrl!, rotate: videoRotateOffset)
+                                    self.actorPlayerView.mainavComposition = actorAV
+                                }
+                            }
+                        }
+                    })
+                }
+            }
+            
+            getJobIdForRemovalAudioNoise(uiCtrl: self, audioURL: self.savedReaderAudioUrl!) { jobId in
+                DispatchQueue.main.async {
+                    self.noiseRemovalReaderTimer = Timer.scheduledTimer(withTimeInterval: TimeInterval(500) / 1000, repeats: true, block: { timer in
+                        downloadClearAudio(uiCtrl: self, jobId: jobId) {[self] error, audioUrl in
+                            if( self.noiseRemovalReaderTimer!.isValid ){
+                                self.noiseRemovalReaderTimer!.invalidate()
+                                if error == nil, audioUrl != nil{
+                                    self.savedReaderAudioUrl = audioUrl
+                                    self.noiseRemovalCount += 1
+                                    
+                                    _ = initAVMutableComposition(avMComp: readerAV, videoURL: self.savedReaderVideoUrl!, audioURL: self.savedReaderAudioUrl!)
+                                    self.playerView.mainavComposition = readerAV
+                                }
+                            }
+                        }
+                    })
+                }
+            }
+            //}}Removal noise from audio
+            
+            DispatchQueue.main.async {
+                _ = Timer.scheduledTimer(withTimeInterval: TimeInterval(100) / 1000, repeats: true, block: { timer in
+                    if(self.noiseRemovalCount >= 2){
+                        timer.invalidate()
+                        hideIndicator(sender: nil)
+                        Toast.show(message: "Audio noise-removal processing is done.", controller: self)
+                        
+                        self.actorPlayerView.play()
+                        self.playerView.play()
+                    }
+                })
+            }
             
 #if OVERLAY_TEST
             var count = 2
@@ -566,8 +624,8 @@ class ProjectViewController: UIViewController {
                     else{
                         self.savedAudioUrl = filePath
                         DispatchQueue.main.async { [self] in
-                            actorVTrack = initAVMutableComposition(avMComp: actorAV, videoURL: self.savedVideoUrl!, audioURL: self.savedAudioUrl!, rotate: videoRotateOffset)
-                            self.actorPlayerView.mainavComposition = actorAV
+//                            actorVTrack = initAVMutableComposition(avMComp: actorAV, videoURL: self.savedVideoUrl!, audioURL: self.savedAudioUrl!, rotate: videoRotateOffset)
+//                            self.actorPlayerView.mainavComposition = actorAV
                             //Omitted self.actorPlayerView.play()
                             
                             //{{Wait until download both
@@ -602,9 +660,9 @@ class ProjectViewController: UIViewController {
                 return
             }
             
-            DispatchQueue.main.async { [self] in
-                _ = initAVMutableComposition(avMComp: readerAV, videoURL: self.savedReaderVideoUrl!, audioURL: self.savedReaderAudioUrl!)
-                self.playerView.mainavComposition = readerAV
+            DispatchQueue.main.async {
+//                _ = initAVMutableComposition(avMComp: readerAV, videoURL: self.savedReaderVideoUrl!, audioURL: self.savedReaderAudioUrl!)
+//                self.playerView.mainavComposition = readerAV
                 //Omitted self.playerView.play()
             }
         }
