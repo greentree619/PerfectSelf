@@ -163,20 +163,20 @@ class ProjectViewController: UIViewController {
             }
             //}}Removal noise from audio
             
-            DispatchQueue.main.async {
-                _ = Timer.scheduledTimer(withTimeInterval: TimeInterval(100) / 1000, repeats: true, block: { timer in
-                    if(self.noiseRemovalCount >= 2
-                       && self.playerView.player?.status == AVPlayer.Status.readyToPlay
-                       && self.actorPlayerView.player?.status == AVPlayer.Status.readyToPlay){
-                        timer.invalidate()
+            _ = Timer.scheduledTimer(withTimeInterval: TimeInterval(100) / 1000, repeats: true, block: { timer in
+                if(self.noiseRemovalCount >= 2
+                   && self.playerView.player?.status == AVPlayer.Status.readyToPlay
+                   && self.actorPlayerView.player?.status == AVPlayer.Status.readyToPlay){
+                    timer.invalidate()
+                    DispatchQueue.main.async {
                         hideIndicator(sender: nil)
                         Toast.show(message: "Audio noise-removal processing is done.", controller: self)
                         
                         self.actorPlayerView.play()
                         self.playerView.play()
                     }
-                })
-            }
+                }
+            })
             
 #if OVERLAY_TEST
             var count = 2
@@ -705,23 +705,26 @@ extension ProjectViewController: PlayerViewDelegate{
     func playerVideo(player: PlayerView, currentTime: Double) {
         //player.pause()
         //self.playerView.updateFocusIfNeeded()
-        playerBar.value =  Float(currentTime)
-        showViewBy(currentTime: currentTime, view: aPlayerThumbView)
-        showViewBy(currentTime: currentTime, view: rPlayerThumbView)
+        DispatchQueue.main.async {[self] in
+            playerBar.value =  Float(currentTime)
+            showViewBy(currentTime: currentTime, view: aPlayerThumbView)
+            showViewBy(currentTime: currentTime, view: rPlayerThumbView)
+        }
     }
     
     func playerVideo(player: PlayerView, duration: Double) {
         //player.currentTime = duration/100
         //player.player!.seek(to: CMTime(value: 1, timescale: 600))
-        
-        playerBar.minimumValue = Float(0)
-        playerBar.maximumValue =  Float(duration)
-        self.startTime.text = getCurrentTime(second:  0)
-        self.endTime.text = getCurrentTime(second: duration)
-        //player.play()
-        
-        playerBar.value = 0.0
-        playerView.currentTime = Double( 0 )
+        DispatchQueue.main.async {[self] in
+            playerBar.minimumValue = Float(0)
+            playerBar.maximumValue =  Float(duration)
+            self.startTime.text = getCurrentTime(second:  0)
+            self.endTime.text = getCurrentTime(second: duration)
+            //player.play()
+            
+            playerBar.value = 0.0
+            playerView.currentTime = Double( 0 )
+        }
     }
     
     func playerVideo(player: PlayerView, statusItemPlayer: AVPlayer.Status, error: Error?) {
