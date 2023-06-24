@@ -313,15 +313,16 @@ class AWSMultipartUpload: NSObject, URLSessionTaskDelegate, URLSessionDataDelega
                }
     }
     
-    func downloadEx(filePath: URL, bucketName: String,  key: String, completeHandler:@escaping((Error?)->Void)) -> Void
+    func downloadEx(filePath: URL, bucketName: String,  key: String, completeHandler:@escaping((Error?)->Void), progressHandler:((Float)->Void)? = nil) -> Void
     {
         let expression = AWSS3TransferUtilityDownloadExpression()
         expression.progressBlock = {(task, progress) in
             DispatchQueue.main.async(execute: {
                 // Do something e.g. Update a progress bar.
-                print("progress \(progress)")
+                print("progress \(progress.fractionCompleted)")
+                progressHandler?(Float(progress.fractionCompleted))
             })
-            print(progress.fractionCompleted)   //2
+            //print(progress.fractionCompleted)   //2
             if progress.isFinished {           //3
                 print("Download Finished...")
                 //do any task here.

@@ -32,7 +32,9 @@ class ProjectViewController: UIViewController {
     var endElapseTime: Date?
     var actorVTrack: AVMutableCompositionTrack?
     var aPlayerThumbView: UIImageView? = nil
+    var downloadProgress: Float = 0
     @IBOutlet weak var rPlayerThumbView: UIImageView!
+    let semaphore = DispatchSemaphore(value: 1)
     
     let actorAV = AVMutableComposition()
     let readerAV = AVMutableComposition()
@@ -338,6 +340,10 @@ class ProjectViewController: UIViewController {
                         completionHandler()
                     }
                 }
+            }progressHandler:{(prog) -> Void in
+                self.semaphore.wait()
+                self.downloadProgress += prog
+                self.semaphore.signal()
             }
             
             Toast.show(message: "Start to download reader video and audio...", controller: self)
@@ -491,6 +497,7 @@ class ProjectViewController: UIViewController {
     
     func downloadLibraryTape(completionHandler: @escaping () -> Void)-> Void
     {
+        downloadProgress = 0
         let documentsPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0];
         let filePath = URL(fileURLWithPath: "\(documentsPath)/tempFile.mp4")
         do {
@@ -559,6 +566,10 @@ class ProjectViewController: UIViewController {
                     }
                 }
             }
+        }progressHandler:{(prog) -> Void in
+            self.semaphore.wait()
+            self.downloadProgress += prog
+            self.semaphore.signal()
         }
         
         doneReaderAVDownload = false
