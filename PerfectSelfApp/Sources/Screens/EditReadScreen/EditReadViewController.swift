@@ -399,16 +399,15 @@ class EditReadViewController: UIViewController {
                         }
                         
                         audoAPI.getResultFile(downloadPath: res.downloadPath) { (tempLocalUrl, response, error) in
-                            
                             if let tempLocalUrl = tempLocalUrl, error == nil {
                                 // Success
                                 if let statusCode = (response as? HTTPURLResponse)?.statusCode {
-                                    DispatchQueue.main.async {
+                                    DispatchQueue.main.async {[self] in
                                         hideIndicator(sender: nil)
                                         Toast.show(message: "Audio Enhancement completed", controller: self)
                                         self.audioURL = saveFilePath
                                         //                                        self.mergeAudioWithVideo(videoUrl: self.videoURL, audioUrl: self.audioURL)
-                                        self.setupPlayer()
+                                        editAudioAsset = AVURLAsset(url: audioURL!)
                                     }
                                     print("Successfully downloaded. Status code: \(statusCode)")
                                 }

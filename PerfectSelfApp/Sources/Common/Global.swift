@@ -973,8 +973,10 @@ func exportAudioWithTimeSpan(uiCtrl: UIViewController, composition: AVMutableCom
 }
 
 func showViewBy(currentTime:Double, view: UIImageView?){
-    if(currentTime > 0){view?.isHidden = true}
-    else {view?.isHidden = false}
+    DispatchQueue.main.async {
+        if(currentTime > 0){view?.isHidden = true}
+        else {view?.isHidden = false}
+    }
 }
 
 func initPlayerThumb(playerView: PlayerView, movie: AVMutableComposition, completeHandler:@escaping(UIImageView)->Void){
@@ -1086,14 +1088,23 @@ func downloadClearAudio(uiCtrl: UIViewController, jobId: String, completeHandler
                 }
                 let res = try JSONDecoder().decode(JobStatusSucceed.self, from: data)
                 audoAPI.getResultFile(downloadPath: res.downloadPath) { (tempLocalUrl, response, error) in
-                    if let _ = tempLocalUrl, error == nil {
+                    if let tempLocalUrl = tempLocalUrl, error == nil {
                         // Success
                         if let statusCode = (response as? HTTPURLResponse)?.statusCode {
                             DispatchQueue.main.async {
                                 Toast.show(message: "Audio Enhancement completed", controller: uiCtrl)
                             }
                             print("Successfully downloaded. Status code: \(statusCode)")
-                            completeHandler(nil, tempLocalUrl)
+                            let documentsPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0];
+                            let saveFilePath = URL(fileURLWithPath: "\(documentsPath)/tmpAudio-\(UUID().uuidString).mp3")
+                            do {
+                                try FileManager.default.copyItem(at: tempLocalUrl, to: saveFilePath)
+                            } catch{
+                                DispatchQueue.main.async {
+                                    Toast.show(message: "Audio Enhancement failed while copying file to save.", controller: uiCtrl)
+                                }
+                            }
+                            completeHandler(nil, saveFilePath)
                         }
                     } else {
                         completeHandler(error, nil)

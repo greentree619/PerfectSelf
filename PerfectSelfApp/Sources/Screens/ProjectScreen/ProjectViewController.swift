@@ -113,6 +113,8 @@ class ProjectViewController: UIViewController {
         downloadProgressView.thumbRadius = 0.0
         downloadProgressLabel.text="  0%"
         
+        ConferenceViewController.clearTempFolder()
+        
         downloadLibraryTape {
             self.noiseRemovalCount = 0
             DispatchQueue.main.async {
@@ -128,10 +130,11 @@ class ProjectViewController: UIViewController {
                                 self.noiseRemovalTimer!.invalidate()
                                 if error == nil, audioUrl != nil{
                                     self.savedAudioUrl = audioUrl
-                                    self.noiseRemovalCount += 1
                                     
                                     actorVTrack = initAVMutableComposition(avMComp: actorAV, videoURL: self.savedVideoUrl!, audioURL: self.savedAudioUrl!, rotate: videoRotateOffset)
                                     self.actorPlayerView.mainavComposition = actorAV
+                                    
+                                    self.noiseRemovalCount += 1
                                 }
                             }
                         }
@@ -147,10 +150,11 @@ class ProjectViewController: UIViewController {
                                 self.noiseRemovalReaderTimer!.invalidate()
                                 if error == nil, audioUrl != nil{
                                     self.savedReaderAudioUrl = audioUrl
-                                    self.noiseRemovalCount += 1
                                     
                                     _ = initAVMutableComposition(avMComp: readerAV, videoURL: self.savedReaderVideoUrl!, audioURL: self.savedReaderAudioUrl!)
                                     self.playerView.mainavComposition = readerAV
+                                    
+                                    self.noiseRemovalCount += 1
                                 }
                             }
                         }
@@ -161,7 +165,9 @@ class ProjectViewController: UIViewController {
             
             DispatchQueue.main.async {
                 _ = Timer.scheduledTimer(withTimeInterval: TimeInterval(100) / 1000, repeats: true, block: { timer in
-                    if(self.noiseRemovalCount >= 2){
+                    if(self.noiseRemovalCount >= 2
+                       && self.playerView.player?.status == AVPlayer.Status.readyToPlay
+                       && self.actorPlayerView.player?.status == AVPlayer.Status.readyToPlay){
                         timer.invalidate()
                         hideIndicator(sender: nil)
                         Toast.show(message: "Audio noise-removal processing is done.", controller: self)
