@@ -990,5 +990,27 @@ func initPlayerThumb(playerView: PlayerView, movie: AVMutableComposition, comple
             thumbView.layer.contentsGravity = CALayerContentsGravity.resizeAspectFill
             completeHandler(thumbView)
         }
+    }    
+}
+
+func initPlayerThumbEx(playerView: PlayerView, url: URL?, thumbImgView: UIImageView? = nil) -> UIImageView?{
+    var retView: UIImageView? = nil
+    if(url != nil){
+        if(thumbImgView == nil){
+            let thumbView = UIImageView()
+            thumbView.imageFrom(url: url!)
+            thumbView.transform = CGAffineTransformMakeRotation(degreeToRadian(CGFloat(mainRotateDegree)))
+            thumbView.layer.contentsGravity = CALayerContentsGravity.resizeAspectFill
+            playerView.addSubview(thumbView)
+            thumbView.frame = playerView.frame
+            retView = thumbView
+        }
+        else{
+            thumbImgView!.imageFrom(url: url!)
+            thumbImgView!.transform = CGAffineTransformMakeRotation(degreeToRadian(CGFloat(mainRotateDegree)))
+            thumbImgView!.layer.contentsGravity = CALayerContentsGravity.resizeAspectFill
+            retView = thumbImgView!
+        }
     }
+    return retView
 }
