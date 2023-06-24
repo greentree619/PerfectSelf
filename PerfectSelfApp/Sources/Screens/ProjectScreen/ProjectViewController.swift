@@ -31,6 +31,8 @@ class ProjectViewController: UIViewController {
     var startElapseTime: Date?
     var endElapseTime: Date?
     var actorVTrack: AVMutableCompositionTrack?
+    var aPlayerThumbView: UIImageView? = nil
+    @IBOutlet weak var rPlayerThumbView: UIImageView!
     
     let actorAV = AVMutableComposition()
     let readerAV = AVMutableComposition()
@@ -60,6 +62,13 @@ class ProjectViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         actorVTrack?.preferredTransform = transformForTrack(rotateOffset: CGFloat(videoRotateOffset))
+        
+        let actorThumb = "https://video-thumbnail-bucket-123456789.s3.us-east-2.amazonaws.com/\(selectedTape!.actorTapeKey)-0.jpg"
+        let readerTapeKey = (selectedTape!.readerTapeKey == nil ? "" : selectedTape!.readerTapeKey)
+        let readerThumb = "https://video-thumbnail-bucket-123456789.s3.us-east-2.amazonaws.com/\(readerTapeKey!)-0.jpg"
+        
+        aPlayerThumbView = initPlayerThumbEx(playerView: self.actorPlayerView, url: URL(string: actorThumb))
+        _ = initPlayerThumbEx(playerView: self.playerView, url: URL(string: readerThumb), thumbImgView: rPlayerThumbView)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -214,6 +223,9 @@ class ProjectViewController: UIViewController {
     @IBAction func sliderValueChanged(_ sender: Any) {
         playerView.currentTime = Double( playerBar.value )
         actorPlayerView.currentTime = Double( playerBar.value )
+        
+        showViewBy(currentTime: Double(playerBar.value), view: aPlayerThumbView)
+        showViewBy(currentTime: Double(playerBar.value), view: rPlayerThumbView)
     }
     
     @IBAction func playDidTapped(_ sender: UIButton) {
@@ -588,6 +600,8 @@ extension ProjectViewController: PlayerViewDelegate{
         //player.pause()
         //self.playerView.updateFocusIfNeeded()
         playerBar.value =  Float(currentTime)
+        showViewBy(currentTime: currentTime, view: aPlayerThumbView)
+        showViewBy(currentTime: currentTime, view: rPlayerThumbView)
     }
     
     func playerVideo(player: PlayerView, duration: Double) {
@@ -609,7 +623,7 @@ extension ProjectViewController: PlayerViewDelegate{
     }
     
     func playerVideo(player: PlayerView, statusItemPlayer: AVPlayerItem.Status, error: Error?) {
-        
+                
     }
     
     func playerVideoDidEnd(player: PlayerView) {
