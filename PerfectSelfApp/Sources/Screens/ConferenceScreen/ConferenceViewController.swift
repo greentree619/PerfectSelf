@@ -261,7 +261,6 @@ class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSample
         uploadProgress.maximumValue = 1.0
         uploadProgress.endPointValue = 0.00 // the progress
         uploadProgress.isUserInteractionEnabled = false
-        // to remove padding, for more details see issue #25
         uploadProgress.thumbLineWidth = 0.0
         uploadProgress.thumbRadius = 0.0
         uploadStatus.text="  0%"

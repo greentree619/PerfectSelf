@@ -12,6 +12,8 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ProjectViewController" customModule="PerfectSelf" customModuleProvider="target">
             <connections>
                 <outlet property="actorPlayerView" destination="gaY-FD-hHh" id="Vyu-UI-ZKJ"/>
+                <outlet property="downloadProgressLabel" destination="MKS-HX-Lsp" id="Z4U-ny-Afd"/>
+                <outlet property="downloadProgressView" destination="Mzw-j3-VOV" id="iY4-d7-KPp"/>
                 <outlet property="editFinalButton" destination="5Kf-yP-EPd" id="y4I-de-nlt"/>
                 <outlet property="editReadButton" destination="bsS-qO-Zxi" id="hwQ-X8-R39"/>
                 <outlet property="endTime" destination="BK1-CV-fCM" id="znq-Lv-bG5"/>
@@ -361,6 +363,23 @@ New Take</string>
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                 </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Mzw-j3-VOV" userLabel="Download Progress" customClass="CircularSlider" customModule="HGCircularSlider">
+                    <rect key="frame" x="98.333333333333329" y="327.66666666666669" width="196.33333333333337" height="196.66666666666669"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0%" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MKS-HX-Lsp" userLabel="progress label">
+                            <rect key="frame" x="62.333333333333329" y="71" width="71.999999999999986" height="55"/>
+                            <fontDescription key="fontDescription" type="boldSystem" pointSize="46"/>
+                            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstItem="MKS-HX-Lsp" firstAttribute="centerX" secondItem="Mzw-j3-VOV" secondAttribute="centerX" id="1hi-ka-l3F"/>
+                        <constraint firstAttribute="width" secondItem="Mzw-j3-VOV" secondAttribute="height" multiplier="1:1" id="2cI-ia-waL"/>
+                        <constraint firstItem="MKS-HX-Lsp" firstAttribute="centerY" secondItem="Mzw-j3-VOV" secondAttribute="centerY" id="4tR-0o-Evo"/>
+                    </constraints>
+                </view>
             </subviews>
             <viewLayoutGuide key="safeArea" id="HWB-Y9-ZdC"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -380,12 +399,15 @@ New Take</string>
                 <constraint firstItem="sSD-iP-Ty3" firstAttribute="top" secondItem="gaY-FD-hHh" secondAttribute="bottom" id="Y9h-50-D5y"/>
                 <constraint firstAttribute="trailing" secondItem="SvV-ve-dM4" secondAttribute="trailing" id="aDm-QD-htN"/>
                 <constraint firstAttribute="bottom" secondItem="sSD-iP-Ty3" secondAttribute="bottom" id="aNX-ce-5U8"/>
+                <constraint firstItem="Mzw-j3-VOV" firstAttribute="centerX" secondItem="aCy-Za-TYj" secondAttribute="centerX" id="bFP-1g-q9f"/>
                 <constraint firstItem="HWB-Y9-ZdC" firstAttribute="trailing" secondItem="zD4-LN-r71" secondAttribute="trailing" constant="20" id="bfC-VB-gfy"/>
                 <constraint firstItem="Sfp-wB-P9S" firstAttribute="top" secondItem="aCy-Za-TYj" secondAttribute="top" id="bfC-bg-nbr"/>
                 <constraint firstItem="SvV-ve-dM4" firstAttribute="leading" secondItem="HWB-Y9-ZdC" secondAttribute="leading" id="bjj-5w-bf8"/>
+                <constraint firstItem="Mzw-j3-VOV" firstAttribute="centerY" secondItem="aCy-Za-TYj" secondAttribute="centerY" id="d6a-e9-AaQ"/>
                 <constraint firstItem="gaY-FD-hHh" firstAttribute="top" secondItem="HWB-Y9-ZdC" secondAttribute="top" id="f3C-9C-7P6"/>
                 <constraint firstItem="gaY-FD-hHh" firstAttribute="height" secondItem="HWB-Y9-ZdC" secondAttribute="height" multiplier="0.5" id="jwp-Gx-tW8"/>
                 <constraint firstItem="LiK-78-fBX" firstAttribute="leading" secondItem="HWB-Y9-ZdC" secondAttribute="leading" constant="21" id="lVh-4g-RwT"/>
+                <constraint firstItem="Mzw-j3-VOV" firstAttribute="width" secondItem="aCy-Za-TYj" secondAttribute="width" multiplier="0.5" id="mfM-5z-GdB"/>
                 <constraint firstItem="Lb7-Ge-vfZ" firstAttribute="top" secondItem="lWu-Er-ne6" secondAttribute="bottom" constant="14" id="nGA-C1-3iW"/>
                 <constraint firstItem="zD4-LN-r71" firstAttribute="top" secondItem="Sfp-wB-P9S" secondAttribute="bottom" constant="14" id="o57-ZF-jaz"/>
                 <constraint firstItem="X8e-3u-n8w" firstAttribute="centerY" secondItem="aCy-Za-TYj" secondAttribute="centerY" id="pDO-Xz-82b"/>

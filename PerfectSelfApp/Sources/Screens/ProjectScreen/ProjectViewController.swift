@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 import Photos
+import HGCircularSlider
 
 class ProjectViewController: UIViewController {
     
@@ -32,10 +33,15 @@ class ProjectViewController: UIViewController {
     var endElapseTime: Date?
     var actorVTrack: AVMutableCompositionTrack?
     var aPlayerThumbView: UIImageView? = nil
-    var downloadProgress: Float = 0
+    var avdownloadProgress: Float = 0
+    var aadownloadProgress: Float = 0
+    var rvdownloadProgress: Float = 0
+    var radownloadProgress: Float = 0
     @IBOutlet weak var rPlayerThumbView: UIImageView!
     let semaphore = DispatchSemaphore(value: 1)
     
+    @IBOutlet weak var downloadProgressView: CircularSlider!
+    @IBOutlet weak var downloadProgressLabel: UILabel!
     let actorAV = AVMutableComposition()
     let readerAV = AVMutableComposition()
     
@@ -95,6 +101,14 @@ class ProjectViewController: UIViewController {
         super.viewDidLoad()
         self.playerView.delegate = self
         self.actorPlayerView.delegate = self
+        
+        downloadProgressView.minimumValue = 0.0
+        downloadProgressView.maximumValue = 1.0
+        downloadProgressView.endPointValue = 0.00 // the progress
+        downloadProgressView.isUserInteractionEnabled = false
+        downloadProgressView.thumbLineWidth = 0.0
+        downloadProgressView.thumbRadius = 0.0
+        downloadProgressLabel.text="  0%"
         
         downloadLibraryTape {
             self.actorPlayerView.play()
@@ -338,12 +352,14 @@ class ProjectViewController: UIViewController {
 //                            self.present(overlayViewController, animated: false, completion: nil)
                         }
                         completionHandler()
+                    }progressHandler:{(prog) -> Void in
+                        self.radownloadProgress = prog
+                        self.progressHandler()
                     }
                 }
             }progressHandler:{(prog) -> Void in
-                self.semaphore.wait()
-                self.downloadProgress += prog
-                self.semaphore.signal()
+                self.rvdownloadProgress = prog
+                self.progressHandler()
             }
             
             Toast.show(message: "Start to download reader video and audio...", controller: self)
@@ -497,7 +513,11 @@ class ProjectViewController: UIViewController {
     
     func downloadLibraryTape(completionHandler: @escaping () -> Void)-> Void
     {
-        downloadProgress = 0
+        downloadProgressView.isHidden = false
+        avdownloadProgress = 0
+        aadownloadProgress = 0
+        rvdownloadProgress = 0
+        radownloadProgress = 0
         let documentsPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0];
         let filePath = URL(fileURLWithPath: "\(documentsPath)/tempFile.mp4")
         do {
@@ -558,18 +578,21 @@ class ProjectViewController: UIViewController {
                                     }
                                     timer.invalidate()
                                     hideIndicator(sender: nil)
+                                    self.downloadProgressView.isHidden = true
                                     completionHandler()
                                 })
                             }
                             //}}Wait until download both
                         }
                     }
+                }progressHandler:{(prog) -> Void in
+                    self.aadownloadProgress = prog
+                    self.progressHandler()
                 }
             }
         }progressHandler:{(prog) -> Void in
-            self.semaphore.wait()
-            self.downloadProgress += prog
-            self.semaphore.signal()
+            self.avdownloadProgress = prog
+            self.progressHandler()
         }
         
         doneReaderAVDownload = false
@@ -587,11 +610,19 @@ class ProjectViewController: UIViewController {
         }
         
         DispatchQueue.main.async { [self] in
-            showIndicator(sender: nil, viewController: self, color:UIColor.white)
+            //Omitted showIndicator(sender: nil, viewController: self, color:UIColor.white)
             let tapGesture = UITapGestureRecognizer(target: self, action:  #selector(didTapIndicatorView(_:)))
             backgroundView!.addGestureRecognizer(tapGesture)
             Toast.show(message: "To cancel download from library, please tap screen.", controller: self)
         }
+    }
+    
+    func progressHandler(){
+        self.semaphore.wait()
+        self.downloadProgressView.endPointValue = CGFloat(((self.avdownloadProgress + self.aadownloadProgress + self.rvdownloadProgress + self.radownloadProgress)/4.0))
+        let value = self.downloadProgressView.endPointValue
+        self.downloadProgressLabel.text = String(format: "%3 d%%", Int(value*100))
+        self.semaphore.signal()
     }
     
     /*
