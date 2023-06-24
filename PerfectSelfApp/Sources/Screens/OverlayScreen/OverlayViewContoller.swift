@@ -248,6 +248,7 @@ class OverlayViewController: UIViewController {
         else { return }
 
         do {
+            recordTrack.preferredTransform = transformForTrack()
             try recordTrack.insertTimeRange(
                 CMTimeRangeMake(start: .zero, duration: recordAsset.duration),
                 of: recordAsset.tracks(withMediaType: .video)[0],
