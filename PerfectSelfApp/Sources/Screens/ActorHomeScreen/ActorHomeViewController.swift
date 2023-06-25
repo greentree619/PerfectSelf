@@ -26,9 +26,9 @@ class ActorHomeViewController: UIViewController, UICollectionViewDataSource, UIC
     @IBOutlet weak var btn_topRate: UIButton!
     let backgroundView = UIView()
     var uid: String!
-    var isSponsored = true
+    var isSponsored = false
     var isAvailableSoon = false
-    var isTopRated = false
+    var isTopRated = true
     var searchString = ""
     
     var items = [ReaderProfileCard]()
@@ -68,10 +68,10 @@ class ActorHomeViewController: UIViewController, UICollectionViewDataSource, UIC
                     UserDefaults.standard.removeObject(forKey: "USER")
                     UserDefaults.standard.setValue(responseJSON, forKey: "USER")
                     DispatchQueue.main.async {
-                        let name = responseJSON["firstName"] as? String
+                        let name = responseJSON["userName"] as? String
                         let bucketName = responseJSON["avatarBucketName"] as? String
                         let avatarKey = responseJSON["avatarKey"] as? String
-                        self.greetingLabel.text = "Hi, " + (name ?? "User")
+                        self.greetingLabel.text = "Hi, \(name ?? "User")"
                         if (bucketName != nil && avatarKey != nil) {
                             let url = "https://\( bucketName!).s3.us-east-2.amazonaws.com/\(avatarKey!)"
                             self.img_actor_avatar.imageFrom(url: URL(string: url)!)
