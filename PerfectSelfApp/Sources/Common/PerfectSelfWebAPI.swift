@@ -301,6 +301,11 @@ class PerfectSelfWebAPI
         return executeAPI(with: "GET", apiPath: "Books/DetailList/ByUid/\(uid)?bookType=\(bookType)&name=\(name)", json: [:], completionHandler:completionHandler)
     }
     
+    func getBookingsInMinsByUid(uid: String, mins: Int=365*24*60, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> Void
+    {
+        return executeAPI(with: "GET", apiPath: "Books/ByUid/\(uid)?inMin=\(mins)", json: [:], completionHandler:completionHandler)
+    }
+    
     func cancelBookingByRoomUid(uid: String, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> Void
     {
         return executeAPI(with: "DELETE", apiPath: "Books/ByRoomUid/\(uid)", json: [:], completionHandler:completionHandler)

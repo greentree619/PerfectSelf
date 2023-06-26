@@ -24,12 +24,16 @@ class ActorHomeViewController: UIViewController, UICollectionViewDataSource, UIC
     @IBOutlet weak var btn_sponsored: UIButton!
     @IBOutlet weak var btn_availablesoon: UIButton!
     @IBOutlet weak var btn_topRate: UIButton!
+    @IBOutlet weak var nextSessionLabel: UILabel!
+    @IBOutlet weak var joinButton: UIButton!
+    
     let backgroundView = UIView()
     var uid: String!
     var isSponsored = false
     var isAvailableSoon = false
     var isTopRated = true
     var searchString = ""
+    var soonBooking: SoonBooking? = nil
     
     var items = [ReaderProfileCard]()
     
@@ -54,6 +58,7 @@ class ActorHomeViewController: UIViewController, UICollectionViewDataSource, UIC
         if let userInfo = UserDefaults.standard.object(forKey: "USER") as? [String:Any] {
             // Use the saved data
             uid = userInfo["uid"] as? String
+            getNextSesstion(uid: uid)
 
             // call user info
             webAPI.getUserInfo(uid: uid) { data, response, error in
@@ -149,7 +154,6 @@ class ActorHomeViewController: UIViewController, UICollectionViewDataSource, UIC
             }
         }
     }
-    
 
     // MARK: - Reader List Delegate.
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -300,11 +304,56 @@ class ActorHomeViewController: UIViewController, UICollectionViewDataSource, UIC
         
         fetchReaderList()
     }
+    
     @IBAction func GoMessageCenter(_ sender: UIButton) {
         let controller = MessageCenterViewController()
         controller.modalPresentationStyle = .fullScreen
         self.present(controller, animated: false)
     }
+    
+    @IBAction func joinSessionDidTap(_ sender: UIButton) {
+        guard let _ = soonBooking else{return}
+        
+        let conferenceViewController = ConferenceViewController(roomUid: soonBooking!.roomUid)
+        conferenceViewController.modalPresentationStyle = .fullScreen
+        
+//        let transition = CATransition()
+//        transition.duration = 0.5 // Set animation duration
+//        transition.type = CATransitionType.push // Set transition type to push
+//        transition.subtype = CATransitionSubtype.fromRight // Set transition subtype to from right
+//        self.parentViewController!.view.window?.layer.add(transition, forKey: kCATransition) // Add transition to window layer
+        self.parent!.present(conferenceViewController, animated: false)
+    }
+    
+    func getNextSesstion(uid: String) {
+        webAPI.getBookingsInMinsByUid(uid: uid, mins: 5) { data, response, error in
+        //webAPI.getBookingsInMinsByUid(uid: uid) { data, response, error in
+            guard let data = data, error == nil else {
+                print(error?.localizedDescription ?? "No data")
+                return
+            }
+            do {
+                let respItems = try JSONDecoder().decode([SoonBooking].self, from: data)
+                //print(items)
+                DispatchQueue.main.async {[self] in
+                    if(respItems.count > 0){
+                        soonBooking = respItems[0]
+                        //print(soonBooking!.roomUid)
+                        self.nextSessionLabel.text = "Next Session In 5 Mins"
+                        self.joinButton.isEnabled = true
+                    }
+                    else{
+                        soonBooking = nil
+                        self.nextSessionLabel.text = "No Future Meetings Scheduled"
+                        self.joinButton.isEnabled = false
+                    }
+                }
+            } catch {
+                print(error)
+            }
+        }
+    }
+    
     /*
      // MARK: - Navigation
      

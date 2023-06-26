@@ -229,6 +229,23 @@ struct BookingCard: Codable {
     let readerAvatarKey: String?
 }
 
+struct SoonBooking: Codable {
+    let id: Int
+    let actorUid: String
+    let readerUid: String
+    let roomUid: String
+    let bookStartTime: String
+    let bookEndTime: String
+    let scriptFile: String
+    let scriptBucket: String
+    let scriptKey: String
+    let isAccept: Bool
+    let readerScore: Double
+    let readerReview: String
+    let readerReviewDate: String
+    let isDeleted: Bool
+}
+
 struct VideoCard: Codable {
     let actorId: Int
     let actorUid: String
