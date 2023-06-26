@@ -160,6 +160,7 @@ struct ReaderProfileDetail: Codable {
     let bookPassCount: Int
     let allAvailability: [Availability]
     let reviewLists: [Review]
+    let sessionCount: Int
 }
 struct Availability: Codable {
     let readerUid: String

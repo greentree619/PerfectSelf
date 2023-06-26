@@ -109,6 +109,7 @@ class ActorReaderDetailViewController: UIViewController , UICollectionViewDataSo
                     self.scoreAndReviewCount.text = "\(item.score) (\(item.bookPassCount))"
                     self.reader_about.text = item.about
                     self.reader_hourly.text = "$\(item.hourlyPrice/4) / 15 mins"
+                    print(item.sessionCount)//REFME
                     self.skills.removeAll()
                     if !item.skills.isEmpty {
                         self.skills = item.skills.components(separatedBy: ",")
