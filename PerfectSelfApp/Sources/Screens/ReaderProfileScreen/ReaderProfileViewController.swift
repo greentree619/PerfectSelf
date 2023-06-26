@@ -41,8 +41,11 @@ class ReaderProfileViewController: UIViewController, UICollectionViewDataSource,
     @IBOutlet weak var readerUsername: UILabel!
     @IBOutlet weak var readerTitle: UILabel!
     @IBOutlet weak var readerAbout: UITextView!
+    @IBOutlet weak var quarterHourlyPrice: UILabel!
+    @IBOutlet weak var halfHourlyPrice: UILabel!
     @IBOutlet weak var hourlyPrice: UILabel!
     @IBOutlet weak var timeslotList: UICollectionView!
+    
     var items = [TimeSlot]()
     let cellsPerRow = 1
     
@@ -71,8 +74,7 @@ class ReaderProfileViewController: UIViewController, UICollectionViewDataSource,
     
     @IBOutlet weak var scoreAndReviewCount: UILabel!
     override func viewDidLoad() {
-        super.viewDidLoad()
-        
+        super.viewDidLoad()    
         let nib = UINib(nibName: "TimeSlotCollectionViewCell", bundle: nil)
         timeslotList.register(nib, forCellWithReuseIdentifier: "Time Slot Collection View Cell")
         timeslotList.dataSource = self
@@ -133,7 +135,9 @@ class ReaderProfileViewController: UIViewController, UICollectionViewDataSource,
                     self.scoreAndReviewCount.text = "\(item.score) (\(item.bookPassCount))"
                     self.readerAbout.text = item.about
                     
-                    self.hourlyPrice.text = "$\(Float(item.hourlyPrice)/4) / 15 mins"
+                    self.quarterHourlyPrice.text = "$\(Float(item.hourlyPrice)/4) / 15 mins"
+                    self.halfHourlyPrice.text = "$\(Float(item.hourlyPrice)/2) / 30 mins"
+                    self.hourlyPrice.text = "$\(Float(item.hourlyPrice)) / 1 hr"
                     self.skills = item.skills.components(separatedBy: ",")
                     self.skills = self.skills.filter { !$0.isEmpty }
                     self.skillList.reloadData()
