@@ -46,6 +46,7 @@ class ReaderProfileViewController: UIViewController, UICollectionViewDataSource,
     @IBOutlet weak var hourlyPrice: UILabel!
     @IBOutlet weak var timeslotList: UICollectionView!
     
+    @IBOutlet weak var sessionCounts: UILabel!
     var items = [TimeSlot]()
     let cellsPerRow = 1
     
@@ -144,7 +145,7 @@ class ReaderProfileViewController: UIViewController, UICollectionViewDataSource,
                     self.hourlyRate = item.hourlyPrice
                     self.auditionType = item.auditionType
                     self.isExplicitRead = item.isExplicitRead
-                    
+                    self.sessionCounts.text = "\(String(describing: item.sessionCount)) sessions"
                     self.items.removeAll()
 //                    self.items.append(contentsOf: item.allAvailability)
                     for availibility in item.allAvailability {

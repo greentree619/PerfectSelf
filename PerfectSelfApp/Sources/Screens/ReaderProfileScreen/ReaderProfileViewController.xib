@@ -36,6 +36,7 @@
                 <outlet property="readerUsername" destination="cwg-hL-kUu" id="UXq-7g-uCT"/>
                 <outlet property="reviewList" destination="v4T-c7-dzU" id="OmJ-mW-DaQ"/>
                 <outlet property="scoreAndReviewCount" destination="tR2-VL-9Cp" id="klf-54-KWg"/>
+                <outlet property="sessionCounts" destination="COw-eX-nJ7" id="ouz-aI-a7y"/>
                 <outlet property="skillList" destination="ZTN-24-XfV" id="2q2-NT-MnY"/>
                 <outlet property="slider" destination="LxR-0M-8KG" id="LVC-Ho-7lG"/>
                 <outlet property="timeslotList" destination="rBQ-tT-sx0" id="LRE-rl-GhJ"/>
