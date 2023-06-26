@@ -30,6 +30,9 @@ class ActorReaderDetailViewController: UIViewController , UICollectionViewDataSo
     @IBOutlet weak var reader_name: UILabel!
     @IBOutlet weak var reader_title: UILabel!
     @IBOutlet weak var reader_hourly: UILabel!
+    @IBOutlet weak var reader_quarter_hourly: UILabel!
+    @IBOutlet weak var sessionCounts: UILabel!
+    @IBOutlet weak var reader_half_hourly: UILabel!
     @IBOutlet weak var reader_about: UITextView!
     @IBOutlet weak var timeslotList: UICollectionView!
     
@@ -108,7 +111,10 @@ class ActorReaderDetailViewController: UIViewController , UICollectionViewDataSo
                     self.reader_title.text = item.title
                     self.scoreAndReviewCount.text = "\(item.score) (\(item.bookPassCount))"
                     self.reader_about.text = item.about
-                    self.reader_hourly.text = "$\(item.hourlyPrice/4) / 15 mins"
+                    self.reader_hourly.text = "$\(item.hourlyPrice) / 1 hr"
+                    self.reader_quarter_hourly.text = "$\(item.hourlyPrice/4) / 15 mins"
+                    self.reader_half_hourly.text = "$\(item.hourlyPrice/2) / 30 mins"
+                    self.sessionCounts.text = "\(String(describing: item.sessionCount)) sessions"	
                     print(item.sessionCount)//REFME
                     self.skills.removeAll()
                     if !item.skills.isEmpty {
