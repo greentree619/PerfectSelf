@@ -50,8 +50,8 @@
                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="5DV-0f-GGX">
                                     <rect key="frame" x="20" y="0.0" width="353" height="70"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Bookings" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="F7z-JV-wfC">
-                                            <rect key="frame" x="134" y="0.0" width="85.333333333333314" height="70"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="My Bookings with Readers" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="F7z-JV-wfC">
+                                            <rect key="frame" x="55.666666666666686" y="0.0" width="242" height="70"/>
                                             <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
                                             <color key="textColor" red="0.98039215690000003" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
@@ -141,10 +141,10 @@
                                                                     <state key="normal" title="Button"/>
                                                                     <buttonConfiguration key="configuration" style="plain">
                                                                         <attributedString key="attributedTitle">
-                                                                            <fragment content="Upcoming">
+                                                                            <fragment content="Reads">
                                                                                 <attributes>
                                                                                     <font key="NSFont" size="16" name="Helvetica"/>
-                                                                                    <font key="NSOriginalFont" size="12" name="Helvetica"/>
+                                                                                    <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                                                                 </attributes>
                                                                             </fragment>
                                                                         </attributedString>
@@ -161,16 +161,16 @@
                                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="2dj-ag-fxa">
                                                             <rect key="frame" x="121" y="0.0" width="111" height="39"/>
                                                             <subviews>
-                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Sgt-F0-SHm">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="111" height="35"/>
+                                                                <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Sgt-F0-SHm">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="111" height="39"/>
                                                                     <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     <state key="normal" title="Button"/>
                                                                     <buttonConfiguration key="configuration" style="plain">
                                                                         <attributedString key="attributedTitle">
-                                                                            <fragment content="Pending">
+                                                                            <fragment content="Reader Confirmation">
                                                                                 <attributes>
-                                                                                    <font key="NSFont" size="16" name="Helvetica"/>
-                                                                                    <font key="NSOriginalFont" size="12" name="Helvetica"/>
+                                                                                    <font key="NSFont" size="15" name="Helvetica"/>
+                                                                                    <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                                                                 </attributes>
                                                                             </fragment>
                                                                         </attributedString>
@@ -179,8 +179,8 @@
                                                                         <action selector="ShowPendingBookings:" destination="-1" eventType="touchUpInside" id="3SD-8P-XLJ"/>
                                                                     </connections>
                                                                 </button>
-                                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="underline" translatesAutoresizingMaskIntoConstraints="NO" id="9qk-yt-m87">
-                                                                    <rect key="frame" x="0.0" y="35" width="111" height="4"/>
+                                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" image="underline" translatesAutoresizingMaskIntoConstraints="NO" id="9qk-yt-m87">
+                                                                    <rect key="frame" x="0.0" y="39" width="111" height="0.0"/>
                                                                 </imageView>
                                                             </subviews>
                                                         </stackView>
@@ -193,10 +193,10 @@
                                                                     <state key="normal" title="Button"/>
                                                                     <buttonConfiguration key="configuration" style="plain">
                                                                         <attributedString key="attributedTitle">
-                                                                            <fragment content="Past">
+                                                                            <fragment content="Read">
                                                                                 <attributes>
                                                                                     <font key="NSFont" size="16" name="Helvetica"/>
-                                                                                    <font key="NSOriginalFont" size="12" name="Helvetica"/>
+                                                                                    <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                                                                 </attributes>
                                                                             </fragment>
                                                                         </attributedString>

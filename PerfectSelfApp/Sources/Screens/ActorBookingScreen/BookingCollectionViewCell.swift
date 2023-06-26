@@ -230,6 +230,7 @@ class BookingCollectionViewCell: UICollectionViewCell {
     @IBAction func RescheduleBooking(_ sender: UIButton) {
         let controller = ActorResheduleViewController()
         controller.bookId = id
+        controller.bookId = id
         //ruid, selecteddate
         controller.rUid = self.uid
         let df = DateFormatter()
