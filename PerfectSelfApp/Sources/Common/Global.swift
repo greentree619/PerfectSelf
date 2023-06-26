@@ -10,6 +10,7 @@ import Foundation
 import UIKit
 import MediaPlayer
 import Photos
+import GoogleSignIn
 
 let signalingServerConfig = Config.default
 let webAPI = PerfectSelfWebAPI()
@@ -25,6 +26,7 @@ var uiViewContoller: UIViewController? = nil
 var selectedTape: VideoCard?
 let awsUpload = AWSMultipartUpload()
 let GoogleAuthClientID = "669216550945-mgc5slqbok7j5ubp8255loi7hkoe7mj3.apps.googleusercontent.com"
+let signInConfig = GIDConfiguration(clientID: GoogleAuthClientID)
 let videoWidth = 1280//720
 let videoHeight = 720//1280
 let VideoSize = CGSize(width: videoHeight, height: videoWidth)
@@ -158,6 +160,7 @@ struct ReaderProfileDetail: Codable {
     let bookPassCount: Int
     let allAvailability: [Availability]
     let reviewLists: [Review]
+    let sessionCount: Int
 }
 struct Availability: Codable {
     let readerUid: String
@@ -225,6 +228,23 @@ struct BookingCard: Codable {
     let actorAvatarKey: String?
     let readerBucketName: String?
     let readerAvatarKey: String?
+}
+
+struct SoonBooking: Codable {
+    let id: Int
+    let actorUid: String
+    let readerUid: String
+    let roomUid: String
+    let bookStartTime: String
+    let bookEndTime: String
+    let scriptFile: String
+    let scriptBucket: String
+    let scriptKey: String
+    let isAccept: Bool
+    let readerScore: Double
+    let readerReview: String
+    let readerReviewDate: String
+    let isDeleted: Bool
 }
 
 struct VideoCard: Codable {
@@ -967,5 +987,150 @@ func exportAudioWithTimeSpan(uiCtrl: UIViewController, composition: AVMutableCom
             return
         }
         completion(outputURL)
+    }
+}
+
+func showViewBy(currentTime:Double, view: UIImageView?){
+    DispatchQueue.main.async {
+        if(currentTime > 0){view?.isHidden = true}
+        else {view?.isHidden = false}
+    }
+}
+
+func initPlayerThumb(playerView: PlayerView, movie: AVMutableComposition, completeHandler:@escaping(UIImageView)->Void){
+    let imageGenerator = AVAssetImageGenerator(asset: movie)
+    let screenshotTime = CMTime(seconds: 1, preferredTimescale: 30)
+    if let imageRef = try? imageGenerator.copyCGImage(at: screenshotTime, actualTime: nil) {
+        DispatchQueue.main.async {
+            let img = UIImage(cgImage: imageRef)
+            let thumbView = UIImageView(image: img)
+            thumbView.transform = CGAffineTransformMakeRotation(degreeToRadian(CGFloat(mainRotateDegree)))
+            playerView.addSubview(thumbView)
+            thumbView.frame = playerView.frame
+            thumbView.layer.contentsGravity = CALayerContentsGravity.resizeAspectFill
+            completeHandler(thumbView)
+        }
+    }    
+}
+
+func initPlayerThumbEx(playerView: PlayerView, url: URL?, thumbImgView: UIImageView? = nil) -> UIImageView?{
+    var retView: UIImageView? = nil
+    if(url != nil){
+        if(thumbImgView == nil){
+            let thumbView = UIImageView()
+            thumbView.imageFrom(url: url!)
+            thumbView.transform = CGAffineTransformMakeRotation(degreeToRadian(CGFloat(mainRotateDegree)))
+            thumbView.layer.contentsGravity = CALayerContentsGravity.resizeAspectFill
+            playerView.addSubview(thumbView)
+            thumbView.frame = playerView.frame
+            retView = thumbView
+        }
+        else{
+            thumbImgView!.imageFrom(url: url!)
+            thumbImgView!.transform = CGAffineTransformMakeRotation(degreeToRadian(CGFloat(mainRotateDegree)))
+            thumbImgView!.layer.contentsGravity = CALayerContentsGravity.resizeAspectFill
+            retView = thumbImgView!
+        }
+    }
+    return retView
+}
+
+func getJobIdForRemovalAudioNoise(uiCtrl:UIViewController, audioURL: URL, completeHandler:@escaping(String)->Void){
+    audoAPI.getFileId(filePath: audioURL) { data, response, error in
+        guard let data = data, error == nil else {
+            DispatchQueue.main.async {
+                Toast.show(message: "Audio Enhancement failed. Unable to upload file.", controller: uiCtrl)
+            }
+            completeHandler("")
+            return
+        }
+        do {
+            struct FileId : Codable {
+                let fileId: String
+            }
+            //print("Raw response data: \(String(describing: dataString))")
+            let respItem = try JSONDecoder().decode(FileId.self, from: data)
+            //print(respItem.fileId)
+            audoAPI.removeNoise(fileId: respItem.fileId) { data, response, error in
+                guard let data = data, error == nil else {
+                    DispatchQueue.main.async {
+                        Toast.show(message: "Audio Enhancement failed. Unable to process uploaded file.", controller: uiCtrl)
+                    }
+                    completeHandler("")
+                    return
+                }
+                do {
+                    struct JobId : Codable {
+                        let jobId: String
+                    }
+                    
+                    let respItem = try JSONDecoder().decode(JobId.self, from: data)
+                    //print(respItem.jobId)
+                    DispatchQueue.main.async {
+                        //self.jobId = respItem.jobId
+                    }
+                    completeHandler(respItem.jobId)
+                } catch {
+                    DispatchQueue.main.async {
+                        Toast.show(message: "Audio Enhancement failed. Unable to get job id.", controller: uiCtrl)
+                    }
+                    completeHandler("")
+                }
+            }
+            
+        } catch {
+            print(error)
+            DispatchQueue.main.async {
+                Toast.show(message: "Audio Enhancement failed. Unable to get file id.", controller: uiCtrl)
+            }
+            completeHandler("")
+        }
+    }
+}
+
+func downloadClearAudio(uiCtrl: UIViewController, jobId: String, completeHandler: @escaping(Error?, URL?)->Void){
+    audoAPI.getJobStatus(jobId: jobId) { data, response, error in
+        guard let data = data, error == nil else {
+            completeHandler(error, nil)
+            return
+        }
+        do {
+            struct JobStatus: Codable {
+                let state: String
+            }
+            let respItem = try JSONDecoder().decode(JobStatus.self, from: data)
+            if respItem.state == "succeeded" {
+                struct JobStatusSucceed: Codable {
+                    let state: String
+                    let downloadPath: String
+                }
+                let res = try JSONDecoder().decode(JobStatusSucceed.self, from: data)
+                audoAPI.getResultFile(downloadPath: res.downloadPath) { (tempLocalUrl, response, error) in
+                    if let tempLocalUrl = tempLocalUrl, error == nil {
+                        // Success
+                        if let statusCode = (response as? HTTPURLResponse)?.statusCode {
+                            DispatchQueue.main.async {
+                                Toast.show(message: "Audio Enhancement completed", controller: uiCtrl)
+                            }
+                            print("Successfully downloaded. Status code: \(statusCode)")
+                            let documentsPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0];
+                            let saveFilePath = URL(fileURLWithPath: "\(documentsPath)/tmpAudio-\(UUID().uuidString).mp3")
+                            do {
+                                try FileManager.default.copyItem(at: tempLocalUrl, to: saveFilePath)
+                            } catch{
+                                DispatchQueue.main.async {
+                                    Toast.show(message: "Audio Enhancement failed while copying file to save.", controller: uiCtrl)
+                                }
+                            }
+                            completeHandler(nil, saveFilePath)
+                        }
+                    } else {
+                        completeHandler(error, nil)
+                    }
+                }
+            } else if respItem.state == "failed" {
+            }
+        } catch {
+        }
     }
 }

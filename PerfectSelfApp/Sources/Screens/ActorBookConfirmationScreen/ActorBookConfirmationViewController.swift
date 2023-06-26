@@ -54,18 +54,30 @@ class ActorBookConfirmationViewController: UIViewController, EKEventEditViewDele
             // No data was saved
             print("No data was saved.")
         }
-        
-        GIDSignIn.sharedInstance().clientID = "669216550945-mgc5slqbok7j5ubp8255loi7hkoe7mj3.apps.googleusercontent.com"
-        GIDSignIn.sharedInstance().delegate = self
-        GIDSignIn.sharedInstance().scopes = scopes
-        GIDSignIn.sharedInstance()?.presentingViewController = self
+//Omitted
+//        GIDSignIn.sharedInstance().clientID = "669216550945-mgc5slqbok7j5ubp8255loi7hkoe7mj3.apps.googleusercontent.com"
+//        GIDSignIn.sharedInstance().delegate = self
+//        GIDSignIn.sharedInstance()?.presentingViewController = self
+        GIDSignIn.sharedInstance.addScopes(scopes, presenting: self)
     }
 
     @IBAction func AddToGoogleCalendar(_ sender: UITapGestureRecognizer) {
         add_to_google_calendar.layer.borderColor = CGColor(red: 0.46, green: 0.53, blue: 0.85, alpha: 1.0)
         add_to_calendar.layer.borderColor = CGColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
         
-        GIDSignIn.sharedInstance().signIn()
+        GIDSignIn.sharedInstance.signIn(with: signInConfig, presenting: self) { [self] signInResult, error in
+            guard let signInResult = signInResult else {
+                showAlert(title: "Authentication Error", message: error!.localizedDescription)
+                print("Error! \(String(describing: error))")
+                return
+            }
+            print(signInResult.userID!)
+            
+            self.service.authorizer = signInResult.authentication.fetcherAuthorizer()
+            let strDate: String = "\(bookingDate)\(bookingStartTime)"
+            let strDate2: String = "\(bookingDate)\(bookingEndTime)"
+            addEventoToGoogleCalendar(summary: "PerfectSelf", description: "Booking Reserved", startTime: strDate, endTime:  strDate2)
+        }
     }
     
     @IBAction func AddToCalendar(_ sender: UITapGestureRecognizer) {
@@ -163,15 +175,15 @@ class ActorBookConfirmationViewController: UIViewController, EKEventEditViewDele
     // Create an event to the Google Calendar's user
     func addEventoToGoogleCalendar(summary : String, description :String, startTime : String, endTime : String) {
         let calendarEvent = GTLRCalendar_Event()
-        
+
         calendarEvent.summary = "\(summary)"
         calendarEvent.descriptionProperty = "\(description)"
-        
+
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy'-'MM'-'dd'T'HH':'mm':'ss"
         let startDate = dateFormatter.date(from: startTime)
         let endDate = dateFormatter.date(from: endTime)
-        
+
         guard let toBuildDateStart = startDate else {
             print("Error getting start date")
             return
@@ -182,9 +194,9 @@ class ActorBookConfirmationViewController: UIViewController, EKEventEditViewDele
         }
         calendarEvent.start = buildDate(date: toBuildDateStart)
         calendarEvent.end = buildDate(date: toBuildDateEnd)
-        
+
         let insertQuery = GTLRCalendarQuery_EventsInsert.query(withObject: calendarEvent, calendarId: "primary")
-        
+
         service.executeQuery(insertQuery) { (ticket, object, error) in
             if error == nil {
                 print("Event inserted")
@@ -229,35 +241,38 @@ class ActorBookConfirmationViewController: UIViewController, EKEventEditViewDele
 
 }
 
-extension ActorBookConfirmationViewController:GIDSignInDelegate{
-    //MARK:Google SignIn Delegate
-    func sign(inWillDispatch signIn: GIDSignIn!, error: Error!) {
-        // myActivityIndicator.stopAnimating()
-    }
-    // Present a view that prompts the user to sign in with Google
-    func sign(_ signIn: GIDSignIn!,
-              present viewController: UIViewController!) {
-        self.present(viewController, animated: true, completion: nil)
-    }
-    
-    // Dismiss the "Sign in with Google" view
-    func sign(_ signIn: GIDSignIn!,
-              dismiss viewController: UIViewController!) {
-        self.dismiss(animated: true, completion: nil)
-    }
-    ////Google_signIn
-    func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!,
-              withError error: Error!) {
-        if let error = error {
-            showAlert(title: "Authentication Error", message: error.localizedDescription)
-            self.service.authorizer = nil
-        } else {
-            self.service.authorizer = user.authentication.fetcherAuthorizer()
-//            addEventoToGoogleCalendar(summary: "summary9", description: "description", startTime: "25/02/2020 09:00", endTime: "25/02/2020 10:00")
-            
-            let strDate: String = "\(bookingDate)\(bookingStartTime)"
-            let strDate2: String = "\(bookingDate)\(bookingEndTime)"
-            addEventoToGoogleCalendar(summary: "PerfectSelf", description: "Booking Reserved", startTime: strDate, endTime:  strDate2)
-        }
-    }
-}
+//Omitted
+//extension ActorBookConfirmationViewController:GIDSignInDelegate{
+//    //MARK:Google SignIn Delegate
+//    func sign(inWillDispatch signIn: GIDSignIn!, error: Error!) {
+//        // myActivityIndicator.stopAnimating()
+//    }
+//    // Present a view that prompts the user to sign in with Google
+//    func sign(_ signIn: GIDSignIn!,
+//              present viewController: UIViewController!) {
+//        self.present(viewController, animated: true, completion: nil)
+//    }
+//
+//    // Dismiss the "Sign in with Google" view
+//    func sign(_ signIn: GIDSignIn!,
+//              dismiss viewController: UIViewController!) {
+//        self.dismiss(animated: true, completion: nil)
+//    }
+//
+////Omitted
+////    ////Google_signIn
+////    func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!,
+////              withError error: Error!) {
+////        if let error = error {
+////            showAlert(title: "Authentication Error", message: error.localizedDescription)
+////            self.service.authorizer = nil
+////        } else {
+////            self.service.authorizer = user.authentication.fetcherAuthorizer()
+//////            addEventoToGoogleCalendar(summary: "summary9", description: "description", startTime: "25/02/2020 09:00", endTime: "25/02/2020 10:00")
+////
+////            let strDate: String = "\(bookingDate)\(bookingStartTime)"
+////            let strDate2: String = "\(bookingDate)\(bookingEndTime)"
+////            addEventoToGoogleCalendar(summary: "PerfectSelf", description: "Booking Reserved", startTime: strDate, endTime:  strDate2)
+////        }
+////    }
+//}

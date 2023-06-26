@@ -18,6 +18,8 @@
                 <outlet property="btn_topRate" destination="jrl-C4-W5Z" id="rUl-eo-dhM"/>
                 <outlet property="greetingLabel" destination="Gjf-XO-iAc" id="XfX-dP-bag"/>
                 <outlet property="img_actor_avatar" destination="e8t-t6-hzT" id="Nxz-kV-0rm"/>
+                <outlet property="joinButton" destination="zeE-05-O1t" id="t3H-On-U6k"/>
+                <outlet property="nextSessionLabel" destination="qeB-aG-UUW" id="HrF-t4-jdI"/>
                 <outlet property="readerList" destination="JU1-QJ-Xxa" id="vCk-wb-Dww"/>
                 <outlet property="readerListFlow" destination="gkZ-Sc-3E3" id="Rsh-Vo-s8Z"/>
                 <outlet property="spin" destination="TvA-8H-NFz" id="L5c-yJ-00N"/>
@@ -137,16 +139,16 @@
                             </constraints>
                             <edgeInsets key="layoutMargins" top="0.0" left="20" bottom="0.0" right="20"/>
                         </stackView>
-                        <stackView opaque="NO" contentMode="top" semanticContentAttribute="playback" axis="vertical" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="evI-VH-gXE">
+                        <stackView opaque="NO" contentMode="top" semanticContentAttribute="playback" horizontalHuggingPriority="300" verticalHuggingPriority="300" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="evI-VH-gXE">
                             <rect key="frame" x="0.0" y="70" width="393" height="30"/>
                             <subviews>
-                                <stackView opaque="NO" contentMode="top" distribution="fillProportionally" translatesAutoresizingMaskIntoConstraints="NO" id="jnF-dJ-9VN">
-                                    <rect key="frame" x="20" y="0.0" width="190.66666666666666" height="30"/>
+                                <stackView opaque="NO" contentMode="top" horizontalHuggingPriority="300" verticalHuggingPriority="300" distribution="fillProportionally" translatesAutoresizingMaskIntoConstraints="NO" id="jnF-dJ-9VN">
+                                    <rect key="frame" x="20" y="0.0" width="353" height="30"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="  Next session in 5 min  " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qeB-aG-UUW">
-                                            <rect key="frame" x="0.0" y="0.0" width="128.33333333333334" height="30"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="right" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="  Next session in 5 min  " textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="150" translatesAutoresizingMaskIntoConstraints="NO" id="qeB-aG-UUW">
+                                            <rect key="frame" x="0.0" y="0.0" width="237.66666666666666" height="30"/>
                                             <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="12"/>
-                                            <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <color key="textColor" systemColor="systemBlueColor"/>
                                             <nil key="highlightedColor"/>
                                             <userDefinedRuntimeAttributes>
                                                 <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
@@ -158,7 +160,7 @@
                                             </userDefinedRuntimeAttributes>
                                         </label>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zeE-05-O1t">
-                                            <rect key="frame" x="128.33333333333334" y="0.0" width="62.333333333333343" height="30"/>
+                                            <rect key="frame" x="237.66666666666671" y="0.0" width="115.33333333333334" height="30"/>
                                             <color key="backgroundColor" name="AccentColor"/>
                                             <state key="normal" title="Button"/>
                                             <buttonConfiguration key="configuration" style="plain">
@@ -178,6 +180,9 @@
                                                     <integer key="value" value="3"/>
                                                 </userDefinedRuntimeAttribute>
                                             </userDefinedRuntimeAttributes>
+                                            <connections>
+                                                <action selector="joinSessionDidTap:" destination="-1" eventType="touchUpInside" id="zpr-gc-xfc"/>
+                                            </connections>
                                         </button>
                                     </subviews>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -270,21 +275,13 @@
                                 <stackView opaque="NO" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="aev-Rm-9fE">
                                     <rect key="frame" x="20" y="0.0" width="280" height="25"/>
                                     <subviews>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WsL-mn-f8J">
-                                            <rect key="frame" x="0.0" y="0.0" width="79" height="25"/>
-                                            <color key="backgroundColor" red="0.28235294119999998" green="0.39607843139999999" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jrl-C4-W5Z">
+                                            <rect key="frame" x="0.0" y="0.0" width="78" height="25"/>
+                                            <color key="backgroundColor" red="0.28235294117647058" green="0.396078431372549" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                             <inset key="contentEdgeInsets" minX="10" minY="5" maxX="10" maxY="5"/>
                                             <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                            <state key="normal" title="Sponsored">
-                                                <attributedString key="attributedTitle">
-                                                    <fragment content="Sponsored">
-                                                        <attributes>
-                                                            <font key="NSFont" size="12" name="Helvetica"/>
-                                                            <font key="NSOriginalFont" size="12" name="Helvetica"/>
-                                                        </attributes>
-                                                    </fragment>
-                                                </attributedString>
+                                            <state key="normal" title="Top Rated">
                                                 <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             </state>
                                             <userDefinedRuntimeAttributes>
@@ -293,11 +290,11 @@
                                                 </userDefinedRuntimeAttribute>
                                             </userDefinedRuntimeAttributes>
                                             <connections>
-                                                <action selector="SelectSponsored:" destination="-1" eventType="touchUpInside" id="Zlt-gZ-YB8"/>
+                                                <action selector="SelectTopRated:" destination="-1" eventType="touchUpInside" id="rbO-n4-85H"/>
                                             </connections>
                                         </button>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xd9-pw-db3">
-                                            <rect key="frame" x="89" y="0.0" width="103" height="25"/>
+                                            <rect key="frame" x="88" y="0.0" width="103" height="25"/>
                                             <color key="backgroundColor" red="0.8980392157" green="0.8980392157" blue="0.8980392157" alpha="1" colorSpace="calibratedRGB"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                             <inset key="contentEdgeInsets" minX="10" minY="5" maxX="10" maxY="5"/>
@@ -314,14 +311,22 @@
                                                 <action selector="SelectAvailableSoon:" destination="-1" eventType="touchUpInside" id="D2e-AT-3vd"/>
                                             </connections>
                                         </button>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jrl-C4-W5Z">
-                                            <rect key="frame" x="202" y="0.0" width="78" height="25"/>
-                                            <color key="backgroundColor" red="0.8980392157" green="0.8980392157" blue="0.8980392157" alpha="1" colorSpace="calibratedRGB"/>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WsL-mn-f8J">
+                                            <rect key="frame" x="201" y="0.0" width="79" height="25"/>
+                                            <color key="backgroundColor" red="0.89803921568627454" green="0.89803921568627454" blue="0.89803921568627454" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                             <inset key="contentEdgeInsets" minX="10" minY="5" maxX="10" maxY="5"/>
                                             <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                            <state key="normal" title="Top Rated">
-                                                <color key="titleColor" red="0.28235294119999998" green="0.39607843139999999" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <state key="normal" title="Sponsored">
+                                                <attributedString key="attributedTitle">
+                                                    <fragment content="Sponsored">
+                                                        <attributes>
+                                                            <font key="NSFont" size="12" name="Helvetica"/>
+                                                            <font key="NSOriginalFont" size="12" name="Helvetica"/>
+                                                        </attributes>
+                                                    </fragment>
+                                                </attributedString>
+                                                <color key="titleColor" red="0.28235294117647058" green="0.396078431372549" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             </state>
                                             <userDefinedRuntimeAttributes>
                                                 <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
@@ -329,7 +334,7 @@
                                                 </userDefinedRuntimeAttribute>
                                             </userDefinedRuntimeAttributes>
                                             <connections>
-                                                <action selector="SelectTopRated:" destination="-1" eventType="touchUpInside" id="rbO-n4-85H"/>
+                                                <action selector="SelectSponsored:" destination="-1" eventType="touchUpInside" id="Zlt-gZ-YB8"/>
                                             </connections>
                                         </button>
                                     </subviews>
@@ -463,6 +468,9 @@
         </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemBlueColor">
+            <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

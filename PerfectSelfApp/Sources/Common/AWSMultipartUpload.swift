@@ -85,15 +85,19 @@ class AWSMultipartUpload: NSObject, URLSessionTaskDelegate, URLSessionDataDelega
         }
     }
     
-    func multipartUpload(filePath: URL, bucketName: String, prefixKey: String, forceKey: Bool=false, completeHandler:@escaping((Error?)->Void)) -> Void
+    func multipartUpload(filePath: URL, bucketName: String
+                         , prefixKey: String
+                         , forceKey: Bool=false
+                         , completeHandler:@escaping(Error?)->Void
+                         , progressHandler:((Double)->Void)?=nil) -> Void
     {
         let expression = AWSS3TransferUtilityMultiPartUploadExpression()
               expression.progressBlock = {(task, progress) in
                   DispatchQueue.main.async(execute: {
                       // Do something e.g. Update a progress bar.
-                      
+                      progressHandler?(progress.fractionCompleted)
                   })
-                  print(progress.fractionCompleted)   //2
+                  print("progress value=>", progress.fractionCompleted)   //2
                   if progress.isFinished {           //3
                     print("Upload Finished...")
                     //do any task here.
@@ -309,15 +313,16 @@ class AWSMultipartUpload: NSObject, URLSessionTaskDelegate, URLSessionDataDelega
                }
     }
     
-    func downloadEx(filePath: URL, bucketName: String,  key: String, completeHandler:@escaping((Error?)->Void)) -> Void
+    func downloadEx(filePath: URL, bucketName: String,  key: String, completeHandler:@escaping((Error?)->Void), progressHandler:((Float)->Void)? = nil) -> Void
     {
         let expression = AWSS3TransferUtilityDownloadExpression()
         expression.progressBlock = {(task, progress) in
             DispatchQueue.main.async(execute: {
                 // Do something e.g. Update a progress bar.
-                print("progress \(progress)")
+                print("progress \(progress.fractionCompleted)")
+                progressHandler?(Float(progress.fractionCompleted))
             })
-            print(progress.fractionCompleted)   //2
+            //print(progress.fractionCompleted)   //2
             if progress.isFinished {           //3
                 print("Download Finished...")
                 //do any task here.

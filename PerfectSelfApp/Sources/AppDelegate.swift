@@ -58,7 +58,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     ///MARK: google sigin
     func application(_ application: UIApplication,
                      open url: URL, sourceApplication: String?, annotation: Any) -> Bool {
-        return GIDSignIn.sharedInstance().handle(url)
+        return GIDSignIn.sharedInstance.handle(url)
     }
 //    
 //    // MARK: UISceneSession Lifecycle

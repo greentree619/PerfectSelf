@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 import Photos
+import HGCircularSlider
 
 class ProjectViewController: UIViewController {
     
@@ -31,7 +32,19 @@ class ProjectViewController: UIViewController {
     var startElapseTime: Date?
     var endElapseTime: Date?
     var actorVTrack: AVMutableCompositionTrack?
+    var aPlayerThumbView: UIImageView? = nil
+    var avdownloadProgress: Float = 0
+    var aadownloadProgress: Float = 0
+    var rvdownloadProgress: Float = 0
+    var radownloadProgress: Float = 0
+    @IBOutlet weak var rPlayerThumbView: UIImageView!
+    let semaphore = DispatchSemaphore(value: 1)
+    var noiseRemovalTimer: Timer? = nil
+    var noiseRemovalReaderTimer: Timer? = nil
+    var noiseRemovalCount = 0
     
+    @IBOutlet weak var downloadProgressView: CircularSlider!
+    @IBOutlet weak var downloadProgressLabel: UILabel!
     let actorAV = AVMutableComposition()
     let readerAV = AVMutableComposition()
     
@@ -60,6 +73,13 @@ class ProjectViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         actorVTrack?.preferredTransform = transformForTrack(rotateOffset: CGFloat(videoRotateOffset))
+        
+        let actorThumb = "https://video-thumbnail-bucket-123456789.s3.us-east-2.amazonaws.com/\(selectedTape!.actorTapeKey)-0.jpg"
+        let readerTapeKey = (selectedTape!.readerTapeKey == nil ? "" : selectedTape!.readerTapeKey)
+        let readerThumb = "https://video-thumbnail-bucket-123456789.s3.us-east-2.amazonaws.com/\(readerTapeKey!)-0.jpg"
+        
+        aPlayerThumbView = initPlayerThumbEx(playerView: self.actorPlayerView, url: URL(string: actorThumb))
+        _ = initPlayerThumbEx(playerView: self.playerView, url: URL(string: readerThumb), thumbImgView: rPlayerThumbView)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -85,9 +105,80 @@ class ProjectViewController: UIViewController {
         self.playerView.delegate = self
         self.actorPlayerView.delegate = self
         
+        downloadProgressView.minimumValue = 0.0
+        downloadProgressView.maximumValue = 1.0
+        downloadProgressView.endPointValue = 0.00 // the progress
+        downloadProgressView.isUserInteractionEnabled = false
+        downloadProgressView.thumbLineWidth = 0.0
+        downloadProgressView.thumbRadius = 0.0
+        downloadProgressLabel.text="  0%"
+        
+        ConferenceViewController.clearTempFolder()
+        
         downloadLibraryTape {
-            self.actorPlayerView.play()
-            self.playerView.play()
+            self.noiseRemovalCount = 0
+            DispatchQueue.main.async {
+                showIndicator(sender: nil, viewController: self, color: UIColor.white)
+                Toast.show(message: "On processing noise-removal for actor and reader audios.", controller: self)
+            }
+            //{{Removal noise from audio
+            getJobIdForRemovalAudioNoise(uiCtrl: self, audioURL: self.savedAudioUrl!) { jobId in
+                DispatchQueue.main.async {
+                    self.noiseRemovalTimer = Timer.scheduledTimer(withTimeInterval: TimeInterval(500) / 1000, repeats: true, block: { timer in
+                        downloadClearAudio(uiCtrl: self, jobId: jobId) { [self] error, audioUrl in
+                            if( self.noiseRemovalTimer!.isValid ){
+                                self.noiseRemovalTimer!.invalidate()
+                                if error == nil, audioUrl != nil{
+                                    self.savedAudioUrl = audioUrl
+                                    DispatchQueue.main.async {[self] in
+                                        actorVTrack = initAVMutableComposition(avMComp: actorAV, videoURL: self.savedVideoUrl!, audioURL: self.savedAudioUrl!, rotate: videoRotateOffset)
+                                        self.actorPlayerView.mainavComposition = actorAV
+                                        
+                                        self.noiseRemovalCount += 1
+                                    }
+                                }
+                            }
+                        }
+                    })
+                }
+            }
+            
+            getJobIdForRemovalAudioNoise(uiCtrl: self, audioURL: self.savedReaderAudioUrl!) { jobId in
+                DispatchQueue.main.async {
+                    self.noiseRemovalReaderTimer = Timer.scheduledTimer(withTimeInterval: TimeInterval(500) / 1000, repeats: true, block: { timer in
+                        downloadClearAudio(uiCtrl: self, jobId: jobId) {[self] error, audioUrl in
+                            if( self.noiseRemovalReaderTimer!.isValid ){
+                                self.noiseRemovalReaderTimer!.invalidate()
+                                if error == nil, audioUrl != nil{
+                                    self.savedReaderAudioUrl = audioUrl
+                                    DispatchQueue.main.async {[self] in
+                                        _ = initAVMutableComposition(avMComp: readerAV, videoURL: self.savedReaderVideoUrl!, audioURL: self.savedReaderAudioUrl!)
+                                        self.playerView.mainavComposition = readerAV
+                                        
+                                        self.noiseRemovalCount += 1
+                                    }
+                                }
+                            }
+                        }
+                    })
+                }
+            }
+            //}}Removal noise from audio
+            
+            _ = Timer.scheduledTimer(withTimeInterval: TimeInterval(100) / 1000, repeats: true, block: { timer in
+                if(self.noiseRemovalCount >= 2
+                   && self.playerView.player?.status == AVPlayer.Status.readyToPlay
+                   && self.actorPlayerView.player?.status == AVPlayer.Status.readyToPlay){
+                    timer.invalidate()
+                    DispatchQueue.main.async {
+                        hideIndicator(sender: nil)
+                        Toast.show(message: "Audio noise-removal processing is done.", controller: self)
+                        
+                        self.actorPlayerView.play()
+                        self.playerView.play()
+                    }
+                }
+            })
             
 #if OVERLAY_TEST
             var count = 2
@@ -214,10 +305,16 @@ class ProjectViewController: UIViewController {
     @IBAction func sliderValueChanged(_ sender: Any) {
         playerView.currentTime = Double( playerBar.value )
         actorPlayerView.currentTime = Double( playerBar.value )
+        
+        showViewBy(currentTime: Double(playerBar.value), view: aPlayerThumbView)
+        showViewBy(currentTime: Double(playerBar.value), view: rPlayerThumbView)
     }
     
     @IBAction func playDidTapped(_ sender: UIButton) {
         self.isOnPlay = !self.isOnPlay
+    }
+    
+    @IBAction func shareDidTap(_ sender: UIButton) {
     }
     
     @IBAction func exportDidTap(_ sender: UIButton?) {
@@ -321,8 +418,14 @@ class ProjectViewController: UIViewController {
 //                            self.present(overlayViewController, animated: false, completion: nil)
                         }
                         completionHandler()
+                    }progressHandler:{(prog) -> Void in
+                        self.radownloadProgress = prog
+                        self.progressHandler()
                     }
                 }
+            }progressHandler:{(prog) -> Void in
+                self.rvdownloadProgress = prog
+                self.progressHandler()
             }
             
             Toast.show(message: "Start to download reader video and audio...", controller: self)
@@ -476,6 +579,11 @@ class ProjectViewController: UIViewController {
     
     func downloadLibraryTape(completionHandler: @escaping () -> Void)-> Void
     {
+        downloadProgressView.isHidden = false
+        avdownloadProgress = 0
+        aadownloadProgress = 0
+        rvdownloadProgress = 0
+        radownloadProgress = 0
         let documentsPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0];
         let filePath = URL(fileURLWithPath: "\(documentsPath)/tempFile.mp4")
         do {
@@ -524,8 +632,8 @@ class ProjectViewController: UIViewController {
                     else{
                         self.savedAudioUrl = filePath
                         DispatchQueue.main.async { [self] in
-                            actorVTrack = initAVMutableComposition(avMComp: actorAV, videoURL: self.savedVideoUrl!, audioURL: self.savedAudioUrl!, rotate: videoRotateOffset)
-                            self.actorPlayerView.mainavComposition = actorAV
+//                            actorVTrack = initAVMutableComposition(avMComp: actorAV, videoURL: self.savedVideoUrl!, audioURL: self.savedAudioUrl!, rotate: videoRotateOffset)
+//                            self.actorPlayerView.mainavComposition = actorAV
                             //Omitted self.actorPlayerView.play()
                             
                             //{{Wait until download both
@@ -536,14 +644,21 @@ class ProjectViewController: UIViewController {
                                     }
                                     timer.invalidate()
                                     hideIndicator(sender: nil)
+                                    self.downloadProgressView.isHidden = true
                                     completionHandler()
                                 })
                             }
                             //}}Wait until download both
                         }
                     }
+                }progressHandler:{(prog) -> Void in
+                    self.aadownloadProgress = prog
+                    self.progressHandler()
                 }
             }
+        }progressHandler:{(prog) -> Void in
+            self.avdownloadProgress = prog
+            self.progressHandler()
         }
         
         doneReaderAVDownload = false
@@ -553,19 +668,27 @@ class ProjectViewController: UIViewController {
                 return
             }
             
-            DispatchQueue.main.async { [self] in
-                _ = initAVMutableComposition(avMComp: readerAV, videoURL: self.savedReaderVideoUrl!, audioURL: self.savedReaderAudioUrl!)
-                self.playerView.mainavComposition = readerAV
+            DispatchQueue.main.async {
+//                _ = initAVMutableComposition(avMComp: readerAV, videoURL: self.savedReaderVideoUrl!, audioURL: self.savedReaderAudioUrl!)
+//                self.playerView.mainavComposition = readerAV
                 //Omitted self.playerView.play()
             }
         }
         
         DispatchQueue.main.async { [self] in
-            showIndicator(sender: nil, viewController: self, color:UIColor.white)
+            //Omitted showIndicator(sender: nil, viewController: self, color:UIColor.white)
             let tapGesture = UITapGestureRecognizer(target: self, action:  #selector(didTapIndicatorView(_:)))
             backgroundView!.addGestureRecognizer(tapGesture)
             Toast.show(message: "To cancel download from library, please tap screen.", controller: self)
         }
+    }
+    
+    func progressHandler(){
+        self.semaphore.wait()
+        self.downloadProgressView.endPointValue = CGFloat(((self.avdownloadProgress + self.aadownloadProgress + self.rvdownloadProgress + self.radownloadProgress)/4.0))
+        let value = self.downloadProgressView.endPointValue
+        self.downloadProgressLabel.text = String(format: "%3 d%%", Int(value*100))
+        self.semaphore.signal()
     }
     
     /*
@@ -584,21 +707,26 @@ extension ProjectViewController: PlayerViewDelegate{
     func playerVideo(player: PlayerView, currentTime: Double) {
         //player.pause()
         //self.playerView.updateFocusIfNeeded()
-        playerBar.value =  Float(currentTime)
+        DispatchQueue.main.async {[self] in
+            playerBar.value =  Float(currentTime)
+            showViewBy(currentTime: currentTime, view: aPlayerThumbView)
+            showViewBy(currentTime: currentTime, view: rPlayerThumbView)
+        }
     }
     
     func playerVideo(player: PlayerView, duration: Double) {
         //player.currentTime = duration/100
         //player.player!.seek(to: CMTime(value: 1, timescale: 600))
-        
-        playerBar.minimumValue = Float(0)
-        playerBar.maximumValue =  Float(duration)
-        self.startTime.text = getCurrentTime(second:  0)
-        self.endTime.text = getCurrentTime(second: duration)
-        //player.play()
-        
-        playerBar.value = 0.0
-        playerView.currentTime = Double( 0 )
+        DispatchQueue.main.async {[self] in
+            playerBar.minimumValue = Float(0)
+            playerBar.maximumValue =  Float(duration)
+            self.startTime.text = getCurrentTime(second:  0)
+            self.endTime.text = getCurrentTime(second: duration)
+            //player.play()
+            
+            playerBar.value = 0.0
+            playerView.currentTime = Double( 0 )
+        }
     }
     
     func playerVideo(player: PlayerView, statusItemPlayer: AVPlayer.Status, error: Error?) {
@@ -606,7 +734,7 @@ extension ProjectViewController: PlayerViewDelegate{
     }
     
     func playerVideo(player: PlayerView, statusItemPlayer: AVPlayerItem.Status, error: Error?) {
-        
+                
     }
     
     func playerVideoDidEnd(player: PlayerView) {
