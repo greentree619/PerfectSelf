@@ -196,6 +196,7 @@
                 <outlet property="review" destination="zoI-v0-jpD" id="S1r-bE-gb9"/>
                 <outlet property="salary" destination="lBc-1d-Qhj" id="qKL-v4-8Uc"/>
                 <outlet property="score" destination="BPq-8m-M8K" id="qBq-Kb-1Fl"/>
+                <outlet property="starImage" destination="0my-VW-Ugp" id="mLE-FE-RYF"/>
                 <outlet property="status" destination="XCm-rS-oLI" id="AlA-or-3we"/>
             </connections>
             <point key="canvasLocation" x="282.44274809160305" y="41.549295774647888"/>

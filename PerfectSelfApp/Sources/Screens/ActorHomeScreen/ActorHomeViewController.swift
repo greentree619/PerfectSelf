@@ -109,6 +109,7 @@ class ActorHomeViewController: UIViewController, UICollectionViewDataSource, UIC
             }
         }
     }
+    
     func fetchReaderList() {
         spin.isHidden = false
         spin.startAnimating()
@@ -175,8 +176,17 @@ class ActorHomeViewController: UIViewController, UICollectionViewDataSource, UIC
         }
         cell.readerName.text = self.items[indexPath.row].userName;
         cell.salary.text = "$" + String((self.items[indexPath.row].hourlyPrice ?? 0)/4)
-        cell.score.text = String(self.items[indexPath.row].score)
-        cell.review.text = "(\(self.items[indexPath.row].reviewCount))"
+        if(self.items[indexPath.row].reviewCount > 0){
+            cell.score.text = String(self.items[indexPath.row].score)
+            cell.review.text = "(\(self.items[indexPath.row].reviewCount))"
+            cell.starImage.tintColor = UIColor.systemYellow
+        }
+        else{
+            cell.score.text = "0.0"
+            cell.review.text = ""
+            cell.starImage.tintColor = UIColor.gray
+        }
+        
         cell.status.backgroundColor = self.items[indexPath.row].isLogin ? UIColor(rgb: 0x34C759) : UIColor(rgb: 0xAAAAAA)
         
         if self.items[indexPath.row].date != nil {

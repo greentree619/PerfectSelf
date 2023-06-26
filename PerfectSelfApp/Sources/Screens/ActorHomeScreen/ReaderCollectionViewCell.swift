@@ -16,7 +16,7 @@ class ReaderCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var salary: UILabel!
     @IBOutlet weak var status: UIView!
     @IBOutlet weak var review: UILabel!
-    
+    @IBOutlet weak var starImage: UIImageView!        
     @IBOutlet weak var availableView: UIStackView!
     override func awakeFromNib() {
         
