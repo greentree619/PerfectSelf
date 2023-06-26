@@ -255,6 +255,7 @@ struct VideoCard: Codable {
     let bucketName: String
     let actorTapeKey: String
     let readerTapeKey: String?
+    let readerName: String?
     let roomUid: String
     let tapeId: String
     var createdTime: String
