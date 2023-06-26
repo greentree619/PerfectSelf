@@ -186,7 +186,7 @@ extension ActorLibraryViewController: HSPopupMenuDelegate {
         
         if index == 0 {
             //create new folder
-            let v = VideoCard(actorId: 0, actorUid: self.uid, readerUid: "", tapeName: "New Folder", bucketName: "", actorTapeKey: "", readerTapeKey: "", roomUid: "", tapeId: "", createdTime: Date.getStringFromDate(date: Date()), updatedTime: "", deletedTime: "")
+            let v = VideoCard(actorId: 0, actorUid: self.uid, readerUid: "", tapeName: "New Folder", bucketName: "", actorTapeKey: "", readerTapeKey: "", readerName: "", roomUid: "", tapeId: "", createdTime: Date.getStringFromDate(date: Date()), updatedTime: "", deletedTime: "")
             self.items.append(v)
             self.videoList.reloadData()
             
