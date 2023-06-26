@@ -141,7 +141,7 @@ class ActorBookingViewController: UIViewController, UICollectionViewDataSource, 
         let dateend = dateFormatter.date(from: self.items[indexPath.row].bookEndTime)
         
         let dateFormatter1 = DateFormatter()
-        dateFormatter1.dateFormat = "dd MMM, yyyy"
+        dateFormatter1.dateFormat = "MMM dd, yyyy"
         let dateFormatter2 = DateFormatter()
         dateFormatter2.dateFormat = "hh:mm a"
         
