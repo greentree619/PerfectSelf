@@ -17,7 +17,8 @@ class ProjectViewController: UIViewController {
     @IBOutlet var startTime: UILabel!
     @IBOutlet var endTime: UILabel!
     @IBOutlet weak var playButton: UIButton!
-    
+    @IBOutlet weak var projectName: UILabel!
+        
     @IBOutlet weak var editReadButton: UIButton!
     @IBOutlet weak var newTakeButton: UIButton!
     @IBOutlet weak var editFinalButton: UIButton!
@@ -104,6 +105,7 @@ class ProjectViewController: UIViewController {
         super.viewDidLoad()
         self.playerView.delegate = self
         self.actorPlayerView.delegate = self
+        self.projectName.text = getProjectName(tape: selectedTape!)
         
         downloadProgressView.minimumValue = 0.0
         downloadProgressView.maximumValue = 1.0
@@ -141,6 +143,14 @@ class ProjectViewController: UIViewController {
                         }
                     })
                 }
+            }
+            
+            if(self.savedReaderAudioUrl == nil){
+                DispatchQueue.main.async {
+                    hideIndicator(sender: nil)
+                    Toast.show(message: "Reader Tape Error.", controller: self)
+                }
+                return
             }
             
             getJobIdForRemovalAudioNoise(uiCtrl: self, audioURL: self.savedReaderAudioUrl!) { jobId in

@@ -1135,3 +1135,7 @@ func downloadClearAudio(uiCtrl: UIViewController, jobId: String, completeHandler
         }
     }
 }
+
+func getProjectName(tape: VideoCard) -> String{
+    return (tape.readerUid != nil ? "Read with \(tape.readerName!)" : "(\(tape.tapeName))")
+}
