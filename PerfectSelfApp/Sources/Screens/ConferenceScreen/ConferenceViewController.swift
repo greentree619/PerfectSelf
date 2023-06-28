@@ -160,6 +160,7 @@ class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSample
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        UIApplication.shared.isIdleTimerDisabled = true//Disable brightness dimming feature while conferencing
         
         waitingScreen.isHidden = false
         lblTimer.isHidden = true
@@ -301,6 +302,7 @@ class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSample
     override func viewWillDisappear(_ animated: Bool) {
         log(meetingUid: gRoomUid!, log:"\(userName!) exit meeting.")
         
+        UIApplication.shared.isIdleTimerDisabled = false//Enable brightness dimming feature while conferencing
         self.syncTimer?.invalidate()
         
         if(_captureState == .capturing){
