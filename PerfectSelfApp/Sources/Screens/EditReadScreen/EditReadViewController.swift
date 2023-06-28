@@ -41,7 +41,7 @@ class EditReadViewController: UIViewController {
     @IBOutlet weak var undoButton: UIButton!
     @IBOutlet weak var redoButton: UIButton!
     
-    init(videoUrl: URL, audioUrl: URL?,  readerVideoUrl: URL, readerAudioUrl: URL, isActorVideoEdit: Bool) {
+    init(videoUrl: URL, audioUrl: inout URL?,  readerVideoUrl: URL, readerAudioUrl: URL, isActorVideoEdit: Bool) {
         self.videoURL = videoUrl
         self.audioURL = audioUrl
         self.readerVideoURL = readerVideoUrl
@@ -382,10 +382,12 @@ class EditReadViewController: UIViewController {
                     DispatchQueue.main.async {
                         self.timer.invalidate()
                     }
+                    
                     struct JobStatusSucceed: Codable {
                         let state: String
                         let downloadPath: String
                     }
+                    
                     do {
                         let res = try JSONDecoder().decode(JobStatusSucceed.self, from: data)
                         // download file

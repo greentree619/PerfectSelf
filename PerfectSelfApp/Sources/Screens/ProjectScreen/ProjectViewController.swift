@@ -118,6 +118,7 @@ class ProjectViewController: UIViewController {
         ConferenceViewController.clearTempFolder()
         
         downloadLibraryTape {
+#if AUTO_NOISE_REMOVAL
             self.noiseRemovalCount = 0
             DispatchQueue.main.async {
                 showIndicator(sender: nil, viewController: self, color: UIColor.white)
@@ -174,6 +175,16 @@ class ProjectViewController: UIViewController {
                 }
             }
             //}}Removal noise from audio
+#else
+            self.noiseRemovalCount = 2
+            DispatchQueue.main.async {[self] in
+                actorVTrack = initAVMutableComposition(avMComp: actorAV, videoURL: self.savedVideoUrl!, audioURL: self.savedAudioUrl!, rotate: videoRotateOffset)
+                self.actorPlayerView.mainavComposition = actorAV
+                
+                _ = initAVMutableComposition(avMComp: readerAV, videoURL: self.savedReaderVideoUrl!, audioURL: self.savedReaderAudioUrl!)
+                self.playerView.mainavComposition = readerAV
+            }
+#endif
             
             _ = Timer.scheduledTimer(withTimeInterval: TimeInterval(100) / 1000, repeats: true, block: { timer in
                 if(self.noiseRemovalCount >= 2
@@ -181,9 +192,10 @@ class ProjectViewController: UIViewController {
                    && self.actorPlayerView.player?.status == AVPlayer.Status.readyToPlay){
                     timer.invalidate()
                     DispatchQueue.main.async {
+#if AUTO_NOISE_REMOVAL
                         hideIndicator(sender: nil)
                         Toast.show(message: "Audio noise-removal processing is done.", controller: self)
-                        
+#endif
                         self.actorPlayerView.play()
                         self.playerView.play()
                     }
@@ -287,7 +299,7 @@ class ProjectViewController: UIViewController {
                 return
             }
             
-            let editReadViewController = EditReadViewController(videoUrl: self.savedVideoUrl!, audioUrl: self.savedAudioUrl, readerVideoUrl: self.savedReaderVideoUrl!, readerAudioUrl: self.savedReaderAudioUrl!, isActorVideoEdit: true)
+            let editReadViewController = EditReadViewController(videoUrl: self.savedVideoUrl!, audioUrl: &self.savedAudioUrl, readerVideoUrl: self.savedReaderVideoUrl!, readerAudioUrl: self.savedReaderAudioUrl!, isActorVideoEdit: true)
             editReadViewController.modalPresentationStyle = .fullScreen
             self.present(editReadViewController, animated: false, completion: nil)
         })
@@ -306,7 +318,7 @@ class ProjectViewController: UIViewController {
                 return
             }
             
-            let editReadViewController = EditReadViewController(videoUrl: self.savedVideoUrl!, audioUrl: self.savedAudioUrl, readerVideoUrl: self.savedReaderVideoUrl!, readerAudioUrl: self.savedReaderAudioUrl!, isActorVideoEdit: false)
+            let editReadViewController = EditReadViewController(videoUrl: self.savedVideoUrl!, audioUrl: &self.savedAudioUrl, readerVideoUrl: self.savedReaderVideoUrl!, readerAudioUrl: self.savedReaderAudioUrl!, isActorVideoEdit: false)
             editReadViewController.modalPresentationStyle = .fullScreen
             self.present(editReadViewController, animated: false, completion: nil)
         })
