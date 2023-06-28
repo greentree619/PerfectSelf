@@ -1139,3 +1139,29 @@ func downloadClearAudio(uiCtrl: UIViewController, jobId: String, completeHandler
 func getProjectName(tape: VideoCard) -> String{
     return (tape.readerUid != nil ? "Read with \(tape.readerName!)" : "(\(tape.tapeName))")
 }
+
+func getS3KeyName(_ fileName: String) -> String {
+    var s3Key = fileName
+    s3Key = s3Key.replacingOccurrences(of: "+",  with: "%2B")
+    s3Key = s3Key.replacingOccurrences(of: "!",  with: "%21")
+    s3Key = s3Key.replacingOccurrences(of: "'",  with: "%27")
+    s3Key = s3Key.replacingOccurrences(of: "(",  with: "%28")
+    s3Key = s3Key.replacingOccurrences(of: ")",  with: "%29")
+    s3Key = s3Key.replacingOccurrences(of: "&",  with: "%26")
+    s3Key = s3Key.replacingOccurrences(of: "$",  with: "%24")
+    s3Key = s3Key.replacingOccurrences(of: "@",  with: "%40")
+    s3Key = s3Key.replacingOccurrences(of: "=",  with: "%3D")
+    s3Key = s3Key.replacingOccurrences(of: ";",  with: "%3B")
+    s3Key = s3Key.replacingOccurrences(of: ":",  with: "%3A")
+    s3Key = s3Key.replacingOccurrences(of: ",",  with: "%2C")
+    s3Key = s3Key.replacingOccurrences(of: "?",  with: "%3F")
+    s3Key = s3Key.replacingOccurrences(of: " ",  with: "+")
+    return s3Key
+}
+
+func getDocumentsDirectory() -> URL {
+    let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+    let documentsDirectory = paths[0]
+    //let documentsDirectory = URL(string: NSTemporaryDirectory())
+    return documentsDirectory
+}

@@ -25,6 +25,9 @@ class ScriptViewController: UIViewController{
         // Do any additional setup after loading the view.
         pdfView.autoScales = true
         pdfView.displayMode = .singlePageContinuous
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
         text_script.text = script
         if scriptKey.isEmpty {
             pdfView.isHidden = true
@@ -33,10 +36,14 @@ class ScriptViewController: UIViewController{
         else {
             scriptView.isHidden = true
             print(scriptBucketName, scriptKey)
-            let filePath = URL(string: "https://\(scriptBucketName).s3.us-east-2.amazonaws.com/\(scriptKey)")!
+            let filePath = URL(string: "https://\(scriptBucketName).s3.us-east-2.amazonaws.com/\(getS3KeyName(scriptKey))")!
         
-            if let document = PDFDocument(url: filePath) {
-                pdfView.document = document
+            DispatchQueue.global(qos: .userInitiated).async {
+                DispatchQueue.main.async {[self] in
+                    if let document = PDFDocument(url: filePath) {
+                        pdfView.document = document
+                    }
+                }
             }
         }
     }
@@ -44,7 +51,8 @@ class ScriptViewController: UIViewController{
     @IBAction func DownloadScript(_ sender: UIButton) {
         //download script
         let documentsPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0];
-        let filePath = URL(fileURLWithPath: "\(documentsPath)/tmpScript.pdf")
+        let pdfName = (scriptKey as NSString).lastPathComponent
+        let filePath = URL(fileURLWithPath: "\(documentsPath)/\(pdfName)")
         do {
             try FileManager.default.removeItem(at: filePath)
             //print("File deleted successfully")
@@ -68,9 +76,24 @@ class ScriptViewController: UIViewController{
                 DispatchQueue.main.async {
                     Toast.show(message: "Script downloaded!", controller: self)
                 }
+                
+                let destinationPath = getDocumentsDirectory()
+                let targetUrl = destinationPath.appendingPathComponent(pdfName)
+
+                let fileManager = FileManager.default
+                if fileManager.fileExists(atPath: targetUrl.absoluteString) == false {
+                    do {
+                        //try fileManager.moveItem(at: filePath, to: targetUrl)
+                        try fileManager.moveItem(at: filePath, to:  targetUrl)
+                        print("Move successful")
+                    } catch let error {
+                        print("Error: \(error.localizedDescription)")
+                    }
+                }
             }
         }
     }
+    
     @IBAction func GoBack(_ sender: UIButton) {
         let transition = CATransition()
         transition.duration = 0.5 // Set animation duration

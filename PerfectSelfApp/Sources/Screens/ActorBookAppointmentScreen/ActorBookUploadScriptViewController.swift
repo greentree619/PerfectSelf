@@ -46,6 +46,7 @@ class ActorBookUploadScriptViewController: UIViewController, UIDocumentPickerDel
         documentPicker.delegate = self
         self.present(documentPicker, animated: true)
     }
+    
     func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
         
         let uuid = UUID().uuidString
