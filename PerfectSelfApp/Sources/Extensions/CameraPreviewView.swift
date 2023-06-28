@@ -194,7 +194,8 @@ class CameraPreviewView: UIView {
 #endif
                 
                 self.isVideoRecording = true
-                DispatchQueue.main.async {
+                DispatchQueue.main.async {[self] in
+                    setInputGain(gain: 1.0)
                     self.delegate?.videoDidBeginRecording()
                 }
             } else {
@@ -207,6 +208,18 @@ class CameraPreviewView: UIView {
         if self.isVideoRecording == true {
             self.isVideoRecording = false
             movieFileOutput!.stopRecording()
+        }
+    }
+    
+    func setInputGain(gain: Float){
+        let audioSession = AVAudioSession.sharedInstance()
+        if audioSession.isInputGainSettable{
+            do{
+                try audioSession.setInputGain(gain)
+            }catch{}
+        }
+        else{
+            print("Can't set input gain")
         }
     }
 }
