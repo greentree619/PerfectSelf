@@ -122,10 +122,24 @@ class CameraPreviewView: UIView {
     func addAudioInput() {
         captureSession.usesApplicationAudioSession = true
         captureSession.automaticallyConfiguresApplicationAudioSession = false
-        guard let audioDevice = AVCaptureDevice.default(for: AVMediaType.audio) else {
+
+//{{
+//Omitted
+//        guard let audioDevice = AVCaptureDevice.default(for: AVMediaType.audio) else {
+//            return
+//        }
+//==
+        let session = AVCaptureDevice.DiscoverySession(deviceTypes: [.builtInMicrophone],
+                                                       mediaType: .audio,
+                                                       position: .front)
+        
+        guard let microphone = session.devices.first else {
+            print("Microphone not available")
             return
         }
-        guard let audioDeviceInput = try? AVCaptureDeviceInput(device: audioDevice) else {
+//}}
+        
+        guard let audioDeviceInput = try? AVCaptureDeviceInput(device: microphone) else {
             fatalError("")
         }
         if !captureSession.canAddInput(audioDeviceInput) {
@@ -165,11 +179,11 @@ class CameraPreviewView: UIView {
     }
 
     public func startVideoRecording() {
-
         guard captureSession.isRunning == true else {
             print("[SwiftyCam]: Cannot start video recoding. Capture session is not running")
             return
         }
+        
         guard let movieFileOutput = self.movieFileOutput else {
             return
         }
@@ -195,7 +209,7 @@ class CameraPreviewView: UIView {
                 
                 self.isVideoRecording = true
                 DispatchQueue.main.async {[self] in
-                    setInputGain(gain: 1.0)
+                    //Omitted setInputGain(gain: 1.0)
                     self.delegate?.videoDidBeginRecording()
                 }
             } else {

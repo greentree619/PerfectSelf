@@ -423,7 +423,6 @@ extension OverlayViewController: CameraPreviewDelegate {
         }
         self.mergedVideos(recordUrl: url, uploadUrl: uploadurl, uploadAudioUrl: uploadAudiourl)
     }
-
 }
 
 extension OverlayViewController: AvailableAudioInputsViewControllerDelegate {

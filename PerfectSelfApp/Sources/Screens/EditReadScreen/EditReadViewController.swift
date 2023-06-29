@@ -22,8 +22,10 @@ class EditReadViewController: UIViewController {
     var audioMTrack2: AVMutableCompositionTrack?
     var editRange: CMTimeRange?
     var editAudioTrack: AVAssetTrack?
+    var editVideoTrack: AVAssetTrack?
     var onActorVideoEdit: Bool
     var editAudioAsset: AVURLAsset?
+    var editMovie: AVURLAsset?
     //Omitted var timeSpan: Int = 0
     var trackSegmentRepo: TrackSegmentRepo?
     var tmpVRotateOffset: Int  = videoRotateOffset
@@ -85,7 +87,7 @@ class EditReadViewController: UIViewController {
         audioMTrack = movie.addMutableTrack(withMediaType: .audio, preferredTrackID: kCMPersistentTrackID_Invalid)
         audioMTrack2 = movie.addMutableTrack(withMediaType: .audio, preferredTrackID: kCMPersistentTrackID_Invalid)
         
-        var editMovie = AVURLAsset(url: videoURL) //1
+        editMovie = AVURLAsset(url: videoURL) //1
         editAudioAsset = AVURLAsset(url: audioURL!)
         var editAudio2 = AVURLAsset(url: readerAudioURL)
         if( !onActorVideoEdit ){
@@ -96,15 +98,15 @@ class EditReadViewController: UIViewController {
         
         trackSegmentRepo = TrackSegmentRepo(range: CMTimeRange(start:.zero, duration: editAudioAsset!.duration))
         
-        editRange = CMTimeRangeMake(start: CMTime.zero, duration: editMovie.duration) //3
+        editRange = CMTimeRangeMake(start: CMTime.zero, duration: editMovie!.duration) //3
         editAudioTrack = editAudioAsset!.tracks(withMediaType: .audio).first! //2
         let editAudioTrack2 = editAudio2.tracks(withMediaType: .audio).first! //2
-        let editVideoTrack = editMovie.tracks(withMediaType: .video).first!
+        editVideoTrack = editMovie!.tracks(withMediaType: .video).first!
         let rotateOffset = (onActorVideoEdit ? videoRotateOffset : 0)
         videoMTrack!.preferredTransform = transformForTrack(rotateOffset: CGFloat(rotateOffset))
         
         do{
-            try videoMTrack?.insertTimeRange(editRange!, of: editVideoTrack, at: CMTime.zero) //4
+            try videoMTrack?.insertTimeRange(editRange!, of: editVideoTrack!, at: CMTime.zero) //4
             try audioMTrack?.insertTimeRange(editRange!, of: editAudioTrack!, at: CMTime.zero)
             
             if( onActorVideoEdit ){//Add other track in only case Edit Final
@@ -651,7 +653,7 @@ class EditReadViewController: UIViewController {
     }
     
     func applyTrackChange(){
-        trackSegmentRepo!.buildTrack(compositionTrack: audioMTrack!, assetTrack: editAudioTrack!)
+        trackSegmentRepo!.buildTrack(compositionVTrack: videoMTrack!, assetVTrack: editVideoTrack!, vDuration: editMovie!.duration, compositionATrack: audioMTrack!, assetATrack: editAudioTrack!)
         
         playerView.mainavComposition = movie
         playerView.delegate = self

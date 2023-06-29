@@ -146,16 +146,23 @@ class TrackSegmentRepo {
 #endif
     }
     
-    func buildTrack(compositionTrack: AVMutableCompositionTrack, assetTrack: AVAssetTrack){
-        compositionTrack.removeTimeRange(CMTimeRange(start: .zero, duration:  CMTimeMakeWithSeconds( 6*60*60, preferredTimescale: 1 )))
+    func buildTrack(compositionVTrack: AVMutableCompositionTrack, assetVTrack: AVAssetTrack, vDuration: CMTime, compositionATrack: AVMutableCompositionTrack, assetATrack: AVAssetTrack){
+        compositionATrack.removeTimeRange(CMTimeRange(start: .zero, duration:  CMTimeMakeWithSeconds( 6*60*60, preferredTimescale: 1 )))
+        compositionVTrack.removeTimeRange(CMTimeRange(start: .zero, duration:  CMTimeMakeWithSeconds( 6*60*60, preferredTimescale: 1 )))
         
         dumpTrackSegments()
         
         for i in (0..<segments.count) {
             if(segments[i].assetRange != nil){
                 do{
-                    try compositionTrack.insertTimeRange(segments[i].assetRange!, of: assetTrack, at: segments[i].trackRange.start)
-                }catch {}
+                    try compositionATrack.insertTimeRange(segments[i].assetRange!, of: assetATrack, at: segments[i].trackRange.start)
+                    
+                    var vRange:CMTimeRange = segments[i].assetRange!
+                    if(CMTimeCompare(vRange.duration, vDuration) > 0) { vRange.duration = vDuration }
+                    try compositionVTrack.insertTimeRange(segments[i].assetRange!, of: assetVTrack, at: segments[i].trackRange.start)
+                }catch {
+                    print(error)
+                }
             }
         }
     }
