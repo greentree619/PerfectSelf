@@ -149,15 +149,14 @@ class TrackSegmentRepo {
     func buildTrack(compositionVTrack: inout AVMutableCompositionTrack, vURL: URL, compositionATrack: inout AVMutableCompositionTrack, aURL: URL){
         compositionATrack.removeTimeRange(CMTimeRange(start: .zero, duration:  CMTimeMakeWithSeconds( 6*60*60, preferredTimescale: 1 )))
         compositionVTrack.removeTimeRange(CMTimeRange(start: .zero, duration:  CMTimeMakeWithSeconds( 6*60*60, preferredTimescale: 1 )))
+        let vAsset = AVURLAsset(url: vURL)
+        let aAsset = AVURLAsset(url: aURL)
         
         dumpTrackSegments()
         
         for i in (0..<segments.count) {
             if(segments[i].assetRange != nil){
                 do{
-                    let vAsset = AVURLAsset(url: vURL)
-                    let aAsset = AVURLAsset(url: aURL)
-                    
                     try compositionATrack.insertTimeRange(segments[i].assetRange!, of: aAsset.tracks(withMediaType: .audio).first!, at: segments[i].trackRange.start)
                     
                     var vRange:CMTimeRange = segments[i].assetRange!

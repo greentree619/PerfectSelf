@@ -80,23 +80,6 @@ class EditReadViewController: UIViewController {
         
         editBar.isHidden = !self.onActorVideoEdit
         setupPlayer()
-        
-        videoMTrack!.removeTimeRange(CMTimeRange(start: .zero, duration:  CMTimeMakeWithSeconds( 6*60*60, preferredTimescale: 1 )))
-        audioMTrack!.removeTimeRange(CMTimeRange(start: .zero, duration:  CMTimeMakeWithSeconds( 6*60*60, preferredTimescale: 1 )))
-        
-        videoMTrack!.insertEmptyTimeRange(CMTimeRangeMake(start: .zero, duration: CMTimeMake(value: 1, timescale: 1)))
-        audioMTrack!.insertEmptyTimeRange(CMTimeRangeMake(start: .zero, duration: CMTimeMake(value: 1, timescale: 1)))
-        
-        let vAsset = AVURLAsset(url: videoURL)
-        let aAsset = AVURLAsset(url: audioURL!)
-        editRange = CMTimeRangeMake(start: CMTime.zero, duration: editMovieAsset!.duration) //3
-        
-        do{
-            videoMTrack?.insertEmptyTimeRange(CMTimeRangeMake(start: .zero, duration: CMTimeMake(value: 1, timescale: 1)))
-            try videoMTrack?.insertTimeRange(editRange!, of: editVideoTrack!, at: CMTimeMake(value: 1, timescale: 1)) //4
-        }catch{}
-        
-        playerView.mainavComposition = movie
     }
     
     func setupPlayer() {
@@ -678,10 +661,10 @@ class EditReadViewController: UIViewController {
         else{
             trackSegmentRepo!.buildTrack(compositionVTrack: &videoMTrack!, vURL: readerVideoURL, compositionATrack: &audioMTrack!, aURL: readerAudioURL)
         }
-        
-        playerView.mainavComposition = movie
-        playerView.delegate = self
-        slider.minimumValue = 0
+
+        let curTime = playerView.currentTime
+        playerView.currentTime = 0
+        playerView.currentTime = curTime
     }
 }
 
