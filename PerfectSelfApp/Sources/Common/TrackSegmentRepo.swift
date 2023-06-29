@@ -146,7 +146,7 @@ class TrackSegmentRepo {
 #endif
     }
     
-    func buildTrack(compositionVTrack: AVMutableCompositionTrack, assetVTrack: AVAssetTrack, vDuration: CMTime, compositionATrack: AVMutableCompositionTrack, assetATrack: AVAssetTrack){
+    func buildTrack(compositionVTrack: inout AVMutableCompositionTrack, vURL: URL, compositionATrack: inout AVMutableCompositionTrack, aURL: URL){
         compositionATrack.removeTimeRange(CMTimeRange(start: .zero, duration:  CMTimeMakeWithSeconds( 6*60*60, preferredTimescale: 1 )))
         compositionVTrack.removeTimeRange(CMTimeRange(start: .zero, duration:  CMTimeMakeWithSeconds( 6*60*60, preferredTimescale: 1 )))
         
@@ -155,14 +155,21 @@ class TrackSegmentRepo {
         for i in (0..<segments.count) {
             if(segments[i].assetRange != nil){
                 do{
-                    try compositionATrack.insertTimeRange(segments[i].assetRange!, of: assetATrack, at: segments[i].trackRange.start)
+                    let vAsset = AVURLAsset(url: vURL)
+                    let aAsset = AVURLAsset(url: aURL)
+                    
+                    try compositionATrack.insertTimeRange(segments[i].assetRange!, of: aAsset.tracks(withMediaType: .audio).first!, at: segments[i].trackRange.start)
                     
                     var vRange:CMTimeRange = segments[i].assetRange!
-                    if(CMTimeCompare(vRange.duration, vDuration) > 0) { vRange.duration = vDuration }
-                    try compositionVTrack.insertTimeRange(segments[i].assetRange!, of: assetVTrack, at: segments[i].trackRange.start)
+                    if(CMTimeCompare(vRange.duration, vAsset.duration) > 0) { vRange.duration = vAsset.duration }
+                    try compositionVTrack.insertTimeRange(segments[i].assetRange!, of: vAsset.tracks(withMediaType: .video).first!, at: segments[i].trackRange.start)
                 }catch {
                     print(error)
                 }
+            }
+            else{
+                compositionATrack.insertEmptyTimeRange(segments[i].trackRange)
+                compositionVTrack.insertEmptyTimeRange(segments[i].trackRange)
             }
         }
     }

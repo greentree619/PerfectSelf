@@ -107,6 +107,9 @@ class ProjectViewController: UIViewController {
         self.actorPlayerView.delegate = self
         self.projectName.text = getProjectName(tape: selectedTape!)
         
+        let tapGesture = UITapGestureRecognizer(target: self, action:  #selector(didTapIndicatorView(_:)))
+        downloadProgressView.addGestureRecognizer(tapGesture)
+        
         downloadProgressView.minimumValue = 0.0
         downloadProgressView.maximumValue = 1.0
         downloadProgressView.endPointValue = 0.00 // the progress
@@ -198,20 +201,20 @@ class ProjectViewController: UIViewController {
 #endif
                         self.actorPlayerView.play()
                         self.playerView.play()
+                        
+#if OVERLAY_TEST
+                        var count = 2
+                        _ = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true, block: { timer in
+                            count -= 1
+                            if count == 0 {
+                                timer.invalidate()
+                                self.recordNewTakeDidTapped(UIButton())
+                            }
+                        })
+#endif//OVERLAY_TEST
                     }
                 }
             })
-            
-#if OVERLAY_TEST
-            var count = 2
-            _ = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true, block: { timer in
-                count -= 1
-                if count == 0 {
-                    timer.invalidate()
-                    self.recordNewTakeDidTapped(UIButton())
-                }
-            })
-#endif//OVERLAY_TEST
         }
     }
     
@@ -267,6 +270,7 @@ class ProjectViewController: UIViewController {
         //print("did tap view", sender)
         awsUpload.cancelDownload()
         hideIndicator(sender: nil)
+        downloadProgressView.isHidden = true
     }
     
     @IBAction func backDidTapped(_ sender: UIButton?) {
