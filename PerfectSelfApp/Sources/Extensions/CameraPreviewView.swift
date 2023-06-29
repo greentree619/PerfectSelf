@@ -131,7 +131,7 @@ class CameraPreviewView: UIView {
 //==
         let session = AVCaptureDevice.DiscoverySession(deviceTypes: [.builtInMicrophone],
                                                        mediaType: .audio,
-                                                       position: .front)
+                                                       position: .unspecified)
         
         guard let microphone = session.devices.first else {
             print("Microphone not available")
