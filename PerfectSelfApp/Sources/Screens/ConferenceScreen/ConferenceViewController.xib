@@ -179,6 +179,37 @@
                         <action selector="recordingDidTap:" destination="-1" eventType="touchUpInside" id="G77-Uu-qSn"/>
                     </connections>
                 </button>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="s9x-R9-vLe" userLabel="Script View">
+                    <rect key="frame" x="0.0" y="369" width="393" height="364"/>
+                    <subviews>
+                        <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8mX-YT-1G4">
+                            <rect key="frame" x="8" y="32" width="308" height="214"/>
+                            <subviews>
+                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="2ZQ-Pw-P9r">
+                                    <rect key="frame" x="0.0" y="0.0" width="393" height="364"/>
+                                    <mutableString key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</mutableString>
+                                    <color key="textColor" systemColor="systemYellowColor"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="31"/>
+                                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                </textView>
+                            </subviews>
+                            <constraints>
+                                <constraint firstItem="D2s-gH-knt" firstAttribute="trailing" secondItem="2ZQ-Pw-P9r" secondAttribute="trailing" id="8Lk-jv-1gr"/>
+                                <constraint firstItem="2ZQ-Pw-P9r" firstAttribute="leading" secondItem="D2s-gH-knt" secondAttribute="leading" id="cfj-py-u8O"/>
+                                <constraint firstItem="D2s-gH-knt" firstAttribute="bottom" secondItem="2ZQ-Pw-P9r" secondAttribute="bottom" id="dcM-kG-yOp"/>
+                                <constraint firstItem="2ZQ-Pw-P9r" firstAttribute="top" secondItem="D2s-gH-knt" secondAttribute="top" id="jcg-f2-SKs"/>
+                            </constraints>
+                            <viewLayoutGuide key="contentLayoutGuide" id="YOW-8M-34R"/>
+                            <viewLayoutGuide key="frameLayoutGuide" id="D2s-gH-knt"/>
+                        </scrollView>
+                    </subviews>
+                    <constraints>
+                        <constraint firstItem="8mX-YT-1G4" firstAttribute="top" secondItem="s9x-R9-vLe" secondAttribute="top" id="0L7-Rr-Ym8"/>
+                        <constraint firstItem="8mX-YT-1G4" firstAttribute="leading" secondItem="s9x-R9-vLe" secondAttribute="leading" id="1XU-gv-L0a"/>
+                        <constraint firstAttribute="bottom" secondItem="8mX-YT-1G4" secondAttribute="bottom" id="GEP-rd-djt"/>
+                        <constraint firstAttribute="trailing" secondItem="8mX-YT-1G4" secondAttribute="trailing" id="SoE-LA-Hu7"/>
+                    </constraints>
+                </view>
                 <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zO4-6W-k28" userLabel="Timer Select">
                     <rect key="frame" x="0.0" y="538" width="393" height="314"/>
                     <subviews>
@@ -278,7 +309,7 @@
                         <constraint firstItem="f6G-GL-4q0" firstAttribute="centerY" secondItem="qsy-zS-V7l" secondAttribute="centerY" id="dij-Lc-olU"/>
                     </constraints>
                 </view>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7Aq-dX-F8Y">
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7Aq-dX-F8Y" userLabel="recording View">
                     <rect key="frame" x="277" y="121" width="96" height="27"/>
                     <subviews>
                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" ambiguous="YES" image="recording" translatesAutoresizingMaskIntoConstraints="NO" id="grL-OO-0uq">
@@ -314,10 +345,12 @@
                 <constraint firstItem="hdh-dU-uYV" firstAttribute="trailing" secondItem="vdA-kj-hut" secondAttribute="trailing" constant="20" id="774-HN-SRK"/>
                 <constraint firstAttribute="bottom" secondItem="VYL-z9-Smz" secondAttribute="bottom" id="9v0-8h-TTf"/>
                 <constraint firstItem="ZDA-HM-us0" firstAttribute="top" secondItem="hdh-dU-uYV" secondAttribute="top" id="AmH-LZ-Gcr"/>
+                <constraint firstItem="ojN-TJ-Aoy" firstAttribute="top" secondItem="s9x-R9-vLe" secondAttribute="bottom" id="CiL-In-tfg"/>
                 <constraint firstItem="hdh-dU-uYV" firstAttribute="bottom" secondItem="vdA-kj-hut" secondAttribute="bottom" constant="27" id="EIi-NZ-d5W"/>
                 <constraint firstItem="vdA-kj-hut" firstAttribute="width" secondItem="ojN-TJ-Aoy" secondAttribute="width" id="FRG-tG-nIG"/>
                 <constraint firstItem="7Aq-dX-F8Y" firstAttribute="trailing" secondItem="hdh-dU-uYV" secondAttribute="trailing" constant="-20" id="GO2-Jb-eDP"/>
                 <constraint firstItem="hdh-dU-uYV" firstAttribute="trailing" secondItem="hSQ-Kb-ma5" secondAttribute="trailing" id="Hyl-m1-fHd"/>
+                <constraint firstItem="s9x-R9-vLe" firstAttribute="top" secondItem="oVe-mG-07t" secondAttribute="bottom" id="JSK-Ni-FOU"/>
                 <constraint firstItem="vdA-kj-hut" firstAttribute="leading" secondItem="ojN-TJ-Aoy" secondAttribute="trailing" constant="6" id="Lzq-zn-5o1"/>
                 <constraint firstItem="hdh-dU-uYV" firstAttribute="trailing" secondItem="zO4-6W-k28" secondAttribute="trailing" id="MWp-S0-Opc"/>
                 <constraint firstItem="hSQ-Kb-ma5" firstAttribute="leading" secondItem="hdh-dU-uYV" secondAttribute="leading" id="Mxd-Yz-c8q"/>
@@ -335,17 +368,20 @@
                 <constraint firstItem="ZDA-HM-us0" firstAttribute="trailing" secondItem="hdh-dU-uYV" secondAttribute="trailing" id="eFQ-rJ-Z6b"/>
                 <constraint firstItem="7Aq-dX-F8Y" firstAttribute="top" secondItem="ZDA-HM-us0" secondAttribute="bottom" constant="34" id="joE-K6-8IC"/>
                 <constraint firstItem="qsy-zS-V7l" firstAttribute="width" secondItem="T4X-m9-Uf7" secondAttribute="width" multiplier="0.5" id="ouQ-7J-jSA"/>
+                <constraint firstItem="hdh-dU-uYV" firstAttribute="trailing" secondItem="s9x-R9-vLe" secondAttribute="trailing" id="qjw-oM-kqV"/>
                 <constraint firstItem="VYL-z9-Smz" firstAttribute="trailing" secondItem="hdh-dU-uYV" secondAttribute="trailing" id="sbh-ie-wTU"/>
                 <constraint firstAttribute="bottom" secondItem="zO4-6W-k28" secondAttribute="bottom" id="tZx-EL-Rei"/>
                 <constraint firstItem="ZDA-HM-us0" firstAttribute="leading" secondItem="hdh-dU-uYV" secondAttribute="leading" id="uus-zw-qZt"/>
+                <constraint firstItem="s9x-R9-vLe" firstAttribute="leading" secondItem="hdh-dU-uYV" secondAttribute="leading" id="vIy-3k-fVk"/>
                 <constraint firstItem="KCc-F3-IiK" firstAttribute="centerY" secondItem="T4X-m9-Uf7" secondAttribute="centerY" id="z7h-WJ-GU1"/>
             </constraints>
             <variation key="default">
                 <mask key="subviews">
+                    <exclude reference="s9x-R9-vLe"/>
                     <exclude reference="7Aq-dX-F8Y"/>
                 </mask>
             </variation>
-            <point key="canvasLocation" x="702" y="-12"/>
+            <point key="canvasLocation" x="701.52671755725191" y="-12.67605633802817"/>
         </view>
     </objects>
     <resources>
@@ -362,6 +398,9 @@
         </systemColor>
         <systemColor name="systemBlueColor">
             <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemYellowColor">
+            <color red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="tintColor">
             <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
