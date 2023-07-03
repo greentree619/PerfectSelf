@@ -955,7 +955,7 @@ func requestCameraAndAudioPermission( _ completion: (() -> Void)?) {
 }
 
 func exportAudioWithTimeSpan(uiCtrl: UIViewController, composition: AVMutableComposition, audioMixInputParam: AVMutableAudioMixInputParameters, _ completion: @escaping ((URL?) -> Void)){
-    showIndicator(sender: nil, viewController: uiCtrl, color:UIColor.white)
+    //Omitted showIndicator(sender: nil, viewController: uiCtrl, color:UIColor.white)
     guard
         let documentDirectory = FileManager.default.urls(
             for: .cachesDirectory,
@@ -979,7 +979,40 @@ func exportAudioWithTimeSpan(uiCtrl: UIViewController, composition: AVMutableCom
     
     exporter!.exportAsynchronously {
         DispatchQueue.main.async {
-            hideIndicator(sender: nil)
+            //Omitted hideIndicator(sender: nil)
+        }
+        
+        guard exporter!.status == .completed,
+              let outputURL = exporter!.outputURL else {
+            completion(nil)
+            return
+        }
+        completion(outputURL)
+    }
+}
+
+func exportVideoWithTimeSpan(uiCtrl: UIViewController, composition: AVMutableComposition, _ completion: @escaping ((URL?) -> Void)){
+    //Omitted showIndicator(sender: nil, viewController: uiCtrl, color:UIColor.white)
+    guard
+        let documentDirectory = FileManager.default.urls(
+            for: .cachesDirectory,
+            in: .userDomainMask).first
+    else { return }
+    let dateFormatter = DateFormatter()
+    dateFormatter.dateStyle = .long
+    dateFormatter.timeStyle = .short
+    var date = dateFormatter.string(from: Date())
+    date += UUID().uuidString
+    let url = documentDirectory.appendingPathComponent("changedaudio-\(date).mov")
+    
+    let exporter = AVAssetExportSession(asset: composition, presetName: AVAssetExportPresetHighestQuality)
+    exporter!.outputURL = url
+    exporter!.outputFileType = .mov
+    exporter!.shouldOptimizeForNetworkUse = true
+    
+    exporter!.exportAsynchronously {
+        DispatchQueue.main.async {
+            //Omitted hideIndicator(sender: nil)
         }
         
         guard exporter!.status == .completed,

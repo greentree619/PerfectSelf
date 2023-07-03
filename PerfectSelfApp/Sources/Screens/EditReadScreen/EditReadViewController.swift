@@ -31,6 +31,8 @@ class EditReadViewController: UIViewController {
     var tmpVRotateOffset: Int  = videoRotateOffset
     var timePauseChanged: Bool = false
     var playerThumbView: UIImageView?
+    var videoApplyDone = false
+    var audioApplyDone = false
     
     @IBOutlet weak var editBar: UIStackView!
     @IBOutlet weak var playerView: PlayerView!
@@ -139,8 +141,15 @@ class EditReadViewController: UIViewController {
             videoRotateOffset = tmpVRotateOffset
             if(timePauseChanged)
             {
-                movie.removeTrack(videoMTrack!)
-                movie.removeTrack(audioMTrack2!)
+                videoApplyDone = false
+                audioApplyDone = false
+                let onlyVideo =  movie.mutableCopy() as! AVMutableComposition
+                onlyVideo.tracks(withMediaType: .audio)[0].isEnabled = false
+                onlyVideo.tracks(withMediaType: .audio)[1].isEnabled = false
+                
+                //{{ Apply to audio
+                movie.removeTrack(videoMTrack!)//videoMTrack!.isEnabled = false//Omitted
+                movie.removeTrack(audioMTrack2!)//audioMTrack2!.isEnabled = false//Omitted
                 exportAudioWithTimeSpan(uiCtrl:  self, composition: movie
                                         , audioMixInputParam:
                                             trackSegmentRepo!.getMixInputParams(compositionTrack: audioMTrack!)) { [self] (m4aUrl: URL?) in
@@ -160,12 +169,13 @@ class EditReadViewController: UIViewController {
                         }
                         
                         DispatchQueue.main.async {
-                            showIndicator(sender: nil, viewController: self)
+                            //Omitted showIndicator(sender: nil, viewController: self)
                             Toast.show(message: "Uploading audio file...", controller: self)
                         }
                         awsUpload.multipartUpload(filePath: m4aUrl!, bucketName: "video-client-upload-123456798", prefixKey: tapeKey, forceKey: true){ (error: Error?) -> Void in
+                            self.audioApplyDone = true
                             DispatchQueue.main.async {
-                                hideIndicator(sender: nil)
+                                //Omitted hideIndicator(sender: nil)
                             }
                             
                             if(error == nil)
@@ -187,14 +197,77 @@ class EditReadViewController: UIViewController {
                         }
                     progressHandler: { (progressVal)->Void in
                         print("progressHandler", progressVal)
+                        //Toast.show(message: "Upload progress", controller: uiViewContoller!)
+                    }
+                    }
+                }
+                //}} Apply to audio
+                
+                //{{Apply to video
+                exportVideoWithTimeSpan(uiCtrl:  self, composition: onlyVideo ) { [self] (movUrl: URL?) in
+                    if(movUrl != nil) {
+                        //print(m4aUrl!)
+                        var userName = "Anymous"
+                        if let userInfo = UserDefaults.standard.object(forKey: "USER") as? [String:Any] {
+                            // Use the saved data
+                            userName = userInfo["userName"] as! String
+                        }
+                        
+                        var tapeKey = "\(selectedTape!.actorTapeKey).mp4"
+                        videoURL = movUrl!
+                        if( !onActorVideoEdit ){
+                            readerVideoURL = movUrl!
+                            tapeKey = "\(selectedTape!.readerTapeKey!).mp4"
+                        }
+                        
+                        DispatchQueue.main.async {
+                            //Omitted showIndicator(sender: nil, viewController: self)
+                            Toast.show(message: "Uploading video file...", controller: self)
+                        }
+                        awsUpload.multipartUpload(filePath: movUrl!, bucketName: "video-client-upload-123456798", prefixKey: tapeKey, forceKey: true){ (error: Error?) -> Void in
+                            self.videoApplyDone = true
+                            DispatchQueue.main.async {
+                                //Omitted hideIndicator(sender: nil)
+                            }
+                            
+                            if(error == nil)
+                            {//Then Upload video
+                                log(meetingUid: "editread-save", log:"\(userName) video upload end successfully.")
+                                DispatchQueue.main.async {
+                                    //Omitted hideIndicator(sender: nil)
+                                    Toast.show(message: "Completed to upload video file.", controller: self)
+                                }
+                            }
+                            else
+                            {
+                                log(meetingUid: "editread-save", log:"\(userName) video upload failed: \(error!.localizedDescription)")
+                                DispatchQueue.main.async {
+                                    //Omitted hideIndicator(sender: nil)
+                                    Toast.show(message: "Failed to upload video file", controller: self)
+                                }
+                            }
+                        }
+                    progressHandler: { (progressVal)->Void in
+                        print("progressHandler", progressVal)
                         Toast.show(message: "Upload progress", controller: uiViewContoller!)
                     }
                     }
-                    
-                    DispatchQueue.main.async {
-                        self.dismiss(animated: false)
-                    }
                 }
+                //}}Apply to video
+                
+                DispatchQueue.main.async {
+                    showIndicator(sender: nil, viewController: self)
+                }
+                
+                let _ = Timer.scheduledTimer(withTimeInterval: TimeInterval(200) / 1000, repeats: true, block: { timer in
+                    if(self.videoApplyDone && self.audioApplyDone){
+                        timer.invalidate()
+                        DispatchQueue.main.async {
+                            hideIndicator(sender: nil)
+                            self.dismiss(animated: false)
+                        }
+                    }
+                })
             }
             else{
                 self.dismiss(animated: false)
