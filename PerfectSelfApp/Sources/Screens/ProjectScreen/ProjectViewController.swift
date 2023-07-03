@@ -184,8 +184,10 @@ class ProjectViewController: UIViewController {
                 actorVTrack = initAVMutableComposition(avMComp: actorAV, videoURL: self.savedVideoUrl!, audioURL: self.savedAudioUrl!, rotate: videoRotateOffset)
                 self.actorPlayerView.mainavComposition = actorAV
                 
-                _ = initAVMutableComposition(avMComp: readerAV, videoURL: self.savedReaderVideoUrl!, audioURL: self.savedReaderAudioUrl!)
-                self.playerView.mainavComposition = readerAV
+                if(self.savedReaderAudioUrl != nil && self.savedReaderVideoUrl != nil){
+                    _ = initAVMutableComposition(avMComp: readerAV, videoURL: self.savedReaderVideoUrl!, audioURL: self.savedReaderAudioUrl!)
+                    self.playerView.mainavComposition = readerAV
+                }
             }
 #endif
             
