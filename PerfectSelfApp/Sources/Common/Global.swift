@@ -1198,3 +1198,19 @@ func getDocumentsDirectory() -> URL {
     //let documentsDirectory = URL(string: NSTemporaryDirectory())
     return documentsDirectory
 }
+
+func selectMicrophone(_ index: Int){
+    var audioInputs: [AVAudioSessionPortDescription] {
+        AVAudioSession.sharedInstance().availableInputs ?? []
+    }
+    
+    if(audioInputs.count > 0 && audioInputs.count > index){
+        let selectedMicroPhone = audioInputs[index]
+        do {
+            try AVAudioSession.sharedInstance().setPreferredInput(selectedMicroPhone)
+            try AVAudioSession.sharedInstance().setActive(true)
+        } catch  {
+            print("Error messing with audio session: \(error)")
+        }
+    }
+}

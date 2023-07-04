@@ -124,27 +124,28 @@ class CameraPreviewView: UIView {
         captureSession.automaticallyConfiguresApplicationAudioSession = false
 
 //{{
-//Omitted
-//        guard let audioDevice = AVCaptureDevice.default(for: AVMediaType.audio) else {
-//            return
-//        }
-//==
-        let session = AVCaptureDevice.DiscoverySession(deviceTypes: [.builtInMicrophone],
-                                                       mediaType: .audio,
-                                                       position: .unspecified)
-        
-        guard let microphone = session.devices.first else {
-            print("Microphone not available")
+        guard let audioDevice = AVCaptureDevice.default(for: AVMediaType.audio) else {
             return
         }
+//==
+//        let session = AVCaptureDevice.DiscoverySession(deviceTypes: [.builtInMicrophone],
+//                                                       mediaType: .audio,
+//                                                       position: .unspecified)
+//
+//        guard let microphone = session.devices.first else {
+//            print("Microphone not available")
+//            return
+//        }
 //}}
         
-        guard let audioDeviceInput = try? AVCaptureDeviceInput(device: microphone) else {
+        guard let audioDeviceInput = try? AVCaptureDeviceInput(device: audioDevice) else {
             fatalError("")
         }
+        
         if !captureSession.canAddInput(audioDeviceInput) {
             fatalError("")
         }
+        
         captureSession.addInput(audioDeviceInput)
     }
 

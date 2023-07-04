@@ -115,7 +115,8 @@ class OverlayViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool)
     {
         super.viewDidAppear(animated)
-        lblTimer.isHidden = true
+        lblTimer.isHidden = true        
+        selectMicrophone( 0 )
         
 #if OVERLAY_TEST
         var count = 7
