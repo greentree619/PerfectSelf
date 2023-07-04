@@ -49,6 +49,7 @@ class AudioEnhancementAPI
         task.resume()
 
     }
+    
     func removeNoise(fileId: String, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> Void {
         let json: [String: Any] = [
             "input": fileId,
@@ -66,6 +67,7 @@ class AudioEnhancementAPI
         let task = URLSession.shared.dataTask(with: request, completionHandler:completionHandler)
         task.resume()
     }
+    
     func getJobStatus(jobId: String, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> Void {
         let url = URL(string: "\(API_ROOT_URL)/remove-noise/\(jobId)/status")!
         var request = URLRequest(url: url)
