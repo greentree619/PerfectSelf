@@ -14,6 +14,10 @@
 		2F7EBC3822DCCB4E0015B46E /* StarscreamProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F7EBC3722DCCB4E0015B46E /* StarscreamProvider.swift */; };
 		2F7EBC3A22DCCE240015B46E /* NativeWebSocket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F7EBC3922DCCE240015B46E /* NativeWebSocket.swift */; };
 		344386EB2A40735700D479FB /* TrackSegmentRepo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 344386EA2A40735700D479FB /* TrackSegmentRepo.swift */; };
+		345406472A54F26200026561 /* AudioInputTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 345406452A54F26200026561 /* AudioInputTableCell.swift */; };
+		345406482A54F26200026561 /* AudioInputTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 345406462A54F26200026561 /* AudioInputTableCell.xib */; };
+		3454064B2A552E9500026561 /* MicrophoneListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 345406492A552E9500026561 /* MicrophoneListViewController.swift */; };
+		3454064C2A552E9500026561 /* MicrophoneListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3454064A2A552E9500026561 /* MicrophoneListViewController.xib */; };
 		47007BE929C2B0C000F83CFD /* ActorSetPaymentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47007BE729C2B0BF00F83CFD /* ActorSetPaymentViewController.swift */; };
 		47007BEA29C2B0C000F83CFD /* ActorSetPaymentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 47007BE829C2B0C000F83CFD /* ActorSetPaymentViewController.xib */; };
 		470AEBCA29D1ACE200AD3848 /* StringHeight.swift in Sources */ = {isa = PBXBuildFile; fileRef = 470AEBC929D1ACE200AD3848 /* StringHeight.swift */; };
@@ -193,10 +197,8 @@
 		BAD0B51429BA17130061FEF5 /* ReaderProfileEditSkillViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BAD0B4BA29BA17130061FEF5 /* ReaderProfileEditSkillViewController.xib */; };
 		BAD0B51529BA17130061FEF5 /* ReaderProfileEditSkillViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAD0B4BB29BA17130061FEF5 /* ReaderProfileEditSkillViewController.swift */; };
 		BAD0B51629BA17130061FEF5 /* VideoCompositionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BAD0B4BD29BA17130061FEF5 /* VideoCompositionViewController.xib */; };
-		BAD0B51729BA17130061FEF5 /* AvaliableAudioInputsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BAD0B4BE29BA17130061FEF5 /* AvaliableAudioInputsViewController.xib */; };
 		BAD0B51829BA17130061FEF5 /* OverlayViewContoller.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAD0B4BF29BA17130061FEF5 /* OverlayViewContoller.swift */; };
 		BAD0B51929BA17130061FEF5 /* OverlayViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BAD0B4C029BA17130061FEF5 /* OverlayViewController.xib */; };
-		BAD0B51A29BA17130061FEF5 /* AvailableAudioInputsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAD0B4C129BA17130061FEF5 /* AvailableAudioInputsViewController.swift */; };
 		BAD0B51C29BA17130061FEF5 /* VideoPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAD0B4C329BA17130061FEF5 /* VideoPicker.swift */; };
 		BAD0B51D29BA17130061FEF5 /* VideoCompositionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAD0B4C429BA17130061FEF5 /* VideoCompositionViewController.swift */; };
 		BAD0B52029BA17130061FEF5 /* ReaderProfileEditAvailabilityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAD0B4C929BA17130061FEF5 /* ReaderProfileEditAvailabilityViewController.swift */; };
@@ -242,6 +244,10 @@
 		2F7EBC3722DCCB4E0015B46E /* StarscreamProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarscreamProvider.swift; sourceTree = "<group>"; };
 		2F7EBC3922DCCE240015B46E /* NativeWebSocket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeWebSocket.swift; sourceTree = "<group>"; };
 		344386EA2A40735700D479FB /* TrackSegmentRepo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackSegmentRepo.swift; sourceTree = "<group>"; };
+		345406452A54F26200026561 /* AudioInputTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioInputTableCell.swift; sourceTree = "<group>"; };
+		345406462A54F26200026561 /* AudioInputTableCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AudioInputTableCell.xib; sourceTree = "<group>"; };
+		345406492A552E9500026561 /* MicrophoneListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MicrophoneListViewController.swift; sourceTree = "<group>"; };
+		3454064A2A552E9500026561 /* MicrophoneListViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MicrophoneListViewController.xib; sourceTree = "<group>"; };
 		34FFA12E29FB31EF00BB0E14 /* PerfectSelf.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PerfectSelf.entitlements; sourceTree = "<group>"; };
 		47007BE729C2B0BF00F83CFD /* ActorSetPaymentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActorSetPaymentViewController.swift; sourceTree = "<group>"; };
 		47007BE829C2B0C000F83CFD /* ActorSetPaymentViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ActorSetPaymentViewController.xib; sourceTree = "<group>"; };
@@ -437,10 +443,8 @@
 		BAD0B4BA29BA17130061FEF5 /* ReaderProfileEditSkillViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ReaderProfileEditSkillViewController.xib; sourceTree = "<group>"; };
 		BAD0B4BB29BA17130061FEF5 /* ReaderProfileEditSkillViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReaderProfileEditSkillViewController.swift; sourceTree = "<group>"; };
 		BAD0B4BD29BA17130061FEF5 /* VideoCompositionViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VideoCompositionViewController.xib; sourceTree = "<group>"; };
-		BAD0B4BE29BA17130061FEF5 /* AvaliableAudioInputsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AvaliableAudioInputsViewController.xib; sourceTree = "<group>"; };
 		BAD0B4BF29BA17130061FEF5 /* OverlayViewContoller.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OverlayViewContoller.swift; sourceTree = "<group>"; };
 		BAD0B4C029BA17130061FEF5 /* OverlayViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OverlayViewController.xib; sourceTree = "<group>"; };
-		BAD0B4C129BA17130061FEF5 /* AvailableAudioInputsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AvailableAudioInputsViewController.swift; sourceTree = "<group>"; };
 		BAD0B4C329BA17130061FEF5 /* VideoPicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoPicker.swift; sourceTree = "<group>"; };
 		BAD0B4C429BA17130061FEF5 /* VideoCompositionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoCompositionViewController.swift; sourceTree = "<group>"; };
 		BAD0B4C929BA17130061FEF5 /* ReaderProfileEditAvailabilityViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReaderProfileEditAvailabilityViewController.swift; sourceTree = "<group>"; };
@@ -993,11 +997,13 @@
 			children = (
 				BAD0B4C429BA17130061FEF5 /* VideoCompositionViewController.swift */,
 				BAD0B4BD29BA17130061FEF5 /* VideoCompositionViewController.xib */,
-				BAD0B4C129BA17130061FEF5 /* AvailableAudioInputsViewController.swift */,
-				BAD0B4BE29BA17130061FEF5 /* AvaliableAudioInputsViewController.xib */,
 				BAD0B4BF29BA17130061FEF5 /* OverlayViewContoller.swift */,
 				BAD0B4C029BA17130061FEF5 /* OverlayViewController.xib */,
 				BAD0B4C329BA17130061FEF5 /* VideoPicker.swift */,
+				345406452A54F26200026561 /* AudioInputTableCell.swift */,
+				345406462A54F26200026561 /* AudioInputTableCell.xib */,
+				345406492A552E9500026561 /* MicrophoneListViewController.swift */,
+				3454064A2A552E9500026561 /* MicrophoneListViewController.xib */,
 			);
 			path = OverlayScreen;
 			sourceTree = "<group>";
@@ -1282,7 +1288,6 @@
 				47B025CA29D3477900DFECE7 /* close.png in Resources */,
 				943BABD52A2A349C00B3F619 /* EmailSubmitViewController.xib in Resources */,
 				4747685429EEF68D00D647F8 /* ActorResheduleViewController.xib in Resources */,
-				BAD0B51729BA17130061FEF5 /* AvaliableAudioInputsViewController.xib in Resources */,
 				BA4714C829A79856007AABC2 /* SF-Pro-Display-Heavy.otf in Resources */,
 				47C9734029DC1E5A00468E11 /* Raleway-Italic.ttf in Resources */,
 				BA4714CB29A79856007AABC2 /* SanFranciscoDisplay-Regular.otf in Resources */,
@@ -1295,6 +1300,7 @@
 				47B025C629D3477900DFECE7 /* grayBar.png in Resources */,
 				47C9735429DC255000468E11 /* Lato-Bold.ttf in Resources */,
 				BAD0B52529BA17130061FEF5 /* EditReadViewController.xib in Resources */,
+				3454064C2A552E9500026561 /* MicrophoneListViewController.xib in Resources */,
 				47C9731529DC1DB500468E11 /* Madrigal.ttf in Resources */,
 				47C9735829DC255000468E11 /* OFL.txt in Resources */,
 				47C9731629DC1DB500468E11 /* Licencia de uso gratuito.txt in Resources */,
@@ -1312,6 +1318,7 @@
 				BAD0B53E29BA17130061FEF5 /* ReaderHomeViewController.xib in Resources */,
 				BA4714C529A79856007AABC2 /* SFProText-Semibold.otf in Resources */,
 				BAD0B53629BA17130061FEF5 /* LibraryViewController.xib in Resources */,
+				345406482A54F26200026561 /* AudioInputTableCell.xib in Resources */,
 				47CEBDDB29C7C24C006CE9DA /* ActorProfileViewController.xib in Resources */,
 				47C9735229DC255000468E11 /* Lato-LightItalic.ttf in Resources */,
 				BA4714BB29A79856007AABC2 /* ABeeZee-Regular.ttf in Resources */,
@@ -1403,7 +1410,6 @@
 			files = (
 				BAD0B53829BA17130061FEF5 /* LibraryCell.swift in Sources */,
 				BAD0B53729BA17130061FEF5 /* LibraryViewController.swift in Sources */,
-				BAD0B51A29BA17130061FEF5 /* AvailableAudioInputsViewController.swift in Sources */,
 				BAD0B53129BA17130061FEF5 /* ActorReaderDetailViewController.swift in Sources */,
 				BAC11B8429A8B37100580143 /* IDFileManager.m in Sources */,
 				BA3F909A29C457C200ABE966 /* PerfectSelfWebAPI.swift in Sources */,
@@ -1449,6 +1455,7 @@
 				47E0B9F629C141C400C82255 /* ReaderTabBarController.swift in Sources */,
 				47B65BDE29D173F700B3FD20 /* MessageCell.swift in Sources */,
 				BAD0B54329BA17130061FEF5 /* ReaderProfileEditPersonalInfoViewController.swift in Sources */,
+				3454064B2A552E9500026561 /* MicrophoneListViewController.swift in Sources */,
 				795A4A2A221E0FB100F8BB03 /* Message.swift in Sources */,
 				47CEBDDE29C7C272006CE9DA /* ActorProfileEditViewController.swift in Sources */,
 				4715510129CDBF00007CE524 /* TimeSlotCollectionViewCell.swift in Sources */,
@@ -1484,6 +1491,7 @@
 				BAD0B54129BA17130061FEF5 /* LoginViewController.swift in Sources */,
 				475ECFF629DEF3E2004AED9A /* SortViewController.swift in Sources */,
 				943BABD42A2A349C00B3F619 /* EmailSubmitViewController.swift in Sources */,
+				345406472A54F26200026561 /* AudioInputTableCell.swift in Sources */,
 				BAD5C85129AEE09F00A2F109 /* VideoHelper.swift in Sources */,
 				79177C9720B0DE7A00BCD399 /* WebRTCClient.swift in Sources */,
 				BA6A5E1E29CCD49D0063ED13 /* ReaderCollectionViewCell.swift in Sources */,

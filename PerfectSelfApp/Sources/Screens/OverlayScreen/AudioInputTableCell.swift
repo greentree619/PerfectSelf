@@ -9,7 +9,12 @@
 import UIKit
 
 class AudioInputTableCell: UITableViewCell {
-
+   
+    @IBOutlet weak var lblName: UILabel!
+    func configCell(name: String) {
+        lblName?.text = name
+    }
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

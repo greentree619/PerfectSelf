@@ -231,7 +231,12 @@ class OverlayViewController: UIViewController {
         timeSelectPannel.isHidden = false
     }
     
-
+    @IBAction func selectMicDidTap(_ sender: UIButton) {
+        let vc: MicrophoneListViewController = MicrophoneListViewController()
+        vc.modalPresentationStyle = .fullScreen
+        self.present(vc, animated: false, completion: nil)
+    }
+    
     func mergedVideos(recordUrl:URL, uploadUrl:URL, uploadAudioUrl: URL?) {
         let recordAsset = AVAsset(url: recordUrl)
         var uploadAsset = AVAsset(url: uploadUrl)

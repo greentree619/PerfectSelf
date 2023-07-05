@@ -132,17 +132,27 @@
                                 <action selector="backDidTap:" destination="-1" eventType="touchUpInside" id="77C-28-h8D"/>
                             </connections>
                         </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="x09-6Q-vdb">
+                            <rect key="frame" x="321.66666666666669" y="26.333333333333332" width="51.333333333333314" height="34.333333333333343"/>
+                            <state key="normal" title="Button"/>
+                            <buttonConfiguration key="configuration" style="filled" title="Mic"/>
+                            <connections>
+                                <action selector="selectMicDidTap:" destination="-1" eventType="touchUpInside" id="dco-rU-rb1"/>
+                            </connections>
+                        </button>
                     </subviews>
                     <color key="backgroundColor" red="0.14901960780000001" green="0.1960784314" blue="0.21960784310000001" alpha="0.69999999999999996" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
                         <constraint firstItem="cLY-w6-fnb" firstAttribute="centerY" secondItem="Q1Y-Wv-N0h" secondAttribute="centerY" id="1Jp-xr-QLc"/>
                         <constraint firstAttribute="trailing" secondItem="Pou-Kw-rE4" secondAttribute="trailing" constant="20" id="8S7-rD-g0e"/>
                         <constraint firstAttribute="height" constant="87" id="CRM-WR-tLD"/>
+                        <constraint firstAttribute="trailing" secondItem="x09-6Q-vdb" secondAttribute="trailing" constant="20" id="G2T-ea-VmX"/>
                         <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="87" id="P3b-CJ-LUP"/>
                         <constraint firstItem="dwO-mP-pK0" firstAttribute="leading" secondItem="Q1Y-Wv-N0h" secondAttribute="leading" constant="20" id="ag8-Xz-XVx"/>
                         <constraint firstItem="cLY-w6-fnb" firstAttribute="centerX" secondItem="Q1Y-Wv-N0h" secondAttribute="centerX" id="fEh-J5-AE3"/>
                         <constraint firstItem="Pou-Kw-rE4" firstAttribute="centerY" secondItem="Q1Y-Wv-N0h" secondAttribute="centerY" id="n3n-EY-3HY"/>
                         <constraint firstItem="dwO-mP-pK0" firstAttribute="centerY" secondItem="Q1Y-Wv-N0h" secondAttribute="centerY" id="tMJ-7S-7MR"/>
+                        <constraint firstItem="x09-6Q-vdb" firstAttribute="centerY" secondItem="Q1Y-Wv-N0h" secondAttribute="centerY" id="v6B-GV-QCp"/>
                     </constraints>
                     <variation key="default">
                         <mask key="subviews">
