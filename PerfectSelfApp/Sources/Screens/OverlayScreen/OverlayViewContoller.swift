@@ -373,14 +373,15 @@ class OverlayViewController: UIViewController {
         self.present(vc, animated: false, completion: nil)
     }
 
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "containerViewSegue" {
-            guard let view = segue.destination as? AvailableAudioInputsViewController else {
-                return
-            }
-            view.delegate = self
-        }
-    }
+//Omitted
+//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//        if segue.identifier == "containerViewSegue" {
+//            guard let view = segue.destination as? AvailableAudioInputsViewController else {
+//                return
+//            }
+//            view.delegate = self
+//        }
+//    }
     
     func recordStart(){
         self.count = self.selectedCount
@@ -431,11 +432,12 @@ extension OverlayViewController: CameraPreviewDelegate {
     }
 }
 
-extension OverlayViewController: AvailableAudioInputsViewControllerDelegate {
-    func didFinishedAudioInput() {
-        self.containerView.isHidden = true
-    }
-}
+//Omitted
+//extension OverlayViewController: AvailableAudioInputsViewControllerDelegate {
+//    func didFinishedAudioInput() {
+//        self.containerView.isHidden = true
+//    }
+//}
 
 ////MARK: UIPickerViewDelegate
 extension OverlayViewController: UIPickerViewDelegate, UIPickerViewDataSource  {
