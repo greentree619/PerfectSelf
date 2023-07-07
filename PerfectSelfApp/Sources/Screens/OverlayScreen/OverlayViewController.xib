@@ -157,6 +157,7 @@
                     <variation key="default">
                         <mask key="subviews">
                             <exclude reference="Pou-Kw-rE4"/>
+                            <exclude reference="x09-6Q-vdb"/>
                         </mask>
                     </variation>
                 </view>
