@@ -307,6 +307,7 @@ class ProjectViewController: UIViewController {
             
             let editReadViewController = EditReadViewController(videoUrl: self.savedVideoUrl!, audioUrl: &self.savedAudioUrl, readerVideoUrl: self.savedReaderVideoUrl!, readerAudioUrl: self.savedReaderAudioUrl!, isActorVideoEdit: true)
             editReadViewController.modalPresentationStyle = .fullScreen
+            editReadViewController.delegate = self
             self.present(editReadViewController, animated: false, completion: nil)
         })
     }
@@ -326,6 +327,7 @@ class ProjectViewController: UIViewController {
             
             let editReadViewController = EditReadViewController(videoUrl: self.savedVideoUrl!, audioUrl: &self.savedAudioUrl, readerVideoUrl: self.savedReaderVideoUrl!, readerAudioUrl: self.savedReaderAudioUrl!, isActorVideoEdit: false)
             editReadViewController.modalPresentationStyle = .fullScreen
+            editReadViewController.delegate = self
             self.present(editReadViewController, animated: false, completion: nil)
         })
     }
@@ -767,5 +769,19 @@ extension ProjectViewController: PlayerViewDelegate{
     
     func playerVideoDidEnd(player: PlayerView) {
         isOnPlay = false
+    }
+}
+
+extension ProjectViewController: UpdatedTapeDelegate {
+    func updatedTape(){
+//        DispatchQueue.main.async {[self] in
+//            actorVTrack = initAVMutableComposition(avMComp: actorAV, videoURL: self.savedVideoUrl!, audioURL: self.savedAudioUrl!, rotate: videoRotateOffset)
+//            self.actorPlayerView.mainavComposition = actorAV
+//            
+//            if(self.savedReaderAudioUrl != nil && self.savedReaderVideoUrl != nil){
+//                _ = initAVMutableComposition(avMComp: readerAV, videoURL: self.savedReaderVideoUrl!, audioURL: self.savedReaderAudioUrl!)
+//                self.playerView.mainavComposition = readerAV
+//            }
+//        }
     }
 }

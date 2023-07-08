@@ -10,8 +10,12 @@ import Foundation
 import WebRTC
 import AVFoundation
 
+protocol UpdatedTapeDelegate {
+    func updatedTape()
+}
+
 class EditReadViewController: UIViewController {
-    
+    var delegate: UpdatedTapeDelegate?
     var videoURL: URL
     var audioURL: URL?
     var readerVideoURL: URL
@@ -163,6 +167,7 @@ class EditReadViewController: UIViewController {
                 let _ = Timer.scheduledTimer(withTimeInterval: TimeInterval(200) / 1000, repeats: true, block: { timer in
                     if(self.videoApplyDone && self.audioApplyDone){
                         timer.invalidate()
+                        self.delegate?.updatedTape()
                         DispatchQueue.main.async {
                             hideIndicator(sender: nil)
                             self.dismiss(animated: false)
