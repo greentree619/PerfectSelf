@@ -664,10 +664,14 @@ class EditReadViewController: UIViewController {
                 }
                 
                 var tapeKey = "\(selectedTape!.actorTapeKey).m4a"
-                audioURL = m4aUrl
+                //Omitted audioURL = m4aUrl
                 if( !onActorVideoEdit ){
-                    readerAudioURL = m4aUrl!
+                    //Omitted readerAudioURL = m4aUrl!
+                    replaceOrgWithResult(org: readerAudioURL, result: m4aUrl!)
                     tapeKey = "\(selectedTape!.readerTapeKey!).m4a"
+                }
+                else{
+                    replaceOrgWithResult(org: audioURL!, result: m4aUrl!)
                 }
                 
                 DispatchQueue.main.async {
@@ -716,10 +720,14 @@ class EditReadViewController: UIViewController {
                 }
                 
                 var tapeKey = "\(selectedTape!.actorTapeKey).mp4"
-                videoURL = movUrl!
+                //Omitted videoURL = movUrl!
                 if( !onActorVideoEdit ){
-                    readerVideoURL = movUrl!
+                    //Omitted readerVideoURL = movUrl!
+                    replaceOrgWithResult(org: readerVideoURL, result: movUrl!)
                     tapeKey = "\(selectedTape!.readerTapeKey!).mp4"
+                }
+                else{
+                    replaceOrgWithResult(org: videoURL, result: movUrl!)
                 }
                 
                 DispatchQueue.main.async {

@@ -648,6 +648,15 @@ func getVideoTransformStatus() -> String {
 }
 
 func initAVMutableComposition(avMComp: AVMutableComposition, videoURL: URL, audioURL: URL, rotate: Int=0) -> AVMutableCompositionTrack{
+    if( avMComp.tracks.count >= 2 ){
+        let oldVideoTrack = avMComp.tracks(withMediaType: .video).first
+        let oldAudioTrack = avMComp.tracks(withMediaType: .audio).first
+        avMComp.removeTrack(oldVideoTrack!)
+        avMComp.removeTrack(oldAudioTrack!)
+    }
+    
+    print(avMComp.tracks.count)
+    
     let videoTrack = avMComp.addMutableTrack(withMediaType: .video, preferredTrackID: kCMPersistentTrackID_Invalid)
     let audioTrack = avMComp.addMutableTrack(withMediaType: .audio, preferredTrackID: kCMPersistentTrackID_Invalid)
             
@@ -1212,5 +1221,19 @@ func selectMicrophone(_ index: Int){
         } catch  {
             print("Error messing with audio session: \(error)")
         }
+    }
+}
+
+func replaceOrgWithResult(org: URL, result: URL){
+    do {
+        try FileManager.default.removeItem(at: org)
+        print("File deleted successfully")
+    } catch {
+        print("Error deleting file: \(error.localizedDescription)")
+    }
+    do {
+        try FileManager.default.copyItem(at: result, to: org)
+    } catch (let writeError) {
+        print("Error creating a file \(org) : \(writeError)")
     }
 }
