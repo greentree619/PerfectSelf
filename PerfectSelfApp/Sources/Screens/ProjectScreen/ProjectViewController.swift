@@ -29,6 +29,8 @@ class ProjectViewController: UIViewController {
     var doneReaderAVDownload: Bool = false
     @IBOutlet weak var playerView: PlayerView!
     @IBOutlet weak var actorPlayerView: PlayerView!
+    var mainPlayerView: PlayerView? = nil//Will be player that duration is more long than other.
+    var mainDuration: Double = -1.0
     //Omitted let awsUpload = AWSMultipartUpload()
     var startElapseTime: Date?
     var endElapseTime: Date?
@@ -738,9 +740,18 @@ extension ProjectViewController: PlayerViewDelegate{
         //player.pause()
         //self.playerView.updateFocusIfNeeded()
         DispatchQueue.main.async {[self] in
-            playerBar.value =  Float(currentTime)
-            showViewBy(currentTime: currentTime, view: aPlayerThumbView)
-            showViewBy(currentTime: currentTime, view: rPlayerThumbView)
+            if(self.playerView == player){
+                //print("Reader Player")
+                showViewBy(currentTime: currentTime, view: rPlayerThumbView)
+            }
+            else if(self.actorPlayerView == player){
+                //print("Actor Player")
+                showViewBy(currentTime: currentTime, view: aPlayerThumbView)
+            }
+            
+            if(mainPlayerView == player){
+                playerBar.value =  Float(currentTime)
+            }
         }
     }
     
@@ -748,27 +759,41 @@ extension ProjectViewController: PlayerViewDelegate{
         //player.currentTime = duration/100
         //player.player!.seek(to: CMTime(value: 1, timescale: 600))
         DispatchQueue.main.async {[self] in
-            playerBar.minimumValue = Float(0)
-            playerBar.maximumValue =  Float(duration)
-            self.startTime.text = getCurrentTime(second:  0)
-            self.endTime.text = getCurrentTime(second: duration)
-            //player.play()
-            
-            playerBar.value = 0.0
-            playerView.currentTime = Double( 0 )
+            if(mainPlayerView == nil){
+                mainPlayerView = player
+                mainDuration = duration
+            }
+            else{
+                if(mainDuration < duration){
+                    mainPlayerView = player
+                    mainDuration = duration
+                }
+                
+                playerBar.minimumValue = Float(0)
+                playerBar.maximumValue =  Float(mainDuration)
+                self.startTime.text = getCurrentTime(second:  0)
+                self.endTime.text = getCurrentTime(second: mainDuration)
+                playerBar.value = 0.0
+            }
         }
     }
     
     func playerVideo(player: PlayerView, statusItemPlayer: AVPlayer.Status, error: Error?) {
-        
     }
     
     func playerVideo(player: PlayerView, statusItemPlayer: AVPlayerItem.Status, error: Error?) {
-                
     }
     
     func playerVideoDidEnd(player: PlayerView) {
-        isOnPlay = false
+//        if(self.playerView == player){
+//            //print("Reader Player")
+//        }
+//        else if(self.actorPlayerView == player){
+//            //print("Actor Player")
+//        }
+        if(mainPlayerView == player){
+            isOnPlay = false
+        }
     }
 }
 
@@ -777,7 +802,7 @@ extension ProjectViewController: UpdatedTapeDelegate {
 //        DispatchQueue.main.async {[self] in
 //            actorVTrack = initAVMutableComposition(avMComp: actorAV, videoURL: self.savedVideoUrl!, audioURL: self.savedAudioUrl!, rotate: videoRotateOffset)
 //            self.actorPlayerView.mainavComposition = actorAV
-//            
+//
 //            if(self.savedReaderAudioUrl != nil && self.savedReaderVideoUrl != nil){
 //                _ = initAVMutableComposition(avMComp: readerAV, videoURL: self.savedReaderVideoUrl!, audioURL: self.savedReaderAudioUrl!)
 //                self.playerView.mainavComposition = readerAV
