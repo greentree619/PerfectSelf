@@ -73,10 +73,13 @@ class ActorHomeViewController: UIViewController, UICollectionViewDataSource, UIC
                     UserDefaults.standard.removeObject(forKey: "USER")
                     UserDefaults.standard.setValue(responseJSON, forKey: "USER")
                     DispatchQueue.main.async {
-                        let name = responseJSON["userName"] as? String
+                        let firstName = responseJSON["firstName"] as! String
+                        let lastName = responseJSON["lastName"] as! String
+                        let name = "\(firstName) \(lastName)"//responseJSON["userName"] as? String
+                        
                         let bucketName = responseJSON["avatarBucketName"] as? String
                         let avatarKey = responseJSON["avatarKey"] as? String
-                        self.greetingLabel.text = "Hi, \(name ?? "User")"
+                        self.greetingLabel.text = "Hi, \(name)"
                         if (bucketName != nil && avatarKey != nil) {
                             let url = "https://\( bucketName!).s3.us-east-2.amazonaws.com/\(avatarKey!)"
                             self.img_actor_avatar.imageFrom(url: URL(string: url)!)
