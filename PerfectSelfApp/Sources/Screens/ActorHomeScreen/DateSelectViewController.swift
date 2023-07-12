@@ -33,7 +33,7 @@ class DateSelectViewController: UIViewController {
         let frame = CGRect(x: 0, y : 0, width: koyomiContainer.frame.width, height: koyomiContainer.frame.width*0.8)
         koyomi = Koyomi(frame: frame, sectionSpace: 0, cellSpace: 0, inset: .zero, weekCellHeight: 40)
         koyomiContainer.addSubview(koyomi)
-        currentDateLabel.text = koyomi.currentDateString(withFormat: "MMM, yyyy")
+        currentDateLabel.text = koyomi.currentDateString(withFormat: "MMMM yyyy")
 
         koyomi.calendarDelegate = self
         koyomi.inset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
@@ -102,7 +102,7 @@ extension DateSelectViewController: KoyomiDelegate {
     }
     
     func koyomi(_ koyomi: Koyomi, currentDateString dateString: String) {
-        currentDateLabel.text = koyomi.currentDateString(withFormat: "MMM, yyyy")
+        currentDateLabel.text = koyomi.currentDateString(withFormat: "MMMM yyyy")
     }
     
     @objc(koyomi:shouldSelectDates:to:withPeriodLength:)
