@@ -50,13 +50,13 @@
                                     </connections>
                                 </stackView>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pZT-Li-9Cu">
-                                    <rect key="frame" x="309.33333333333331" y="0.0" width="43.666666666666686" height="30"/>
+                                    <rect key="frame" x="307" y="0.0" width="46" height="30"/>
                                     <color key="backgroundColor" red="0.8980392157" green="0.8980392157" blue="0.91764705879999997" alpha="0.29999999999999999" colorSpace="custom" customColorSpace="sRGB"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="30" id="fHU-x4-ZEB" customClass="AdaptiveLayoutConstraint" customModule="PerfectSelf" customModuleProvider="target"/>
                                     </constraints>
                                     <state key="normal" title="Button"/>
-                                    <buttonConfiguration key="configuration" style="tinted" title="clear" cornerStyle="large" buttonSize="mini">
+                                    <buttonConfiguration key="configuration" style="tinted" title="Clear" cornerStyle="large" buttonSize="mini">
                                         <backgroundConfiguration key="background" strokeWidth="0.0"/>
                                         <directionalEdgeInsets key="contentInsets" top="5" leading="5" bottom="5" trailing="5"/>
                                     </buttonConfiguration>
