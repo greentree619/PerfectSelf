@@ -30,7 +30,7 @@ class ActorHomeViewController: UIViewController, UICollectionViewDataSource, UIC
     let backgroundView = UIView()
     var uid: String!
     var isSponsored = false
-    var isAvailableSoon = true
+    var isAvailableSoon = false
     var isTopRated = false
     var searchString = ""
     var soonBooking: SoonBooking? = nil
