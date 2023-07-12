@@ -200,6 +200,16 @@
                                         <userDefinedRuntimeAttribute type="number" keyPath="layer.shadowRadius">
                                             <integer key="value" value="5"/>
                                         </userDefinedRuntimeAttribute>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="contentView.layer.cornerRadius">
+                                            <integer key="value" value="10"/>
+                                        </userDefinedRuntimeAttribute>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="contentView.layer.borderWidth">
+                                            <integer key="value" value="1"/>
+                                        </userDefinedRuntimeAttribute>
+                                        <userDefinedRuntimeAttribute type="color" keyPath="contentView.layer.borderColor">
+                                            <color key="value" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </userDefinedRuntimeAttribute>
+                                        <userDefinedRuntimeAttribute type="boolean" keyPath="contentView.layer.masksToBounds" value="YES"/>
                                     </userDefinedRuntimeAttributes>
                                 </stackView>
                             </subviews>
