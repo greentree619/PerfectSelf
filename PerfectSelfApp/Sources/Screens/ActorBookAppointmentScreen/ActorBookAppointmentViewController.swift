@@ -188,6 +188,7 @@ class ActorBookAppointmentViewController: UIViewController {
             sender.backgroundColor = UIColor.white
         }
     }
+    
     @IBAction func Select9Am(_ sender: UIButton) {
         sender.isSelected = !sender.isSelected
 //        btn_9am.isSelected = false
@@ -635,7 +636,7 @@ class ActorBookAppointmentViewController: UIViewController {
             } else if sessionDuration == 2 {
                 toTime += "T09:30:00"
             } else if sessionDuration == 3 {
-                toTime += "T10:00:00"
+                toTime += "T09:45:00"
             }
         } else if startTime == 2 {
             fromTime += "T10:00:00"
@@ -644,7 +645,7 @@ class ActorBookAppointmentViewController: UIViewController {
             } else if sessionDuration == 2 {
                 toTime += "T10:30:00"
             } else if sessionDuration == 3 {
-                toTime += "T11:00:00"
+                toTime += "T10:45:00"
             }
         } else if startTime == 3 {
             fromTime += "T11:00:00"
@@ -653,7 +654,7 @@ class ActorBookAppointmentViewController: UIViewController {
             } else if sessionDuration == 2 {
                 toTime += "T11:30:00"
             } else if sessionDuration == 3 {
-                toTime += "T12:00:00"
+                toTime += "T11:45:00"
             }
         } else if startTime == 4 {
             fromTime += "T14:00:00"
@@ -662,7 +663,7 @@ class ActorBookAppointmentViewController: UIViewController {
             } else if sessionDuration == 2 {
                 toTime += "T14:30:00"
             } else if sessionDuration == 3 {
-                toTime += "T15:00:00"
+                toTime += "T14:45:00"
             }
         } else if startTime == 5 {
             fromTime += "T15:00:00"
@@ -671,7 +672,7 @@ class ActorBookAppointmentViewController: UIViewController {
             } else if sessionDuration == 2 {
                 toTime += "T15:30:00"
             } else if sessionDuration == 3 {
-                toTime += "T16:00:00"
+                toTime += "T15:45:00"
             }
         } else if startTime == 6 {
             fromTime += "T16:00:00"
@@ -680,7 +681,7 @@ class ActorBookAppointmentViewController: UIViewController {
             } else if sessionDuration == 2 {
                 toTime += "T16:30:00"
             } else if sessionDuration == 3 {
-                toTime += "T17:00:00"
+                toTime += "T16:45:00"
             }
         } else if startTime == 7 {
             fromTime += "T17:00:00"
@@ -689,7 +690,7 @@ class ActorBookAppointmentViewController: UIViewController {
             } else if sessionDuration == 2 {
                 toTime += "T17:30:00"
             } else if sessionDuration == 3 {
-                toTime += "T18:00:00"
+                toTime += "T17:45:00"
             }
         } else if startTime == 8 {
             fromTime += "T18:00:00"
@@ -698,7 +699,7 @@ class ActorBookAppointmentViewController: UIViewController {
             } else if sessionDuration == 2 {
                 toTime += "T18:30:00"
             } else if sessionDuration == 3 {
-                toTime += "T19:00:00"
+                toTime += "T18:45:00"
             }
         } else if startTime == 9 {
             fromTime += "T19:00:00"
@@ -707,7 +708,7 @@ class ActorBookAppointmentViewController: UIViewController {
             } else if sessionDuration == 2 {
                 toTime += "T19:30:00"
             } else if sessionDuration == 3 {
-                toTime += "T20:00:00"
+                toTime += "T19:45:00"
             }
         } else if startTime == 10 {
             fromTime += "T20:00:00"
@@ -716,7 +717,7 @@ class ActorBookAppointmentViewController: UIViewController {
             } else if sessionDuration == 2 {
                 toTime += "T20:30:00"
             } else if sessionDuration == 3 {
-                toTime += "T21:00:00"
+                toTime += "T20:45:00"
             }
         } else if startTime == 11 {
             fromTime += "T21:00:00"
@@ -725,7 +726,7 @@ class ActorBookAppointmentViewController: UIViewController {
             } else if sessionDuration == 2 {
                 toTime += "T21:30:00"
             } else if sessionDuration == 3 {
-                toTime += "T22:00:00"
+                toTime += "T21:45:00"
             }
         } else if startTime == 12 {
             fromTime += "T22:00:00"
@@ -734,7 +735,7 @@ class ActorBookAppointmentViewController: UIViewController {
             } else if sessionDuration == 2 {
                 toTime += "T22:30:00"
             } else if sessionDuration == 3 {
-                toTime += "T23:00:00"
+                toTime += "T22:45:00"
             }
         } else {
             print("oops!")
