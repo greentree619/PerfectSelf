@@ -28,16 +28,16 @@
                         <rect key="frame" x="0.0" y="0.0" width="328" height="145"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="eZe-fm-wg8">
-                                <rect key="frame" x="8" y="8" width="267.33333333333331" height="32.333333333333336"/>
+                                <rect key="frame" x="8" y="8" width="277.33333333333331" height="32.333333333333336"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Reading Session with" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qkd-94-74j">
-                                        <rect key="frame" x="0.0" y="0.0" width="147" height="32.333333333333336"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="154.66666666666666" height="32.333333333333336"/>
                                         <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="16"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Jonathan walker" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qSS-Q1-65b">
-                                        <rect key="frame" x="152" y="0.0" width="115.33333333333331" height="32.333333333333336"/>
+                                        <rect key="frame" x="159.66666666666666" y="0.0" width="117.66666666666666" height="32.333333333333336"/>
                                         <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="16"/>
                                         <color key="textColor" systemColor="tintColor"/>
                                         <nil key="highlightedColor"/>
@@ -104,10 +104,10 @@
                                 </subviews>
                             </stackView>
                             <stackView opaque="NO" contentMode="scaleToFill" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="95c-cL-0nL">
-                                <rect key="frame" x="8" y="72.666666666666671" width="118" height="32"/>
+                                <rect key="frame" x="7.9999999999999929" y="72.666666666666671" width="115.33333333333331" height="32"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nwv-Eu-J9U">
-                                        <rect key="frame" x="0.0" y="0.3333333333333286" width="118" height="31.333333333333332"/>
+                                        <rect key="frame" x="0.0" y="0.3333333333333286" width="115.33333333333333" height="31"/>
                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                         <state key="normal" title="view script">
                                             <imageReference key="image" image="arrowshape.right" catalog="system" symbolScale="small"/>
@@ -285,6 +285,7 @@
             </constraints>
             <size key="customSize" width="328" height="132"/>
             <connections>
+                <outlet property="btnViewScript" destination="nwv-Eu-J9U" id="Vgg-AR-EhP"/>
                 <outlet property="btn_accept" destination="bbd-S0-Bjf" id="ct8-XJ-V6k"/>
                 <outlet property="btn_cancel" destination="BMN-cX-vSa" id="gUZ-HM-U1D"/>
                 <outlet property="btn_joinmeeting" destination="eoR-8B-GHc" id="PBN-iU-v9a"/>

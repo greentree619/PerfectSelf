@@ -151,6 +151,12 @@ class ReaderBookingViewController: UIViewController, UICollectionViewDataSource,
         cell.parentViewController = self
         cell.roomUid = roomUid
         cell.delegate = self
+        if(bookType == 0){
+            cell.btnViewScript.isHidden = true
+        }
+        else{
+            cell.btnViewScript.isHidden = false
+        }
         return cell
     }
     

@@ -40,6 +40,8 @@ class BookingCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var btn_joinmeeting: UIButton!
     
     @IBOutlet weak var view_btngroup: UIStackView!
+    @IBOutlet weak var btnViewScript: UIButton!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
