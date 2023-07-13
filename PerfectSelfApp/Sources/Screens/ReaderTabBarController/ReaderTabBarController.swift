@@ -156,7 +156,7 @@ class ReaderTabBarController: UITabBarController {
                                                     image: UIImage) -> UIViewController {
         let navController = UINavigationController(rootViewController: rootViewController)
 //        navController.tabBarItem.title = title
-        navController.tabBarItem.image = image
+        navController.tabBarItem.image = image.resizeImage(targetSize: CGSizeMake(32.0, 32.0))
         //navController.navigationBar.prefersLargeTitles = true
         // rootViewController.navigationItem.title = title
         return navController

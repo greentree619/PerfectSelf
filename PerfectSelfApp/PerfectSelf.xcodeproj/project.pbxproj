@@ -14,6 +14,7 @@
 		2F7EBC3822DCCB4E0015B46E /* StarscreamProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F7EBC3722DCCB4E0015B46E /* StarscreamProvider.swift */; };
 		2F7EBC3A22DCCE240015B46E /* NativeWebSocket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F7EBC3922DCCE240015B46E /* NativeWebSocket.swift */; };
 		344386EB2A40735700D479FB /* TrackSegmentRepo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 344386EA2A40735700D479FB /* TrackSegmentRepo.swift */; };
+		344D72D52A606B500089B67D /* UIImage+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 344D72D42A606B500089B67D /* UIImage+Extensions.swift */; };
 		345406472A54F26200026561 /* AudioInputTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 345406452A54F26200026561 /* AudioInputTableCell.swift */; };
 		345406482A54F26200026561 /* AudioInputTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 345406462A54F26200026561 /* AudioInputTableCell.xib */; };
 		3454064B2A552E9500026561 /* MicrophoneListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 345406492A552E9500026561 /* MicrophoneListViewController.swift */; };
@@ -244,6 +245,7 @@
 		2F7EBC3722DCCB4E0015B46E /* StarscreamProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarscreamProvider.swift; sourceTree = "<group>"; };
 		2F7EBC3922DCCE240015B46E /* NativeWebSocket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeWebSocket.swift; sourceTree = "<group>"; };
 		344386EA2A40735700D479FB /* TrackSegmentRepo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackSegmentRepo.swift; sourceTree = "<group>"; };
+		344D72D42A606B500089B67D /* UIImage+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extensions.swift"; sourceTree = "<group>"; };
 		345406452A54F26200026561 /* AudioInputTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioInputTableCell.swift; sourceTree = "<group>"; };
 		345406462A54F26200026561 /* AudioInputTableCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AudioInputTableCell.xib; sourceTree = "<group>"; };
 		345406492A552E9500026561 /* MicrophoneListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MicrophoneListViewController.swift; sourceTree = "<group>"; };
@@ -710,6 +712,7 @@
 				4744C4A529D088FD00963C92 /* DateFormat.swift */,
 				470AEBC929D1ACE200AD3848 /* StringHeight.swift */,
 				943BABDE2A2A40CD00B3F619 /* ButtonExtension.swift */,
+				344D72D42A606B500089B67D /* UIImage+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1511,6 +1514,7 @@
 				BAD0B51529BA17130061FEF5 /* ReaderProfileEditSkillViewController.swift in Sources */,
 				2F7EBC3A22DCCE240015B46E /* NativeWebSocket.swift in Sources */,
 				47B025CD29D34D8300DFECE7 /* SkillCell.swift in Sources */,
+				344D72D52A606B500089B67D /* UIImage+Extensions.swift in Sources */,
 				470AEBCA29D1ACE200AD3848 /* StringHeight.swift in Sources */,
 				943BABD82A2A363400B3F619 /* VerifCodeViewController.swift in Sources */,
 			);
