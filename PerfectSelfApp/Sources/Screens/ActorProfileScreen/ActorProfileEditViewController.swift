@@ -68,7 +68,7 @@ class ActorProfileEditViewController: UIViewController, PhotoDelegate {
         dropDownForAgeRange.anchorView = ageview
         // The list of items to display. Can be changed dynamically
         dropDownForGender.dataSource = genderAry
-        dropDownForAgeRange.dataSource = ["Select...", "10-20", "21-30", "31-40", "41-50", "over 50"]
+        dropDownForAgeRange.dataSource = ageRangeAry
         // Action triggered on selection
         dropDownForGender.selectionAction = { [unowned self] (index: Int, item: String) in
             text_gender.text = item

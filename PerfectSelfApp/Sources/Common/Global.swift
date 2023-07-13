@@ -75,7 +75,8 @@ enum Gender: Int {
     case Nothing
 }
 
-let genderAry = ["Male",  "Female", "NonBinary",  "Genderqueer", "Genderfluid",  "Transgender",   "Agender",  "Bigender",  "TwoSpirit",  "Androgynous",   "Unkown", ""]
+let genderAry = ["Male",  "Female", "NonBinary",  "Transgender",  "Genderqueer"]//["Male",  "Female", "NonBinary",  "Genderqueer", "Genderfluid",  "Transgender",   "Agender",  "Bigender",  "TwoSpirit",  "Androgynous",   "Unkown", ""]
+let ageRangeAry = ["", "10-20", "21-30", "31-40", "41-50", "over 50"]
 
 //{{For uploading to AWS.
 var audioUrl: URL?

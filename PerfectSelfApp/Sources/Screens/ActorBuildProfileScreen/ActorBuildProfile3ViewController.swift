@@ -286,12 +286,13 @@ class ActorBuildProfile3ViewController: UIViewController {
                 focusTextField = text_agency
             }
         }
-        if(text_vaccination.text!.isEmpty){
-            inputCheck += "- Please select vaccination .\n"
-            if(focusTextField == nil){
-                focusTextField = text_vaccination
-            }
-        }
+//Omitted 
+//        if(text_vaccination.text!.isEmpty){
+//            inputCheck += "- Please select vaccination .\n"
+//            if(focusTextField == nil){
+//                focusTextField = text_vaccination
+//            }
+//        }
         if(!inputCheck.isEmpty){
             showAlert(viewController: self, title: "Confirm", message: inputCheck) { UIAlertAction in
                 focusTextField!.becomeFirstResponder()
