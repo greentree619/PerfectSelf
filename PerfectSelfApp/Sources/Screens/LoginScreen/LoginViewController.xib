@@ -34,10 +34,10 @@
                     <rect key="frame" x="0.0" y="0.0" width="375" height="778"/>
                     <subviews>
                         <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="buK-hB-JDR">
-                            <rect key="frame" x="0.0" y="0.0" width="375" height="393"/>
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="363"/>
                             <subviews>
                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="login" translatesAutoresizingMaskIntoConstraints="NO" id="VSY-N8-O8y">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="393"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="363"/>
                                 </imageView>
                             </subviews>
                             <constraints>
@@ -50,7 +50,7 @@
                             </variation>
                         </stackView>
                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" translatesAutoresizingMaskIntoConstraints="NO" id="WnO-5h-OKN">
-                            <rect key="frame" x="0.0" y="428" width="375" height="45"/>
+                            <rect key="frame" x="0.0" y="398" width="375" height="45"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PERFECT SELF" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tSP-Y7-Qki">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="45"/>
@@ -69,15 +69,32 @@
                                 <constraint firstAttribute="height" constant="45" id="NZd-ZD-F3c" customClass="AdaptiveLayoutConstraint" customModule="PerfectSelf" customModuleProvider="target"/>
                             </constraints>
                         </stackView>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Taking The Tech Of The Tape" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4mx-6s-clW">
-                            <rect key="frame" x="0.0" y="508" width="375" height="30"/>
-                            <constraints>
-                                <constraint firstAttribute="height" constant="30" id="Ms6-KG-zfQ"/>
-                            </constraints>
-                            <fontDescription key="fontDescription" name="Raleway-Bold" family="Raleway" pointSize="24"/>
-                            <nil key="textColor"/>
-                            <nil key="highlightedColor"/>
-                        </label>
+                        <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qan-Oj-dLX">
+                            <rect key="frame" x="0.0" y="478" width="375" height="60"/>
+                            <subviews>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZA6-td-nCA">
+                                    <rect key="frame" x="0.0" y="0.0" width="20" height="60"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="20" id="6Nm-1u-zCM"/>
+                                    </constraints>
+                                </view>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Taking The Tech Out Of The Tape" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4mx-6s-clW">
+                                    <rect key="frame" x="20" y="0.0" width="335" height="60"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="60" id="Ms6-KG-zfQ"/>
+                                    </constraints>
+                                    <fontDescription key="fontDescription" name="Raleway-Bold" family="Raleway" pointSize="24"/>
+                                    <nil key="textColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FPX-TQ-1B3">
+                                    <rect key="frame" x="355" y="0.0" width="20" height="60"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="20" id="1uD-mA-N4q"/>
+                                    </constraints>
+                                </view>
+                            </subviews>
+                        </stackView>
                         <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NtC-Mo-BAw">
                             <rect key="frame" x="0.0" y="573" width="375" height="90"/>
                             <subviews>
