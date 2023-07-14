@@ -18,6 +18,7 @@ class ReaderTabBarController: UITabBarController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        rootTabbar = self
         
         // Do any additional setup after loading the view.
         if let userInfo = UserDefaults.standard.object(forKey: "USER") as? [String:Any] {

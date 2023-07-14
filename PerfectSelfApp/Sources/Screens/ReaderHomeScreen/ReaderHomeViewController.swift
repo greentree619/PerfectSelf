@@ -194,6 +194,12 @@ class ReaderHomeViewController: UIViewController, UICollectionViewDataSource, UI
             }
         }
     }
+    
+    @IBAction func viewAllDidTap(_ sender: UIButton) {
+        if(rootTabbar != nil){
+            rootTabbar!.selectedIndex = 1
+        }
+    }
     /*
     // MARK: - Navigation
 

@@ -20,6 +20,7 @@ class ActorTabBarController: UITabBarController, UIImagePickerControllerDelegate
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        rootTabbar = self
         
         // Do any additional setup after loading the view.
         tabBar.tintColor = .white;

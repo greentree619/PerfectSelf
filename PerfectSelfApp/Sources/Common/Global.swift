@@ -24,6 +24,7 @@ var backgroundView: UIView? = nil
 var activityIndicatorView: UIActivityIndicatorView? = nil
 var uiViewContoller: UIViewController? = nil
 var selectedTape: VideoCard?
+var rootTabbar: UITabBarController? = nil
 let awsUpload = AWSMultipartUpload()
 let GoogleAuthClientID = "669216550945-mgc5slqbok7j5ubp8255loi7hkoe7mj3.apps.googleusercontent.com"
 let signInConfig = GIDConfiguration(clientID: GoogleAuthClientID)
