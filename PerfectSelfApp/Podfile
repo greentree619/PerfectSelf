@@ -20,4 +20,5 @@ target 'PerfectSelf' do
   pod 'GoogleSignIn', '~> 6.2'
   pod 'GoogleSignInSwiftSupport'
   pod 'HGCircularSlider'
+  pod 'ReadMoreTextView'
 end

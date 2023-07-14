@@ -8,6 +8,7 @@
 
 import UIKit
 import Photos
+import ReadMoreTextView
 
 class ReaderProfileViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, PhotoDelegate {
 
@@ -40,7 +41,7 @@ class ReaderProfileViewController: UIViewController, UICollectionViewDataSource,
     @IBOutlet weak var readerAvatar: UIImageView!
     @IBOutlet weak var readerUsername: UILabel!
     @IBOutlet weak var readerTitle: UILabel!
-    @IBOutlet weak var readerAbout: UITextView!
+    @IBOutlet weak var readerAbout: ReadMoreTextView!
     @IBOutlet weak var quarterHourlyPrice: UILabel!
     @IBOutlet weak var halfHourlyPrice: UILabel!
     @IBOutlet weak var hourlyPrice: UILabel!
@@ -135,6 +136,18 @@ class ReaderProfileViewController: UIViewController, UICollectionViewDataSource,
                     self.readerTitle.text = item.title
                     self.scoreAndReviewCount.text = "\(item.score) (\(item.bookPassCount))"
                     self.readerAbout.text = item.about
+                    let readMoreTextAttributes: [NSAttributedString.Key: Any] = [
+                        NSAttributedString.Key.foregroundColor: self.view.tintColor!,
+                        NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 16)
+                    ]
+                    let readLessTextAttributes = [
+                        NSAttributedString.Key.foregroundColor: UIColor.red,
+                        NSAttributedString.Key.font: UIFont.italicSystemFont(ofSize: 16)
+                    ]
+                    self.readerAbout.attributedReadMoreText = NSAttributedString(string: "... Read more", attributes: readMoreTextAttributes)
+                    self.readerAbout.attributedReadLessText = NSAttributedString(string: " Read less", attributes: readLessTextAttributes)
+                    self.readerAbout.maximumNumberOfLines = 7
+                    self.readerAbout.shouldTrim = true
                     
                     self.quarterHourlyPrice.text = "$\(Float(item.hourlyPrice)/4) / 15 mins"
                     self.halfHourlyPrice.text = "$\(Float(item.hourlyPrice)/2) / 30 mins"

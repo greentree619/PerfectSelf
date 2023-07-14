@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import ReadMoreTextView
 
 class ActorReaderDetailViewController: UIViewController , UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
 
@@ -33,7 +34,7 @@ class ActorReaderDetailViewController: UIViewController , UICollectionViewDataSo
     @IBOutlet weak var reader_quarter_hourly: UILabel!
     @IBOutlet weak var sessionCounts: UILabel!
     @IBOutlet weak var reader_half_hourly: UILabel!
-    @IBOutlet weak var reader_about: UITextView!
+    @IBOutlet weak var reader_about: ReadMoreTextView!
     @IBOutlet weak var timeslotList: UICollectionView!
     
     var items = [TimeSlot]()
@@ -111,6 +112,19 @@ class ActorReaderDetailViewController: UIViewController , UICollectionViewDataSo
                     self.reader_title.text = item.title
                     self.scoreAndReviewCount.text = "\(item.score) (\(item.bookPassCount))"
                     self.reader_about.text = item.about
+                    let readMoreTextAttributes: [NSAttributedString.Key: Any] = [
+                        NSAttributedString.Key.foregroundColor: self.view.tintColor!,
+                        NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 16)
+                    ]
+                    let readLessTextAttributes = [
+                        NSAttributedString.Key.foregroundColor: UIColor.red,
+                        NSAttributedString.Key.font: UIFont.italicSystemFont(ofSize: 16)
+                    ]
+                    self.reader_about.attributedReadMoreText = NSAttributedString(string: "... Read more", attributes: readMoreTextAttributes)
+                    self.reader_about.attributedReadLessText = NSAttributedString(string: " Read less", attributes: readLessTextAttributes)
+                    self.reader_about.maximumNumberOfLines = 7
+                    self.reader_about.shouldTrim = true
+                    
                     self.reader_hourly.text = "$\(item.hourlyPrice) / 1 hr"
                     self.reader_quarter_hourly.text = "$\(item.hourlyPrice/4) / 15 mins"
                     self.reader_half_hourly.text = "$\(item.hourlyPrice/2) / 30 mins"
