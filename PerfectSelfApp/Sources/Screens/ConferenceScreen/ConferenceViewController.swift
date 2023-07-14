@@ -264,6 +264,7 @@ class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSample
         uploadProgress.isUserInteractionEnabled = false
         uploadProgress.thumbLineWidth = 0.0
         uploadProgress.thumbRadius = 0.0
+        uploadProgress.diskColor = UIColor(rgb: 0xc2deff)
         uploadStatus.text="  0%"
         uploadProgress.addTarget(self, action: #selector(updateUploadProgress), for: .valueChanged)
     }

@@ -10,6 +10,7 @@ import Foundation
 import UIKit
 import Photos
 import HGCircularSlider
+import SwiftUI
 
 class ProjectViewController: UIViewController {
     
@@ -118,6 +119,7 @@ class ProjectViewController: UIViewController {
         downloadProgressView.isUserInteractionEnabled = false
         downloadProgressView.thumbLineWidth = 0.0
         downloadProgressView.thumbRadius = 0.0
+        downloadProgressView.diskColor = UIColor(rgb: 0xc2deff)
         downloadProgressLabel.text="  0%"
         
         ConferenceViewController.clearTempFolder()
