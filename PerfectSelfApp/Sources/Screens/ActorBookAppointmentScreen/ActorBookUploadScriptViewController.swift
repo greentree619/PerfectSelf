@@ -18,6 +18,7 @@ class ActorBookUploadScriptViewController: UIViewController, UIDocumentPickerDel
     var bookingDate: String = ""
     var scriptBucket = ""
     var scriptKey = ""
+    let txtScriptPlaceHolder = "Paste Text Script Here"
     
     @IBOutlet weak var lbl_readerName: UILabel!
     @IBOutlet weak var lbl_date: UILabel!
@@ -39,6 +40,10 @@ class ActorBookUploadScriptViewController: UIViewController, UIDocumentPickerDel
         let d = df.string(from: estDate)
         lbl_time.text = "Time: \(t) EST"
         lbl_date.text = "Date: \(d)"
+        
+        text_script.delegate = self
+        text_script.text = txtScriptPlaceHolder
+        text_script.textColor = UIColor.lightGray
     }
 
     @IBAction func UploadScriptFile(_ sender: UIButton) {
@@ -72,7 +77,13 @@ class ActorBookUploadScriptViewController: UIViewController, UIDocumentPickerDel
         controller.bookingStartTime = bookingStartTime
         controller.bookingEndTime = bookingEndTime
         controller.bookingDate = bookingDate
-        controller.script = text_script.text
+        if text_script.textColor == UIColor.lightGray {
+            controller.script = ""
+        }
+        else{
+            controller.script = text_script.text
+        }
+        
         controller.scriptBucket = self.scriptBucket
         controller.scriptKey = self.scriptKey
         controller.modalPresentationStyle = .fullScreen
@@ -105,4 +116,22 @@ class ActorBookUploadScriptViewController: UIViewController, UIDocumentPickerDel
     }
     */
 
+}
+
+extension ActorBookUploadScriptViewController: UITextViewDelegate{
+    func textViewDidBeginEditing(_ textView: UITextView) {
+
+        if text_script.textColor == UIColor.lightGray {
+            text_script.text = ""
+            text_script.textColor = UIColor.black
+        }
+    }
+    
+    func textViewDidEndEditing(_ textView: UITextView) {
+
+        if text_script.text == "" {
+            text_script.text = txtScriptPlaceHolder
+            text_script.textColor = UIColor.lightGray
+        }
+    }
 }
