@@ -52,6 +52,10 @@ class EditReadViewController: UIViewController {
     @IBOutlet weak var uiTitleLabel: UILabel!
     @IBOutlet weak var undoButton: UIButton!
     @IBOutlet weak var redoButton: UIButton!
+    @IBOutlet weak var subtractTimePauseBtn: UIButton!
+    @IBOutlet weak var addTimePauseBtn: UIButton!
+    @IBOutlet weak var redoBtn: UIButton!    
+    @IBOutlet weak var undoBtn: UIButton!
     
     init(videoUrl: URL, audioUrl: inout URL?,  readerVideoUrl: URL, readerAudioUrl: URL, isActorVideoEdit: Bool) {
         self.videoURL = videoUrl
@@ -86,6 +90,10 @@ class EditReadViewController: UIViewController {
         else
         {
             uiTitleLabel.text = "Edit Final"
+            subtractTimePauseBtn.isHidden = true
+            addTimePauseBtn.isHidden = true
+            redoBtn.isHidden = true
+            undoBtn.isHidden = true
         }
         
         editBar.isHidden = !self.onActorVideoEdit

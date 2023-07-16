@@ -10,12 +10,16 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="EditReadViewController" customModule="PerfectSelf" customModuleProvider="target">
             <connections>
+                <outlet property="addTimePauseBtn" destination="60S-Ut-N56" id="XIT-KX-FWv"/>
                 <outlet property="editBar" destination="1Av-vP-k9N" id="j4W-T3-KbK"/>
                 <outlet property="playButton" destination="QMg-ah-O3j" id="xOu-w1-xFh"/>
                 <outlet property="playerView" destination="gNi-yJ-TIt" id="BeL-lB-uih"/>
+                <outlet property="redoBtn" destination="QcI-O9-adK" id="tXv-hb-R9c"/>
                 <outlet property="redoButton" destination="QcI-O9-adK" id="EYl-JZ-21V"/>
                 <outlet property="slider" destination="Iiz-wc-mvQ" id="dfe-i6-O9p"/>
+                <outlet property="subtractTimePauseBtn" destination="hIU-Nz-vRy" id="zse-c7-8ve"/>
                 <outlet property="uiTitleLabel" destination="Ekz-pU-awT" id="WHt-62-MZB"/>
+                <outlet property="undoBtn" destination="Jgq-bc-Vgq" id="oKn-f6-QyW"/>
                 <outlet property="undoButton" destination="Jgq-bc-Vgq" id="9t1-8t-mab"/>
                 <outlet property="view" destination="GgI-Tw-8jH" id="oQK-0P-Io0"/>
             </connections>
@@ -125,7 +129,7 @@
                             </constraints>
                             <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                            <state key="normal" image="edit-rotate-button">
+                            <state key="normal" image="video-enhance">
                                 <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </state>
                             <connections>
@@ -155,7 +159,7 @@
                             </constraints>
                             <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                            <state key="normal" image="background-removal-button">
+                            <state key="normal" image="background-removal">
                                 <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </state>
                             <connections>
@@ -554,11 +558,10 @@
     <resources>
         <image name="audio-enhance-button2" width="37" height="37"/>
         <image name="back-button" width="24" height="24"/>
-        <image name="background-removal-button" width="37" height="37"/>
+        <image name="background-removal" width="37" height="37"/>
         <image name="button-circle-bg" width="36" height="36"/>
         <image name="control-bg" width="34" height="34"/>
         <image name="crop-button" width="37" height="37"/>
-        <image name="edit-rotate-button" width="37" height="37"/>
         <image name="fast-backward" width="16" height="14"/>
         <image name="fast-backward2" width="13" height="11"/>
         <image name="fast-forward" width="16" height="14"/>
@@ -567,5 +570,6 @@
         <image name="play2" width="20" height="24"/>
         <image name="setting" width="19" height="21"/>
         <image name="share-button" width="37" height="37"/>
+        <image name="video-enhance" width="37" height="37"/>
     </resources>
 </document>
