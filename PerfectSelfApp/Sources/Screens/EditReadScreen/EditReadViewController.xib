@@ -115,7 +115,7 @@
                     <edgeInsets key="layoutMargins" top="0.0" left="0.0" bottom="0.0" right="0.0"/>
                 </stackView>
                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="1Av-vP-k9N" userLabel="Edit Bar">
-                    <rect key="frame" x="337" y="434" width="36" height="220"/>
+                    <rect key="frame" x="337" y="480" width="36" height="174"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rOR-8W-LFo" userLabel="Rotate">
                             <rect key="frame" x="0.0" y="0.0" width="36" height="36"/>
@@ -140,7 +140,7 @@
                             </constraints>
                             <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                            <state key="normal" image="audio-enhance-button">
+                            <state key="normal" image="audio-enhance-button2">
                                 <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </state>
                             <connections>
@@ -178,7 +178,7 @@
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aJ8-BX-fpn" userLabel="Share">
-                            <rect key="frame" x="0.0" y="184" width="36" height="36"/>
+                            <rect key="frame" x="0.0" y="138" width="36" height="36"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="36" id="V1y-VT-iNc"/>
                                 <constraint firstAttribute="height" constant="36" id="g12-Ln-mIo"/>
@@ -193,6 +193,11 @@
                             </connections>
                         </button>
                     </subviews>
+                    <variation key="default">
+                        <mask key="subviews">
+                            <exclude reference="fOe-QH-zDv"/>
+                        </mask>
+                    </variation>
                 </stackView>
                 <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="v8z-TB-Zc4">
                     <rect key="frame" x="197" y="438" width="20" height="20"/>
@@ -547,7 +552,7 @@
         </view>
     </objects>
     <resources>
-        <image name="audio-enhance-button" width="37" height="37"/>
+        <image name="audio-enhance-button2" width="37" height="37"/>
         <image name="back-button" width="24" height="24"/>
         <image name="background-removal-button" width="37" height="37"/>
         <image name="button-circle-bg" width="36" height="36"/>

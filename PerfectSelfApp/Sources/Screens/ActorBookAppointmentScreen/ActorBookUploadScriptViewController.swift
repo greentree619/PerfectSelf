@@ -24,6 +24,7 @@ class ActorBookUploadScriptViewController: UIViewController, UIDocumentPickerDel
     @IBOutlet weak var lbl_date: UILabel!
     @IBOutlet weak var text_script: UITextView!
     @IBOutlet weak var lbl_time: UILabel!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 

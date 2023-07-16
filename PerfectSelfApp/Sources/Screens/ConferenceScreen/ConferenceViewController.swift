@@ -32,6 +32,7 @@ class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSample
     @IBOutlet weak var waitingScreen: UIView!
     @IBOutlet weak var uploadProgress: CircularSlider!
     @IBOutlet weak var uploadStatus: UILabel!
+    @IBOutlet weak var waitingLabel: UILabel!
     
     var count = 3
     var remoteCount = 3
@@ -161,16 +162,25 @@ class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSample
     override func viewDidLoad() {
         super.viewDidLoad()
         UIApplication.shared.isIdleTimerDisabled = true//Disable brightness dimming feature while conferencing
-        
-        waitingScreen.isHidden = false
+
         lblTimer.isHidden = true
+        var userType = 3
         if let userInfo = UserDefaults.standard.object(forKey: "USER") as? [String:Any] {
             // Use the saved data
             userName = userInfo["userName"] as? String
             userUid = userInfo["uid"] as? String
+            userType = userInfo["userType"] as! Int
         } else {
             // No data was saved
             print("No data was saved.")
+        }
+        
+        waitingScreen.isHidden = false
+        if userType == 3 {
+            waitingLabel.text = "Please Wait While Your Reader Joins"
+        }
+        else{
+            waitingLabel.text = "Please Wait While Your Actor Joins"
         }
         
         if let version = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String,
