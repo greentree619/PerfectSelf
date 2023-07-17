@@ -52,6 +52,7 @@ class ActorHomeViewController: UIViewController, UICollectionViewDataSource, UIC
         // Do any additional setup after loading the view.
       
     }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         // Retrieve the saved data from UserDefaults
@@ -347,7 +348,7 @@ class ActorHomeViewController: UIViewController, UICollectionViewDataSource, UIC
                     }
                     else{
                         soonBooking = nil
-                        self.nextSessionLabel.text = "No Future Meetings Scheduled"
+                        self.nextSessionLabel.text = "No Upcoming Sessions"
                         self.joinButton.isEnabled = false
                     }
                 }
