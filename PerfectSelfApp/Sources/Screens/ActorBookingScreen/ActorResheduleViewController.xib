@@ -14,7 +14,9 @@
                 <outlet property="btn_10am" destination="Soc-b4-SpT" id="Qa6-Gh-Pxg"/>
                 <outlet property="btn_10pm" destination="Ybu-t9-CzS" id="cfU-il-vXT"/>
                 <outlet property="btn_11am" destination="AfF-Pq-Rnm" id="vUU-4J-0C6"/>
+                <outlet property="btn_12pm" destination="PrS-4K-XBj" id="JjJ-Bx-DZA"/>
                 <outlet property="btn_15min" destination="aNI-Vk-hnQ" id="lH2-FJ-cwd"/>
+                <outlet property="btn_1pm" destination="mhW-Rx-Htv" id="82F-g2-GHl"/>
                 <outlet property="btn_2pm" destination="ThN-lT-bY9" id="0k9-ln-YxU"/>
                 <outlet property="btn_30min" destination="MjR-BT-c5D" id="DS1-3O-Hxa"/>
                 <outlet property="btn_3pm" destination="aOY-RH-KAm" id="B5b-Dj-Be6"/>
@@ -26,6 +28,7 @@
                 <outlet property="btn_8pm" destination="kBP-aj-zJj" id="DOa-ae-Oac"/>
                 <outlet property="btn_9am" destination="Mxf-yQ-ixg" id="tBy-2y-WRQ"/>
                 <outlet property="btn_9pm" destination="ftp-3g-E7g" id="kfI-NA-LYd"/>
+                <outlet property="btn_standby" destination="JKq-DJ-BaC" id="c3S-Y2-VPD"/>
                 <outlet property="picker_date" destination="g3g-DZ-huI" id="dce-M8-Oaf"/>
                 <outlet property="view" destination="VSI-In-Cf1" id="jcq-0h-Tvh"/>
                 <outlet property="view_main" destination="MeW-0P-2j1" id="Zuj-bI-eGA"/>
@@ -95,11 +98,11 @@
                         <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MeW-0P-2j1">
                             <rect key="frame" x="0.0" y="139" width="390" height="705"/>
                             <subviews>
-                                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Abe-Wv-tEj">
+                                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Abe-Wv-tEj">
                                     <rect key="frame" x="0.0" y="0.0" width="390" height="601"/>
                                     <subviews>
-                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="sfN-3g-3O1">
-                                            <rect key="frame" x="0.0" y="0.0" width="390" height="700"/>
+                                        <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="sfN-3g-3O1">
+                                            <rect key="frame" x="0.0" y="0.0" width="390" height="745"/>
                                             <subviews>
                                                 <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GYp-Zs-Ptk">
                                                     <rect key="frame" x="20" y="20" width="350" height="25"/>
@@ -163,7 +166,7 @@
                                                     <rect key="frame" x="20" y="400" width="350" height="30"/>
                                                     <subviews>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aNI-Vk-hnQ">
-                                                            <rect key="frame" x="0.0" y="0.0" width="110" height="30"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="80" height="30"/>
                                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
@@ -189,7 +192,7 @@
                                                             </connections>
                                                         </button>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MjR-BT-c5D">
-                                                            <rect key="frame" x="120" y="0.0" width="110" height="30"/>
+                                                            <rect key="frame" x="90" y="0.0" width="80" height="30"/>
                                                             <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                             <state key="normal" title="30 Min">
@@ -214,10 +217,10 @@
                                                             </connections>
                                                         </button>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hBl-an-ZIl">
-                                                            <rect key="frame" x="240" y="0.0" width="110" height="30"/>
+                                                            <rect key="frame" x="180" y="0.0" width="80" height="30"/>
                                                             <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                                            <state key="normal" title="1 Hour">
+                                                            <state key="normal" title="45 Min">
                                                                 <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             </state>
                                                             <state key="selected">
@@ -236,6 +239,31 @@
                                                             </userDefinedRuntimeAttributes>
                                                             <connections>
                                                                 <action selector="Select60Min:" destination="-1" eventType="touchUpInside" id="qDK-Cf-3DL"/>
+                                                            </connections>
+                                                        </button>
+                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JKq-DJ-BaC">
+                                                            <rect key="frame" x="270" y="0.0" width="80" height="30"/>
+                                                            <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                            <state key="normal" title="Standby">
+                                                                <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            </state>
+                                                            <state key="selected">
+                                                                <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                            </state>
+                                                            <userDefinedRuntimeAttributes>
+                                                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                                    <real key="value" value="5"/>
+                                                                </userDefinedRuntimeAttribute>
+                                                                <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                                    <color key="value" red="0.66666666669999997" green="0.66666666669999997" blue="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                </userDefinedRuntimeAttribute>
+                                                                <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                                    <real key="value" value="1"/>
+                                                                </userDefinedRuntimeAttribute>
+                                                            </userDefinedRuntimeAttributes>
+                                                            <connections>
+                                                                <action selector="SelectStandbyDidTap:" destination="-1" eventType="touchUpInside" id="2DA-s5-hh3"/>
                                                             </connections>
                                                         </button>
                                                     </subviews>
@@ -338,8 +366,59 @@
                                                 <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="mHN-DI-a2L">
                                                     <rect key="frame" x="20" y="515" width="350" height="30"/>
                                                     <subviews>
-                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ThN-lT-bY9">
+                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PrS-4K-XBj">
                                                             <rect key="frame" x="0.0" y="0.0" width="110" height="30"/>
+                                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                            <state key="normal" title="12:00 pm">
+                                                                <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            </state>
+                                                            <state key="selected">
+                                                                <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                            </state>
+                                                            <userDefinedRuntimeAttributes>
+                                                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                                    <real key="value" value="5"/>
+                                                                </userDefinedRuntimeAttribute>
+                                                                <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                                    <color key="value" red="0.66666666669999997" green="0.66666666669999997" blue="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                </userDefinedRuntimeAttribute>
+                                                                <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                                    <real key="value" value="1"/>
+                                                                </userDefinedRuntimeAttribute>
+                                                            </userDefinedRuntimeAttributes>
+                                                            <connections>
+                                                                <action selector="Select12PmDidTap:" destination="-1" eventType="touchUpInside" id="fCb-Xf-OIa"/>
+                                                            </connections>
+                                                        </button>
+                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mhW-Rx-Htv">
+                                                            <rect key="frame" x="120" y="0.0" width="110" height="30"/>
+                                                            <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                            <state key="normal" title="1:00 pm">
+                                                                <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            </state>
+                                                            <state key="selected">
+                                                                <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                            </state>
+                                                            <userDefinedRuntimeAttributes>
+                                                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                                    <real key="value" value="5"/>
+                                                                </userDefinedRuntimeAttribute>
+                                                                <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                                    <color key="value" red="0.66666666669999997" green="0.66666666669999997" blue="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                </userDefinedRuntimeAttribute>
+                                                                <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                                    <real key="value" value="1"/>
+                                                                </userDefinedRuntimeAttribute>
+                                                            </userDefinedRuntimeAttributes>
+                                                            <connections>
+                                                                <action selector="Select1PmDidTap:" destination="-1" eventType="touchUpInside" id="8hN-ed-Rbd"/>
+                                                            </connections>
+                                                        </button>
+                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ThN-lT-bY9">
+                                                            <rect key="frame" x="240" y="0.0" width="110" height="30"/>
                                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
@@ -364,8 +443,13 @@
                                                                 <action selector="Select2Pm:" destination="-1" eventType="touchUpInside" id="Wyl-EG-34Y"/>
                                                             </connections>
                                                         </button>
+                                                    </subviews>
+                                                </stackView>
+                                                <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Ow0-Ks-WYp">
+                                                    <rect key="frame" x="20" y="555" width="350" height="30"/>
+                                                    <subviews>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aOY-RH-KAm">
-                                                            <rect key="frame" x="120" y="0.0" width="110" height="30"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="110" height="30"/>
                                                             <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                             <state key="normal" title="3:00 pm">
@@ -390,7 +474,7 @@
                                                             </connections>
                                                         </button>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1dJ-IW-6mj">
-                                                            <rect key="frame" x="240" y="0.0" width="110" height="30"/>
+                                                            <rect key="frame" x="120" y="0.0" width="110" height="30"/>
                                                             <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                             <state key="normal" title="4:00 pm">
@@ -414,13 +498,8 @@
                                                                 <action selector="Select4Pm:" destination="-1" eventType="touchUpInside" id="EGs-11-lQR"/>
                                                             </connections>
                                                         </button>
-                                                    </subviews>
-                                                </stackView>
-                                                <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="R1l-Jl-pRl">
-                                                    <rect key="frame" x="20" y="555" width="350" height="30"/>
-                                                    <subviews>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vm1-s1-HB4">
-                                                            <rect key="frame" x="0.0" y="0.0" width="110" height="30"/>
+                                                            <rect key="frame" x="240" y="0.0" width="110" height="30"/>
                                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
@@ -445,8 +524,13 @@
                                                                 <action selector="Select5Pm:" destination="-1" eventType="touchUpInside" id="oUK-f3-fca"/>
                                                             </connections>
                                                         </button>
+                                                    </subviews>
+                                                </stackView>
+                                                <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="R1l-Jl-pRl">
+                                                    <rect key="frame" x="20" y="595" width="350" height="30"/>
+                                                    <subviews>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MD0-Hc-b6m">
-                                                            <rect key="frame" x="120" y="0.0" width="110" height="30"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="110" height="30"/>
                                                             <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                             <state key="normal" title="6:00 pm">
@@ -471,7 +555,7 @@
                                                             </connections>
                                                         </button>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="khD-Zz-Uz9">
-                                                            <rect key="frame" x="240" y="0.0" width="110" height="30"/>
+                                                            <rect key="frame" x="120" y="0.0" width="110" height="30"/>
                                                             <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                             <state key="normal" title="7:00 pm">
@@ -495,13 +579,8 @@
                                                                 <action selector="Select7Pm:" destination="-1" eventType="touchUpInside" id="LsS-aS-00s"/>
                                                             </connections>
                                                         </button>
-                                                    </subviews>
-                                                </stackView>
-                                                <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Poc-m4-uJN">
-                                                    <rect key="frame" x="20" y="595" width="350" height="30"/>
-                                                    <subviews>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kBP-aj-zJj">
-                                                            <rect key="frame" x="0.0" y="0.0" width="110" height="30"/>
+                                                            <rect key="frame" x="240" y="0.0" width="110" height="30"/>
                                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
@@ -526,8 +605,13 @@
                                                                 <action selector="Select8Pm:" destination="-1" eventType="touchUpInside" id="eNB-1p-xBp"/>
                                                             </connections>
                                                         </button>
+                                                    </subviews>
+                                                </stackView>
+                                                <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Poc-m4-uJN">
+                                                    <rect key="frame" x="20" y="635" width="350" height="30"/>
+                                                    <subviews>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ftp-3g-E7g">
-                                                            <rect key="frame" x="120" y="0.0" width="110" height="30"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="110" height="30"/>
                                                             <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                             <state key="normal" title="9:00 pm">
@@ -552,7 +636,7 @@
                                                             </connections>
                                                         </button>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ybu-t9-CzS">
-                                                            <rect key="frame" x="240" y="0.0" width="110" height="30"/>
+                                                            <rect key="frame" x="120" y="0.0" width="110" height="30"/>
                                                             <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                             <state key="normal" title="10:00 pm">
@@ -576,15 +660,34 @@
                                                                 <action selector="Select10Pm:" destination="-1" eventType="touchUpInside" id="oXH-Mv-nnC"/>
                                                             </connections>
                                                         </button>
+                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Hig-ti-e2P" userLabel="Padding Button">
+                                                            <rect key="frame" x="240" y="0.0" width="110" height="30"/>
+                                                            <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                            <state key="normal">
+                                                                <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            </state>
+                                                            <state key="selected">
+                                                                <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                            </state>
+                                                            <userDefinedRuntimeAttributes>
+                                                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                                    <real key="value" value="5"/>
+                                                                </userDefinedRuntimeAttribute>
+                                                                <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                                    <color key="value" red="0.66666666669999997" green="0.66666666669999997" blue="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                </userDefinedRuntimeAttribute>
+                                                                <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                                    <real key="value" value="1"/>
+                                                                </userDefinedRuntimeAttribute>
+                                                            </userDefinedRuntimeAttributes>
+                                                        </button>
                                                     </subviews>
                                                 </stackView>
-                                                <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CrZ-mn-eMq">
-                                                    <rect key="frame" x="20" y="635" width="350" height="45"/>
+                                                <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="CrZ-mn-eMq">
+                                                    <rect key="frame" x="20" y="675" width="350" height="50"/>
                                                 </stackView>
                                             </subviews>
-                                            <constraints>
-                                                <constraint firstAttribute="height" constant="700" id="99c-Hc-bXH"/>
-                                            </constraints>
                                             <edgeInsets key="layoutMargins" top="20" left="20" bottom="20" right="20"/>
                                         </stackView>
                                     </subviews>

@@ -98,11 +98,11 @@
                         <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SnB-Bh-P5q">
                             <rect key="frame" x="0.0" y="139" width="390" height="705"/>
                             <subviews>
-                                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aSh-vL-S7u">
+                                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="aSh-vL-S7u">
                                     <rect key="frame" x="0.0" y="0.0" width="390" height="601"/>
                                     <subviews>
-                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="qh2-zK-JAK">
-                                            <rect key="frame" x="0.0" y="0.0" width="390" height="700"/>
+                                        <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="qh2-zK-JAK">
+                                            <rect key="frame" x="0.0" y="0.0" width="390" height="745"/>
                                             <subviews>
                                                 <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ipk-tN-pDr">
                                                     <rect key="frame" x="20" y="20" width="350" height="25"/>
@@ -687,13 +687,10 @@
                                                         </button>
                                                     </subviews>
                                                 </stackView>
-                                                <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KjK-Ur-yAu">
-                                                    <rect key="frame" x="20" y="675" width="350" height="5"/>
+                                                <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KjK-Ur-yAu">
+                                                    <rect key="frame" x="20" y="675" width="350" height="50"/>
                                                 </stackView>
                                             </subviews>
-                                            <constraints>
-                                                <constraint firstAttribute="height" constant="700" id="Gab-53-gWj"/>
-                                            </constraints>
                                             <edgeInsets key="layoutMargins" top="20" left="20" bottom="20" right="20"/>
                                         </stackView>
                                     </subviews>

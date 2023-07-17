@@ -175,35 +175,7 @@ class ReaderProfileViewController: UIViewController, UICollectionViewDataSource,
                         
                         let t = tf.string(from: Date.getDateFromString(date: utcToLocal(dateStr: availibility.fromTime)!)!)
                         
-                        var slot = 0
-                        switch t {
-                        case "09":
-                            slot = 1
-                        case "10":
-                            slot = 2
-                        case "11":
-                            slot = 3
-                        case "14":
-                            slot = 4
-                        case "15":
-                            slot = 5
-                        case "16":
-                            slot = 6
-                        case "17":
-                            slot = 7
-                        case "18":
-                            slot = 8
-                        case "19":
-                            slot = 9
-                        case "20":
-                            slot = 10
-                        case "21":
-                            slot = 11
-                        case "22":
-                            slot = 12
-                        default:
-                            slot = 0
-                        }
+                        let slot = time2slotNo(t)
                         self.items[idx].time.append(Slot(id: availibility.id, slot: slot, duration: 0, isDeleted: false))
                     }
                     self.items = self.items.sorted(by: { Date.getDateFromString(date: $0.date)! < Date.getDateFromString(date: $1.date)! })

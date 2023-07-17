@@ -16,18 +16,7 @@ class ActorBookAppointmentViewController: UIViewController {
     let backgroundView = UIView()
     let timeFormatter = DateFormatter()
     let dateFormatter = DateFormatter()
-    var availableTime: [String] = [
-        "T09", "T10", "T11",
-        "T12", "T13", "T14",
-        "T15", "T16", "T17",
-        "T18", "T19", "T20",
-        "T21", "T22"
-    ]
     
-    var availableDuration: [String] = [
-        "15", "30", "45", "00"
-    ]
-
     @IBOutlet weak var picker_date: UIDatePicker!
     @IBOutlet weak var view_main: UIStackView!
     
@@ -52,27 +41,28 @@ class ActorBookAppointmentViewController: UIViewController {
     @IBOutlet weak var btn_10pm: UIButton!
     
     var btn2TimeMap:Dictionary<UIButton, Int> = [:]
+    var timeBtnAry: [UIButton] = []
     
     var sessionDuration = -1
     var startTime = -1
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        btn2TimeMap[btn_9am] = 9
-        btn2TimeMap[btn_10am] = 10
-        btn2TimeMap[btn_11am] = 11
-        btn2TimeMap[btn_12pm] = 12
-        btn2TimeMap[btn_1pm] = 13
-        btn2TimeMap[btn_2pm] = 14
-        btn2TimeMap[btn_3pm] = 15
-        btn2TimeMap[btn_4pm] = 16
-        btn2TimeMap[btn_5pm] = 17
-        btn2TimeMap[btn_6pm] = 18
-        btn2TimeMap[btn_7pm] = 19
-        btn2TimeMap[btn_8pm] = 20
-        btn2TimeMap[btn_9pm] = 21
-        btn2TimeMap[btn_10pm] = 22
-
+        btn2TimeMap[btn_9am] = 9;timeBtnAry.append(btn_9am)
+        btn2TimeMap[btn_10am] = 10;timeBtnAry.append(btn_10am)
+        btn2TimeMap[btn_11am] = 11;timeBtnAry.append(btn_11am)
+        btn2TimeMap[btn_12pm] = 12;timeBtnAry.append(btn_12pm)
+        btn2TimeMap[btn_1pm] = 13;timeBtnAry.append(btn_1pm)
+        btn2TimeMap[btn_2pm] = 14;timeBtnAry.append(btn_2pm)
+        btn2TimeMap[btn_3pm] = 15;timeBtnAry.append(btn_3pm)
+        btn2TimeMap[btn_4pm] = 16;timeBtnAry.append(btn_4pm)
+        btn2TimeMap[btn_5pm] = 17;timeBtnAry.append(btn_5pm)
+        btn2TimeMap[btn_6pm] = 18;timeBtnAry.append(btn_6pm)
+        btn2TimeMap[btn_7pm] = 19;timeBtnAry.append(btn_7pm)
+        btn2TimeMap[btn_8pm] = 20;timeBtnAry.append(btn_8pm)
+        btn2TimeMap[btn_9pm] = 21;timeBtnAry.append(btn_9pm)
+        btn2TimeMap[btn_10pm] = 22;timeBtnAry.append(btn_10pm)
+        
         // Do any additional setup after loading the view.
         view_main.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
 
@@ -89,10 +79,24 @@ class ActorBookAppointmentViewController: UIViewController {
     }
     
     @IBAction func ChangeSelectedDate(_ sender: UIDatePicker) {
+        btn_15min.isSelected = false
+        btn_15min.isSelected = false
+        btn_60min.isSelected = false
+        btn_Standby.isSelected = false
+        btn_15min.backgroundColor = UIColor.white
+        btn_30min.backgroundColor = UIColor.white
+        btn_60min.backgroundColor = UIColor.white
+        btn_Standby.backgroundColor = UIColor.white
+        for (key, _) in btn2TimeMap
+        {
+            key.isSelected = false
+            key.backgroundColor = UIColor.white
+        }
+        
         displayTimeSlotsForDate(d: sender.date)
     }
     
-    func displayTimeSlotsForDate(d: Date) {
+    func displayTimeSlotsForDate(d: Date) {        
         initTimeSlotState(isEnabled: false)
         let idx = getTimeSlotObjectIndex(d: d)
         if idx < 0 {
@@ -105,45 +109,8 @@ class ActorBookAppointmentViewController: UIViewController {
         }
         
         for t in item.time {
-            if t.slot == 1 {
-                btn_9am.isHighlighted = false
-                btn_9am.isEnabled = true
-            } else if t.slot == 2 {
-                btn_10am.isHighlighted = false
-                btn_10am.isEnabled = true
-            } else if t.slot == 3 {
-                btn_11am.isHighlighted = false
-                btn_11am.isEnabled = true
-            } else if t.slot == 4 {
-                btn_2pm.isHighlighted = false
-                btn_2pm.isEnabled = true
-            } else if t.slot == 5 {
-                btn_3pm.isHighlighted = false
-                btn_3pm.isEnabled = true
-            } else if t.slot == 6 {
-                btn_4pm.isHighlighted = false
-                btn_4pm.isEnabled = true
-            } else if t.slot == 7 {
-                btn_5pm.isHighlighted = false
-                btn_5pm.isEnabled = true
-            } else if t.slot == 8 {
-                btn_6pm.isHighlighted = false
-                btn_6pm.isEnabled = true
-            } else if t.slot == 9 {
-                btn_7pm.isHighlighted = false
-                btn_7pm.isEnabled = true
-            } else if t.slot == 10 {
-                btn_8pm.isHighlighted = false
-                btn_8pm.isEnabled = true
-            } else if t.slot == 11 {
-                btn_9pm.isHighlighted = false
-                btn_9pm.isEnabled = true
-            } else if t.slot == 12 {
-                btn_10pm.isHighlighted = false
-                btn_10pm.isEnabled = true
-            } else {
-                print("oops!")
-            }
+            timeBtnAry[t.slot-1].isHighlighted = false
+            timeBtnAry[t.slot-1].isEnabled = true
         }
     }
     
@@ -306,7 +273,6 @@ class ActorBookAppointmentViewController: UIViewController {
         controller.bookingDate = dateFormatter.string(from: picker_date.date)
         let fromTime = "\(availableTime[ startTime-1 ]):00:00"
         let toTime = "\(availableTime[ startTime-1 ]):\(availableDuration[sessionDuration-1]):00"
-        
         
         controller.bookingStartTime = fromTime
         controller.bookingEndTime = toTime

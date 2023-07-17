@@ -34,6 +34,18 @@ let VideoSize = CGSize(width: videoHeight, height: videoWidth)
 var videoRotateOffset: Int = 0
 var mainRotateDegree: Int = 90
 
+var availableTime: [String] = [
+    "T09", "T10", "T11",
+    "T12", "T13", "T14",
+    "T15", "T16", "T17",
+    "T18", "T19", "T20",
+    "T21", "T22"
+]
+
+var availableDuration: [String] = [
+    "15", "30", "45", "00"
+]
+
 var Filter: [String: Any] = [
     "isAvailableSoon": false,
     "isOnlineNow": true,
@@ -275,12 +287,14 @@ struct TimeSlot: Codable {
     var repeatFlag: Int
     var isStandBy: Bool
 }
+
 struct Slot: Codable {
     var id: Int
     var slot: Int
     var duration: Int
     var isDeleted: Bool
 }
+
 struct ChatChannel: Codable {
     let id: Int
     let senderUid: String
@@ -1238,4 +1252,42 @@ func replaceOrgWithResult(org: URL, result: URL){
     } catch (let writeError) {
         print("Error creating a file \(org) : \(writeError)")
     }
+}
+
+func time2slotNo(_ timeStr: String) -> Int{
+    var slot = 0
+    switch timeStr {
+    case "09":
+        slot = 1
+    case "10":
+        slot = 2
+    case "11":
+        slot = 3
+    case "12":
+        slot = 4
+    case "13":
+        slot = 5
+    case "14":
+        slot = 6
+    case "15":
+        slot = 7
+    case "16":
+        slot = 8
+    case "17":
+        slot = 9
+    case "18":
+        slot = 10
+    case "19":
+        slot = 11
+    case "20":
+        slot = 12
+    case "21":
+        slot = 13
+    case "22":
+        slot = 14
+    default:
+        slot = 0
+    }
+    
+    return slot
 }

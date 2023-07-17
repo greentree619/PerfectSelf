@@ -394,30 +394,36 @@ class PerfectSelfWebAPI
                     fromTime += "T11:00:00"
                     toTime += "T12:00:00"
                 } else if slot.slot == 4 {
+                    fromTime += "T12:00:00"
+                    toTime += "T13:00:00"
+                } else if slot.slot == 5 {
+                    fromTime += "T13:00:00"
+                    toTime += "T14:00:00"
+                } else if slot.slot == 6 {
                     fromTime += "T14:00:00"
                     toTime += "T15:00:00"
-                } else if slot.slot == 5 {
+                } else if slot.slot == 7 {
                     fromTime += "T15:00:00"
                     toTime += "T16:00:00"
-                } else if slot.slot == 6 {
+                } else if slot.slot == 8 {
                     fromTime += "T16:00:00"
                     toTime += "T17:00:00"
-                } else if slot.slot == 7 {
+                } else if slot.slot == 9 {
                     fromTime += "T17:00:00"
                     toTime += "T18:00:00"
-                } else if slot.slot == 8 {
+                } else if slot.slot == 10 {
                     fromTime += "T18:00:00"
                     toTime += "T19:00:00"
-                } else if slot.slot == 9 {
+                } else if slot.slot == 11 {
                     fromTime += "T19:00:00"
                     toTime += "T20:00:00"
-                } else if slot.slot == 10 {
+                } else if slot.slot == 12 {
                     fromTime += "T20:00:00"
                     toTime += "T21:00:00"
-                } else if slot.slot == 11 {
+                } else if slot.slot == 13 {
                     fromTime += "T21:00:00"
                     toTime += "T22:00:00"
-                } else if slot.slot == 12 {
+                } else if slot.slot == 14 {
                     fromTime += "T22:00:00"
                     toTime += "T23:00:00"
                 } else {
