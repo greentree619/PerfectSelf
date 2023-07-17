@@ -107,16 +107,20 @@ extension DateSelectViewController: KoyomiDelegate {
     
     @objc(koyomi:shouldSelectDates:to:withPeriodLength:)
     func koyomi(_ koyomi: Koyomi, shouldSelectDates date: Date?, to toDate: Date?, withPeriodLength length: Int) -> Bool {
-        if length > invalidPeriodLength {
+        if length > invalidPeriodLength, date == nil {
             print("More than \(invalidPeriodLength) days are invalid period.")
             return false
         }
-        isSelectedDate = false
+        isSelectedDate = true
         if toDate != nil {
-            isSelectedDate = true
             self.fromDate = date!
             self.toDate = toDate!
         }
+        else{
+            self.fromDate = date!
+            self.toDate = date!
+        }
+        
         return true
     }
 }
