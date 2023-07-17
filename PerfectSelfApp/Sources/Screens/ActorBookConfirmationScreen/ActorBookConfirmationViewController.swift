@@ -120,6 +120,7 @@ class ActorBookConfirmationViewController: UIViewController, EKEventEditViewDele
         self.dismiss(animated: false)
         
     }
+    
     @IBAction func CompleteBooking(_ sender: UIButton) {
         // call book api
    
