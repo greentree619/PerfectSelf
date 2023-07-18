@@ -9,6 +9,14 @@
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <array key="Raleway-Medium.ttf">
+            <string>Raleway-Medium</string>
+        </array>
+        <array key="Raleway-SemiBold.ttf">
+            <string>Raleway-SemiBold</string>
+        </array>
+    </customFonts>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SignupDetailViewController" customModule="PerfectSelf" customModuleProvider="target">
             <connections>
@@ -150,7 +158,7 @@
                                                 </constraint>
                                             </constraints>
                                             <edgeInsets key="layoutMargins" top="8" left="20" bottom="8" right="20"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                            <fontDescription key="fontDescription" name="Raleway-SemiBold" family="Raleway" pointSize="16"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
@@ -220,7 +228,7 @@
                                                 <constraint firstAttribute="height" constant="30" id="ici-Sz-lL4" customClass="AdaptiveLayoutConstraint" customModule="PerfectSelf" customModuleProvider="target"/>
                                             </constraints>
                                             <edgeInsets key="layoutMargins" top="8" left="20" bottom="8" right="20"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                            <fontDescription key="fontDescription" name="Raleway-SemiBold" family="Raleway" pointSize="14"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
@@ -230,7 +238,7 @@
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="40" id="Ak5-6Z-d1O" customClass="AdaptiveLayoutConstraint" customModule="PerfectSelf" customModuleProvider="target"/>
                                             </constraints>
-                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                            <fontDescription key="fontDescription" name="Raleway-Medium" family="Raleway" pointSize="14"/>
                                             <textInputTraits key="textInputTraits"/>
                                         </textField>
                                     </subviews>
@@ -249,7 +257,7 @@
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="30" id="vO1-kG-ggo"/>
                                                     </constraints>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <fontDescription key="fontDescription" name="Raleway-SemiBold" family="Raleway" pointSize="14"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -259,7 +267,7 @@
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="40" id="rnw-hg-m7E" customClass="AdaptiveLayoutConstraint" customModule="PerfectSelf" customModuleProvider="target"/>
                                                     </constraints>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <fontDescription key="fontDescription" name="Raleway-Medium" family="Raleway" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits"/>
                                                 </textField>
                                             </subviews>
@@ -272,7 +280,7 @@
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="30" id="faj-6g-COS"/>
                                                     </constraints>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <fontDescription key="fontDescription" name="Raleway-SemiBold" family="Raleway" pointSize="14"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -282,7 +290,7 @@
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="40" id="GUh-pm-s0W" customClass="AdaptiveLayoutConstraint" customModule="PerfectSelf" customModuleProvider="target"/>
                                                     </constraints>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <fontDescription key="fontDescription" name="Raleway-Medium" family="Raleway" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits"/>
                                                 </textField>
                                             </subviews>
@@ -350,8 +358,6 @@
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
                 <constraint firstItem="gAz-UH-lvc" firstAttribute="trailing" secondItem="Qal-q3-Pfl" secondAttribute="trailing" id="5rV-cp-wlN"/>
-                <constraint firstItem="gAz-UH-lvc" firstAttribute="top" secondItem="Ixh-Db-xX6" secondAttribute="top" id="GGi-pc-Pqx"/>
-                <constraint firstAttribute="bottom" secondItem="gAz-UH-lvc" secondAttribute="bottom" id="P4v-tW-Jxs"/>
                 <constraint firstItem="gAz-UH-lvc" firstAttribute="leading" secondItem="Qal-q3-Pfl" secondAttribute="leading" id="hJX-ZI-JF4"/>
             </constraints>
             <point key="canvasLocation" x="-585" y="-660"/>

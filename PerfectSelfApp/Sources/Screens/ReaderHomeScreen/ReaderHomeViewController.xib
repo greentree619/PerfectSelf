@@ -48,7 +48,7 @@
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="S   E   L   F" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KPJ-MX-Mho">
-                                    <rect key="frame" x="130.33333333333331" y="160" width="132.33333333333331" height="30"/>
+                                    <rect key="frame" x="152" y="100" width="89.333333333333314" height="30"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="30" id="eNT-6A-1Ta" customClass="AdaptiveLayoutConstraint" customModule="PerfectSelf" customModuleProvider="target"/>
                                     </constraints>
@@ -56,11 +56,17 @@
                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <nil key="highlightedColor"/>
                                 </label>
+                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="splash" translatesAutoresizingMaskIntoConstraints="NO" id="Qwn-r2-nKj">
+                                    <rect key="frame" x="144.66666666666666" y="100" width="104" height="104"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" secondItem="Qwn-r2-nKj" secondAttribute="height" multiplier="1:1" id="xK5-ee-tNX"/>
+                                    </constraints>
+                                </imageView>
                                 <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DMP-3G-yWX">
-                                    <rect key="frame" x="96.666666666666686" y="190" width="200" height="20"/>
+                                    <rect key="frame" x="96.666666666666686" y="204" width="200" height="6"/>
                                 </stackView>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Help Actors Film Their Self Tape" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="e9d-5u-un2">
-                                    <rect key="frame" x="82" y="210" width="229" height="40"/>
+                                    <rect key="frame" x="76" y="210" width="241" height="40"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="40" id="1sP-ga-OFT" customClass="AdaptiveLayoutConstraint" customModule="PerfectSelf" customModuleProvider="target"/>
                                     </constraints>
@@ -80,9 +86,16 @@
                             </subviews>
                             <color key="backgroundColor" red="0.45882352939999999" green="0.52941176469999995" blue="0.85098039219999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <constraints>
+                                <constraint firstItem="Qwn-r2-nKj" firstAttribute="centerX" secondItem="V0M-kY-ORQ" secondAttribute="centerX" id="ro4-I5-llc"/>
                                 <constraint firstAttribute="height" constant="310" id="yJ5-wa-IBU" customClass="AdaptiveLayoutConstraint" customModule="PerfectSelf" customModuleProvider="target"/>
                             </constraints>
                             <edgeInsets key="layoutMargins" top="100" left="8" bottom="30" right="8"/>
+                            <variation key="default">
+                                <mask key="subviews">
+                                    <exclude reference="3bK-mh-FPg"/>
+                                    <exclude reference="KPJ-MX-Mho"/>
+                                </mask>
+                            </variation>
                         </stackView>
                         <stackView opaque="NO" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="ECC-Pm-7EC">
                             <rect key="frame" x="0.0" y="310" width="393" height="88"/>
@@ -97,14 +110,14 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="n8u-UI-jTk">
-                                            <rect key="frame" x="288" y="0.0" width="73" height="50"/>
+                                            <rect key="frame" x="286" y="0.0" width="75" height="50"/>
                                             <color key="tintColor" red="0.1960784314" green="0.67843137249999996" blue="0.90196078430000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <state key="normal" title="Button"/>
                                             <buttonConfiguration key="configuration" style="plain">
                                                 <attributedString key="attributedTitle">
                                                     <fragment content="View All">
                                                         <attributes>
-                                                            <font key="NSFont" size="14" name="ABeeZee-Regular"/>
+                                                            <font key="NSFont" metaFont="system" size="14"/>
                                                             <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                                         </attributes>
                                                     </fragment>
@@ -174,7 +187,7 @@
                             <rect key="frame" x="0.0" y="0.0" width="353" height="50"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Online Now" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KXp-kE-ibE">
-                                    <rect key="frame" x="8" y="15.666666666666687" width="268" height="18.666666666666671"/>
+                                    <rect key="frame" x="8" y="15.333333333333313" width="268" height="19.333333333333329"/>
                                     <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="16"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
@@ -235,6 +248,7 @@
     </objects>
     <resources>
         <image name="noBook" width="143" height="111"/>
+        <image name="splash" width="104" height="106"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
