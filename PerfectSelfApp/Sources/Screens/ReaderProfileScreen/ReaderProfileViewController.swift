@@ -157,7 +157,7 @@ class ReaderProfileViewController: UIViewController, UICollectionViewDataSource,
                     self.skillList.reloadData()
                     self.hourlyRate = item.hourlyPrice
                     self.auditionType = item.auditionType
-                    self.isExplicitRead = item.isExplicitRead
+                    self.isExplicitRead = item.isExplicitRead ?? false
                     self.sessionCounts.text = "\(String(describing: item.sessionCount)) sessions"
                     self.items.removeAll()
 //                    self.items.append(contentsOf: item.allAvailability)

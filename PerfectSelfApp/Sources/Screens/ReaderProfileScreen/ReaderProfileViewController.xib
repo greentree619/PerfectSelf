@@ -981,6 +981,11 @@
             <point key="canvasLocation" x="-100" y="-609"/>
         </view>
     </objects>
+    <designables>
+        <designable name="eod-TK-5yy">
+            <size key="intrinsicContentSize" width="10" height="33"/>
+        </designable>
+    </designables>
     <resources>
         <image name="building" catalog="system" width="110" height="128"/>
         <image name="camera.circle" catalog="system" width="128" height="123"/>

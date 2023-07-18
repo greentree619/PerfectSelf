@@ -276,6 +276,7 @@ class PerfectSelfWebAPI
             "introVideoKey": introVideokey, // no update
             "auditionType": auditionType
         ]
+        //print(json)
      
         return executeAPI(with: "PUT", apiPath: "ReaderProfiles/\(uid)", json: json, completionHandler:completionHandler)
     }

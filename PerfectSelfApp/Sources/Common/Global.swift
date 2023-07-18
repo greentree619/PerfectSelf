@@ -168,7 +168,7 @@ struct ReaderProfileDetail: Codable {
     let skills: String
     let score: Float
     let auditionType: Int
-    let isExplicitRead: Bool
+    let isExplicitRead: Bool?
     let introBucketName: String
     let introVideoKey: String
     let bookPassCount: Int
