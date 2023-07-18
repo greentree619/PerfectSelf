@@ -137,7 +137,7 @@ class ReaderHomeViewController: UIViewController, UICollectionViewDataSource, UI
         let dateend = dateFormatter.date(from: self.items[indexPath.row].bookEndTime)
         
         let dateFormatter1 = DateFormatter()
-        dateFormatter1.dateFormat = "dd MMM, yyyy"
+        dateFormatter1.dateFormat = appDatetimeFormat
         let dateFormatter2 = DateFormatter()
         dateFormatter2.dateFormat = "hh:mm a"
         

@@ -236,7 +236,7 @@ class BookingCollectionViewCell: UICollectionViewCell {
         //ruid, selecteddate
         controller.rUid = self.uid
         let df = DateFormatter()
-        df.dateFormat = "dd MMM, yyyy"
+        df.dateFormat = appDatetimeFormat
         controller.selectedDate = Date.getStringFromDate(date: df.date(from: lbl_date.text!) ?? Date())
         
         controller.modalPresentationStyle = .fullScreen
