@@ -29,7 +29,7 @@
                     <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                     <subviews>
                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="cIg-i6-Awe">
-                            <rect key="frame" x="0.0" y="0.0" width="393" height="708"/>
+                            <rect key="frame" x="0.0" y="0.0" width="393" height="674"/>
                             <subviews>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AwA-yl-dP7">
                                     <rect key="frame" x="20" y="59" width="353" height="50"/>
@@ -113,9 +113,9 @@
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Nt1-kQ-Usm">
-                                    <rect key="frame" x="20" y="153" width="353" height="140"/>
+                                    <rect key="frame" x="20" y="119" width="353" height="140"/>
                                     <subviews>
-                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="signup" translatesAutoresizingMaskIntoConstraints="NO" id="asM-FT-xya">
+                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="splash" translatesAutoresizingMaskIntoConstraints="NO" id="asM-FT-xya">
                                             <rect key="frame" x="0.0" y="0.0" width="353" height="140"/>
                                         </imageView>
                                     </subviews>
@@ -128,7 +128,7 @@
                                     </constraints>
                                 </stackView>
                                 <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="1" translatesAutoresizingMaskIntoConstraints="NO" id="MQB-m5-xoM">
-                                    <rect key="frame" x="20" y="303" width="353" height="5"/>
+                                    <rect key="frame" x="20" y="269" width="353" height="5"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="5" id="AOT-di-CSL" customClass="AdaptiveLayoutConstraint" customModule="PerfectSelf" customModuleProvider="target">
                                             <userDefinedRuntimeAttributes>
@@ -138,7 +138,7 @@
                                     </constraints>
                                 </progressView>
                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="ZNv-VA-eAe">
-                                    <rect key="frame" x="20" y="318" width="353" height="90"/>
+                                    <rect key="frame" x="20" y="284" width="353" height="90"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" text="Account Type" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="393" translatesAutoresizingMaskIntoConstraints="NO" id="54d-fX-xMI">
                                             <rect key="frame" x="0.0" y="0.0" width="353" height="30"/>
@@ -212,7 +212,7 @@
                                     </constraints>
                                 </stackView>
                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="XPu-bo-Ezg">
-                                    <rect key="frame" x="20" y="418" width="353" height="70"/>
+                                    <rect key="frame" x="20" y="384" width="353" height="70"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" text="Username" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="393" translatesAutoresizingMaskIntoConstraints="NO" id="VSn-VR-9FD">
                                             <rect key="frame" x="0.0" y="0.0" width="353" height="30"/>
@@ -239,7 +239,7 @@
                                     </constraints>
                                 </stackView>
                                 <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="phI-Ql-3nC">
-                                    <rect key="frame" x="20" y="498" width="353" height="70"/>
+                                    <rect key="frame" x="20" y="464" width="353" height="70"/>
                                     <subviews>
                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="KI9-Vv-dgS">
                                             <rect key="frame" x="0.0" y="0.0" width="171.66666666666666" height="70"/>
@@ -307,13 +307,13 @@
                                     </constraints>
                                 </stackView>
                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Rm8-WE-T2y">
-                                    <rect key="frame" x="20" y="578" width="353" height="50"/>
+                                    <rect key="frame" x="20" y="544" width="353" height="50"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="50" id="ysE-fI-sB6"/>
                                     </constraints>
                                 </stackView>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6rd-YI-njE">
-                                    <rect key="frame" x="20" y="638" width="353" height="50"/>
+                                    <rect key="frame" x="20" y="604" width="353" height="50"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="50" id="Uln-DE-zYm"/>
                                     </constraints>
@@ -327,6 +327,7 @@
                             <edgeInsets key="layoutMargins" top="0.0" left="20" bottom="20" right="20"/>
                             <variation key="default">
                                 <mask key="subviews">
+                                    <exclude reference="2hV-J7-AFV"/>
                                     <exclude reference="CeR-Og-VYo"/>
                                 </mask>
                             </variation>
@@ -360,7 +361,7 @@
         <image name="arrow.left" catalog="system" width="128" height="95"/>
         <image name="login_actor" width="29" height="39"/>
         <image name="login_reader" width="28" height="31"/>
-        <image name="signup" width="110" height="104"/>
+        <image name="splash" width="104" height="106"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
