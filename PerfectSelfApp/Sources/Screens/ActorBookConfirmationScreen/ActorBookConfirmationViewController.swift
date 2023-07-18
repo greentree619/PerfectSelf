@@ -63,7 +63,9 @@ class ActorBookConfirmationViewController: UIViewController, EKEventEditViewDele
 
     @IBAction func AddToGoogleCalendar(_ sender: UITapGestureRecognizer) {
         add_to_google_calendar.layer.borderColor = CGColor(red: 0.46, green: 0.53, blue: 0.85, alpha: 1.0)
-        add_to_calendar.layer.borderColor = CGColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
+        add_to_calendar.layer.borderColor = CGColor(red: 0.78, green: 0.78, blue: 0.78, alpha: 1.0)
+        add_to_google_calendar.layer.borderWidth = 2
+        add_to_calendar.layer.borderWidth = 1
         
         GIDSignIn.sharedInstance.signIn(with: signInConfig, presenting: self) { [self] signInResult, error in
             guard let signInResult = signInResult else {
@@ -81,8 +83,10 @@ class ActorBookConfirmationViewController: UIViewController, EKEventEditViewDele
     }
     
     @IBAction func AddToCalendar(_ sender: UITapGestureRecognizer) {
-        add_to_google_calendar.layer.borderColor = CGColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
+        add_to_google_calendar.layer.borderColor = CGColor(red: 0.78, green: 0.78, blue: 0.78, alpha: 1.0)
         add_to_calendar.layer.borderColor = CGColor(red: 0.46, green: 0.53, blue: 0.85, alpha: 1.0)
+        add_to_google_calendar.layer.borderWidth = 1
+        add_to_calendar.layer.borderWidth = 2
         
         let strDate: String = "\(bookingDate)\(bookingStartTime)"
         let strDate2: String = "\(bookingDate)\(bookingEndTime)"
