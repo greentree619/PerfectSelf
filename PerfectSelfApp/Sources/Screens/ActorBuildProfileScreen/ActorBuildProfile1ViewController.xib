@@ -27,8 +27,8 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="profile" translatesAutoresizingMaskIntoConstraints="NO" id="BQB-hs-XBx">
-                    <rect key="frame" x="0.0" y="0.0" width="320" height="406"/>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="profile-build" translatesAutoresizingMaskIntoConstraints="NO" id="BQB-hs-XBx">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="356"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="630" id="Grn-Kx-nWJ" customClass="AdaptiveLayoutConstraint" customModule="PerfectSelf" customModuleProvider="target"/>
                     </constraints>
@@ -42,7 +42,7 @@
                     <rect key="frame" x="0.0" y="356" width="320" height="212"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Build Your Profile" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6FB-ur-JRN">
-                            <rect key="frame" x="61.5" y="20" width="197" height="30"/>
+                            <rect key="frame" x="68" y="20" width="184" height="30"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="30" id="lCB-cR-WgW" customClass="AdaptiveLayoutConstraint" customModule="PerfectSelf" customModuleProvider="target"/>
                             </constraints>
@@ -51,7 +51,7 @@
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Actor’s profile needs to be built in order to schedule a session with the readers" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kyy-kz-LBp">
-                            <rect key="frame" x="23.5" y="60" width="273" height="40"/>
+                            <rect key="frame" x="23" y="60" width="274.33333333333331" height="40"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="40" id="IKb-Ox-I5V" customClass="AdaptiveLayoutConstraint" customModule="PerfectSelf" customModuleProvider="target"/>
                             </constraints>
@@ -60,7 +60,7 @@
                             <nil key="highlightedColor"/>
                         </label>
                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="caC-pz-TjG">
-                            <rect key="frame" x="105" y="110" width="110" height="0.0"/>
+                            <rect key="frame" x="105" y="60" width="110" height="50"/>
                         </stackView>
                         <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="ylV-7Q-YdT">
                             <rect key="frame" x="20" y="120" width="280" height="72"/>
@@ -126,6 +126,9 @@
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                     <variation key="default">
+                        <mask key="subviews">
+                            <exclude reference="kyy-kz-LBp"/>
+                        </mask>
                         <mask key="constraints">
                             <exclude reference="UgH-xh-kcw"/>
                         </mask>
@@ -135,7 +138,7 @@
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
-                <constraint firstItem="OAq-Zn-Wbd" firstAttribute="top" secondItem="BQB-hs-XBx" secondAttribute="bottom" constant="-50" id="FjL-Lt-IFg"/>
+                <constraint firstItem="OAq-Zn-Wbd" firstAttribute="top" secondItem="BQB-hs-XBx" secondAttribute="bottom" id="FjL-Lt-IFg"/>
                 <constraint firstAttribute="bottom" secondItem="OAq-Zn-Wbd" secondAttribute="bottom" id="IyW-so-Owy"/>
                 <constraint firstItem="BQB-hs-XBx" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="Juw-kZ-KJP"/>
                 <constraint firstItem="BQB-hs-XBx" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="KWo-h1-9rY"/>
@@ -148,7 +151,7 @@
     </objects>
     <resources>
         <image name="arrow.right" catalog="system" width="128" height="95"/>
-        <image name="profile" width="751" height="1071"/>
+        <image name="profile-build" width="5908" height="3939"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
