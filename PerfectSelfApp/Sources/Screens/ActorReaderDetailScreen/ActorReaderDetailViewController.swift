@@ -366,6 +366,7 @@ class ActorReaderDetailViewController: UIViewController , UICollectionViewDataSo
             self.present(controller, animated: false)
         }
     }
+    
     @IBAction func ShowOverview(_ sender: UIButton) {
         sender.tintColor = UIColor(rgb: 0x4063FF)
         btn_videointro.tintColor = .black

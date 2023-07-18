@@ -35,7 +35,7 @@ class ActorBookUploadScriptViewController: UIViewController, UIDocumentPickerDel
         df.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
         df.timeZone = TimeZone(abbreviation: "EST")
         let estDate = df.date(from: bookingDate + bookingStartTime) ?? Date()
-        df.dateFormat = "hh:mm"
+        df.dateFormat = "hh:mm a"
         let t = df.string(from: estDate)
         df.dateFormat = "MMMM dd, yyyy"
         let d = df.string(from: estDate)

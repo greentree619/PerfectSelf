@@ -45,7 +45,7 @@ class ActorBookConfirmationViewController: UIViewController, EKEventEditViewDele
         df.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
         df.timeZone = TimeZone(abbreviation: "EST")
         let estDate = df.date(from: bookingDate + bookingStartTime) ?? Date()
-        df.dateFormat = "MMM dd, yyyy  HH:mm a"
+        df.dateFormat = "MMM dd, yyyy  hh:mm a"
         lbl_datetime.text = "Time:  \(df.string(from: estDate))  EST"
         if let userInfo = UserDefaults.standard.object(forKey: "USER") as? [String:Any] {
             // Use the saved data
