@@ -66,6 +66,7 @@ class ActorBookingViewController: UIViewController, UICollectionViewDataSource, 
             print("No data was saved.")
         }
     }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true);
         fetchBookList()

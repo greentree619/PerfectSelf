@@ -24,6 +24,8 @@ class ActorBookUploadScriptViewController: UIViewController, UIDocumentPickerDel
     @IBOutlet weak var lbl_date: UILabel!
     @IBOutlet weak var text_script: UITextView!
     @IBOutlet weak var lbl_time: UILabel!
+    @IBOutlet weak var policyText: UITextView!
+    @IBOutlet weak var agreePolicyCheckBox: CheckBox!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,6 +47,31 @@ class ActorBookUploadScriptViewController: UIViewController, UIDocumentPickerDel
         text_script.delegate = self
         text_script.text = txtScriptPlaceHolder
         text_script.textColor = UIColor.lightGray
+        
+        //{{Script sharing policy
+        self.policyText.textContainer.maximumNumberOfLines = 1
+        //self.policyText.textContainer.lineBreakMode = .byTruncatingTail
+        let attributedString = NSMutableAttributedString(string: "I acknowledge the script sharing policy.")
+        let url = URL(string: sharingPolicyLink)!//"https://www.apple.com"
+
+        // Set the 'click here' substring to be the link
+        attributedString.setAttributes([.link: url], range: NSMakeRange(19, 21))
+
+        self.policyText.attributedText = attributedString
+        self.policyText.isUserInteractionEnabled = true
+        self.policyText.isEditable = false
+
+        // Set how links should appear: blue and underlined
+        self.policyText.linkTextAttributes = [
+            .foregroundColor: UIColor.blue,
+            .underlineStyle: NSUnderlineStyle.single.rawValue
+        ]
+        //}}Script sharing policy
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true);
+        self.policyText.centerVertically()
     }
 
     @IBAction func UploadScriptFile(_ sender: UIButton) {
@@ -71,6 +98,13 @@ class ActorBookUploadScriptViewController: UIViewController, UIDocumentPickerDel
         }
     }
     @IBAction func GotoCheckout(_ sender: UIButton) {
+        guard agreePolicyCheckBox.isChecked else{
+            showAlert(viewController: self, title: "Confirm", message: "Please review and check the script sharing policy.") { UIAlertAction in
+                return
+            }
+            return
+        }
+        
         let controller = ActorSetPaymentViewController();
 
         controller.readerUid = readerUid

@@ -19,6 +19,7 @@
 		345406482A54F26200026561 /* AudioInputTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 345406462A54F26200026561 /* AudioInputTableCell.xib */; };
 		3454064B2A552E9500026561 /* MicrophoneListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 345406492A552E9500026561 /* MicrophoneListViewController.swift */; };
 		3454064C2A552E9500026561 /* MicrophoneListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3454064A2A552E9500026561 /* MicrophoneListViewController.xib */; };
+		3464A1F92A685B1100AB6A39 /* CheckBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3464A1F82A685B1100AB6A39 /* CheckBox.swift */; };
 		47007BE929C2B0C000F83CFD /* ActorSetPaymentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47007BE729C2B0BF00F83CFD /* ActorSetPaymentViewController.swift */; };
 		47007BEA29C2B0C000F83CFD /* ActorSetPaymentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 47007BE829C2B0C000F83CFD /* ActorSetPaymentViewController.xib */; };
 		470AEBCA29D1ACE200AD3848 /* StringHeight.swift in Sources */ = {isa = PBXBuildFile; fileRef = 470AEBC929D1ACE200AD3848 /* StringHeight.swift */; };
@@ -250,6 +251,7 @@
 		345406462A54F26200026561 /* AudioInputTableCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AudioInputTableCell.xib; sourceTree = "<group>"; };
 		345406492A552E9500026561 /* MicrophoneListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MicrophoneListViewController.swift; sourceTree = "<group>"; };
 		3454064A2A552E9500026561 /* MicrophoneListViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MicrophoneListViewController.xib; sourceTree = "<group>"; };
+		3464A1F82A685B1100AB6A39 /* CheckBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckBox.swift; sourceTree = "<group>"; };
 		34FFA12E29FB31EF00BB0E14 /* PerfectSelf.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PerfectSelf.entitlements; sourceTree = "<group>"; };
 		47007BE729C2B0BF00F83CFD /* ActorSetPaymentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActorSetPaymentViewController.swift; sourceTree = "<group>"; };
 		47007BE829C2B0C000F83CFD /* ActorSetPaymentViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ActorSetPaymentViewController.xib; sourceTree = "<group>"; };
@@ -713,6 +715,7 @@
 				470AEBC929D1ACE200AD3848 /* StringHeight.swift */,
 				943BABDE2A2A40CD00B3F619 /* ButtonExtension.swift */,
 				344D72D42A606B500089B67D /* UIImage+Extensions.swift */,
+				3464A1F82A685B1100AB6A39 /* CheckBox.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1509,6 +1512,7 @@
 				BAC11B8629A8B37100580143 /* IDAssetWriterCoordinator.m in Sources */,
 				471D260C29D76869003DAF0A /* ReaderBuildProfileViewController.swift in Sources */,
 				2F7EBC3822DCCB4E0015B46E /* StarscreamProvider.swift in Sources */,
+				3464A1F92A685B1100AB6A39 /* CheckBox.swift in Sources */,
 				47B025A529D3361100DFECE7 /* MKAccordionView.swift in Sources */,
 				BAD0B50A29BA17130061FEF5 /* MeetingListViewController.swift in Sources */,
 				BAD0B51529BA17130061FEF5 /* ReaderProfileEditSkillViewController.swift in Sources */,

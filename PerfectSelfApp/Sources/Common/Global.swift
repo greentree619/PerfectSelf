@@ -34,6 +34,7 @@ let VideoSize = CGSize(width: videoHeight, height: videoWidth)
 var videoRotateOffset: Int = 0
 var mainRotateDegree: Int = 90
 var appDatetimeFormat = "MMM dd, yyyy"
+var sharingPolicyLink = "https://www.apple.com"
 
 var availableTime: [String] = [
     "T09", "T10", "T11",
