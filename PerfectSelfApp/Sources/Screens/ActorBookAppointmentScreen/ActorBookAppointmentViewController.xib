@@ -45,62 +45,57 @@
                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="rUE-G8-YA7">
                             <rect key="frame" x="0.0" y="0.0" width="390" height="139"/>
                             <subviews>
-                                <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="CC2-Zf-yNb">
-                                    <rect key="frame" x="20" y="47" width="350" height="52"/>
+                                <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4Od-Cl-pa4">
+                                    <rect key="frame" x="0.0" y="47" width="390" height="52"/>
                                     <subviews>
-                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4Od-Cl-pa4">
-                                            <rect key="frame" x="0.0" y="0.0" width="350" height="52"/>
-                                            <subviews>
-                                                <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" horizontalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="d41-T0-BEc">
-                                                    <rect key="frame" x="10" y="9" width="35" height="34"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="35" id="Nfd-ty-YzC" customClass="AdaptiveLayoutConstraint" customModule="PerfectSelf" customModuleProvider="target"/>
-                                                        <constraint firstAttribute="height" constant="34" id="ova-jn-DZz" customClass="AdaptiveLayoutConstraint" customModule="PerfectSelf" customModuleProvider="target"/>
-                                                    </constraints>
-                                                    <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                                    <state key="normal">
-                                                        <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                                        <imageReference key="image" image="arrow.left" catalog="system" symbolScale="small"/>
-                                                    </state>
-                                                    <userDefinedRuntimeAttributes>
-                                                        <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
-                                                            <real key="value" value="2"/>
-                                                        </userDefinedRuntimeAttribute>
-                                                        <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                                            <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                        </userDefinedRuntimeAttribute>
-                                                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                            <real key="value" value="8"/>
-                                                        </userDefinedRuntimeAttribute>
-                                                    </userDefinedRuntimeAttributes>
-                                                    <connections>
-                                                        <action selector="GoBack:" destination="-1" eventType="touchUpInside" id="k6q-Qg-h6W"/>
-                                                    </connections>
-                                                </button>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Book Appointment" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sJB-AI-VLr">
-                                                    <rect key="frame" x="73.666666666666686" y="11.666666666666666" width="203" height="28.666666666666671"/>
-                                                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="24"/>
-                                                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" horizontalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="d41-T0-BEc">
+                                            <rect key="frame" x="20" y="9" width="35" height="34"/>
                                             <constraints>
-                                                <constraint firstItem="sJB-AI-VLr" firstAttribute="centerY" secondItem="4Od-Cl-pa4" secondAttribute="centerY" id="1BL-2n-bf3"/>
-                                                <constraint firstItem="d41-T0-BEc" firstAttribute="centerY" secondItem="4Od-Cl-pa4" secondAttribute="centerY" id="4Sv-TB-4kJ"/>
-                                                <constraint firstItem="sJB-AI-VLr" firstAttribute="centerX" secondItem="4Od-Cl-pa4" secondAttribute="centerX" id="Pjg-NC-cc4"/>
-                                                <constraint firstItem="d41-T0-BEc" firstAttribute="leading" secondItem="4Od-Cl-pa4" secondAttribute="leading" constant="10" id="jwy-Gb-DHS"/>
+                                                <constraint firstAttribute="width" constant="35" id="Nfd-ty-YzC" customClass="AdaptiveLayoutConstraint" customModule="PerfectSelf" customModuleProvider="target"/>
+                                                <constraint firstAttribute="height" constant="34" id="ova-jn-DZz" customClass="AdaptiveLayoutConstraint" customModule="PerfectSelf" customModuleProvider="target"/>
                                             </constraints>
-                                        </view>
+                                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                            <state key="normal">
+                                                <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                <imageReference key="image" image="arrow.left" catalog="system" symbolScale="small"/>
+                                            </state>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                    <real key="value" value="2"/>
+                                                </userDefinedRuntimeAttribute>
+                                                <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                    <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </userDefinedRuntimeAttribute>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                    <real key="value" value="8"/>
+                                                </userDefinedRuntimeAttribute>
+                                            </userDefinedRuntimeAttributes>
+                                            <connections>
+                                                <action selector="GoBack:" destination="-1" eventType="touchUpInside" id="wYd-kZ-5iY"/>
+                                            </connections>
+                                        </button>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Book Appointment" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sJB-AI-VLr">
+                                            <rect key="frame" x="93.666666666666686" y="11.666666666666666" width="203" height="28.666666666666671"/>
+                                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="24"/>
+                                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
                                     </subviews>
-                                </stackView>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <constraints>
+                                        <constraint firstItem="d41-T0-BEc" firstAttribute="centerY" secondItem="4Od-Cl-pa4" secondAttribute="centerY" id="3Gf-T1-4ml"/>
+                                        <constraint firstItem="d41-T0-BEc" firstAttribute="leading" secondItem="4Od-Cl-pa4" secondAttribute="leading" constant="20" id="LBh-Ic-gtc"/>
+                                        <constraint firstItem="sJB-AI-VLr" firstAttribute="centerX" secondItem="4Od-Cl-pa4" secondAttribute="centerX" id="PS5-tk-255"/>
+                                        <constraint firstItem="sJB-AI-VLr" firstAttribute="centerY" secondItem="4Od-Cl-pa4" secondAttribute="centerY" id="jEE-dE-y5C"/>
+                                    </constraints>
+                                </view>
                             </subviews>
                             <constraints>
                                 <constraint firstAttribute="height" constant="139" id="sf7-EE-6Aa"/>
                                 <constraint firstAttribute="height" constant="74" id="uyd-32-8oh" customClass="AdaptiveLayoutConstraint" customModule="PerfectSelf" customModuleProvider="target"/>
                             </constraints>
-                            <edgeInsets key="layoutMargins" top="0.0" left="20" bottom="40" right="20"/>
+                            <edgeInsets key="layoutMargins" top="0.0" left="0.0" bottom="40" right="0.0"/>
                             <variation key="default">
                                 <mask key="constraints">
                                     <exclude reference="uyd-32-8oh"/>

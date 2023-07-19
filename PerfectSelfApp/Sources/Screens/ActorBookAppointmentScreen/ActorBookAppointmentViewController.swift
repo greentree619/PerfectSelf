@@ -266,6 +266,7 @@ class ActorBookAppointmentViewController: UIViewController {
             showAlert(viewController: self, title: "Confirm", message: "Please select session to continue") { UIAlertAction in
                            return
             }
+            return
         }
         let controller = ActorBookUploadScriptViewController()
         controller.readerUid = rUid
