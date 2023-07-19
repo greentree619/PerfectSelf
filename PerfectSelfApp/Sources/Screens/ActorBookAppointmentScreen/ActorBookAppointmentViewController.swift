@@ -79,8 +79,11 @@ class ActorBookAppointmentViewController: UIViewController {
     }
     
     @IBAction func ChangeSelectedDate(_ sender: UIDatePicker) {
+        sessionDuration = -1
+        startTime = -1
+        
         btn_15min.isSelected = false
-        btn_15min.isSelected = false
+        btn_30min.isSelected = false
         btn_60min.isSelected = false
         btn_Standby.isSelected = false
         btn_15min.backgroundColor = UIColor.white
