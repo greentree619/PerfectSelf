@@ -26,7 +26,8 @@ class ActorBookUploadScriptViewController: UIViewController, UIDocumentPickerDel
     @IBOutlet weak var lbl_time: UILabel!
     @IBOutlet weak var policyText: UITextView!
     @IBOutlet weak var agreePolicyCheckBox: CheckBox!
-    
+    @IBOutlet weak var projectNameText: UITextField!
+        
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -47,6 +48,8 @@ class ActorBookUploadScriptViewController: UIViewController, UIDocumentPickerDel
         text_script.delegate = self
         text_script.text = txtScriptPlaceHolder
         text_script.textColor = UIColor.lightGray
+        
+        projectNameText.text = ""
         
         //{{Script sharing policy
         self.policyText.textContainer.maximumNumberOfLines = 1
@@ -97,7 +100,25 @@ class ActorBookUploadScriptViewController: UIViewController, UIDocumentPickerDel
             }
         }
     }
+    
     @IBAction func GotoCheckout(_ sender: UIButton) {
+        var inputCheck: String = ""
+        var focusTextField: UITextField? = nil
+        
+        if(projectNameText.text!.isEmpty){
+            inputCheck += "- Please input project name.\n"
+            if(focusTextField == nil){
+                focusTextField = projectNameText
+            }
+        }
+        
+        if(!inputCheck.isEmpty){
+            showAlert(viewController: self, title: "Confirm", message: inputCheck) { UIAlertAction in
+                focusTextField!.becomeFirstResponder()
+            }
+            return
+        }
+        
         guard agreePolicyCheckBox.isChecked else{
             showAlert(viewController: self, title: "Confirm", message: "Please review and check the script sharing policy.") { UIAlertAction in
                 return
