@@ -176,7 +176,7 @@ class ActorFindReaderViewController: UIViewController , UICollectionViewDataSour
         // add the code here to perform action on the cell
         print("didDeselectItemAt" + String(indexPath.row))
         let controller = ActorReaderDetailViewController()
-        controller.uid = self.items[indexPath.row].uid
+        controller.bookingInfo.uid = self.items[indexPath.row].uid
         controller.modalPresentationStyle = .fullScreen
  
 //        let transition = CATransition()

@@ -10,22 +10,33 @@ import UIKit
 import AnimatedCardInput
 
 class ActorSetPaymentViewController: UIViewController {
-
-    var readerUid: String = ""
-    var readerName: String = ""
-    var bookingStartTime: String = ""
-    var bookingEndTime: String = ""
-    var bookingDate: String = ""
-    var projectName: String = ""
-    var script: String = ""
-    var scriptBucket: String = ""
-    var scriptKey: String = ""
     
+    let bookingInfo: BookingInfo
+//Omitted
+//    var readerUid: String = ""
+//    var readerName: String = ""
+//    var bookingStartTime: String = ""
+//    var bookingEndTime: String = ""
+//    var bookingDate: String = ""
+//    var projectName: String = ""
+//    var script: String = ""
+//    var scriptBucket: String = ""
+//    var scriptKey: String = ""
     
     @IBOutlet weak var cardView: UIStackView!
     @IBOutlet weak var btn_credit: UIButton!
     @IBOutlet weak var btn_paypal: UIButton!
     @IBOutlet weak var btn_applepay: UIButton!
+    
+    init(_ bookingInfo: BookingInfo) {
+        self.bookingInfo = bookingInfo
+        super.init(nibName: String(describing: ActorSetPaymentViewController.self), bundle: Bundle.main)
+    }
+    
+    @available(*, unavailable)
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -62,17 +73,17 @@ class ActorSetPaymentViewController: UIViewController {
         btn_paypal.isSelected = true
     }
     @IBAction func DoCheckout(_ sender: UIButton) {
-        let controller = ActorBookConfirmationViewController();
-
-        controller.readerUid = readerUid
-        controller.readerName = readerName
-        controller.bookingStartTime = bookingStartTime
-        controller.bookingEndTime = bookingEndTime
-        controller.bookingDate = bookingDate
-        controller.projectName = projectName
-        controller.script = script
-        controller.scriptBucket = self.scriptBucket
-        controller.scriptKey = self.scriptKey
+        let controller = ActorBookConfirmationViewController( bookingInfo );
+//Omitted
+//        controller.readerUid = readerUid
+//        controller.readerName = readerName
+//        controller.bookingStartTime = bookingStartTime
+//        controller.bookingEndTime = bookingEndTime
+//        controller.bookingDate = bookingDate
+//        controller.projectName = projectName
+//        controller.script = script
+//        controller.scriptBucket = self.scriptBucket
+//        controller.scriptKey = self.scriptKey
         controller.modalPresentationStyle = .fullScreen
         
 //        let transition = CATransition()

@@ -231,7 +231,7 @@ class ActorHomeViewController: UIViewController, UICollectionViewDataSource, UIC
         //print( self.items[indexPath.row].fcmDeviceToken ?? "kkk")
         let controller = ActorReaderDetailViewController()
         controller.modalPresentationStyle = .fullScreen
-        controller.uid = self.items[indexPath.row].uid
+        controller.bookingInfo.uid = self.items[indexPath.row].uid
        
         ActorBookConfirmationViewController.fcmDeviceToken = self.items[indexPath.row].fcmDeviceToken ?? ""
       

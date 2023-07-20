@@ -11,7 +11,9 @@ import ReadMoreTextView
 
 class ActorReaderDetailViewController: UIViewController , UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
 
-    var uid: String = ""
+    //Omitted var uid: String = ""
+    var bookingInfo: BookingInfo = BookingInfo()
+    
     @IBOutlet weak var btn_overview: UIButton!
     @IBOutlet weak var btn_videointro: UIButton!
     @IBOutlet weak var btn_review: UIButton!
@@ -96,7 +98,7 @@ class ActorReaderDetailViewController: UIViewController , UICollectionViewDataSo
         // call api for reader details
         showIndicator(sender: nil, viewController: self)
         
-        webAPI.getReaderById(id:uid) { data, response, error in
+        webAPI.getReaderById(id: bookingInfo.uid) { data, response, error in
             DispatchQueue.main.async {
                 hideIndicator(sender: nil)
             }
@@ -357,9 +359,10 @@ class ActorReaderDetailViewController: UIViewController , UICollectionViewDataSo
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         // add the code here to perform action on the cell
         if collectionView == timeslotList {
-            let controller = ActorBookAppointmentViewController();
-            controller.rUid = uid
-            controller.rName = self.reader_name.text ?? "Reader"
+            
+            bookingInfo.readerUid = bookingInfo.uid
+            bookingInfo.readerName = self.reader_name.text ?? "Reader"
+            let controller = ActorBookAppointmentViewController(bookingInfo);
             controller.selectedDate = self.items[indexPath.row].date
             controller.timeSlotList = self.items
             controller.modalPresentationStyle = .fullScreen
@@ -421,9 +424,9 @@ class ActorReaderDetailViewController: UIViewController , UICollectionViewDataSo
         })
     }
     @IBAction func BookAppointment(_ sender: UIButton) {
-        let controller = ActorBookAppointmentViewController();
-        controller.rUid = uid
-        controller.rName = self.reader_name.text ?? "Reader"
+        bookingInfo.readerUid = bookingInfo.uid
+        bookingInfo.readerName = self.reader_name.text ?? "Reader"
+        let controller = ActorBookAppointmentViewController(bookingInfo);
         controller.timeSlotList = self.items
         controller.modalPresentationStyle = .fullScreen
      

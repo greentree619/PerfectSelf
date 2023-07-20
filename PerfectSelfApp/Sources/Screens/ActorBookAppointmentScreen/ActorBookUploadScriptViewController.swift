@@ -11,13 +11,15 @@ import MobileCoreServices
 
 class ActorBookUploadScriptViewController: UIViewController, UIDocumentPickerDelegate {
 
-    var readerUid: String = ""
-    var readerName: String = ""
-    var bookingStartTime: String = ""
-    var bookingEndTime: String = ""
-    var bookingDate: String = ""
-    var scriptBucket = ""
-    var scriptKey = ""
+    let bookingInfo: BookingInfo
+//Omitted
+//    var readerUid: String = ""
+//    var readerName: String = ""
+//    var bookingStartTime: String = ""
+//    var bookingEndTime: String = ""
+//    var bookingDate: String = ""
+//    var scriptBucket = ""
+//    var scriptKey = ""
     let txtScriptPlaceHolder = "Paste Text Script Here"
     
     @IBOutlet weak var lbl_readerName: UILabel!
@@ -27,17 +29,27 @@ class ActorBookUploadScriptViewController: UIViewController, UIDocumentPickerDel
     @IBOutlet weak var policyText: UITextView!
     @IBOutlet weak var agreePolicyCheckBox: CheckBox!
     @IBOutlet weak var projectNameText: UITextField!
+    
+    init(_ bookingInfo: BookingInfo) {
+        self.bookingInfo = bookingInfo
+        super.init(nibName: String(describing: ActorBookUploadScriptViewController.self), bundle: Bundle.main)
+    }
+    
+    @available(*, unavailable)
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
         
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        lbl_readerName.text = "Reading with \(readerName)"
+        lbl_readerName.text = "Reading with \(bookingInfo.readerName)"
         
         let df = DateFormatter()
         df.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
         df.timeZone = TimeZone(abbreviation: "EST")
-        let estDate = df.date(from: bookingDate + bookingStartTime) ?? Date()
+        let estDate = df.date(from: bookingInfo.bookingDate + bookingInfo.bookingStartTime) ?? Date()
         df.dateFormat = "hh:mm a"
         let t = df.string(from: estDate)
         df.dateFormat = "MMMM dd, yyyy"
@@ -95,8 +107,8 @@ class ActorBookUploadScriptViewController: UIViewController, UIDocumentPickerDel
                 // do something with url
                 //Omitted let url = "https://perfect-reader-video-bucket.s3.us-east-2.amazonaws.com/actor-script/\(uuid)/\(String(urls[0].lastPathComponent))"
                 
-                self.scriptBucket = SCRIPT_BUCKET
-                self.scriptKey = "\(uuid)/\(String(urls[0].lastPathComponent))"
+                self.bookingInfo.scriptBucket = SCRIPT_BUCKET
+                self.bookingInfo.scriptKey = "\(uuid)/\(String(urls[0].lastPathComponent))"
             }
         }
     }
@@ -126,23 +138,29 @@ class ActorBookUploadScriptViewController: UIViewController, UIDocumentPickerDel
             return
         }
         
-        let controller = ActorSetPaymentViewController();
-
-        controller.readerUid = readerUid
-        controller.readerName = readerName
-        controller.bookingStartTime = bookingStartTime
-        controller.bookingEndTime = bookingEndTime
-        controller.bookingDate = bookingDate
-        controller.projectName = projectNameText.text!
+//        controller.readerUid = readerUid
+//        controller.readerName = readerName
+//        controller.bookingStartTime = bookingStartTime
+//        controller.bookingEndTime = bookingEndTime
+//        controller.bookingDate = bookingDate
+//        controller.projectName = projectNameText.text!
+//        if text_script.textColor == UIColor.lightGray {
+//            controller.script = ""
+//        }
+//        else{
+//            controller.script = text_script.text
+//        }
+//
+//        controller.scriptBucket = self.scriptBucket
+//        controller.scriptKey = self.scriptKey
+        bookingInfo.projectName = projectNameText.text!
         if text_script.textColor == UIColor.lightGray {
-            controller.script = ""
+            bookingInfo.script = ""
         }
         else{
-            controller.script = text_script.text
+            bookingInfo.script = text_script.text
         }
-        
-        controller.scriptBucket = self.scriptBucket
-        controller.scriptKey = self.scriptKey
+        let controller = ActorSetPaymentViewController(bookingInfo);
         controller.modalPresentationStyle = .fullScreen
 //        self.navigationController?.pushViewController(controller, animated: true)
 //        let transition = CATransition()

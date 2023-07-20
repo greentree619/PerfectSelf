@@ -20,6 +20,7 @@
 		3454064B2A552E9500026561 /* MicrophoneListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 345406492A552E9500026561 /* MicrophoneListViewController.swift */; };
 		3454064C2A552E9500026561 /* MicrophoneListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3454064A2A552E9500026561 /* MicrophoneListViewController.xib */; };
 		3464A1F92A685B1100AB6A39 /* CheckBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3464A1F82A685B1100AB6A39 /* CheckBox.swift */; };
+		3464A1FC2A68CFB600AB6A39 /* BookingInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3464A1FB2A68CFB600AB6A39 /* BookingInfo.swift */; };
 		47007BE929C2B0C000F83CFD /* ActorSetPaymentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47007BE729C2B0BF00F83CFD /* ActorSetPaymentViewController.swift */; };
 		47007BEA29C2B0C000F83CFD /* ActorSetPaymentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 47007BE829C2B0C000F83CFD /* ActorSetPaymentViewController.xib */; };
 		470AEBCA29D1ACE200AD3848 /* StringHeight.swift in Sources */ = {isa = PBXBuildFile; fileRef = 470AEBC929D1ACE200AD3848 /* StringHeight.swift */; };
@@ -252,6 +253,7 @@
 		345406492A552E9500026561 /* MicrophoneListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MicrophoneListViewController.swift; sourceTree = "<group>"; };
 		3454064A2A552E9500026561 /* MicrophoneListViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MicrophoneListViewController.xib; sourceTree = "<group>"; };
 		3464A1F82A685B1100AB6A39 /* CheckBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckBox.swift; sourceTree = "<group>"; };
+		3464A1FB2A68CFB600AB6A39 /* BookingInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookingInfo.swift; sourceTree = "<group>"; };
 		34FFA12E29FB31EF00BB0E14 /* PerfectSelf.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PerfectSelf.entitlements; sourceTree = "<group>"; };
 		47007BE729C2B0BF00F83CFD /* ActorSetPaymentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActorSetPaymentViewController.swift; sourceTree = "<group>"; };
 		47007BE829C2B0C000F83CFD /* ActorSetPaymentViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ActorSetPaymentViewController.xib; sourceTree = "<group>"; };
@@ -513,6 +515,14 @@
 			path = WebSocketProvider;
 			sourceTree = "<group>";
 		};
+		3464A1FA2A68CF8800AB6A39 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				3464A1FB2A68CFB600AB6A39 /* BookingInfo.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		47007BE229C2AF2B00F83CFD /* ActorSetPaymentScreen */ = {
 			isa = PBXGroup;
 			children = (
@@ -746,6 +756,7 @@
 		798FBA422200F3B1009F525E /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				3464A1FA2A68CF8800AB6A39 /* Model */,
 				BAD0B49A29BA17120061FEF5 /* Screens */,
 				BAB32E4129B064280000F082 /* Common */,
 				BAC11B7529A8B37100580143 /* Camera */,
@@ -1451,6 +1462,7 @@
 				BAD0B50529BA17130061FEF5 /* VideoViewController.swift in Sources */,
 				BAD0B51C29BA17130061FEF5 /* VideoPicker.swift in Sources */,
 				BAD0B52E29BA17130061FEF5 /* ReaderProfileViewController.swift in Sources */,
+				3464A1FC2A68CFB600AB6A39 /* BookingInfo.swift in Sources */,
 				79177CA620B1F76E00BCD399 /* RTCStates.swift in Sources */,
 				BAD0B53D29BA17130061FEF5 /* ChatViewController.swift in Sources */,
 				472AC4D329F6F133009796FB /* TakePhotoViewController.swift in Sources */,

@@ -9,8 +9,10 @@
 import UIKit
 
 class ActorBookAppointmentViewController: UIViewController {
-    var rUid: String = ""
-    var rName: String = ""
+    let bookingInfo: BookingInfo
+//Omitted
+//    var rUid: String = ""
+//    var rName: String = ""
     var selectedDate: String = ""
     var timeSlotList = [TimeSlot]()
     let backgroundView = UIView()
@@ -45,6 +47,17 @@ class ActorBookAppointmentViewController: UIViewController {
     
     var sessionDuration = -1
     var startTime = -1
+    
+    init(_ bookingInfo: BookingInfo) {
+        self.bookingInfo = bookingInfo
+        super.init(nibName: String(describing: ActorBookAppointmentViewController.self), bundle: Bundle.main)
+    }
+    
+    @available(*, unavailable)
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -271,16 +284,17 @@ class ActorBookAppointmentViewController: UIViewController {
             }
             return
         }
-        let controller = ActorBookUploadScriptViewController()
-        controller.readerUid = rUid
-        controller.readerName = rName
-        controller.bookingDate = dateFormatter.string(from: picker_date.date)
+        
+//        controller.readerUid = rUid
+//        controller.readerName = rName
+        bookingInfo.bookingDate = dateFormatter.string(from: picker_date.date)
         let fromTime = "\(availableTime[ startTime-1 ]):00:00"
         let toTime = "\(availableTime[ startTime-1 ]):\(availableDuration[sessionDuration-1]):00"
-        
-        controller.bookingStartTime = fromTime
-        controller.bookingEndTime = toTime
+        bookingInfo.bookingStartTime = fromTime
+        bookingInfo.bookingEndTime = toTime
 //        print(fromTime, toTime)
+        
+        let controller = ActorBookUploadScriptViewController(bookingInfo)
         controller.modalPresentationStyle = .fullScreen
         self.present(controller, animated: false)
     }

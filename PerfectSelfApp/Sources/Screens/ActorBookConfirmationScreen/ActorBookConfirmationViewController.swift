@@ -15,16 +15,18 @@ import EventKit
 import EventKitUI
 
 class ActorBookConfirmationViewController: UIViewController, EKEventEditViewDelegate{
-    var uid = ""
-    var readerUid: String = ""
-    var readerName: String = ""
-    var bookingDate: String = ""//yyyy-MM-dd
-    var bookingStartTime: String = ""//HH:mm:ss
-    var bookingEndTime: String = ""
-    var projectName: String = ""
-    var script: String = ""
-    var scriptBucket: String = ""
-    var scriptKey: String = ""
+//Omitted
+//    var uid = ""
+//    var readerUid: String = ""
+//    var readerName: String = ""
+//    var bookingDate: String = ""//yyyy-MM-dd
+//    var bookingStartTime: String = ""//HH:mm:ss
+//    var bookingEndTime: String = ""
+//    var projectName: String = ""
+//    var script: String = ""
+//    var scriptBucket: String = ""
+//    var scriptKey: String = ""
+    let bookingInfo: BookingInfo
     static var fcmDeviceToken: String = ""
     
     private let scopes = [kGTLRAuthScopeCalendar]
@@ -36,21 +38,32 @@ class ActorBookConfirmationViewController: UIViewController, EKEventEditViewDele
     
     @IBOutlet weak var lbl_datetime: UILabel!
     @IBOutlet weak var lbl_readerName: UILabel!
+    
+    init(_ bookingInfo: BookingInfo) {
+        self.bookingInfo = bookingInfo
+        super.init(nibName: String(describing: ActorBookConfirmationViewController.self), bundle: Bundle.main)
+    }
+    
+    @available(*, unavailable)
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
         img_book_animation.loadGif(asset: "book-animation")
-        lbl_readerName.text = "Reading with \(readerName)"
+        lbl_readerName.text = "Reading with \(bookingInfo.readerName)"
         let df = DateFormatter()
         df.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
         df.timeZone = TimeZone(abbreviation: "EST")
-        let estDate = df.date(from: bookingDate + bookingStartTime) ?? Date()
+        let estDate = df.date(from: bookingInfo.bookingDate + bookingInfo.bookingStartTime) ?? Date()
         df.dateFormat = "MMM dd, yyyy  hh:mm a"
         lbl_datetime.text = "Time:  \(df.string(from: estDate))  EST"
         if let userInfo = UserDefaults.standard.object(forKey: "USER") as? [String:Any] {
             // Use the saved data
-            uid = userInfo["uid"] as! String
+            bookingInfo.uid = userInfo["uid"] as! String
         } else {
             // No data was saved
             print("No data was saved.")
@@ -77,8 +90,8 @@ class ActorBookConfirmationViewController: UIViewController, EKEventEditViewDele
             print(signInResult.userID!)
             
             self.service.authorizer = signInResult.authentication.fetcherAuthorizer()
-            let strDate: String = "\(bookingDate)\(bookingStartTime)"
-            let strDate2: String = "\(bookingDate)\(bookingEndTime)"
+            let strDate: String = "\(bookingInfo.bookingDate)\(bookingInfo.bookingStartTime)"
+            let strDate2: String = "\(bookingInfo.bookingDate)\(bookingInfo.bookingEndTime)"
             addEventoToGoogleCalendar(summary: "PerfectSelf", description: "Booking Reserved", startTime: strDate, endTime:  strDate2)
         }
     }
@@ -89,8 +102,8 @@ class ActorBookConfirmationViewController: UIViewController, EKEventEditViewDele
         add_to_google_calendar.layer.borderWidth = 1
         add_to_calendar.layer.borderWidth = 2
         
-        let strDate: String = "\(bookingDate)\(bookingStartTime)"
-        let strDate2: String = "\(bookingDate)\(bookingEndTime)"
+        let strDate: String = "\(bookingInfo.bookingDate)\(bookingInfo.bookingStartTime)"
+        let strDate2: String = "\(bookingInfo.bookingDate)\(bookingInfo.bookingEndTime)"
         let eventStore = EKEventStore()
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy'-'MM'-'dd'T'HH':'mm':'ss"
@@ -129,10 +142,10 @@ class ActorBookConfirmationViewController: UIViewController, EKEventEditViewDele
     @IBAction func CompleteBooking(_ sender: UIButton) {
         // call book api
    
-        let bookingStart = bookingDate + bookingStartTime
-        let bookingEnd = bookingDate + bookingEndTime
+        let bookingStart = bookingInfo.bookingDate + bookingInfo.bookingStartTime
+        let bookingEnd = bookingInfo.bookingDate + bookingInfo.bookingEndTime
         showIndicator(sender: sender, viewController: self)
-        webAPI.bookAppointment(actorUid: uid, readerUid: readerUid, projectName: projectName, bookStartTime:bookingStart, bookEndTime: bookingEnd, script: script, scriptBucket: scriptBucket, scriptKey: scriptKey) { data, response, error in
+        webAPI.bookAppointment(actorUid: bookingInfo.uid, readerUid: bookingInfo.readerUid, projectName: bookingInfo.projectName, bookStartTime: bookingStart, bookEndTime:  bookingEnd, script: bookingInfo.script, scriptBucket: bookingInfo.scriptBucket, scriptKey: bookingInfo.scriptKey) { data, response, error in
             guard let data = data, error == nil else {
                 hideIndicator(sender: sender)
                 print(error?.localizedDescription ?? "No data")
