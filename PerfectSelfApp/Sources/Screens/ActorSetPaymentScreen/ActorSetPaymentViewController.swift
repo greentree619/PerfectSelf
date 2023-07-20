@@ -16,9 +16,11 @@ class ActorSetPaymentViewController: UIViewController {
     var bookingStartTime: String = ""
     var bookingEndTime: String = ""
     var bookingDate: String = ""
+    var projectName: String = ""
     var script: String = ""
     var scriptBucket: String = ""
     var scriptKey: String = ""
+    
     
     @IBOutlet weak var cardView: UIStackView!
     @IBOutlet weak var btn_credit: UIButton!
@@ -67,6 +69,7 @@ class ActorSetPaymentViewController: UIViewController {
         controller.bookingStartTime = bookingStartTime
         controller.bookingEndTime = bookingEndTime
         controller.bookingDate = bookingDate
+        controller.projectName = projectName
         controller.script = script
         controller.scriptBucket = self.scriptBucket
         controller.scriptKey = self.scriptKey

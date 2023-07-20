@@ -232,6 +232,7 @@ struct BookingCard: Codable {
     let roomUid: String
     let actorUid: String
     let readerUid: String
+    let projectName: String
     let readerName: String
     let actorName: String
     let scriptFile: String?
@@ -1292,4 +1293,17 @@ func time2slotNo(_ timeStr: String) -> Int{
     }
     
     return slot
+}
+
+func getStringWithLen(_ str: String, _ len: Int) -> String{
+    guard str.count > len else{
+        return str
+    }
+    
+    let start = str.index(str.startIndex, offsetBy: 0)
+    let end = str.index(str.startIndex, offsetBy: len)
+    let range = start..<end
+    let subStr = str[range]
+    
+    return String(subStr)
 }

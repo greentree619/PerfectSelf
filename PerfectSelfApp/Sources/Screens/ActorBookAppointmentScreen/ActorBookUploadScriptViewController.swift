@@ -133,6 +133,7 @@ class ActorBookUploadScriptViewController: UIViewController, UIDocumentPickerDel
         controller.bookingStartTime = bookingStartTime
         controller.bookingEndTime = bookingEndTime
         controller.bookingDate = bookingDate
+        controller.projectName = projectNameText.text!
         if text_script.textColor == UIColor.lightGray {
             controller.script = ""
         }

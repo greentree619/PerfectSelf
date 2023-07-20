@@ -40,6 +40,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
             print(error)
         }
         
+        //{{TESTCODE DELME
+        //}}TESTCODE DELME
+        
         let window = UIWindow(frame: UIScreen.main.bounds)
         window.rootViewController = self.buildMainViewController()
         window.makeKeyAndVisible()

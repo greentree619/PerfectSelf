@@ -281,12 +281,13 @@ class PerfectSelfWebAPI
         return executeAPI(with: "PUT", apiPath: "ReaderProfiles/\(uid)", json: json, completionHandler:completionHandler)
     }
     
-    func bookAppointment(actorUid: String, readerUid: String, bookStartTime: String,bookEndTime: String, script: String,scriptBucket: String, scriptKey: String, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> Void
+    func bookAppointment(actorUid: String, readerUid: String, projectName: String, bookStartTime: String,bookEndTime: String, script: String,scriptBucket: String, scriptKey: String, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> Void
     {
                 
         let json: [String: Any] = [
             "actorUid": actorUid,
             "readerUid": readerUid,
+            "projectName": getStringWithLen( projectName, 64),
             "bookStartTime": localToUTC(dateStr: bookStartTime)!,
             "bookEndTime": localToUTC(dateStr: bookEndTime)!,
             "scriptFile": script,

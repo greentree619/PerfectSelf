@@ -21,6 +21,7 @@ class ActorBookConfirmationViewController: UIViewController, EKEventEditViewDele
     var bookingDate: String = ""//yyyy-MM-dd
     var bookingStartTime: String = ""//HH:mm:ss
     var bookingEndTime: String = ""
+    var projectName: String = ""
     var script: String = ""
     var scriptBucket: String = ""
     var scriptKey: String = ""
@@ -131,7 +132,7 @@ class ActorBookConfirmationViewController: UIViewController, EKEventEditViewDele
         let bookingStart = bookingDate + bookingStartTime
         let bookingEnd = bookingDate + bookingEndTime
         showIndicator(sender: sender, viewController: self)
-        webAPI.bookAppointment(actorUid: uid, readerUid: readerUid, bookStartTime:bookingStart, bookEndTime: bookingEnd, script: script, scriptBucket: scriptBucket, scriptKey: scriptKey) { data, response, error in
+        webAPI.bookAppointment(actorUid: uid, readerUid: readerUid, projectName: projectName, bookStartTime:bookingStart, bookEndTime: bookingEnd, script: script, scriptBucket: scriptBucket, scriptKey: scriptKey) { data, response, error in
             guard let data = data, error == nil else {
                 hideIndicator(sender: sender)
                 print(error?.localizedDescription ?? "No data")
