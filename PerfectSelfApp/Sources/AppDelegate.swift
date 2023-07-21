@@ -35,7 +35,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         
         do {
             try AVAudioSession.sharedInstance().setCategory(.playAndRecord, options: [.allowBluetooth])
-           try AVAudioSession.sharedInstance().setActive(true)
+            try AVAudioSession.sharedInstance().setActive(true)
         } catch {
             print(error)
         }
