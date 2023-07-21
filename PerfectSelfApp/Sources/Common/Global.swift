@@ -1307,3 +1307,121 @@ func getStringWithLen(_ str: String, _ len: Int) -> String{
     
     return String(subStr)
 }
+
+func exportMergedVideo(avUrl: URL, aaUrl: URL, rvUrl: URL, raUrl:URL, vc: UIViewController, completeHandler: @escaping( URL? )->Void){
+    DispatchQueue.main.async {
+        showIndicator(sender: nil, viewController: vc, color:UIColor.white)
+    }
+    
+    let actorVAsset = AVURLAsset(url: avUrl)
+    let actorAAsset = AVURLAsset(url: aaUrl)
+    let readerAAsset = AVURLAsset(url: raUrl)
+//        do
+//        {
+    let mixComposition = AVMutableComposition()
+    guard
+        let recordTrack = mixComposition.addMutableTrack(
+            withMediaType: .video,
+            preferredTrackID: Int32(kCMPersistentTrackID_Invalid))
+    else {
+        DispatchQueue.main.async {
+            hideIndicator(sender:  nil)
+        }
+        return
+    }
+    
+    do {
+        try recordTrack.insertTimeRange(
+            CMTimeRangeMake(start: .zero, duration: actorVAsset.duration),
+            of: actorVAsset.tracks(withMediaType: .video).first!,
+            at: .zero)
+    } catch {
+        DispatchQueue.main.async {
+            hideIndicator(sender:  nil)
+        }
+        return
+    }
+    
+    let audioTrack = mixComposition.addMutableTrack(
+        withMediaType: .audio,
+        preferredTrackID: Int32(kCMPersistentTrackID_Invalid))
+    do {
+        try audioTrack?.insertTimeRange(
+            CMTimeRangeMake(
+                start: .zero,
+                duration: actorVAsset.duration),
+            of: actorAAsset.tracks(withMediaType: .audio).first!,
+            at: .zero)
+    } catch {
+        print("Failed to load Audio track")
+    }
+    
+    let uploadedAudioTrack = mixComposition.addMutableTrack(
+        withMediaType: .audio,
+        preferredTrackID: Int32(kCMPersistentTrackID_Invalid))
+    do {
+        let duration = min(actorAAsset.duration, readerAAsset.duration)
+        try uploadedAudioTrack?.insertTimeRange(
+            CMTimeRangeMake(
+                start: .zero,
+                duration: duration),
+            of: readerAAsset.tracks(withMediaType: .audio).first!,
+            at: .zero)
+    } catch {
+        print("Failed to load Audio track")
+    }
+    
+    // Not needed Uploaded video track here right now..
+    let mainInstruction = AVMutableVideoCompositionInstruction()
+    mainInstruction.timeRange = CMTimeRangeMake(
+        start: .zero,
+        duration: actorVAsset.duration)
+    
+    // only video of recorded track so not added time CMTimeAdd(recordAsset.duration, secondAsset.duration)
+    let firstInstruction = VideoHelper.videoCompositionInstruction(recordTrack, asset: actorVAsset)
+    firstInstruction.setOpacity(0.0, at: actorVAsset.duration)
+
+    mainInstruction.layerInstructions = [firstInstruction]
+    let mainComposition = AVMutableVideoComposition()
+    mainComposition.instructions = [mainInstruction]
+    mainComposition.frameDuration = CMTimeMake(value: 1, timescale: 30)
+    mainComposition.renderSize = VideoSize
+    
+    guard
+        let documentDirectory = FileManager.default.urls(
+            for: .cachesDirectory,
+            in: .userDomainMask).first
+    else { return }
+    let dateFormatter = DateFormatter()
+    dateFormatter.dateStyle = .long
+    dateFormatter.timeStyle = .short
+    var date = dateFormatter.string(from: Date())
+    date += UUID().uuidString
+    let url = documentDirectory.appendingPathComponent("mergeVideo-\(date).mov")
+    
+    guard let exporter = AVAssetExportSession(
+        asset: mixComposition,
+        presetName: AVAssetExportPresetPassthrough)
+    else { return }
+    exporter.outputURL = url
+    exporter.outputFileType = AVFileType.mov
+    exporter.shouldOptimizeForNetworkUse = true
+    exporter.videoComposition = mainComposition
+    
+    exporter.exportAsynchronously {
+        DispatchQueue.main.async {
+            hideIndicator(sender:  nil)
+            
+            guard  exporter.status == AVAssetExportSession.Status.completed, let outputURL = exporter.outputURL else {
+                completeHandler(nil)
+                return
+            }
+            completeHandler(outputURL)
+        }
+    }
+//        }
+//        catch
+//        {
+//            print("Exception when compiling movie");
+//        }
+}

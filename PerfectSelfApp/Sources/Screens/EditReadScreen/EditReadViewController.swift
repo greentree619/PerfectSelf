@@ -560,21 +560,32 @@ class EditReadViewController: UIViewController {
     @IBAction func shareDidTap(_ sender: UIButton) {
         playerView.pause()
         
-        let image = UIImage(named: "AppIcon")
-        let url = ""//https://streamvalera.com/install"
-        let textToShare = "Share this awesome video. You can download the video from: \(url)"
-        let activityViewController = UIActivityViewController(activityItems: [image!, textToShare], applicationActivities: nil)
-        
-        // If you want to exclude certain activities, you can set excludedActivityTypes
-        activityViewController.excludedActivityTypes = [
-            //.addToReadingList,
-            //.assignToContact,
-            //.print,
-            // Add any other activity types you want to exclude
-        ]
-        
-        activityViewController.popoverPresentationController?.sourceView = sender// If your app is iPad-compatible, this line will set the source view for the popover
-        self.present(activityViewController, animated: true, completion: nil)
+        DispatchQueue.global(qos: .background).async {
+            exportMergedVideo(avUrl: self.videoURL, aaUrl: self.audioURL!
+                              , rvUrl: self.readerVideoURL, raUrl: self.readerAudioURL
+                              , vc: self) { url in
+                DispatchQueue.main.async {
+                    guard let _ = url else{
+                        Toast.show(message: "Failed during export result video.", controller: self)
+                        return
+                    }
+                    
+                    //let textToShare = "Share this awesome video."
+                    let activityViewController = UIActivityViewController(activityItems: [url!/*, textToShare*/], applicationActivities: nil)
+                    
+                    // If you want to exclude certain activities, you can set excludedActivityTypes
+                    activityViewController.excludedActivityTypes = [
+                        //.addToReadingList,
+                        //.assignToContact,
+                        //.print,
+                        // Add any other activity types you want to exclude
+                    ]
+                    
+                    activityViewController.popoverPresentationController?.sourceView = sender// If your app is iPad-compatible, this line will set the source view for the popover
+                    self.present(activityViewController, animated: true, completion: nil)
+                }
+            }
+        }
     }
     
     func mergeAudioWithVideo(videoUrl: URL, audioUrl: URL) {

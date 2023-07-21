@@ -299,7 +299,7 @@ class ProjectViewController: UIViewController {
     
     /// Marker: Edit Final
     @IBAction func editDidTapped(_ sender: UIButton) {
-        guard self.savedVideoUrl != nil else{
+        guard self.savedVideoUrl != nil else {
             return
         }
         isOnPlay = false
