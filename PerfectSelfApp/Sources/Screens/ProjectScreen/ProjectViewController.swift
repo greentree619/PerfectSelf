@@ -473,142 +473,35 @@ class ProjectViewController: UIViewController {
     }
     
     func exportToLocalGallery(){
-        //print("exportToLocalGallery")
-//        savedAudioUrl
-//        savedVideoUrl
-//        savedReaderAudioUrl
-//        savedVideoUrl
-        //DispatchQueue.main.async {
-        showIndicator(sender: nil, viewController: self, color:UIColor.white)
-       // }
-        
-        let actorVAsset = AVURLAsset(url: self.savedVideoUrl!)
-        let actorAAsset = AVURLAsset(url: self.savedAudioUrl!)
-        let readerAAsset = AVURLAsset(url: self.savedReaderAudioUrl!)
-        
-//        do
-//        {
-        let mixComposition = AVMutableComposition()
-        guard
-            let recordTrack = mixComposition.addMutableTrack(
-                withMediaType: .video,
-                preferredTrackID: Int32(kCMPersistentTrackID_Invalid))
-        else {
-            DispatchQueue.main.async {
-                hideIndicator(sender:  nil)
-            }
-            return
-        }
-        
-        do {
-            try recordTrack.insertTimeRange(
-                CMTimeRangeMake(start: .zero, duration: actorVAsset.duration),
-                of: actorVAsset.tracks(withMediaType: .video).first!,
-                at: .zero)
-        } catch {
-            DispatchQueue.main.async {
-                hideIndicator(sender:  nil)
-            }
-            return
-        }
-        
-        let audioTrack = mixComposition.addMutableTrack(
-            withMediaType: .audio,
-            preferredTrackID: Int32(kCMPersistentTrackID_Invalid))
-        do {
-            try audioTrack?.insertTimeRange(
-                CMTimeRangeMake(
-                    start: .zero,
-                    duration: actorVAsset.duration),
-                of: actorAAsset.tracks(withMediaType: .audio).first!,
-                at: .zero)
-        } catch {
-            print("Failed to load Audio track")
-        }
-        
-        let uploadedAudioTrack = mixComposition.addMutableTrack(
-            withMediaType: .audio,
-            preferredTrackID: Int32(kCMPersistentTrackID_Invalid))
-        do {
-            let duration = min(actorAAsset.duration, readerAAsset.duration)
-            try uploadedAudioTrack?.insertTimeRange(
-                CMTimeRangeMake(
-                    start: .zero,
-                    duration: duration),
-                of: readerAAsset.tracks(withMediaType: .audio).first!,
-                at: .zero)
-        } catch {
-            print("Failed to load Audio track")
-        }
-        
-        // Not needed Uploaded video track here right now..
-        let mainInstruction = AVMutableVideoCompositionInstruction()
-        mainInstruction.timeRange = CMTimeRangeMake(
-            start: .zero,
-            duration: actorVAsset.duration)
-        
-        // only video of recorded track so not added time CMTimeAdd(recordAsset.duration, secondAsset.duration)
-        let firstInstruction = VideoHelper.videoCompositionInstruction(recordTrack, asset: actorVAsset)
-        firstInstruction.setOpacity(0.0, at: actorVAsset.duration)
-
-        mainInstruction.layerInstructions = [firstInstruction]
-        let mainComposition = AVMutableVideoComposition()
-        mainComposition.instructions = [mainInstruction]
-        mainComposition.frameDuration = CMTimeMake(value: 1, timescale: 30)
-        mainComposition.renderSize = VideoSize
-        
-        guard
-            let documentDirectory = FileManager.default.urls(
-                for: .cachesDirectory,
-                in: .userDomainMask).first
-        else { return }
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateStyle = .long
-        dateFormatter.timeStyle = .short
-        var date = dateFormatter.string(from: Date())
-        date += UUID().uuidString
-        let url = documentDirectory.appendingPathComponent("mergeVideo-\(date).mov")
-        
-        guard let exporter = AVAssetExportSession(
-            asset: mixComposition,
-            presetName: AVAssetExportPresetPassthrough)
-        else { return }
-        exporter.outputURL = url
-        exporter.outputFileType = AVFileType.mov
-        exporter.shouldOptimizeForNetworkUse = true
-        exporter.videoComposition = mainComposition
-        
-        exporter.exportAsynchronously {
-            DispatchQueue.main.async {
-                hideIndicator(sender:  nil)
-//                //print( exporter.status )
-//                switch (exporter.status)
-//                {
-//                case .cancelled:
-//                    print("Exporting cancelled");
-//                case .completed:
-//                    print("Exporting completed");
-//                case .exporting:
-//                    print("Exporting ...");
-//                case .failed:
-//                    print("Exporting failed");
-//                default:
-//                    print("Exporting with other result");
-//                }
-//                if let error = exporter.error
-//                {
-//                    print("Error:\n\(error)");
-//                }
-                
-                guard  exporter.status == AVAssetExportSession.Status.completed, let outputURL = exporter.outputURL else { return }
-                saveVideoToAlbum(outputURL, nil)
-            }
-        }
+//        guard let _=savedVideoUrl,  let _=savedAudioUrl, let _=savedReaderVideoUrl, let _=savedReaderAudioUrl else{
+//            return
 //        }
-//        catch
-//        {
-//            print("Exception when compiling movie");
-//        }
+        DispatchQueue.global(qos: .background).async {
+            exportMergedVideo(avUrl: self.savedVideoUrl!, aaUrl: self.savedAudioUrl!
+                              , rvUrl: self.savedReaderVideoUrl!, raUrl: self.savedReaderAudioUrl!
+                              , vc: self) { url in
+                DispatchQueue.main.async {
+                    guard let _ = url else{
+                        Toast.show(message: "Failed during export result video.", controller: self)
+                        return
+                    }
+                    
+                    //let textToShare = "Share this awesome video."
+                    let activityViewController = UIActivityViewController(activityItems: [url!/*, textToShare*/], applicationActivities: nil)
+                    
+                    // If you want to exclude certain activities, you can set excludedActivityTypes
+                    activityViewController.excludedActivityTypes = [
+                        //.addToReadingList,
+                        //.assignToContact,
+                        //.print,
+                        // Add any other activity types you want to exclude
+                    ]
+                    
+                    //Omitted activityViewController.popoverPresentationController?.sourceView = sender// If your app is iPad-compatible, this line will set the source view for the popover
+                    self.present(activityViewController, animated: true, completion: nil)
+                }
+            }
+        }
     }
     
     func downloadLibraryTape(completionHandler: @escaping () -> Void)-> Void

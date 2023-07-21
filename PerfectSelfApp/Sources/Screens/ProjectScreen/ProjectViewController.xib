@@ -295,7 +295,7 @@ New Take</string>
                     </userDefinedRuntimeAttributes>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lWu-Er-ne6" userLabel="export">
-                    <rect key="frame" x="337" y="210" width="36" height="36"/>
+                    <rect key="frame" x="337" y="160" width="36" height="36"/>
                     <subviews>
                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="button-circle-bg" translatesAutoresizingMaskIntoConstraints="NO" id="pKx-0u-IH7">
                             <rect key="frame" x="0.0" y="0.0" width="36" height="36"/>
@@ -331,7 +331,7 @@ New Take</string>
                     </userDefinedRuntimeAttributes>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Lb7-Ge-vfZ" userLabel="recycle">
-                    <rect key="frame" x="337" y="260" width="36" height="36"/>
+                    <rect key="frame" x="337" y="210" width="36" height="36"/>
                     <subviews>
                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="button-circle-bg2" translatesAutoresizingMaskIntoConstraints="NO" id="mZr-Bs-fJ3">
                             <rect key="frame" x="0.0" y="0.0" width="36" height="36"/>
@@ -393,6 +393,7 @@ New Take</string>
                 <constraint firstItem="Sfp-wB-P9S" firstAttribute="leading" secondItem="HWB-Y9-ZdC" secondAttribute="leading" id="S3Q-xw-Zm9"/>
                 <constraint firstItem="HWB-Y9-ZdC" firstAttribute="bottom" secondItem="SvV-ve-dM4" secondAttribute="bottom" id="S6m-NK-aq4"/>
                 <constraint firstItem="HWB-Y9-ZdC" firstAttribute="trailing" secondItem="tG5-98-nPm" secondAttribute="trailing" constant="20" id="TFo-eN-fi7"/>
+                <constraint firstItem="lWu-Er-ne6" firstAttribute="top" secondItem="Sfp-wB-P9S" secondAttribute="bottom" constant="14" id="U2b-Rf-KAK"/>
                 <constraint firstItem="sSD-iP-Ty3" firstAttribute="leading" secondItem="HWB-Y9-ZdC" secondAttribute="leading" id="VNo-sp-Vgo"/>
                 <constraint firstItem="gaY-FD-hHh" firstAttribute="leading" secondItem="HWB-Y9-ZdC" secondAttribute="leading" id="W7N-3G-Rof"/>
                 <constraint firstItem="LiK-78-fBX" firstAttribute="top" secondItem="Sfp-wB-P9S" secondAttribute="bottom" constant="14" id="Xnh-36-IdX"/>
@@ -417,6 +418,7 @@ New Take</string>
             <variation key="default">
                 <mask key="subviews">
                     <exclude reference="y8d-fg-FJa"/>
+                    <exclude reference="zD4-LN-r71"/>
                     <exclude reference="tG5-98-nPm"/>
                 </mask>
             </variation>
