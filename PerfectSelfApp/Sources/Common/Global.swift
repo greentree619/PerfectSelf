@@ -232,6 +232,8 @@ struct BookingCard: Codable {
     let roomUid: String
     let actorUid: String
     let readerUid: String
+    let actorFCMDeviceToken: String
+    let readerFCMDeviceToken: String
     let projectName: String
     let readerName: String
     let actorName: String

@@ -144,6 +144,7 @@ class ReaderHomeViewController: UIViewController, UICollectionViewDataSource, UI
         cell.bookType = 1
         cell.readerType = "reader"
         cell.name = self.items[indexPath.row].actorName
+        cell.selfName = self.items[indexPath.row].readerName
         cell.uid = self.items[indexPath.row].actorUid
         cell.muid = self.items[indexPath.row].readerUid
         cell.script = self.items[indexPath.row].scriptFile ?? ""
@@ -173,6 +174,8 @@ class ReaderHomeViewController: UIViewController, UICollectionViewDataSource, UI
         cell.navigationController = self.navigationController
         cell.parentViewController = self
         cell.roomUid = roomUid
+        cell.readerFCMDeviceToken = self.items[indexPath.row].readerFCMDeviceToken
+        cell.actorFCMDeviceToken = self.items[indexPath.row].actorFCMDeviceToken
         return cell
     }
     

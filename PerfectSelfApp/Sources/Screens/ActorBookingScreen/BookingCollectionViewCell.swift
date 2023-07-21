@@ -17,6 +17,7 @@ class BookingCollectionViewCell: UICollectionViewCell {
     // opposite info
     public var url: String?
     public var name: String!
+    public var selfName: String = ""
     public var uid: String!
     
     public var muid: String!
@@ -27,6 +28,8 @@ class BookingCollectionViewCell: UICollectionViewCell {
     public var bookType:Int = 1
     public var id: Int!
     public var readerType:String = "" // 0
+    public var actorFCMDeviceToken: String = ""
+    public var readerFCMDeviceToken: String = ""
 
     @IBOutlet weak var lbl_time: UILabel!
     @IBOutlet weak var lbl_date: UILabel!
@@ -263,6 +266,15 @@ class BookingCollectionViewCell: UICollectionViewCell {
                 return
             }
             DispatchQueue.main.async {
+                if( self.actorFCMDeviceToken.count > 0 )
+                {
+                    webAPI.sendPushNotifiction(toFCMToken: self.actorFCMDeviceToken, title: "PerfectSelf Booking Accepted", body: "Your booking be accepted from \(self.selfName)."){ data, response, error in
+                        if error == nil {
+                            // successfully send notification.
+                        }
+                    }
+                }
+                
                 Toast.show(message: "Book accepted", controller: self.parentViewController!)
                 self.parentViewController?.viewWillAppear(false)
             }

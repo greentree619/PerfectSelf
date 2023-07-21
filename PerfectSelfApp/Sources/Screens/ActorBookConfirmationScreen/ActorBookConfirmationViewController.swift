@@ -161,7 +161,7 @@ class ActorBookConfirmationViewController: UIViewController, EKEventEditViewDele
                     //Send push notification to reader.
                     if( ActorBookConfirmationViewController.fcmDeviceToken.count > 0 )
                     {
-                        webAPI.sendPushNotifiction(toFCMToken: ActorBookConfirmationViewController.fcmDeviceToken, title: "Invite Booking", body: "You received booking from actor."){ data, response, error in
+                        webAPI.sendPushNotifiction(toFCMToken: ActorBookConfirmationViewController.fcmDeviceToken, title: "PerfectSelf Booking Invite", body: "You received booking from actor."){ data, response, error in
                             if error == nil {
                                 // successfully send notification.
                             }

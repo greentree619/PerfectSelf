@@ -149,6 +149,7 @@ class ActorBookingViewController: UIViewController, UICollectionViewDataSource, 
         cell.bookType = bookType
         cell.readerType = "actor"
         cell.name = self.items[indexPath.row].readerName
+        cell.selfName = self.items[indexPath.row].actorName
         cell.uid = self.items[indexPath.row].readerUid
         cell.muid = self.items[indexPath.row].actorUid
         var url: String?
@@ -168,6 +169,8 @@ class ActorBookingViewController: UIViewController, UICollectionViewDataSource, 
         cell.navigationController = self.navigationController
         cell.parentViewController = self
         cell.roomUid = roomUid
+        cell.readerFCMDeviceToken = self.items[indexPath.row].readerFCMDeviceToken
+        cell.actorFCMDeviceToken = self.items[indexPath.row].actorFCMDeviceToken
         cell.delegate = self
         return cell
     }
