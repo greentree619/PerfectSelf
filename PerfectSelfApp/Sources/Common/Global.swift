@@ -1292,7 +1292,7 @@ func time2slotNo(_ timeStr: String) -> Int{
     case "22":
         slot = 14
     default:
-        slot = 0
+        slot = -1
     }
     
     return slot

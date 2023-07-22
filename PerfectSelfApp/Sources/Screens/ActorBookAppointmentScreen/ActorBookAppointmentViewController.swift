@@ -125,6 +125,8 @@ class ActorBookAppointmentViewController: UIViewController {
         }
         
         for t in item.time {
+            if t.slot <= 0 { continue }
+            
             timeBtnAry[t.slot-1].isHighlighted = false
             timeBtnAry[t.slot-1].isEnabled = true
         }
