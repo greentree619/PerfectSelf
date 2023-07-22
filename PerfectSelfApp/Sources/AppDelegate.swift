@@ -210,6 +210,9 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
         @escaping (UNNotificationPresentationOptions) -> Void
     ) {
         completionHandler([[.banner, .badge, .sound]])
+        if actorHomeView != nil {
+            actorHomeView?.delegate?.bookingAccepted()
+        }
     }
     
     func userNotificationCenter(

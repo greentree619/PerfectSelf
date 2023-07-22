@@ -9,6 +9,10 @@
 import UIKit
 import RangeSeekSlider
 
+protocol BookingNotificationDelegate{
+    func bookingAccepted()
+}
+
 class ActorHomeViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UITextFieldDelegate
 {
 //    @IBOutlet weak var searchField: UITextField!
@@ -34,6 +38,7 @@ class ActorHomeViewController: UIViewController, UICollectionViewDataSource, UIC
     var isTopRated = false
     var searchString = ""
     var soonBooking: SoonBooking? = nil
+    var delegate: BookingNotificationDelegate?
     
     var items = [ReaderProfileCard]()
     
@@ -42,6 +47,8 @@ class ActorHomeViewController: UIViewController, UICollectionViewDataSource, UIC
     override func viewDidLoad() {
         super.viewDidLoad()
         uiViewContoller = self
+        actorHomeView = self
+        delegate = self
          
         let nib = UINib(nibName: "ReaderCollectionViewCell", bundle: nil)
         readerList.register(nib, forCellWithReuseIdentifier: "Reader Collection View Cell")
@@ -368,4 +375,14 @@ class ActorHomeViewController: UIViewController, UICollectionViewDataSource, UIC
      }
      */
     
+}
+
+extension ActorHomeViewController: BookingNotificationDelegate{
+    func bookingAccepted() {
+        if let userInfo = UserDefaults.standard.object(forKey: "USER") as? [String:Any] {
+            // Use the saved data
+            uid = userInfo["uid"] as? String
+            getNextSesstion(uid: uid)
+        }
+    }
 }
