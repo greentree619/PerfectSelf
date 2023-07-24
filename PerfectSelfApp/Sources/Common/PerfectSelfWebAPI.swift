@@ -524,14 +524,16 @@ class PerfectSelfWebAPI
         }
     }
     
-    func addLibrary(uid: String, tapeName: String, bucketName: String, tapeKey: String, roomUid: String, tapeId: String) -> Void
+    func addLibrary(uid: String, tapeName: String, bucketName: String, tapeKey: String, roomUid: String, tapeId: String, parentId: String="") -> Void
     {
         let json: [String: Any] = ["readerUid": uid,
                                    "tapeName": tapeName,
                                    "bucketName": bucketName,
                                    "tapeKey": tapeKey,
                                    "RoomUid": roomUid,
-                                   "TapeId": tapeId]
+                                   "TapeId": tapeId,
+                                   "ParentId": parentId
+                                    ]
         
         return executeAPI(with: "POST", apiPath: "Library", json: json){ data, response, error in
             guard let data = data, error == nil else {

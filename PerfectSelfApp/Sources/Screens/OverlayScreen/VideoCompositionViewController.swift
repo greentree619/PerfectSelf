@@ -64,6 +64,7 @@ class VideoCompositionViewController: UIViewController {
         
         log(meetingUid: "overlay-save", log:"tester video upload start:")
         let tapeId = getTapeIdString()
+        let tapeFolderId = getTapeIdString()
         let tapeDate = getDateString()
         gRoomUid = selectedTape!.roomUid
         let prefixKey = "\(tapeDate)/\(gRoomUid!)/\(tapeId)/"
@@ -97,19 +98,30 @@ class VideoCompositionViewController: UIViewController {
                             // Use the saved data
                             let uid = userInfo["uid"] as! String
                             //let tapeName = "\(getDateString())(\((uiViewContoller! as! ConferenceViewController).tapeId))"
+                            let tmpParentFolderId = (parentFolderId.count == 0 ? selectedTape!.tapeId : parentFolderId)
+                            //{{Add Folder
+                            webAPI.addLibrary(uid: uid
+                                              , tapeName: selectedTape!.tapeName
+                                              , bucketName: "0"
+                                              , tapeKey: ""
+                                              , roomUid: tmpParentFolderId
+                                              , tapeId: tapeFolderId)
+                            //}}Add Folder
                             let tapeName = "\(tapeId)"
                             webAPI.addLibrary(uid: uid
                                               , tapeName: tapeName
                                               , bucketName: "video-client-upload-123456798"
                                               , tapeKey: "\(prefixKey)\(userName!)"
                                               , roomUid: gRoomUid!
-                                              , tapeId: tapeId)
+                                              , tapeId: tapeId
+                                              , parentId: tmpParentFolderId)
                             webAPI.addLibrary(uid: selectedTape!.readerUid!
                                               , tapeName: tapeName
                                               , bucketName: "video-client-upload-123456798"
                                               , tapeKey: selectedTape!.readerTapeKey!
                                               , roomUid: gRoomUid!
-                                              , tapeId: tapeId)
+                                              , tapeId: tapeId
+                                              , parentId: tmpParentFolderId)
                             //Omitted ConferenceViewController.clearTempFolder()
                         } else {
                             // No data was saved

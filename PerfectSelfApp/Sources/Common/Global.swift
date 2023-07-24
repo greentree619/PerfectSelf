@@ -36,6 +36,7 @@ var mainRotateDegree: Int = 90
 var appDatetimeFormat = "MMM dd, yyyy"
 var sharingPolicyLink = "https://www.apple.com"
 var actorHomeView: ActorHomeViewController? = nil
+var parentFolderId: String = ""
 
 var availableTime: [String] = [
     "T09", "T10", "T11",
@@ -454,7 +455,8 @@ func getTapeIdString() -> String{
     formatter.timeZone = TimeZone.current
     formatter.dateFormat = "HHmmssS"//"yyyy-MM-dd-HHmmss"
     let dateString = formatter.string(from: now)
-    return dateString
+    let subfix = UUID().uuidString
+    return "\(dateString)-\(subfix)"
 }
 
 func getCurrentTime(milisecond: Float64) -> String{
