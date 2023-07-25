@@ -15,6 +15,8 @@ class ActorLibraryViewController: UIViewController, UICollectionViewDataSource, 
     @IBOutlet weak var createFolderPannel: UIView!
     @IBOutlet weak var newFolderName: UITextField!
     @IBOutlet weak var videoList: UICollectionView!
+    @IBOutlet weak var searchTxt: UITextField!
+    
     var uid = ""
     var items = [VideoCard]()
     let cellsPerRow = 2
@@ -72,7 +74,7 @@ class ActorLibraryViewController: UIViewController, UICollectionViewDataSource, 
     
     func fetchVideos() {
         showIndicator(sender: nil, viewController: self)
-        webAPI.getLibraryByUid(uid: uid, pid: parentFolderId){ data, response, error in
+        webAPI.getLibraryByUid(uid: uid, pid: parentFolderId, keyword: searchTxt.text!){ data, response, error in
             DispatchQueue.main.async {
                 hideIndicator(sender: nil)
             }
@@ -183,6 +185,11 @@ class ActorLibraryViewController: UIViewController, UICollectionViewDataSource, 
         videoList.reloadData()
     }
     
+    @IBAction func searchTxtEditingDidEnd(_ sender: UITextField) {
+        items.removeAll()
+        fetchVideos()
+        videoList.reloadData()
+    }    
     
 //Omitted
 //    @IBAction func ShowFolderMenu(_ sender: UIButton) {

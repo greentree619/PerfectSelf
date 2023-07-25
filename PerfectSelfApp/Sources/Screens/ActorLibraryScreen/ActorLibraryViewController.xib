@@ -13,6 +13,7 @@
             <connections>
                 <outlet property="createFolderPannel" destination="f8y-u6-9IV" id="d0p-NO-WjT"/>
                 <outlet property="newFolderName" destination="ghR-aK-Y6K" id="Xgw-eJ-zHg"/>
+                <outlet property="searchTxt" destination="CtQ-D3-Ml3" id="YFx-ZQ-YmV"/>
                 <outlet property="videoList" destination="L5p-Cp-wCS" id="Bef-6Z-9Fl"/>
                 <outlet property="view" destination="WYH-Gr-CPG" id="Plb-nx-KdB"/>
             </connections>
@@ -91,6 +92,9 @@
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits"/>
+                                                    <connections>
+                                                        <action selector="searchTxtEditingDidEnd:" destination="-1" eventType="editingDidEnd" id="5PH-Em-ofq"/>
+                                                    </connections>
                                                 </textField>
                                             </subviews>
                                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>

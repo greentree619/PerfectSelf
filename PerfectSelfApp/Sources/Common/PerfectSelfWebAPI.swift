@@ -341,9 +341,9 @@ class PerfectSelfWebAPI
         return executeAPI(with: "GET", apiPath: "Availabilities/UpcomingByUid/\(uid)/\(Date.getStringFromDate(date: Date()))", json: [:], completionHandler:completionHandler)
     }
     
-    func getLibraryByUid(uid: String, pid: String, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> Void
+    func getLibraryByUid(uid: String, pid: String, keyword: String, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> Void
     {
-        return executeAPI(with: "GET", apiPath: "Library/ByUid/\(uid)?parentId=\(pid)", json: [:], completionHandler:completionHandler)
+        return executeAPI(with: "GET", apiPath: "Library/ByUid/\(uid)?parentId=\(pid)&keyword=\(keyword)", json: [:], completionHandler:completionHandler)
     }
     
     func deleteTapeByUid(uid: String?, tapeKey: String?, roomUid: String?, tapeId: String?, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> Void
