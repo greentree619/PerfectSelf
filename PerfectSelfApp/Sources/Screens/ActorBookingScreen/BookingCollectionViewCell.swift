@@ -16,6 +16,7 @@ class BookingCollectionViewCell: UICollectionViewCell {
     public var roomUid: String?
     // opposite info
     public var url: String?
+    public var projectName: String!
     public var name: String!
     public var selfName: String = ""
     public var uid: String!
@@ -164,7 +165,7 @@ class BookingCollectionViewCell: UICollectionViewCell {
         self.parentViewController!.present(controller, animated: false)
     }
     @IBAction func JoinMeeting(_ sender: UIButton) {
-        let conferenceViewController = ConferenceViewController(roomUid: self.roomUid!)
+        let conferenceViewController = ConferenceViewController(roomUid: self.roomUid!, prjName: self.projectName, rdrName: "Reader")
         conferenceViewController.modalPresentationStyle = .fullScreen
         
 //        let transition = CATransition()

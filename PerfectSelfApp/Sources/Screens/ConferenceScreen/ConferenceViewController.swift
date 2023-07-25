@@ -40,6 +40,9 @@ class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSample
     var selectedCount = 3
     var isRecordEnabled = false
     
+    let projectName: String
+    let readerName: String
+    
     private var signalClient: SignalingClient
     private var webRTCClient: WebRTCClient
     private let signalingClientStatus: SignalingClientStatus
@@ -118,11 +121,13 @@ class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSample
         }
     }
     
-    init(roomUid: String) {
+    init(roomUid: String, prjName: String, rdrName: String) {
         self.signalClient = buildSignalingClient()
         self.webRTCClient = WebRTCClient(iceServers: signalingServerConfig.webRTCIceServers)
         self.signalingClientStatus = SignalingClientStatus(signalClient: &self.signalClient, webRTCClient: &self.webRTCClient)
-            gRoomUid = roomUid
+        gRoomUid = roomUid
+        projectName = prjName
+        readerName = rdrName
         super.init(nibName: String(describing: ConferenceViewController.self), bundle: Bundle.main)
         
         //        self.signalingConnected = false
@@ -624,13 +629,15 @@ class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSample
                                     // Use the saved data
                                     let uid = userInfo["uid"] as! String
                                     //let tapeName = "\(getDateString())(\((uiViewContoller! as! ConferenceViewController).tapeId))"
-                                    let tapeName = "\((uiViewContoller! as! ConferenceViewController).tapeId)"
+                                    let tapeName = self!.projectName//"\((uiViewContoller! as! ConferenceViewController).tapeId)"
                                     webAPI.addLibrary(uid: uid
                                                       , tapeName: tapeName
                                                       , bucketName: "video-client-upload-123456798"
                                                       , tapeKey: "\(prefixKey)\(userName!)"
                                                       , roomUid: gRoomUid!
-                                                      , tapeId: (uiViewContoller! as! ConferenceViewController).tapeId)
+                                                      , tapeId: (uiViewContoller! as! ConferenceViewController).tapeId) { _, _, _ in
+                                        
+                                    }
                                     ConferenceViewController.clearTempFolder()
                                     
 #if RECORDING_TEST

@@ -11,11 +11,14 @@ import HSPopupMenu
 
 class ActorLibraryViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     
+    
+    @IBOutlet weak var createFolderPannel: UIView!
+    @IBOutlet weak var newFolderName: UITextField!
     @IBOutlet weak var videoList: UICollectionView!
     var uid = ""
     var items = [VideoCard]()
     let cellsPerRow = 2
-    var menuArray: [HSMenu] = []
+    //Omitted var menuArray: [HSMenu] = []
     
     
     override func viewDidLoad() {
@@ -35,11 +38,11 @@ class ActorLibraryViewController: UIViewController, UICollectionViewDataSource, 
             print("No data was saved.")
         }
         
-        //
-        let menu1 = HSMenu(icon: nil, title: "Create Folder")
-        let menu2 = HSMenu(icon: nil, title: "Edit")
-
-        menuArray = [menu1, menu2]
+//        //Omitted
+//        let menu1 = HSMenu(icon: nil, title: "Create Folder")
+//        let menu2 = HSMenu(icon: nil, title: "Edit")
+//
+//        menuArray = [menu1, menu2]
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -69,7 +72,7 @@ class ActorLibraryViewController: UIViewController, UICollectionViewDataSource, 
     
     func fetchVideos() {
         showIndicator(sender: nil, viewController: self)
-        webAPI.getLibraryByUid(uid: uid){ data, response, error in
+        webAPI.getLibraryByUid(uid: uid, pid: parentFolderId){ data, response, error in
             DispatchQueue.main.async {
                 hideIndicator(sender: nil)
             }
@@ -104,17 +107,95 @@ class ActorLibraryViewController: UIViewController, UICollectionViewDataSource, 
         }
     }
     
-    @IBAction func ShowFolderMenu(_ sender: UIButton) {
-        let originInWindow = sender.convert(CGPoint.zero, to: nil)
-        
-        let x = originInWindow.x
-        let y = originInWindow.y + sender.frame.height
-
-        let popupMenu = HSPopupMenu(menuArray: menuArray, arrowPoint: CGPoint(x: x, y: y))
-        popupMenu.popUp()
-        popupMenu.delegate = self
-
+    @IBAction func createFolderDidTap(_ sender: UIButton) {
+        newFolderName.text = ""
+        createFolderPannel.isHidden = false
     }
+    
+    @IBAction func createFolderCancelDidTap(_ sender: UIButton) {
+        createFolderPannel.isHidden = true
+    }
+    
+    @IBAction func createFolderOkDidTap(_ sender: UIButton) {
+        var inputCheck: String = ""
+        var focusTextField: UITextField? = nil
+        if(newFolderName.text!.isEmpty){
+            inputCheck += "- Please input folder name.\n"
+            if(focusTextField == nil){
+                focusTextField = newFolderName
+            }
+        }
+        
+        if(!inputCheck.isEmpty){
+            showAlert(viewController: self, title: "Confirm", message: inputCheck) { UIAlertAction in
+                focusTextField!.becomeFirstResponder()
+            }
+            return
+        }
+        
+        createFolderPannel.isHidden = true
+        
+        if let userInfo = UserDefaults.standard.object(forKey: "USER") as? [String:Any] {
+            let uid = userInfo["uid"] as! String
+            let tapeName = getStringWithLen( newFolderName.text!, 10)
+            let tapeFolderId = getTapeIdString()
+            //{{Add Folder
+            webAPI.addLibrary(uid: uid
+                              , tapeName: tapeName
+                              , bucketName: "1"
+                              , tapeKey: ""
+                              , roomUid: tapeFolderId
+                              , tapeId: tapeFolderId) { data, response, error in
+                guard let data = data, error == nil else {
+                    print(error?.localizedDescription ?? "No data")
+                    return
+                }
+                
+                if let httpResponse = response as? HTTPURLResponse {
+                    print("statusCode: \(httpResponse.statusCode)")
+                }
+                
+                let responseJSON = try? JSONSerialization.jsonObject(with: data, options: [])
+                if let responseJSON = responseJSON as? [String: Any] {
+                    
+                    guard responseJSON["id"] != nil,  responseJSON["id"] as! Int >= 0 else {
+                        DispatchQueue.main.async {
+                            Toast.show(message: "Already exist folder with new name.", controller: self)
+                            //self.text_email.becomeFirstResponder()
+                        }
+                        return
+                    }
+                    
+                    DispatchQueue.main.async {
+                        self.upFolderDidTap(nil)
+                    }
+                }
+            }
+            //}}Add Folder
+        }
+    }
+    
+    @IBAction func upFolderDidTap(_ sender: UIButton?) {
+        parentFolderId = ""
+        
+        items.removeAll()
+        fetchVideos()
+        videoList.reloadData()
+    }
+    
+    
+//Omitted
+//    @IBAction func ShowFolderMenu(_ sender: UIButton) {
+//        let originInWindow = sender.convert(CGPoint.zero, to: nil)
+//
+//        let x = originInWindow.x
+//        let y = originInWindow.y + sender.frame.height
+//
+//        let popupMenu = HSPopupMenu(menuArray: menuArray, arrowPoint: CGPoint(x: x, y: y))
+//        popupMenu.popUp()
+//        popupMenu.delegate = self
+//
+//    }
     
     // MARK: - Video List Delegate.
     func collectionView(_ collectionView: UICollectionView,        numberOfItemsInSection section: Int) -> Int {
@@ -136,9 +217,24 @@ class ActorLibraryViewController: UIViewController, UICollectionViewDataSource, 
         //
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Video Collection View Cell", for: indexPath) as! VideoCollectionViewCell
         cell.name.text = getProjectName(tape: self.items[indexPath.row])
-        let thumb = "https://video-thumbnail-bucket-123456789.s3.us-east-2.amazonaws.com/\(self.items[indexPath.row].actorTapeKey)-0.jpg"
-        cell.tapeThumb.imageFrom(url: URL(string:thumb )!)
-        cell.tapeThumb.transform = CGAffineTransformMakeRotation(degreeToRadian(CGFloat(mainRotateDegree)))
+        if self.items[indexPath.row].actorTapeKey.count == 0 {
+            //Folder
+            cell.folderView.isHidden = false
+            cell.name.textColor = UIColor.black
+            cell.createdDate.textColor = UIColor.black
+            cell.createdDate.borderColor = UIColor.black
+        }
+        else {
+            let thumb = "https://video-thumbnail-bucket-123456789.s3.us-east-2.amazonaws.com/\(self.items[indexPath.row].actorTapeKey)-0.jpg"
+            cell.tapeThumb.imageFrom(url: URL(string:thumb )!)
+            cell.tapeThumb.transform = CGAffineTransformMakeRotation(degreeToRadian(CGFloat(mainRotateDegree)))
+            
+            cell.folderView.isHidden = true
+            cell.name.textColor = UIColor.white
+            cell.createdDate.textColor = UIColor.white
+            cell.createdDate.borderColor = UIColor.white
+        }
+        
         let df = DateFormatter()
         df.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
         let d = df.date(from: self.items[indexPath.row].createdTime)
@@ -161,11 +257,22 @@ class ActorLibraryViewController: UIViewController, UICollectionViewDataSource, 
         // add the code here to perform action on the cell
         print("didDeselectItemAt" + String(indexPath.row))
         
-        videoRotateOffset = 0
-        selectedTape = self.items[indexPath.row]
-        let projectViewController = ProjectViewController()
-        projectViewController.modalPresentationStyle = .fullScreen
-        self.present(projectViewController, animated: false, completion: nil)
+        if self.items[indexPath.row].actorTapeKey.count == 0 {
+            //Folder
+            parentFolderId = self.items[indexPath.row].roomUid
+            
+            items.removeAll()
+            fetchVideos()
+            videoList.reloadData()
+        }
+        else{
+            //Tape
+            videoRotateOffset = 0
+            selectedTape = self.items[indexPath.row]
+            let projectViewController = ProjectViewController()
+            projectViewController.modalPresentationStyle = .fullScreen
+            self.present(projectViewController, animated: false, completion: nil)
+        }
     }
     
 

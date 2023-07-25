@@ -148,6 +148,7 @@ class ActorBookingViewController: UIViewController, UICollectionViewDataSource, 
         
         cell.bookType = bookType
         cell.readerType = "actor"
+        cell.projectName = self.items[indexPath.row].projectName
         cell.name = self.items[indexPath.row].readerName
         cell.selfName = self.items[indexPath.row].actorName
         cell.uid = self.items[indexPath.row].readerUid

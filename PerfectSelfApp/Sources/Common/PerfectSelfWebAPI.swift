@@ -341,9 +341,9 @@ class PerfectSelfWebAPI
         return executeAPI(with: "GET", apiPath: "Availabilities/UpcomingByUid/\(uid)/\(Date.getStringFromDate(date: Date()))", json: [:], completionHandler:completionHandler)
     }
     
-    func getLibraryByUid(uid: String, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> Void
+    func getLibraryByUid(uid: String, pid: String, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> Void
     {
-        return executeAPI(with: "GET", apiPath: "Library/ByUid/\(uid)", json: [:], completionHandler:completionHandler)
+        return executeAPI(with: "GET", apiPath: "Library/ByUid/\(uid)?parentId=\(pid)", json: [:], completionHandler:completionHandler)
     }
     
     func deleteTapeByUid(uid: String?, tapeKey: String?, roomUid: String?, tapeId: String?, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> Void
@@ -524,7 +524,7 @@ class PerfectSelfWebAPI
         }
     }
     
-    func addLibrary(uid: String, tapeName: String, bucketName: String, tapeKey: String, roomUid: String, tapeId: String, parentId: String="") -> Void
+    func addLibrary(uid: String, tapeName: String, bucketName: String, tapeKey: String, roomUid: String, tapeId: String, parentId: String="", completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> Void
     {
         let json: [String: Any] = ["readerUid": uid,
                                    "tapeName": tapeName,
@@ -535,15 +535,16 @@ class PerfectSelfWebAPI
                                    "ParentId": parentId
                                     ]
         
-        return executeAPI(with: "POST", apiPath: "Library", json: json){ data, response, error in
-            guard let data = data, error == nil else {
-                print(error?.localizedDescription ?? "No data")
-                return
-            }
-            let _ = try? JSONSerialization.jsonObject(with: data, options: [])
-//            print("ok")
-//            print(data)
-        }
+        return executeAPI(with: "POST", apiPath: "Library", json: json, completionHandler: completionHandler)
+//        { data, response, error in
+//            guard let data = data, error == nil else {
+//                print(error?.localizedDescription ?? "No data")
+//                return
+//            }
+//            let _ = try? JSONSerialization.jsonObject(with: data, options: [])
+////            print("ok")
+////            print(data)
+//        }
     }
     
     func getCountries(completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> Void

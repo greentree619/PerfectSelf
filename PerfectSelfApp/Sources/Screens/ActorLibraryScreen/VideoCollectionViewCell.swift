@@ -13,7 +13,8 @@ class VideoCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var tapeThumb: UIImageView!
     @IBOutlet weak var name: UILabel!
     @IBOutlet weak var createdDate: UILabel!
-    
+    @IBOutlet weak var folderView: UIView!
+        
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

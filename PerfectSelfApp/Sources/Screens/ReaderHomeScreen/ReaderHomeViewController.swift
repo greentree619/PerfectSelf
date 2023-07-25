@@ -91,7 +91,7 @@ class ReaderHomeViewController: UIViewController, UICollectionViewDataSource, UI
                     if(self.items.count > 0)
                     {
                         let roomUid = self.items[0].roomUid
-                        let conferenceViewController = ConferenceViewController(roomUid: roomUid)
+                        let conferenceViewController = ConferenceViewController(roomUid: roomUid, prjName: self.items[0].projectName, rdrName: self.items[0].readerName)
                         conferenceViewController.modalPresentationStyle = .fullScreen
                         
                         //        let transition = CATransition()
@@ -108,7 +108,7 @@ class ReaderHomeViewController: UIViewController, UICollectionViewDataSource, UI
                 }
             })
         }
-#endif
+#endif//RECORDING_TEST
     }
     // MARK: - Booking List Delegate.
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -143,6 +143,7 @@ class ReaderHomeViewController: UIViewController, UICollectionViewDataSource, UI
         
         cell.bookType = 1
         cell.readerType = "reader"
+        cell.projectName = self.items[indexPath.row].projectName
         cell.name = self.items[indexPath.row].actorName
         cell.selfName = self.items[indexPath.row].readerName
         cell.uid = self.items[indexPath.row].actorUid

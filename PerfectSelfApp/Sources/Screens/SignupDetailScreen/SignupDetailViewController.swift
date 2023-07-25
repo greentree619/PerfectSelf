@@ -97,6 +97,7 @@ class SignupDetailViewController: UIViewController {
                    
                     return
                 }
+                
                 if let httpResponse = response as? HTTPURLResponse {
                     print("statusCode: \(httpResponse.statusCode)")
                 }

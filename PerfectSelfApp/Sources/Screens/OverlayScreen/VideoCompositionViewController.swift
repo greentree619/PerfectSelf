@@ -105,7 +105,9 @@ class VideoCompositionViewController: UIViewController {
                                               , bucketName: "0"
                                               , tapeKey: ""
                                               , roomUid: tmpParentFolderId
-                                              , tapeId: tapeFolderId)
+                                              , tapeId: tapeFolderId){ _, _, _ in
+                                
+                            }
                             //}}Add Folder
                             let tapeName = "\(tapeId)"
                             webAPI.addLibrary(uid: uid
@@ -114,14 +116,18 @@ class VideoCompositionViewController: UIViewController {
                                               , tapeKey: "\(prefixKey)\(userName!)"
                                               , roomUid: gRoomUid!
                                               , tapeId: tapeId
-                                              , parentId: tmpParentFolderId)
+                                              , parentId: tmpParentFolderId){ _, _, _ in
+                                
+                            }
                             webAPI.addLibrary(uid: selectedTape!.readerUid!
                                               , tapeName: tapeName
                                               , bucketName: "video-client-upload-123456798"
                                               , tapeKey: selectedTape!.readerTapeKey!
                                               , roomUid: gRoomUid!
                                               , tapeId: tapeId
-                                              , parentId: tmpParentFolderId)
+                                              , parentId: tmpParentFolderId){ _, _, _ in
+                                
+                            }
                             //Omitted ConferenceViewController.clearTempFolder()
                         } else {
                             // No data was saved

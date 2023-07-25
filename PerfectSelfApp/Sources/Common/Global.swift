@@ -256,6 +256,7 @@ struct SoonBooking: Codable {
     let actorUid: String
     let readerUid: String
     let roomUid: String
+    let projectName: String
     let bookStartTime: String
     let bookEndTime: String
     let scriptFile: String
@@ -1203,7 +1204,7 @@ func downloadClearAudio(uiCtrl: UIViewController, jobId: String, completeHandler
 }
 
 func getProjectName(tape: VideoCard) -> String{
-    return (tape.readerUid != nil ? "Read with \(tape.readerName!)" : "(\(tape.tapeName))")
+    return (tape.readerUid != nil ? "Read with \(tape.readerName!)" : "\(tape.tapeName)")
 }
 
 func getS3KeyName(_ fileName: String) -> String {

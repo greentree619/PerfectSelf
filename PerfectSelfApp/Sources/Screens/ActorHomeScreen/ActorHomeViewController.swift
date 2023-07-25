@@ -325,7 +325,7 @@ class ActorHomeViewController: UIViewController, UICollectionViewDataSource, UIC
     @IBAction func joinSessionDidTap(_ sender: UIButton) {
         guard let _ = soonBooking else{return}
         
-        let conferenceViewController = ConferenceViewController(roomUid: soonBooking!.roomUid)
+        let conferenceViewController = ConferenceViewController(roomUid: soonBooking!.roomUid, prjName: soonBooking!.projectName, rdrName: "Reader")
         conferenceViewController.modalPresentationStyle = .fullScreen
         
 //        let transition = CATransition()
