@@ -48,13 +48,14 @@ class ActorBookUploadScriptViewController: UIViewController, UIDocumentPickerDel
         
         let df = DateFormatter()
         df.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
-        df.timeZone = TimeZone(abbreviation: "EST")
+        df.calendar = Calendar.current
+        df.timeZone = TimeZone.current
         let estDate = df.date(from: bookingInfo.bookingDate + bookingInfo.bookingStartTime) ?? Date()
         df.dateFormat = "hh:mm a"
         let t = df.string(from: estDate)
         df.dateFormat = "MMMM dd, yyyy"
         let d = df.string(from: estDate)
-        lbl_time.text = "Time: \(t) EST"
+        lbl_time.text = "Time: \(t)"
         lbl_date.text = "Date: \(d)"
         
         text_script.delegate = self
