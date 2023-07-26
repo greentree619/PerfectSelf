@@ -25,6 +25,7 @@
             <connections>
                 <outlet property="btn_showconfirmpassword" destination="yeA-tV-Nco" id="uDt-lu-t3a"/>
                 <outlet property="btn_showpassword" destination="JLQ-Jr-h5S" id="T31-JL-Fdb"/>
+                <outlet property="policyTermsText" destination="jAI-20-Ljj" id="y2i-GK-SJk"/>
                 <outlet property="text_confirmpassword" destination="PMP-oX-Ncq" id="fAW-50-j5t"/>
                 <outlet property="text_email" destination="4B3-2c-6qe" id="9nI-Le-o2e"/>
                 <outlet property="text_password" destination="FtB-LI-Rv2" id="H4o-vo-YjT"/>
@@ -353,19 +354,16 @@
                                         <action selector="SignUp:" destination="-1" eventType="touchUpInside" id="MCD-8K-ov1"/>
                                     </connections>
                                 </button>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="By signing up, you agree our Terms &amp; Conditions and Privacy Policy" lineBreakMode="clip" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="62W-ax-r8n">
+                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="jAI-20-Ljj" userLabel="Terms &amp; Conditions">
                                     <rect key="frame" x="20" y="547" width="388" height="40"/>
+                                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                     <constraints>
-                                        <constraint firstAttribute="height" constant="40" id="n7q-gX-BNb" customClass="AdaptiveLayoutConstraint" customModule="PerfectSelf" customModuleProvider="target">
-                                            <userDefinedRuntimeAttributes>
-                                                <userDefinedRuntimeAttribute type="boolean" keyPath="setAdaptiveLayout" value="YES"/>
-                                            </userDefinedRuntimeAttributes>
-                                        </constraint>
+                                        <constraint firstAttribute="height" constant="40" id="UZx-eM-iO2"/>
                                     </constraints>
-                                    <fontDescription key="fontDescription" name="Raleway-Regular" family="Raleway" pointSize="14"/>
-                                    <nil key="textColor"/>
-                                    <nil key="highlightedColor"/>
-                                </label>
+                                    <color key="textColor" systemColor="labelColor"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                </textView>
                                 <stackView opaque="NO" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2Av-fD-dF4">
                                     <rect key="frame" x="20" y="597" width="388" height="30"/>
                                     <subviews>
@@ -408,6 +406,12 @@
                                     <edgeInsets key="layoutMargins" top="10" left="0.0" bottom="10" right="0.0"/>
                                 </stackView>
                             </subviews>
+                            <constraints>
+                                <constraint firstAttribute="trailing" secondItem="jAI-20-Ljj" secondAttribute="trailing" id="D4e-xM-qc6"/>
+                                <constraint firstItem="2Av-fD-dF4" firstAttribute="top" secondItem="jAI-20-Ljj" secondAttribute="bottom" id="GaF-vq-NFQ"/>
+                                <constraint firstItem="jAI-20-Ljj" firstAttribute="top" secondItem="zRD-gJ-tBA" secondAttribute="bottom" id="jk8-XF-ZjJ"/>
+                                <constraint firstItem="jAI-20-Ljj" firstAttribute="leading" secondItem="QcO-6h-1j8" secondAttribute="leading" id="zda-bK-iFo"/>
+                            </constraints>
                             <edgeInsets key="layoutMargins" top="0.0" left="20" bottom="20" right="20"/>
                             <variation key="default">
                                 <mask key="subviews">
@@ -451,6 +455,9 @@
         <image name="login_pass" width="19" height="19"/>
         <image name="signup_phone" width="19" height="19"/>
         <image name="splash" width="104" height="106"/>
+        <systemColor name="labelColor">
+            <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

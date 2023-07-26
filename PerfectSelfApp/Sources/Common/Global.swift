@@ -35,6 +35,8 @@ var videoRotateOffset: Int = 0
 var mainRotateDegree: Int = 90
 var appDatetimeFormat = "MMM dd, yyyy"
 var sharingPolicyLink = "https://perfectself.s3.us-east-2.amazonaws.com/script-policy.html"
+var policyLink = "https://perfectself.s3.us-east-2.amazonaws.com/privacy.html"
+var termsLink = "https://perfectself.s3.us-east-2.amazonaws.com/terms-cond.html"
 var actorHomeView: ActorHomeViewController? = nil
 var parentFolderId: String = ""
 

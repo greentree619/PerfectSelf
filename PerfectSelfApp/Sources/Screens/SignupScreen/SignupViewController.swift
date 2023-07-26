@@ -19,11 +19,10 @@ class SignupViewController: UIViewController {
     @IBOutlet weak var text_password: UITextField!
     @IBOutlet weak var text_email: UITextField!
     @IBOutlet weak var text_phonenumber: UITextField!
-    
     @IBOutlet weak var btn_showpassword: UIButton!
-    
     @IBOutlet weak var btn_showconfirmpassword: UIButton!
-    
+    @IBOutlet weak var policyTermsText: UITextView!
+        
     var isShowPass = false;
     var isShowPassConfirm = false;
     
@@ -31,6 +30,31 @@ class SignupViewController: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        //{{Script sharing policy
+        self.policyTermsText.textContainer.maximumNumberOfLines = 1
+        //self.policyTermsText.textContainer.lineBreakMode = .byTruncatingTail
+        //--------------------------------------------------------------------
+        //By signing up, you agree our Terms & Conditions and Privacy Policy.
+        //1234567890123456789012345678901234567890123456789012345678901234567
+        //-----------------------------29              18-----52           14
+        let attributedString = NSMutableAttributedString(string: "By signing up, you agree our Terms & Conditions and Privacy Policy.")
+        let policyurl = URL(string: policyLink)!
+        let termsurl = URL(string: termsLink)!
+
+        // Set the 'click here' substring to be the link
+        attributedString.addAttributes([.link:policyurl], range: NSMakeRange(52, 14))
+        attributedString.addAttributes([.link: termsurl], range: NSMakeRange(29, 18))
+
+        self.policyTermsText.attributedText = attributedString
+        self.policyTermsText.isUserInteractionEnabled = true
+        self.policyTermsText.isEditable = false
+
+        // Set how links should appear: blue and underlined
+        self.policyTermsText.linkTextAttributes = [
+            .foregroundColor: UIColor.blue,
+            .underlineStyle: NSUnderlineStyle.single.rawValue
+        ]
+        //}}Script sharing policy
     }
 
     @IBAction func ChangeShowPassword(_ sender: UIButton) {
