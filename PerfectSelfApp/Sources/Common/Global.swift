@@ -34,7 +34,7 @@ let VideoSize = CGSize(width: videoHeight, height: videoWidth)
 var videoRotateOffset: Int = 0
 var mainRotateDegree: Int = 90
 var appDatetimeFormat = "MMM dd, yyyy"
-var sharingPolicyLink = "https://www.apple.com"
+var sharingPolicyLink = "https://perfectself.s3.us-east-2.amazonaws.com/script-policy.html"
 var actorHomeView: ActorHomeViewController? = nil
 var parentFolderId: String = ""
 
