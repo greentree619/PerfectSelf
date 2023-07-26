@@ -149,8 +149,8 @@ class ReaderProfileViewController: UIViewController, UICollectionViewDataSource,
                     self.readerAbout.maximumNumberOfLines = 7
                     self.readerAbout.shouldTrim = true
                     
-                    self.quarterHourlyPrice.text = "$\(Float(item.hourlyPrice)/4) / 15 mins"
-                    self.halfHourlyPrice.text = "$\(Float(item.hourlyPrice)/2) / 30 mins"
+                    self.quarterHourlyPrice.text = "$\(Float(item.hourlyPrice)/4) / 15 min"
+                    self.halfHourlyPrice.text = "$\(Float(item.hourlyPrice)/2) / 30 min"
                     self.hourlyPrice.text = "$\(Float(item.hourlyPrice)) / 1 hr"
                     self.skills = item.skills.components(separatedBy: ",")
                     self.skills = self.skills.filter { !$0.isEmpty }

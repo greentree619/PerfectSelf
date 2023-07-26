@@ -74,7 +74,7 @@
                             </constraints>
                         </stackView>
                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="tBD-92-C4u">
-                            <rect key="frame" x="20" y="80" width="353" height="260"/>
+                            <rect key="frame" x="20" y="80" width="353" height="175"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="B6v-8G-OZm">
                                     <rect key="frame" x="0.0" y="0.0" width="353" height="25"/>
@@ -193,9 +193,14 @@
                                     </constraints>
                                 </stackView>
                             </subviews>
+                            <variation key="default">
+                                <mask key="subviews">
+                                    <exclude reference="Ihf-dy-SuA"/>
+                                </mask>
+                            </variation>
                         </stackView>
                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Ndu-tE-ewE">
-                            <rect key="frame" x="20" y="340" width="353" height="344"/>
+                            <rect key="frame" x="20" y="255" width="353" height="429"/>
                             <edgeInsets key="layoutMargins" top="10" left="10" bottom="10" right="10"/>
                         </stackView>
                     </subviews>
