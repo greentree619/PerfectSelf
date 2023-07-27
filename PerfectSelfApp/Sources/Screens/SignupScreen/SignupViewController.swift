@@ -31,7 +31,7 @@ class SignupViewController: UIViewController {
 
         // Do any additional setup after loading the view.
         //{{Script sharing policy
-        self.policyTermsText.textContainer.maximumNumberOfLines = 1
+        self.policyTermsText.textContainer.maximumNumberOfLines = 2
         self.policyTermsText.textContainer.lineBreakMode = .byClipping
         //--------------------------------------------------------------------
         //By signing up, you agree our Terms & Conditions and Privacy Policy.
@@ -48,6 +48,7 @@ class SignupViewController: UIViewController {
         self.policyTermsText.attributedText = attributedString
         self.policyTermsText.isUserInteractionEnabled = true
         self.policyTermsText.isEditable = false
+        self.policyTermsText.font = UIFont(name: "Raleway-Medium", size: 14)
 
         // Set how links should appear: blue and underlined
         self.policyTermsText.linkTextAttributes = [
