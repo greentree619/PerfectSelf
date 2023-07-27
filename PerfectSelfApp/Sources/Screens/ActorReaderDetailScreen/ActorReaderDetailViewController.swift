@@ -127,9 +127,9 @@ class ActorReaderDetailViewController: UIViewController , UICollectionViewDataSo
                     self.reader_about.maximumNumberOfLines = 7
                     self.reader_about.shouldTrim = true
                     
-                    self.reader_hourly.text = "$\(item.hourlyPrice) / 1 hr"
-                    self.reader_quarter_hourly.text = "$\(item.hourlyPrice/4) / 15 min"
-                    self.reader_half_hourly.text = "$\(item.hourlyPrice/2) / 30 min"
+                    self.reader_hourly.text = "$\(item.hourlyPrice)"
+                    self.reader_quarter_hourly.text = "$\(item.hourlyPrice/4)"
+                    self.reader_half_hourly.text = "$\(item.hourlyPrice/2)"
                     self.sessionCounts.text = "\(String(describing: item.sessionCount)) sessions"	
                     print(item.sessionCount)//REFME
                     self.skills.removeAll()
