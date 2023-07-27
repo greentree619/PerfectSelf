@@ -32,7 +32,7 @@ class SignupViewController: UIViewController {
         // Do any additional setup after loading the view.
         //{{Script sharing policy
         self.policyTermsText.textContainer.maximumNumberOfLines = 1
-        //self.policyTermsText.textContainer.lineBreakMode = .byTruncatingTail
+        self.policyTermsText.textContainer.lineBreakMode = .byClipping
         //--------------------------------------------------------------------
         //By signing up, you agree our Terms & Conditions and Privacy Policy.
         //1234567890123456789012345678901234567890123456789012345678901234567
