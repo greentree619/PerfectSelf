@@ -1343,6 +1343,7 @@ func exportMergedVideo(avUrl: URL, aaUrl: URL, rvUrl: URL, raUrl:URL, vc: UIView
             CMTimeRangeMake(start: .zero, duration: actorVAsset.duration),
             of: actorVAsset.tracks(withMediaType: .video).first!,
             at: .zero)
+        recordTrack.preferredTransform = transformForTrack(rotateOffset: CGFloat(0))
     } catch {
         DispatchQueue.main.async {
             hideIndicator(sender:  nil)
