@@ -29,7 +29,9 @@ class ActorBookUploadScriptViewController: UIViewController, UIDocumentPickerDel
     @IBOutlet weak var policyText: UITextView!
     @IBOutlet weak var agreePolicyCheckBox: CheckBox!
     @IBOutlet weak var projectNameText: UITextField!
-    
+    @IBOutlet weak var actorFace: UIImageView!
+    @IBOutlet weak var readerFace: UIImageView!
+        
     init(_ bookingInfo: BookingInfo) {
         self.bookingInfo = bookingInfo
         super.init(nibName: String(describing: ActorBookUploadScriptViewController.self), bundle: Bundle.main)
@@ -88,6 +90,19 @@ class ActorBookUploadScriptViewController: UIViewController, UIDocumentPickerDel
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true);
         self.policyText.centerVertically()
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        self.actorFace.layer.cornerRadius = self.actorFace.frame.size.width / 2
+        self.actorFace.clipsToBounds = true
+        self.actorFace.layer.borderColor = UIColor.white.cgColor
+        self.actorFace.layer.borderWidth = 0
+        
+        self.readerFace.layer.cornerRadius = self.readerFace.frame.size.width / 2
+        self.readerFace.clipsToBounds = true
+        self.readerFace.layer.borderColor = UIColor.white.cgColor
+        self.readerFace.layer.borderWidth = 0
     }
 
     @IBAction func UploadScriptFile(_ sender: UIButton) {
