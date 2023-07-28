@@ -325,19 +325,24 @@ class ActorHomeViewController: UIViewController, UICollectionViewDataSource, UIC
     @IBAction func joinSessionDidTap(_ sender: UIButton) {
         guard let _ = soonBooking else{return}
         
-        let conferenceViewController = ConferenceViewController(roomUid: soonBooking!.roomUid, prjName: soonBooking!.projectName, rdrName: "Reader")
-        conferenceViewController.modalPresentationStyle = .fullScreen
+        if(rootTabbar != nil){
+            rootTabbar!.selectedIndex = 3
+        }
         
-//        let transition = CATransition()
-//        transition.duration = 0.5 // Set animation duration
-//        transition.type = CATransitionType.push // Set transition type to push
-//        transition.subtype = CATransitionSubtype.fromRight // Set transition subtype to from right
-//        self.parentViewController!.view.window?.layer.add(transition, forKey: kCATransition) // Add transition to window layer
-        self.parent!.present(conferenceViewController, animated: false)
+// Omitted
+//        let conferenceViewController = ConferenceViewController(roomUid: soonBooking!.roomUid, prjName: soonBooking!.projectName, rdrName: "Reader")
+//        conferenceViewController.modalPresentationStyle = .fullScreen
+//
+////        let transition = CATransition()
+////        transition.duration = 0.5 // Set animation duration
+////        transition.type = CATransitionType.push // Set transition type to push
+////        transition.subtype = CATransitionSubtype.fromRight // Set transition subtype to from right
+////        self.parentViewController!.view.window?.layer.add(transition, forKey: kCATransition) // Add transition to window layer
+//        self.parent!.present(conferenceViewController, animated: false)
     }
     
     func getNextSesstion(uid: String) {
-        webAPI.getBookingsInMinsByUid(uid: uid, mins: 5) { data, response, error in
+        webAPI.getBookingsInMinsByUid( uid: uid, mins: 5 ) { data, response, error in
         //webAPI.getBookingsInMinsByUid(uid: uid) { data, response, error in
             guard let data = data, error == nil else {
                 print(error?.localizedDescription ?? "No data")
