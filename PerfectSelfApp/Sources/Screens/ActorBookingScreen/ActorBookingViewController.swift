@@ -144,7 +144,7 @@ class ActorBookingViewController: UIViewController, UICollectionViewDataSource, 
         let dateFormatter1 = DateFormatter()
         dateFormatter1.dateFormat = "MMM dd, yyyy"
         let dateFormatter2 = DateFormatter()
-        dateFormatter2.dateFormat = "hh:mm a"
+        dateFormatter2.dateFormat = "hh:mm a zzz"
         
         cell.bookType = bookType
         cell.readerType = "actor"
