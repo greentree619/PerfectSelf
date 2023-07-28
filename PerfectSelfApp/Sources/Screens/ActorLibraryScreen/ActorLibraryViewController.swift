@@ -10,12 +10,12 @@ import UIKit
 import HSPopupMenu
 
 class ActorLibraryViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
-    
-    
+        
     @IBOutlet weak var createFolderPannel: UIView!
     @IBOutlet weak var newFolderName: UITextField!
     @IBOutlet weak var videoList: UICollectionView!
-    @IBOutlet weak var searchTxt: UITextField!
+    @IBOutlet weak var searchTxt: UITextField!    
+    @IBOutlet weak var folderBackButton: UIButton!
     
     var uid = ""
     var items = [VideoCard]()
@@ -179,6 +179,7 @@ class ActorLibraryViewController: UIViewController, UICollectionViewDataSource, 
     
     @IBAction func upFolderDidTap(_ sender: UIButton?) {
         parentFolderId = ""
+        folderBackButton.isHidden = true
         
         items.removeAll()
         fetchVideos()
@@ -266,6 +267,7 @@ class ActorLibraryViewController: UIViewController, UICollectionViewDataSource, 
         
         if self.items[indexPath.row].actorTapeKey.count == 0 {
             //Folder
+            folderBackButton.isHidden = false
             parentFolderId = self.items[indexPath.row].roomUid
             
             items.removeAll()

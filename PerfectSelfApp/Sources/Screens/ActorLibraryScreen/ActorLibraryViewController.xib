@@ -12,6 +12,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ActorLibraryViewController" customModule="PerfectSelf" customModuleProvider="target">
             <connections>
                 <outlet property="createFolderPannel" destination="f8y-u6-9IV" id="d0p-NO-WjT"/>
+                <outlet property="folderBackButton" destination="Tkn-tB-VP4" id="dAo-7E-dTY"/>
                 <outlet property="newFolderName" destination="ghR-aK-Y6K" id="Xgw-eJ-zHg"/>
                 <outlet property="searchTxt" destination="CtQ-D3-Ml3" id="YFx-ZQ-YmV"/>
                 <outlet property="videoList" destination="L5p-Cp-wCS" id="Bef-6Z-9Fl"/>
@@ -30,27 +31,25 @@
                             <rect key="frame" x="0.0" y="59" width="393" height="80"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="My Library" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xLv-19-IJY">
-                                    <rect key="frame" x="10" y="28" width="97.333333333333329" height="24"/>
+                                    <rect key="frame" x="148" y="28" width="97.333333333333314" height="24"/>
                                     <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
                                     <color key="textColor" red="0.98039215690000003" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ECc-DI-YOg" userLabel="Create Folder">
-                                    <rect key="frame" x="254.66666666666663" y="29" width="128.33333333333337" height="22"/>
+                                    <rect key="frame" x="302.66666666666669" y="29" width="70.333333333333314" height="22"/>
                                     <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                    <state key="normal" title="Create Folder" image="plus.app" catalog="system"/>
+                                    <state key="normal" title="Folder" image="plus.app" catalog="system"/>
                                     <connections>
                                         <action selector="createFolderDidTap:" destination="-1" eventType="touchUpInside" id="d5G-sE-ahb"/>
                                     </connections>
                                 </button>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Tkn-tB-VP4">
-                                    <rect key="frame" x="162.33333333333334" y="22.333333333333325" width="72.333333333333343" height="35.666666666666657"/>
+                                <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Tkn-tB-VP4" userLabel="Back">
+                                    <rect key="frame" x="20" y="28" width="24" height="24"/>
                                     <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                    <state key="normal" title="Button"/>
-                                    <buttonConfiguration key="configuration" style="plain" image="arrow.up.square" catalog="system" title="Up">
-                                        <fontDescription key="titleFontDescription" type="system" pointSize="18"/>
-                                    </buttonConfiguration>
+                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                    <state key="normal" image="back-button"/>
                                     <connections>
                                         <action selector="upFolderDidTap:" destination="-1" eventType="touchUpInside" id="Ymi-fa-jfB"/>
                                     </connections>
@@ -58,11 +57,11 @@
                             </subviews>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <constraints>
-                                <constraint firstAttribute="trailing" secondItem="ECc-DI-YOg" secondAttribute="trailing" constant="10" id="Bm3-fq-WaX"/>
+                                <constraint firstAttribute="trailing" secondItem="ECc-DI-YOg" secondAttribute="trailing" constant="20" id="Bm3-fq-WaX"/>
                                 <constraint firstItem="ECc-DI-YOg" firstAttribute="centerY" secondItem="3oz-hc-TDc" secondAttribute="centerY" id="JRy-5S-cAO"/>
-                                <constraint firstItem="ECc-DI-YOg" firstAttribute="leading" secondItem="Tkn-tB-VP4" secondAttribute="trailing" constant="20" id="XBH-z1-aP2"/>
-                                <constraint firstItem="xLv-19-IJY" firstAttribute="leading" secondItem="3oz-hc-TDc" secondAttribute="leading" constant="10" id="Y81-VB-8T3"/>
+                                <constraint firstItem="Tkn-tB-VP4" firstAttribute="leading" secondItem="3oz-hc-TDc" secondAttribute="leading" constant="20" id="So7-WL-gfq"/>
                                 <constraint firstAttribute="height" constant="80" id="eWJ-ob-DnF"/>
+                                <constraint firstItem="xLv-19-IJY" firstAttribute="centerX" secondItem="3oz-hc-TDc" secondAttribute="centerX" id="fy0-g4-2ml"/>
                                 <constraint firstItem="xLv-19-IJY" firstAttribute="centerY" secondItem="3oz-hc-TDc" secondAttribute="centerY" id="qKJ-aD-RS8"/>
                                 <constraint firstItem="Tkn-tB-VP4" firstAttribute="centerY" secondItem="3oz-hc-TDc" secondAttribute="centerY" id="uix-Px-ZUv"/>
                             </constraints>
@@ -233,7 +232,7 @@
         </view>
     </objects>
     <resources>
-        <image name="arrow.up.square" catalog="system" width="128" height="114"/>
+        <image name="back-button" width="24" height="24"/>
         <image name="createfolder" width="111" height="111"/>
         <image name="magnifyingglass" catalog="system" width="128" height="117"/>
         <image name="plus.app" catalog="system" width="128" height="114"/>
