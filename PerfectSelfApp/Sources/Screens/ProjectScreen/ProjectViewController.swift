@@ -77,13 +77,18 @@ class ProjectViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         actorVTrack?.preferredTransform = transformForTrack(rotateOffset: CGFloat(videoRotateOffset))
+    }
+    
+    override func  viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
         
         let actorThumb = "https://video-thumbnail-bucket-123456789.s3.us-east-2.amazonaws.com/\(selectedTape!.actorTapeKey)-0.jpg"
         let readerTapeKey = (selectedTape!.readerTapeKey == nil ? "" : selectedTape!.readerTapeKey)
         let readerThumb = "https://video-thumbnail-bucket-123456789.s3.us-east-2.amazonaws.com/\(readerTapeKey!)-0.jpg"
         
-        aPlayerThumbView = initPlayerThumbEx(playerView: self.actorPlayerView, url: URL(string: actorThumb))
+        aPlayerThumbView = initPlayerThumbEx(playerView: self.actorPlayerView, url: URL(string: actorThumb), thumbImgView: aPlayerThumbView)
         _ = initPlayerThumbEx(playerView: self.playerView, url: URL(string: readerThumb), thumbImgView: rPlayerThumbView)
+        //print("viewDidLayoutSubviews")
     }
     
     override func viewDidAppear(_ animated: Bool) {
