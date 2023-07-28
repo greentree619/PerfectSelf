@@ -73,11 +73,12 @@ class ActorBookUploadScriptViewController: UIViewController, UIDocumentPickerDel
         let url = URL(string: sharingPolicyLink)!//"https://www.apple.com"
 
         // Set the 'click here' substring to be the link
-        attributedString.setAttributes([.link: url], range: NSMakeRange(19, 21))
+        attributedString.setAttributes([.link: url], range: NSMakeRange(18, 21))
 
         self.policyText.attributedText = attributedString
         self.policyText.isUserInteractionEnabled = true
         self.policyText.isEditable = false
+        self.policyText.font = UIFont(name: "Raleway-Medium", size: 14)
 
         // Set how links should appear: blue and underlined
         self.policyText.linkTextAttributes = [
@@ -89,7 +90,6 @@ class ActorBookUploadScriptViewController: UIViewController, UIDocumentPickerDel
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true);
-        self.policyText.centerVertically()
     }
     
     override func viewDidLayoutSubviews() {
@@ -103,6 +103,8 @@ class ActorBookUploadScriptViewController: UIViewController, UIDocumentPickerDel
         self.readerFace.clipsToBounds = true
         self.readerFace.layer.borderColor = UIColor.white.cgColor
         self.readerFace.layer.borderWidth = 0
+        
+        self.policyText.centerVertically()
     }
 
     @IBAction func UploadScriptFile(_ sender: UIButton) {
