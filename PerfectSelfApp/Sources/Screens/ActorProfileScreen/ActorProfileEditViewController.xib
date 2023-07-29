@@ -44,57 +44,47 @@
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GGY-qa-Opi">
                             <rect key="frame" x="20" y="0.0" width="353" height="50"/>
                             <subviews>
-                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="WEp-ve-dwa">
-                                    <rect key="frame" x="0.0" y="0.0" width="353" height="50"/>
-                                    <subviews>
-                                        <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="rbB-Pb-hOj">
-                                            <rect key="frame" x="0.0" y="0.0" width="144.33333333333334" height="50"/>
-                                            <subviews>
-                                                <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" horizontalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xat-X1-8y8">
-                                                    <rect key="frame" x="0.0" y="8" width="35" height="34"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="34" id="CXB-fO-wxJ" customClass="AdaptiveLayoutConstraint" customModule="PerfectSelf" customModuleProvider="target"/>
-                                                        <constraint firstAttribute="width" constant="35" id="PqL-id-5kC" customClass="AdaptiveLayoutConstraint" customModule="PerfectSelf" customModuleProvider="target"/>
-                                                    </constraints>
-                                                    <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                                    <state key="normal">
-                                                        <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                                        <imageReference key="image" image="arrow.left" catalog="system" symbolScale="small"/>
-                                                    </state>
-                                                    <userDefinedRuntimeAttributes>
-                                                        <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
-                                                            <real key="value" value="2"/>
-                                                        </userDefinedRuntimeAttribute>
-                                                        <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                                            <color key="value" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                        </userDefinedRuntimeAttribute>
-                                                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                            <real key="value" value="8"/>
-                                                        </userDefinedRuntimeAttribute>
-                                                    </userDefinedRuntimeAttributes>
-                                                    <connections>
-                                                        <action selector="GoBack:" destination="-1" eventType="touchUpInside" id="0hN-xh-LlJ"/>
-                                                    </connections>
-                                                </button>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Edit Profile" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6qB-56-6jy">
-                                                    <rect key="frame" x="44.999999999999993" y="13" width="99.333333333333314" height="24"/>
-                                                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
-                                                    <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                        </stackView>
-                                    </subviews>
-                                </stackView>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Edit Profile" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6qB-56-6jy">
+                                    <rect key="frame" x="127" y="13" width="99.333333333333314" height="24"/>
+                                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
+                                    <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" horizontalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xat-X1-8y8">
+                                    <rect key="frame" x="0.0" y="8" width="35" height="34"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="34" id="CXB-fO-wxJ" customClass="AdaptiveLayoutConstraint" customModule="PerfectSelf" customModuleProvider="target"/>
+                                        <constraint firstAttribute="width" constant="35" id="PqL-id-5kC" customClass="AdaptiveLayoutConstraint" customModule="PerfectSelf" customModuleProvider="target"/>
+                                    </constraints>
+                                    <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                    <state key="normal">
+                                        <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        <imageReference key="image" image="arrow.left" catalog="system" symbolScale="small"/>
+                                    </state>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                            <real key="value" value="2"/>
+                                        </userDefinedRuntimeAttribute>
+                                        <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                            <color key="value" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </userDefinedRuntimeAttribute>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                            <real key="value" value="8"/>
+                                        </userDefinedRuntimeAttribute>
+                                    </userDefinedRuntimeAttributes>
+                                    <connections>
+                                        <action selector="GoBack:" destination="-1" eventType="touchUpInside" id="0hN-xh-LlJ"/>
+                                    </connections>
+                                </button>
                             </subviews>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <constraints>
-                                <constraint firstAttribute="trailing" secondItem="WEp-ve-dwa" secondAttribute="trailing" id="8PC-dg-tO9"/>
+                                <constraint firstItem="Xat-X1-8y8" firstAttribute="leading" secondItem="GGY-qa-Opi" secondAttribute="leading" id="VC4-Ap-DIm"/>
+                                <constraint firstItem="Xat-X1-8y8" firstAttribute="centerY" secondItem="GGY-qa-Opi" secondAttribute="centerY" id="cas-cR-tM5"/>
+                                <constraint firstItem="6qB-56-6jy" firstAttribute="centerX" secondItem="GGY-qa-Opi" secondAttribute="centerX" id="dXW-hR-x4K"/>
                                 <constraint firstAttribute="height" constant="50" id="gsR-oh-ml0" customClass="AdaptiveLayoutConstraint" customModule="PerfectSelf" customModuleProvider="target"/>
-                                <constraint firstAttribute="bottom" secondItem="WEp-ve-dwa" secondAttribute="bottom" id="iMt-cI-VtI"/>
-                                <constraint firstItem="WEp-ve-dwa" firstAttribute="top" secondItem="GGY-qa-Opi" secondAttribute="top" id="kwu-1g-NxI"/>
-                                <constraint firstItem="WEp-ve-dwa" firstAttribute="leading" secondItem="GGY-qa-Opi" secondAttribute="leading" id="rTj-TW-7iz"/>
+                                <constraint firstItem="6qB-56-6jy" firstAttribute="centerY" secondItem="GGY-qa-Opi" secondAttribute="centerY" id="o9D-Vk-dtG"/>
                             </constraints>
                         </view>
                         <stackView opaque="NO" contentMode="scaleToFill" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="h6s-hz-T4R">
