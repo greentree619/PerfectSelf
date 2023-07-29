@@ -35,25 +35,25 @@
                     <rect key="frame" x="0.0" y="0.0" width="375" height="778"/>
                     <subviews>
                         <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qan-Oj-dLX">
-                            <rect key="frame" x="0.0" y="359" width="375" height="60"/>
+                            <rect key="frame" x="0.0" y="349" width="375" height="80"/>
                             <subviews>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZA6-td-nCA">
-                                    <rect key="frame" x="0.0" y="0.0" width="20" height="60"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="20" height="80"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="20" id="6Nm-1u-zCM"/>
                                     </constraints>
                                 </view>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Taking The Tech Out Of The Tape" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4mx-6s-clW">
-                                    <rect key="frame" x="20" y="0.0" width="335" height="60"/>
+                                    <rect key="frame" x="20" y="0.0" width="335" height="80"/>
                                     <constraints>
-                                        <constraint firstAttribute="height" constant="60" id="Ms6-KG-zfQ"/>
+                                        <constraint firstAttribute="height" constant="80" id="Ms6-KG-zfQ"/>
                                     </constraints>
                                     <fontDescription key="fontDescription" name="Raleway-Bold" family="Raleway" pointSize="24"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FPX-TQ-1B3">
-                                    <rect key="frame" x="355" y="0.0" width="20" height="60"/>
+                                    <rect key="frame" x="355" y="0.0" width="20" height="80"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="20" id="1uD-mA-N4q"/>
                                     </constraints>
@@ -61,13 +61,13 @@
                             </subviews>
                         </stackView>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Connect with Readers and Film Your Best Self Tape" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CSN-38-KRU">
-                            <rect key="frame" x="10" y="454" width="355" height="37.333333333333314"/>
+                            <rect key="frame" x="10" y="464" width="355" height="37.666666666666686"/>
                             <fontDescription key="fontDescription" name="Raleway-Medium" family="Raleway" pointSize="16"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="splash" translatesAutoresizingMaskIntoConstraints="NO" id="MtS-6h-OVt">
-                            <rect key="frame" x="93.666666666666671" y="151.66666666666663" width="187.66666666666663" height="187.33333333333337"/>
+                            <rect key="frame" x="93.666666666666671" y="141.66666666666663" width="187.66666666666663" height="187.33333333333337"/>
                             <constraints>
                                 <constraint firstAttribute="width" secondItem="MtS-6h-OVt" secondAttribute="height" multiplier="1:1" id="VTF-Fw-LQB"/>
                             </constraints>
