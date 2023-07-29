@@ -139,7 +139,7 @@ class ActorFindReaderViewController: UIViewController , UICollectionViewDataSour
             cell.readerAvatar.imageFrom(url: URL(string: url)!)
         }
         cell.readerName.text = self.items[indexPath.row].userName;
-        cell.salary.text = "$" + String((self.items[indexPath.row].hourlyPrice ?? 0)/4)
+        cell.salary.text = "$" + String(self.items[indexPath.row].min15Price ?? 0)
         cell.score.text = String(self.items[indexPath.row].score)
         cell.review.text = "(\(self.items[indexPath.row].reviewCount))"
         cell.status.backgroundColor = self.items[indexPath.row].isLogin ? UIColor(rgb: 0x34C759) : UIColor(rgb: 0xAAAAAA)

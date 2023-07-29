@@ -190,7 +190,7 @@ class ActorHomeViewController: UIViewController, UICollectionViewDataSource, UIC
             cell.readerAvatar.imageFrom(url: URL(string: url)!)
         }
         cell.readerName.text = self.items[indexPath.row].userName;
-        cell.salary.text = "$" + String((self.items[indexPath.row].hourlyPrice ?? 0)/4)
+        cell.salary.text = "$" + String(self.items[indexPath.row].min15Price ?? 0)
         if(self.items[indexPath.row].reviewCount > 0){
             cell.score.text = String(self.items[indexPath.row].score)
             cell.review.text = "(\(self.items[indexPath.row].reviewCount))"

@@ -84,14 +84,16 @@ class ReaderBuildProfileViewController: UIViewController, PhotoDelegate {
             }
             return
         }
-        guard let rate = Int(text_hourly.text!) else {
+        guard let rate = Float(text_hourly.text!) else {
             showAlert(viewController: self, title: "Warning", message: "Input number invalid") {_ in
                 
             }
             return
         }
         showIndicator(sender: sender, viewController: self)
-        webAPI.editReaderProfile(uid: id, title: text_title.text!, hourlyPrice: rate, about: "", introBucketName: "", introVideokey: "", skills: "", auditionType: -1, isExplicitRead: nil) { data, response, error in
+        let rate15 = preciseRound(Float(rate) / 4.0, precision: .tenths)
+        let rate30 = preciseRound(Float(rate) / 2.0, precision: .tenths)
+        webAPI.editReaderProfile(uid: id, title: text_title.text!, min15Price: rate15, min30Price: rate30, hourlyPrice: Float(rate), about: "", introBucketName: "", introVideokey: "", skills: "", auditionType: -1, isExplicitRead: nil) { data, response, error in
             guard let _ = data, error == nil else {
                 print(error?.localizedDescription ?? "No data")
                 return

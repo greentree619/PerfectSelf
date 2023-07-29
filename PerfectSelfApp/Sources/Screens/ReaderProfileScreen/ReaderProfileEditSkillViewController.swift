@@ -220,7 +220,7 @@ class ReaderProfileEditSkillViewController: UIViewController, UICollectionViewDa
         let aType = (self.isExtendedRead ? 4:0) + (self.isShortRead ? 2 : 0) + (self.isCommercialRead ? 1:0)
         print(aType)
         showIndicator(sender: nil, viewController: self)
-        webAPI.editReaderProfile(uid: uid, title: "", hourlyPrice: -1, about: "", introBucketName: "", introVideokey: "", skills: skills, auditionType: aType, isExplicitRead: btn_explicit_yes.isSelected) { data, response, error in
+        webAPI.editReaderProfile(uid: uid, title: "", min15Price: -1, min30Price: -1, hourlyPrice: -1, about: "", introBucketName: "", introVideokey: "", skills: skills, auditionType: aType, isExplicitRead: btn_explicit_yes.isSelected) { data, response, error in
             DispatchQueue.main.async {
                 hideIndicator(sender: nil);
             }

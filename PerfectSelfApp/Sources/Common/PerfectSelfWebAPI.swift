@@ -185,6 +185,8 @@ class PerfectSelfWebAPI
         let json: [String: Any] = [
             "title": "",
             "readerUid": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+            "min15Price": -1,
+            "min30Price": -1,
             "hourlyPrice": -1,
             "voiceType": -1,
             "others": -1,
@@ -259,12 +261,14 @@ class PerfectSelfWebAPI
         return executeAPI(with: "GET", apiPath: "ReaderProfiles/Detail/\(id)", json: [:], completionHandler:completionHandler)
     }
     
-    func editReaderProfile(uid: String,title: String,hourlyPrice: Int, about: String, introBucketName: String, introVideokey: String, skills: String?, auditionType: Int, isExplicitRead: Bool?, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> Void
+    func editReaderProfile(uid: String,title: String,min15Price: Float,min30Price: Float,hourlyPrice: Float, about: String, introBucketName: String, introVideokey: String, skills: String?, auditionType: Int, isExplicitRead: Bool?, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> Void
     {
         let json: [String: Any?] = [
             "id": 0,// no effect
             "title": title, //no update
             "readerUid": uid,// no effect
+            "min15Price": min15Price,
+            "min30Price": min30Price,
             "hourlyPrice": hourlyPrice, //no update
             "voiceType": -1, //no update
             "others": -1, // no update

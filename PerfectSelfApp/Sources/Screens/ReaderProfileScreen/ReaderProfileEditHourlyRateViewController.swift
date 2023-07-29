@@ -9,13 +9,20 @@
 import UIKit
 
 class ReaderProfileEditHourlyRateViewController: UIViewController {
-    var hourlyrate: Int = 0
+    var min15rate: Float = 0
+    var min30rate: Float = 0
+    var hourlyrate: Float = 0
     var uid = ""
     @IBOutlet weak var text_rate: UITextField!
+    @IBOutlet weak var rate15Min: UITextField!
+    @IBOutlet weak var rate30Min: UITextField!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        rate15Min.text = String(min15rate)
+        rate30Min.text = String(min30rate)
         text_rate.text = String(hourlyrate)
     }
 
@@ -23,17 +30,25 @@ class ReaderProfileEditHourlyRateViewController: UIViewController {
     @IBAction func SaveChange(_ sender: UIButton) {
         var inputCheck: String = ""
         var focusTextField: UITextField? = nil
+        if(rate15Min.text!.isEmpty){
+            inputCheck += "- Please input 15min rate.\n"
+            if(focusTextField == nil){
+                focusTextField = rate15Min
+            }
+        }
+        
+        if(rate30Min.text!.isEmpty){
+            inputCheck += "- Please input 30min rate.\n"
+            if(focusTextField == nil){
+                focusTextField = rate30Min
+            }
+        }
+        
         if(text_rate.text!.isEmpty){
             inputCheck += "- Please input hourly rate.\n"
             if(focusTextField == nil){
                 focusTextField = text_rate
             }
-        }
-        guard let newRate = Int(text_rate.text!) else {
-            showAlert(viewController: self, title: "Warning", message: "Value should be valid integer") {_ in
-                
-            }
-            return
         }
         
         if(!inputCheck.isEmpty){
@@ -42,9 +57,15 @@ class ReaderProfileEditHourlyRateViewController: UIViewController {
             }
             return
         }
+        
+        let rate15 = Float(rate15Min.text!)
+        let rate30 = Float(rate30Min.text!)
+        let rateHr = Float(text_rate.text!)
         // call API for about update
         showIndicator(sender: nil, viewController: self)
-        webAPI.editReaderProfile(uid: uid, title: "", hourlyPrice: newRate, about: "", introBucketName: "", introVideokey: "", skills: nil, auditionType: -1, isExplicitRead: nil) { data, response, error in
+        webAPI.editReaderProfile(uid: uid, title: "", min15Price: ((rate15 == nil ? 0.0 : rate15)!),
+                                 min30Price: ((rate30 == nil ? 0.0 : rate30)!),
+                                 hourlyPrice: ((rateHr == nil ? 0.0 : rateHr)!), about: "", introBucketName: "", introVideokey: "", skills: nil, auditionType: -1, isExplicitRead: nil) { data, response, error in
             
             guard let _ = data, error == nil else {
                 print(error?.localizedDescription ?? "No data")

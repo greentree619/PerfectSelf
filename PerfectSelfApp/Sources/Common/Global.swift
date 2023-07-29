@@ -167,7 +167,9 @@ struct ReaderProfileDetail: Codable {
     let avatarBucketName: String
     let avatarKey: String
     let title: String
-    let hourlyPrice: Int
+    let min15Price: Float
+    let min30Price: Float
+    let hourlyPrice: Float
     let others: Int
     let voiceType: Int
     let about: String
@@ -221,7 +223,9 @@ struct ReaderProfileCard: Codable {
     let isSponsored: Bool
     let reviewCount: Int
     let score: Float
-    let hourlyPrice: Int?
+    let min15Price: Float?
+    let min30Price: Float?
+    let hourlyPrice: Float?
     let isStandBy: Bool?
     let date: String?
     var fromTime: String?
@@ -1433,4 +1437,25 @@ func exportMergedVideo(avUrl: URL, aaUrl: URL, rvUrl: URL, raUrl:URL, vc: UIView
 //        {
 //            print("Exception when compiling movie");
 //        }
+}
+
+public enum RoundingPrecision {
+    case ones
+    case tenths
+    case hundredths
+}
+
+// Round to the specific decimal place
+public func preciseRound(
+    _ value: Float,
+    precision: RoundingPrecision = .ones) -> Float
+{
+    switch precision {
+    case .ones:
+        return round(value)
+    case .tenths:
+        return round(value * 10) / 10.0
+    case .hundredths:
+        return round(value * 100) / 100.0
+    }
 }

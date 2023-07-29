@@ -15,7 +15,9 @@ class ReaderProfileViewController: UIViewController, UICollectionViewDataSource,
     var isEditingMode = false
     var uploadType = "image"
     var id = ""
-    var hourlyRate: Int = 0
+    var min15Rate: Float = 0
+    var min30Rate: Float = 0
+    var hourlyRate: Float = 0
     var photoType = 0//0: from lib, 1: from camera
     @IBOutlet weak var btn_edit_avatar: UIButton!
     @IBOutlet weak var btn_edit_userinfo: UIButton!
@@ -149,12 +151,14 @@ class ReaderProfileViewController: UIViewController, UICollectionViewDataSource,
                     self.readerAbout.maximumNumberOfLines = 7
                     self.readerAbout.shouldTrim = true
                     
-                    self.quarterHourlyPrice.text = "$\(Float(item.hourlyPrice)/4)"
-                    self.halfHourlyPrice.text = "$\(Float(item.hourlyPrice)/2)"
-                    self.hourlyPrice.text = "$\(Float(item.hourlyPrice))"
+                    self.quarterHourlyPrice.text = "$\(item.min15Price)"
+                    self.halfHourlyPrice.text = "$\(item.min30Price)"
+                    self.hourlyPrice.text = "$\(item.hourlyPrice)"
                     self.skills = item.skills.components(separatedBy: ",")
                     self.skills = self.skills.filter { !$0.isEmpty }
                     self.skillList.reloadData()
+                    self.min15Rate = item.min15Price
+                    self.min30Rate = item.min30Price
                     self.hourlyRate = item.hourlyPrice
                     self.auditionType = item.auditionType
                     self.isExplicitRead = item.isExplicitRead ?? false
@@ -558,6 +562,8 @@ class ReaderProfileViewController: UIViewController, UICollectionViewDataSource,
     }
     @IBAction func EditHourlyRate(_ sender: UIButton) {
         let controller = ReaderProfileEditHourlyRateViewController()
+        controller.min15rate = min15Rate
+        controller.min30rate = min30Rate
         controller.hourlyrate = hourlyRate
         controller.uid = id
         controller.modalPresentationStyle = .fullScreen
@@ -571,6 +577,8 @@ class ReaderProfileViewController: UIViewController, UICollectionViewDataSource,
     
     @IBAction func EditHourlyRate1(_ sender: UIButton) {
         let controller = ReaderProfileEditHourlyRateViewController()
+        controller.min15rate = min15Rate
+        controller.min30rate = min30Rate
         controller.hourlyrate = hourlyRate
         controller.uid = id
         controller.modalPresentationStyle = .fullScreen
