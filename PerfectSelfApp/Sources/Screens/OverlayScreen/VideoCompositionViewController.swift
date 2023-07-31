@@ -10,6 +10,7 @@
 import UIKit
 import AVFoundation
 import Photos
+import HGCircularSlider
 
 class VideoCompositionViewController: UIViewController {
 
@@ -18,8 +19,13 @@ class VideoCompositionViewController: UIViewController {
     var recordURL: URL?
     var readerAURL: URL?
     var readerVURL: URL?
+    var auploadProgress: Float = 0
+    var vuploadProgress: Float = 0
+    let semaphore = DispatchSemaphore(value: 1)
     @IBOutlet var btnPlayPause: UIButton!
     @IBOutlet var slider: UISlider!
+    @IBOutlet weak var uploadProgress: CircularSlider!
+    @IBOutlet weak var uploadStatus: UILabel!
 
     var isPlaying: Bool = false {
         didSet {
@@ -35,6 +41,15 @@ class VideoCompositionViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        uploadProgress.minimumValue = 0.0
+        uploadProgress.maximumValue = 1.0
+        uploadProgress.endPointValue = 0.00 // the progress
+        uploadProgress.isUserInteractionEnabled = false
+        uploadProgress.thumbLineWidth = 0.0
+        uploadProgress.thumbRadius = 0.0
+        uploadProgress.diskColor = UIColor(rgb: 0xc2deff)
+        uploadStatus.text="  0%"
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -71,14 +86,18 @@ class VideoCompositionViewController: UIViewController {
         print("Video upload prefixKey: \(prefixKey)")
         userName = "self-tape"
         //Omitted let uuid = UUID().uuidString
-        showIndicator(sender: nil, viewController: self)
+        //Omitted showIndicator(sender: nil, viewController: self)
+        self.uploadProgress.isHidden = false
+        auploadProgress = 0
+        vuploadProgress = 0
+        self.uploadStatus.text="  0%"
         
         DispatchQueue.main.async {
             saveOnlyVideoFrom(url: self.recordURL!) { url in
                 print(url)
-                DispatchQueue.main.async {
-                    Toast.show(message: "Start to upload video file", controller:  self)
-                }
+//                DispatchQueue.main.async {
+//                    Toast.show(message: "Start to upload video file", controller:  self)
+//                }
                 log(meetingUid: "overlay-save", log:"tester video upload start: \(encodeURLParameter(prefixKey)!)")
                 //Upload video at first
                 awsUpload.multipartUpload(filePath: url, bucketName: "video-client-upload-123456798", prefixKey: prefixKey){ error -> Void in
@@ -89,10 +108,6 @@ class VideoCompositionViewController: UIViewController {
                     if(error == nil)
                     {
                         log(meetingUid: "overlay-save", log:"\(userName!) video upload end successfully")
-                        DispatchQueue.main.async {
-                            //Omitted hideIndicator(sender: nil)
-                            Toast.show(message: "Completed to upload Video file.", controller: self)
-                        }
 
                         if let userInfo = UserDefaults.standard.object(forKey: "USER") as? [String:Any] {
                             // Use the saved data
@@ -128,6 +143,11 @@ class VideoCompositionViewController: UIViewController {
                                               , parentId: tmpParentFolderId){ _, _, _ in
                                 
                             }
+                            
+                            DispatchQueue.main.async {
+                                //Omitted hideIndicator(sender: nil)
+                                //Omitted Toast.show(message: "This new tape has been saved successfully.", controller: self)
+                            }
                             //Omitted ConferenceViewController.clearTempFolder()
                         } else {
                             // No data was saved
@@ -138,10 +158,14 @@ class VideoCompositionViewController: UIViewController {
                     {
                         log(meetingUid: "overlay-save", log:"\(userName!) video upload failed:\(error!.localizedDescription)")
                         DispatchQueue.main.async {
+                            self.uploadProgress.isHidden = true
                             //hideIndicator(sender: nil)
                             Toast.show(message: "Failed to upload video file", controller: uiViewContoller!)
                         }
                     }
+                }progressHandler: { (progressVal)->Void in
+                    self.vuploadProgress = Float(progressVal)
+                    self.updateUploadProgress()
                 }
             }
 
@@ -155,19 +179,38 @@ class VideoCompositionViewController: UIViewController {
                     if(error == nil)
                     {//Then Upload video
                         log(meetingUid: "overlay-save", log:"\(userName!) audio upload end successfully.")
-                        DispatchQueue.main.async {
-                            //Omitted hideIndicator(sender: nil)
-                            Toast.show(message: "Completed to upload audio file.", controller: self)
-                        }
+//                        DispatchQueue.main.async {
+//                            //Omitted hideIndicator(sender: nil)
+//                            Toast.show(message: "Completed to upload audio file.", controller: self)
+//                        }
                     }
                     else
                     {
                         log(meetingUid: "overlay-save", log:"\(userName!) audio upload failed: \(error!.localizedDescription)")
                         DispatchQueue.main.async {
+                            self.uploadProgress.isHidden = true
                             //Omitted hideIndicator(sender: nil)
                             Toast.show(message: "Failed to upload audio file", controller: self)
                         }
                     }
+                }progressHandler: { (progressVal)->Void in
+                    self.auploadProgress = Float(progressVal)
+                    self.updateUploadProgress()
+                }
+            }
+        }
+    }
+    
+    func updateUploadProgress(){
+        DispatchQueue.main.async {
+            self.semaphore.wait()
+            self.uploadProgress.endPointValue = CGFloat(((self.auploadProgress + self.vuploadProgress)/2.0))
+            let value = self.uploadProgress.endPointValue
+            self.uploadStatus.text = String(format: "%3 d%%", Int(value*100))
+            self.semaphore.signal()
+            if value >= 1.0 {
+                showAlert(viewController: self, title: "PerfectSelf", message: "This new tape has been saved successfully.") { _ in
+                    self.uploadProgress.isHidden = true
                 }
             }
         }
