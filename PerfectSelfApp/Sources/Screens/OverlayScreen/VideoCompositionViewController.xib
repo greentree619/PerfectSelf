@@ -85,7 +85,7 @@
                         <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="vuB-Ja-Tg4" secondAttribute="trailing" constant="20" symbolic="YES" id="qc4-Oj-LH6"/>
                     </constraints>
                 </view>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zlu-oq-e18" userLabel="Circular Progress View" customClass="CircularSlider" customModule="HGCircularSlider">
+                <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zlu-oq-e18" userLabel="Circular Progress View" customClass="CircularSlider" customModule="HGCircularSlider">
                     <rect key="frame" x="98.333333333333329" y="327.66666666666669" width="196.33333333333337" height="196.66666666666669"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="20%" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VWY-ua-LtY" userLabel="Upload status">
