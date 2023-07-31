@@ -100,6 +100,10 @@ class EditReadViewController: UIViewController {
         setupPlayer()
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        playerView.stop()
+    }
+    
     func setupPlayer() {
         videoMTrack = movie.addMutableTrack(withMediaType: .video, preferredTrackID: kCMPersistentTrackID_Invalid)
         audioMTrack = movie.addMutableTrack(withMediaType: .audio, preferredTrackID: kCMPersistentTrackID_Invalid)
