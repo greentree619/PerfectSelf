@@ -85,10 +85,10 @@
                         <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="vuB-Ja-Tg4" secondAttribute="trailing" constant="20" symbolic="YES" id="qc4-Oj-LH6"/>
                     </constraints>
                 </view>
-                <view hidden="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zlu-oq-e18" userLabel="Circular Progress View" customClass="CircularSlider" customModule="HGCircularSlider">
-                    <rect key="frame" x="98" y="327" width="196.33333333333337" height="196.66666666666669"/>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zlu-oq-e18" userLabel="Circular Progress View" customClass="CircularSlider" customModule="HGCircularSlider">
+                    <rect key="frame" x="98.333333333333329" y="327.66666666666669" width="196.33333333333337" height="196.66666666666669"/>
                     <subviews>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="20%" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VWY-ua-LtY" userLabel="Upload status">
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="20%" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VWY-ua-LtY" userLabel="Upload status">
                             <rect key="frame" x="56.000000000000007" y="74.333333333333314" width="84.666666666666686" height="48"/>
                             <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="40"/>
                             <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -110,13 +110,15 @@
                 <constraint firstItem="ZJd-mf-cDp" firstAttribute="centerX" secondItem="2RM-Re-bgC" secondAttribute="centerX" id="2Kb-Vb-CuH"/>
                 <constraint firstItem="dxV-zO-wCG" firstAttribute="trailing" secondItem="eSS-DO-nks" secondAttribute="trailing" id="2kO-vn-w2n"/>
                 <constraint firstItem="2RM-Re-bgC" firstAttribute="leading" secondItem="dxV-zO-wCG" secondAttribute="leading" id="7Jr-Ej-uyi"/>
+                <constraint firstItem="zlu-oq-e18" firstAttribute="width" secondItem="k4H-gC-cTz" secondAttribute="width" multiplier="0.5" id="97V-vc-gDP"/>
                 <constraint firstItem="dxV-zO-wCG" firstAttribute="bottom" secondItem="2RM-Re-bgC" secondAttribute="bottom" id="Fi1-Dd-PR5"/>
                 <constraint firstItem="AgH-Og-MP0" firstAttribute="leading" secondItem="2RM-Re-bgC" secondAttribute="leading" id="LqK-wo-R84"/>
                 <constraint firstItem="dxV-zO-wCG" firstAttribute="trailing" secondItem="2RM-Re-bgC" secondAttribute="trailing" id="O4T-bt-7yY"/>
                 <constraint firstItem="ZJd-mf-cDp" firstAttribute="centerY" secondItem="2RM-Re-bgC" secondAttribute="centerY" id="R3O-EC-Wyi"/>
                 <constraint firstItem="2RM-Re-bgC" firstAttribute="top" secondItem="dxV-zO-wCG" secondAttribute="top" id="eH0-uE-SLV"/>
-                <constraint firstItem="zlu-oq-e18" firstAttribute="width" secondItem="zlu-oq-e18" secondAttribute="height" multiplier="1:1" id="eUn-H0-nqI"/>
                 <constraint firstItem="eSS-DO-nks" firstAttribute="leading" secondItem="dxV-zO-wCG" secondAttribute="leading" id="gaA-Ri-5v9"/>
+                <constraint firstItem="zlu-oq-e18" firstAttribute="centerX" secondItem="k4H-gC-cTz" secondAttribute="centerX" id="qbm-u7-ZZL"/>
+                <constraint firstItem="zlu-oq-e18" firstAttribute="centerY" secondItem="k4H-gC-cTz" secondAttribute="centerY" id="vZz-ye-yLv"/>
                 <constraint firstItem="AgH-Og-MP0" firstAttribute="trailing" secondItem="2RM-Re-bgC" secondAttribute="trailing" id="xTS-Jc-qws"/>
                 <constraint firstItem="AgH-Og-MP0" firstAttribute="bottom" secondItem="2RM-Re-bgC" secondAttribute="bottom" id="xlO-zP-wN1"/>
             </constraints>

@@ -50,12 +50,20 @@ class VideoCompositionViewController: UIViewController {
         uploadProgress.thumbRadius = 0.0
         uploadProgress.diskColor = UIColor(rgb: 0xc2deff)
         uploadStatus.text="  0%"
+        
+#if OVERLAY_UPLOAD_PROGRESS_TEST
+        uploadProgress.isHidden = false
+#endif//OVERLAY_UPLOAD_PROGRESS_TEST
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+
+#if OVERLAY_UPLOAD_PROGRESS_TEST
+//        setupPlayer()
+#else
         setupPlayer()
+#endif//OVERLAY_UPLOAD_PROGRESS_TEST
     }
     
     override func viewWillDisappear(_ animated: Bool) {

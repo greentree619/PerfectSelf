@@ -138,6 +138,13 @@ class OverlayViewController: UIViewController {
         })
 #endif//OVERLAY_TEST
         
+#if OVERLAY_UPLOAD_PROGRESS_TEST
+        let vc: VideoCompositionViewController = VideoCompositionViewController()
+        vc.videoUrl = uploadVideourl
+        vc.modalPresentationStyle = .fullScreen
+        self.present(vc, animated: false, completion: nil)
+#endif//OVERLAY_UPLOAD_PROGRESS_TEST
+        
 //Omitted         if cameraView.captureSession.isRunning == true {
 //            return
 //        }
