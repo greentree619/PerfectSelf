@@ -20,10 +20,12 @@ class EditReadViewController: UIViewController {
     var audioURL: URL?
     var readerVideoURL: URL
     var readerAudioURL: URL
+    var audioOrgURL: URL?
+    var readerAudioOrgURL: URL?
     let movie = AVMutableComposition()
     var videoMTrack: AVMutableCompositionTrack?
-    var audioMTrack: AVMutableCompositionTrack?
-    var audioMTrack2: AVMutableCompositionTrack?
+    var audioMTrack: AVMutableCompositionTrack? = nil
+    var audioMTrack2: AVMutableCompositionTrack? = nil
     var editRange: CMTimeRange?
     var editAudioTrack: AVAssetTrack?
     var editVideoTrack: AVAssetTrack?
@@ -105,6 +107,14 @@ class EditReadViewController: UIViewController {
     }
     
     func setupPlayer() {
+        var initPlayer: Bool = true
+        if audioMTrack != nil {
+            initPlayer = false
+            movie.removeTrack(audioMTrack!)
+            movie.removeTrack(audioMTrack2!)
+            movie.removeTrack(videoMTrack!)
+        }
+            
         videoMTrack = movie.addMutableTrack(withMediaType: .video, preferredTrackID: kCMPersistentTrackID_Invalid)
         audioMTrack = movie.addMutableTrack(withMediaType: .audio, preferredTrackID: kCMPersistentTrackID_Invalid)
         audioMTrack2 = movie.addMutableTrack(withMediaType: .audio, preferredTrackID: kCMPersistentTrackID_Invalid)
@@ -141,17 +151,20 @@ class EditReadViewController: UIViewController {
             print(error)
         }
         
-        //{{
-        playerView.mainavComposition = movie
-        //==
-        //playerView.url = videoURL
-        //==
-        //playerView.avAsset = editMovie
-        //}}
-        //        playerView.playerItem?.videoComposition = videoComposition
-        playerView.delegate = self
-        slider.minimumValue = 0
-        playerView.addObserver(self, forKeyPath: "status", context: nil)
+        if( initPlayer )
+        {
+            //{{
+            playerView.mainavComposition = movie
+            //==
+            //playerView.url = videoURL
+            //==
+            //playerView.avAsset = editMovie
+            //}}
+            //        playerView.playerItem?.videoComposition = videoComposition
+            playerView.delegate = self
+            slider.minimumValue = 0
+            playerView.addObserver(self, forKeyPath: "status", context: nil)
+        }
     }
     
     @IBAction func backDidTap(_ sender: UIButton) {
@@ -166,16 +179,31 @@ class EditReadViewController: UIViewController {
         
         showConfirm(viewController: self, title: "Confirm", message: "Are you sure to apply changes?") { [self] UIAlertAction in
             videoRotateOffset = tmpVRotateOffset
-            if( timePauseChanged )
+            if( timePauseChanged || audioNoiseChanged)
             {
-                videoApplyDone = false
-                audioApplyDone = false
-                
-                self.applyTimePauseChange()
+                videoApplyDone = true
+                audioApplyDone = true
+                if timePauseChanged {
+                    videoApplyDone = false
+                    audioApplyDone = false
+                    self.applyTimePauseChange()
+                }
                 
                 DispatchQueue.main.async {
                     showIndicator(sender: nil, viewController: self)
                 }
+                
+                if audioNoiseChanged {
+                    do {
+                        try FileManager.default.removeItem(at: audioOrgURL!)
+                        try FileManager.default.removeItem(at: readerAudioOrgURL!)
+                        try FileManager.default.copyItem(at: audioURL!, to: audioOrgURL!)
+                        try FileManager.default.copyItem(at: readerAudioURL, to: readerAudioOrgURL!)
+                    } catch{
+                        print("audio copy error")
+                    }
+                }
+                
                 let _ = Timer.scheduledTimer(withTimeInterval: TimeInterval(200) / 1000, repeats: true, block: { timer in
                     if(self.videoApplyDone && self.audioApplyDone){
                         timer.invalidate()
@@ -256,6 +284,10 @@ class EditReadViewController: UIViewController {
             return
         }
         
+        //Backup original audio urls
+        audioOrgURL = audioURL
+        readerAudioOrgURL = readerAudioURL
+        
         //
         //{{do audio enhancement
         getJobIdForRemovalAudioNoise(uiCtrl: self, audioURL: self.audioURL!) { jobId in
@@ -301,6 +333,9 @@ class EditReadViewController: UIViewController {
             if(self.noiseRemovalCount >= 2){
                 timer.invalidate()
                 self.audioNoiseChanged = true
+                
+                self.setupPlayer()
+                self.playerView.currentTime = Double(0)
                 
                 DispatchQueue.main.async {
                     hideIndicator(sender: nil)
