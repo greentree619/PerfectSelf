@@ -11,7 +11,7 @@ import WebRTC
 import AVFoundation
 
 protocol UpdatedTapeDelegate {
-    func updatedTape( aAudioURL: URL, rAudioURL: URL)
+    func updatedTape( aAudioURL: URL?, rAudioURL: URL?)
 }
 
 class EditReadViewController: UIViewController {
@@ -38,6 +38,8 @@ class EditReadViewController: UIViewController {
     var playerThumbView: UIImageView?
     var videoApplyDone = false
     var audioApplyDone = false
+    var actorAudioUploadDone = false
+    var readerAudioUploadDone = false
     var noiseRemovalTimer: Timer? = nil
     var noiseRemovalReaderTimer: Timer? = nil
     var noiseRemovalCount = 0
@@ -187,12 +189,21 @@ class EditReadViewController: UIViewController {
                     self.applyTimePauseChange()
                 }
                 
+                actorAudioUploadDone = true
+                readerAudioUploadDone = true
+                if audioNoiseChanged{
+                    actorAudioUploadDone = false
+                    readerAudioUploadDone = false
+                    self.uploadBothAudios()
+                }
+                
                 DispatchQueue.main.async {
                     showIndicator(sender: nil, viewController: self)
                 }
                 
                 let _ = Timer.scheduledTimer(withTimeInterval: TimeInterval(200) / 1000, repeats: true, block: { timer in
-                    if(self.videoApplyDone && self.audioApplyDone){
+                    if(self.videoApplyDone && self.audioApplyDone
+                       && self.actorAudioUploadDone && self.readerAudioUploadDone ){
                         timer.invalidate()
                         self.delegate?.updatedTape(aAudioURL: self.audioURL!, rAudioURL: self.readerAudioURL)
                         DispatchQueue.main.async {
@@ -821,6 +832,56 @@ class EditReadViewController: UIViewController {
             }
         }
         //}}Apply to video
+    }
+    
+    func uploadBothAudios(){
+        //{{ Apply to audio
+        let actorTapeKey = "\(selectedTape!.actorTapeKey).m4a"
+        let readerTapeKey = "\(selectedTape!.readerTapeKey!).m4a"
+        
+        DispatchQueue.main.async {
+            //Omitted showIndicator(sender: nil, viewController: self)
+            Toast.show(message: "Uploading the best audio files...", controller: self)
+        }
+        
+        awsUpload.multipartUpload(filePath: self.audioURL!, bucketName: "video-client-upload-123456798", prefixKey: actorTapeKey, forceKey: true){ (error: Error?) -> Void in
+            self.actorAudioUploadDone = true
+            DispatchQueue.main.async {
+                //Omitted hideIndicator(sender: nil)
+            }
+            
+            if(error == nil)
+            {//Then Upload video
+                print("actor audio upload done!")
+            }
+            else
+            {
+                print("aFailed to upload audio file!")
+            }
+        }progressHandler: { (progressVal)->Void in
+            //print("progressHandler", progressVal)
+            //Toast.show(message: "Upload progress", controller: uiViewContoller!)
+        }
+        
+        awsUpload.multipartUpload(filePath: self.readerAudioURL, bucketName: "video-client-upload-123456798", prefixKey: readerTapeKey, forceKey: true){ (error: Error?) -> Void in
+                    self.readerAudioUploadDone = true
+                    DispatchQueue.main.async {
+                        //Omitted hideIndicator(sender: nil)
+                    }
+                    
+                    if(error == nil)
+                    {//Then Upload video
+                        print("actor audio upload done!")
+                    }
+                    else
+                    {
+                        print("aFailed to upload audio file!")
+                    }
+                }progressHandler: { (progressVal)->Void in
+                    //print("progressHandler", progressVal)
+                    //Toast.show(message: "Upload progress", controller: uiViewContoller!)
+                }
+        //}} Apply to audio
     }
 }
 
