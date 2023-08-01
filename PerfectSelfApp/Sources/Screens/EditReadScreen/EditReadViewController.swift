@@ -11,7 +11,7 @@ import WebRTC
 import AVFoundation
 
 protocol UpdatedTapeDelegate {
-    func updatedTape()
+    func updatedTape( aAudioURL: URL, rAudioURL: URL)
 }
 
 class EditReadViewController: UIViewController {
@@ -20,8 +20,6 @@ class EditReadViewController: UIViewController {
     var audioURL: URL?
     var readerVideoURL: URL
     var readerAudioURL: URL
-    var audioOrgURL: URL?
-    var readerAudioOrgURL: URL?
     let movie = AVMutableComposition()
     var videoMTrack: AVMutableCompositionTrack?
     var audioMTrack: AVMutableCompositionTrack? = nil
@@ -151,15 +149,15 @@ class EditReadViewController: UIViewController {
             print(error)
         }
         
+        //{{
+        playerView.mainavComposition = movie
+        //==
+        //playerView.url = videoURL
+        //==
+        //playerView.avAsset = editMovie
+        //}}
         if( initPlayer )
-        {
-            //{{
-            playerView.mainavComposition = movie
-            //==
-            //playerView.url = videoURL
-            //==
-            //playerView.avAsset = editMovie
-            //}}
+        {            
             //        playerView.playerItem?.videoComposition = videoComposition
             playerView.delegate = self
             slider.minimumValue = 0
@@ -193,21 +191,10 @@ class EditReadViewController: UIViewController {
                     showIndicator(sender: nil, viewController: self)
                 }
                 
-                if audioNoiseChanged {
-                    do {
-                        try FileManager.default.removeItem(at: audioOrgURL!)
-                        try FileManager.default.removeItem(at: readerAudioOrgURL!)
-                        try FileManager.default.copyItem(at: audioURL!, to: audioOrgURL!)
-                        try FileManager.default.copyItem(at: readerAudioURL, to: readerAudioOrgURL!)
-                    } catch{
-                        print("audio copy error")
-                    }
-                }
-                
                 let _ = Timer.scheduledTimer(withTimeInterval: TimeInterval(200) / 1000, repeats: true, block: { timer in
                     if(self.videoApplyDone && self.audioApplyDone){
                         timer.invalidate()
-                        self.delegate?.updatedTape()
+                        self.delegate?.updatedTape(aAudioURL: self.audioURL!, rAudioURL: self.readerAudioURL)
                         DispatchQueue.main.async {
                             hideIndicator(sender: nil)
                             self.dismiss(animated: false)
@@ -283,10 +270,6 @@ class EditReadViewController: UIViewController {
         guard let _ = audioURL else {
             return
         }
-        
-        //Backup original audio urls
-        audioOrgURL = audioURL
-        readerAudioOrgURL = readerAudioURL
         
         //
         //{{do audio enhancement
@@ -863,6 +846,10 @@ extension EditReadViewController: PlayerViewDelegate {
     
     func playerVideo(player: PlayerView, statusItemPlayer: AVPlayerItem.Status, error: Error?) {
         initPlayerThumb(playerView: playerView, movie: movie) { view in
+            if self.playerThumbView != nil{
+                self.playerThumbView?.isHidden = true
+            }
+            
             self.playerThumbView = view
         }
     }

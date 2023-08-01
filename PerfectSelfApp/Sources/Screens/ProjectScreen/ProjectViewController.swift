@@ -698,9 +698,11 @@ extension ProjectViewController: PlayerViewDelegate{
 }
 
 extension ProjectViewController: UpdatedTapeDelegate {
-    func updatedTape(){
-    mainPlayerView = nil
-    mainDuration = -1.0
+    func updatedTape(aAudioURL: URL, rAudioURL: URL){
+        mainPlayerView = nil
+        mainDuration = -1.0
+        self.savedAudioUrl = aAudioURL
+        self.savedReaderAudioUrl = rAudioURL
         DispatchQueue.main.async {[self] in
             actorVTrack = initAVMutableComposition(avMComp: actorAV, videoURL: self.savedVideoUrl!, audioURL: self.savedAudioUrl!, rotate: videoRotateOffset)
             self.actorPlayerView.mainavComposition = actorAV
