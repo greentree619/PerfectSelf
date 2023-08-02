@@ -429,7 +429,7 @@ class ProjectViewController: UIViewController {
                     self.savedReaderVideoUrl = filePath
                     
                     //Download audio file
-                    let filePath = URL(fileURLWithPath: "\(documentsPath)/tempReaderFile.m4a")
+                    var filePath = URL(fileURLWithPath: "\(documentsPath)/tempReaderFile.m4a")
                     do {
                         try FileManager.default.removeItem(at: filePath)
                         //print("File deleted successfully")
@@ -449,6 +449,7 @@ class ProjectViewController: UIViewController {
                             }
                         }
                         else{
+                            checkMP3( audioFile: &filePath )
                             self.savedReaderAudioUrl = filePath
 //                            let overlayViewController = OverlayViewController()
 //                            overlayViewController.uploadVideourl = self.savedReaderVideoUrl
@@ -544,7 +545,7 @@ class ProjectViewController: UIViewController {
                 self.savedVideoUrl = filePath
                 
                 //Download audio file
-                let filePath = URL(fileURLWithPath: "\(documentsPath)/tempFile.m4a")
+                var filePath = URL(fileURLWithPath: "\(documentsPath)/tempFile.m4a")
                 do {
                     try FileManager.default.removeItem(at: filePath)
                     //print("File deleted successfully")
@@ -562,6 +563,7 @@ class ProjectViewController: UIViewController {
                         }
                     }
                     else{
+                        checkMP3( audioFile: &filePath )
                         self.savedAudioUrl = filePath
                         DispatchQueue.main.async { [self] in
 //                            actorVTrack = initAVMutableComposition(avMComp: actorAV, videoURL: self.savedVideoUrl!, audioURL: self.savedAudioUrl!, rotate: videoRotateOffset)

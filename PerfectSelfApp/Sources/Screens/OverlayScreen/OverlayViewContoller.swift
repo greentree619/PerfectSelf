@@ -99,6 +99,7 @@ class OverlayViewController: UIViewController {
             withMediaType: .audio,
             preferredTrackID: Int32(kCMPersistentTrackID_Invalid))
         do {
+            print("Audio Count \(audioAsset.tracks(withMediaType: .audio).count)")
             try audioTrack?.insertTimeRange(
                 CMTimeRangeMake(
                     start: .zero,
@@ -116,7 +117,7 @@ class OverlayViewController: UIViewController {
     {
         super.viewDidAppear(animated)
         lblTimer.isHidden = true
-        //log(meetingUid: "overlay-microhpone", log:"Overlay selectMicrophone testing:")
+        log(meetingUid: "overlay-microhpone", log:"Overlay selectMicrophone testing:")
         selectMicrophone( 0 )
         
 #if OVERLAY_TEST

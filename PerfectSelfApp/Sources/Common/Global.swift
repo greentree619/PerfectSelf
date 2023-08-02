@@ -1244,16 +1244,16 @@ func selectMicrophone(_ index: Int){
         AVAudioSession.sharedInstance().availableInputs ?? []
     }
     
-    //Omitted log(meetingUid: "overlay-microhpone", log:"mic count: \(audioInputs.count)")
+    log(meetingUid: "overlay-microhpone", log:"mic count: \(audioInputs.count)")
     if(audioInputs.count > 0 && audioInputs.count > index){
         let selectedMicroPhone = audioInputs[index]
         do {
             try AVAudioSession.sharedInstance().setPreferredInput(selectedMicroPhone)
             try AVAudioSession.sharedInstance().setActive(true)
-            //log(meetingUid: "overlay-microhpone", log:"Overlay mic testing: [0] - result: true")
+            log(meetingUid: "overlay-microhpone", log:"Overlay mic testing: [0] \(selectedMicroPhone.portName) - result: true")
         } catch  {
             print("Error messing with audio session: \(error)")
-            //log(meetingUid: "overlay-microhpone", log:"Overlay mic testing: [0] - result: false")
+            log(meetingUid: "overlay-microhpone", log:"Overlay mic testing: [0] \(selectedMicroPhone.portName) - result: false")
         }
     }
 }
@@ -1442,6 +1442,20 @@ func exportMergedVideo(avUrl: URL, aaUrl: URL, rvUrl: URL, raUrl:URL, vc: UIView
 //        }
 }
 
+func checkMP3(audioFile: inout URL){
+    let audioAsset = AVAsset(url: audioFile)
+    if audioAsset.tracks(withMediaType: .audio).count <= 0{
+        let audioMP3Url = URL(string: audioFile.absoluteString.replacingOccurrences(of: ".m4a", with: ".mp3"))
+        
+        do {
+            try FileManager.default.moveItem(at: audioFile, to: audioMP3Url!)
+            audioFile = audioMP3Url!
+        } catch (let writeError) {
+            print("Error renameing a file : \(writeError)")
+        }
+    }
+}
+
 public enum RoundingPrecision {
     case ones
     case tenths
@@ -1462,3 +1476,4 @@ public func preciseRound(
         return round(value * 100) / 100.0
     }
 }
+
