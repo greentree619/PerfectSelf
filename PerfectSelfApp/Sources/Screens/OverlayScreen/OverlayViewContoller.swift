@@ -116,7 +116,8 @@ class OverlayViewController: UIViewController {
     {
         super.viewDidAppear(animated)
         lblTimer.isHidden = true
-        selectMicrophone( 0, roomUid: selectedTape!.roomUid )
+        //log(meetingUid: "overlay-microhpone", log:"Overlay selectMicrophone testing:")
+        selectMicrophone( 0 )
         
 #if OVERLAY_TEST
         var count = 7

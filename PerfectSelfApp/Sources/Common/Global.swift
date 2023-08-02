@@ -1239,23 +1239,22 @@ func getDocumentsDirectory() -> URL {
     return documentsDirectory
 }
 
-func selectMicrophone(_ index: Int, roomUid: String){
+func selectMicrophone(_ index: Int){
     var audioInputs: [AVAudioSessionPortDescription] {
         AVAudioSession.sharedInstance().availableInputs ?? []
     }
     
+    //Omitted log(meetingUid: "overlay-microhpone", log:"mic count: \(audioInputs.count)")
     if(audioInputs.count > 0 && audioInputs.count > index){
         let selectedMicroPhone = audioInputs[index]
-        var changeResult = false
         do {
             try AVAudioSession.sharedInstance().setPreferredInput(selectedMicroPhone)
             try AVAudioSession.sharedInstance().setActive(true)
-            changeResult = true
+            //log(meetingUid: "overlay-microhpone", log:"Overlay mic testing: [0] - result: true")
         } catch  {
             print("Error messing with audio session: \(error)")
+            //log(meetingUid: "overlay-microhpone", log:"Overlay mic testing: [0] - result: false")
         }
-        
-        log(meetingUid: roomUid, log:"Overlay mic testing: [0] - \(selectedMicroPhone.portName) result: \(changeResult)")
     }
 }
 
