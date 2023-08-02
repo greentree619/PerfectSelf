@@ -287,15 +287,6 @@ class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSample
     override func viewWillAppear(_ animated: Bool) {
         //Omitted semaphore.wait()//Wait until signal connected
         log(meetingUid: gRoomUid!, log:"\(userName!) entered in room")
-        
-        if(!isRecordEnabled)
-        {
-            log(meetingUid: gRoomUid!, log:"\(userName!): his device don't support to record from local camera while take meeting.")
-            let alert = UIAlertController(title: "Warning", message: "This device don't support to record from local camera while take meeting.", preferredStyle: UIAlertController.Style.alert)
-            alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
-            self.present(alert, animated: true, completion: nil)
-        }
-        
 #if UPLOAD_PROGRESS
         uploadProgress.isHidden = false
         var count = 0
@@ -450,6 +441,13 @@ class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSample
         else
         {
             isRecordEnabled = false
+            //Show alert to show that camear is impossible.
+            DispatchQueue.main.async {
+                log(meetingUid: gRoomUid!, log:"\(userName!): his device don't support to record from local camera while take meeting.")
+                let alert = UIAlertController(title: "Warning", message: "This device don't support to record from local camera while take meeting.", preferredStyle: UIAlertController.Style.alert)
+                alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
+                self.present(alert, animated: true, completion: nil)
+            }
         }
         
         if( capturer.captureSession.canSetSessionPreset(AVCaptureSession.Preset.medium) )
