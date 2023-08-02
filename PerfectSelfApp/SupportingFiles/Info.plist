@@ -15,7 +15,7 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>2.8</string>
+	<string>2.9</string>
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
@@ -30,7 +30,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>135</string>
+	<string>0</string>
 	<key>GIDClientID</key>
 	<string>669216550945-mgc5slqbok7j5ubp8255loi7hkoe7mj3.apps.googleusercontent.com</string>
 	<key>LSRequiresIPhoneOS</key>
