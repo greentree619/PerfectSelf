@@ -61,6 +61,7 @@ class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSample
     private var pingPongRcv: Bool = false
     private var syncTimer: Timer?
     let semaphore = DispatchSemaphore(value: 0)
+    var videoOutputPath: URL? = nil
     
     //Omitted let videoQueue = DispatchQueue(label: "VideoQueue", qos: .background, attributes: .concurrent, autoreleaseFrequency: .workItem, target: nil)
     //Omitted private let captureSession = AVCaptureSession()
@@ -450,9 +451,9 @@ class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSample
             }
         }
         
-        if( capturer.captureSession.canSetSessionPreset(AVCaptureSession.Preset.medium) )
+        if( capturer.captureSession.canSetSessionPreset(AVCaptureSession.Preset.hd1280x720) )
         {
-            capturer.captureSession.sessionPreset = AVCaptureSession.Preset.medium
+            capturer.captureSession.sessionPreset = AVCaptureSession.Preset.hd1280x720
         }
         capturer.captureSession.commitConfiguration()
         _videoOutput = output
@@ -538,20 +539,25 @@ class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSample
         switch _captureState {
         case .start:
             DispatchQueue(label: "com.perfectself.captureQueue", attributes: .concurrent).async { [self] in
+                let imageBuffer = CMSampleBufferGetImageBuffer(sampleBuffer)
+                let imageWidth = CVPixelBufferGetWidth(imageBuffer!)
+                let imageHeight = CVPixelBufferGetHeight(imageBuffer!)
+                //print("Input buffer image size \(imageWidth)x\(imageHeight)")
+                
                 DispatchQueue.main.async {
                     Toast.show(message: "Recording start...", controller: uiViewContoller!)
                     let devOrientation = getVideoTransformStatus()
-                    log(meetingUid: gRoomUid!, log:"\(userName!) video recording module start (device orientation: \(devOrientation)")
+                    log(meetingUid: gRoomUid!, log:"\(userName!) video recording module start (device orientation: \(devOrientation)) video size->\(imageWidth)x\(imageHeight)")
                 }
                 
                 _filename = userName!//UUID().uuidString
-                let videoPath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!.appendingPathComponent("\(_filename).mp4")
+                self.videoOutputPath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!.appendingPathComponent("\(_filename).mp4")
                 //let videoPath = URL(string: "\(NSTemporaryDirectory())\(_filename).mp4")
                 
-                let writer = try! AVAssetWriter(outputURL: videoPath, fileType: .mp4)
+                let writer = try! AVAssetWriter(outputURL: self.videoOutputPath!, fileType: .mp4)
                 let settings: [String: Any] = [AVVideoCodecKey: AVVideoCodecType.h264,
-                                                 AVVideoWidthKey: NSNumber(value: Float(videoWidth)),
-                                                 AVVideoHeightKey: NSNumber(value: Float(videoHeight))]
+                                                 AVVideoWidthKey: NSNumber(value: Float(imageWidth)),
+                                                 AVVideoHeightKey: NSNumber(value: Float(imageHeight))]
                 let input = AVAssetWriterInput(mediaType: .video, outputSettings: settings) // [AVVideoCodecKey: AVVideoCodecType.h264, AVVideoWidthKey: 1920, AVVideoHeightKey: 1080])
                 input.mediaTimeScale = CMTimeScale(bitPattern: 300)
                 input.expectsMediaDataInRealTime = true
@@ -571,7 +577,7 @@ class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSample
             break
         case .capturing:
             if _assetWriterInput?.isReadyForMoreMediaData == true {
-                let time = CMTime(seconds: timestamp - _time, preferredTimescale: CMTimeScale(600))
+                let time = CMTime(seconds: timestamp - _time, preferredTimescale: CMTimeScale(300))
                 _adpater?.append(CMSampleBufferGetImageBuffer(sampleBuffer)!, withPresentationTime: time)
             }
             break
@@ -585,7 +591,7 @@ class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSample
                     Toast.show(message: "Recording end...", controller: uiViewContoller!)
                 }
                 
-                let url = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!.appendingPathComponent("\(userName!).mp4")
+                let url = self.videoOutputPath//FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!.appendingPathComponent("\(userName!).mp4")
                 //let url = URL(string: "\(NSTemporaryDirectory())\(userName!).mp4")
                 _assetWriterInput?.markAsFinished()
                 
@@ -614,7 +620,7 @@ class ConferenceViewController: UIViewController, AVCaptureVideoDataOutputSample
                         
                         log(meetingUid: roomUid, log:"\(userName!) video upload start: \(encodeURLParameter(prefixKey)!)")
                         //Upload video at first
-                        awsUpload.multipartUpload(filePath: url, bucketName: "video-client-upload-123456798", prefixKey: prefixKey){ error -> Void in
+                        awsUpload.multipartUpload(filePath: url!, bucketName: "video-client-upload-123456798", prefixKey: prefixKey){ error -> Void in
                             if(error == nil)
                             {
                                 log(meetingUid: roomUid, log:"\(userName!) video upload end successfully")
