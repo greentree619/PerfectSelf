@@ -94,7 +94,11 @@ class CameraPreviewView: UIView {
             self.setupInputs()
             self.setupPreviewLayer()
             self.configureVideoOutput()
-
+            
+            if( self.captureSession.canSetSessionPreset(AVCaptureSession.Preset.hd1280x720) )
+            {
+                self.captureSession.sessionPreset = AVCaptureSession.Preset.hd1280x720
+            }
             self.captureSession.commitConfiguration()
             self.captureSession.startRunning()
         }
