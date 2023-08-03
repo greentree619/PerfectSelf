@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import HSPopupMenu
 
 class ActorLibraryViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
         
@@ -109,9 +108,17 @@ class ActorLibraryViewController: UIViewController, UICollectionViewDataSource, 
         }
     }
     
-    @IBAction func createFolderDidTap(_ sender: UIButton) {
-        newFolderName.text = ""
-        createFolderPannel.isHidden = false
+    @IBAction func createFolderMenuDidTap(_ sender: UIButton) {
+//        newFolderName.text = ""
+//        createFolderPannel.isHidden = false
+        let TITLES = ["Create Folder", "Rename Folder", "Delete Folder"]
+        let ICONS = ["create-folder","edit-icon-15","icons8-trash-15"]
+        PopupMenu.showRelyOnView(view: sender as UIView, titles: TITLES, icons: ICONS, menuWidth: 200, delegate: self) { (popupMenu) in
+            popupMenu.priorityDirection = PopupMenuPriorityDirection.none
+            popupMenu.borderWidth = 1
+            popupMenu.borderColor = UIColor.gray
+           // popupMenu.rectCorner = [.bottomRight,.bottomLeft]
+        }
     }
     
     @IBAction func createFolderCancelDidTap(_ sender: UIButton) {
@@ -190,7 +197,7 @@ class ActorLibraryViewController: UIViewController, UICollectionViewDataSource, 
         items.removeAll()
         fetchVideos()
         videoList.reloadData()
-    }    
+    }
     
 //Omitted
 //    @IBAction func ShowFolderMenu(_ sender: UIButton) {
@@ -296,18 +303,14 @@ class ActorLibraryViewController: UIViewController, UICollectionViewDataSource, 
     */
 
 }
-extension ActorLibraryViewController: HSPopupMenuDelegate {
-    func popupMenu(_ popupMenu: HSPopupMenu, didSelectAt index: Int) {
-        print("hspopupmenu selected index is: " + "\(index)")
-        
-        if index == 0 {
-            //create new folder
-            let v = VideoCard(actorId: 0, actorUid: self.uid, readerUid: "", tapeName: "New Folder", bucketName: "", actorTapeKey: "", readerTapeKey: "", readerName: "", roomUid: "", tapeId: "", createdTime: Date.getStringFromDate(date: Date()), updatedTime: "", deletedTime: "")
-            self.items.append(v)
-            self.videoList.reloadData()
-            
-        } else {
-            
+
+extension ActorLibraryViewController : PopupMenuDelegate{
+    
+    func popupMenuDidSelected(index: NSInteger, popupMenu: PopupMenu) {
+        if popupMenu.tag == 111 {
+            print(["111","222","333","444","555","666","777","888"][index])
+        }else{
+            print(index)
         }
     }
 }

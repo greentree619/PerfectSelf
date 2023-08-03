@@ -10,7 +10,6 @@ target 'PerfectSelf' do
   pod 'JJFloatingActionButton'
   pod 'FSCalendar'
   pod 'DropDown'
-  pod 'HSPopupMenu'
   pod 'RangeSeekSlider'
   pod 'IQKeyboardManagerSwift'
   pod "Koyomi"

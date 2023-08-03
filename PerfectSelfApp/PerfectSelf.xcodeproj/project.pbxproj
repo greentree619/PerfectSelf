@@ -19,6 +19,10 @@
 		345406482A54F26200026561 /* AudioInputTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 345406462A54F26200026561 /* AudioInputTableCell.xib */; };
 		3454064B2A552E9500026561 /* MicrophoneListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 345406492A552E9500026561 /* MicrophoneListViewController.swift */; };
 		3454064C2A552E9500026561 /* MicrophoneListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3454064A2A552E9500026561 /* MicrophoneListViewController.xib */; };
+		346329962A7BBFC1009DF484 /* PopupMenuCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 346329922A7BBFC1009DF484 /* PopupMenuCell.swift */; };
+		346329972A7BBFC1009DF484 /* PopupMenuPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 346329932A7BBFC1009DF484 /* PopupMenuPath.swift */; };
+		346329982A7BBFC1009DF484 /* PopupMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 346329942A7BBFC1009DF484 /* PopupMenu.swift */; };
+		346329992A7BBFC1009DF484 /* RectConst.swift in Sources */ = {isa = PBXBuildFile; fileRef = 346329952A7BBFC1009DF484 /* RectConst.swift */; };
 		3464A1F92A685B1100AB6A39 /* CheckBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3464A1F82A685B1100AB6A39 /* CheckBox.swift */; };
 		3464A1FC2A68CFB600AB6A39 /* BookingInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3464A1FB2A68CFB600AB6A39 /* BookingInfo.swift */; };
 		47007BE929C2B0C000F83CFD /* ActorSetPaymentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47007BE729C2B0BF00F83CFD /* ActorSetPaymentViewController.swift */; };
@@ -252,6 +256,10 @@
 		345406462A54F26200026561 /* AudioInputTableCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AudioInputTableCell.xib; sourceTree = "<group>"; };
 		345406492A552E9500026561 /* MicrophoneListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MicrophoneListViewController.swift; sourceTree = "<group>"; };
 		3454064A2A552E9500026561 /* MicrophoneListViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MicrophoneListViewController.xib; sourceTree = "<group>"; };
+		346329922A7BBFC1009DF484 /* PopupMenuCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PopupMenuCell.swift; path = PopupMenu/PopupMenuCell.swift; sourceTree = "<group>"; };
+		346329932A7BBFC1009DF484 /* PopupMenuPath.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PopupMenuPath.swift; path = PopupMenu/PopupMenuPath.swift; sourceTree = "<group>"; };
+		346329942A7BBFC1009DF484 /* PopupMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PopupMenu.swift; path = PopupMenu/PopupMenu.swift; sourceTree = "<group>"; };
+		346329952A7BBFC1009DF484 /* RectConst.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RectConst.swift; path = PopupMenu/RectConst.swift; sourceTree = "<group>"; };
 		3464A1F82A685B1100AB6A39 /* CheckBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckBox.swift; sourceTree = "<group>"; };
 		3464A1FB2A68CFB600AB6A39 /* BookingInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookingInfo.swift; sourceTree = "<group>"; };
 		34FFA12E29FB31EF00BB0E14 /* PerfectSelf.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PerfectSelf.entitlements; sourceTree = "<group>"; };
@@ -515,6 +523,17 @@
 			path = WebSocketProvider;
 			sourceTree = "<group>";
 		};
+		346329912A7BBF69009DF484 /* PopupMenu */ = {
+			isa = PBXGroup;
+			children = (
+				346329942A7BBFC1009DF484 /* PopupMenu.swift */,
+				346329922A7BBFC1009DF484 /* PopupMenuCell.swift */,
+				346329932A7BBFC1009DF484 /* PopupMenuPath.swift */,
+				346329952A7BBFC1009DF484 /* RectConst.swift */,
+			);
+			name = PopupMenu;
+			sourceTree = "<group>";
+		};
 		3464A1FA2A68CF8800AB6A39 /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -756,6 +775,7 @@
 		798FBA422200F3B1009F525E /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				346329912A7BBF69009DF484 /* PopupMenu */,
 				3464A1FA2A68CF8800AB6A39 /* Model */,
 				BAD0B49A29BA17120061FEF5 /* Screens */,
 				BAB32E4129B064280000F082 /* Common */,
@@ -1433,6 +1453,7 @@
 				4770CE5329D7C904009C2284 /* FilterViewController.swift in Sources */,
 				BAC11B8729A8B37100580143 /* IDPermissionsManager.m in Sources */,
 				BAC11B8329A8B37100580143 /* IDCaptureSessionCoordinator.m in Sources */,
+				346329972A7BBFC1009DF484 /* PopupMenuPath.swift in Sources */,
 				47007BE929C2B0C000F83CFD /* ActorSetPaymentViewController.swift in Sources */,
 				BAD0B53429BA17130061FEF5 /* SignupDetailViewController.swift in Sources */,
 				475269BB29CD0F930094C3E9 /* BookingCollectionViewCell.swift in Sources */,
@@ -1454,6 +1475,7 @@
 				795A4A26221E081A00F8BB03 /* SessionDescription.swift in Sources */,
 				47D4F80929CBD8B600AFC4BA /* ReaderBookingViewController.swift in Sources */,
 				47CEBDE229C7C293006CE9DA /* ActorProfileChangePasswordViewController.swift in Sources */,
+				346329982A7BBFC1009DF484 /* PopupMenu.swift in Sources */,
 				BA7034EF29AEF2A000BFB431 /* UIStoryBoard+Extensions.swift in Sources */,
 				47BC09BA29C5B42700B8F2C5 /* ActorBuildProfile1ViewController.swift in Sources */,
 				BAD0B50729BA17130061FEF5 /* MainViewController.swift in Sources */,
@@ -1493,6 +1515,7 @@
 				BAD5C84E29AEDF0E00A2F109 /* PlayerView.swift in Sources */,
 				BAA91BAA29AF2CBF003E1CA2 /* PrimaryButtons.swift in Sources */,
 				795A4A28221E0A1B00F8BB03 /* IceCandidate.swift in Sources */,
+				346329962A7BBFC1009DF484 /* PopupMenuCell.swift in Sources */,
 				BAD0B52C29BA17130061FEF5 /* ActorLibraryViewController.swift in Sources */,
 				BA0E353B29BF8C2800ED838A /* CGFloatExtension.swift in Sources */,
 				BAB32E4529B07D9F0000F082 /* UIImageView+Extensions.swift in Sources */,
@@ -1501,6 +1524,7 @@
 				BAC11B8229A8B37100580143 /* IDCaptureSessionAssetWriterCoordinator.m in Sources */,
 				4744C4A629D088FD00963C92 /* DateFormat.swift in Sources */,
 				47BC09BE29C5B44700B8F2C5 /* ActorBuildProfile2ViewController.swift in Sources */,
+				346329992A7BBFC1009DF484 /* RectConst.swift in Sources */,
 				BAD0B50929BA17130061FEF5 /* ConferenceViewController.swift in Sources */,
 				47F9BA8729D7006600050403 /* ReaderProfileEditHourlyRateViewController.swift in Sources */,
 				47C58E9B29F0C2D10047C074 /* ReviewCell.swift in Sources */,
