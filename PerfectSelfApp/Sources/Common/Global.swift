@@ -39,6 +39,7 @@ var policyLink = "https://perfectself.s3.us-east-2.amazonaws.com/privacy.html"
 var termsLink = "https://perfectself.s3.us-east-2.amazonaws.com/terms-cond.html"
 var actorHomeView: ActorHomeViewController? = nil
 var parentFolderId: String = ""
+var parentFolderKey: String = ""
 
 var availableTime: [String] = [
     "T09", "T10", "T11",

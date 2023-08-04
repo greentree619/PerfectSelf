@@ -109,9 +109,7 @@ class ActorLibraryViewController: UIViewController, UICollectionViewDataSource, 
     }
     
     @IBAction func createFolderMenuDidTap(_ sender: UIButton) {
-//        newFolderName.text = ""
-//        createFolderPannel.isHidden = false
-        let TITLES = ["Create Folder", "Rename Folder", "Delete Folder"]
+        let TITLES = ["Create Folder", "Edit Folder", "Delete Folder"]
         let ICONS = ["create-folder","edit-icon-15","icons8-trash-15"]
         PopupMenu.showRelyOnView(view: sender as UIView, titles: TITLES, icons: ICONS, menuWidth: 200, delegate: self) { (popupMenu) in
             popupMenu.priorityDirection = PopupMenuPriorityDirection.none
@@ -199,6 +197,38 @@ class ActorLibraryViewController: UIViewController, UICollectionViewDataSource, 
         videoList.reloadData()
     }
     
+    func deleteFolder(){
+        guard parentFolderId.count > 0 else{
+            return
+        }
+        
+        guard self.items.count <= 0 else{
+            Toast.show(message: "This folder is not empty. To delete tapes, please use to delete after select tape from here.", controller: self)
+            return
+        }
+        
+        if let userInfo = UserDefaults.standard.object(forKey: "USER") as? [String:Any] {
+            let uid = userInfo["uid"] as! String
+            let tapeFolderId = parentFolderId
+            //{{Delete Folder
+            webAPI.deleteTapeByUid(uid: uid, tapeKey: "0", roomUid:  tapeFolderId, tapeId:  parentFolderKey) { data, response, error in
+                guard let _ = data, error == nil else {
+                    print(error?.localizedDescription ?? "No data")
+                    return
+                }
+                
+                if let httpResponse = response as? HTTPURLResponse {
+                    print("statusCode: \(httpResponse.statusCode)")
+                }
+                
+                DispatchQueue.main.async {
+                    self.upFolderDidTap(nil)
+                }
+            }
+            //}}Add Folder
+        }
+    }
+    
 //Omitted
 //    @IBAction func ShowFolderMenu(_ sender: UIButton) {
 //        let originInWindow = sender.convert(CGPoint.zero, to: nil)
@@ -276,6 +306,7 @@ class ActorLibraryViewController: UIViewController, UICollectionViewDataSource, 
             //Folder
             folderBackButton.isHidden = false
             parentFolderId = self.items[indexPath.row].roomUid
+            parentFolderKey = self.items[indexPath.row].tapeId
             
             items.removeAll()
             fetchVideos()
@@ -307,10 +338,18 @@ class ActorLibraryViewController: UIViewController, UICollectionViewDataSource, 
 extension ActorLibraryViewController : PopupMenuDelegate{
     
     func popupMenuDidSelected(index: NSInteger, popupMenu: PopupMenu) {
-        if popupMenu.tag == 111 {
-            print(["111","222","333","444","555","666","777","888"][index])
-        }else{
-            print(index)
+        switch index{
+        case 0://Create Folder
+            newFolderName.text = ""
+            createFolderPannel.isHidden = false
+            break
+        case 1://Rename Folder
+            break
+        case 2://Delete Folder
+            deleteFolder()
+            break
+        default:
+            break
         }
     }
 }

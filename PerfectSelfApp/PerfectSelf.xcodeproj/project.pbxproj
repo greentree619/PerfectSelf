@@ -25,6 +25,8 @@
 		346329992A7BBFC1009DF484 /* RectConst.swift in Sources */ = {isa = PBXBuildFile; fileRef = 346329952A7BBFC1009DF484 /* RectConst.swift */; };
 		3464A1F92A685B1100AB6A39 /* CheckBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3464A1F82A685B1100AB6A39 /* CheckBox.swift */; };
 		3464A1FC2A68CFB600AB6A39 /* BookingInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3464A1FB2A68CFB600AB6A39 /* BookingInfo.swift */; };
+		34EBAC0C2A7C833D008AAE91 /* EditFolderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34EBAC0A2A7C833D008AAE91 /* EditFolderViewController.swift */; };
+		34EBAC0D2A7C833D008AAE91 /* EditFolderViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 34EBAC0B2A7C833D008AAE91 /* EditFolderViewController.xib */; };
 		47007BE929C2B0C000F83CFD /* ActorSetPaymentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47007BE729C2B0BF00F83CFD /* ActorSetPaymentViewController.swift */; };
 		47007BEA29C2B0C000F83CFD /* ActorSetPaymentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 47007BE829C2B0C000F83CFD /* ActorSetPaymentViewController.xib */; };
 		470AEBCA29D1ACE200AD3848 /* StringHeight.swift in Sources */ = {isa = PBXBuildFile; fileRef = 470AEBC929D1ACE200AD3848 /* StringHeight.swift */; };
@@ -262,6 +264,8 @@
 		346329952A7BBFC1009DF484 /* RectConst.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RectConst.swift; path = PopupMenu/RectConst.swift; sourceTree = "<group>"; };
 		3464A1F82A685B1100AB6A39 /* CheckBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckBox.swift; sourceTree = "<group>"; };
 		3464A1FB2A68CFB600AB6A39 /* BookingInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookingInfo.swift; sourceTree = "<group>"; };
+		34EBAC0A2A7C833D008AAE91 /* EditFolderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditFolderViewController.swift; sourceTree = "<group>"; };
+		34EBAC0B2A7C833D008AAE91 /* EditFolderViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EditFolderViewController.xib; sourceTree = "<group>"; };
 		34FFA12E29FB31EF00BB0E14 /* PerfectSelf.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PerfectSelf.entitlements; sourceTree = "<group>"; };
 		47007BE729C2B0BF00F83CFD /* ActorSetPaymentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActorSetPaymentViewController.swift; sourceTree = "<group>"; };
 		47007BE829C2B0C000F83CFD /* ActorSetPaymentViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ActorSetPaymentViewController.xib; sourceTree = "<group>"; };
@@ -1089,6 +1093,8 @@
 				BAD0B4DC29BA17130061FEF5 /* ActorLibraryViewController.xib */,
 				4772155F29CE700C00319CBC /* VideoCollectionViewCell.swift */,
 				4772156029CE700C00319CBC /* VideoCollectionViewCell.xib */,
+				34EBAC0A2A7C833D008AAE91 /* EditFolderViewController.swift */,
+				34EBAC0B2A7C833D008AAE91 /* EditFolderViewController.xib */,
 			);
 			path = ActorLibraryScreen;
 			sourceTree = "<group>";
@@ -1316,6 +1322,7 @@
 				BAD0B50C29BA17130061FEF5 /* ProjectViewController.xib in Resources */,
 				BAD0B53029BA17130061FEF5 /* ActorReaderDetailViewController.xib in Resources */,
 				BAD0B52629BA17130061FEF5 /* ActorBookUploadScriptViewController.xib in Resources */,
+				34EBAC0D2A7C833D008AAE91 /* EditFolderViewController.xib in Resources */,
 				47C9732F29DC1E5A00468E11 /* Raleway-Italic-VariableFont_wght.ttf in Resources */,
 				47B025C729D3477900DFECE7 /* grayBarSelected.png in Resources */,
 				BAD0B51329BA17130061FEF5 /* SignupViewController.xib in Resources */,
@@ -1557,6 +1564,7 @@
 				344D72D52A606B500089B67D /* UIImage+Extensions.swift in Sources */,
 				470AEBCA29D1ACE200AD3848 /* StringHeight.swift in Sources */,
 				943BABD82A2A363400B3F619 /* VerifCodeViewController.swift in Sources */,
+				34EBAC0C2A7C833D008AAE91 /* EditFolderViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
