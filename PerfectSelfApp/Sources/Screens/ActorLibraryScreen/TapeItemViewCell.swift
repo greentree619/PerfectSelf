@@ -9,7 +9,9 @@
 import UIKit
 
 class TapeItemViewCell: UITableViewCell {
-
+    @IBOutlet weak var itemTxt: UILabel!
+    @IBOutlet weak var selectMark: UIImageView!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

@@ -135,6 +135,8 @@
 		795A4A28221E0A1B00F8BB03 /* IceCandidate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 795A4A27221E0A1B00F8BB03 /* IceCandidate.swift */; };
 		795A4A2A221E0FB100F8BB03 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 795A4A29221E0FB100F8BB03 /* Message.swift */; };
 		798FBA492200F9A9009F525E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 798FBA482200F9A9009F525E /* LaunchScreen.storyboard */; };
+		9418DACB2A7CA69F00EB92A5 /* TapeItemViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9418DAC92A7CA69F00EB92A5 /* TapeItemViewCell.swift */; };
+		9418DACC2A7CA69F00EB92A5 /* TapeItemViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9418DACA2A7CA69F00EB92A5 /* TapeItemViewCell.xib */; };
 		943BABD42A2A349C00B3F619 /* EmailSubmitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 943BABD22A2A349C00B3F619 /* EmailSubmitViewController.swift */; };
 		943BABD52A2A349C00B3F619 /* EmailSubmitViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 943BABD32A2A349C00B3F619 /* EmailSubmitViewController.xib */; };
 		943BABD82A2A363400B3F619 /* VerifCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 943BABD62A2A363400B3F619 /* VerifCodeViewController.swift */; };
@@ -378,6 +380,8 @@
 		795A4A29221E0FB100F8BB03 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		798FBA482200F9A9009F525E /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		869D21314A3A21C4B3BFA98D /* Pods-PerfectSelf.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PerfectSelf.release.xcconfig"; path = "Target Support Files/Pods-PerfectSelf/Pods-PerfectSelf.release.xcconfig"; sourceTree = "<group>"; };
+		9418DAC92A7CA69F00EB92A5 /* TapeItemViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapeItemViewCell.swift; sourceTree = "<group>"; };
+		9418DACA2A7CA69F00EB92A5 /* TapeItemViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TapeItemViewCell.xib; sourceTree = "<group>"; };
 		943BABD22A2A349C00B3F619 /* EmailSubmitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailSubmitViewController.swift; sourceTree = "<group>"; };
 		943BABD32A2A349C00B3F619 /* EmailSubmitViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EmailSubmitViewController.xib; sourceTree = "<group>"; };
 		943BABD62A2A363400B3F619 /* VerifCodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifCodeViewController.swift; sourceTree = "<group>"; };
@@ -1095,6 +1099,8 @@
 				4772156029CE700C00319CBC /* VideoCollectionViewCell.xib */,
 				34EBAC0A2A7C833D008AAE91 /* EditFolderViewController.swift */,
 				34EBAC0B2A7C833D008AAE91 /* EditFolderViewController.xib */,
+				9418DAC92A7CA69F00EB92A5 /* TapeItemViewCell.swift */,
+				9418DACA2A7CA69F00EB92A5 /* TapeItemViewCell.xib */,
 			);
 			path = ActorLibraryScreen;
 			sourceTree = "<group>";
@@ -1301,6 +1307,7 @@
 				47C9735929DC255000468E11 /* Lato-BoldItalic.ttf in Resources */,
 				BAD0B53929BA17130061FEF5 /* LibraryCell.xib in Resources */,
 				471D260D29D76869003DAF0A /* ReaderBuildProfileViewController.xib in Resources */,
+				9418DACC2A7CA69F00EB92A5 /* TapeItemViewCell.xib in Resources */,
 				4715EAF129CA59C600437576 /* ActorBookAppointmentViewController.xib in Resources */,
 				4772156229CE700C00319CBC /* VideoCollectionViewCell.xib in Resources */,
 				47BC09C329C5B46800B8F2C5 /* ActorBuildProfile3ViewController.xib in Resources */,
@@ -1532,6 +1539,7 @@
 				4744C4A629D088FD00963C92 /* DateFormat.swift in Sources */,
 				47BC09BE29C5B44700B8F2C5 /* ActorBuildProfile2ViewController.swift in Sources */,
 				346329992A7BBFC1009DF484 /* RectConst.swift in Sources */,
+				9418DACB2A7CA69F00EB92A5 /* TapeItemViewCell.swift in Sources */,
 				BAD0B50929BA17130061FEF5 /* ConferenceViewController.swift in Sources */,
 				47F9BA8729D7006600050403 /* ReaderProfileEditHourlyRateViewController.swift in Sources */,
 				47C58E9B29F0C2D10047C074 /* ReviewCell.swift in Sources */,
@@ -1702,7 +1710,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = PerfectSelf.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 0;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = 9WURFUCGR3;
 				INFOPLIST_FILE = "$(SRCROOT)/SupportingFiles/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = PerfectSelf;
@@ -1738,7 +1746,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = PerfectSelf.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 0;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = 9WURFUCGR3;
 				INFOPLIST_FILE = "$(SRCROOT)/SupportingFiles/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = PerfectSelf;

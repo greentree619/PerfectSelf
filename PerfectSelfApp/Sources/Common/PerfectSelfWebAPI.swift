@@ -285,6 +285,12 @@ class PerfectSelfWebAPI
         return executeAPI(with: "PUT", apiPath: "ReaderProfiles/\(uid)", json: json, completionHandler:completionHandler)
     }
     
+    func updateTapeFolder(tapeId: String, parentId: String, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> Void
+    {
+        let parentParam = (parentId.isEmpty ? "" : "?parentId=\(parentId)")
+        return executeAPI(with: "PUT", apiPath: "Library/UpdateTapeFolder/\(tapeId)\(parentParam)", json: [:], completionHandler:completionHandler)
+    }
+    
     func bookAppointment(actorUid: String, readerUid: String, projectName: String, bookStartTime: String,bookEndTime: String, script: String,scriptBucket: String, scriptKey: String, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> Void
     {
                 

@@ -18,6 +18,9 @@ class ActorLibraryViewController: UIViewController, UICollectionViewDataSource, 
     
     var uid = ""
     var items = [VideoCard]()
+    var folderList = [VideoCard]()
+    var tapeList = [VideoCard]()
+    
     let cellsPerRow = 2
     //Omitted var menuArray: [HSMenu] = []
     
@@ -87,12 +90,27 @@ class ActorLibraryViewController: UIViewController, UICollectionViewDataSource, 
                 //print(items)
                 DispatchQueue.main.async {
                     self.items.removeAll()
+                    self.tapeList.removeAll()
+                    if parentFolderId.isEmpty {
+                        self.folderList.removeAll()
+                    }
+                    
                     self.items.append(contentsOf: respItems)
                     //UTC2local
                     for index in self.items.indices {
                         self.items[index].createdTime = utcToLocal(dateStr: self.items[index].createdTime)!
                         self.items[index].updatedTime = utcToLocal(dateStr: self.items[index].updatedTime)!
                         self.items[index].deletedTime = utcToLocal(dateStr: self.items[index].deletedTime)!
+                        
+                        //Only Tape.
+                        if self.items[index].actorTapeKey.count > 0{
+                            self.tapeList.append( self.items[index] )
+                        }
+                        
+                        //Only Folder
+                        if parentFolderId.isEmpty && self.items[index].actorTapeKey.count == 0 {
+                            self.folderList.append( self.items[index] )
+                        }
                     }
                     //                    for (i, reader) in items.enumerated() {
                     //                    }
@@ -344,6 +362,9 @@ extension ActorLibraryViewController : PopupMenuDelegate{
             createFolderPannel.isHidden = false
             break
         case 1://Rename Folder
+            let editFolderViewController = EditFolderViewController(tapeLst: tapeList, folderLst: folderList)
+            editFolderViewController.modalPresentationStyle = .fullScreen
+            self.present(editFolderViewController, animated: false, completion: nil)
             break
         case 2://Delete Folder
             deleteFolder()
