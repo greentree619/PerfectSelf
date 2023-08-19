@@ -28,17 +28,17 @@
                         <rect key="frame" x="0.0" y="0.0" width="328" height="145"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="eZe-fm-wg8">
-                                <rect key="frame" x="8" y="8" width="277.33333333333331" height="32.333333333333336"/>
+                                <rect key="frame" x="8" y="8" width="234.66666666666666" height="32.333333333333336"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Reading Session with" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qkd-94-74j">
-                                        <rect key="frame" x="0.0" y="0.0" width="154.66666666666666" height="32.333333333333336"/>
-                                        <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="16"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="128.66666666666666" height="32.333333333333336"/>
+                                        <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="14"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Jonathan walker" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qSS-Q1-65b">
-                                        <rect key="frame" x="159.66666666666666" y="0.0" width="117.66666666666666" height="32.333333333333336"/>
-                                        <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="16"/>
+                                        <rect key="frame" x="133.66666666666666" y="0.0" width="101" height="32.333333333333336"/>
+                                        <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="14"/>
                                         <color key="textColor" systemColor="tintColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -53,10 +53,10 @@
                                 </variation>
                             </stackView>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="RVi-Mk-CPf">
-                                <rect key="frame" x="8" y="40.333333333333329" width="296.66666666666669" height="32.333333333333329"/>
+                                <rect key="frame" x="8" y="40.333333333333329" width="280.66666666666669" height="32.333333333333329"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="tFW-VB-Syu">
-                                        <rect key="frame" x="0.0" y="0.0" width="148.33333333333334" height="32.333333333333336"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="140.33333333333334" height="32.333333333333336"/>
                                         <subviews>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="calendar" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="xXs-r3-DQz">
                                                 <rect key="frame" x="0.0" y="1.6666666666666661" width="18" height="29.333333333333336"/>
@@ -71,15 +71,15 @@
                                                 </variation>
                                             </imageView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="16, Mar 2023" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CHF-Un-J7J">
-                                                <rect key="frame" x="22.999999999999993" y="0.0" width="125.33333333333331" height="32.333333333333336"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <rect key="frame" x="22.999999999999993" y="0.0" width="117.33333333333331" height="32.333333333333336"/>
+                                                <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="14"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                         </subviews>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="bTB-zx-B9y">
-                                        <rect key="frame" x="148.33333333333331" y="0.0" width="148.33333333333331" height="32.333333333333336"/>
+                                        <rect key="frame" x="140.33333333333331" y="0.0" width="140.33333333333331" height="32.333333333333336"/>
                                         <subviews>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="clock" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="Wgy-iZ-TOz">
                                                 <rect key="frame" x="0.0" y="0.99999999999999822" width="18" height="31"/>
@@ -94,8 +94,8 @@
                                                 </variation>
                                             </imageView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="3:00 aM ~ 4:00 AM" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fF2-fh-riS">
-                                                <rect key="frame" x="22.999999999999993" y="0.0" width="125.33333333333331" height="32.333333333333336"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <rect key="frame" x="22.999999999999993" y="0.0" width="117.33333333333331" height="32.333333333333336"/>
+                                                <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="14"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
@@ -104,10 +104,10 @@
                                 </subviews>
                             </stackView>
                             <stackView opaque="NO" contentMode="scaleToFill" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="95c-cL-0nL">
-                                <rect key="frame" x="7.9999999999999929" y="72.666666666666671" width="115.33333333333331" height="32"/>
+                                <rect key="frame" x="8" y="72.666666666666671" width="97.333333333333329" height="32"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nwv-Eu-J9U">
-                                        <rect key="frame" x="0.0" y="0.3333333333333286" width="115.33333333333333" height="31"/>
+                                        <rect key="frame" x="0.0" y="0.66666666666665719" width="97.333333333333329" height="30.333333333333332"/>
                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                         <state key="normal" title="view script">
                                             <imageReference key="image" image="arrowshape.right" catalog="system" symbolScale="small"/>
@@ -115,7 +115,7 @@
                                         <buttonConfiguration key="configuration" style="plain" imagePlacement="trailing" title="View Script" imagePadding="5" cornerStyle="dynamic">
                                             <imageReference key="image" image="chevron.right" catalog="system" symbolScale="small"/>
                                             <backgroundConfiguration key="background"/>
-                                            <fontDescription key="titleFontDescription" name="Raleway-Regular" family="Raleway" pointSize="18"/>
+                                            <fontDescription key="titleFontDescription" name="Raleway-Regular" family="Raleway" pointSize="14"/>
                                             <directionalEdgeInsets key="contentInsets" top="5" leading="5" bottom="5" trailing="5"/>
                                         </buttonConfiguration>
                                         <connections>
@@ -138,15 +138,8 @@
                                     <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eoR-8B-GHc">
                                         <rect key="frame" x="0.0" y="0.0" width="54.333333333333336" height="32.333333333333336"/>
                                         <state key="normal" title="Button"/>
-                                        <buttonConfiguration key="configuration" style="filled">
-                                            <attributedString key="attributedTitle">
-                                                <fragment content="Join Meeting">
-                                                    <attributes>
-                                                        <color key="NSColor" name="textColor" catalog="System" colorSpace="catalog"/>
-                                                        <font key="NSFont" size="13" name="Helvetica"/>
-                                                    </attributes>
-                                                </fragment>
-                                            </attributedString>
+                                        <buttonConfiguration key="configuration" style="filled" title="Join Meeting">
+                                            <fontDescription key="titleFontDescription" name="Lato-Regular" family="Lato" pointSize="12"/>
                                         </buttonConfiguration>
                                         <connections>
                                             <action selector="JoinMeeting:" destination="gTV-IL-0wX" eventType="touchUpInside" id="wML-nt-Gj8"/>
@@ -155,14 +148,8 @@
                                     <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bbd-S0-Bjf">
                                         <rect key="frame" x="64.333333333333329" y="0.0" width="54.333333333333329" height="32.333333333333336"/>
                                         <state key="normal" title="Button"/>
-                                        <buttonConfiguration key="configuration" style="filled">
-                                            <attributedString key="attributedTitle">
-                                                <fragment content="Accept">
-                                                    <attributes>
-                                                        <font key="NSFont" size="13" name="Helvetica"/>
-                                                    </attributes>
-                                                </fragment>
-                                            </attributedString>
+                                        <buttonConfiguration key="configuration" style="filled" title="Accept">
+                                            <fontDescription key="titleFontDescription" name="Lato-Regular" family="Lato" pointSize="12"/>
                                         </buttonConfiguration>
                                         <connections>
                                             <action selector="AcceptBooking:" destination="gTV-IL-0wX" eventType="touchUpInside" id="IRG-gn-ngb"/>
@@ -171,14 +158,8 @@
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yKD-r9-I2d">
                                         <rect key="frame" x="128.66666666666666" y="0.0" width="54.666666666666657" height="32.333333333333336"/>
                                         <state key="normal" title="Button"/>
-                                        <buttonConfiguration key="configuration" style="filled">
-                                            <attributedString key="attributedTitle">
-                                                <fragment content="Reschedule">
-                                                    <attributes>
-                                                        <font key="NSFont" size="13" name="Helvetica"/>
-                                                    </attributes>
-                                                </fragment>
-                                            </attributedString>
+                                        <buttonConfiguration key="configuration" style="filled" title="Reschedule">
+                                            <fontDescription key="titleFontDescription" name="Lato-Regular" family="Lato" pointSize="12"/>
                                         </buttonConfiguration>
                                         <connections>
                                             <action selector="RescheduleBooking:" destination="gTV-IL-0wX" eventType="touchUpInside" id="ftc-4Y-jZv"/>
@@ -187,15 +168,8 @@
                                     <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="s5q-UL-66W">
                                         <rect key="frame" x="193.33333333333334" y="0.0" width="54.333333333333343" height="32.333333333333336"/>
                                         <state key="normal" title="Button"/>
-                                        <buttonConfiguration key="configuration" style="plain">
-                                            <attributedString key="attributedTitle">
-                                                <fragment content="Send Messsage">
-                                                    <attributes>
-                                                        <font key="NSFont" size="12" name="Helvetica"/>
-                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="charWrapping" baseWritingDirection="natural" lineHeightMultiple="1" tighteningFactorForTruncation="0.0"/>
-                                                    </attributes>
-                                                </fragment>
-                                            </attributedString>
+                                        <buttonConfiguration key="configuration" style="plain" title="Send Messsage">
+                                            <fontDescription key="titleFontDescription" name="Lato-Regular" family="Lato" pointSize="12"/>
                                             <color key="baseForegroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         </buttonConfiguration>
                                         <userDefinedRuntimeAttributes>
@@ -217,14 +191,8 @@
                                         <rect key="frame" x="211.33333333333334" y="0.0" width="48.000000000000028" height="32.333333333333336"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <state key="normal" title="Button"/>
-                                        <buttonConfiguration key="configuration" style="plain">
-                                            <attributedString key="attributedTitle">
-                                                <fragment content="Cancel">
-                                                    <attributes>
-                                                        <font key="NSFont" size="12" name="Helvetica"/>
-                                                    </attributes>
-                                                </fragment>
-                                            </attributedString>
+                                        <buttonConfiguration key="configuration" style="plain" title="Cancel">
+                                            <fontDescription key="titleFontDescription" name="Lato-Regular" family="Lato" pointSize="12"/>
                                             <color key="baseForegroundColor" red="0.88111888110000003" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         </buttonConfiguration>
                                         <connections>
@@ -234,14 +202,8 @@
                                     <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="247" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="urZ-Ba-AGZ">
                                         <rect key="frame" x="257.66666666666669" y="0.0" width="54.333333333333314" height="32.333333333333336"/>
                                         <state key="normal" title="Button"/>
-                                        <buttonConfiguration key="configuration" style="plain">
-                                            <attributedString key="attributedTitle">
-                                                <fragment content="How’s the experience?">
-                                                    <attributes>
-                                                        <font key="NSFont" size="12" name="Helvetica"/>
-                                                    </attributes>
-                                                </fragment>
-                                            </attributedString>
+                                        <buttonConfiguration key="configuration" style="plain" title="How’s the experience?">
+                                            <fontDescription key="titleFontDescription" name="Lato-Regular" family="Lato" pointSize="12"/>
                                             <color key="baseForegroundColor" systemColor="tintColor"/>
                                         </buttonConfiguration>
                                         <connections>
