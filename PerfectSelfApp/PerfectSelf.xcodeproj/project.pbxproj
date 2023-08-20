@@ -193,14 +193,8 @@
 		BAD0B50129BA17130061FEF5 /* ActorBookConfirmationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BAD0B49D29BA17120061FEF5 /* ActorBookConfirmationViewController.xib */; };
 		BAD0B50229BA17130061FEF5 /* LoginDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAD0B49F29BA17120061FEF5 /* LoginDetailViewController.swift */; };
 		BAD0B50329BA17130061FEF5 /* LoginDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BAD0B4A029BA17120061FEF5 /* LoginDetailViewController.xib */; };
-		BAD0B50429BA17130061FEF5 /* VideoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BAD0B4A229BA17120061FEF5 /* VideoViewController.xib */; };
-		BAD0B50529BA17130061FEF5 /* VideoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAD0B4A329BA17120061FEF5 /* VideoViewController.swift */; };
-		BAD0B50629BA17130061FEF5 /* MainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BAD0B4A529BA17120061FEF5 /* MainViewController.xib */; };
-		BAD0B50729BA17130061FEF5 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAD0B4A629BA17120061FEF5 /* MainViewController.swift */; };
 		BAD0B50829BA17130061FEF5 /* ConferenceViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BAD0B4A829BA17120061FEF5 /* ConferenceViewController.xib */; };
 		BAD0B50929BA17130061FEF5 /* ConferenceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAD0B4A929BA17120061FEF5 /* ConferenceViewController.swift */; };
-		BAD0B50A29BA17130061FEF5 /* MeetingListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAD0B4AB29BA17120061FEF5 /* MeetingListViewController.swift */; };
-		BAD0B50B29BA17130061FEF5 /* MeetingListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BAD0B4AC29BA17120061FEF5 /* MeetingListViewController.xib */; };
 		BAD0B50C29BA17130061FEF5 /* ProjectViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BAD0B4AE29BA17120061FEF5 /* ProjectViewController.xib */; };
 		BAD0B50D29BA17130061FEF5 /* ProjectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAD0B4AF29BA17120061FEF5 /* ProjectViewController.swift */; };
 		BAD0B51229BA17130061FEF5 /* SignupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAD0B4B729BA17130061FEF5 /* SignupViewController.swift */; };
@@ -446,14 +440,8 @@
 		BAD0B49D29BA17120061FEF5 /* ActorBookConfirmationViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ActorBookConfirmationViewController.xib; sourceTree = "<group>"; };
 		BAD0B49F29BA17120061FEF5 /* LoginDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginDetailViewController.swift; sourceTree = "<group>"; };
 		BAD0B4A029BA17120061FEF5 /* LoginDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoginDetailViewController.xib; sourceTree = "<group>"; };
-		BAD0B4A229BA17120061FEF5 /* VideoViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VideoViewController.xib; sourceTree = "<group>"; };
-		BAD0B4A329BA17120061FEF5 /* VideoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoViewController.swift; sourceTree = "<group>"; };
-		BAD0B4A529BA17120061FEF5 /* MainViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainViewController.xib; sourceTree = "<group>"; };
-		BAD0B4A629BA17120061FEF5 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		BAD0B4A829BA17120061FEF5 /* ConferenceViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ConferenceViewController.xib; sourceTree = "<group>"; };
 		BAD0B4A929BA17120061FEF5 /* ConferenceViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConferenceViewController.swift; sourceTree = "<group>"; };
-		BAD0B4AB29BA17120061FEF5 /* MeetingListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeetingListViewController.swift; sourceTree = "<group>"; };
-		BAD0B4AC29BA17120061FEF5 /* MeetingListViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MeetingListViewController.xib; sourceTree = "<group>"; };
 		BAD0B4AE29BA17120061FEF5 /* ProjectViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProjectViewController.xib; sourceTree = "<group>"; };
 		BAD0B4AF29BA17120061FEF5 /* ProjectViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProjectViewController.swift; sourceTree = "<group>"; };
 		BAD0B4B729BA17130061FEF5 /* SignupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignupViewController.swift; sourceTree = "<group>"; };
@@ -932,8 +920,6 @@
 				BAD0B4CE29BA17130061FEF5 /* EditReadScreen */,
 				BAD0B49E29BA17120061FEF5 /* LoginDetailScreen */,
 				BAD0B4F729BA17130061FEF5 /* LoginScreen */,
-				BAD0B4A429BA17120061FEF5 /* MainScreen */,
-				BAD0B4AA29BA17120061FEF5 /* MeetingListScreen */,
 				47DC851129C3813000D86E5A /* MessageCenterScreen */,
 				BAD0B4BC29BA17130061FEF5 /* OverlayScreen */,
 				BAD0B4AD29BA17120061FEF5 /* ProjectScreen */,
@@ -945,7 +931,6 @@
 				478AD18129F9A9B5008550F2 /* ScriptScreen */,
 				BAD0B4E629BA17130061FEF5 /* SignupDetailScreen */,
 				BAD0B4B629BA17130061FEF5 /* SignupScreen */,
-				BAD0B4A129BA17120061FEF5 /* VideoScreen */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -974,24 +959,6 @@
 			path = LoginDetailScreen;
 			sourceTree = "<group>";
 		};
-		BAD0B4A129BA17120061FEF5 /* VideoScreen */ = {
-			isa = PBXGroup;
-			children = (
-				BAD0B4A229BA17120061FEF5 /* VideoViewController.xib */,
-				BAD0B4A329BA17120061FEF5 /* VideoViewController.swift */,
-			);
-			path = VideoScreen;
-			sourceTree = "<group>";
-		};
-		BAD0B4A429BA17120061FEF5 /* MainScreen */ = {
-			isa = PBXGroup;
-			children = (
-				BAD0B4A529BA17120061FEF5 /* MainViewController.xib */,
-				BAD0B4A629BA17120061FEF5 /* MainViewController.swift */,
-			);
-			path = MainScreen;
-			sourceTree = "<group>";
-		};
 		BAD0B4A729BA17120061FEF5 /* ConferenceScreen */ = {
 			isa = PBXGroup;
 			children = (
@@ -999,15 +966,6 @@
 				BAD0B4A929BA17120061FEF5 /* ConferenceViewController.swift */,
 			);
 			path = ConferenceScreen;
-			sourceTree = "<group>";
-		};
-		BAD0B4AA29BA17120061FEF5 /* MeetingListScreen */ = {
-			isa = PBXGroup;
-			children = (
-				BAD0B4AB29BA17120061FEF5 /* MeetingListViewController.swift */,
-				BAD0B4AC29BA17120061FEF5 /* MeetingListViewController.xib */,
-			);
-			path = MeetingListScreen;
 			sourceTree = "<group>";
 		};
 		BAD0B4AD29BA17120061FEF5 /* ProjectScreen */ = {
@@ -1265,7 +1223,6 @@
 				47C9734429DC1E5A00468E11 /* README.txt in Resources */,
 				47DC851529C3815500D86E5A /* MessageCenterViewController.xib in Resources */,
 				472AC4D429F6F133009796FB /* TakePhotoViewController.xib in Resources */,
-				BAD0B50429BA17130061FEF5 /* VideoViewController.xib in Resources */,
 				47BC09BB29C5B42700B8F2C5 /* ActorBuildProfile1ViewController.xib in Resources */,
 				943BABDD2A2A364E00B3F619 /* ResetPasswordViewController.xib in Resources */,
 				BAD0B53329BA17130061FEF5 /* ReaderProfileEditAboutViewController.xib in Resources */,
@@ -1339,7 +1296,6 @@
 				BAD0B52D29BA17130061FEF5 /* ActorLibraryViewController.xib in Resources */,
 				47CEBDE329C7C293006CE9DA /* ActorProfileChangePasswordViewController.xib in Resources */,
 				47F9BA8829D7006600050403 /* ReaderProfileEditHourlyRateViewController.xib in Resources */,
-				BAD0B50B29BA17130061FEF5 /* MeetingListViewController.xib in Resources */,
 				BA4714C429A79856007AABC2 /* SanFranciscoText-Regular.otf in Resources */,
 				BA4714C929A79856007AABC2 /* SanFranciscoText-Bold.otf in Resources */,
 				47C9733B29DC1E5A00468E11 /* Raleway-Light.ttf in Resources */,
@@ -1367,7 +1323,6 @@
 				BA4714C229A79856007AABC2 /* ProximaNova-Regular.otf in Resources */,
 				47BC09BF29C5B44700B8F2C5 /* ActorBuildProfile2ViewController.xib in Resources */,
 				BAD0B50829BA17130061FEF5 /* ConferenceViewController.xib in Resources */,
-				BAD0B50629BA17130061FEF5 /* MainViewController.xib in Resources */,
 				BAD0B54529BA17130061FEF5 /* ActorBookingViewController.xib in Resources */,
 				945CCDD42A044A2B0011310B /* TimePauseViewController.xib in Resources */,
 				4715510229CDBF00007CE524 /* TimeSlotCollectionViewCell.xib in Resources */,
@@ -1468,10 +1423,8 @@
 				346329982A7BBFC1009DF484 /* PopupMenu.swift in Sources */,
 				BA7034EF29AEF2A000BFB431 /* UIStoryBoard+Extensions.swift in Sources */,
 				47BC09BA29C5B42700B8F2C5 /* ActorBuildProfile1ViewController.swift in Sources */,
-				BAD0B50729BA17130061FEF5 /* MainViewController.swift in Sources */,
 				BAD0B52729BA17130061FEF5 /* ActorBookUploadScriptViewController.swift in Sources */,
 				BAD0B50229BA17130061FEF5 /* LoginDetailViewController.swift in Sources */,
-				BAD0B50529BA17130061FEF5 /* VideoViewController.swift in Sources */,
 				BAD0B51C29BA17130061FEF5 /* VideoPicker.swift in Sources */,
 				BAD0B52E29BA17130061FEF5 /* ReaderProfileViewController.swift in Sources */,
 				3464A1FC2A68CFB600AB6A39 /* BookingInfo.swift in Sources */,
@@ -1541,7 +1494,6 @@
 				2F7EBC3822DCCB4E0015B46E /* StarscreamProvider.swift in Sources */,
 				3464A1F92A685B1100AB6A39 /* CheckBox.swift in Sources */,
 				47B025A529D3361100DFECE7 /* MKAccordionView.swift in Sources */,
-				BAD0B50A29BA17130061FEF5 /* MeetingListViewController.swift in Sources */,
 				BAD0B51529BA17130061FEF5 /* ReaderProfileEditSkillViewController.swift in Sources */,
 				2F7EBC3A22DCCE240015B46E /* NativeWebSocket.swift in Sources */,
 				47B025CD29D34D8300DFECE7 /* SkillCell.swift in Sources */,
