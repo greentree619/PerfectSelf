@@ -9,6 +9,11 @@
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <array key="Raleway-VariableFont_wght.ttf">
+            <string>RalewayRoman-Regular</string>
+        </array>
+    </customFonts>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="EmailSubmitViewController" customModule="PerfectSelf" customModuleProvider="target">
             <connections>
@@ -68,32 +73,34 @@
                             <rect key="frame" x="20" y="84" width="353" height="655"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please input your email" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="elv-FY-ym7">
-                                    <rect key="frame" x="0.0" y="20" width="353" height="20.333333333333329"/>
-                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <rect key="frame" x="0.0" y="20" width="353" height="20"/>
+                                    <fontDescription key="fontDescription" name="RalewayRoman-Regular" family="Raleway" pointSize="17"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="someone@gmail.com" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Uma-Vd-gt5">
-                                    <rect key="frame" x="0.0" y="80.333333333333343" width="353" height="45"/>
+                                    <rect key="frame" x="0.0" y="80" width="353" height="45"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="45" id="BLq-Lg-haf"/>
                                     </constraints>
-                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                    <fontDescription key="fontDescription" name="RalewayRoman-Regular" family="Raleway" pointSize="14"/>
                                     <textInputTraits key="textInputTraits"/>
                                 </textField>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ap3-Oa-q02">
-                                    <rect key="frame" x="0.0" y="165.33333333333331" width="353" height="45"/>
+                                    <rect key="frame" x="0.0" y="165" width="353" height="45"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="45" id="rIt-lQ-zEo"/>
                                     </constraints>
                                     <state key="normal" title="Button"/>
-                                    <buttonConfiguration key="configuration" style="filled" title="Send Verification Code"/>
+                                    <buttonConfiguration key="configuration" style="filled" title="Send Verification Code">
+                                        <fontDescription key="titleFontDescription" name="Lato-Bold" family="Lato" pointSize="16"/>
+                                    </buttonConfiguration>
                                     <connections>
                                         <action selector="SendVerifCode:" destination="-1" eventType="touchUpInside" id="SBM-WV-XBD"/>
                                     </connections>
                                 </button>
                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="aKx-yG-PAe">
-                                    <rect key="frame" x="0.0" y="250.33333333333329" width="353" height="384.66666666666674"/>
+                                    <rect key="frame" x="0.0" y="250" width="353" height="385"/>
                                 </stackView>
                             </subviews>
                             <edgeInsets key="layoutMargins" top="20" left="0.0" bottom="20" right="0.0"/>

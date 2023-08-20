@@ -94,7 +94,7 @@
                     </constraints>
                     <state key="normal" title="Button"/>
                     <buttonConfiguration key="configuration" style="filled" title="Login" titleAlignment="center">
-                        <fontDescription key="titleFontDescription" name="Georgia" family="Georgia" pointSize="16"/>
+                        <fontDescription key="titleFontDescription" name="Raleway-Bold" family="Raleway" pointSize="16"/>
                     </buttonConfiguration>
                     <connections>
                         <action selector="login:" destination="-1" eventType="touchUpInside" id="MB3-4F-RY0"/>
@@ -102,7 +102,9 @@
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OMI-2J-pDN">
                     <rect key="frame" x="205" y="688" width="150" height="60"/>
-                    <buttonConfiguration key="configuration" style="gray" title="Sign Up" titleAlignment="center"/>
+                    <buttonConfiguration key="configuration" style="gray" title="Sign Up" titleAlignment="center">
+                        <fontDescription key="titleFontDescription" name="Raleway-Bold" family="Raleway" pointSize="16"/>
+                    </buttonConfiguration>
                     <connections>
                         <action selector="signup:" destination="-1" eventType="touchUpInside" id="5I7-YD-gKe"/>
                     </connections>
