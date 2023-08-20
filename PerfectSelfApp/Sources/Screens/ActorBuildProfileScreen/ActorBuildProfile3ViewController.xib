@@ -9,8 +9,14 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
-        <array key="Raleway-VariableFont_wght.ttf">
-            <string>RalewayRoman-Bold</string>
+        <array key="Raleway-Bold.ttf">
+            <string>Raleway-Bold</string>
+        </array>
+        <array key="Raleway-Medium.ttf">
+            <string>Raleway-Medium</string>
+        </array>
+        <array key="Raleway-SemiBold.ttf">
+            <string>Raleway-SemiBold</string>
         </array>
     </customFonts>
     <objects>
@@ -62,10 +68,11 @@
                                     <rect key="frame" x="235.33333333333334" y="0.0" width="117.66666666666666" height="20"/>
                                     <subviews>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="al1-eT-dYF">
-                                            <rect key="frame" x="54.333333333333343" y="0.0" width="63.333333333333343" height="20"/>
+                                            <rect key="frame" x="53.333333333333336" y="0.0" width="64.333333333333314" height="20"/>
                                             <state key="normal" title="Button"/>
                                             <buttonConfiguration key="configuration" style="plain" title="Later" cornerStyle="dynamic">
                                                 <backgroundConfiguration key="background"/>
+                                                <fontDescription key="titleFontDescription" name="Raleway-Bold" family="Raleway" pointSize="16"/>
                                             </buttonConfiguration>
                                             <connections>
                                                 <action selector="Later:" destination="-1" eventType="touchUpInside" id="uz3-0A-lpP"/>
@@ -87,7 +94,7 @@
                                     </userDefinedRuntimeAttributes>
                                 </constraint>
                             </constraints>
-                            <fontDescription key="fontDescription" name="RalewayRoman-Bold" family="Raleway" pointSize="24"/>
+                            <fontDescription key="fontDescription" name="Raleway-Bold" family="Raleway" pointSize="24"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
@@ -106,7 +113,7 @@
                                         <constraint firstAttribute="height" constant="30" id="c96-An-2Ic" customClass="AdaptiveLayoutConstraint" customModule="PerfectSelf" customModuleProvider="target"/>
                                     </constraints>
                                     <edgeInsets key="layoutMargins" top="8" left="20" bottom="8" right="20"/>
-                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                    <fontDescription key="fontDescription" name="Raleway-SemiBold" family="Raleway" pointSize="14"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
@@ -119,7 +126,7 @@
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="40" id="1bi-9C-BnE" customClass="AdaptiveLayoutConstraint" customModule="PerfectSelf" customModuleProvider="target"/>
                                             </constraints>
-                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                            <fontDescription key="fontDescription" name="Raleway-Medium" family="Raleway" pointSize="14"/>
                                             <textInputTraits key="textInputTraits"/>
                                             <connections>
                                                 <action selector="CheckValidCountry:" destination="-1" eventType="editingDidEnd" id="0Kh-J3-9KF"/>
@@ -169,7 +176,7 @@
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="40" id="EA4-Cr-0Yo" customClass="AdaptiveLayoutConstraint" customModule="PerfectSelf" customModuleProvider="target"/>
                                             </constraints>
-                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                            <fontDescription key="fontDescription" name="Raleway-Medium" family="Raleway" pointSize="14"/>
                                             <textInputTraits key="textInputTraits"/>
                                             <connections>
                                                 <action selector="CheckValidState:" destination="-1" eventType="editingDidEnd" id="9Ok-Lf-rU7"/>
@@ -219,7 +226,7 @@
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="40" id="LR2-b6-Rrs" customClass="AdaptiveLayoutConstraint" customModule="PerfectSelf" customModuleProvider="target"/>
                                             </constraints>
-                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                            <fontDescription key="fontDescription" name="Raleway-Medium" family="Raleway" pointSize="14"/>
                                             <textInputTraits key="textInputTraits"/>
                                             <connections>
                                                 <action selector="CheckValidCity:" destination="-1" eventType="editingDidEnd" id="9Ky-zw-9bQ"/>
@@ -271,7 +278,7 @@
                                         <constraint firstAttribute="height" constant="30" id="Gq4-6I-La2" customClass="AdaptiveLayoutConstraint" customModule="PerfectSelf" customModuleProvider="target"/>
                                     </constraints>
                                     <edgeInsets key="layoutMargins" top="8" left="20" bottom="8" right="20"/>
-                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                    <fontDescription key="fontDescription" name="Raleway-SemiBold" family="Raleway" pointSize="14"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
@@ -284,7 +291,7 @@
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="40" id="3sS-Fa-r0y" customClass="AdaptiveLayoutConstraint" customModule="PerfectSelf" customModuleProvider="target"/>
                                             </constraints>
-                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                            <fontDescription key="fontDescription" name="Raleway-Medium" family="Raleway" pointSize="14"/>
                                             <textInputTraits key="textInputTraits"/>
                                         </textField>
                                         <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZjZ-VA-bhL">
@@ -406,7 +413,9 @@
                                         <constraint firstAttribute="width" constant="100" id="W1m-I9-fYR"/>
                                     </constraints>
                                     <state key="normal" title="Button"/>
-                                    <buttonConfiguration key="configuration" style="plain" title="Back"/>
+                                    <buttonConfiguration key="configuration" style="plain" title="Back">
+                                        <fontDescription key="titleFontDescription" name="Raleway-Bold" family="Raleway" pointSize="16"/>
+                                    </buttonConfiguration>
                                     <connections>
                                         <action selector="GoBack:" destination="-1" eventType="touchUpInside" id="adr-V5-qf1"/>
                                     </connections>
@@ -414,7 +423,9 @@
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RBJ-AI-ycL">
                                     <rect key="frame" x="110" y="0.0" width="243" height="50"/>
                                     <state key="normal" title="Button"/>
-                                    <buttonConfiguration key="configuration" style="filled" title="Done"/>
+                                    <buttonConfiguration key="configuration" style="filled" title="Done">
+                                        <fontDescription key="titleFontDescription" name="Raleway-Bold" family="Raleway" pointSize="16"/>
+                                    </buttonConfiguration>
                                     <connections>
                                         <action selector="Done:" destination="-1" eventType="touchUpInside" id="bPm-TY-Rzp"/>
                                     </connections>

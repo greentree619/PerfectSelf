@@ -10,6 +10,14 @@
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <array key="Lato-Regular.ttf">
+            <string>Lato-Regular</string>
+        </array>
+        <array key="Raleway-Bold.ttf">
+            <string>Raleway-Bold</string>
+        </array>
+    </customFonts>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ActorFindReaderViewController" customModule="PerfectSelf" customModuleProvider="target">
             <connections>
@@ -64,8 +72,8 @@
                                                     </connections>
                                                 </button>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Find a Reader" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MHd-4s-fRH">
-                                                    <rect key="frame" x="114.33333333333334" y="13" width="124.66666666666666" height="24"/>
-                                                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
+                                                    <rect key="frame" x="97.666666666666686" y="10.999999999999998" width="158" height="28.333333333333329"/>
+                                                    <fontDescription key="fontDescription" name="Raleway-Bold" family="Raleway" pointSize="24"/>
                                                     <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -205,16 +213,16 @@
                             <rect key="frame" x="0.0" y="60" width="393" height="30"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0 Readers Listed" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ydB-V6-let">
-                                    <rect key="frame" x="19.999999999999993" y="0.0" width="108.33333333333331" height="30"/>
-                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                    <rect key="frame" x="19.999999999999993" y="0.0" width="101.33333333333331" height="30"/>
+                                    <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="14"/>
                                     <color key="textColor" red="0.53725490196078429" green="0.54117647058823526" blue="0.55294117647058827" alpha="1" colorSpace="calibratedRGB"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iw5-a9-mdp">
-                                    <rect key="frame" x="128.33333333333334" y="0.0" width="150.00000000000003" height="30"/>
+                                    <rect key="frame" x="121.33333333333333" y="0.0" width="149.66666666666669" height="30"/>
                                 </stackView>
                                 <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="65m-nN-4D0">
-                                    <rect key="frame" x="278.33333333333331" y="0.0" width="0.0" height="30"/>
+                                    <rect key="frame" x="271" y="0.0" width="0.0" height="30"/>
                                     <state key="normal" title="Button"/>
                                     <buttonConfiguration key="configuration" style="tinted" title="Filter">
                                         <imageReference key="image" image="line.3.horizontal.decrease.circle" catalog="system" symbolScale="medium"/>
@@ -224,7 +232,7 @@
                                     </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BK2-1E-5uw">
-                                    <rect key="frame" x="278.33333333333331" y="0.0" width="94.666666666666686" height="30"/>
+                                    <rect key="frame" x="271" y="0.0" width="102" height="30"/>
                                     <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="14"/>
                                     <color key="tintColor" systemColor="tintColor"/>
                                     <inset key="imageEdgeInsets" minX="10" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
@@ -233,7 +241,7 @@
                                     </state>
                                     <buttonConfiguration key="configuration" style="plain" imagePlacement="trailing" title="Sort By">
                                         <imageReference key="image" image="arrow.up.and.down.text.horizontal" catalog="system" symbolScale="small"/>
-                                        <fontDescription key="titleFontDescription" type="system" weight="semibold" pointSize="14"/>
+                                        <fontDescription key="titleFontDescription" name="Lato-Bold" family="Lato" pointSize="14"/>
                                     </buttonConfiguration>
                                     <connections>
                                         <action selector="SortReaders:" destination="-1" eventType="touchUpInside" id="aoC-xG-eWV"/>

@@ -10,6 +10,17 @@
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <array key="Raleway-Medium.ttf">
+            <string>Raleway-Medium</string>
+        </array>
+        <array key="Raleway-Regular.ttf">
+            <string>Raleway-Regular</string>
+        </array>
+        <array key="Raleway-SemiBold.ttf">
+            <string>Raleway-SemiBold</string>
+        </array>
+    </customFonts>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ActorHomeViewController" customModule="PerfectSelf" customModuleProvider="target">
             <connections>
@@ -62,27 +73,27 @@
                                     </userDefinedRuntimeAttributes>
                                 </view>
                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="eC6-8X-Ihv">
-                                    <rect key="frame" x="80" y="0.0" width="134" height="50"/>
+                                    <rect key="frame" x="80" y="0.0" width="97" height="50"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Hi, User!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gjf-XO-iAc">
-                                            <rect key="frame" x="0.0" y="0.0" width="134" height="29.666666666666668"/>
-                                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="16"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="97" height="35.666666666666664"/>
+                                            <fontDescription key="fontDescription" name="Raleway-SemiBold" family="Raleway" pointSize="16"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Let's Get Started!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HB8-wm-AkI">
-                                            <rect key="frame" x="0.0" y="29.666666666666671" width="134" height="20.333333333333329"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <rect key="frame" x="0.0" y="35.666666666666671" width="97" height="14.333333333333336"/>
+                                            <fontDescription key="fontDescription" name="Raleway-Medium" family="Raleway" pointSize="12"/>
                                             <color key="textColor" red="0.58039215686274503" green="0.59607843137254901" blue="0.6705882352941176" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
                                 </stackView>
                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="bottom" translatesAutoresizingMaskIntoConstraints="NO" id="eKp-Hg-unj">
-                                    <rect key="frame" x="224" y="0.0" width="149" height="50"/>
+                                    <rect key="frame" x="187" y="0.0" width="186" height="50"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qL5-7R-ggJ">
-                                            <rect key="frame" x="99" y="0.0" width="50" height="50"/>
+                                            <rect key="frame" x="136" y="0.0" width="50" height="50"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="H2a-dc-Oak">
                                                     <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
@@ -146,8 +157,8 @@
                                     <rect key="frame" x="20" y="0.0" width="353" height="30"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="right" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="  Next session in 5 min  " textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="150" translatesAutoresizingMaskIntoConstraints="NO" id="qeB-aG-UUW">
-                                            <rect key="frame" x="0.0" y="0.0" width="259.33333333333331" height="30"/>
-                                            <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="12"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="259" height="30"/>
+                                            <fontDescription key="fontDescription" name="Raleway-SemiBold" family="Raleway" pointSize="12"/>
                                             <color key="textColor" systemColor="systemBlueColor"/>
                                             <nil key="highlightedColor"/>
                                             <userDefinedRuntimeAttributes>
@@ -163,7 +174,7 @@
                                             </userDefinedRuntimeAttributes>
                                         </label>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zeE-05-O1t">
-                                            <rect key="frame" x="259.33333333333331" y="0.0" width="93.666666666666686" height="30"/>
+                                            <rect key="frame" x="259" y="0.0" width="94" height="30"/>
                                             <color key="backgroundColor" name="AccentColor"/>
                                             <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="12"/>
                                             <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
@@ -171,7 +182,7 @@
                                                 <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             </state>
                                             <buttonConfiguration key="configuration" style="plain" title="Join">
-                                                <fontDescription key="titleFontDescription" name="Helvetica" family="Helvetica" pointSize="12"/>
+                                                <fontDescription key="titleFontDescription" name="Raleway-SemiBold" family="Raleway" pointSize="12"/>
                                                 <color key="baseForegroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             </buttonConfiguration>
                                             <userDefinedRuntimeAttributes>
@@ -282,12 +293,12 @@
                             <rect key="frame" x="0.0" y="120" width="393" height="25"/>
                             <subviews>
                                 <stackView opaque="NO" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="aev-Rm-9fE">
-                                    <rect key="frame" x="20" y="0.0" width="280" height="25"/>
+                                    <rect key="frame" x="20" y="0.0" width="276" height="25"/>
                                     <subviews>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xd9-pw-db3">
-                                            <rect key="frame" x="0.0" y="0.0" width="103" height="25"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="100" height="25"/>
                                             <color key="backgroundColor" red="0.89803921568627454" green="0.89803921568627454" blue="0.89803921568627454" alpha="1" colorSpace="calibratedRGB"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                            <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="12"/>
                                             <inset key="contentEdgeInsets" minX="10" minY="5" maxX="10" maxY="5"/>
                                             <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                             <state key="normal" title="Available Soon">
@@ -303,9 +314,9 @@
                                             </connections>
                                         </button>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jrl-C4-W5Z">
-                                            <rect key="frame" x="113" y="0.0" width="78" height="25"/>
+                                            <rect key="frame" x="110" y="0.0" width="77" height="25"/>
                                             <color key="backgroundColor" red="0.89803921568627454" green="0.89803921568627454" blue="0.89803921568627454" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                            <fontDescription key="fontDescription" name="Raleway-Regular" family="Raleway" pointSize="12"/>
                                             <inset key="contentEdgeInsets" minX="10" minY="5" maxX="10" maxY="5"/>
                                             <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                             <state key="normal" title="Top Rated">
@@ -321,9 +332,9 @@
                                             </connections>
                                         </button>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WsL-mn-f8J">
-                                            <rect key="frame" x="201" y="0.0" width="79" height="25"/>
+                                            <rect key="frame" x="197" y="0.0" width="79" height="25"/>
                                             <color key="backgroundColor" red="0.89803921568627454" green="0.89803921568627454" blue="0.89803921568627454" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                            <fontDescription key="fontDescription" name="Raleway-Regular" family="Raleway" pointSize="12"/>
                                             <inset key="contentEdgeInsets" minX="10" minY="5" maxX="10" maxY="5"/>
                                             <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                             <state key="normal" title="Sponsored">
@@ -361,19 +372,20 @@
                                     <rect key="frame" x="20" y="0.0" width="353" height="30"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Readers on PerfectSelf" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6dY-ib-JUh">
-                                            <rect key="frame" x="0.0" y="0.0" width="174" height="30"/>
-                                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="16"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="174.66666666666666" height="30"/>
+                                            <fontDescription key="fontDescription" name="Raleway-SemiBold" family="Raleway" pointSize="16"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FEe-D0-8eL">
-                                            <rect key="frame" x="174" y="0.0" width="47.333333333333343" height="30"/>
+                                            <rect key="frame" x="174.66666666666666" y="0.0" width="50" height="30"/>
                                         </stackView>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="clQ-2B-QJx">
-                                            <rect key="frame" x="221.33333333333334" y="0.0" width="81.666666666666657" height="30"/>
+                                            <rect key="frame" x="224.66666666666666" y="0.0" width="78.333333333333343" height="30"/>
                                             <state key="normal" title="Button"/>
                                             <buttonConfiguration key="configuration" style="tinted" title="Filter">
                                                 <imageReference key="image" image="line.3.horizontal.decrease.circle" catalog="system" symbolScale="medium"/>
+                                                <fontDescription key="titleFontDescription" name="Lato-Regular" family="Lato" pointSize="14"/>
                                             </buttonConfiguration>
                                             <connections>
                                                 <action selector="ShowFilterModal:" destination="-1" eventType="touchUpInside" id="CL9-yZ-ree"/>
@@ -385,23 +397,9 @@
                                                 <constraint firstAttribute="width" constant="50" id="ms6-Bm-R8w"/>
                                             </constraints>
                                             <state key="normal" title="Button"/>
-                                            <buttonConfiguration key="configuration" style="plain" cornerStyle="dynamic">
+                                            <buttonConfiguration key="configuration" style="plain" title="View all" cornerStyle="dynamic">
                                                 <backgroundConfiguration key="background"/>
-                                                <attributedString key="attributedTitle">
-                                                    <fragment content="V">
-                                                        <attributes>
-                                                            <font key="NSFont" size="12" name="Helvetica"/>
-                                                            <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
-                                                        </attributes>
-                                                    </fragment>
-                                                    <fragment content="iew all">
-                                                        <attributes>
-                                                            <font key="NSFont" metaFont="system"/>
-                                                            <font key="NSOriginalFont" size="12" name="Helvetica"/>
-                                                            <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
-                                                        </attributes>
-                                                    </fragment>
-                                                </attributedString>
+                                                <fontDescription key="titleFontDescription" name="Lato-Regular" family="Lato" pointSize="14"/>
                                                 <directionalEdgeInsets key="contentInsets" top="0.0" leading="0.0" bottom="0.0" trailing="0.0"/>
                                             </buttonConfiguration>
                                             <connections>

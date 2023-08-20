@@ -9,11 +9,11 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
+        <array key="Raleway-Bold.ttf">
+            <string>Raleway-Bold</string>
+        </array>
         <array key="Raleway-Regular.ttf">
             <string>Raleway-Regular</string>
-        </array>
-        <array key="Raleway-VariableFont_wght.ttf">
-            <string>RalewayRoman-Bold</string>
         </array>
     </customFonts>
     <objects>
@@ -42,11 +42,11 @@
                     <rect key="frame" x="0.0" y="356" width="320" height="212"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Build Your Profile" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6FB-ur-JRN">
-                            <rect key="frame" x="68" y="20" width="184" height="30"/>
+                            <rect key="frame" x="61.5" y="20" width="197" height="30"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="30" id="lCB-cR-WgW" customClass="AdaptiveLayoutConstraint" customModule="PerfectSelf" customModuleProvider="target"/>
                             </constraints>
-                            <fontDescription key="fontDescription" name="RalewayRoman-Bold" family="Raleway" pointSize="24"/>
+                            <fontDescription key="fontDescription" name="Raleway-Bold" family="Raleway" pointSize="24"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
@@ -93,13 +93,14 @@
                                     </subviews>
                                 </stackView>
                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="bottom" translatesAutoresizingMaskIntoConstraints="NO" id="InK-sZ-lkF">
-                                    <rect key="frame" x="186.5" y="19" width="93.5" height="34.5"/>
+                                    <rect key="frame" x="186.5" y="19.5" width="93.5" height="33"/>
                                     <subviews>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZZo-22-E7g">
-                                            <rect key="frame" x="30" y="0.0" width="63.5" height="34.5"/>
+                                            <rect key="frame" x="29" y="0.0" width="64.5" height="33"/>
                                             <state key="normal" title="Button"/>
                                             <buttonConfiguration key="configuration" style="plain" title="Later" cornerStyle="dynamic">
                                                 <backgroundConfiguration key="background"/>
+                                                <fontDescription key="titleFontDescription" name="Raleway-Bold" family="Raleway" pointSize="16"/>
                                             </buttonConfiguration>
                                             <connections>
                                                 <action selector="Later:" destination="-1" eventType="touchUpInside" id="qFa-IX-0RP"/>

@@ -1165,8 +1165,8 @@
 		BAD0B4EE29BA17130061FEF5 /* ActorFindReaderScreen */ = {
 			isa = PBXGroup;
 			children = (
-				BAD0B4EF29BA17130061FEF5 /* ActorFindReaderViewController.xib */,
 				BAD0B4F029BA17130061FEF5 /* ActorFindReaderViewController.swift */,
+				BAD0B4EF29BA17130061FEF5 /* ActorFindReaderViewController.xib */,
 				475ECFF429DEF3E2004AED9A /* SortViewController.swift */,
 				475ECFF529DEF3E2004AED9A /* SortViewController.xib */,
 			);
