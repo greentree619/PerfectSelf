@@ -342,7 +342,9 @@
                                 <constraint firstAttribute="height" constant="40" id="2JR-cG-URD" customClass="AdaptiveLayoutConstraint" customModule="PerfectSelf" customModuleProvider="target"/>
                             </constraints>
                             <state key="normal" title="Button"/>
-                            <buttonConfiguration key="configuration" style="filled" title="Checkout"/>
+                            <buttonConfiguration key="configuration" style="filled" title="Checkout">
+                                <fontDescription key="titleFontDescription" name="Lato-Bold" family="Lato" pointSize="16"/>
+                            </buttonConfiguration>
                             <connections>
                                 <action selector="DoCheckout:" destination="-1" eventType="touchUpInside" id="p9m-nd-nSs"/>
                             </connections>

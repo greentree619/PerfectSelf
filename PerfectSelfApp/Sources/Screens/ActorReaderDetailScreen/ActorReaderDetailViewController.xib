@@ -9,6 +9,20 @@
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <array key="Lato-Regular.ttf">
+            <string>Lato-Regular</string>
+        </array>
+        <array key="Raleway-Bold.ttf">
+            <string>Raleway-Bold</string>
+        </array>
+        <array key="Raleway-Medium.ttf">
+            <string>Raleway-Medium</string>
+        </array>
+        <array key="Raleway-Regular.ttf">
+            <string>Raleway-Regular</string>
+        </array>
+    </customFonts>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ActorReaderDetailViewController" customModule="PerfectSelf" customModuleProvider="target">
             <connections>
@@ -84,8 +98,8 @@
                                             </connections>
                                         </button>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Reader Profile" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tvx-PW-IOj">
-                                            <rect key="frame" x="120.33333333333333" y="5.6666666666666732" width="152.66666666666669" height="28.666666666666671"/>
-                                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="24"/>
+                                            <rect key="frame" x="115.33333333333333" y="5.9999999999999982" width="162.33333333333337" height="28.333333333333329"/>
+                                            <fontDescription key="fontDescription" name="Raleway-Bold" family="Raleway" pointSize="24"/>
                                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <nil key="highlightedColor"/>
                                         </label>
@@ -128,14 +142,14 @@
                                             <rect key="frame" x="70" y="0.0" width="188" height="60"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="User" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qIt-SP-q3Z">
-                                                    <rect key="frame" x="0.0" y="5" width="188" height="33"/>
-                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
+                                                    <rect key="frame" x="0.0" y="5" width="188" height="33.333333333333336"/>
+                                                    <fontDescription key="fontDescription" name="Raleway-Bold" family="Raleway" pointSize="18"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Head titles Head titles" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GgS-XK-ALA">
-                                                    <rect key="frame" x="0.0" y="38" width="188" height="17"/>
-                                                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="14"/>
+                                                    <rect key="frame" x="0.0" y="38.333333333333343" width="188" height="16.666666666666671"/>
+                                                    <fontDescription key="fontDescription" name="Raleway-Medium" family="Raleway" pointSize="14"/>
                                                     <color key="textColor" red="0.53725490200000003" green="0.54117647059999996" blue="0.55294117649999996" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -154,7 +168,7 @@
                                                         </imageView>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="78E-cz-4ef">
                                                             <rect key="frame" x="27.666666666666689" y="10" width="47.333333333333343" height="20"/>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                            <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="12"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
@@ -218,7 +232,7 @@
                                                                     <constraints>
                                                                         <constraint firstAttribute="width" constant="65" id="miV-hm-L70"/>
                                                                     </constraints>
-                                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                                    <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="14"/>
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
@@ -232,7 +246,7 @@
                                                                     <constraints>
                                                                         <constraint firstAttribute="width" constant="55" id="dLK-JL-eqj"/>
                                                                     </constraints>
-                                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                                    <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="14"/>
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
@@ -241,7 +255,7 @@
                                                                     <constraints>
                                                                         <constraint firstAttribute="width" constant="65" id="TNl-Ov-rOr"/>
                                                                     </constraints>
-                                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                                    <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="14"/>
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
@@ -255,7 +269,7 @@
                                                                     <constraints>
                                                                         <constraint firstAttribute="width" constant="55" id="5S7-Cf-V8W"/>
                                                                     </constraints>
-                                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                                    <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="14"/>
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
@@ -264,7 +278,7 @@
                                                                     <constraints>
                                                                         <constraint firstAttribute="width" constant="65" id="ghg-Cs-5Nu"/>
                                                                     </constraints>
-                                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                                    <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="14"/>
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
@@ -275,7 +289,7 @@
                                             </subviews>
                                         </stackView>
                                         <stackView opaque="NO" contentMode="scaleToFill" alignment="top" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="bUx-zm-8vt">
-                                            <rect key="frame" x="258" y="0.0" width="95" height="50"/>
+                                            <rect key="frame" x="266.33333333333331" y="0.0" width="86.666666666666686" height="50"/>
                                             <subviews>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="bp3-z6-F31">
                                                     <rect key="frame" x="0.0" y="2.9999999999999991" width="20" height="14.000000000000002"/>
@@ -293,8 +307,8 @@
                                                     </userDefinedRuntimeAttributes>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="5 sessions" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mdb-mB-GlE">
-                                                    <rect key="frame" x="25" y="0.0" width="70" height="17"/>
-                                                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="14"/>
+                                                    <rect key="frame" x="24.999999999999996" y="0.0" width="61.666666666666657" height="17"/>
+                                                    <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="14"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -341,7 +355,7 @@
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Availability" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1e2-2d-a5w">
                                             <rect key="frame" x="0.0" y="0.0" width="353" height="20"/>
-                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
+                                            <fontDescription key="fontDescription" name="Raleway-Bold" family="Raleway" pointSize="16"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
@@ -394,14 +408,14 @@
                                                     <rect key="frame" x="0.0" y="0.0" width="353" height="44"/>
                                                     <subviews>
                                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="G83-M7-dYj">
-                                                            <rect key="frame" x="0.0" y="10" width="89" height="34"/>
+                                                            <rect key="frame" x="0.0" y="10" width="90.666666666666671" height="34"/>
                                                             <subviews>
                                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KBB-ih-o0Z">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="89" height="20"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="90.666666666666671" height="20"/>
                                                                     <color key="tintColor" red="0.25098039220000001" green="0.38823529410000002" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                     <state key="normal" title="Button"/>
                                                                     <buttonConfiguration key="configuration" style="plain" title="Overview" cornerStyle="dynamic">
-                                                                        <fontDescription key="titleFontDescription" type="boldSystem" pointSize="16"/>
+                                                                        <fontDescription key="titleFontDescription" name="Lato-Bold" family="Lato" pointSize="16"/>
                                                                         <directionalEdgeInsets key="contentInsets" top="0.0" leading="0.0" bottom="0.0" trailing="0.0"/>
                                                                     </buttonConfiguration>
                                                                     <connections>
@@ -409,19 +423,19 @@
                                                                     </connections>
                                                                 </button>
                                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="underline" translatesAutoresizingMaskIntoConstraints="NO" id="i2g-Uw-Y9S">
-                                                                    <rect key="frame" x="0.0" y="30" width="89" height="4"/>
+                                                                    <rect key="frame" x="0.0" y="30" width="90.666666666666671" height="4"/>
                                                                 </imageView>
                                                             </subviews>
                                                         </stackView>
                                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="g8w-om-zRV">
-                                                            <rect key="frame" x="89" y="10" width="176" height="34"/>
+                                                            <rect key="frame" x="90.666666666666671" y="10" width="171.66666666666663" height="34"/>
                                                             <subviews>
                                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FC0-lF-3nJ">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="176" height="20"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="171.66666666666666" height="20"/>
                                                                     <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     <state key="normal" title="Button"/>
                                                                     <buttonConfiguration key="configuration" style="plain" title="Video Introduction" cornerStyle="dynamic">
-                                                                        <fontDescription key="titleFontDescription" type="boldSystem" pointSize="16"/>
+                                                                        <fontDescription key="titleFontDescription" name="Lato-Bold" family="Lato" pointSize="16"/>
                                                                         <directionalEdgeInsets key="contentInsets" top="0.0" leading="0.0" bottom="0.0" trailing="0.0"/>
                                                                     </buttonConfiguration>
                                                                     <connections>
@@ -429,19 +443,19 @@
                                                                     </connections>
                                                                 </button>
                                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="underline" translatesAutoresizingMaskIntoConstraints="NO" id="kup-sN-ZJe">
-                                                                    <rect key="frame" x="0.0" y="30" width="176" height="4"/>
+                                                                    <rect key="frame" x="0.0" y="30" width="171.66666666666666" height="4"/>
                                                                 </imageView>
                                                             </subviews>
                                                         </stackView>
                                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="E7t-OE-KWF">
-                                                            <rect key="frame" x="265" y="10" width="88" height="34"/>
+                                                            <rect key="frame" x="262.33333333333331" y="10" width="90.666666666666686" height="34"/>
                                                             <subviews>
                                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="v2o-pt-ULe">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="88" height="20"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="90.666666666666671" height="20"/>
                                                                     <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     <state key="normal" title="Button"/>
                                                                     <buttonConfiguration key="configuration" style="plain" title="Reviews" cornerStyle="dynamic">
-                                                                        <fontDescription key="titleFontDescription" type="boldSystem" pointSize="16"/>
+                                                                        <fontDescription key="titleFontDescription" name="Lato-Bold" family="Lato" pointSize="16"/>
                                                                         <directionalEdgeInsets key="contentInsets" top="0.0" leading="0.0" bottom="0.0" trailing="0.0"/>
                                                                     </buttonConfiguration>
                                                                     <connections>
@@ -449,7 +463,7 @@
                                                                     </connections>
                                                                 </button>
                                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="underline" translatesAutoresizingMaskIntoConstraints="NO" id="Zkv-bC-Vvl">
-                                                                    <rect key="frame" x="0.0" y="30" width="88" height="4"/>
+                                                                    <rect key="frame" x="0.0" y="30" width="90.666666666666671" height="4"/>
                                                                 </imageView>
                                                             </subviews>
                                                         </stackView>
@@ -531,6 +545,7 @@
                                                                 <constraint firstAttribute="width" secondItem="jAN-Mr-D8e" secondAttribute="height" id="ZT9-NS-2gM"/>
                                                                 <constraint firstAttribute="height" constant="40" id="j9u-cM-Xut"/>
                                                             </constraints>
+                                                            <fontDescription key="fontDescription" name="Raleway-Regular" family="Raleway" pointSize="18"/>
                                                             <color key="tintColor" systemColor="tintColor"/>
                                                             <inset key="contentEdgeInsets" minX="5" minY="5" maxX="5" maxY="5"/>
                                                             <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
@@ -836,7 +851,9 @@
                                         <constraint firstAttribute="height" constant="40" id="XYI-bG-ifI" customClass="AdaptiveLayoutConstraint" customModule="PerfectSelf" customModuleProvider="target"/>
                                     </constraints>
                                     <state key="normal" title="Button"/>
-                                    <buttonConfiguration key="configuration" style="filled" title="Book appointment"/>
+                                    <buttonConfiguration key="configuration" style="filled" title="Book appointment">
+                                        <fontDescription key="titleFontDescription" name="Lato-Bold" family="Lato" pointSize="16"/>
+                                    </buttonConfiguration>
                                     <connections>
                                         <action selector="BookAppointment:" destination="-1" eventType="touchUpInside" id="Lb5-rS-PNd"/>
                                     </connections>
