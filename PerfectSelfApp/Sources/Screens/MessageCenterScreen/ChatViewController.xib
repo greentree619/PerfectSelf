@@ -323,23 +323,27 @@
                             <nil key="highlightedColor"/>
                         </label>
                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="bottom" translatesAutoresizingMaskIntoConstraints="NO" id="rk0-eQ-cv9">
-                            <rect key="frame" x="85.333333333333329" y="195" width="163.33333333333337" height="55"/>
+                            <rect key="frame" x="89" y="195" width="156" height="55"/>
                             <subviews>
                                 <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="YLC-66-hk3">
-                                    <rect key="frame" x="0.0" y="0.0" width="163.33333333333334" height="55"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="156" height="55"/>
                                     <subviews>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QUx-zo-SU0">
-                                            <rect key="frame" x="0.0" y="10.333333333333314" width="76.666666666666671" height="34.333333333333336"/>
+                                            <rect key="frame" x="0.0" y="11" width="73" height="33.333333333333336"/>
                                             <state key="normal" title="Button"/>
-                                            <buttonConfiguration key="configuration" style="gray" title="Cancel"/>
+                                            <buttonConfiguration key="configuration" style="gray" title="Cancel">
+                                                <fontDescription key="titleFontDescription" name="Lato-Bold" family="Lato" pointSize="16"/>
+                                            </buttonConfiguration>
                                             <connections>
                                                 <action selector="CancelCall:" destination="-1" eventType="touchUpInside" id="MW3-dB-XRb"/>
                                             </connections>
                                         </button>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4uM-7O-bh0">
-                                            <rect key="frame" x="86.666666666666657" y="10.333333333333314" width="76.666666666666657" height="34.333333333333336"/>
+                                            <rect key="frame" x="82.999999999999986" y="11" width="73.000000000000014" height="33.333333333333336"/>
                                             <state key="normal" title="Button"/>
-                                            <buttonConfiguration key="configuration" style="filled" title="Yes"/>
+                                            <buttonConfiguration key="configuration" style="filled" title="Yes">
+                                                <fontDescription key="titleFontDescription" name="Lato-Bold" family="Lato" pointSize="16"/>
+                                            </buttonConfiguration>
                                             <connections>
                                                 <action selector="ConfirmCall:" destination="-1" eventType="touchUpInside" id="dse-QI-bhT"/>
                                             </connections>

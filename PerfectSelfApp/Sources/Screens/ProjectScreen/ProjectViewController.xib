@@ -8,6 +8,17 @@
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <array key="Lato-Bold.ttf">
+            <string>Lato-Bold</string>
+        </array>
+        <array key="Lato-Regular.ttf">
+            <string>Lato-Regular</string>
+        </array>
+        <array key="Raleway-Bold.ttf">
+            <string>Raleway-Bold</string>
+        </array>
+    </customFonts>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ProjectViewController" customModule="PerfectSelf" customModuleProvider="target">
             <connections>
@@ -49,14 +60,14 @@
                             </connections>
                         </slider>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yhz-94-xtg" userLabel="start time">
-                            <rect key="frame" x="21" y="227.33333333333331" width="39" height="17"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <rect key="frame" x="21.000000000000004" y="227.33333333333331" width="36.333333333333343" height="17"/>
+                            <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="14"/>
                             <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BK1-CV-fCM" userLabel="end time">
-                            <rect key="frame" x="333" y="227.33333333333331" width="39" height="17"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <rect key="frame" x="335.66666666666669" y="227.33333333333331" width="36.333333333333314" height="17"/>
+                            <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="14"/>
                             <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
@@ -83,9 +94,9 @@
                             <rect key="frame" x="0.0" y="59" width="393" height="87"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Project Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="peK-RU-Mh1">
-                                    <rect key="frame" x="138.66666666666666" y="32.333333333333329" width="115.66666666666666" height="22.333333333333329"/>
+                                    <rect key="frame" x="118.33333333333333" y="29.333333333333329" width="156.66666666666669" height="28.333333333333329"/>
                                     <edgeInsets key="layoutMargins" top="8" left="8" bottom="8" right="8"/>
-                                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="19"/>
+                                    <fontDescription key="fontDescription" name="Raleway-Bold" family="Raleway" pointSize="24"/>
                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <color key="highlightedColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </label>
@@ -127,6 +138,7 @@
                             <inset key="imageEdgeInsets" minX="30" minY="0.0" maxX="18" maxY="0.0"/>
                             <state key="normal" title="Button"/>
                             <buttonConfiguration key="configuration" style="filled" title="Edit Read">
+                                <fontDescription key="titleFontDescription" name="Lato-Bold" family="Lato" pointSize="16"/>
                                 <color key="baseForegroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <color key="baseBackgroundColor" red="0.45882352939999999" green="0.52941176469999995" blue="0.85098039219999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </buttonConfiguration>
@@ -134,7 +146,7 @@
                                 <action selector="editReadDidTapped:" destination="-1" eventType="touchUpInside" id="KVq-tK-KWM"/>
                             </connections>
                         </button>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="characterWrap" translatesAutoresizingMaskIntoConstraints="NO" id="bTx-jD-fRI" userLabel="Record New Take">
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="bTx-jD-fRI" userLabel="Record New Take">
                             <rect key="frame" x="141" y="0.0" width="111" height="58"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="58" id="YZM-ul-uGu"/>
@@ -142,14 +154,11 @@
                             <color key="tintColor" systemColor="tintColor"/>
                             <inset key="imageEdgeInsets" minX="30" minY="0.0" maxX="18" maxY="0.0"/>
                             <state key="normal" title="Button"/>
-                            <buttonConfiguration key="configuration" style="filled">
+                            <buttonConfiguration key="configuration" style="filled" titleAlignment="center">
                                 <attributedString key="attributedTitle">
-                                    <fragment>
-                                        <string key="content">Record
-New Take</string>
+                                    <fragment content="Record New Take">
                                         <attributes>
-                                            <color key="NSColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                            <font key="NSFont" metaFont="system" size="17"/>
+                                            <font key="NSFont" metaFont="system" size="16"/>
                                             <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                         </attributes>
                                     </fragment>
@@ -170,6 +179,7 @@ New Take</string>
                             <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                             <state key="normal" title="Edit"/>
                             <buttonConfiguration key="configuration" style="filled" title="Edit Final">
+                                <fontDescription key="titleFontDescription" name="Lato-Bold" family="Lato" pointSize="16"/>
                                 <color key="baseForegroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <color key="baseBackgroundColor" red="0.45882352941176469" green="0.52941176470588236" blue="0.85098039215686272" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </buttonConfiguration>
@@ -368,8 +378,8 @@ New Take</string>
                     <rect key="frame" x="98.333333333333329" y="327.66666666666669" width="196.33333333333337" height="196.66666666666669"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0%" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MKS-HX-Lsp" userLabel="progress label">
-                            <rect key="frame" x="62.333333333333329" y="71" width="71.999999999999986" height="55"/>
-                            <fontDescription key="fontDescription" type="boldSystem" pointSize="46"/>
+                            <rect key="frame" x="67.000000000000014" y="71.333333333333314" width="62.333333333333329" height="54"/>
+                            <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="45"/>
                             <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <nil key="highlightedColor"/>
                         </label>

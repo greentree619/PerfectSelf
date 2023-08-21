@@ -8,6 +8,11 @@
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <array key="Raleway-Bold.ttf">
+            <string>Raleway-Bold</string>
+        </array>
+    </customFonts>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MicrophoneListViewController" customModule="PerfectSelf" customModuleProvider="target">
             <connections>
@@ -24,29 +29,34 @@
                     <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <subviews>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Audio Inputs" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nDi-da-PCg">
-                            <rect key="frame" x="10" y="40" width="188.66666666666666" height="38.666666666666664"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <fontDescription key="fontDescription" type="boldSystem" pointSize="32"/>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Audio Inputs" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nDi-da-PCg">
+                            <rect key="frame" x="123.66666666666669" y="40" width="146" height="29"/>
+                            <fontDescription key="fontDescription" name="Raleway-Bold" family="Raleway" pointSize="24"/>
                             <color key="textColor" systemColor="tintColor"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="5GI-eH-V2Q">
-                            <rect key="frame" x="307" y="40" width="67" height="35"/>
+                            <rect key="frame" x="311" y="39" width="62" height="31"/>
                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
                             <state key="normal" title="Button"/>
-                            <buttonConfiguration key="configuration" style="filled" title="Close"/>
+                            <buttonConfiguration key="configuration" style="filled" title="Close">
+                                <fontDescription key="titleFontDescription" name="Raleway-SemiBold" family="Raleway" pointSize="14"/>
+                            </buttonConfiguration>
                             <connections>
                                 <action selector="closeDidTap:" destination="-1" eventType="touchUpInside" id="G2G-Ba-OPC"/>
                             </connections>
                         </button>
                         <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="Cvs-ab-XHQ">
-                            <rect key="frame" x="0.0" y="106" width="393" height="746"/>
+                            <rect key="frame" x="0.0" y="78" width="393" height="774"/>
                             <autoresizingMask key="autoresizingMask"/>
                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         </tableView>
                     </subviews>
                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    <constraints>
+                        <constraint firstItem="nDi-da-PCg" firstAttribute="centerX" secondItem="ZvF-Dt-JYv" secondAttribute="centerX" id="Shq-xo-Gd3"/>
+                        <constraint firstItem="nDi-da-PCg" firstAttribute="top" secondItem="ZvF-Dt-JYv" secondAttribute="top" constant="40" id="jbd-dR-ESb"/>
+                    </constraints>
                 </view>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
