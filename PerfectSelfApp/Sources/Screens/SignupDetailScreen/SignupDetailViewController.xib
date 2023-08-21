@@ -10,6 +10,9 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
+        <array key="Raleway-Bold.ttf">
+            <string>Raleway-Bold</string>
+        </array>
         <array key="Raleway-Medium.ttf">
             <string>Raleway-Medium</string>
         </array>
@@ -54,7 +57,7 @@
                                                             </userDefinedRuntimeAttributes>
                                                         </constraint>
                                                     </constraints>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                                    <fontDescription key="fontDescription" name="Raleway-Bold" family="Raleway" pointSize="24"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -228,7 +231,7 @@
                                                 <constraint firstAttribute="height" constant="30" id="ici-Sz-lL4" customClass="AdaptiveLayoutConstraint" customModule="PerfectSelf" customModuleProvider="target"/>
                                             </constraints>
                                             <edgeInsets key="layoutMargins" top="8" left="20" bottom="8" right="20"/>
-                                            <fontDescription key="fontDescription" name="Raleway-SemiBold" family="Raleway" pointSize="14"/>
+                                            <fontDescription key="fontDescription" name="Raleway-SemiBold" family="Raleway" pointSize="16"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
@@ -257,7 +260,7 @@
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="30" id="vO1-kG-ggo"/>
                                                     </constraints>
-                                                    <fontDescription key="fontDescription" name="Raleway-SemiBold" family="Raleway" pointSize="14"/>
+                                                    <fontDescription key="fontDescription" name="Raleway-SemiBold" family="Raleway" pointSize="16"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -280,7 +283,7 @@
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="30" id="faj-6g-COS"/>
                                                     </constraints>
-                                                    <fontDescription key="fontDescription" name="Raleway-SemiBold" family="Raleway" pointSize="14"/>
+                                                    <fontDescription key="fontDescription" name="Raleway-SemiBold" family="Raleway" pointSize="16"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -326,7 +329,9 @@
                                         <constraint firstAttribute="height" constant="50" id="Uln-DE-zYm"/>
                                     </constraints>
                                     <state key="normal" title="Button"/>
-                                    <buttonConfiguration key="configuration" style="filled" title="Continue"/>
+                                    <buttonConfiguration key="configuration" style="filled" title="Continue">
+                                        <fontDescription key="titleFontDescription" name="Lato-Bold" family="Lato" pointSize="16"/>
+                                    </buttonConfiguration>
                                     <connections>
                                         <action selector="FinishSignUp:" destination="-1" eventType="touchUpInside" id="FdI-ep-cM8"/>
                                     </connections>
