@@ -9,6 +9,17 @@
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <array key="Lato-Bold.ttf">
+            <string>Lato-Bold</string>
+        </array>
+        <array key="Lato-Regular.ttf">
+            <string>Lato-Regular</string>
+        </array>
+        <array key="Raleway-Bold.ttf">
+            <string>Raleway-Bold</string>
+        </array>
+    </customFonts>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ReaderProfileEditExperienceViewController" customModule="PerfectSelf" customModuleProvider="target">
             <connections>
@@ -46,7 +57,7 @@
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="25" id="ulh-w6-FsV"/>
                                             </constraints>
-                                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                            <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="16"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
@@ -55,7 +66,7 @@
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="40" id="fqY-v5-b4h" customClass="AdaptiveLayoutConstraint" customModule="PerfectSelf" customModuleProvider="target"/>
                                             </constraints>
-                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                            <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="14"/>
                                             <textInputTraits key="textInputTraits"/>
                                             <userDefinedRuntimeAttributes>
                                                 <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
@@ -74,7 +85,7 @@
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="25" id="81N-9H-iiE"/>
                                             </constraints>
-                                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                            <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="16"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
@@ -83,7 +94,7 @@
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="40" id="7OE-4B-uti" customClass="AdaptiveLayoutConstraint" customModule="PerfectSelf" customModuleProvider="target"/>
                                             </constraints>
-                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                            <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="14"/>
                                             <textInputTraits key="textInputTraits"/>
                                             <userDefinedRuntimeAttributes>
                                                 <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
@@ -106,7 +117,7 @@
                                                         <constraint firstAttribute="height" constant="30" id="BYk-ib-ba8" customClass="AdaptiveLayoutConstraint" customModule="PerfectSelf" customModuleProvider="target"/>
                                                     </constraints>
                                                     <edgeInsets key="layoutMargins" top="8" left="20" bottom="8" right="20"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="14"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -119,7 +130,7 @@
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="40" id="sA9-KB-mB7" customClass="AdaptiveLayoutConstraint" customModule="PerfectSelf" customModuleProvider="target"/>
                                                             </constraints>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                            <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="14"/>
                                                             <textInputTraits key="textInputTraits"/>
                                                         </textField>
                                                         <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7BP-2c-ChY">
@@ -166,7 +177,7 @@
                                                         <constraint firstAttribute="height" constant="30" id="oLB-9x-P91" customClass="AdaptiveLayoutConstraint" customModule="PerfectSelf" customModuleProvider="target"/>
                                                     </constraints>
                                                     <edgeInsets key="layoutMargins" top="8" left="20" bottom="8" right="20"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="14"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -179,7 +190,7 @@
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="40" id="e0i-gE-5M0" customClass="AdaptiveLayoutConstraint" customModule="PerfectSelf" customModuleProvider="target"/>
                                                             </constraints>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                            <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="14"/>
                                                             <textInputTraits key="textInputTraits"/>
                                                         </textField>
                                                         <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OX9-uC-ehR">
@@ -226,7 +237,7 @@
                                                         <constraint firstAttribute="height" constant="30" id="IOU-xL-k2Q" customClass="AdaptiveLayoutConstraint" customModule="PerfectSelf" customModuleProvider="target"/>
                                                     </constraints>
                                                     <edgeInsets key="layoutMargins" top="8" left="20" bottom="8" right="20"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="14"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -234,7 +245,7 @@
                                                     <rect key="frame" x="0.0" y="30" width="353" height="170"/>
                                                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                     <color key="textColor" systemColor="labelColor"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                                     <userDefinedRuntimeAttributes>
                                                         <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
@@ -274,9 +285,15 @@
                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="L7v-4i-7Ee">
                     <rect key="frame" x="20" y="59" width="353" height="80"/>
                     <subviews>
-                        <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="LHY-cU-5ib">
-                            <rect key="frame" x="0.0" y="0.0" width="187.33333333333334" height="80"/>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oAY-Rc-mbj">
+                            <rect key="frame" x="0.0" y="0.0" width="353" height="80"/>
                             <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Edit Experience" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2e3-Nv-OsX">
+                                    <rect key="frame" x="86.666666666666671" y="26" width="179.66666666666663" height="28.333333333333329"/>
+                                    <fontDescription key="fontDescription" name="Raleway-Bold" family="Raleway" pointSize="24"/>
+                                    <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
                                 <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" horizontalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="e4M-6W-W7N">
                                     <rect key="frame" x="0.0" y="23" width="35" height="34"/>
                                     <constraints>
@@ -304,17 +321,21 @@
                                         <action selector="GoBack:" destination="-1" eventType="touchUpInside" id="K2f-BJ-AcD"/>
                                     </connections>
                                 </button>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Edit Experience" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2e3-Nv-OsX">
-                                    <rect key="frame" x="45" y="28" width="142.33333333333334" height="24"/>
-                                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
-                                    <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                    <nil key="highlightedColor"/>
-                                </label>
                             </subviews>
-                        </stackView>
+                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            <constraints>
+                                <constraint firstItem="2e3-Nv-OsX" firstAttribute="centerY" secondItem="oAY-Rc-mbj" secondAttribute="centerY" id="IvZ-gn-tar"/>
+                                <constraint firstItem="e4M-6W-W7N" firstAttribute="centerY" secondItem="oAY-Rc-mbj" secondAttribute="centerY" id="Qsg-gT-wf0"/>
+                                <constraint firstItem="e4M-6W-W7N" firstAttribute="leading" secondItem="oAY-Rc-mbj" secondAttribute="leading" id="WwA-2o-T1N"/>
+                                <constraint firstItem="2e3-Nv-OsX" firstAttribute="centerX" secondItem="oAY-Rc-mbj" secondAttribute="centerX" id="vKg-pQ-mbh"/>
+                            </constraints>
+                        </view>
                     </subviews>
                     <constraints>
                         <constraint firstAttribute="height" constant="80" id="0Lj-jV-AYy" customClass="AdaptiveLayoutConstraint" customModule="PerfectSelf" customModuleProvider="target"/>
+                        <constraint firstItem="oAY-Rc-mbj" firstAttribute="top" secondItem="L7v-4i-7Ee" secondAttribute="top" id="0vM-Qk-NfK"/>
+                        <constraint firstAttribute="trailing" secondItem="oAY-Rc-mbj" secondAttribute="trailing" id="Mlj-fX-wsD"/>
+                        <constraint firstItem="oAY-Rc-mbj" firstAttribute="leading" secondItem="L7v-4i-7Ee" secondAttribute="leading" id="ekt-ZP-DmY"/>
                     </constraints>
                 </stackView>
                 <stackView opaque="NO" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Sed-a4-MzA">
@@ -328,6 +349,7 @@
                             <state key="normal" title="Button"/>
                             <buttonConfiguration key="configuration" style="filled" title="Save Changes" cornerStyle="dynamic">
                                 <backgroundConfiguration key="background" cornerRadius="5"/>
+                                <fontDescription key="titleFontDescription" name="Lato-Bold" family="Lato" pointSize="16"/>
                             </buttonConfiguration>
                             <connections>
                                 <action selector="SaveChanges:" destination="-1" eventType="touchUpInside" id="363-AY-DOg"/>
@@ -360,8 +382,8 @@
                             <rect key="frame" x="20" y="20" width="260" height="18"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Set Start Date" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5dU-64-nqj">
-                                    <rect key="frame" x="0.0" y="0.0" width="107" height="18"/>
-                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="133.33333333333334" height="18"/>
+                                    <fontDescription key="fontDescription" name="Raleway-Bold" family="Raleway" pointSize="20"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
@@ -396,7 +418,9 @@
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0dO-fI-0RM">
                                     <rect key="frame" x="0.0" y="0.0" width="260" height="32"/>
                                     <state key="normal" title="Button"/>
-                                    <buttonConfiguration key="configuration" style="filled" title="Apply"/>
+                                    <buttonConfiguration key="configuration" style="filled" title="Apply">
+                                        <fontDescription key="titleFontDescription" name="Lato-Bold" family="Lato" pointSize="16"/>
+                                    </buttonConfiguration>
                                     <connections>
                                         <action selector="ApplyDate:" destination="-1" eventType="touchUpInside" id="g4l-Za-lnI"/>
                                     </connections>
