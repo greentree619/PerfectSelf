@@ -222,43 +222,50 @@
                                             </userDefinedRuntimeAttributes>
                                         </view>
                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="bWG-SJ-eHR">
-                                            <rect key="frame" x="70" y="0.0" width="160" height="60"/>
+                                            <rect key="frame" x="70" y="0.0" width="188" height="60"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Reader" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cwg-hL-kUu">
-                                                    <rect key="frame" x="0.0" y="5" width="160" height="33.666666666666664"/>
-                                                    <fontDescription key="fontDescription" name="Raleway-Bold" family="Raleway" pointSize="18"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DVJ-YG-cVv">
+                                                    <rect key="frame" x="0.0" y="5" width="188" height="33.666666666666664"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Reader" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cwg-hL-kUu">
+                                                            <rect key="frame" x="0.0" y="6.3333333333333428" width="58" height="21"/>
+                                                            <fontDescription key="fontDescription" name="Raleway-Bold" family="Raleway" pointSize="18"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LR1-ip-QUs">
+                                                            <rect key="frame" x="63" y="8" width="18" height="18"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="18" id="BAt-yh-Fgy"/>
+                                                                <constraint firstAttribute="width" constant="18" id="baN-UG-Zgx"/>
+                                                            </constraints>
+                                                            <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            <inset key="contentEdgeInsets" minX="3" minY="3" maxX="3" maxY="3"/>
+                                                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                            <state key="normal">
+                                                                <imageReference key="image" image="edit 1" symbolScale="small"/>
+                                                            </state>
+                                                            <connections>
+                                                                <action selector="EditUserInfo:" destination="-1" eventType="touchUpInside" id="0IS-ik-vp1"/>
+                                                            </connections>
+                                                        </button>
+                                                    </subviews>
+                                                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                    <constraints>
+                                                        <constraint firstItem="LR1-ip-QUs" firstAttribute="centerY" secondItem="DVJ-YG-cVv" secondAttribute="centerY" id="cFr-hU-aMv"/>
+                                                        <constraint firstItem="cwg-hL-kUu" firstAttribute="leading" secondItem="DVJ-YG-cVv" secondAttribute="leading" id="dsE-rP-8iF"/>
+                                                        <constraint firstItem="LR1-ip-QUs" firstAttribute="leading" secondItem="cwg-hL-kUu" secondAttribute="trailing" constant="5" id="hpK-sZ-7t3"/>
+                                                        <constraint firstItem="cwg-hL-kUu" firstAttribute="centerY" secondItem="DVJ-YG-cVv" secondAttribute="centerY" id="qnx-ZH-aOJ"/>
+                                                    </constraints>
+                                                </view>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Head Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xwa-R0-mVR">
-                                                    <rect key="frame" x="0.0" y="38.666666666666657" width="160" height="16.333333333333329"/>
+                                                    <rect key="frame" x="0.0" y="38.666666666666657" width="188" height="16.333333333333329"/>
                                                     <fontDescription key="fontDescription" name="Raleway-Medium" family="Raleway" pointSize="14"/>
                                                     <color key="textColor" red="0.53725490200000003" green="0.54117647059999996" blue="0.55294117649999996" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                             <edgeInsets key="layoutMargins" top="5" left="0.0" bottom="5" right="0.0"/>
-                                        </stackView>
-                                        <stackView opaque="NO" contentMode="scaleToFill" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="U4o-9a-tb5">
-                                            <rect key="frame" x="240" y="0.0" width="18" height="60"/>
-                                            <subviews>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LR1-ip-QUs">
-                                                    <rect key="frame" x="0.0" y="0.0" width="18" height="18"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="18" id="BAt-yh-Fgy"/>
-                                                        <constraint firstAttribute="width" constant="18" id="baN-UG-Zgx"/>
-                                                    </constraints>
-                                                    <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                    <inset key="contentEdgeInsets" minX="3" minY="3" maxX="3" maxY="3"/>
-                                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                                    <state key="normal">
-                                                        <imageReference key="image" image="edit 1" symbolScale="small"/>
-                                                    </state>
-                                                    <connections>
-                                                        <action selector="EditUserInfo:" destination="-1" eventType="touchUpInside" id="0IS-ik-vp1"/>
-                                                    </connections>
-                                                </button>
-                                            </subviews>
                                         </stackView>
                                         <stackView opaque="NO" contentMode="scaleToFill" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="2ya-Aw-D1H">
                                             <rect key="frame" x="268" y="0.0" width="85" height="60"/>
