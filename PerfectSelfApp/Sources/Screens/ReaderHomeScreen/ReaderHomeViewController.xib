@@ -24,6 +24,7 @@
             <connections>
                 <outlet property="bookList" destination="2Dm-r2-MoJ" id="9BP-sy-pxB"/>
                 <outlet property="switch_mode" destination="gHp-f7-WuJ" id="Sgz-Xe-vfC"/>
+                <outlet property="todayLabel" destination="wr4-6f-xy3" id="8gF-iR-lWi"/>
                 <outlet property="view" destination="qLi-rg-96i" id="LRk-vI-taQ"/>
             </connections>
         </placeholder>
@@ -66,7 +67,7 @@
                                     <rect key="frame" x="96.666666666666686" y="204" width="200" height="6"/>
                                 </stackView>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Help Actors Film Their Self Tape" textAlignment="center" lineBreakMode="characterWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="e9d-5u-un2">
-                                    <rect key="frame" x="16" y="210" width="361.33333333333331" height="40"/>
+                                    <rect key="frame" x="25" y="210" width="343.33333333333331" height="40"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="40" id="1sP-ga-OFT" customClass="AdaptiveLayoutConstraint" customModule="PerfectSelf" customModuleProvider="target"/>
                                     </constraints>
@@ -110,7 +111,7 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="n8u-UI-jTk">
-                                            <rect key="frame" x="286.33333333333331" y="0.0" width="74.666666666666686" height="50"/>
+                                            <rect key="frame" x="288" y="0.0" width="73" height="50"/>
                                             <color key="tintColor" red="0.1960784314" green="0.67843137249999996" blue="0.90196078430000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <state key="normal" title="Button"/>
                                             <buttonConfiguration key="configuration" style="plain" title="View All">
@@ -129,10 +130,10 @@
                             <edgeInsets key="layoutMargins" top="30" left="8" bottom="8" right="8"/>
                         </stackView>
                         <stackView opaque="NO" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="nB4-qY-kLa">
-                            <rect key="frame" x="0.0" y="398" width="393" height="32"/>
+                            <rect key="frame" x="0.0" y="398" width="393" height="31.333333333333314"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Today" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wr4-6f-xy3">
-                                    <rect key="frame" x="20" y="0.0" width="353" height="24"/>
+                                    <rect key="frame" x="20" y="0.0" width="353" height="23.333333333333332"/>
                                     <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="20"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
@@ -141,17 +142,17 @@
                             <edgeInsets key="layoutMargins" top="0.0" left="20" bottom="8" right="20"/>
                         </stackView>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NXY-qz-rYw">
-                            <rect key="frame" x="0.0" y="430" width="393" height="422"/>
+                            <rect key="frame" x="0.0" y="429.33333333333326" width="393" height="422.66666666666674"/>
                             <subviews>
                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="noBook" translatesAutoresizingMaskIntoConstraints="NO" id="Sm6-g4-SJj">
-                                    <rect key="frame" x="126.66666666666669" y="156" width="140" height="110"/>
+                                    <rect key="frame" x="126.66666666666669" y="156.33333333333331" width="140" height="110"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="110" id="Shh-Kg-4rQ" customClass="AdaptiveLayoutConstraint" customModule="PerfectSelf" customModuleProvider="target"/>
                                         <constraint firstAttribute="width" constant="140" id="sJm-eU-WNa" customClass="AdaptiveLayoutConstraint" customModule="PerfectSelf" customModuleProvider="target"/>
                                     </constraints>
                                 </imageView>
                                 <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="2Dm-r2-MoJ">
-                                    <rect key="frame" x="0.0" y="0.0" width="393" height="422"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="393" height="422.66666666666669"/>
                                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                     <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="20" minimumInteritemSpacing="10" id="yj4-u1-koz">
                                         <size key="itemSize" width="128" height="128"/>
@@ -180,7 +181,7 @@
                             <rect key="frame" x="0.0" y="0.0" width="353" height="50"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Online Now" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KXp-kE-ibE">
-                                    <rect key="frame" x="8" y="15.333333333333313" width="268" height="19.333333333333329"/>
+                                    <rect key="frame" x="8" y="15.666666666666687" width="268" height="18.666666666666671"/>
                                     <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="16"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>

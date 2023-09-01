@@ -14,13 +14,16 @@ class ReaderHomeViewController: UIViewController, UICollectionViewDataSource, UI
     var uid = ""
     @IBOutlet weak var switch_mode: UISwitch!
     @IBOutlet weak var bookList: UICollectionView!
+    @IBOutlet weak var todayLabel: UILabel!
     var items = [BookingCard]()
     let cellsPerRow = 1
+    var todayStr = "08-17-2023"
     
     override func viewDidLoad() {
         super.viewDidLoad()
         uiViewContoller = self
-
+        
+        todayLabel.isHidden = true;
         let nib = UINib(nibName: "BookingCollectionViewCell", bundle: nil)
         bookList.register(nib, forCellWithReuseIdentifier: "Booking Collection View Cell")
         bookList.dataSource = self
@@ -59,13 +62,23 @@ class ReaderHomeViewController: UIViewController, UICollectionViewDataSource, UI
                 let respItems = try JSONDecoder().decode([BookingCard].self, from: data)
 //                print(respItems)
                 DispatchQueue.main.async {
+                    self.todayLabel.isHidden = true
                     self.items.removeAll()
                     self.items.append(contentsOf: respItems)
+                    
+                    let dateFormatter = DateFormatter()
+                    dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
                     //UTC2local
                     for index in self.items.indices {
                         self.items[index].bookStartTime = utcToLocal(dateStr: self.items[index].bookStartTime)!
                         self.items[index].bookEndTime = utcToLocal(dateStr: self.items[index].bookEndTime)!
+                        
+                        if self.todayLabel.isHidden {
+                            let datestart = dateFormatter.date(from: self.items[index].bookStartTime)
+                            self.todayLabel.isHidden = !Calendar.current.isDateInToday(datestart!)
+                        }
                     }
+                    
                     self.bookList.reloadData()
                     if self.items.isEmpty {
                         self.bookList.isHidden = true
