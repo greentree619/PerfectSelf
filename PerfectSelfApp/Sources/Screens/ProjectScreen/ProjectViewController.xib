@@ -60,13 +60,13 @@
                             </connections>
                         </slider>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yhz-94-xtg" userLabel="start time">
-                            <rect key="frame" x="21.000000000000004" y="227.33333333333331" width="36.333333333333343" height="17"/>
+                            <rect key="frame" x="21.000000000000004" y="227.99999999999994" width="35.333333333333343" height="16.333333333333343"/>
                             <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="14"/>
                             <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BK1-CV-fCM" userLabel="end time">
-                            <rect key="frame" x="335.66666666666669" y="227.33333333333331" width="36.333333333333314" height="17"/>
+                            <rect key="frame" x="336.66666666666669" y="227.99999999999994" width="35.333333333333314" height="16.333333333333343"/>
                             <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="14"/>
                             <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
@@ -93,8 +93,8 @@
                         <view alpha="0.69999999999999996" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="r2M-Xa-QWH" userLabel="Top Bar">
                             <rect key="frame" x="0.0" y="59" width="393" height="87"/>
                             <subviews>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Project Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="peK-RU-Mh1">
-                                    <rect key="frame" x="118.33333333333333" y="29.333333333333329" width="156.66666666666669" height="28.333333333333329"/>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Project Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="none" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="peK-RU-Mh1">
+                                    <rect key="frame" x="123.66666666666669" y="29.666666666666671" width="146" height="28"/>
                                     <edgeInsets key="layoutMargins" top="8" left="8" bottom="8" right="8"/>
                                     <fontDescription key="fontDescription" name="Raleway-Bold" family="Raleway" pointSize="24"/>
                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -115,10 +115,11 @@
                                 </button>
                             </subviews>
                             <constraints>
-                                <constraint firstItem="NbX-dY-huL" firstAttribute="leading" secondItem="r2M-Xa-QWH" secondAttribute="leading" constant="20" id="B9n-dD-kh7"/>
+                                <constraint firstItem="NbX-dY-huL" firstAttribute="leading" secondItem="r2M-Xa-QWH" secondAttribute="leading" priority="900" constant="20" id="B9n-dD-kh7"/>
                                 <constraint firstItem="NbX-dY-huL" firstAttribute="centerY" secondItem="r2M-Xa-QWH" secondAttribute="centerY" id="Kgn-Hb-bPE"/>
                                 <constraint firstAttribute="height" constant="87" id="deH-6W-e8m"/>
                                 <constraint firstItem="peK-RU-Mh1" firstAttribute="centerX" secondItem="r2M-Xa-QWH" secondAttribute="centerX" id="fbT-gS-lB1"/>
+                                <constraint firstItem="peK-RU-Mh1" firstAttribute="width" relation="lessThanOrEqual" secondItem="r2M-Xa-QWH" secondAttribute="width" constant="-50" id="pqT-we-Gt0"/>
                                 <constraint firstItem="peK-RU-Mh1" firstAttribute="centerY" secondItem="r2M-Xa-QWH" secondAttribute="centerY" id="qj0-YT-O7b"/>
                             </constraints>
                         </view>
@@ -378,7 +379,7 @@
                     <rect key="frame" x="98.333333333333329" y="327.66666666666669" width="196.33333333333337" height="196.66666666666669"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0%" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MKS-HX-Lsp" userLabel="progress label">
-                            <rect key="frame" x="67.000000000000014" y="71.333333333333314" width="62.333333333333329" height="54"/>
+                            <rect key="frame" x="63.000000000000021" y="72" width="70.333333333333314" height="52.666666666666657"/>
                             <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="45"/>
                             <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <nil key="highlightedColor"/>
