@@ -25,6 +25,8 @@ class ReaderProfileEditSkillViewController: UIViewController, UICollectionViewDa
     @IBOutlet weak var btn_explicit_yes: UIButton!
     @IBOutlet weak var skillView: UIStackView!
     @IBOutlet weak var selectedSkillList: UICollectionView!
+    @IBOutlet weak var skillKeyword: UITextField!
+    
     var isCommercialRead = true
     var isShortRead = false
     var isExtendedRead = false
@@ -285,6 +287,7 @@ class ReaderProfileEditSkillViewController: UIViewController, UICollectionViewDa
             sender.tintColor = UIColor(rgb: 0x4865FF)
         }
     }
+    
     @IBAction func GoBack(_ sender: UIButton) {
         let transition = CATransition()
         transition.duration = 0.5 // Set animation duration
@@ -293,6 +296,25 @@ class ReaderProfileEditSkillViewController: UIViewController, UICollectionViewDa
         self.view.window?.layer.add(transition, forKey: kCATransition) // Add transition to window layer
         self.dismiss(animated: true)
     }
+    
+    @IBAction func onBeginSkillInput(_ sender: UITextField) {
+    }
+    
+    @IBAction func onChangeSkillInput(_ sender: UITextField) {
+        //let skill = self.skillKeyword.text
+        //print("onChangeSkillInput \(skill!)")
+    }
+    
+    @IBAction func onEndSkillInput(_ sender: UITextField) {
+        let skill = self.skillKeyword.text
+        guard let skill = skill, skill.count > 0 else{
+            return
+        }
+        //print("onEndSkillInput \(skill!)")
+        appendNewSkill(skill)
+    }
+    
+    
     /*
     // MARK: - Navigation
 
@@ -436,17 +458,30 @@ extension ReaderProfileEditSkillViewController : MKAccordionViewDatasource {
     func accordionView(_ accordionView: MKAccordionView, didSelectRowAt indexPath: IndexPath) {
         
 //        print("accordionView \(indexPath.section) \(indexPath.item)")
-        if items.contains(innerLabel[indexPath.section][indexPath.item]) {
-            return 
+        appendNewSkill(innerLabel[indexPath.section][indexPath.item])
+//Omitted
+//        if items.contains(innerLabel[indexPath.section][indexPath.item]) {
+//            return
+//        }
+//
+//        items.append(innerLabel[indexPath.section][indexPath.item])
+//        selectedSkillList.reloadData()
+//        let lastItemIndex = selectedSkillList.numberOfItems(inSection: 0) - 1
+//        let lastIndexPath = IndexPath(item: lastItemIndex, section: 0)
+//        selectedSkillList.scrollToItem(at: lastIndexPath, at: .right, animated: true)
+    }
+    
+    func appendNewSkill(_ skill: String){
+        if items.contains(skill) {
+            return
         }
         
-        items.append(innerLabel[indexPath.section][indexPath.item])
+        items.append(skill)
         selectedSkillList.reloadData()
         let lastItemIndex = selectedSkillList.numberOfItems(inSection: 0) - 1
         let lastIndexPath = IndexPath(item: lastItemIndex, section: 0)
         selectedSkillList.scrollToItem(at: lastIndexPath, at: .right, animated: true)
     }
-    
     
     func getCellForAccordionType(_ accordionType: TypeOfAccordianView, accordionView: MKAccordionView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
